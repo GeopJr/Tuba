@@ -72,7 +72,8 @@ i18n = import('i18n')
 
 gstreamer = false
 webkit = false
-gtk_dep = dependency('gtk4', version: '>=4.17.5', required: true)
+gexiv2 = false
+gtk_dep = dependency('gtk4', version: '>=4.18', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.7', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
@@ -81,6 +82,11 @@ clapper_dep = dependency('clapper-0.0', required: get_option('clapper'), version
 clapper_gtk_dep = dependency('clapper-gtk-0.0', required: get_option('clapper'))
 gstreamer_dep = dependency('gstreamer-1.0', required: get_option('gstreamer'))
 webkit_dep = dependency('webkitgtk-6.0', required: get_option('in-app-browser'))
+
+gexiv2_dep = dependency('gexiv2-0.16', version: '>=0.15', required: false)
+if not gexiv2_dep.found ()
+  gexiv2_dep = dependency('gexiv2', version: '>=0.14', required: get_option('gexiv2'))
+endif
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
@@ -99,6 +105,11 @@ if gstreamer_dep.found ()
   gstreamer = true
 endif
 
+if gexiv2_dep.found ()
+  add_project_arguments(['--define=GEXIV2'], language: 'vala')
+  gexiv2 = true
+endif
+
 if clapper_dep.found () and clapper_gtk_dep.found ()
   add_project_arguments(['--define=CLAPPER'], language: 'vala')
   if (clapper_dep.get_variable('features').split().contains('mpris'))
@@ -109,6 +120,14 @@ endif
 if webkit_dep.found ()
   add_project_arguments(['--define=WEBKIT'], language: 'vala')
   webkit = true
+endif
+
+if gtk_dep.version().version_compare('>=4.19.1')
+  add_project_arguments(['--define=GTK_4_19_1'], language: 'vala')
+endif
+
+if meson.get_compiler('vala').version().version_compare('>=0.56.19')
+  add_project_arguments(['--define=VALAC_05619'], language: 'vala')
 endif
 
 sources = files()
@@ -130,7 +149,8 @@ final_deps = [
   clapper_dep,
   clapper_gtk_dep,
   gstreamer_dep,
-  webkit_dep
+  webkit_dep,
+  gexiv2_dep
 ]
 
 subdir('data')

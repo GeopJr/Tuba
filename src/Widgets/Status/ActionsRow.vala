@@ -304,10 +304,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 								break;
 							case "quote":
 								bool supports_quotes = status.formal.can_be_quoted && accounts.active.instance_info.supports_quote_posting;
-								new Dialogs.Compose (new API.Status.empty () {
-									visibility = reblog_visibility == null ? settings.default_post_visibility : reblog_visibility.to_string (),
-									content = supports_quotes ? "" : @"\n\nRE: $(status.formal.url ?? status.formal.account.url)"
-								}, !supports_quotes, status.formal.id);
+								new Dialogs.Composer.Dialog.quote (status.formal, reblog_visibility, supports_quotes);
 								status_btn.unblock_clicked ();
 								break;
 							default:
@@ -330,9 +327,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_quote_button_clicked () {
-		new Dialogs.Compose (new API.Status.empty () {
-			visibility = settings.default_post_visibility
-		}, false, status.formal.id);
+		new Dialogs.Composer.Dialog.quote (status.formal, null, true); // TODO: test
 	}
 
 	private void commit_boost (Widgets.StatusActionButton status_btn, API.Status.Visibility? visibility = null) {

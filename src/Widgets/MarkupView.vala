@@ -45,9 +45,26 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		}
 	}
 
-	static construct {
-		set_accessible_role (Gtk.AccessibleRole.GENERIC);
+	private bool _can_open = true;
+	public bool can_open {
+		get { return _can_open; }
+		set {
+			_can_open = value;
+
+			var w = this.get_first_child ();
+			while (w != null) {
+				var label = w as RichLabel;
+				if (label != null) {
+					label.can_open = _can_open;
+				}
+				w = w.get_next_sibling ();
+			};
+		}
 	}
+
+	//  static construct {
+	//  	set_accessible_role (Gtk.AccessibleRole.GENERIC);
+	//  }
 
 	construct {
 		this.focusable = true;

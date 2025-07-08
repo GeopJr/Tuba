@@ -89,7 +89,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		add_css_class ("flat");
 
 		button = new Gtk.Button () {
-			css_classes = { "frame", "no-padding" },
+			css_classes = { "frame", "no-padding", "attachment-picture" },
 			overflow = Gtk.Overflow.HIDDEN
 		};
 		button.clicked.connect (on_click);

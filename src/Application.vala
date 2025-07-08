@@ -167,14 +167,7 @@ namespace Tuba {
 		public void handle_share () {
 			if (to_share == null || accounts.active == null || accounts.active.instance_info == null) return;
 
-			var status = new API.Status.empty ();
-			status.content = to_share.text;
-			if (to_share.cw != null) {
-				status.spoiler_text = to_share.cw;
-				status.sensitive = true;
-			}
-
-			new Dialogs.Compose (status);
+			new Dialogs.Composer.Dialog ({to_share.text, to_share.cw, null, null, null, null, null, true, false});
 			to_share = null;
 		}
 
@@ -194,6 +187,9 @@ namespace Tuba {
 				warning (e.message);
 			}
 
+			#if GEXIV2
+				GExiv2.initialize ();
+			#endif
 			#if GSTREAMER
 				Gst.init (ref args);
 			#endif
@@ -478,7 +474,7 @@ namespace Tuba {
 		void compose_activated () {
 			if (accounts.active.instance_info == null) return;
 
-			new Dialogs.Compose ();
+			new Dialogs.Composer.Dialog ();
 		}
 
 		void back_activated () {
@@ -561,7 +557,7 @@ namespace Tuba {
 				split_view.show_sidebar = false;
 		}
 
-		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s\nlibspelling: %s\nClapper: %s\nGStreamer: %s".printf ( // vala-lint=line-length
+		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s\nlibspelling: %s\nClapper: %s\nGStreamer: %s\nGExiv2: %s".printf ( // vala-lint=line-length
 				GLib.Environment.get_os_info ("NAME"), GLib.Environment.get_os_info ("VERSION"),
 				Build.PREFIX,
 				Tuba.is_flatpak.to_string (),
@@ -595,6 +591,12 @@ namespace Tuba {
 				,
 				#if GSTREAMER
 					@"$(Gst.version_string ()) ($(Gst.VERSION_MAJOR).$(Gst.VERSION_MICRO).$(Gst.VERSION_MINOR).$(Gst.VERSION_NANO))"
+				#else
+					"false"
+				#endif
+				,
+				#if GEXIV2
+					@"$(GExiv2.get_version ()) ($(GExiv2.MAJOR_VERSION).$(GExiv2.MINOR_VERSION).$(GExiv2.MICRO_VERSION))"
 				#else
 					"false"
 				#endif

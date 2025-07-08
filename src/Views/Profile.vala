@@ -298,10 +298,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		var mention_action = new SimpleAction ("mention", VariantType.STRING);
 		mention_action.activate.connect (v => {
-			var status = new API.Status.empty ();
-			status.visibility = v.get_string ();
-			status.content = @"$(profile.account.handle) ";
-			new Dialogs.Compose (status);
+			new Dialogs.Composer.Dialog ({@"$(profile.account.handle) ", null, null, null, null, null, null, false, false}, v.get_string ());
 		});
 		actions.add_action (mention_action);
 

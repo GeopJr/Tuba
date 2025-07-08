@@ -308,7 +308,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 				try {
 					var status = resolve.end (res) as API.Status;
 					if (status != null) {
-						new Dialogs.Compose.reply (status.formal);
+						new Dialogs.Composer.Dialog.reply (status.formal);
 						app.main_window.present ();
 					}
 				} catch (Error e) {

@@ -1,205 +1,276 @@
-[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/compose.ui")]
-public class Tuba.Dialogs.Compose : Adw.Dialog {
-	public class BasicStatus : Object {
-		public class BasicPoll : Object {
-			public Gee.ArrayList<string> options { get; set; default=new Gee.ArrayList <string> (); }
-			public int64 expires_in { get; set; default=0; }
-			public string expires_at { get; set; default=null; }
-			public bool multiple { get; set; }
-			public bool hide_totals { get; set; default=false; }
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/composer.ui")]
+public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
+	~Dialog () {
+		debug ("Destroying Composer");
+	}
 
-			public BasicPoll.from_poll (API.Poll t_poll) {
-				if (t_poll.options != null && t_poll.options.size > 0) {
-					foreach (API.PollOption p in t_poll.options) {
-						options.add (p.title);
-					}
-				}
+	[GtkChild] private unowned Gtk.Label counter_label;
+	[GtkChild] private unowned Adw.Bin post_btn;
+	[GtkChild] private unowned Gtk.Box btns_box;
+	[GtkChild] private unowned Gtk.Box dropdowns_box;
+	[GtkChild] private unowned Gtk.Grid grid;
+	[GtkChild] private unowned Adw.ToastOverlay toast_overlay;
+	[GtkChild] private unowned Adw.NavigationView nav_view;
+	[GtkChild] private unowned Adw.ToolbarView toolbar_view;
+	[GtkChild] private unowned Composer.Components.DropOverlay drop_overlay;
+	[GtkChild] private unowned Adw.NavigationPage nav_page;
 
-				if (t_poll.expires_at != null) {
-					var date = new GLib.DateTime.from_iso8601 (t_poll.expires_at, null);
-					var now = new GLib.DateTime.now_local ();
-					var delta = date.difference (now);
+	[GtkChild] private unowned Gtk.ScrolledWindow scroller;
+	[GtkChild] private unowned Adw.HeaderBar headerbar;
+	[GtkChild] private unowned Gtk.Revealer cw_revealer;
 
-					expires_in = delta / TimeSpan.SECOND;
-					expires_at = t_poll.expires_at;
-				}
+	[GtkChild] private unowned Gtk.MenuButton native_emojis_button;
+	[GtkChild] private unowned Gtk.MenuButton custom_emojis_button;
+	[GtkChild] private unowned Gtk.ToggleButton cw_button;
+	[GtkChild] private unowned Gtk.Entry cw_entry;
+	[GtkChild] private unowned Gtk.ToggleButton poll_button;
+	[GtkChild] private unowned Gtk.ToggleButton sensitive_media_button;
+	[GtkChild] private unowned Gtk.Button add_media_button;
 
-				multiple = t_poll.multiple;
-			}
+	public struct Precompose {
+		string? content;
+		string? spoiler;
+		string? quote_id;
+		string? scheduled_id;
+		string? in_reply_to_id;
+		API.Poll? poll;
+		Gee.ArrayList<API.Attachment>? media_attachments;
+		bool sensitive_media;
+		bool force_cursor_at_start;
+	}
 
-			public bool equal (BasicPoll t_poll) {
-				return
-					t_poll.multiple == multiple
-					&& BasicStatus.array_string_eq (options, t_poll.options);
-			}
+	private bool _is_narrow = false;
+	public bool is_narrow {
+		get {
+			return _is_narrow;
 		}
+		set {
+			Gtk.GridLayout layout_manager = (Gtk.GridLayout) grid.get_layout_manager ();
+			Gtk.GridLayoutChild counter_layout_child = (Gtk.GridLayoutChild) layout_manager.get_layout_child (counter_label);
+			Gtk.GridLayoutChild post_layout_child = (Gtk.GridLayoutChild) layout_manager.get_layout_child (post_btn);
+			Gtk.GridLayoutChild btns_layout_child = (Gtk.GridLayoutChild) layout_manager.get_layout_child (btns_box);
 
-		public class MediaEntry {
-			public string? description = null;
-			public string? focus = null;
-		}
+			if (value) {
+				post_layout_child.column = 1;
+				post_layout_child.row = 1;
+				post_layout_child.row_span = 1;
 
-		public string id { get; set; }
-		public string status { get; set; }
-		public Gee.ArrayList<string> media_ids { get; private set; default=new Gee.ArrayList<string> (); }
-		public Gee.HashMap<string, MediaEntry> media { get; private set; default=new Gee.HashMap<string, MediaEntry> (); }
-		public BasicPoll poll { get; set; }
-		public string in_reply_to_id { get; set; }
-		public bool sensitive { get; set; }
-		public string spoiler_text { get; set; }
-		public string visibility { get; set; }
-		public string language { get; set; }
-		public string content_type { get; set; }
-		public Gee.ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
+				counter_layout_child.row = 0;
+				counter_layout_child.column = 1;
 
-		public void add_media (string t_id, string? t_alt, string? t_focus) {
-			media_ids.add (t_id);
-			media.set (t_id, new MediaEntry () {
-				description = t_alt ?? "",
-				focus = t_focus ?? ""
-			});
-		}
+				btns_layout_child.column_span = 1;
 
-		public void clear_media () {
-			media_ids.clear ();
-			media.clear ();
-		}
-
-		public BasicStatus.from_status (API.Status t_status) {
-			id = t_status.id;
-			status = t_status.content;
-
-			if (t_status.has_media) {
-				media_attachments = t_status.media_attachments;
-
-				foreach (var t_attachment in t_status.media_attachments) {
-					string focus = "0.00,0.00";
-
-					if (t_attachment.meta != null && t_attachment.meta.focus != null) {
-						focus = "%s,%s".printf (
-							Utils.Units.float_to_2_point_string (t_attachment.meta.focus.x),
-							Utils.Units.float_to_2_point_string (t_attachment.meta.focus.y)
-						);
-					}
-
-					add_media (t_attachment.id, t_attachment.description, focus);
-				}
-			}
-
-			if (t_status.poll != null) {
-				poll = new BasicPoll.from_poll (t_status.poll);
+				counter_label.margin_end = 10;
+				counter_label.margin_start = 0;
+				grid.row_spacing = 12;
+				editor.margin_start = cw_entry.margin_start = grid.margin_start = 16;
+				editor.margin_end = cw_entry.margin_end = grid.margin_end = 16;
 			} else {
-				poll = new BasicPoll ();
+				post_layout_child.column = 2;
+				post_layout_child.row = 0;
+				post_layout_child.row_span = 2;
+
+				counter_layout_child.row = 1;
+				counter_layout_child.column = 1;
+
+				btns_layout_child.column_span = 2;
+
+				counter_label.margin_end = 0;
+				counter_label.margin_start = 12;
+				grid.row_spacing = 16;
+				editor.margin_start = cw_entry.margin_start = grid.margin_start = 32;
+				editor.margin_end = cw_entry.margin_end = grid.margin_end = 32;
 			}
 
-			in_reply_to_id = t_status.in_reply_to_id;
-			sensitive = t_status.sensitive;
-			spoiler_text = t_status.spoiler_text;
-			visibility = t_status.visibility;
-			language = t_status.language;
+			_is_narrow = value;
 		}
+	}
+	protected int64 char_limit { get; set; default = 500; }
+	protected int64 cw_count { get; set; default = 0; }
 
-		public bool equal (BasicStatus t_status) {
-			return
-				t_status.status == status
-				&& t_status.sensitive == sensitive
-				&& t_status.spoiler_text == spoiler_text
-				&& t_status.visibility == visibility
-				&& t_status.language == language
-				&& array_string_eq (media_ids, t_status.media_ids)
-				&& !media_meta_changed (t_status)
-				&& (poll != null && t_status != null ? poll.equal (t_status.poll) : poll == null && t_status == null);
+	private int64 _remaining_chars = 500;
+	protected int64 remaining_chars {
+		get {
+			return _remaining_chars;
 		}
+		set {
+			_remaining_chars = value;
+			counter_label.label = counter_label.tooltip_text = char_limit >= 1000 ? value.to_string () : @"$value / $char_limit";
+			validate_post_button ();
 
-		public static bool array_string_eq (Gee.Collection<string> a1, Gee.Collection<string> a2) {
-			if (a1.size != a2.size) return false;
-			if (a1.size == 0 && a2.size == 0) return true;
-			var res = true;
+			if (value < 0) {
+				counter_label.add_css_class ("error");
+				counter_label.remove_css_class ("accented-color");
 
-			foreach (var item in a1) {
-				res = a2.contains (item);
-				if (!res) break;
+				// translators: screen reader announcement when the composer
+				//				passed the character limit. The variable is
+				//				the amount of characters the user exceeded
+				//				the limit by.
+				this.announce (_("Exceeded character limit by %lld").printf (value.abs ()), HIGH);
+			} else if (counter_label.has_css_class ("error")) {
+				counter_label.remove_css_class ("error");
+				counter_label.add_css_class ("accented-color");
 			}
-
-			return res;
-		}
-
-		public bool media_meta_changed (BasicStatus t_status) {
-			var res = false;
-
-			foreach (var entry in this.media.entries) {
-				if (!t_status.media.has_key (entry.key)) continue;
-				res =
-					t_status.media.get (entry.key).description != entry.value.description
-					|| t_status.media.get (entry.key).focus != entry.value.focus;
-				if (res) break;
-			}
-
-			return res;
 		}
 	}
 
-	public BasicStatus original_status { get; construct set; }
-	public BasicStatus status { get; construct set; }
-	public bool force_cursor_at_start { get; construct set; default=false; }
+	private bool edit_mode { get; set; default = false; }
+	private string? schedule_iso8601 { get; set; default=null; }
+	private string? in_reply_to_id { get; set; default = null; }
+	public string? quote_id { get; set; default = null; }
+	public string? scheduled_id { get; set; default = null; }
+	public string? edit_status_id { get; set; default = null; }
+
+	private void install_emoji_pickers () {
+		var emoji_picker = new Gtk.EmojiChooser ();
+		native_emojis_button.popover = emoji_picker;
+		emoji_picker.emoji_picked.connect (editor.insert_string_at_cursor);
+
+		if (accounts.active.instance_emojis != null && accounts.active.instance_emojis.size > 0) {
+			var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
+			custom_emojis_button.popover = custom_emoji_picker;
+			custom_emoji_picker.emoji_picked.connect (editor.insert_string_at_cursor);
+		}
+	}
+
+	private Composer.Components.Editor editor;
+	private void install_editor () {
+		editor = new Dialogs.Composer.Components.Editor () {
+			margin_end = 32,
+			margin_start = 32
+		};
+
+		scroller.overflow = HIDDEN;
+		scroller.child = editor;
+
+		editor.edit_mode = this.edit_mode;
+		editor.toast.connect (on_toast);
+		editor.push_subpage.connect (on_push_subpage);
+		editor.pop_subpage.connect (on_pop_subpage);
+		editor.paste_clipboard.connect (on_paste);
+		editor.ctrl_return_pressed.connect (on_commit);
+		editor.notify["char-count"].connect (update_remaining_chars);
+		this.focus_widget = editor;
+	}
+
+	private void update_remaining_chars () {
+		remaining_chars = this.char_limit - editor.char_count - this.cw_count;
+	}
+
+	protected Gtk.DropDown visibility_button;
+	protected Gtk.DropDown language_button;
+	protected Gtk.DropDown? content_type_button = null;
+
+	private void append_dropdown (Gtk.DropDown dropdown) {
+		var togglebtn = dropdown.get_first_child ();
+		if (togglebtn != null) {
+			togglebtn.add_css_class ("flat");
+		}
+
+		dropdowns_box.append (dropdown);
+	}
+
+	protected void install_visibility (string default_visibility) {
+		visibility_button = new Gtk.DropDown (accounts.active.visibility_list, null) {
+			expression = new Gtk.PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
+			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/icon.ui"),
+			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/full.ui"),
+			// translators: composer dropdown tooltip text
+			tooltip_text = _("Post Privacy"),
+			valign = Gtk.Align.CENTER
+		};
+		visibility_button.add_css_class ("dropdown-border-radius");
+
+		var safe_visibility = accounts.active.visibility.has_key (default_visibility) ? default_visibility : "public";
+		uint default_visibility_index;
+		if (
+			accounts.active.visibility_list.find (
+				accounts.active.visibility[safe_visibility],
+				out default_visibility_index
+			)
+		) {
+			visibility_button.selected = default_visibility_index;
+		}
+
+		append_dropdown (visibility_button);
+	}
+
+	private void install_languages (string? locale_iso) {
+		language_button = new Gtk.DropDown (app.app_locales.list_store, null) {
+			expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "name"),
+			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
+			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
+			// translators: composer dropdown tooltip text
+			tooltip_text = _("Post Language"),
+			enable_search = true,
+			valign = Gtk.Align.CENTER
+		};
+		language_button.add_css_class ("dropdown-border-radius");
+
+		if (locale_iso != null) {
+			uint default_lang_index;
+			if (
+				app.app_locales.list_store.find_with_equal_func (
+					new Utils.Locales.Locale (locale_iso, null, null),
+					Utils.Locales.Locale.compare,
+					out default_lang_index
+				)
+			) {
+				language_button.selected = default_lang_index;
+			}
+		}
+
+		language_button.notify["selected"].connect (on_language_changed);
+		append_dropdown (language_button);
+	}
+
+	private void on_language_changed () {
+		if (language_button.selected == Gtk.INVALID_LIST_POSITION) return;
+
+		var locale_obj = language_button.selected_item as Utils.Locales.Locale;
+		if (locale_obj == null || locale_obj.locale == null) return;
+
+		editor.locale = locale_obj.locale;
+		cw_changed_with_locale (locale_obj.locale);
+	}
+
+	private void cw_changed () {
+		string locale_icu = "en";
+		if (
+			language_button != null
+			&& ((Utils.Locales.Locale) language_button.selected_item) != null
+			&& ((Utils.Locales.Locale) language_button.selected_item).locale != null
+		) {
+			locale_icu = ((Utils.Locales.Locale) language_button.selected_item).locale;
+		}
+
+		cw_changed_with_locale (locale_icu);
+	}
+
+	private void cw_changed_with_locale (string locale) {
+		int cw_count = 0;
+		if (cw_button.active) cw_count = Utils.Counting.chars (cw_entry.text, locale);
+		if (cw_count != this.cw_count) {
+			this.cw_count = cw_count;
+			update_remaining_chars ();
+		}
+	}
 
 	public delegate void SuccessCallback (API.Status cb_status);
 	protected SuccessCallback? cb;
 
-	Gtk.Widget commit_button;
-	private bool _commit_button_has_menu = false;
-	public bool commit_button_has_menu {
-		get { return _commit_button_has_menu; }
-		construct {
-			_commit_button_has_menu = value;
-
-			if (value) {
-				var menu_model = new GLib.Menu ();
-				// translators: 'Draft' is a verb
-				menu_model.append (_("Draft Post"), "composer.draft");
-
-				// translators: 'Schedule' is a verb
-				menu_model.append (_("Schedule Post"), "composer.schedule");
-
-				commit_button = new Adw.SplitButton () {
-					label = _("_Publish"),
-					use_underline = true,
-					menu_model = menu_model
-				};
-				((Adw.SplitButton) commit_button).clicked.connect (on_commit);
-			} else {
-				commit_button = new Gtk.Button () {
-					label = _("_Publish"),
-					use_underline = true
-				};
-				((Gtk.Button) commit_button).clicked.connect (on_commit);
-			}
-
-			header.pack_end (commit_button);
-		}
+	static construct {
+		typeof (Composer.Components.DropOverlay).ensure ();
 	}
 
-	public string button_label {
-		set {
-			if (_commit_button_has_menu) {
-				((Adw.SplitButton) commit_button).label = value;
-			} else {
-				((Gtk.Button) commit_button).label = value;
-			}
-		}
-	}
-
-	public string button_class {
-		set { commit_button.add_css_class (value); }
-	}
-
-	public bool editing { get; set; default=false; }
-
-	ulong build_sigid;
-	public signal void on_paste_activated (string page_title);
 	construct {
-		var paste_action = new SimpleAction ("paste", null);
-		paste_action.activate.connect (emit_paste_signal);
+		var condition = new Adw.BreakpointCondition.length (
+			Adw.BreakpointConditionLengthType.MAX_WIDTH,
+			400, Adw.LengthUnit.SP
+		);
+		var breakpoint = new Adw.Breakpoint (condition);
+		breakpoint.add_setter (this, "is-narrow", true);
+		add_breakpoint (breakpoint);
 
 		var schedule_action = new SimpleAction ("schedule", null);
 		schedule_action.activate.connect (on_schedule_action_activated);
@@ -208,321 +279,659 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		draft_action.activate.connect (on_draft_action_activated);
 
 		var action_group = new GLib.SimpleActionGroup ();
-		action_group.add_action (paste_action);
 		action_group.add_action (schedule_action);
 		action_group.add_action (draft_action);
 
 		this.insert_action_group ("composer", action_group);
-		add_binding_action (Gdk.Key.V, Gdk.ModifierType.CONTROL_MASK, "composer.paste", null);
 
-		title_switcher.policy = WIDE;
-		title_switcher.stack = stack;
+		var char_limit_api = accounts.active.instance_info.compat_status_max_characters;
+		if (char_limit_api > 0)
+			char_limit = char_limit_api;
 
-		build_sigid = notify["status"].connect (() => {
-			build ();
-			present (app.main_window);
-
-			disconnect (build_sigid);
-		});
-
-		stack.notify["visible-child"].connect (on_view_switched);
+		var dnd_controller = new Gtk.DropTarget (typeof (Gdk.FileList), Gdk.DragAction.COPY) {
+			propagation_phase = CAPTURE
+		};
+		dnd_controller.enter.connect (on_drag_enter);
+		dnd_controller.leave.connect (on_drag_leave);
+		dnd_controller.drop.connect (on_drag_drop);
+		toolbar_view.add_controller (dnd_controller);
+		sensitive_media_button.toggled.connect (update_attachmentsbin_sensitivity);
 		this.close_attempt.connect (on_exit);
+
+		cw_revealer.notify["child-revealed"].connect (on_cw_revealed);
 	}
 
-	~Compose () {
-		debug ("Destroying composer");
-		t_pages = {};
-	}
+	private void install_post_button (string label, bool with_menu) {
+		if (with_menu) {
+			var menu_model = new GLib.Menu ();
+			// translators: 'Draft' is a verb; entry in composer post menu
+			menu_model.append (_("Draft Post"), "composer.draft");
 
-	void on_view_switched () {
-		var child = stack.visible_child as ComposerPage;
-		if (child != null) {
-			this.title = child.title;
-		}
-	}
+			// translators: 'Schedule' is a verb; entry in composer post menu
+			menu_model.append (_("Schedule Post…"), "composer.schedule");
 
-	void emit_paste_signal () {
-		on_paste_activated (this.title);
-	}
-
-	[GtkCallback] void on_exit () {
-		push_all ();
-
-		if (status.equal (original_status)) {
-			on_close ();
+			var btn = new Adw.SplitButton () {
+				label = label,
+				menu_model = menu_model,
+				css_classes = { "pill", "suggested-action" }
+			};
+			btn.clicked.connect (on_commit);
+			post_btn.child = btn;
 		} else {
-			app.question.begin (
-				// translators: Dialog title when closing the composer
-				{_("Discard Post?"), false},
-				{_("Your progress will be lost."), false},
-				this,
-				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
-				null,
-				false,
-				(obj, res) => {
-					if (app.question.end (res).truthy ()) on_close ();
+			var btn = new Gtk.Button () {
+				css_classes = { "pill", "suggested-action" },
+				child = new Gtk.Label (label) {
+					ellipsize = END
 				}
-			);
+			};
+			btn.clicked.connect (on_commit);
+			post_btn.child = btn;
 		}
 	}
 
-	private ComposerPage[] t_pages = {};
-	protected virtual signal void build () {
-		var p_edit = new EditorPage () {
-			force_cursor_at_start = force_cursor_at_start
-		};
-		var p_attach = new AttachmentsPage ();
-		var p_poll = new PollPage ();
-
-		p_edit.ctrl_return_pressed.connect (() => {
-			if (commit_button.sensitive) on_commit ();
-		});
-
-		setup_pages ({p_edit, p_attach, p_poll});
-
-		// Composer rules
-		// 1. Either attachments or polls
-		// 2. Poll needs edit to be valid
-		p_attach.bind_property (
-			"can-publish",
-			p_poll,
-			"visible",
-			GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN
-		);
-		p_poll.bind_property (
-			"is-valid",
-			p_attach,
-			"visible",
-			GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN
-		);
-		p_edit.bind_property ("can-publish", p_poll, "can-publish", GLib.BindingFlags.SYNC_CREATE);
-
-		this.focus_widget = p_edit.editor;
-	}
-
-	private void setup_pages (ComposerPage[] pages) {
-		foreach (var page in pages) {
-			add_page (page);
-			page.notify["can-publish"].connect (update_commit_button);
-		}
-
-		update_commit_button ();
-	}
-
-	private void update_commit_button () {
-		var allow = false;
-		foreach (var page in t_pages) {
-			allow = allow || (page.can_publish && page.visible);
-			if (allow) break;
-		}
-		commit_button.sensitive = allow;
-	}
-
-	[GtkChild] unowned Adw.ViewSwitcher title_switcher;
-	[GtkChild] unowned Adw.ViewStack stack;
-	[GtkChild] unowned Adw.HeaderBar header;
-
-	public string? quote_id { get; set; }
-	public string? scheduled_id { get; set; }
-	public Compose (API.Status template = new API.Status.empty (), bool t_force_cursor_at_start = false, string? quote_id = null) {
-		Object (
-			commit_button_has_menu: true,
-			status: new BasicStatus.from_status (template),
-			original_status: new BasicStatus.from_status (template),
-			button_class: "suggested-action",
-			force_cursor_at_start: t_force_cursor_at_start,
-			quote_id: quote_id
-		);
-	}
-
-	public Compose.from_draft (API.Status status, owned SuccessCallback? t_cb = null) {
-		Object (
-			status: new BasicStatus.from_status (status),
-			original_status: new BasicStatus.from_status (status),
-			button_class: "suggested-action"
-		);
-
-		this.cb = (owned) t_cb;
-	}
-
-	public Compose.from_scheduled (API.Status status, string? scheduled_id = null, string? scheduled_iso8601 = null, owned SuccessCallback? t_cb = null) {
-		Object (
-			status: new BasicStatus.from_status (status),
-			original_status: new BasicStatus.from_status (status),
-			button_label: _("_Edit"),
-			button_class: "suggested-action",
-			scheduled_id: scheduled_id,
-			schedule_iso8601: scheduled_iso8601
-		);
-
-		this.cb = (owned) t_cb;
-	}
-
-	public Compose.redraft (API.Status status) {
-		Object (
-			status: new BasicStatus.from_status (status),
-			original_status: new BasicStatus.from_status (status),
-			button_label: _("_Redraft"),
-			button_class: "destructive-action"
-		);
-	}
-
-	public Compose.edit (API.Status t_status, API.StatusSource? source = null, owned SuccessCallback? t_cb = null) {
-		var template = new API.Status.empty () {
-			id = t_status.id,
-			poll = t_status.poll,
-			sensitive = t_status.sensitive,
-			media_attachments = t_status.media_attachments,
-			visibility = t_status.visibility,
-			language = t_status.language
+	private void install_content_types (string? content_type) {
+		content_type_button = new Gtk.DropDown (accounts.active.supported_mime_types, null) {
+			expression = new Gtk.PropertyExpression (typeof (Tuba.InstanceAccount.StatusContentType), null, "title"),
+			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/content_type_title.ui"),
+			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/content_type.ui"),
+			// translators: composer dropdown tooltip text
+			tooltip_text = _("Post Content Type"),
+			enable_search = false
 		};
 
-		if (source == null) {
-			template.content = Utils.Htmlx.remove_tags (t_status.content);
-		} else {
-			template.content = source.text;
-			template.spoiler_text = source.spoiler_text;
+		if (content_type != null) {
+			uint default_content_type_index;
+			if (
+				accounts.active.supported_mime_types.find_with_equal_func (
+					new Tuba.InstanceAccount.StatusContentType (content_type),
+					Tuba.InstanceAccount.StatusContentType.compare,
+					out default_content_type_index
+				)
+			) {
+				content_type_button.selected = default_content_type_index;
+			}
 		}
 
-		Object (
-			status: new BasicStatus.from_status (template),
-			original_status: new BasicStatus.from_status (template),
-			button_label: _("_Edit"),
-			button_class: "suggested-action",
-			editing: true
-		);
+		unowned Gtk.Widget? actual_button = content_type_button.get_first_child () as Gtk.ToggleButton;
+		if (actual_button != null) actual_button.add_css_class ("flat");
 
-		this.cb = (owned) t_cb;
+		headerbar.pack_start (content_type_button);
+		content_type_button.notify["selected-item"].connect (on_content_type_changed);
+		on_content_type_changed ();
 	}
 
-	public Compose.reply (API.Status to, owned SuccessCallback? t_cb = null) {
-		var template = new API.Status.empty () {
-			in_reply_to_id = to.id.to_string (),
-			in_reply_to_account_id = to.account.id.to_string (),
-			spoiler_text = to.spoiler_text,
-			content = to.formal.get_reply_mentions (),
-			visibility = to.visibility,
-			language = to.language
-		};
+	private void on_content_type_changed () {
+		if (content_type_button.selected == Gtk.INVALID_LIST_POSITION) return;
 
+		var ct_obj = content_type_button.selected_item as InstanceAccount.StatusContentType;
+		if (ct_obj == null || ct_obj.syntax == null) return;
+
+		editor.content_type = ct_obj.syntax;
+	}
+
+	private void on_vadjustment_value_changed () {
+		headerbar.show_title = scroller.vadjustment.value > 0;
+	}
+
+	uint unique_state = 0;
+	public Dialog (
+		Precompose? precompose = null,
+		string default_visibility = settings.default_post_visibility,
+		string default_language = settings.default_language,
+		// translators: composer post button label
+		string post_button_label = _("Post"),
+		bool edit_mode = false,
+		bool can_schedule = true
+	) {
+		Object ();
+
+		this.edit_mode = edit_mode;
+		install_editor ();
+		install_emoji_pickers ();
+		install_visibility (default_visibility);
+		install_languages (default_language);
+		install_post_button (post_button_label, !this.edit_mode && can_schedule);
+		if (accounts.active.supported_mime_types.n_items > 1)
+			install_content_types (settings.default_content_type);
+
+		cw_entry.changed.connect (cw_changed);
+		cw_button.toggled.connect (cw_changed);
+		on_language_changed ();
+
+		update_remaining_chars ();
+		present (app.main_window);
+
+		scroller.vadjustment.value_changed.connect (on_vadjustment_value_changed);
+		poll_button.toggled.connect (toggle_poll_component);
+		toggle_poll_component ();
+
+		add_media_button.clicked.connect (on_add_media_clicked);
+		// translators: composer title
+		this.set_editor_title (_("New Post"), null);
+
+		if (precompose != null) {
+			if (precompose.content != null) editor.buffer.text = precompose.content;
+			if (precompose.spoiler != null) {
+				cw_button.active = precompose.spoiler != "";
+				cw_entry.text = precompose.spoiler;
+			}
+			if (precompose.quote_id != null) this.quote_id = precompose.quote_id;
+			if (precompose.scheduled_id != null) this.scheduled_id = precompose.scheduled_id;
+			if (precompose.in_reply_to_id != null) this.in_reply_to_id = precompose.in_reply_to_id;
+
+			if (precompose.force_cursor_at_start) {
+				Gtk.TextIter star_iter;
+				editor.buffer.get_start_iter (out star_iter);
+				editor.buffer.place_cursor (star_iter);
+			}
+
+			if (precompose.poll != null) {
+				init_polls_component (precompose.poll);
+				poll_button.active = true;
+			} else if (precompose.media_attachments != null && precompose.media_attachments.size > 0) {
+				create_attachmentsbin (precompose.media_attachments);
+				editor.add_bottom_child (attachmentsbin_component);
+				sensitive_media_button.active = precompose.sensitive_media;
+			}
+		}
+
+		unique_state = generate_unique_state ();
+	}
+
+	public Dialog.reply (API.Status to, owned SuccessCallback? t_cb = null) {
+		string final_visibility = to.visibility;
 		var default_visibility = API.Status.Visibility.from_string (settings.default_post_visibility);
 		var to_visibility = API.Status.Visibility.from_string (to.visibility);
 		if (default_visibility != null && to_visibility != null && default_visibility.privacy_rate () > to_visibility.privacy_rate ()) {
-			template.visibility = settings.default_post_visibility;
+			final_visibility = settings.default_post_visibility;
 		}
 
-		Object (
-			status: new BasicStatus.from_status (template),
-			original_status: new BasicStatus.from_status (template),
-			button_label: _("_Reply"),
-			button_class: "suggested-action"
+		// translators: composer post button label
+		this ({@"$(to.formal.get_reply_mentions ()) ", to.spoiler_text, null, null, to.id, null, null, false, false}, final_visibility, to.language, _("Reply"));
+
+		var sample = new API.Status.empty () {
+			poll = to.poll,
+			sensitive = to.sensitive,
+			media_attachments = to.media_attachments,
+			visibility = to.visibility,
+			tuba_spoiler_revealed = true,
+			content = to.content,
+			spoiler_text = to.spoiler_text,
+			account = to.account,
+			created_at = to.created_at
+		};
+
+		if (sample.formal.has_media) {
+			sample.formal.media_attachments.foreach (e => {
+				e.tuba_is_report = true;
+
+				return true;
+			});
+		}
+
+		Widgets.Status widget_status = (Widgets.Status?) sample.to_widget ();
+		widget_status.add_css_class ("card");
+		widget_status.add_css_class ("initial-font-size");
+		widget_status.to_display_only ();
+		// translators: composer embedded replying-to post, aria label
+		widget_status.update_property (Gtk.AccessibleProperty.LABEL, _("The post you are replying to."), -1);
+
+		var lbox = new Gtk.ListBox () {
+			selection_mode = Gtk.SelectionMode.NONE
+		};
+		lbox.append (widget_status);
+
+		// translators: composer title. The variable is a string username
+		this.set_editor_title (_("Reply to @%s").printf (to.account.username), lbox);
+		this.scroller.map.connect (scroller_mapped);
+		this.cb = (owned) t_cb;
+	}
+
+	public Dialog.quote (API.Status to, API.Status.Visibility? reblog_visibility = null, bool supports_quotes = false) {
+		string final_visibility = to.visibility;
+		if (reblog_visibility == null) {
+			var default_visibility = API.Status.Visibility.from_string (settings.default_post_visibility);
+			var to_visibility = API.Status.Visibility.from_string (to.visibility);
+			if (default_visibility != null && to_visibility != null && default_visibility.privacy_rate () > to_visibility.privacy_rate ()) {
+				final_visibility = settings.default_post_visibility;
+			}
+		} else {
+			final_visibility = reblog_visibility.to_string ();
+		}
+
+		this (
+			{
+				supports_quotes ? null : @"\n\nRE: $(to.formal.url ?? to.formal.account.url)",
+				to.spoiler_text,
+				supports_quotes ? to.id : null,
+				null,
+				null,
+				null,
+				null,
+				false,
+				!supports_quotes
+			},
+			final_visibility,
+			to.language,
+			// translators: composer post button label
+			_("Quote"),
+			false,
+			!supports_quotes
 		);
+
+		var sample = new API.Status.empty () {
+			poll = to.poll,
+			sensitive = to.sensitive,
+			media_attachments = to.media_attachments,
+			visibility = to.visibility,
+			tuba_spoiler_revealed = true,
+			content = to.content,
+			spoiler_text = to.spoiler_text,
+			account = to.account,
+			created_at = to.created_at
+		};
+
+		if (sample.formal.has_media) {
+			sample.formal.media_attachments.foreach (e => {
+				e.tuba_is_report = true;
+
+				return true;
+			});
+		}
+
+		Widgets.Status widget_status = (Widgets.Status?) sample.to_widget ();
+		widget_status.add_css_class ("card");
+		widget_status.add_css_class ("initial-font-size");
+		widget_status.to_display_only ();
+		// translators: composer embedded quoting post, aria label
+		widget_status.update_property (Gtk.AccessibleProperty.LABEL, _("The post you are quoting."), -1);
+
+		var lbox = new Gtk.ListBox () {
+			selection_mode = Gtk.SelectionMode.NONE
+		};
+		lbox.append (widget_status);
+
+		// translators: composer title. The variable is a string username
+		this.set_editor_title (_("Quoting @%s").printf (to.account.username), lbox);
+		this.scroller.map.connect (scroller_mapped);
+	}
+
+	public Dialog.edit (API.Status t_status, API.StatusSource? source = null, owned SuccessCallback? t_cb = null) {
+		this (
+			{
+				source == null ? Utils.Htmlx.remove_tags (t_status.content) : source.text,
+				source == null ? t_status.spoiler_text : source.spoiler_text,
+				null, null, null,
+				t_status.poll,
+				t_status.media_attachments,
+				t_status.sensitive,
+				false
+			},
+			t_status.visibility,
+			t_status.language,
+			// translators: composer post button label
+			_("Edit"),
+			true
+		);
+		this.edit_status_id = t_status.id;
+
+		// translators: composer title
+		this.set_editor_title (_("Edit Post"), null);
+		this.cb = (owned) t_cb;
+	}
+
+	public Dialog.from_scheduled (API.ScheduledStatus scheduled_status, bool posting_draft, API.Poll? poll = null, owned SuccessCallback? t_cb = null) {
+		this (
+			{
+				scheduled_status.props.text,
+				scheduled_status.props.spoiler_text,
+				null,
+				posting_draft ? null : scheduled_status.id,
+				scheduled_status.props.in_reply_to_id,
+				poll,
+				scheduled_status.media_attachments,
+				scheduled_status.props.sensitive,
+				false
+			},
+			scheduled_status.props.visibility,
+			scheduled_status.props.language,
+			// translators: composer post button label
+			posting_draft ? _("Post") : _("Edit"),
+			false,
+			false
+		);
+
+		if (!posting_draft) {
+			// translators: composer title
+			this.set_editor_title (_("Edit Post"), null);
+			this.schedule_iso8601 = scheduled_status.scheduled_at;
+		}
 
 		this.cb = (owned) t_cb;
 	}
 
-	protected T? get_page<T> () {
-		var pages = stack.get_pages ();
-		for (var i = 0; i < pages.get_n_items (); i++) {
-			var page = pages.get_object (i);
-			if (page is T)
-				return page;
-		}
-		return null;
+	private inline void set_editor_title (string new_title, Gtk.Widget? widget_status) {
+		this.title = new_title;
+		nav_page.title = new_title;
+		editor.set_title (new_title, widget_status);
 	}
 
-	private void push_all () {
-		foreach (var page in t_pages) {
-			page.on_push ();
-		}
+	private void scroller_mapped () {
+		this.scroller.vadjustment.value = editor.top_margin;
 	}
 
-	protected void add_page (ComposerPage page) {
-		var wrapper = stack.add (page);
-		t_pages += page;
-
-		page.dialog = this;
-		page.status = this.status;
-		if (editing) page.edit_mode = true;
-		page.on_build ();
-		page.on_pull ();
-
-		modify_body.connect (page.on_push);
-		modify_body.connect (page.on_modify_body);
-		page.bind_property ("visible", wrapper, "visible", GLib.BindingFlags.SYNC_CREATE);
-		page.bind_property ("title", wrapper, "title", GLib.BindingFlags.SYNC_CREATE);
-		page.bind_property ("icon_name", wrapper, "icon_name", GLib.BindingFlags.SYNC_CREATE);
-		page.bind_property ("badge_number", wrapper, "badge_number", GLib.BindingFlags.SYNC_CREATE);
-	}
-
-	void on_close () {
-		this.force_close ();
-		foreach (var page in t_pages) {
-			page.unbind_listboxes ();
-			stack.remove (page);
-		}
-	}
-
-	void on_commit () {
-		this.sensitive = false;
-		transaction.begin ((obj, res) => {
-			try {
-				transaction.end (res);
-			} catch (Error e) {
-				warning (e.message);
-				var dlg = app.inform (_("Error"), e.message);
-				dlg.present (this);
-			} finally {
-				this.sensitive = true;
+	Composer.Components.Polls? polls_component = null;
+	Adw.TimedAnimation? polls_animation = null;
+	private void toggle_poll_component () {
+		if (!poll_button.active) {
+			if (polls_animation != null) {
+				polls_animation.reverse = true;
+				polls_animation.play ();
+			} else {
+				editor.add_bottom_child (null);
 			}
-		});
-	}
-
-	protected signal void modify_body (Json.Builder builder);
-
-	protected virtual void update_metadata (Json.Builder builder) {
-		if (
-			status.media_ids.size == 0
-			|| original_status.media_ids.size == 0
-		) return;
-
-		builder.set_member_name ("media_attributes");
-		builder.begin_array ();
-
-		foreach (var entry in status.media.entries) {
-			if (
-				!original_status.media_ids.contains (entry.key)
-				|| (
-					original_status.media.get (entry.key).description == entry.value.description
-					&& original_status.media.get (entry.key).focus == entry.value.focus
-				)
-			) continue;
-
-			builder.begin_object ();
-			builder.set_member_name ("id");
-			builder.add_string_value (entry.key);
-			builder.set_member_name ("description");
-			builder.add_string_value (entry.value.description);
-			builder.set_member_name ("focus");
-			builder.add_string_value (entry.value.focus);
-			builder.end_object ();
+			return;
 		}
 
-		builder.end_array ();
+		if (polls_component == null) {
+			init_polls_component ();
+		} else if (polls_animation.state == PLAYING) polls_animation.skip ();
+
+		editor.add_bottom_child (polls_component);
+		polls_animation.reverse = false;
+		polls_animation.play ();
 	}
 
-	protected string? schedule_iso8601 { get; set; default=null; }
+	private void init_polls_component (API.Poll? poll_obj = null) {
+		if (polls_component != null) return;
+
+		polls_component = new Composer.Components.Polls (poll_obj) {
+			opacity = 0
+		};
+		polls_component.notify["is-valid"].connect (validate_post_button);
+		polls_animation = new Adw.TimedAnimation (polls_component, 0, 1, 250, new Adw.PropertyAnimationTarget (polls_component, "opacity"));
+		polls_animation.done.connect (on_component_animation_end);
+		this.bind_property ("is-narrow", polls_component, "is-narrow", SYNC_CREATE);
+	}
+
+	Composer.Components.AttachmentsBin? attachmentsbin_component = null;
+	private void on_add_media_clicked () {
+		create_attachmentsbin ();
+		attachmentsbin_component.show_file_selector ();
+		editor.add_bottom_child (attachmentsbin_component);
+	}
+
+	private void update_attachmentsbin_meta () {
+		if (attachmentsbin_component == null) return;
+
+		bool is_used = attachmentsbin_component.working || !attachmentsbin_component.is_empty;
+		sensitive_media_button.visible = !attachmentsbin_component.is_empty;
+		poll_button.sensitive = !is_used;
+		if (!is_used) editor.add_bottom_child (null);
+		validate_post_button ();
+		update_attachmentsbin_sensitivity ();
+	}
+
+	private bool on_drag_drop (Value val, double x, double y) {
+		drop_overlay.dropping = false;
+		if (!add_media_button.sensitive) return false;
+
+		var file_list = val as Gdk.FileList;
+		if (file_list == null) return false;
+
+		var files = file_list.get_files ();
+		if (files.length () == 0) return false;
+
+		File[] files_to_upload = {};
+		foreach (var file in files) {
+			files_to_upload += file;
+		}
+		if (files_to_upload.length == 0) return false;
+
+		create_attachmentsbin ();
+		attachmentsbin_component.upload_files.begin (files_to_upload);
+		editor.add_bottom_child (attachmentsbin_component);
+
+		return true;
+	}
+
+	private Gdk.DragAction on_drag_enter (double x, double y) {
+		drop_overlay.dropping = true;
+		return Gdk.DragAction.COPY;
+	}
+
+	private void on_drag_leave () {
+		drop_overlay.dropping = false;
+	}
+
+	private async void on_clipboard_paste_async (Gdk.Clipboard clipboard) {
+		File[] files = {};
+
+		try {
+			var copied_value = yield clipboard.read_value_async (typeof (File), 0, null);
+
+			if (copied_value != null) {
+				var copied_file = copied_value as File;
+				if (copied_file != null) {
+					files += copied_file;
+				}
+			}
+		} catch (Error e) {}
+
+		if (files.length == 0) {
+			try {
+				var copied_texture = yield clipboard.read_texture_async (null);
+				if (copied_texture == null) return;
+
+				FileIOStream stream;
+				files += yield File.new_tmp_async ("tuba-XXXXXX.png", GLib.Priority.DEFAULT, null, out stream);
+
+				OutputStream ostream = stream.output_stream;
+				yield ostream.write_bytes_async (copied_texture.save_to_png_bytes ());
+			} catch (Error e) {
+				warning (@"Couldn't get texture from clipboard: $(e.message)");
+			}
+		}
+
+		yield attachmentsbin_component.upload_files (files);
+	}
+
+	private void create_attachmentsbin (Gee.ArrayList<API.Attachment>? attachments_obj = null) {
+		if (attachmentsbin_component != null) return;
+		attachmentsbin_component = new Composer.Components.AttachmentsBin ();
+		attachmentsbin_component.notify["working"].connect (update_attachmentsbin_meta);
+		attachmentsbin_component.notify["is-empty"].connect (update_attachmentsbin_meta);
+
+		if (attachments_obj != null && attachments_obj.size > 0) {
+			foreach (var attachment_obj in attachments_obj) {
+				attachmentsbin_component.preload_attachment (attachment_obj);
+			}
+		}
+	}
+
+	private void on_paste () {
+		Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+		var formats = clipboard.get_formats ();
+		bool has_files = formats.contain_mime_type ("text/uri-list");
+		if (!has_files) {
+			var mime_types = formats.get_mime_types ();
+			if (mime_types == null) return;
+
+			foreach (string mime_type in mime_types) {
+				if (mime_type.has_prefix ("image/")) {
+					has_files = true;
+					break;
+				}
+			}
+		}
+		if (!has_files) return;
+
+		Signal.stop_emission_by_name (editor, "paste-clipboard");
+		app.question.begin (
+			// translators: media as in picture or files
+			{_("Paste Media from Clipboard?"), false},
+
+			// translators: they = media / files from clipboard, instance = server
+			{_("They will be uploaded to your instance"), false},
+			this,
+			{ { _("Paste"), Adw.ResponseAppearance.SUGGESTED }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			null,
+			false,
+			(obj, res) => {
+				if (app.question.end (res).truthy ()) {
+					create_attachmentsbin ();
+					on_clipboard_paste_async.begin (clipboard);
+					editor.add_bottom_child (attachmentsbin_component);
+				}
+			}
+		);
+    }
+
+	private void on_schedule_action_activated () {
+		if (!post_btn.sensitive) return;
+
+		var schedule_dlg = new Dialogs.Schedule (this.schedule_iso8601);
+		schedule_dlg.schedule_picked.connect (on_schedule_picked);
+		on_push_subpage (schedule_dlg);
+	}
+
+	private void on_draft_action_activated () {
+		if (!post_btn.sensitive) return;
+
+		this.schedule_iso8601 = (new GLib.DateTime.now ()).add_years (3000).format_iso8601 ();
+		on_commit ();
+	}
+
+	private void on_schedule_picked (string iso8601) {
+		this.schedule_iso8601 = iso8601;
+		on_commit ();
+	}
+
+	private void on_component_animation_end (Adw.Animation animation) {
+		if (animation.value == 0) editor.add_bottom_child (null);
+		else if (polls_component != null && editor.is_bottom_child (polls_component)) polls_component.grab_first_row_focus ();
+		validate_post_button ();
+	}
+
+	private void on_toast (Adw.Toast toast) {
+		toast_overlay.add_toast (toast);
+	}
+
+	private void on_push_subpage (Adw.NavigationPage page) {
+		nav_view.push (page);
+	}
+
+	private void on_pop_subpage () {
+		nav_view.pop ();
+	}
+
+	private void validate_post_button () {
+		bool sensitive = remaining_chars >= 0;
+		if (sensitive) {
+			if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component)) {
+				sensitive = !attachmentsbin_component.is_empty && !attachmentsbin_component.working;
+			} else if (polls_component != null && editor.is_bottom_child (polls_component)) {
+				sensitive = polls_component.is_valid && remaining_chars < char_limit;
+			} else {
+				sensitive = remaining_chars < char_limit;
+			}
+		}
+
+		post_btn.sensitive = sensitive;
+	}
+
+	private void update_attachmentsbin_sensitivity () {
+		if (attachmentsbin_component == null) return;
+
+		bool has_class = attachmentsbin_component.has_css_class ("spoilered-attachmentsbin");
+		if (sensitive_media_button.active && !has_class) {
+			attachmentsbin_component.add_css_class ("spoilered-attachmentsbin");
+		} else if (!sensitive_media_button.active && has_class) {
+			attachmentsbin_component.remove_css_class ("spoilered-attachmentsbin");
+		}
+	}
+
 	private Json.Builder populate_json_body () {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 
-		modify_body (builder);
-		if (editing) update_metadata (builder);
-		if (quote_id != null) {
+		builder.set_member_name ("status");
+		builder.add_string_value (editor.buffer.text);
+
+		if (visibility_button.selected != Gtk.INVALID_LIST_POSITION) {
+			builder.set_member_name ("visibility");
+			builder.add_string_value (((InstanceAccount.Visibility) visibility_button.selected_item).id);
+		}
+
+		// Move to editor?
+		builder.set_member_name ("language");
+		builder.add_string_value (editor.locale);
+
+		if (content_type_button != null && content_type_button.selected != Gtk.INVALID_LIST_POSITION) {
+			builder.set_member_name ("content_type");
+			builder.add_string_value (((InstanceAccount.StatusContentType) content_type_button.selected_item).mime);
+		}
+
+		if (in_reply_to_id != null && !edit_mode) {
+			builder.set_member_name ("in_reply_to_id");
+			builder.add_string_value (this.in_reply_to_id);
+		}
+
+		builder.set_member_name ("sensitive");
+		builder.add_boolean_value (cw_button.active || (sensitive_media_button.visible && sensitive_media_button.active));
+		builder.set_member_name ("spoiler_text");
+		builder.add_string_value (cw_button.active ? cw_entry.text : "");
+
+		if (polls_component != null && editor.is_bottom_child (polls_component) && polls_component.is_valid && polls_component.has_rows) {
+			builder.set_member_name ("poll");
+			builder.begin_object ();
+				builder.set_member_name ("multiple");
+				builder.add_boolean_value (polls_component.multiple_choice);
+
+				builder.set_member_name ("hide_totals");
+				builder.add_boolean_value (polls_component.hide_totals);
+
+				builder.set_member_name ("expires_in");
+				builder.add_int_value (polls_component.expires_in);
+
+				builder.set_member_name ("options");
+				builder.begin_array ();
+					foreach (var option in polls_component.get_all_options ()) {
+						builder.add_string_value (option);
+					}
+				builder.end_array ();
+			builder.end_object ();
+		} else if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
+			builder.set_member_name ("media_ids");
+			builder.begin_array ();
+				foreach (var m_id in attachmentsbin_component.get_all_media_ids ()) {
+					builder.add_string_value (m_id);
+				}
+			builder.end_array ();
+
+			if (edit_mode) {
+				builder.set_member_name ("media_attributes");
+				builder.begin_array ();
+					foreach (var meta in attachmentsbin_component.get_all_metadata ()) {
+						builder.begin_object ();
+							builder.set_member_name ("id");
+							builder.add_string_value (meta.id);
+							builder.set_member_name ("description");
+							builder.add_string_value (meta.description);
+							builder.set_member_name ("focus");
+							builder.add_string_value (meta.focus);
+						builder.end_object ();
+					}
+				builder.end_array ();
+			}
+		}
+
+		if (this.quote_id != null) {
 			builder.set_member_name ("quote_id");
 			builder.add_string_value (quote_id);
 		}
-		if (schedule_iso8601 != null) {
+
+		if (this.schedule_iso8601 != null) {
 			builder.set_member_name ("scheduled_at");
 			builder.add_string_value (schedule_iso8601);
 		}
@@ -530,21 +939,39 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		builder.end_object ();
 		return builder;
 	}
-	protected virtual async void transaction () throws Error {
+
+	private void on_commit () {
+		if (!this.sensitive) return;
+		this.sensitive = false;
+
+		transaction.begin ((obj, res) => {
+			try {
+				transaction.end (res);
+			} catch (Error e) {
+				warning (e.message);
+				on_toast (new Adw.Toast (e.message) { timeout = 0 });
+			} finally {
+				this.sensitive = true;
+			}
+		});
+	}
+
+	private async void transaction () throws Error {
 		var publish_req = new Request () {
 			method = "POST",
 			url = "/api/v1/statuses",
 			account = accounts.active
 		};
-		if (status.id.length > 0) {
+
+		if (this.edit_status_id != null && this.edit_status_id != "") {
 			publish_req = new Request () {
 				method = "PUT",
-				url = @"/api/v1/statuses/$(status.id)",
+				url = @"/api/v1/statuses/$(this.edit_status_id)",
 				account = accounts.active
 			};
 		}
-		publish_req.body_json (populate_json_body ());
 
+		publish_req.body_json (populate_json_body ());
 		yield publish_req.await ();
 
 		var parser = Network.get_parser_from_inputstream (publish_req.response_body);
@@ -556,7 +983,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 			new Request.DELETE (@"/api/v1/scheduled_statuses/$scheduled_id")
 				.with_account (accounts.active)
 				.then (() => {
-					cb (status);
+					if (cb != null) cb (status);
 				})
 				.exec ();
 		} else if (cb != null) {
@@ -565,26 +992,76 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 			app.refresh_scheduled_statuses ();
 		}
 
-		on_close ();
+		this.force_close ();
 	}
 
-	private void on_schedule_action_activated () {
-		if (!commit_button.sensitive) return;
+	// This is used to check if something changed so we
+	// can ask the user if they want to quit. In the old
+	// composer, it used to check everything. This time,
+	// let's just check the important ones only, since
+	// asking when just changing trivial properties seems
+	// annoying.
+	private uint generate_unique_state () {
+		GLib.StringBuilder builder = new GLib.StringBuilder (editor.buffer.text);
+		builder.append (cw_button.active.to_string ());
+		builder.append (cw_entry.text);
 
-		var schedule_dlg = new Dialogs.Schedule ();
-		schedule_dlg.schedule_picked.connect (on_schedule_picked);
-		schedule_dlg.present (this);
+		if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
+			builder.append (string.joinv ("", attachmentsbin_component.get_all_media_ids ()));
+
+			foreach (var meta in attachmentsbin_component.get_all_metadata ()) {
+				builder.append (meta.id);
+				builder.append (meta.description);
+				builder.append (meta.focus);
+			}
+		} else {
+			builder.append ("none");
+		}
+
+		if (polls_component != null && editor.is_bottom_child (polls_component) && polls_component.is_valid && polls_component.has_rows) {
+			builder.append (string.joinv ("", polls_component.get_all_options ()));
+			builder.append (polls_component.multiple_choice.to_string ());
+			builder.append (polls_component.hide_totals.to_string ());
+			builder.append (polls_component.expires_in.to_string ());
+		} else {
+			builder.append ("none");
+		}
+
+		return GLib.str_hash (builder.str);
 	}
 
-	private void on_draft_action_activated () {
-		if (!commit_button.sensitive) return;
-
-		schedule_iso8601 = (new GLib.DateTime.now ()).add_years (3000).format_iso8601 ();
-		on_commit ();
+	private bool state_changed () {
+		if (unique_state == 0) return false;
+		return unique_state != generate_unique_state ();
 	}
 
-	private void on_schedule_picked (string iso8601) {
-		schedule_iso8601 = iso8601;
-		on_commit ();
+	private void on_exit () {
+		if (state_changed ()) {
+			app.question.begin (
+				// translators: Dialog title when closing the composer
+				{_("Discard Post?"), false},
+
+				// translators: Dialog body when closing the composer.
+				//				'progress' of using the composer (e.g.
+				//				it shows up if the user typed something
+				//				and pressed esc / the composer is not
+				//				empty)
+				{_("Your progress will be lost."), false},
+				this,
+				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
+				false,
+				(obj, res) => {
+					if (app.question.end (res).truthy ()) this.force_close ();
+				}
+			);
+		} else {
+			this.force_close ();
+		}
+	}
+
+	private void on_cw_revealed () {
+		if (!cw_revealer.reveal_child) return;
+		cw_entry.grab_focus ();
 	}
 }

@@ -159,6 +159,8 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 					this.animation.value
 				));
 			}
+
+			natural = int.max (minimum, natural);
 		}
 	}
 

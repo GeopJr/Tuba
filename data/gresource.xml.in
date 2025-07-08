@@ -57,6 +57,9 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-markdown-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-rich-text-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-earth-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bear-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-image-round-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-sentiment-satisfied-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-verified-checkmark-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-funnel-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-error-symbolic.svg</file>
@@ -81,6 +84,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-channel-insecure-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-refresh-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-check-plain-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-polls-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Archives.svg</file>
@@ -116,7 +120,7 @@
         <file>ui/dialogs/list_edit.ui</file>
         <file>ui/dialogs/advanced_search.ui</file>
         <file>ui/dialogs/new_account.ui</file>
-        <file>ui/dialogs/compose.ui</file>
+        <file>ui/dialogs/composer.ui</file>
         <file>ui/dialogs/notification_settings.ui</file>
         <file>ui/dialogs/main.ui</file>
         <file>ui/dialogs/preferences.ui</file>

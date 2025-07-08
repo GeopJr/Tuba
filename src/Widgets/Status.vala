@@ -102,7 +102,7 @@
 		}
 	}
 
-	public Dialogs.Compose.SuccessCallback? reply_cb;
+	public Dialogs.Composer.Dialog.SuccessCallback? reply_cb;
 
 	[GtkChild] protected unowned Gtk.Box status_box;
 	[GtkChild] protected unowned Gtk.Box avatar_side;
@@ -478,10 +478,10 @@
 				var node = network.parse_node (parser);
 				var source = API.StatusSource.from (node);
 
-				new Dialogs.Compose.edit (status.formal, source, on_edit);
+				new Dialogs.Composer.Dialog.edit (status.formal, source, on_edit);
 			})
 			.on_error (() => {
-				new Dialogs.Compose.edit (status.formal, null, on_edit);
+				new Dialogs.Composer.Dialog.edit (status.formal, null, on_edit);
 			})
 			.exec ();
 	}
@@ -1203,7 +1203,7 @@
 	}
 
 	private void on_reply_button_clicked () {
-		new Dialogs.Compose.reply (status.formal, on_reply);
+		new Dialogs.Composer.Dialog.reply (status.formal, on_reply);
 	}
 
 	[GtkCallback] public void on_fade_reveal () {
@@ -1228,6 +1228,42 @@
 
 	[GtkCallback] public void on_avatar_clicked () {
 		status.formal.account.open ();
+	}
+
+	public void to_display_only () {
+		if (poll != null) {
+			poll.usable = false;
+			poll.can_target = false;
+			poll.focusable = false;
+			poll.can_focus = false;
+		}
+		if (hashtag_bar != null) {
+			hashtag_bar.can_target = false;
+			hashtag_bar.can_focus = false;
+			hashtag_bar.focusable = false;
+		}
+		if (attachments != null) attachments.usable = false;
+		if (emoji_reactions != null) emoji_reactions.visible = false;
+		this.can_be_opened = false;
+		this.actions.visible = false;
+		this.menu_button.visible = false;
+		this.activatable = false;
+		this.avatar.allow_mini_profile = false;
+		this.avatar.can_target = false;
+		this.avatar.focusable = false;
+		this.avatar.can_focus = false;
+		name_button.can_target = false;
+		name_button.can_focus = false;
+		name_button.focusable = false;
+		this.content.selectable = true;
+		this.content.can_open = false;
+		this.avatar.accessible_role = Gtk.AccessibleRole.PRESENTATION;
+		this.date_label.accessible_role = Gtk.AccessibleRole.PRESENTATION;
+		name_button.accessible_role = Gtk.AccessibleRole.PRESENTATION;
+		//  this.fade_bin.reveal = true;
+		this.reset_relation (DESCRIBED_BY);
+		this.reset_property (LABEL);
+		this.reset_property (DESCRIPTION);
 	}
 
 	bool expanded = false;

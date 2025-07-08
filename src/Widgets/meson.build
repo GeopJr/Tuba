@@ -28,6 +28,7 @@ sources += files(
     'ReactButton.vala',
     'RelationshipButton.vala',
     'RichLabel.vala',
+    'SandwichSourceView.vala',
     'ScaleRevealer.vala',
     'ScheduledStatus.vala',
     'Status.vala',

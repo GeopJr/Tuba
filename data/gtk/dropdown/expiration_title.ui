@@ -3,13 +3,10 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="text_short" type="TubaPollPageExpiration">
+          <lookup name="text_short" type="TubaDialogsComposerComponentsPollsExpiration">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
-        <style>
-          <class name="locale-dropdown-upcase"/>
-        </style>
       </object>
     </property>
   </template>
