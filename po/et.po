@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Priit Jõerüüt <hwlate@joeruut.com>, 2025.
 # Henri Aunin <contact@hen.ee>, 2025.
+# Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-07-02 11:44+0000\n"
-"Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
+"PO-Revision-Date: 2025-07-10 08:05+0000\n"
+"Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
@@ -2051,7 +2052,7 @@ msgstr "Kas loobud postitusest?"
 
 #: src/Dialogs/Composer/Dialog.vala:254
 msgid "Your progress will be lost."
-msgstr "Kõik sinu koostatud läheb kaotsi."
+msgstr "Kõik sinu koostatu läheb kaotsi."
 
 #: src/Dialogs/Composer/Dialog.vala:256
 msgid "Discard"
