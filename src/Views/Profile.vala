@@ -1,4 +1,6 @@
 public class Tuba.Views.Profile : Views.Accounts {
+	const int TOTAL_STATIC_ITEMS = 3;
+
 	public class ProfileAccount : Widgetizable, GLib.Object {
 		public API.Account account { get; construct set; }
 		public API.Relationship rs { get; construct set; }
@@ -59,6 +61,38 @@ public class Tuba.Views.Profile : Views.Accounts {
 		}
 	}
 
+	public class ErrorMessageRow : Widgetizable, GLib.Object {
+		public bool visible { get; set; default=true; }
+		public string message { get; set; default = ""; }
+
+		public override Gtk.Widget to_widget () {
+			var widget = new Gtk.Label (message) {
+				wrap = true,
+				wrap_mode = WORD_CHAR,
+				css_classes = { "title-1" },
+				margin_start = 16,
+				margin_end = 16,
+				margin_top = 16,
+				margin_bottom = 16,
+				justify = CENTER
+			};
+
+			var row = new Gtk.ListBoxRow () {
+				child = widget,
+				overflow = Gtk.Overflow.HIDDEN,
+				activatable = false
+			};
+
+			this.bind_property ("visible", row, "visible", GLib.BindingFlags.SYNC_CREATE);
+			this.bind_property ("message", widget, "label", GLib.BindingFlags.SYNC_CREATE);
+			return row;
+		}
+	}
+
+	public override bool empty {
+		get { return false; }
+	}
+
 	public ProfileAccount profile { get; construct set; }
 	public Widgets.ProfileFilterGroup.Filter filter { get; set; default = Widgets.ProfileFilterGroup.Filter.POSTS; }
 	public string source { get; set; default = "statuses"; }
@@ -74,6 +108,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	//  protected SimpleAction source_action;
 
 	private FilterGroup filter_group;
+	private ErrorMessageRow error_message_row;
 	public Profile (API.Account acc) {
 		Object (
 			profile: new ProfileAccount (acc),
@@ -82,9 +117,14 @@ public class Tuba.Views.Profile : Views.Accounts {
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
 
+		error_message_row = new ErrorMessageRow () {
+			visible = false
+		};
+		this.bind_property ("empty-state-title", error_message_row, "message", SYNC_CREATE);
 		filter_group = new FilterGroup ();
 		model.insert (0, profile);
 		model.insert (1, filter_group);
+		model.insert (2, error_message_row);
 		profile.rs.invalidated.connect (on_rs_updated);
 
 		if (acc.is_self ()) update_profile_cover ();
@@ -110,7 +150,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 						to_add += e_status;
 					});
-					model.splice (2, 0, to_add);
+					model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
 				})
 				.exec ();
 		}
@@ -179,6 +219,15 @@ public class Tuba.Views.Profile : Views.Accounts {
 		GLib.Idle.add (append_pinned);
 	}
 
+	public override bool request () {
+		if (filter == FEATURED) {
+			update_featured ();
+		} else {
+			base.request ();
+		}
+		return GLib.Source.REMOVE;
+	}
+
 	public override void on_manual_refresh () {
 		update_profile_cover ();
 		base.on_manual_refresh ();
@@ -188,30 +237,95 @@ public class Tuba.Views.Profile : Views.Accounts {
 		source = t_source;
 
 		filter_group.visible = t_source == "statuses";
-		switch (t_source) {
-			case "statuses":
-				accepts = typeof (API.Status);
-				empty_state_title = _("No Posts");
-				break;
-			case "followers":
-				accepts = typeof (API.Account);
-				empty_state_title = _("No Followers");
-				break;
-			case "following":
-				accepts = typeof (API.Account);
-				empty_state_title = _("This user doesn't follow anyone yet");
-				break;
-			default:
-				assert_not_reached ();
-		}
+		source_meta_update (t_source);
 
 		url = @"/api/v1/accounts/$(profile.account.id)/$t_source";
 		invalidate_actions (true);
 	}
 
+	private void source_meta_update (string t_source) {
+		switch (t_source) {
+			case "statuses":
+				accepts = typeof (API.Status);
+				// translators: posts tab on profiles, shown when empty.
+				empty_state_title = _("No Posts");
+				break;
+			case "followers":
+				accepts = typeof (API.Account);
+				// translators: followers tab on profiles, shown when empty.
+				empty_state_title = _("No Followers");
+				break;
+			case "following":
+				accepts = typeof (API.Account);
+				// translators: following tab on profiles, shown when empty.
+				empty_state_title = _("This user doesn't follow anyone yet");
+				break;
+			case "featured":
+				accepts = typeof (API.Account);
+				// translators: featured tab on profiles, shown when empty.
+				empty_state_title = _("This user doesn't have any featured hashtags or accounts.");
+				break;
+			default:
+				assert_not_reached ();
+		}
+	}
+
 	protected void change_filter (Widgets.ProfileFilterGroup.Filter filter) {
 		this.filter = filter;
+		if (this.filter == FEATURED) {
+			source_meta_update ("featured");
+		} else {
+			source_meta_update (source);
+		}
+
 		invalidate_actions (true);
+	}
+
+	private void update_featured () {
+		is_last_page = true;
+		source_meta_update ("featured");
+		fill_featured.begin ((obj, res) => {
+			base_status = new StatusMessage () { loading = true };
+			try {
+				fill_featured.end (res);
+				on_content_changed ();
+			} catch (Error e) {
+				on_error (e.code, e.message);
+			}
+		});
+	}
+
+	private async void fill_featured () throws Error {
+		Object[] to_add = {};
+
+		var req = new Request.GET (@"/api/v1/accounts/$(profile.account.id)/featured_tags")
+				.with_account (account)
+				.with_ctx (this);
+		yield req.await ();
+
+		var parser = Network.get_parser_from_inputstream (req.response_body);
+		Network.parse_array (parser, node => {
+			to_add += Tuba.Helper.Entity.from_json (node, typeof (API.FeaturedTag));
+		});
+
+		req = new Request.GET (@"/api/v1/accounts/$(profile.account.id)/endorsements")
+				.with_account (account)
+				.with_ctx (this);
+		yield req.await ();
+
+		parser = Network.get_parser_from_inputstream (req.response_body);
+		Network.parse_array (parser, node => {
+			to_add += Tuba.Helper.Entity.from_json (node, typeof (API.Account));
+		});
+		model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
+	}
+
+	public override void on_content_changed () {
+		error_message_row.visible = false;
+		base.on_content_changed ();
+		if (base_status == null && model.get_n_items () == TOTAL_STATIC_ITEMS) {
+			error_message_row.visible = true;
+		}
 	}
 
 	protected override void build_header () {
@@ -267,7 +381,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	protected override void clear () {
-		base.clear_all_but_first (2);
+		base.clear_all_but_first (TOTAL_STATIC_ITEMS);
 	}
 
 	protected override void build_actions () {
@@ -424,6 +538,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 				case Widgets.ProfileFilterGroup.Filter.MEDIA:
 					req.with_param ("only_media", "true");
 					break;
+				case Widgets.ProfileFilterGroup.Filter.FEATURED: break;
 				default:
 					assert_not_reached ();
 			}

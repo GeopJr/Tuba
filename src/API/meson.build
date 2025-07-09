@@ -10,6 +10,7 @@ sources += files(
     'Emoji.vala',
     'EmojiReaction.vala',
     'Entity.vala',
+    'FeaturedTag.vala',
     'FamiliarFollowers.vala',
     'Funkwhale.vala',
     'GroupedNotificationsResults.vala',
