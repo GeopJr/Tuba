@@ -9,7 +9,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 	public GLib.ListStore model;
 	private bool bottom_reached_locked = false;
 
-	public bool empty {
+	public virtual bool empty {
 		get { return model.get_n_items () <= 0; }
 	}
 

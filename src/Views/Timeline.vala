@@ -261,7 +261,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	protected override void on_bottom_reached () {
 		if (is_last_page) {
-			info ("Last page reached");
+			debug ("Last page reached");
 			return;
 		}
 		request ();
