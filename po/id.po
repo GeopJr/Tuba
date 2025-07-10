@@ -3,21 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # leap123 <76893443+leap0x7b@users.noreply.github.com>, 2024.
 # Reza Almanda <rezaalmanda27@gmail.com>, 2024.
+# proficiency <proficiency@xmail.net>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2024-09-03 00:09+0000\n"
-"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/tuba/tuba/id/"
-">\n"
+"PO-Revision-Date: 2025-06-28 13:05+0000\n"
+"Last-Translator: proficiency <proficiency@xmail.net>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/tuba/tuba/id/>"
+"\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -171,7 +172,7 @@ msgstr "Dasbor Admin"
 #. translators: window title
 #: data/ui/dialogs/advanced_search.ui:11 src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "Pencarian Lanjut"
 
 #: data/ui/dialogs/advanced_search.ui:22 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:16 data/ui/dialogs/new_account.ui:26
@@ -223,7 +224,7 @@ msgstr "Dari Pengguna"
 #. translators: tooltip text for a button in the 'advanced search' window. When clicked it automatically fills the entry with the first found user based on the query.
 #: data/ui/dialogs/advanced_search.ui:89
 msgid "Auto-Fill User"
-msgstr ""
+msgstr "Isi Otomatis Pengguna"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:102
@@ -440,7 +441,7 @@ msgstr "Saring"
 
 #: data/ui/dialogs/notification_settings.ui:16
 msgid "Clear All Notifications"
-msgstr ""
+msgstr "Bersihkan Semua Notifikasi"
 
 #: data/ui/dialogs/notification_settings.ui:34
 #: data/ui/dialogs/preferences.ui:252 src/API/Filters/Filter.vala:45
@@ -451,58 +452,60 @@ msgstr "Notifikasi"
 
 #: data/ui/dialogs/notification_settings.ui:37
 msgid "Included Notifications"
-msgstr ""
+msgstr "Notifikasi Disertakan"
 
 #. translators: Preferences group title
 #: data/ui/dialogs/notification_settings.ui:44
 msgid "Filter Notifications Out"
-msgstr ""
+msgstr "Filter Notifikasi Keluar"
 
 #. translators: Preferences group description
 #: data/ui/dialogs/notification_settings.ui:46
 msgid "Filter out notifications from people you may not know"
-msgstr ""
+msgstr "Saring Notifikasi dari Orang Tak Dikenal"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:50
 msgid "People you don't follow"
-msgstr ""
+msgstr "Orang yang Tidak Anda Ikuti"
 
 #. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:52
 msgid "Until you manually approve them"
-msgstr ""
+msgstr "Hingga anda menyetujuinya Secara Manual"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:58
 msgid "People not following you"
-msgstr ""
+msgstr "Orang yang Tidak Mengikuti Anda"
 
 #. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:60
 msgid "Including people who have been following you fewer than 3 days"
-msgstr ""
+msgstr "Termasuk orang yang telah mengikuti Anda kurang dari 3 hari"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:66
 msgid "New accounts"
-msgstr ""
+msgstr "Akun Baru"
 
 #. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:68
 msgid "Created within the past 30 days"
-msgstr ""
+msgstr "Dibuat dalam 30 hari terakhir"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:74
 msgid "Unsolicited private mentions"
-msgstr ""
+msgstr "Sebutan pribadi yang tidak dikehendaki"
 
 #. translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:76
 msgid ""
 "Filtered unless it's in reply to your own mention or if you follow the sender"
 msgstr ""
+"Disaring, kecuali jika notifikasi tersebut adalah balasan untuk sebutan Anda "
+"sendiri atau jika Anda mengikuti pengirim notifikasi"
 
 #: data/ui/dialogs/preferences.ui:23
 msgid "Appearance"
@@ -581,20 +584,20 @@ msgstr "Tampilkan Spoiler secara Default"
 
 #: data/ui/dialogs/preferences.ui:91
 msgid "Show Link Preview Cards"
-msgstr ""
+msgstr "Tampilkan Kartu Pratinjau Tautan"
 
 #: data/ui/dialogs/preferences.ui:96
 msgid "Darken Images on Dark Mode"
-msgstr ""
+msgstr "Redupkan Gambar di Mode Gelap"
 
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/ui/dialogs/preferences.ui:102
 msgid "Dim Trivial Notifications"
-msgstr ""
+msgstr "Redupkan Notifikasi Tidak Penting"
 
 #: data/ui/dialogs/preferences.ui:103
 msgid "Notifications like favorites and boosts will be less visible"
-msgstr ""
+msgstr "Notifikasi seperti favorit dan boost akan menjadi kurang terlihat"
 
 #: data/ui/dialogs/preferences.ui:110
 msgid "Posting"
@@ -602,15 +605,15 @@ msgstr "Posting"
 
 #: data/ui/dialogs/preferences.ui:113
 msgid "Default Post Visibility"
-msgstr ""
+msgstr "Visibilitas Kiriman Baku"
 
 #: data/ui/dialogs/preferences.ui:122
 msgid "Default Post Language"
-msgstr ""
+msgstr "Bahasa Kiriman Baku"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Default Post Content Type"
-msgstr ""
+msgstr "Tipe Konten Kiriman Default"
 
 #: data/ui/dialogs/preferences.ui:143
 msgid "Behavior"
@@ -618,24 +621,24 @@ msgstr "Perilaku"
 
 #: data/ui/dialogs/preferences.ui:146
 msgid "Run in Background"
-msgstr ""
+msgstr "Jalankan di Latar Belakang"
 
 #: data/ui/dialogs/preferences.ui:147
 msgid "Fetch notifications while the app is closed"
-msgstr ""
+msgstr "Ambil notifikasi saat aplikasi ditutup"
 
 #: data/ui/dialogs/preferences.ui:152
 msgid "Strip Tracking Parameters From Links"
-msgstr ""
+msgstr "Hapus Parameter Pelacakan dari Tautan"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:154
 msgid "This option can lead to broken links when enabled"
-msgstr ""
+msgstr "Opsi ini dapat menyebabkan tautan rusak jika diaktifkan"
 
 #: data/ui/dialogs/preferences.ui:159
 msgid "Advanced Boost Dialog"
-msgstr ""
+msgstr "Dialog Tingkat Lanjut Boost"
 
 #: data/ui/dialogs/preferences.ui:160
 msgid "Change boost visibility, quote and confirm boosting"
@@ -643,11 +646,11 @@ msgstr "Ubah visibilitas boost, kutip dan konfirmasi boost"
 
 #: data/ui/dialogs/preferences.ui:165
 msgid "Warn before replying to an old post"
-msgstr ""
+msgstr "Peringatkan sebelum membalas kiriman lama"
 
 #: data/ui/dialogs/preferences.ui:170
 msgid "Warn before copying a link to a private post"
-msgstr ""
+msgstr "Peringatkan sebelum menyalin tautan ke kiriman pribadi"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:177 src/Dialogs/NewAccount.vala:330
@@ -656,11 +659,11 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:188
 msgid "Posts per Load Batch"
-msgstr ""
+msgstr "Kiriman per Kelompok Muatan"
 
 #: data/ui/dialogs/preferences.ui:196
 msgid "Stream Timelines"
-msgstr ""
+msgstr "Stream Linimasa"
 
 #: data/ui/dialogs/preferences.ui:197
 msgid "Receive new posts and notifications in real-time"
@@ -668,7 +671,7 @@ msgstr "Terima postingan dan notifikasi baru secara waktu nyata"
 
 #: data/ui/dialogs/preferences.ui:203
 msgid "Stream Public Timelines"
-msgstr ""
+msgstr "Stream Linimasa Publik"
 
 #: data/ui/dialogs/preferences.ui:204
 msgid "Warning: This will increase memory usage"
@@ -676,35 +679,36 @@ msgstr "Peringatan: Ini akan meningkatkan penggunaan memori"
 
 #: data/ui/dialogs/preferences.ui:211
 msgid "Online Services"
-msgstr ""
+msgstr "Layanan Daring"
 
 #. translators: leave api.tuba.geopjr.dev as is
 #: data/ui/dialogs/preferences.ui:213
 msgid "Configure features that connect to api.tuba.geopjr.dev"
-msgstr ""
+msgstr "Atur fitur yang terhubung ke api.tuba.geopjr.dev"
 
 #: data/ui/dialogs/preferences.ui:216
 msgid "Send Preference Analytics"
-msgstr ""
+msgstr "Kirim Analitik Preferensi"
 
 #: data/ui/dialogs/preferences.ui:217
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly"
 msgstr ""
+"Kirim preferensi Anda ke pengembang Tuba untuk riset popularitas dwi mingguan"
 
 #: data/ui/dialogs/preferences.ui:223
 msgid "Preview Analytics"
-msgstr ""
+msgstr "Pratinjau Analitik"
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/ui/dialogs/preferences.ui:240
 msgid "Update Supporters Periodically"
-msgstr ""
+msgstr "Perbarui Nama Pendukung Secara Berkala"
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/ui/dialogs/preferences.ui:242
 msgid "Fetch the list of Tuba's supporters biweekly"
-msgstr ""
+msgstr "Ambil daftar nama pendukung Tuba dwi mingguan"
 
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:256
@@ -755,15 +759,15 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:314
 msgid "Filters"
-msgstr ""
+msgstr "Saring"
 
 #: data/ui/dialogs/preferences.ui:318
 msgid "Keywords"
-msgstr ""
+msgstr "Kata Kunci"
 
 #: data/ui/dialogs/preferences.ui:326
 msgid "Add Filter…"
-msgstr ""
+msgstr "Tambah Saringan…"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:230
 msgid "Edit Profile"
@@ -799,17 +803,17 @@ msgstr "Pemilih emoji khusus"
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:94
 #: src/Widgets/Attachment/Item.vala:159
 msgid "Alternative Text"
-msgstr ""
+msgstr "Teks Alternatif"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile picture
 #: data/ui/dialogs/profile_edit.ui:167
 msgid "Profile Picture Description"
-msgstr ""
+msgstr "Deskripsi Gambar Profil"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile header/cover
 #: data/ui/dialogs/profile_edit.ui:174
 msgid "Header Picture Description"
-msgstr ""
+msgstr "Deskripsi Gambar Tajuk"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:182
@@ -820,41 +824,41 @@ msgstr "Bidang"
 #. translators: 'Schedule' is a verb
 #: data/ui/dialogs/schedule.ui:29 src/Dialogs/Composer/Dialog.vala:159
 msgid "Schedule Post"
-msgstr ""
+msgstr "Jadwalkan Kiriman"
 
 #. translators: verb
 #: data/ui/dialogs/schedule.ui:47
 msgid "Schedule"
-msgstr ""
+msgstr "Jadwalkan"
 
 #. translators: Title used for calendar date picking
 #: data/ui/dialogs/schedule.ui:74
 msgid "Date"
-msgstr ""
+msgstr "Tanggal"
 
 #. translators: Title used for time picking
 #: data/ui/dialogs/schedule.ui:99
 msgid "Time"
-msgstr ""
+msgstr "Waktu"
 
 #. translators: Label on an hour picker
 #: data/ui/dialogs/schedule.ui:114
 msgid "Hour"
-msgstr ""
+msgstr "Jam"
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:134
 msgid "Minute"
-msgstr ""
+msgstr "Menit"
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:154
 msgid "Second"
-msgstr ""
+msgstr "Detik"
 
 #: data/ui/dialogs/schedule.ui:168
 msgid "Timezone"
-msgstr ""
+msgstr "Zona Waktu"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
@@ -875,7 +879,7 @@ msgstr "Buka di browser"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
-msgstr ""
+msgstr "Terima Notifikasi Kiriman"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:39 src/Views/Admin/Pages/Accounts.vala:118
@@ -922,7 +926,7 @@ msgstr "Salin URL"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:177
 msgid "Save Media…"
-msgstr ""
+msgstr "Simpan Media…"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:179
 msgid "Copy Media"
@@ -947,19 +951,19 @@ msgstr "Bot"
 #. or contributor to Tuba
 #: data/ui/views/profile_header.ui:64
 msgid "Tuba Supporter"
-msgstr ""
+msgstr "Pendukung Tiba"
 
 #. translators: tooltip text on profile covers.
 #. You can replace 'Cover' with 'Background' if needed.
 #: data/ui/views/profile_header.ui:85
 msgid "View Cover"
-msgstr ""
+msgstr "Lihat Sampul"
 
 #. translators: tooltip text on profile avatars.
 #. You can replace 'Avatar' with 'Profile Picture' if needed.
 #: data/ui/views/profile_header.ui:99
 msgid "View Avatar"
-msgstr ""
+msgstr "Lihat Avatar"
 
 #: data/ui/views/profile_header.ui:164 src/Views/Sidebar.vala:68
 msgid "Open Profile"
@@ -968,11 +972,11 @@ msgstr "Buka profil"
 #. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
 #: data/ui/views/profile_header.ui:184
 msgid "View All Followers You Know"
-msgstr ""
+msgstr "Lihat Semua Pengikut yang Anda Kenal"
 
 #: data/ui/views/profile_header.ui:214
 msgid "Note"
-msgstr ""
+msgstr "Catatan"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:53
@@ -986,13 +990,13 @@ msgstr "Ganti akun"
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr ""
+msgstr "Luring"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
 #: src/Views/Notifications.vala:59
 msgid "View"
-msgstr ""
+msgstr "Tampilkan"
 
 #: data/ui/widgets/announcement.ui:96
 msgid "Unread"
@@ -1006,17 +1010,17 @@ msgstr "Disunting"
 #: data/ui/widgets/audiocontrols.ui:30 src/Widgets/AudioPlayer/Controls.vala:26
 msgctxt "media controls tooltip"
 msgid "Play"
-msgstr ""
+msgstr "Putar"
 
 #: data/ui/widgets/audiocontrols.ui:49
 msgctxt "media controls"
 msgid "Position"
-msgstr ""
+msgstr "Posisi"
 
 #: data/ui/widgets/audiocontrols.ui:67
 msgctxt "media controls"
 msgid "Volume"
-msgstr ""
+msgstr "Volume"
 
 #: data/ui/widgets/status.ui:179
 msgid "Pinned"
@@ -1035,7 +1039,7 @@ msgstr "Tampilkan lebih banyak"
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:348
 msgid "Show Anyway"
-msgstr ""
+msgstr "Tetap Tampikan"
 
 #: data/ui/widgets/votebox.ui:33
 msgid "Vote"
@@ -1047,74 +1051,74 @@ msgstr "Pilih"
 #: src/Views/Admin/Pages/Accounts.vala:338
 #: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
 msgid "None"
-msgstr ""
+msgstr "Tidak Ada"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
 msgid "Limit"
-msgstr ""
+msgstr "Batasi"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
 msgid "Suspend"
-msgstr ""
+msgstr "Tangguhkan"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:10
 msgid "Blocked"
-msgstr ""
+msgstr "Diblokir"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:12
 msgid "Blocked Sign-ups"
-msgstr ""
+msgstr "Pendaftaran Diblokir"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:14
 msgid "Limited Sign-ups"
-msgstr ""
+msgstr "Pendaftaran Dibatasi"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:22
 msgid "Block Access"
-msgstr ""
+msgstr "Blokir Akses"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:24
 msgid "Block Sign-ups"
-msgstr ""
+msgstr "Blokir Pendaftaran"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:26
 msgid "Limit Sign-ups"
-msgstr ""
+msgstr "Batasi Pendaftaran"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:34
 msgid "Block access to all resources"
-msgstr ""
+msgstr "Blokir akses ke semua sumber daya"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:36
 msgid "New sign-ups will not be possible"
-msgstr ""
+msgstr "Pendaftaran baru tidak akan diperbolehkan"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:38
 msgid "New sign-ups will require your approval"
-msgstr ""
+msgstr "Pendaftaran baru akan memerlukan persetujuan Anda"
 
 #: src/API/Admin/Report.vala:19
 msgid "Spam"
-msgstr ""
+msgstr "Spam"
 
 #: src/API/Admin/Report.vala:20
 msgid "Rule Violation"
-msgstr ""
+msgstr "Pelanggaran Aturan"
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
-msgstr ""
+msgstr "Legal"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:209
@@ -1127,22 +1131,22 @@ msgstr "Lainnya"
 #. translators: the variable is a string report comment
 #: src/API/Admin/Report.vala:72
 msgid "With the comment"
-msgstr ""
+msgstr "Dengan komentar"
 
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "Alasan"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
 msgid "You've received a report"
-msgstr ""
+msgstr "Anda telah menerima laporan"
 
 #. translators: report notification with date, "You've received a report on: <date>"
 #: src/API/Admin/Report.vala:81
 msgid "You've received a report on"
-msgstr ""
+msgstr "Anda telah menerima laporan pada"
 
 #: src/API/Announcement.vala:55 src/Application.vala:437
 #: src/Dialogs/Composer/Dialog.vala:464 src/Dialogs/ProfileEdit.vala:142
@@ -1167,11 +1171,11 @@ msgstr "Percakapan kosong dengan %s"
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
 msgid "Home &amp; Lists"
-msgstr ""
+msgstr "Beranda &amp; Daftar"
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
-msgstr ""
+msgstr "Linimasa Publik"
 
 #: src/API/Filters/Filter.vala:47
 #: src/Services/Accounts/Mastodon/Account.vala:52
@@ -1181,7 +1185,7 @@ msgstr "Percakapan"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "Profil"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1192,6 +1196,8 @@ msgid_plural ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
+"Anda telah memblokir %s, menghapus %s pengikut Anda dan %s akun yang Anda "
+"ikuti."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24
@@ -1203,6 +1209,8 @@ msgid_plural ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
+"Seorang admin telah memblokir %s, termasuk %s pengikut Anda dan %s akun yang "
+"Anda ikuti."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:33
@@ -1211,20 +1219,22 @@ msgid ""
 "An admin has suspended %s, which means you can no longer receive updates "
 "from them or interact with them."
 msgstr ""
+"Seorang admin telah menangguhkan %s, yang berarti Anda tidak dapat lagi "
+"menerima pembaruan dari mereka atau berinteraksi dengan mereka."
 
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
 #. to admins
 #: src/API/Notification.vala:121
 msgid "Signed Up"
-msgstr ""
+msgstr "Mendaftar"
 
 #. translators: this is used for notifications,
 #. when you receive a warning from
 #. your server's admins
 #: src/API/Notification.vala:127 src/Services/Accounts/InstanceAccount.vala:364
 msgid "Your account has received a moderation warning"
-msgstr ""
+msgstr "Akun Anda telah menerima peringatan moderasi"
 
 #. translators: this is used for notifications,
 #. when an annual report is available.
@@ -1236,12 +1246,12 @@ msgstr ""
 #: src/API/Notification.vala:135 src/Services/Accounts/InstanceAccount.vala:354
 #, c-format
 msgid "Your %s #FediWrapped is ready!"
-msgstr ""
+msgstr "%s #FediWrapped Anda sudah siap!"
 
 #. translators: used in the #FediWrapped notifications, refer to the other #FediWrapped strings for more info
 #: src/API/Notification.vala:137
 msgid "Review your year's highlights and memorable moments on the Fediverse!"
-msgstr ""
+msgstr "Tinjau sorotan dan momen tak terlupakan Anda tahun ini di Fediverse!"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -1287,7 +1297,7 @@ msgstr "Mengikuti Anda"
 #. translators: as in, you've been blocked by them
 #: src/API/Relationship.vala:30
 msgid "Blocks you"
-msgstr ""
+msgstr "Memblokir Anda"
 
 #. translators: the variable is a user handle
 #: src/API/Relationship.vala:133
@@ -1312,22 +1322,22 @@ msgstr "Buka blokir"
 #. from this user, e.g. when they reply to you
 #: src/API/Relationship.vala:153
 msgid "Hide from Notifications"
-msgstr ""
+msgstr "Sembunyikan dari Notifikasi"
 
 #. translators: Dropdown title for picking when a mute should expire
 #: src/API/Relationship.vala:168
 msgid "Expire In"
-msgstr ""
+msgstr "Kedaluwarsa Dalam"
 
 #. translators: the variable is a user handle
 #: src/API/Relationship.vala:181
 #, c-format
 msgid "Mute \"%s\"?"
-msgstr ""
+msgstr "Bisukan \"%s\"?"
 
 #: src/API/Relationship.vala:221 src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "Jangan Pernah"
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:222 src/API/Relationship.vala:223
@@ -1335,22 +1345,20 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:235
 #: src/Dialogs/Composer/PollPage.vala:236 src/Dialogs/FilterEdit.vala:31
 #: src/Dialogs/FilterEdit.vala:32 src/Dialogs/FilterEdit.vala:33
-#, fuzzy, c-format
-#| msgid "%d Hour"
+#, c-format
 msgid "%d Hour"
 msgid_plural "%d Hours"
-msgstr[0] "%d jam"
+msgstr[0] "%d Jam"
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:224 src/API/Relationship.vala:225
 #: src/Dialogs/Admin/AddIPBlock.vala:27 src/Dialogs/Composer/PollPage.vala:238
 #: src/Dialogs/Composer/PollPage.vala:241
 #: src/Dialogs/Composer/PollPage.vala:242 src/Dialogs/FilterEdit.vala:34
-#, fuzzy, c-format
-#| msgid "%d Day"
+#, c-format
 msgid "%d Day"
 msgid_plural "%d Days"
-msgstr[0] "%d hari"
+msgstr[0] "%d Hari"
 
 #: src/API/SearchResults.vala:32
 msgid "Search returned no results"
@@ -1421,7 +1429,7 @@ msgstr "Digunakan %d kali oleh %d orang dalam 2 hari terakhir"
 #. been provided in settings
 #: src/Application.vala:350 src/Dialogs/Preferences.vala:386
 msgid "Invalid Proxy URL"
-msgstr ""
+msgstr "URL Proxy Tidak Valid"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:417
@@ -1450,15 +1458,15 @@ msgstr "leap123 <leapofazzam@protonmail.com>"
 #. translators: Wiki pages / Guides
 #: src/Application.vala:635
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: src/Application.vala:637 src/Widgets/Status.vala:352
 msgid "Translate"
-msgstr ""
+msgstr "Terjemahkan"
 
 #: src/Application.vala:638
 msgid "Donate"
-msgstr ""
+msgstr "Donasi"
 
 #: src/Application.vala:660
 msgid "OK"
@@ -1471,30 +1479,30 @@ msgstr "Ya"
 #: src/Dialogs/Admin/AddFederationBlock.vala:29
 #: src/Views/Admin/Pages/FederationBlocklist.vala:9
 msgid "Add Federation Block"
-msgstr ""
+msgstr "Tambah Blokir Federasi"
 
 #: src/Dialogs/Admin/AddFederationBlock.vala:40
 #: src/Dialogs/Admin/AddIPBlock.vala:79
 msgid "Add"
-msgstr ""
+msgstr "Tambah"
 
 #. translators: Admin dashboard, federation block dialog,
 #. e.g. 'gnome.org'
 #: src/Dialogs/Admin/AddFederationBlock.vala:52
 msgid "Domain"
-msgstr ""
+msgstr "Domain"
 
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
 msgid "Severity"
-msgstr ""
+msgstr "Tingkat Keseriusan"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:92
 #: src/Widgets/Admin/DomainBlock.vala:30
 msgid "Reject Media Files"
-msgstr ""
+msgstr "Tolak Berkas Media"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1502,26 +1510,28 @@ msgstr ""
 msgid ""
 "Removes locally stored media files and refuses to download any in the future"
 msgstr ""
+"Hapus berkas media yang tersimpan secara lokal dan tolak pengunduhan apa pun "
+"di masa depan"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:103
 #: src/Widgets/Admin/DomainBlock.vala:31
 msgid "Reject Reports"
-msgstr ""
+msgstr "Tolak Laporan"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:106
 msgid "Ignore all reports coming from this domain"
-msgstr ""
+msgstr "Abaikan semua laporan yang berasal dari domain ini"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:114
 #: src/Widgets/Admin/DomainBlock.vala:32
 msgid "Obfuscate Domain Name"
-msgstr ""
+msgstr "Samarkan Nama Domain"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1530,46 +1540,48 @@ msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
+"Samarkan sebagian nama domain dalam daftar jika iklan daftar batasan domain "
+"diaktifkan"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
 #: src/Widgets/Admin/DomainBlock.vala:17
 msgid "Private Comment"
-msgstr ""
+msgstr "Komentar Pribadi"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:131
 #: src/Widgets/Admin/DomainBlock.vala:24
 msgid "Public Comment"
-msgstr ""
+msgstr "Komentar Publik"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:17 src/Dialogs/Admin/AddIPBlock.vala:19
 #, c-format
 msgid "%d Year"
 msgid_plural "%d Years"
-msgstr[0] ""
+msgstr[0] "%d Tahun"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:21 src/Dialogs/Admin/AddIPBlock.vala:23
 #, c-format
 msgid "%d Month"
 msgid_plural "%d Months"
-msgstr[0] ""
+msgstr[0] "%d Bulan"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:25 src/Dialogs/FilterEdit.vala:35
 #, c-format
 msgid "%d Week"
 msgid_plural "%d Weeks"
-msgstr[0] ""
+msgstr[0] "%d Minggu"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:68
 #: src/Views/Admin/Pages/BlockedIPs.vala:10
 msgid "Add IP Block"
-msgstr ""
+msgstr "Tambah Blokir IP"
 
 #. translators: Admin dashboard ip block comment entry title
 #: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
 msgid "Comment"
-msgstr ""
+msgstr "Komentar"
 
 #. translators: Admin dashboard ip block expiration date row title.
 #: src/Dialogs/Admin/AddIPBlock.vala:123 src/Dialogs/Composer/PollPage.vala:268
@@ -1579,40 +1591,40 @@ msgstr "Kedaluwarsa"
 #. translators: Admin dashboard ip block rule (e.g. no access)
 #: src/Dialogs/Admin/AddIPBlock.vala:131
 msgid "Rule"
-msgstr ""
+msgstr "Aturan"
 
 #. translators: Admin dashboard ip block rule descriptions.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddIPBlock.vala:134
 msgid "Choose what will happen with requests from this IP"
-msgstr ""
+msgstr "Pilih apa yang akan terjadi dengan permintaan dari IP ini"
 
 #. translators: Question dialog when an admin is about to
 #. mark a report as resolved
 #: src/Dialogs/Admin/Report.vala:50
 msgid "Mark this Report as Resolved?"
-msgstr ""
+msgstr "Tandai Laporan ini sebagai Selesai?"
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:101
 msgid "Resolve"
-msgstr ""
+msgstr "Selesaikan"
 
 #. translators: Question dialog when an admin is about to
 #. reopen a report
 #: src/Dialogs/Admin/Report.vala:61
 msgid "Reopen this Report?"
-msgstr ""
+msgstr "Buka Kembali Laporan ini?"
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:101
 msgid "Reopen"
-msgstr ""
+msgstr "Buka kembali"
 
 #. translators: Admin dashboard, take action against user headerbar button
 #: src/Dialogs/Admin/Report.vala:95 src/Dialogs/Admin/TakeAction.vala:18
 #: src/Dialogs/Admin/TakeAction.vala:150
 #: src/Views/Admin/Pages/Accounts.vala:250
 msgid "Take Action"
-msgstr ""
+msgstr "Ambil Tindakan"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
@@ -1635,38 +1647,38 @@ msgstr "%e %B %Y"
 
 #: src/Dialogs/Admin/Report.vala:134
 msgid "Reported on"
-msgstr ""
+msgstr "Dilaporkan pada"
 
 #. translators: 'Reported by: <account>'
 #: src/Dialogs/Admin/Report.vala:140 src/Widgets/Admin/Report.vala:31
 msgid "Reported by"
-msgstr ""
+msgstr "Dilaporkan oleh"
 
 #: src/Dialogs/Admin/Report.vala:146
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: src/Dialogs/Admin/Report.vala:147
 msgid "Resolved"
-msgstr ""
+msgstr "Selesai"
 
 #: src/Dialogs/Admin/Report.vala:147
 msgid "Unresolved"
-msgstr ""
+msgstr "Belum Selesai"
 
 #. translators: admin dashboard, whether a report was 'forwarded' from another server
 #: src/Dialogs/Admin/Report.vala:154
 msgid "Forwarded"
-msgstr ""
+msgstr "Diteruskan"
 
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:160 src/Widgets/Admin/Report.vala:22
 msgid "Action Taken by"
-msgstr ""
+msgstr "Tindakan Diambil oleh"
 
 #: src/Dialogs/Admin/Report.vala:172
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
 #. translators: Admin dashboard report category description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1675,34 +1687,38 @@ msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
 msgstr ""
+"Alasan akun dan/atau konten ini dilaporkan akan disebutkan dalam komunikasi "
+"dengan akun yang dilaporkan"
 
 #: src/Dialogs/Admin/Report.vala:237
 msgid "Violated Rules"
-msgstr ""
+msgstr "Aturan yang Dilanggar"
 
 #. translators: 'Reported Posts: <amount>'
 #: src/Dialogs/Admin/Report.vala:268 src/Widgets/Admin/Report.vala:34
 msgid "Reported Posts"
-msgstr ""
+msgstr "Kiriman yang Dilaporkan"
 
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:332
 #: src/Dialogs/Report.vala:415
 msgid "Submit"
-msgstr ""
+msgstr "Kirim"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
-msgstr ""
+msgstr "Peringatan"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:61
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
 msgstr ""
+"Gunakan ini untuk mengirim peringatan kepada pengguna, tanpa memicu tindakan "
+"lain"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
-msgstr ""
+msgstr "Bekukan"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:70
@@ -1710,6 +1726,8 @@ msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
 msgstr ""
+"Cegah pengguna menggunakan akun mereka, tetapi jangan hapus atau sembunyikan "
+"konten mereka"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:579
 msgid "Sensitive"
@@ -1718,7 +1736,7 @@ msgstr "Sensitif"
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
 msgid "Force all this user's media attachments to be flagged as sensitive"
-msgstr ""
+msgstr "Paksa semua lampiran media pengguna ini untuk ditandai sebagai sensitif"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:88
@@ -1727,6 +1745,9 @@ msgid ""
 "posts and notifications from people not following them. Closes all reports "
 "against this account"
 msgstr ""
+"Cegah pengguna untuk memposting dengan visibilitas publik, sembunyikan "
+"kiriman dan notifikasi mereka dari orang yang tidak mengikuti mereka. Tutup "
+"semua laporan terhadap akun ini"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:97
@@ -1734,17 +1755,21 @@ msgid ""
 "Prevent any interaction from or to this account and delete its contents. "
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
+"Cegah interaksi apa pun dari atau ke akun ini dan hapus kontennya. Dapat "
+"dikembalikan dalam 30 hari. Tutup semua laporan terhadap akun ini"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
 msgid "Notify the user per e-mail"
-msgstr ""
+msgstr "Beritahu pengguna melalui email"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:116
 msgid ""
 "The user will receive an explanation of what happened with their account"
 msgstr ""
+"Pengguna akan menerima penjelasan tentang apa yang terjadi terhadap akun "
+"mereka"
 
 #. translators: Question dialog when an admin is about to
 #. take action against an account
@@ -1752,16 +1777,16 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:143
 #, c-format
 msgid "Take Action Against %s?"
-msgstr ""
+msgstr "Ambil Tindakan Terhadap %s?"
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
-msgstr ""
+msgstr "Dasbor"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
 msgid "Reports"
-msgstr ""
+msgstr "Laporan"
 
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:113
@@ -1774,47 +1799,47 @@ msgstr "Akun"
 #. gmail.com
 #: src/Dialogs/Admin.vala:48 src/Views/Admin/Pages/BlockedEmails.vala:10
 msgid "Blocked E-mail Domains"
-msgstr ""
+msgstr "Domain Email yang Diblokir"
 
 #. translators: Admin Dialog page title,
 #. this is about blocking
 #. IP Addresses
 #: src/Dialogs/Admin.vala:58 src/Views/Admin/Pages/BlockedIPs.vala:7
 msgid "IP Rules"
-msgstr ""
+msgstr "Aturan IP"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:68 src/Views/Admin/Pages/FederationAllowlist.vala:7
 msgid "Federation Allowlist"
-msgstr ""
+msgstr "Daftar Federasi yang di izinkan"
 
 #. translators: Admin Dialog page title,
 #. this is about federation blocking
 #: src/Dialogs/Admin.vala:78 src/Views/Admin/Pages/FederationBlocklist.vala:6
 msgid "Federation Blocklist"
-msgstr ""
+msgstr "Daftar Blokir Federasi"
 
 #: src/Dialogs/AnnualReport.vala:61
 msgid "Default"
-msgstr ""
+msgstr "Baku"
 
 #. translators: Accent color
 #: src/Dialogs/AnnualReport.vala:63
 msgid "Accent"
-msgstr ""
+msgstr "Aksen"
 
 #: src/Dialogs/AnnualReport.vala:101
 msgid "Share"
-msgstr ""
+msgstr "Bagikan"
 
 #: src/Dialogs/AnnualReport.vala:109
 msgid "Save As…"
-msgstr ""
+msgstr "Simpan sebagai…"
 
 #. translators: dropdown label for picking a window style
 #: src/Dialogs/AnnualReport.vala:116
 msgid "Style"
-msgstr ""
+msgstr "Gaya"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1823,7 +1848,7 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:165
 #, c-format
 msgid "Screenshot of my %s Wrapped annual report using %s."
-msgstr ""
+msgstr "Tangkapan layar laporan %s Wrapped tahunan saya menggunakan %s."
 
 #. translators: The variable is the year (e.g. 2024). Wrapped as in
 #. Spotify wrapped / recap of the year. You can leave it
@@ -1837,7 +1862,7 @@ msgstr ""
 #. translators: #FediWrapped, title of the 'amount of new posts' card
 #: src/Dialogs/AnnualReport.vala:201
 msgid "New Posts"
-msgstr ""
+msgstr "Kiriman Baru"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1845,12 +1870,12 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:229
 #, c-format
 msgid "I made %s posts."
-msgstr ""
+msgstr "Saya membuat %s kiriman."
 
 #. translators: #FediWrapped, title of a card
 #: src/Dialogs/AnnualReport.vala:239
 msgid "Most Used Hashtag"
-msgstr ""
+msgstr "Tagar Terpopuler"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1858,12 +1883,12 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:268
 #, c-format
 msgid "My most used hashtag was #%s."
-msgstr ""
+msgstr "Tagar yang paling sering saya gunakan adalah #%s."
 
 #. translators: #FediWrapped, title of the 'which app was used to make most posts' card
 #: src/Dialogs/AnnualReport.vala:278
 msgid "Most Used App"
-msgstr ""
+msgstr "Aplikasi Paling Sering Digunakan"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1871,13 +1896,13 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:309
 #, c-format
 msgid "My most used app was %s."
-msgstr ""
+msgstr "Aplikasi yang paling sering saya gunakan adalah %s."
 
 #. translators: #FediWrapped, title of the card that shows you
 #. the users you interacted with the most
 #: src/Dialogs/AnnualReport.vala:320
 msgid "Most Interactions"
-msgstr ""
+msgstr "Interaksi Terbanyak"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1888,47 +1913,47 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:357
 #, c-format
 msgid "I had the most interactions with %s."
-msgstr ""
+msgstr "Saya memiliki interaksi terbanyak dengan %s."
 
 #. translators: #FediWrapped, title of the section about how many
 #. new followers you got and new people you followed
 #: src/Dialogs/AnnualReport.vala:367
 msgid "Follow Stats"
-msgstr ""
+msgstr "Statistik Mengikuti/Diikuti"
 
 #. translators: #FediWrapped, title of the 'amount of new people you followed' card
 #: src/Dialogs/AnnualReport.vala:414
 msgid "New Follows"
-msgstr ""
+msgstr "Mengikuti Baru"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most favorites
 #: src/Dialogs/AnnualReport.vala:439
 msgid "Most Favorited Post"
-msgstr ""
+msgstr "Kiriman Paling Disukai"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most boosts
 #: src/Dialogs/AnnualReport.vala:461
 msgid "Most Boosted Post"
-msgstr ""
+msgstr "Kiriman dengan Boost terbanyak"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most replies
 #: src/Dialogs/AnnualReport.vala:483
 msgid "Most Replied Post"
-msgstr ""
+msgstr "Kiriman yang paling banyak dibalas"
 
 #. translators: save dialog title, refer to the other #FediWrapped strings for more info
 #: src/Dialogs/AnnualReport.vala:558
 msgid "Save #FediWrapped"
-msgstr ""
+msgstr "Simpan #FediWrapped"
 
 #. translators: the variable is a year, e.g. 2024
 #: src/Dialogs/AnnualReport.vala:573
 #, c-format
 msgid "Saved %s Wrapped"
-msgstr ""
+msgstr "%s Wrapped Tersimpan"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:131
 #: src/Dialogs/Composer/EditorPage.vala:252
@@ -1938,24 +1963,24 @@ msgstr "Karakter tersisa"
 #. translators: focus picker dialog title
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:216
 msgid "Set Focal Point"
-msgstr ""
+msgstr "Atur Titik Fokus"
 
 #. translators: Title for focus picker scale
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:224
 msgid "Horizontal Position"
-msgstr ""
+msgstr "Posisi Horizontal"
 
 #. translators: Title for focus picker scale
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:242
 msgid "Vertical Position"
-msgstr ""
+msgstr "Posisi Vertikal"
 
 #. translators: Alternative Text refers to text that describes
 #. an attachment when using screen readers or the
 #. image hasn't loaded. Also known as 'alt text'
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:347
 msgid "Edit Alternative Text"
-msgstr ""
+msgstr "Edit Teks Alternatif"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:358
 msgid "Remove Attachment"
@@ -1964,7 +1989,7 @@ msgstr "Hapus lampiran"
 #. translators: focus picker
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:370
 msgid "Edit Focal Point"
-msgstr ""
+msgstr "Edit Titik Fokus"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:38 src/Dialogs/ProfileEdit.vala:80
 msgid "All Supported Files"
@@ -2008,7 +2033,7 @@ msgstr "File \"%s\" lebih besar dari batas instansi"
 #. translators: 'Draft' is a verb
 #: src/Dialogs/Composer/Dialog.vala:156
 msgid "Draft Post"
-msgstr ""
+msgstr "Draf Kiriman"
 
 #: src/Dialogs/Composer/Dialog.vala:162 src/Dialogs/Composer/Dialog.vala:169
 msgid "_Publish"
@@ -2017,7 +2042,7 @@ msgstr "_Terbitkan"
 #. translators: Dialog title when closing the composer
 #: src/Dialogs/Composer/Dialog.vala:253
 msgid "Discard Post?"
-msgstr ""
+msgstr "Buang Kiriman?"
 
 #: src/Dialogs/Composer/Dialog.vala:254
 msgid "Your progress will be lost."
@@ -2047,13 +2072,13 @@ msgstr "Teks"
 #. translators: "Stripped" is a past tense verb in this context, not an adjective.
 #: src/Dialogs/Composer/EditorPage.vala:124
 msgid "Stripped tracking parameters"
-msgstr ""
+msgstr "Parameter pelacakan dihilangkan"
 
 #: src/Dialogs/Composer/EditorPage.vala:127
 #: src/Views/Admin/Pages/Accounts.vala:411
 #: src/Views/Admin/Pages/Accounts.vala:431
 msgid "Undo"
-msgstr ""
+msgstr "Batalkan"
 
 #: src/Dialogs/Composer/EditorPage.vala:314
 msgid "What's on your mind?"
@@ -2121,7 +2146,7 @@ msgstr "Pilihan %d"
 #, c-format
 msgid "%d Minute"
 msgid_plural "%d Minutes"
-msgstr[0] ""
+msgstr[0] "%d Menit"
 
 #. translators: the variable is a number, m as in minutes
 #: src/Dialogs/Composer/PollPage.vala:229
@@ -2148,15 +2173,15 @@ msgstr "%dh"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
-msgstr ""
+msgstr "Filter Baru"
 
 #: src/Dialogs/FilterEdit.vala:189
 msgid "Keyword"
-msgstr ""
+msgstr "Kata Kunci"
 
 #: src/Dialogs/FilterEdit.vala:192
 msgid "Match Whole Word"
-msgstr ""
+msgstr "Cocokkan Seluruh Kata"
 
 #: src/Dialogs/FilterEdit.vala:199 src/Dialogs/Preferences.vala:23
 #: src/Dialogs/Preferences.vala:83 src/Views/Lists.vala:24
@@ -2171,11 +2196,11 @@ msgstr "Hapus"
 #: src/Dialogs/FilterEdit.vala:296
 #, c-format
 msgid "Couldn't edit filter: %s"
-msgstr ""
+msgstr "Tidak dapat mengedit filter: %s"
 
 #: src/Dialogs/ListEdit.vala:109 src/Views/Admin/Timelines/DomainAllow.vala:35
 msgid "Remove"
-msgstr ""
+msgstr "Hapus"
 
 #: src/Dialogs/MainWindow.vala:80
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:12
@@ -2213,12 +2238,12 @@ msgstr "Server mengembalikan error"
 
 #: src/Dialogs/NewAccount.vala:306
 msgid "Apply"
-msgstr ""
+msgstr "Terapkan"
 
 #. translators: Switch title in the new account window
 #: src/Dialogs/NewAccount.vala:339
 msgid "Admin Mode"
-msgstr ""
+msgstr "Mode Admin"
 
 #. translators: Switch description in the new account window
 #: src/Dialogs/NewAccount.vala:341
@@ -2226,6 +2251,8 @@ msgid ""
 "Enables the Admin Dashboard and requests the needed permissions to use the "
 "Admin API"
 msgstr ""
+"Mengaktifkan Dasbor Admin dan meminta izin yang diperlukan untuk menggunakan "
+"API Admin"
 
 #: src/Dialogs/NotificationSettings.vala:52
 msgid "Polls"
