@@ -677,7 +677,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
 
 		posts_btn = new ProfileStatsButton ();
-		posts_btn.clicked.connect (() => timeline_change ("statuses"));
+		posts_btn.clicked.connect (() => timeline_change ("statuses-like"));
 		sizegroup.add_widget (posts_btn);
 		box.append (posts_btn);
 

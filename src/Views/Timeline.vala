@@ -192,7 +192,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			return req;
 	}
 
-	bool has_finished_request = false;
+	protected bool has_finished_request { get; private set; default = false; }
 	public virtual void on_request_finish () {
 		has_finished_request = true;
 		base.on_bottom_reached ();

@@ -607,6 +607,7 @@ video > overlay > revealer > controls {
 }
 
 /* .ttl-view:not(.large-view) .content .card:first-child { */
+.ttl-view:not(.large-view) .fake-content .toggle-group-17 +.card,
 .ttl-view:not(.large-view) .fake-content .card:first-child {
 	border-top: 1px var(--border-color) solid;
 }
@@ -685,7 +686,7 @@ video > overlay > revealer > controls {
 	border-radius: 9999px;
 	border: solid var(--accent-bg-color) 2px;
 	background-color: var(--accent-bg-color);
-	margin-bottom: 6px;
+	margin-bottom: 10px;
 	opacity: 0;
 }
 
@@ -849,6 +850,8 @@ list.uniform-border-color row {
 .toggle-group-17 {
 	background: none;
 	padding: 0;
+	margin-top: 6px;
+	margin-bottom: 6px;
 }
 
 @keyframes annual-avi-bg {

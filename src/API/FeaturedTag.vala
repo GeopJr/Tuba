@@ -24,7 +24,7 @@ public class Tuba.API.FeaturedTag : Entity, Widgetizable {
 			new Gtk.Label (GLib.ngettext (
 				"%s Post",
 				"%s Posts",
-				(ulong) this.statuses_count.to_int ()
+				(ulong) int64.parse (this.statuses_count)
 			).printf (this.statuses_count)) {
 				ellipsize = END,
 				// translators: tooltip on featured hashtags on profiles on a number that

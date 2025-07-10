@@ -158,6 +158,11 @@ public class Tuba.Views.Profile : Views.Accounts {
 		return GLib.Source.REMOVE;
 	}
 
+	public override void on_request_finish () {
+		base.on_request_finish ();
+		on_content_changed ();
+	}
+
 	private void on_cover_aria_update (Widgets.Cover p_cover, string new_aria) {
 		var lbr = p_cover.get_parent ();
 		if (lbr != null) {
@@ -199,7 +204,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 		var widget_filter_group = widget as Widgets.ProfileFilterGroup;
 		if (widget_filter_group != null) {
 			widget_filter_group.remove_css_class ("card");
+			widget_filter_group.remove_css_class ("card-spacing");
 			widget_filter_group.filter_change.connect (change_filter);
+		}
+
+		if (obj is ErrorMessageRow) {
+			widget.remove_css_class ("card");
 		}
 
 		return widget;
@@ -215,16 +225,14 @@ public class Tuba.Views.Profile : Views.Accounts {
 	#endif
 
 	public override void on_refresh () {
+		error_message_row.visible = false;
 		base.on_refresh ();
 		GLib.Idle.add (append_pinned);
+		GLib.Idle.add (append_featured_tags);
 	}
 
 	public override bool request () {
-		if (filter == FEATURED) {
-			update_featured ();
-		} else {
-			base.request ();
-		}
+		base.request ();
 		return GLib.Source.REMOVE;
 	}
 
@@ -234,12 +242,16 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	protected void change_timeline_source (string t_source) {
-		source = t_source;
+		if (t_source == "statuses-like") {
+			source = this.filter == FEATURED ? "endorsements" : "statuses";
+		} else {
+			source = t_source;
+		}
 
-		filter_group.visible = t_source == "statuses";
-		source_meta_update (t_source);
+		filter_group.visible = source == "statuses" || source == "endorsements";
+		source_meta_update (source);
 
-		url = @"/api/v1/accounts/$(profile.account.id)/$t_source";
+		url = @"/api/v1/accounts/$(profile.account.id)/$source";
 		invalidate_actions (true);
 	}
 
@@ -260,7 +272,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 				// translators: following tab on profiles, shown when empty.
 				empty_state_title = _("This user doesn't follow anyone yet");
 				break;
-			case "featured":
+			case "endorsements":
 				accepts = typeof (API.Account);
 				// translators: featured tab on profiles, shown when empty.
 				empty_state_title = _("This user doesn't have any featured hashtags or accounts.");
@@ -271,28 +283,28 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	protected void change_filter (Widgets.ProfileFilterGroup.Filter filter) {
+		bool was_featured = this.filter == FEATURED;
 		this.filter = filter;
-		if (this.filter == FEATURED) {
-			source_meta_update ("featured");
+		if (this.filter == FEATURED || was_featured) {
+			change_timeline_source ("statuses-like");
 		} else {
 			source_meta_update (source);
+			invalidate_actions (true);
 		}
-
-		invalidate_actions (true);
 	}
 
-	private void update_featured () {
-		is_last_page = true;
-		source_meta_update ("featured");
-		fill_featured.begin ((obj, res) => {
-			base_status = new StatusMessage () { loading = true };
-			try {
-				fill_featured.end (res);
-				on_content_changed ();
-			} catch (Error e) {
-				on_error (e.code, e.message);
-			}
-		});
+	private bool append_featured_tags () {
+		if (source == "endorsements" && filter == Widgets.ProfileFilterGroup.Filter.FEATURED) {
+			fill_featured.begin ((obj, res) => {
+				try {
+					fill_featured.end (res);
+				} catch (Error e) {
+					on_error (e.code, e.message);
+				}
+			});
+		}
+
+		return GLib.Source.REMOVE;
 	}
 
 	private async void fill_featured () throws Error {
@@ -308,22 +320,22 @@ public class Tuba.Views.Profile : Views.Accounts {
 			to_add += Tuba.Helper.Entity.from_json (node, typeof (API.FeaturedTag));
 		});
 
-		req = new Request.GET (@"/api/v1/accounts/$(profile.account.id)/endorsements")
-				.with_account (account)
-				.with_ctx (this);
-		yield req.await ();
+		//  req = new Request.GET (@"/api/v1/accounts/$(profile.account.id)/endorsements")
+		//  		.with_account (account)
+		//  		.with_ctx (this);
+		//  yield req.await ();
 
-		parser = Network.get_parser_from_inputstream (req.response_body);
-		Network.parse_array (parser, node => {
-			to_add += Tuba.Helper.Entity.from_json (node, typeof (API.Account));
-		});
+		//  parser = Network.get_parser_from_inputstream (req.response_body);
+		//  Network.parse_array (parser, node => {
+		//  	to_add += Tuba.Helper.Entity.from_json (node, typeof (API.Account));
+		//  });
 		model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
 	}
 
 	public override void on_content_changed () {
 		error_message_row.visible = false;
 		base.on_content_changed ();
-		if (base_status == null && model.get_n_items () == TOTAL_STATIC_ITEMS) {
+		if (has_finished_request && base_status == null && model.get_n_items () == TOTAL_STATIC_ITEMS) {
 			error_message_row.visible = true;
 		}
 	}
