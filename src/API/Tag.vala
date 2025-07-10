@@ -4,6 +4,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	public string url { get; set; }
 	public Gee.ArrayList<API.TagHistory>? history { get; set; default = null; }
 	public bool following { get; set; default = false; }
+	public bool featuring { get; set; default = false; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
