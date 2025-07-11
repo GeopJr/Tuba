@@ -156,7 +156,7 @@
 															</object>
 														</child>
 														<child>
-															<object class="AdwBin" id="post_btn">
+															<object class="TubaDialogsComposerDialogPostButton" id="post_btn">
 																<property name="hexpand">1</property>
 																<property name="halign">end</property>
 																<property name="valign">center</property>

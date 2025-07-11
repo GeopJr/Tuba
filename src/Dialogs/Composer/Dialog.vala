@@ -5,7 +5,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	}
 
 	[GtkChild] private unowned Gtk.Label counter_label;
-	[GtkChild] private unowned Adw.Bin post_btn;
+	[GtkChild] private unowned PostButton post_btn;
 	[GtkChild] private unowned Gtk.Box btns_box;
 	[GtkChild] private unowned Gtk.Box dropdowns_box;
 	[GtkChild] private unowned Gtk.Grid grid;
@@ -26,6 +26,62 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	[GtkChild] private unowned Gtk.ToggleButton poll_button;
 	[GtkChild] private unowned Gtk.ToggleButton sensitive_media_button;
 	[GtkChild] private unowned Gtk.Button add_media_button;
+
+	public class PostButton : Adw.Bin {
+		public bool allow_dynamic_name { get; set; default = false; }
+		public signal void clicked ();
+
+		~PostButton () {
+			debug ("Destroying PostButton");
+		}
+
+		string original_label = "";
+		Gtk.Widget? label_widget = null;
+		public void install (string label, bool with_menu) {
+			if (this.child != null) return;
+			original_label = label;
+
+			if (with_menu) {
+				var menu_model = new GLib.Menu ();
+				// translators: 'Draft' is a verb; entry in composer post menu
+				menu_model.append (_("Draft Post"), "composer.draft");
+
+				// translators: 'Schedule' is a verb; entry in composer post menu
+				menu_model.append (_("Schedule Post…"), "composer.schedule");
+
+				label_widget = new Adw.SplitButton () {
+					label = label,
+					menu_model = menu_model,
+					css_classes = { "pill", "suggested-action" }
+				};
+				((Adw.SplitButton) label_widget).clicked.connect (on_clicked);
+				this.child = label_widget;
+			} else {
+				label_widget = new Gtk.Label (label) {
+					ellipsize = END
+				};
+				var btn = new Gtk.Button () {
+					css_classes = { "pill", "suggested-action" },
+					child = label_widget
+				};
+				btn.clicked.connect (on_clicked);
+				this.child = btn;
+			}
+		}
+
+		public void update_label (string? new_label) {
+			if (label_widget == null || !allow_dynamic_name) return;
+			if (label_widget is Adw.SplitButton) {
+				((Adw.SplitButton) label_widget).label = new_label == null ? original_label : new_label;
+			} else if (label_widget is Gtk.Label) {
+				((Gtk.Label) label_widget).label = new_label == null ? original_label : new_label;
+			}
+		}
+
+		private void on_clicked () {
+			clicked ();
+		}
+	}
 
 	public struct Precompose {
 		string? content;
@@ -180,6 +236,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			valign = Gtk.Align.CENTER
 		};
 		visibility_button.add_css_class ("dropdown-border-radius");
+		visibility_button.notify["selected"].connect (visibility_changed);
 
 		var safe_visibility = accounts.active.visibility.has_key (default_visibility) ? default_visibility : "public";
 		uint default_visibility_index;
@@ -193,6 +250,15 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		}
 
 		append_dropdown (visibility_button);
+	}
+
+	private void visibility_changed () {
+		post_btn.update_label (
+			((InstanceAccount.Visibility) visibility_button.selected_item).id == "direct"
+			// translators: post compositor post button label when the visibility is 'mentioned only'
+			? _("Send")
+			: null
+		);
 	}
 
 	private void install_languages (string? locale_iso) {
@@ -261,6 +327,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 	static construct {
 		typeof (Composer.Components.DropOverlay).ensure ();
+		typeof (PostButton).ensure ();
 	}
 
 	construct {
@@ -299,34 +366,6 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		this.close_attempt.connect (on_exit);
 
 		cw_revealer.notify["child-revealed"].connect (on_cw_revealed);
-	}
-
-	private void install_post_button (string label, bool with_menu) {
-		if (with_menu) {
-			var menu_model = new GLib.Menu ();
-			// translators: 'Draft' is a verb; entry in composer post menu
-			menu_model.append (_("Draft Post"), "composer.draft");
-
-			// translators: 'Schedule' is a verb; entry in composer post menu
-			menu_model.append (_("Schedule Post…"), "composer.schedule");
-
-			var btn = new Adw.SplitButton () {
-				label = label,
-				menu_model = menu_model,
-				css_classes = { "pill", "suggested-action" }
-			};
-			btn.clicked.connect (on_commit);
-			post_btn.child = btn;
-		} else {
-			var btn = new Gtk.Button () {
-				css_classes = { "pill", "suggested-action" },
-				child = new Gtk.Label (label) {
-					ellipsize = END
-				}
-			};
-			btn.clicked.connect (on_commit);
-			post_btn.child = btn;
-		}
 	}
 
 	private void install_content_types (string? content_type) {
@@ -388,9 +427,11 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		this.edit_mode = edit_mode;
 		install_editor ();
 		install_emoji_pickers ();
+		post_btn.install (post_button_label, !this.edit_mode && can_schedule);
+		post_btn.clicked.connect (on_commit);
+		post_btn.allow_dynamic_name = post_button_label == _("Post");
 		install_visibility (default_visibility);
 		install_languages (default_language);
-		install_post_button (post_button_label, !this.edit_mode && can_schedule);
 		if (accounts.active.supported_mime_types.n_items > 1)
 			install_content_types (settings.default_content_type);
 
