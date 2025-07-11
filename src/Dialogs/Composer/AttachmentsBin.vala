@@ -229,6 +229,26 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 			this.pos_y = pos_y;
 			alt_editor.buffer.text = alt_text;
 		}
+
+		public override void measure (
+			Gtk.Orientation orientation,
+			int for_size,
+			out int minimum,
+			out int natural,
+			out int minimum_baseline,
+			out int natural_baseline
+		) {
+			base.measure (
+				orientation,
+				for_size,
+				out minimum,
+				out natural,
+				out minimum_baseline,
+				out natural_baseline
+			);
+
+			if (orientation == HORIZONTAL) natural = int.max (minimum, int.max (natural, 423));
+		}
 	}
 
 	// https://github.com/tootsuite/mastodon/blob/master/app/models/media_attachment.rb
@@ -490,13 +510,13 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 		});
 	}
 
-	public void preload_attachment (API.Attachment api_attachment) {
+	public void preload_attachment (API.Attachment api_attachment, bool edit_mode = true) {
 		if (accounts.active.instance_info.compat_status_max_media_attachments - attachment_widgets.size <= 0) return;
 
 		var attachment = new Composer.Components.Attachment ();
 		attachment.notify["done"].connect (on_attachment_done);
 		attachment.preload (api_attachment.id, api_attachment.url, api_attachment.preview_url, Composer.Components.Attachment.MediaType.from_string (api_attachment.kind));
-		attachment.edit_mode = true;
+		attachment.edit_mode = edit_mode;
 
 		float x = 0;
 		float y = 0;
