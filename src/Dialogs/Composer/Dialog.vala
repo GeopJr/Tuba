@@ -233,7 +233,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/full.ui"),
 			// translators: composer dropdown tooltip text
 			tooltip_text = _("Post Privacy"),
-			valign = Gtk.Align.CENTER
+			valign = Gtk.Align.CENTER,
+			sensitive = !this.edit_mode
 		};
 		visibility_button.add_css_class ("dropdown-border-radius");
 		visibility_button.notify["selected"].connect (visibility_changed);
@@ -597,7 +598,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		this.scroller.map.connect (scroller_mapped);
 	}
 
-	public Dialog.edit (API.Status t_status, API.StatusSource? source = null, owned SuccessCallback? t_cb = null) {
+	public Dialog.edit (API.Status t_status, API.StatusSource? source = null, owned SuccessCallback? t_cb = null, bool redraft = false) {
 		this (
 			{
 				source == null ? Utils.Htmlx.remove_tags (t_status.content) : source.text,
@@ -611,13 +612,17 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			t_status.visibility,
 			t_status.language,
 			// translators: composer post button label
-			_("Edit"),
-			true
+			redraft ? _("Redraft") : _("Edit"),
+			!redraft,
+			redraft
 		);
-		this.edit_status_id = t_status.id;
 
-		// translators: composer title
-		this.set_editor_title (_("Edit Post"), null);
+		if (!redraft) {
+			this.edit_status_id = t_status.id;
+			// translators: composer title
+			this.set_editor_title (_("Edit Post"), null);
+		}
+
 		this.cb = (owned) t_cb;
 	}
 
@@ -786,7 +791,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		if (attachments_obj != null && attachments_obj.size > 0) {
 			foreach (var attachment_obj in attachments_obj) {
-				attachmentsbin_component.preload_attachment (attachment_obj);
+				attachmentsbin_component.preload_attachment (attachment_obj, this.edit_mode);
 			}
 		}
 	}

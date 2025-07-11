@@ -471,43 +471,85 @@
 	}
 
 	private void edit_status () {
-		new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source")
+		edit_status_real ();
+	}
+
+	private void edit_status_real (bool redraft = false) {
+		Request req;
+		if (redraft) {
+			req = this.status.formal.annihilate ();
+		} else {
+			req = new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source");
+		}
+
+		req
 			.with_account (accounts.active)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				var source = API.StatusSource.from (node);
 
-				new Dialogs.Composer.Dialog.edit (status.formal, source, on_edit);
+				if (redraft) {
+					new Dialogs.Composer.Dialog.edit (status.formal, source, null, true);
+				} else {
+					new Dialogs.Composer.Dialog.edit (status.formal, source, on_edit);
+				}
 			})
-			.on_error (() => {
-				new Dialogs.Composer.Dialog.edit (status.formal, null, on_edit);
+			.on_error ((code, message) => {
+				if (redraft) {
+					warning (@"Error while deleting status for redrafting: $code $message");
+					app.toast (message, 0);
+				} else {
+					new Dialogs.Composer.Dialog.edit (status.formal, null, on_edit);
+				}
 			})
+
 			.exec ();
 	}
 
 	private void delete_status () {
-		app.question.begin (
-			{_("Delete Post?"), false},
-			null,
-			app.main_window,
-			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
-			null,
-			false,
-			(obj, res) => {
-				if (app.question.end (res).truthy ()) {
-					this.status.formal.annihilate ()
-						//  .then ((in_stream) => {
-						//  	var parser = Network.get_parser_from_inputstream (in_stream);
-						//  	var root = network.parse (parser);
-						//  	if (root.has_member ("error")) {
-						//  		// TODO: Handle error (probably a toast?)
-						//  	};
-						//  })
-						.exec ();
-				}
-			}
+		var dlg = new Adw.AlertDialog (_("Delete Post?"), null) {
+			heading_use_markup = false,
+			body_use_markup = false,
+			default_response = "delete",
+			close_response = "cancel"
+		};
+
+		dlg.add_responses (
+			"cancel", _("Cancel"),
+			// translators: button on the delete post dialog that
+			//				deletes the post and fills the composer
+			//				with it so you can edit it
+			"redraft", _("Redraft"),
+
+			"delete", _("Delete")
 		);
+		dlg.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+		dlg.set_response_appearance ("redraft", Adw.ResponseAppearance.DESTRUCTIVE);
+		dlg.choose.begin (app.main_window, null, (obj, res) => {
+			switch (dlg.choose.end (res)) {
+				case "delete":
+					delete_status_real ();
+					break;
+				case "redraft":
+					edit_status_real (true);
+					break;
+				default:
+					break;
+			}
+		});
+	}
+
+	private void delete_status_real () {
+		this.status.formal.annihilate ()
+			//  .then ((in_stream) => {
+			//  	var parser = Network.get_parser_from_inputstream (in_stream);
+			//  	var root = network.parse (parser);
+			//  	if (root.has_member ("error")) {
+			//  		// TODO: Handle error (probably a toast?)
+			//  	};
+			//  })
+			.exec ();
 	}
 
 	private void toggle_mute_conversation () {
