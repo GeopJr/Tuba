@@ -19,6 +19,9 @@
 		<key name="recently-used-custom-emojis" type="as">
 			<default>[]</default>
 		</key>
+    <key name="recent-searches" type="as">
+			<default>[]</default>
+		</key>
 		<key name="notification-filters" type="as">
 			<default>[]</default>
 		</key>
