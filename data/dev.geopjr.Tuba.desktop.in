@@ -14,3 +14,4 @@ MimeType=x-scheme-handler/tuba;x-scheme-handler/web+ap;
 # Translators: Do NOT translate or transliterate this text (these are enum types)!
 X-Purism-FormFactor=Workstation;Mobile;
 StartupNotify=true
+DBusActivatable=true
