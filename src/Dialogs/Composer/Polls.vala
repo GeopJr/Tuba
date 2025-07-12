@@ -46,7 +46,8 @@ public class Tuba.Dialogs.Composer.Components.Polls : Gtk.Box, Attachable {
 				icon_name = "user-trash-symbolic",
 				valign = Gtk.Align.CENTER,
 				halign = Gtk.Align.CENTER,
-				css_classes = { "flat", "circular", "error" }
+				css_classes = { "flat", "circular", "error" },
+				tooltip_text = _("Remove")
 			};
 			delete_button.clicked.connect (on_delete_button_clicked);
 

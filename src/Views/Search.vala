@@ -70,6 +70,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		private void on_entry_change () {
 			bool can_clear = entry.text != "";
 
+			clear_search_button.can_target =
 			clear_search_button.sensitive = can_clear;
 			clear_search_button.opacity = can_clear ? 1.0f : 0.0f;
 		}
@@ -149,11 +150,69 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		}
 	}
 
+	// TODO: replace all actionsrow widgetizables with this
+	public class OpenableRow : Adw.ActionRow {
+		public signal void open ();
+	}
+
+	public class SearchHistoryRow : Entity, Widgetizable {
+		public string title { get; set; }
+		public signal void remove_me (string title);
+		public signal void open_me (string title);
+
+		public SearchHistoryRow (string title) {
+			this.title = title;
+		}
+
+		public override Gtk.Widget to_widget () {
+			var row = new OpenableRow () {
+				title = this.title,
+				use_markup = false,
+				activatable = true
+			};
+			row.open.connect (open);
+
+			var remove_btn = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+				tooltip_text = _("Remove"),
+				valign = Gtk.Align.CENTER,
+				halign = Gtk.Align.CENTER,
+				css_classes = { "flat", "circular", "error" }
+			};
+			remove_btn.clicked.connect (on_remove_me);
+
+			row.add_suffix (remove_btn);
+
+			return row;
+		}
+
+		private void open () {
+			open_me (this.title);
+		}
+
+		private void on_remove_me () {
+			remove_me (this.title);
+		}
+	}
+
+	private bool populate_with_recents () {
+		if (settings.recent_searches.length == 0) return false;
+
+		foreach (var recent_query in settings.recent_searches) {
+			var row = new SearchHistoryRow (recent_query);
+			row.open_me.connect (on_asd_result);
+			row.remove_me.connect (on_remove_recent);
+
+			append_entity (all_tab, row);
+		}
+
+		return true;
+	}
+
 	void request () {
 		this.query = entry.text.chug ().chomp ();
 		if (this.query == "") {
 			clear ();
-			base_status = new StatusMessage ();
+			base_status = populate_with_recents () ? null : new StatusMessage ();
 			return;
 		}
 
@@ -170,14 +229,46 @@ public class Tuba.Views.Search : Views.TabbedBase {
 				if (!hashtag) append_results (results.hashtags, hashtags_tab);
 				append_results (results.statuses, statuses_tab);
 
+				update_recents (query);
 				base_status = new StatusMessage ();
 
 				on_content_changed ();
-			}
-			catch (Error e) {
+			} catch (Error e) {
 				on_error (-1, e.message);
 			}
 		});
+	}
+
+	const int MAX_RECENTS = 12;
+	private void update_recents (string query) {
+		string[] res = {query};
+
+		if (query in settings.recent_searches) {
+			foreach (var old_query in settings.recent_searches) {
+				if (old_query != query) res += old_query;
+			}
+		} else {
+			// remove last one
+			for (int i = 0; i < (settings.recent_searches.length < MAX_RECENTS ? settings.recent_searches.length : MAX_RECENTS - 1); i++) {
+				res += settings.recent_searches[i];
+			}
+		}
+
+		settings.recent_searches = res;
+	}
+
+	private void on_remove_recent (SearchHistoryRow row, string query) {
+		string[] res = {};
+
+		foreach (var old_query in settings.recent_searches) {
+			if (old_query != query) res += old_query;
+		}
+
+		settings.recent_searches = res;
+
+		uint indx;
+		if (all_tab.model.find (row, out indx)) all_tab.model.remove (indx);
+		if (all_tab.model.get_n_items () == 0) base_status = new StatusMessage ();
 	}
 
 	GLib.Regex? search_query_regex = null;
