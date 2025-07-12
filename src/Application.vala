@@ -614,20 +614,14 @@ namespace Tuba {
 			};
 
 			const string[] DEVELOPERS = {
-				"bleak_grey",
-				"Evangelos \"GeopJr\" Paterakis"
+				"Evangelos “GeopJr” Paterakis",
+				"bleak_grey"
 			};
 
-			const string COPYRIGHT = "© 2022 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis";
+			const string COPYRIGHT = "© 2018-2022 bleak_grey\n© 2022 Evangelos “GeopJr” Paterakis";
 
-			var dialog = new Adw.AboutDialog () {
-				application_icon = Build.DOMAIN,
-				application_name = Build.NAME,
-				developer_name = "Evangelos “GeopJr” Paterakis",
+			var dialog = new Adw.AboutDialog.from_appdata ("/dev/geopjr/Tuba/metainfo.xml", Build.PROFILE == "development" ? null : Build.VERSION) {
 				version = Build.VERSION,
-				issue_url = Build.ISSUES_WEBSITE,
-				support_url = Build.SUPPORT_WEBSITE,
-				license_type = Gtk.License.GPL_3_0_ONLY,
 				copyright = COPYRIGHT,
 				developers = DEVELOPERS,
 				artists = ARTISTS,
@@ -650,6 +644,8 @@ namespace Tuba {
 			dialog.add_other_app ("dev.geopjr.Calligraphy", _("Calligraphy"), _("Turn text into ASCII banners"));
 			// translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 			dialog.add_other_app ("dev.geopjr.Collision", _("Collision"), _("Check hashes for your files"));
+			// translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
+			dialog.add_other_app ("dev.geopjr.Turntable", _("Turntable"), _("Scrobble your music"));
 
 			// For some obscure reason, const arrays produce duplicates in the credits.
 			// Static functions seem to avoid this peculiar behavior.
