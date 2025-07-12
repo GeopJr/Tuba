@@ -18,15 +18,16 @@
   </provides>
   <launchable type="desktop-id">dev.geopjr.Tuba.desktop</launchable>
   <!-- developer_name tag deprecated with Appstream 1.0 -->
-  <developer_name translate="no">Evangelos "GeopJr" Paterakis</developer_name>
+  <developer_name translate="no">Evangelos “GeopJr” Paterakis</developer_name>
   <developer id="dev.geopjr">
-    <name translate="no">Evangelos "GeopJr" Paterakis</name>
+    <name translate="no">Evangelos “GeopJr” Paterakis</name>
   </developer>
   <url type="homepage">https://tuba.geopjr.dev/</url>
   <url type="bugtracker">https://github.com/GeopJr/Tuba/issues</url>
   <url type="translate">https://hosted.weblate.org/engage/tuba/</url>
   <url type="donation">https://geopjr.dev/donate</url>
   <url type="contact">https://matrix.to/#/#tuba:gnome.org</url>
+  <url type="help">https://matrix.to/#/#tuba:gnome.org</url>
   <url type="vcs-browser">https://github.com/GeopJr/Tuba/</url>
   <url type="contribute">https://github.com/GeopJr/Tuba#contributing</url>
   <screenshots>

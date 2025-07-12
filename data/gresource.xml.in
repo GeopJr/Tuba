@@ -4,6 +4,7 @@
         <file>style.css</file>
         <file>style-dark.css</file>
         <file>style-hc.css</file>
+        <file preprocess="xml-stripblanks" alias="metainfo.xml">dev.geopjr.Tuba.metainfo.xml.in</file>
 
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-hashtag-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bookmarks-symbolic.svg</file>
@@ -90,6 +91,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Archives.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Calligraphy.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Collision.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Turntable.svg</file>
 
         <file>gtk/help-overlay.ui</file>
         <file>gtk/dropdown/content_type_title.ui</file>
