@@ -181,20 +181,20 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		);
 	}
 
-	public override void register_lists (GLib.ListStore places, Place[]? lists = null) {
+	public override void register_extra (GLib.ListStore places, Place[]? extra = null) {
 		places.splice (
 			0,
 			places.n_items,
 			{}
 		);
 
-		if (lists != null && lists.length > 0 && settings.favorite_lists_ids.length > 0) {
-			lists[0].separated = true;
+		if (extra != null && extra.length > 0) {
+			extra[0].separated = true;
 
 			places.splice (
 				places.n_items,
 				0,
-				lists
+				extra
 			);
 		}
 	}
