@@ -41,6 +41,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
 	public GLib.ListStore list_places = new GLib.ListStore (typeof (Place));
+	public GLib.ListStore tags_places = new GLib.ListStore (typeof (Place));
 
 	public Gee.HashMap<Type,Type> type_overrides = new Gee.HashMap<Type,Type> ();
 
@@ -65,6 +66,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
 		GLib.Idle.add (gather_fav_lists);
+		GLib.Idle.add (gather_fav_tags);
 		check_announcements ();
 
 		if (_account_settings != null) _account_settings = null;
@@ -82,6 +84,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
 		GLib.Idle.add (gather_fav_lists);
+		GLib.Idle.add (gather_fav_tags);
 		check_announcements ();
 		check_notifications ();
 	}
@@ -90,7 +93,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		this.construct_streamable ();
 		this.stream_event[EVENT_NOTIFICATION].connect (on_notification_event);
 		this.register_known_places (this.known_places);
-		this.register_lists (this.list_places);
+		this.register_extra (this.list_places);
+		this.register_extra (this.tags_places);
 
 		#if DEV_MODE
 			app.dev_new_notification.connect (node => {
@@ -416,7 +420,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public virtual void register_known_places (GLib.ListStore places) {}
-	public virtual void register_lists (GLib.ListStore places, Place[]? lists = null) {}
+	public virtual void register_extra (GLib.ListStore places, Place[]? extra = null) {}
 
 	// Notifications
 
@@ -602,9 +606,35 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			.exec ();
 	}
 
+	public bool gather_fav_tags () {
+		if (settings.favorite_tags_ids.length == 0) {
+			this.register_extra (this.tags_places);
+			return GLib.Source.REMOVE;
+		}
+
+		Place[] fav_tags = {};
+		foreach (string tag in settings.favorite_tags_ids) {
+			fav_tags += new Place () {
+				icon = "tuba-hashtag-symbolic",
+				title = tag,
+				extra_data = new Gtk.StringObject (tag),
+				open_func = (win, tag_obj) => {
+					string tag_str = ((Gtk.StringObject) tag_obj).string;
+					win.open_view (set_as_sidebar_item (new Views.Hashtag (tag_str, null, Uri.escape_string (tag_str))));
+				}
+			};
+		}
+
+		if (fav_tags.length > 0) {
+			this.register_extra (this.tags_places, fav_tags);
+		}
+
+		return GLib.Source.REMOVE;
+	}
+
 	public bool gather_fav_lists () {
 		if (settings.favorite_lists_ids.length == 0) {
-			this.register_lists (this.list_places);
+			this.register_extra (this.list_places);
 			return GLib.Source.REMOVE;
 		}
 
@@ -630,7 +660,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 					all_ids += list.id;
 				});
-				this.register_lists (this.list_places, fav_lists);
+				this.register_extra (this.list_places, fav_lists);
 
 				string[] new_favs = {};
 				foreach (string fav_id in settings.favorite_lists_ids) {
