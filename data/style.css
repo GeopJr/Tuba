@@ -137,6 +137,12 @@ headerbar.flat.no-title .title {
 	to {}
 }
 
+@keyframes beat {
+	0% {}
+	50% { -gtk-icon-transform: scale(1.2); }
+	100% {}
+}
+
 .grouped-icon {
 	padding: 6px;
 	background-color: color-mix(in srgb, currentColor 15%, transparent);
@@ -153,6 +159,10 @@ headerbar.flat.no-title .title {
 
 .ttl-status-action-star.enabled image {
 	animation: rotate_star 0.4s ease;
+}
+
+.ttl-status-action-heart.enabled image {
+	animation: beat 1s ease;
 }
 
 .grouped-icon.star,
@@ -186,11 +196,14 @@ headerbar.flat.no-title .title {
 }
 
 .grouped-icon.sign-up,
+.ttl-status-action-heart:hover,
+.ttl-status-action-heart.enabled,
 .ttl-status-action-bookmark:hover,
 .ttl-status-action-bookmark.enabled {
 	color: var(--red-3);
 }
 
+.ttl-status-action-heart:active,
 .ttl-status-action-bookmark:active {
 	color: var(--red-4);
 }

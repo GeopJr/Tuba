@@ -14,6 +14,7 @@ public class Tuba.API.Relationship : Entity {
 	public bool blocked_by { get; set; default = false; }
 	public bool domain_blocking { get; set; default = false; }
 	public bool notifying { get; set; default = false; }
+	public bool endorsed { get; set; default = false; }
 	public string? note { get; set; default = null; }
 
 	public string to_string () {
@@ -95,6 +96,7 @@ public class Tuba.API.Relationship : Entity {
 				debug (@"Performed \"$operation\" on Relationship $id");
 
 				if (operation == "mute" || operation == "block" || operation == "unfollow") app.remove_user_id (id);
+				else if (operation == "endorse" || operation == "unendorse") app.refresh_featured ();
 			});
 
 		if (modify_params != null) {
@@ -102,7 +104,6 @@ public class Tuba.API.Relationship : Entity {
 				req.with_param (modify_param.param, modify_param.val);
 			}
 		}
-
 
 		req.exec ();
 	}

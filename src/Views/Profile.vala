@@ -103,12 +103,15 @@ public class Tuba.Views.Profile : Views.Accounts {
 	protected SimpleAction hiding_reblogs_action;
 	protected SimpleAction blocking_action;
 	protected SimpleAction domain_blocking_action;
+	protected SimpleAction endorse_action;
 	protected SimpleAction ar_list_action;
 	protected SimpleAction notify_on_new_post_action;
 	//  protected SimpleAction source_action;
 
 	private FilterGroup filter_group;
-	private ErrorMessageRow error_message_row;
+	private ErrorMessageRow error_message_row = new ErrorMessageRow () {
+		visible = false
+	};
 	public Profile (API.Account acc) {
 		Object (
 			profile: new ProfileAccount (acc),
@@ -117,9 +120,6 @@ public class Tuba.Views.Profile : Views.Accounts {
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
 
-		error_message_row = new ErrorMessageRow () {
-			visible = false
-		};
 		this.bind_property ("empty-state-title", error_message_row, "message", SYNC_CREATE);
 		filter_group = new FilterGroup ();
 		model.insert (0, profile);
@@ -127,10 +127,17 @@ public class Tuba.Views.Profile : Views.Accounts {
 		model.insert (2, error_message_row);
 		profile.rs.invalidated.connect (on_rs_updated);
 
-		if (acc.is_self ()) update_profile_cover ();
+		if (acc.is_self ()) {
+			update_profile_cover ();
+			app.refresh_featured.connect (on_featured_refresh_request);
+		}
 	}
 	~Profile () {
 		debug ("Destroying Profile view");
+	}
+
+	private void on_featured_refresh_request () {
+		if (this.filter == FEATURED) on_refresh ();
 	}
 
 	public bool append_pinned () {
@@ -513,11 +520,20 @@ public class Tuba.Views.Profile : Views.Accounts {
 		});
 		actions.add_action (domain_blocking_action);
 
+		endorse_action = new SimpleAction.stateful ("endorsed", null, false);
+		endorse_action.change_state.connect (v => {
+			profile.rs.modify (v.get_boolean () ? "endorse" : "unendorse");
+			invalidate_actions (false);
+		});
+		actions.add_action (endorse_action);
+
 		invalidate_actions (false);
 	}
 
 	void invalidate_actions (bool refresh) {
 		muting_action.set_state (profile.rs.muting);
+		endorse_action.set_state (profile.rs.endorsed);
+		endorse_action.set_enabled (profile.rs.following);
 		hiding_reblogs_action.set_state (!profile.rs.showing_reblogs);
 		hiding_reblogs_action.set_enabled (profile.rs.following);
 		blocking_action.set_state (profile.rs.blocking);

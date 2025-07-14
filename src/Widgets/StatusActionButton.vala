@@ -14,7 +14,6 @@ public class Tuba.Widgets.StatusActionButton : Gtk.Button {
 	}
 
 	public string? active_icon_name { get; construct set; default = null; }
-
 	public bool working { get; private set; default = false; }
 
 	private int64 _amount = 0;

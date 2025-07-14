@@ -29,11 +29,14 @@
 }
 
 .grouped-icon.sign-up,
+.ttl-status-action-heart:hover,
+.ttl-status-action-heart.enabled,
 .ttl-status-action-bookmark:hover,
 .ttl-status-action-bookmark.enabled {
 	color: var(--red-1);
 }
 
+.ttl-status-action-heart:active,
 .ttl-status-action-bookmark:active {
 	color: var(--red-2);
 }
