@@ -10,7 +10,7 @@ public class Tuba.API.FeaturedTag : Entity, Widgetizable {
 
 	public override void open () {
 		#if USE_LISTVIEW
-			app.main_window.open_view (new Views.Hashtag (name, null, Path.get_basename (url)));
+			app.main_window.open_view (new Views.Hashtag (name, null, Path.get_basename (url), true));
 		#endif
 	}
 
@@ -47,7 +47,7 @@ public class Tuba.API.FeaturedTag : Entity, Widgetizable {
 
 	#if !USE_LISTVIEW
 		protected void on_activated () {
-			app.main_window.open_view (new Views.Hashtag (name, null, Path.get_basename (url)));
+			app.main_window.open_view (new Views.Hashtag (name, null, Path.get_basename (url), true));
 		}
 	#endif
 }

@@ -30,7 +30,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 
 	public override void open () {
 		#if USE_LISTVIEW
-			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url)));
+			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url), this.featuring));
 		#endif
 	}
 
@@ -81,7 +81,19 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 
 	#if !USE_LISTVIEW
 		protected void on_activated () {
-			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url)));
+			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url), this.featuring));
 		}
 	#endif
+
+	//  public Request feature (bool? feature = null) {
+	//  	string endpoint = "feature";
+	//  	if (feature == null) {
+	//  		endpoint = this.featuring ? "unfeature" : "feature";
+	//  	} else if (feature == false) {
+	//  		endpoint = "unfeature";
+	//  	}
+
+	//  	return new Request.POST (@"/api/v1/tags/$(Path.get_basename (url) ?? name)/$endpoint")
+	//  		.with_account (accounts.active);
+	//  }
 }
