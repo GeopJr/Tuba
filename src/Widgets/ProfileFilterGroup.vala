@@ -42,7 +42,7 @@ public class Tuba.Widgets.ProfileFilterGroup : Gtk.ListBoxRow {
 		this.add_css_class ("toggle-group-17");
 
 		bool set_active_manually = false;
-		if (accounts.active.tuba_api_versions.mastodon > 5) {
+		if (accounts.active.tuba_api_versions.mastodon > 5 || InstanceAccount.InstanceFeatures.ENDORSE_USERS in accounts.active.tuba_instance_features) {
 			toggle_group.add (new Adw.Toggle () {
 				// translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 				label = _("Featured"),

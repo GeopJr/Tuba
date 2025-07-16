@@ -142,6 +142,9 @@
     <key name="collapse-long-posts" type="b">
 			<default>true</default>
 		</key>
+    <key name="auto-detect-features" type="b">
+			<default>true</default>
+		</key>
 
 		<key name="window-w" type="i">
 			<default>600</default>

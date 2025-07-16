@@ -35,7 +35,7 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 
 	Widgets.StatusActionButton? feature_tag_btn = null;
 	private void create_featuring_button () {
-		if (accounts.active.tuba_api_versions.mastodon <= 5 || feature_tag_btn != null) return;
+		if ((accounts.active.tuba_api_versions.mastodon <= 5 && !(InstanceAccount.InstanceFeatures.FEATURE_TAGS in accounts.active.tuba_instance_features)) || feature_tag_btn != null) return;
 
 		feature_tag_btn = new Widgets.StatusActionButton.with_icon_name ("tuba-heart-outline-thick-symbolic") {
 			active_icon_name = "tuba-heart-filled-symbolic",

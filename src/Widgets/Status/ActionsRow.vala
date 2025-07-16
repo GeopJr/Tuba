@@ -117,7 +117,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		reblog_button.clicked.connect (on_boost_button_clicked);
 		this.append (reblog_button);
 
-		if (accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) {
+		if ((accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) || InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features) {
 			quote_button = new Widgets.StatusActionButton.with_icon_name ("tuba-quotation-symbolic") {
 				css_classes = { "ttl-status-action-quote", "flat", "circular" },
 				halign = Gtk.Align.START,
@@ -303,7 +303,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 								commit_boost (status_btn, reblog_visibility);
 								break;
 							case "quote":
-								bool supports_quotes = status.formal.can_be_quoted && accounts.active.instance_info.supports_quote_posting;
+								bool supports_quotes = status.formal.can_be_quoted && ((accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) || InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features);
 								new Dialogs.Composer.Dialog.quote (status.formal, reblog_visibility, supports_quotes);
 								status_btn.unblock_clicked ();
 								break;
