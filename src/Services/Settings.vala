@@ -167,6 +167,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool media_viewer_expand_pictures { get; set; }
 	public bool enlarge_custom_emojis { get; set; }
 	public bool use_blurhash { get; set; }
+	public bool show_sensitive_media { get; set; }
 	public bool group_push_notifications { get; set; }
 	public bool advanced_boost_dialog { get; set; }
 	public bool reply_to_old_post_reminder { get; set; }
@@ -203,6 +204,7 @@ public class Tuba.Settings : GLib.Settings {
 		"media-viewer-expand-pictures",
 		"enlarge-custom-emojis",
 		"use-blurhash",
+		"show-sensitive-media",
 		"group-push-notifications",
 		"advanced-boost-dialog",
 		"reply-to-old-post-reminder",
