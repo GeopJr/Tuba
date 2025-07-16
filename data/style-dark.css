@@ -54,6 +54,10 @@
 	background-color: lighter(alpha(var(--warning-bg-color), .1));
 }
 
+.ttl-post.local:hover {
+	background-color: color-mix(in srgb, color-mix(in srgb, var(--purple-1) 10%, transparent), white 1%);
+}
+
 .ttl-darken-images avatar:not(:hover), .ttl-darken-images picture:not(:hover) {
 	filter: brightness(.8) contrast(1.2);
 }

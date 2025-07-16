@@ -373,6 +373,14 @@ headerbar.flat.no-title .title {
 	background-color: darker(alpha(var(--warning-bg-color), .1));
 }
 
+.ttl-post.local {
+	background-color: color-mix(in srgb, var(--purple-1) 10%, transparent);
+}
+
+.ttl-post.local:hover {
+	background-color: color-mix(in srgb, color-mix(in srgb, var(--purple-1) 10%, transparent), black 1%);
+}
+
 .ttl-post-actions {
 	margin-bottom: -12px;
 }

@@ -1034,6 +1034,7 @@
 	private Widgets.Attachment.Box attachments;
 	private Gtk.Label translation_label;
 	public Widgets.VoteBox poll;
+	private Gtk.Image? local_only_indicator = null;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};
 	ulong[] this_handler_ids = {};
@@ -1120,6 +1121,19 @@
 			this.add_css_class ("direct");
 		} else {
 			this.remove_css_class ("direct");
+		}
+
+		if (local_only_indicator != null) indicators.remove (local_only_indicator);
+		if (status.formal.local_only) {
+			this.add_css_class ("local");
+
+			if (local_only_indicator == null) local_only_indicator = new Gtk.Image.from_icon_name ("tuba-important-small-symbolic") {
+				css_classes = {"dim-label"},
+				tooltip_text = _("Local Only")
+			};
+			indicators.prepend (local_only_indicator);
+		} else {
+			this.remove_css_class ("local");
 		}
 
 		avatar.account = status.formal.account;
@@ -1332,6 +1346,7 @@
 		if (status.formal.is_edited)
 			indicators.remove (edited_indicator);
 		indicators.remove (visibility_indicator);
+		if (local_only_indicator != null) local_only_indicator.visible = false;
 
 		date_label.label = this.date;
 		date_label.wrap = true;

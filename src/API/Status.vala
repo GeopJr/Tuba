@@ -19,6 +19,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	public bool reblogged { get; set; default = false; }
 	public bool favourited { get; set; default = false; }
 	public bool bookmarked { get; set; default = false; }
+	public bool local_only { get; set; default = false; }
 	public bool sensitive { get; set; default = false; }
 	public bool muted { get; set; default = false; }
 	public bool pinned { get; set; default = false; }
@@ -282,7 +283,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		PUBLIC,
 		UNLISTED,
 		PRIVATE,
-		DIRECT;
+		DIRECT,
+		LOCAL;
 
 		public string to_string () {
 			switch (this) {
@@ -294,6 +296,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return "private";
 				case DIRECT:
 					return "direct";
+				case LOCAL:
+					return "local";
 				default:
 					assert_not_reached ();
 			}
@@ -310,6 +314,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return _("Followers Only");
 				case DIRECT:
 					return _("Direct");
+				case LOCAL:
+					return _("Local");
 				default:
 					assert_not_reached ();
 			}
@@ -325,6 +331,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return PRIVATE;
 				case "direct":
 					return DIRECT;
+				case "local":
+					return LOCAL;
 				default:
 					return null;
 			}
@@ -340,6 +348,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return 2;
 				case DIRECT:
 					return 3;
+				case LOCAL: // it's not actually more private but it should take priority
+					return 4;
 				default:
 					assert_not_reached ();
 			}

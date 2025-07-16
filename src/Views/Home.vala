@@ -10,7 +10,7 @@ public class Tuba.Views.Home : Views.Timeline {
 	construct {
 		url = "/api/v1/timelines/home";
 		label = _("Home");
-		icon = "user-home-symbolic";
+		icon = "tuba-user-home-symbolic";
 		badge_number = 0;
 		needs_attention = false;
 
