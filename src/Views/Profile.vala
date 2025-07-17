@@ -520,9 +520,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 		});
 		actions.add_action (domain_blocking_action);
 
+		string endorse_str = accounts.active.tuba_api_versions.mastodon >= 6 ? "endorse" : "pin";
+		string unendorse_str = accounts.active.tuba_api_versions.mastodon >= 6 ? "unendorse" : "unpin";
+
 		endorse_action = new SimpleAction.stateful ("endorsed", null, false);
 		endorse_action.change_state.connect (v => {
-			profile.rs.modify (v.get_boolean () ? "endorse" : "unendorse");
+			profile.rs.modify (v.get_boolean () ? endorse_str : unendorse_str);
 			invalidate_actions (false);
 		});
 		actions.add_action (endorse_action);

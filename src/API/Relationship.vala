@@ -86,6 +86,8 @@ public class Tuba.API.Relationship : Entity {
 		public string val;
 	}
 
+	const string[] REQUIRES_USER_REMOVAL = {"mute", "block", "unfollow"};
+	const string[] REQUIRES_FEATURED_REFRESH = {"endorse", "unendorse", "pin", "unpin"};
 	public void modify (string operation, ModifyParam[]? modify_params = null) {
 		var req = new Request.POST (@"/api/v1/accounts/$id/$operation")
 			.with_account (accounts.active)
@@ -95,8 +97,8 @@ public class Tuba.API.Relationship : Entity {
 				invalidate (node);
 				debug (@"Performed \"$operation\" on Relationship $id");
 
-				if (operation == "mute" || operation == "block" || operation == "unfollow") app.remove_user_id (id);
-				else if (operation == "endorse" || operation == "unendorse") app.refresh_featured ();
+				if (operation in REQUIRES_USER_REMOVAL) app.remove_user_id (id);
+				else if (operation in REQUIRES_FEATURED_REFRESH) app.refresh_featured ();
 			});
 
 		if (modify_params != null) {
