@@ -989,3 +989,6 @@ splitbutton.pill > menubutton > button {
 	border-bottom-right-radius: inherit;
 }
 
+rubberband {
+	border-radius: 9px;
+}
