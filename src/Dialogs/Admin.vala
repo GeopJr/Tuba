@@ -16,7 +16,7 @@ public class Tuba.Dialogs.Admin.Window : Adw.Window {
 	}
 
 	public static Place place_dash = new Place () {
-		icon = "user-home-symbolic",
+		icon = "tuba-user-home-symbolic",
 		title = _("Dashboard"),
 		open_func_admin = (win) => {
 			win.split_view.content = new Views.Admin.Page.Dashboard ();
@@ -54,7 +54,7 @@ public class Tuba.Dialogs.Admin.Window : Adw.Window {
 	};
 
 	public static Place place_ip_rules = new Place () {
-		icon = "network-server-symbolic",
+		icon = "tuba-network-server-symbolic",
 		title = _("IP Rules"),
 		open_func_admin = (win) => {
 			win.split_view.content = new Views.Admin.Page.BlockedIPs () {

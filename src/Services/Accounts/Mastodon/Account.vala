@@ -23,7 +23,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_HOME = new Place () { // vala-lint=naming-convention
 
-		icon = "user-home-symbolic",
+		icon = "tuba-user-home-symbolic",
 		title = _("Home"),
 		needs_attention = false,
 		open_func = win => {
@@ -95,7 +95,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_SEARCH = new Place () { // vala-lint=naming-convention
 
-		icon = "system-search-symbolic",
+		icon = "tuba-loupe-large-symbolic",
 		title = _("Search"),
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item (new Views.Search ()));
@@ -114,7 +114,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_LOCAL = new Place () { // vala-lint=naming-convention
 
-		icon = "network-server-symbolic",
+		icon = "tuba-network-server-symbolic",
 		title = _("Local"),
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item (new Views.Local ()));
@@ -166,7 +166,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	};
 
 	protected override void bump_sidebar_items () {
-		PLACE_BUBBLE.visible = this.instance_info != null && this.instance_info.supports_bubble;
+		PLACE_BUBBLE.visible = (this.instance_info != null && this.instance_info.supports_bubble) || BUBBLE in this.tuba_instance_features;
 	}
 
 	public override void register_known_places (GLib.ListStore places) {

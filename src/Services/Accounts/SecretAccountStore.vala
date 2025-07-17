@@ -202,6 +202,13 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 		builder.end_object ();
 
+		builder.set_member_name ("instance-features");
+		builder.add_int_value ((int) account.tuba_instance_features);
+		//  if (ICESHRIMP_DRIVE in account.tuba_instance_features && account.tuba_iceshrimp_api_key != null) {
+		//  	builder.set_member_name ("iceshrimp-api-key");
+		//  	builder.add_string_value (account.tuba_iceshrimp_api_key);
+		//  }
+
 		// If display name has emojis it's
 		// better to save and load them
 		// so users don't see their shortcode
@@ -226,8 +233,8 @@ public class Tuba.SecretAccountStore : AccountStore {
 		builder.end_object ();
 		generator.set_root (builder.get_root ());
 		var secret = generator.to_data (null);
-		// translators: The variable is the backend like "Mastodon"
-		var label = _("%s Account").printf (account.backend);
+		// translators: The variable is "Fediverse" or a backend like "Mastodon"
+		var label = _("%s Account").printf ("Fediverse");
 
 		Secret.password_storev.begin (
 			schema,

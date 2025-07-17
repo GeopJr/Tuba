@@ -304,7 +304,7 @@
 			var delete_status_simple_action = new SimpleAction ("delete-status", null);
 			delete_status_simple_action.activate.connect (delete_status);
 			action_group.add_action (delete_status_simple_action);
-		} else if (accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate) {
+		} else if ((accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate) || InstanceAccount.InstanceFeatures.TRANSLATION in accounts.active.tuba_instance_features) {
 			translate_simple_action = new SimpleAction ("translate", null);
 			translate_simple_action.activate.connect (translate);
 			translate_simple_action.set_enabled (true);
@@ -357,8 +357,10 @@
 			menu_model.append_item (unmute_menu_item);
 
 			if (
-				accounts.active.instance_info != null
-				&& accounts.active.instance_info.tuba_can_translate
+				(
+					(accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate)
+					|| InstanceAccount.InstanceFeatures.TRANSLATION in accounts.active.tuba_instance_features
+				)
 				&& status.formal.tuba_translatable
 				&& (
 					status.formal.visibility == "public"
@@ -1085,7 +1087,7 @@
 		}
 
 		if (emoji_reactions != null) content_column.remove (emoji_reactions);
-		if (status.formal.compat_status_reactions != null) {
+		if (status.formal.compat_status_reactions != null || InstanceAccount.InstanceFeatures.EMOJI_REACTIONS in accounts.active.tuba_instance_features) {
 			emoji_reactions = new ReactionsRow (status.formal.id, status.formal.compat_status_reactions);
 			content_column.insert_child_after (emoji_reactions, spoiler_stack);
 		}
