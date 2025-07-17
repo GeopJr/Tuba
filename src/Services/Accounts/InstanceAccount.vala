@@ -42,7 +42,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		ENDORSE_USERS,
 		MUTUALS,
 		TRANSLATION,
-		ICESHRIMP_DRIVE,
+		ICESHRIMP,
 		GLITCH,
 		LOCAL_ONLY
 	}
@@ -560,11 +560,13 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					if ("Pleroma " in instance_info.version) {
 						new_flags |= InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS | InstanceFeatures.MUTUALS | InstanceFeatures.LOCAL_ONLY;
 					} else if ("Iceshrimp.NET/" in instance_info.version) {
-						new_flags |= InstanceFeatures.ICESHRIMP_DRIVE | InstanceFeatures.EMOJI_REACTIONS;
+						new_flags |= InstanceFeatures.ICESHRIMP | InstanceFeatures.EMOJI_REACTIONS;
 					} else if ("+glitch" in instance_info.version) {
 						new_flags |= InstanceFeatures.GLITCH | InstanceFeatures.LOCAL_ONLY | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS;
 					} else if ("+hometown" in instance_info.version) {
 						new_flags |= InstanceFeatures.LOCAL_ONLY | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS;
+					} else if ("Akkoma " in instance_info.version) {
+						new_flags |= InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.LOCAL_ONLY;
 					}
 				}
 				tuba_instance_features_update_and_save (new_flags);

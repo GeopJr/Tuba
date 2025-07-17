@@ -590,7 +590,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				null,
 				null,
 				false,
-				to.local_only,
+				to.compat_local_only,
 				!supports_quotes
 			},
 			final_visibility,
@@ -647,7 +647,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				t_status.poll,
 				t_status.media_attachments,
 				t_status.sensitive,
-				t_status.local_only,
+				t_status.compat_local_only,
 				false
 			},
 			t_status.visibility,
@@ -678,7 +678,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				poll,
 				scheduled_status.media_attachments,
 				scheduled_status.props.sensitive,
-				scheduled_status.props.local_only,
+				scheduled_status.props.local_only || scheduled_status.props.visibility == "local",
 				false
 			},
 			scheduled_status.props.visibility,
@@ -944,6 +944,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		bool is_local = local_only_button != null && local_only_button.active;
 		bool is_pleroma = accounts.active.instance_info.pleroma != null;
 		bool is_glitch = InstanceAccount.InstanceFeatures.GLITCH in accounts.active.tuba_instance_features;
+		bool is_shrimp = InstanceAccount.InstanceFeatures.ICESHRIMP in accounts.active.tuba_instance_features;
 
 		var builder = new Json.Builder ();
 		builder.begin_object ();
@@ -960,7 +961,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			builder.add_boolean_value (true);
 		}
 
-		if (is_local && is_pleroma) {
+		if (is_local && is_pleroma && !is_shrimp) {
 			builder.set_member_name ("visibility");
 			builder.add_string_value ("local");
 		} else if (visibility_button.selected != Gtk.INVALID_LIST_POSITION) {

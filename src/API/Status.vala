@@ -150,6 +150,16 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		}
 	}
 
+	public bool compat_local_only {
+		get {
+			if (pleroma != null && visibility == "local") {
+				return true;
+			}
+
+			return this.local_only;
+		}
+	}
+
 	public string? t_url { get; set; }
 	public string? url {
 		owned get { return this.get_modified_url (); }
@@ -179,7 +189,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 
 	public bool can_be_quoted {
 		get {
-			return this.formal.visibility != "direct" && this.formal.visibility != "private";
+			return this.formal.visibility != "direct" && this.formal.visibility != "private" && this.formal.visibility != "local";
 		}
 	}
 

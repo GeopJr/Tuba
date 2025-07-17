@@ -1088,7 +1088,7 @@
 		}
 
 		if (emoji_reactions != null) content_column.remove (emoji_reactions);
-		if (status.formal.compat_status_reactions != null || InstanceAccount.InstanceFeatures.EMOJI_REACTIONS in accounts.active.tuba_instance_features) {
+		if (status.formal.compat_status_reactions != null) {
 			emoji_reactions = new ReactionsRow (status.formal.id, status.formal.compat_status_reactions);
 			content_column.insert_child_after (emoji_reactions, spoiler_stack);
 		}
@@ -1112,10 +1112,15 @@
 		edited_indicator.visible = status.formal.is_edited;
 		edit_history_simple_action.set_enabled (status.formal.is_edited);
 
-		var t_visibility = accounts.active.visibility[status.formal.visibility];
-		visibility_indicator.icon_name = t_visibility.small_icon_name;
-		visibility_indicator.tooltip_text = t_visibility.name;
-		visibility_indicator.update_property (Gtk.AccessibleProperty.LABEL, t_visibility.name, -1);
+		if (accounts.active.visibility.has_key (status.formal.visibility)) {
+			visibility_indicator.visible = true;
+			var t_visibility = accounts.active.visibility[status.formal.visibility];
+			visibility_indicator.icon_name = t_visibility.small_icon_name;
+			visibility_indicator.tooltip_text = t_visibility.name;
+			visibility_indicator.update_property (Gtk.AccessibleProperty.LABEL, t_visibility.name, -1);
+		} else {
+			visibility_indicator.visible = false;
+		}
 
 		if (change_background_on_direct && status.formal.visibility == "direct") {
 			this.add_css_class ("direct");
@@ -1124,7 +1129,7 @@
 		}
 
 		if (local_only_indicator != null) indicators.remove (local_only_indicator);
-		if (status.formal.local_only) {
+		if (status.formal.compat_local_only) {
 			this.add_css_class ("local");
 
 			if (local_only_indicator == null) local_only_indicator = new Gtk.Image.from_icon_name ("tuba-important-small-symbolic") {
