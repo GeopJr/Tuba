@@ -177,6 +177,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	protected override void bump_sidebar_items () {
 		PLACE_BUBBLE.visible = (this.instance_info != null && this.instance_info.supports_bubble) || BUBBLE in this.tuba_instance_features;
+		PLACE_DRIVE.visible = ICESHRIMP in this.tuba_instance_features;
 	}
 
 	public override void register_known_places (GLib.ListStore places) {
