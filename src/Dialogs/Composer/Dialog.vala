@@ -1,5 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/composer.ui")]
 public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
+	const string LOCAL_ONLY_GLITCH_SUFFIX = " 👁️";
+
 	~Dialog () {
 		debug ("Destroying Composer");
 	}
@@ -92,6 +94,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		API.Poll? poll;
 		Gee.ArrayList<API.Attachment>? media_attachments;
 		bool sensitive_media;
+		bool local_only;
 		bool force_cursor_at_start;
 	}
 
@@ -143,6 +146,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	}
 	protected int64 char_limit { get; set; default = 500; }
 	protected int64 cw_count { get; set; default = 0; }
+	protected int8 reserved_chars { get; set; default = 0; }
 
 	private int64 _remaining_chars = 500;
 	protected int64 remaining_chars {
@@ -210,12 +214,13 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	}
 
 	private void update_remaining_chars () {
-		remaining_chars = this.char_limit - editor.char_count - this.cw_count;
+		remaining_chars = this.char_limit - editor.char_count - this.cw_count - this.reserved_chars;
 	}
 
 	protected Gtk.DropDown visibility_button;
 	protected Gtk.DropDown language_button;
 	protected Gtk.DropDown? content_type_button = null;
+	protected Gtk.ToggleButton? local_only_button = null;
 
 	private void append_dropdown (Gtk.DropDown dropdown) {
 		var togglebtn = dropdown.get_first_child ();
@@ -369,6 +374,32 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		cw_revealer.notify["child-revealed"].connect (on_cw_revealed);
 	}
 
+	private void install_local_only_button (bool active) {
+		local_only_button = new Gtk.ToggleButton () {
+			icon_name = "tuba-network-server-symbolic",
+			// translators: tooltip button on composer dialog headerbar button
+			//				that makes the post visible only on the current
+			//				instance. You might be able to find it on
+			//				https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
+			tooltip_text = _("Local Only"),
+			active = active
+		};
+		local_only_button.toggled.connect (local_only_button_toggled);
+		visibility_button.sensitive = !active && !this.edit_mode;
+		this.reserved_chars = active ? 2 : 0;
+
+		headerbar.pack_end (local_only_button);
+	}
+
+	private void local_only_button_toggled () {
+		if (accounts.active.instance_info.pleroma != null) {
+			visibility_button.sensitive = !local_only_button.active && !this.edit_mode;
+		} else if (InstanceAccount.InstanceFeatures.GLITCH in accounts.active.tuba_instance_features) {
+			this.reserved_chars = local_only_button.active && !editor.buffer.text.has_suffix (LOCAL_ONLY_GLITCH_SUFFIX) ? 2 : 0;
+			update_remaining_chars ();
+		}
+	}
+
 	private void install_content_types (string? content_type) {
 		content_type_button = new Gtk.DropDown (accounts.active.supported_mime_types, null) {
 			expression = new Gtk.PropertyExpression (typeof (Tuba.InstanceAccount.StatusContentType), null, "title"),
@@ -436,6 +467,14 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		if (accounts.active.supported_mime_types.n_items > 1)
 			install_content_types (settings.default_content_type);
 
+		if (InstanceAccount.InstanceFeatures.LOCAL_ONLY in accounts.active.tuba_instance_features) {
+			install_local_only_button (default_visibility == "local" || (precompose != null && precompose.local_only));
+			if (local_only_button.active && precompose != null && precompose.content != null && precompose.content.has_suffix (LOCAL_ONLY_GLITCH_SUFFIX)) {
+				precompose.content = precompose.content.substring (0, precompose.content.length - LOCAL_ONLY_GLITCH_SUFFIX.length);
+			}
+			local_only_button.sensitive = !this.edit_mode;
+		}
+
 		cw_entry.changed.connect (cw_changed);
 		cw_button.toggled.connect (cw_changed);
 		on_language_changed ();
@@ -489,7 +528,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		}
 
 		// translators: composer post button label
-		this ({@"$(to.formal.get_reply_mentions ()) ", to.spoiler_text, null, null, to.id, null, null, false, false}, final_visibility, to.language, _("Reply"));
+		this ({@"$(to.formal.get_reply_mentions ()) ", to.spoiler_text, null, null, to.id, null, null, false, to.local_only, false}, final_visibility, to.language, _("Reply"));
 
 		var sample = new API.Status.empty () {
 			poll = to.poll,
@@ -551,6 +590,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				null,
 				null,
 				false,
+				to.compat_local_only,
 				!supports_quotes
 			},
 			final_visibility,
@@ -607,6 +647,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				t_status.poll,
 				t_status.media_attachments,
 				t_status.sensitive,
+				t_status.compat_local_only,
 				false
 			},
 			t_status.visibility,
@@ -637,6 +678,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				poll,
 				scheduled_status.media_attachments,
 				scheduled_status.props.sensitive,
+				scheduled_status.props.local_only || scheduled_status.props.visibility == "local",
 				false
 			},
 			scheduled_status.props.visibility,
@@ -899,13 +941,30 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	}
 
 	private Json.Builder populate_json_body () {
+		bool is_local = local_only_button != null && local_only_button.active;
+		bool is_pleroma = accounts.active.instance_info.pleroma != null;
+		bool is_glitch = InstanceAccount.InstanceFeatures.GLITCH in accounts.active.tuba_instance_features;
+		bool is_shrimp = InstanceAccount.InstanceFeatures.ICESHRIMP in accounts.active.tuba_instance_features;
+
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 
 		builder.set_member_name ("status");
-		builder.add_string_value (editor.buffer.text);
+		builder.add_string_value (
+			is_local && is_glitch && !editor.buffer.text.has_suffix (LOCAL_ONLY_GLITCH_SUFFIX)
+			? @"$(editor.buffer.text)$LOCAL_ONLY_GLITCH_SUFFIX"
+			: editor.buffer.text
+		);
 
-		if (visibility_button.selected != Gtk.INVALID_LIST_POSITION) {
+		if (is_local && !is_glitch && (!is_pleroma || is_shrimp)) {
+			builder.set_member_name ("local_only");
+			builder.add_boolean_value (true);
+		}
+
+		if (is_local && is_pleroma && !is_shrimp) {
+			builder.set_member_name ("visibility");
+			builder.add_string_value ("local");
+		} else if (visibility_button.selected != Gtk.INVALID_LIST_POSITION) {
 			builder.set_member_name ("visibility");
 			builder.add_string_value (((InstanceAccount.Visibility) visibility_button.selected_item).id);
 		}

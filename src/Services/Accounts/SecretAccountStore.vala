@@ -204,7 +204,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 		builder.set_member_name ("instance-features");
 		builder.add_int_value ((int) account.tuba_instance_features);
-		//  if (ICESHRIMP_DRIVE in account.tuba_instance_features && account.tuba_iceshrimp_api_key != null) {
+		//  if (ICESHRIMP in account.tuba_instance_features && account.tuba_iceshrimp_api_key != null) {
 		//  	builder.set_member_name ("iceshrimp-api-key");
 		//  	builder.add_string_value (account.tuba_iceshrimp_api_key);
 		//  }
