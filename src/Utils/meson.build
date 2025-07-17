@@ -12,3 +12,7 @@ sources += files(
     'Units.vala',
     'WebApHandler.vala',
 )
+
+if gexiv2
+  sources += files ('Exif.vala')
+endif

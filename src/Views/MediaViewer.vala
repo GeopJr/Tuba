@@ -959,9 +959,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			scale_revealer.source_widget = revealer_widgets.get (new_pos);
 	}
 
-	private async string download_video (string url) throws Error {
-		return yield Utils.Host.download (url);
-	}
+	#if !CLAPPER
+		private async string download_video (string url) throws Error {
+			return yield Utils.Host.download (url);
+		}
+	#endif
 
 	private bool revealed = false;
 	public void reveal (Gtk.Widget? widget) {

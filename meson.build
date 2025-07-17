@@ -2,7 +2,7 @@ project(
     'dev.geopjr.Tuba',
     ['c', 'vala'],
     version: '0.9.2',
-    meson_version: '>= 0.56.0',
+    meson_version: '>= 0.60.0',
     default_options: [
         'warning_level=2',
         'werror=false',
@@ -31,8 +31,6 @@ config.set('VERSION', meson.project_version())
 config.set('PREFIX', get_option('prefix'))
 config.set('NAME', 'Tuba')
 config.set('WEBSITE', 'https://github.com/GeopJr/Tuba')
-config.set('ISSUES_WEBSITE', 'https://github.com/GeopJr/Tuba/issues')
-config.set('SUPPORT_WEBSITE', 'https://matrix.to/#/#tuba:gnome.org')
 config.set('DONATE_WEBSITE', 'https://geopjr.dev/donate')
 config.set('TRANSLATE_WEBSITE', 'https://hosted.weblate.org/engage/tuba/')
 config.set('WIKI_WEBSITE', 'https://github.com/GeopJr/Tuba/wiki')
@@ -70,24 +68,23 @@ add_project_arguments (
 gnome = import('gnome')
 i18n = import('i18n')
 
-asresources = gnome.compile_resources(
-    'as-resources',
-    'data/gresource.xml',
-    source_dir: 'data',
-    c_name: 'as',
-)
-
 gstreamer = false
 webkit = false
-gtk_dep = dependency('gtk4', version: '>=4.17.5', required: true)
+gexiv2 = false
+gtk_dep = dependency('gtk4', version: '>=4.18', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.7', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
-libspelling = dependency('libspelling-1', required: false)
-clapper_dep = dependency('clapper-0.0', required: false, version: '>=0.8.0')
-clapper_gtk_dep = dependency('clapper-gtk-0.0', required: false)
-gstreamer_dep = dependency('gstreamer-1.0', required: false)
-webkit_dep = dependency('webkitgtk-6.0', required: false)
+libspelling = dependency('libspelling-1', required: get_option('spelling'))
+clapper_dep = dependency('clapper-0.0', required: get_option('clapper'), version: '>=0.8.0')
+clapper_gtk_dep = dependency('clapper-gtk-0.0', required: get_option('clapper'))
+gstreamer_dep = dependency('gstreamer-1.0', required: get_option('gstreamer'))
+webkit_dep = dependency('webkitgtk-6.0', required: get_option('in-app-browser'))
+
+gexiv2_dep = dependency('gexiv2-0.16', version: '>=0.15', required: false)
+if not gexiv2_dep.found ()
+  gexiv2_dep = dependency('gexiv2', version: '>=0.14', required: get_option('gexiv2'))
+endif
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
@@ -95,6 +92,10 @@ endif
 
 if libspelling.found ()
   add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
+endif
+
+if libadwaita_dep.version().version_compare('>=1.7.5')
+  add_project_arguments(['--define=ADW_1_7_5'], language: 'vala')
 endif
 
 if gtksourceview_dep.version().version_compare('>=5.7.1')
@@ -106,16 +107,29 @@ if gstreamer_dep.found ()
   gstreamer = true
 endif
 
-if get_option('clapper') and clapper_dep.found () and clapper_dep.version().version_compare('>=0.6.0') and clapper_gtk_dep.found ()
+if gexiv2_dep.found ()
+  add_project_arguments(['--define=GEXIV2'], language: 'vala')
+  gexiv2 = true
+endif
+
+if clapper_dep.found () and clapper_gtk_dep.found ()
   add_project_arguments(['--define=CLAPPER'], language: 'vala')
   if (clapper_dep.get_variable('features').split().contains('mpris'))
     add_project_arguments(['--define=CLAPPER_MPRIS'], language: 'vala')
   endif
 endif
 
-if get_option('in-app-browser') and webkit_dep.found ()
+if webkit_dep.found ()
   add_project_arguments(['--define=WEBKIT'], language: 'vala')
   webkit = true
+endif
+
+if gtk_dep.version().version_compare('>=4.19.1')
+  add_project_arguments(['--define=GTK_4_19_1'], language: 'vala')
+endif
+
+if meson.get_compiler('vala').version().version_compare('>=0.56.19')
+  add_project_arguments(['--define=VALAC_05619'], language: 'vala')
 endif
 
 sources = files()
@@ -137,8 +151,17 @@ final_deps = [
   clapper_dep,
   clapper_gtk_dep,
   gstreamer_dep,
-  webkit_dep
+  webkit_dep,
+  gexiv2_dep
 ]
+
+subdir('data')
+asresources = gnome.compile_resources(
+    'as-resources',
+    gresource_file,
+    source_dir: 'data',
+    c_name: 'as',
+)
 
 executable(
     meson.project_name(),
@@ -150,7 +173,6 @@ executable(
 )
 
 subdir('tests')
-subdir('data')
 subdir('po')
 
 # Distributions use their own tooling (e.g. postinst, triggers, etc)

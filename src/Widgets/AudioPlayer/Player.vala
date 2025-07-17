@@ -46,9 +46,13 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 		this.bind_property ("ready", controls, "ready", BindingFlags.SYNC_CREATE);
 
 		controls_revealer = new Gtk.Revealer () {
-			child = controls,
-			transition_type = Gtk.RevealerTransitionType.NONE,
-			valign = Gtk.Align.END
+			child = new Adw.Clamp () {
+				child = controls,
+				maximum_size = 1500
+			},
+			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+			valign = Gtk.Align.END,
+			transition_duration = 800
 		};
 		overlay.add_overlay (controls_revealer);
 
@@ -97,12 +101,8 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 	}
 
 	protected void on_click_gesture () {
-		if (controls_revealer.reveal_child) {
-			controls_revealer.reveal_child = false;
-			revealer_timeout = 0;
-		} else {
-			on_reveal_media_buttons ();
-		}
+		on_reveal_media_buttons ();
+		this.playing = !this.playing;
 	}
 
 	public Player (Gdk.Texture? texture = null, string? blurhash = null) {

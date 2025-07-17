@@ -102,6 +102,11 @@ public class Tuba.SecretAccountStore : AccountStore {
 		debug (@"Saved $(saved.size) accounts");
 	}
 
+	public override void update_account (InstanceAccount account) throws GLib.Error {
+		account_to_secret (account);
+		debug (@"Updated $(account.full_handle)");
+	}
+
 	public override void remove (InstanceAccount account) throws GLib.Error {
 		base.remove (account);
 
@@ -182,6 +187,28 @@ public class Tuba.SecretAccountStore : AccountStore {
 		builder.set_member_name ("admin-mode");
 		builder.add_boolean_value (account.admin_mode);
 
+		builder.set_member_name ("api-versions");
+		builder.begin_object ();
+
+		if (account.tuba_api_versions.mastodon > 0) {
+			builder.set_member_name ("mastodon");
+			builder.add_int_value (account.tuba_api_versions.mastodon);
+		}
+
+		if (account.tuba_api_versions.chuckya > 0) {
+			builder.set_member_name ("chuckya");
+			builder.add_int_value (account.tuba_api_versions.chuckya);
+		}
+
+		builder.end_object ();
+
+		builder.set_member_name ("instance-features");
+		builder.add_int_value ((int) account.tuba_instance_features);
+		//  if (ICESHRIMP in account.tuba_instance_features && account.tuba_iceshrimp_api_key != null) {
+		//  	builder.set_member_name ("iceshrimp-api-key");
+		//  	builder.add_string_value (account.tuba_iceshrimp_api_key);
+		//  }
+
 		// If display name has emojis it's
 		// better to save and load them
 		// so users don't see their shortcode
@@ -206,8 +233,8 @@ public class Tuba.SecretAccountStore : AccountStore {
 		builder.end_object ();
 		generator.set_root (builder.get_root ());
 		var secret = generator.to_data (null);
-		// translators: The variable is the backend like "Mastodon"
-		var label = _("%s Account").printf (account.backend);
+		// translators: The variable is "Fediverse" or a backend like "Mastodon"
+		var label = _("%s Account").printf ("Fediverse");
 
 		Secret.password_storev.begin (
 			schema,

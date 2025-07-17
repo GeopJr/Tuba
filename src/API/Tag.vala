@@ -4,6 +4,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	public string url { get; set; }
 	public Gee.ArrayList<API.TagHistory>? history { get; set; default = null; }
 	public bool following { get; set; default = false; }
+	public bool featuring { get; set; default = false; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
@@ -29,7 +30,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 
 	public override void open () {
 		#if USE_LISTVIEW
-			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url)));
+			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url), this.featuring));
 		#endif
 	}
 
@@ -48,7 +49,8 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	public override Gtk.Widget to_widget () {
 		var w = new Adw.ActionRow () {
 			title = @"#$name",
-			activatable = true
+			activatable = true,
+			use_markup = false
 		};
 
 		if (history != null && history.size > 0) {
@@ -79,7 +81,19 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 
 	#if !USE_LISTVIEW
 		protected void on_activated () {
-			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url)));
+			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url), this.featuring));
 		}
 	#endif
+
+	//  public Request feature (bool? feature = null) {
+	//  	string endpoint = "feature";
+	//  	if (feature == null) {
+	//  		endpoint = this.featuring ? "unfeature" : "feature";
+	//  	} else if (feature == false) {
+	//  		endpoint = "unfeature";
+	//  	}
+
+	//  	return new Request.POST (@"/api/v1/tags/$(Path.get_basename (url) ?? name)/$endpoint")
+	//  		.with_account (accounts.active);
+	//  }
 }

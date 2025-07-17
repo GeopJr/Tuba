@@ -192,7 +192,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			return req;
 	}
 
-	bool has_finished_request = false;
+	protected bool has_finished_request { get; private set; default = false; }
 	public virtual void on_request_finish () {
 		has_finished_request = true;
 		base.on_bottom_reached ();
@@ -261,7 +261,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	protected override void on_bottom_reached () {
 		if (is_last_page) {
-			info ("Last page reached");
+			debug ("Last page reached");
 			return;
 		}
 		request ();
@@ -303,32 +303,36 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				model.insert (0, Entity.from_json (accepts, ev.get_node ()));
 			#else
 				var entity = Entity.from_json (accepts, ev.get_node ());
-				if (should_hide (entity)) return;
-
-				if (use_queue && scrolled.vadjustment.value > 100) {
-					entity_queue += entity;
-					entity_queue_size += 1;
-					return;
-				}
-
-				// This can occur on race conditions or multiple calls.
-				// The post might already be in the timeline due to a refresh etc.
-				// So just if the id exists already in the first page and remove it.
-				if (accepts == typeof (API.Status)) {
-					string e_id = ((API.Status) entity).id;
-					for (uint i = 0; i < uint.min (model.n_items, settings.timeline_page_size); i++) {
-						var status_obj = model.get_item (i) as API.Status;
-						if (status_obj != null && status_obj.id == e_id) {
-							model.remove (i);
-						}
-					}
-				}
-
-				model.insert (0, entity);
+				on_new_post_entity (entity);
 			#endif
 		} catch (Error e) {
 			warning (@"Error getting Entity from json: $(e.message)");
 		}
+	}
+
+	public void on_new_post_entity (Entity entity) {
+		if (should_hide (entity)) return;
+
+		if (use_queue && scrolled.vadjustment.value > 100) {
+			entity_queue += entity;
+			entity_queue_size += 1;
+			return;
+		}
+
+		// This can occur on race conditions or multiple calls.
+		// The post might already be in the timeline due to a refresh etc.
+		// So just if the id exists already in the first page and remove it.
+		if (accepts == typeof (API.Status)) {
+			string e_id = ((API.Status) entity).id;
+			for (uint i = 0; i < uint.min (model.n_items, settings.timeline_page_size); i++) {
+				var status_obj = model.get_item (i) as API.Status;
+				if (status_obj != null && status_obj.id == e_id) {
+					model.remove (i);
+				}
+			}
+		}
+
+		model.insert (0, entity);
 	}
 
 	#if !USE_LISTVIEW

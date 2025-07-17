@@ -2,6 +2,7 @@
 	<template class="GtkListItem">
 		<property name="child">
 			<object class="GtkImage">
+				<property name="accessible-role">presentation</property>
 				<binding name="icon_name">
 					<lookup name="icon_name" type="TubaInstanceAccountStatusContentType">
 						<lookup name="item">GtkListItem</lookup>

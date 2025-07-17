@@ -20,6 +20,9 @@
 		<!-- <property name="sensitive">0</property> -->
 		<property name="sensitive">1</property>
 		<property name="spacing">6</property>
+		<property name="margin-start">6</property>
+		<property name="margin-end">6</property>
+		<property name="margin-bottom">6</property>
 		<child>
 			<object class="GtkButton" id="play_button">
 				<property name="receives-default">1</property>
@@ -29,6 +32,10 @@
 				<property name="icon-name">media-playback-start-symbolic</property>
 				<property name="tooltip-text" context="media controls tooltip" translatable="yes">Play</property>
 				<signal name="clicked" handler="play_button_clicked" object="TubaWidgetsAudioControls" swapped="no"/>
+				<style>
+					<class name="circular" />
+					<class name="flat" />
+				</style>
 			</object>
 		</child>
 		<child>
@@ -66,6 +73,10 @@
 				<accessibility>
 					<property name="label" translatable="yes" context="media controls">Volume</property>
 				</accessibility>
+				<style>
+					<class name="circular" />
+					<class name="flat" />
+				</style>
 			</object>
 		</child>
 	</template>

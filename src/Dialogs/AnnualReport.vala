@@ -14,17 +14,16 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 			status.formal.filtered = null;
 			status.formal.tuba_spoiler_revealed = true;
-			try {
-				var widg = status.to_widget () as Widgets.Status;
-				widg.actions.visible = false;
-				widg.menu_button.visible = false;
-				widg.activatable = false;
-				widg.filter_stack.can_focus = false;
-				widg.filter_stack.can_target = false;
-				widg.filter_stack.focusable = false;
+
+			var widg = status.to_widget () as Widgets.Status;
+			widg.actions.visible = false;
+			widg.menu_button.visible = false;
+			widg.activatable = false;
+			widg.filter_stack.can_focus = false;
+			widg.filter_stack.can_target = false;
+			widg.filter_stack.focusable = false;
 
 				this.child = widg;
-			} catch {}
 
 			this.clicked.connect (on_clicked);
 		}
@@ -514,7 +513,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 		share_async.begin (texture, (obj, res) => {
 			try {
-				new Dialogs.Compose (share_async.end (res));
+				share_async.end (res);
 			} catch (Error e) {
 				warning (e.message);
 				toast_overlay.add_toast (new Adw.Toast (e.message) {
@@ -526,7 +525,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		});
 	}
 
-	private async API.Status share_async (Gdk.Texture texture) throws GLib.Error {
+	private async void share_async (Gdk.Texture texture) throws GLib.Error {
 		var attachment = yield API.Attachment.upload (null, texture.save_to_png_bytes (), "image/png");
 		var builder = new Json.Builder ();
 		builder.begin_object ();
@@ -537,15 +536,10 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		var req = new Request.PUT (@"/api/v1/media/$(attachment.id)")
 			.with_account (accounts.active)
 			.body_json (builder);
-
 		yield req.await ();
 
 		attachment.description = report_alt_text;
-		var status = new API.Status.empty ();
-		status.content = "#Wrapstodon #FediWrapped";
-		status.media_attachments = new Gee.ArrayList<API.Attachment>.wrap ({attachment});
-
-		return status;
+		new Dialogs.Composer.Dialog ({"#Wrapstodon #FediWrapped", null, null, null, null, null, new Gee.ArrayList<API.Attachment>.wrap ({attachment}), false, false});
 	}
 
 	private void save_with_background () {

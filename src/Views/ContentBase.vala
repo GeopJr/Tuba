@@ -9,7 +9,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 	public GLib.ListStore model;
 	private bool bottom_reached_locked = false;
 
-	public bool empty {
+	public virtual bool empty {
 		get { return model.get_n_items () <= 0; }
 	}
 
@@ -128,24 +128,19 @@ public class Tuba.Views.ContentBase : Views.Base {
 		var obj_widgetable = obj as Widgetizable;
 		if (obj_widgetable == null)
 			Process.exit (0);
-		try {
 
-			#if !USE_LISTVIEW
-				Gtk.Widget widget = obj_widgetable.to_widget ();
-				widget.add_css_class ("card");
-				widget.add_css_class ("card-spacing");
-				widget.focusable = true;
+		#if !USE_LISTVIEW
+			Gtk.Widget widget = obj_widgetable.to_widget ();
+			widget.add_css_class ("card");
+			widget.add_css_class ("card-spacing");
+			widget.focusable = true;
 
-				// Thread lines overflow slightly
-				widget.overflow = Gtk.Overflow.HIDDEN;
-				return widget;
-			#else
-				return obj_widgetable.to_widget ();
-			#endif
-		} catch (Oopsie e) {
-			warning (@"Error on_create_model_widget: $(e.message)");
-			Process.exit (0);
-		}
+			// Thread lines overflow slightly
+			widget.overflow = Gtk.Overflow.HIDDEN;
+			return widget;
+		#else
+			return obj_widgetable.to_widget ();
+		#endif
 	}
 
 	public virtual void on_bottom_reached () {

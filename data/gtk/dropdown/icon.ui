@@ -1,13 +1,30 @@
 <interface>
   <template class="GtkListItem">
     <property name="child">
-
-      <object class="GtkImage">
-        <binding name="icon_name">
-          <lookup name="icon_name" type="TubaInstanceAccountVisibility">
-            <lookup name="item">GtkListItem</lookup>
-          </lookup>
-        </binding>
+      <object class="GtkBox">
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkImage">
+			  <property name="accessible-role">presentation</property>
+            <binding name="icon_name">
+              <lookup name="icon_name" type="TubaInstanceAccountVisibility">
+                <lookup name="item">GtkListItem</lookup>
+              </lookup>
+            </binding>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="xalign">0</property>
+            <property name="ellipsize">end</property>
+            <binding name="label">
+              <lookup name="name" type="TubaInstanceAccountVisibility">
+                <lookup name="item">GtkListItem</lookup>
+              </lookup>
+            </binding>
+          </object>
+        </child>
       </object>
 
       <!-- <object class="GtkLabel"> -->
@@ -42,4 +59,3 @@
     </property>
   </template>
 </interface>
-

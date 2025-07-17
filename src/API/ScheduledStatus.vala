@@ -27,6 +27,7 @@ public class Tuba.API.ScheduledStatus : Entity, Widgetizable {
 		public string visibility { get; set; }
 		public string? language { get; set; }
 		public string? in_reply_to_id { get; set; }
+		public bool local_only { get; set; default = false; }
 
 		public override Type deserialize_array_type (string prop) {
 			switch (prop) {

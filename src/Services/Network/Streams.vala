@@ -35,6 +35,14 @@ public class Tuba.Streams : Object {
 		}
 	}
 
+	public void forward (string? url, Streamable.Event ev) {
+		if (url == null) return;
+
+		if (connections.contains (url)) {
+			connections[url].push_event (ev);
+		}
+	}
+
 	// public void force_delete (string id) {
 	// 	connections.get_values ().@foreach (c => {
 	// 		c.subscribers.@foreach (s => {
@@ -126,16 +134,18 @@ public class Tuba.Streams : Object {
 			try {
 				Streamable.Event ev;
 				decode (bytes, out ev);
-
-				subscribers.@foreach (s => {
-					debug (@"$(name): $(ev.type) for $(s.get_subscriber_name ())");
-					s.stream_event[ev.type] (ev);
-					return true;
-				});
-			}
-			catch (Error e) {
+				push_event (ev);
+			} catch (Error e) {
 				warning (@"Failed to handle websocket message. Reason: $(e.message)");
 			}
+		}
+
+		public void push_event (Streamable.Event ev) {
+			subscribers.@foreach (s => {
+				debug (@"$(name): $(ev.type) for $(s.get_subscriber_name ())");
+				s.stream_event[ev.type] (ev);
+				return true;
+			});
 		}
 
 		void decode (Bytes bytes, out Streamable.Event event) throws Error {

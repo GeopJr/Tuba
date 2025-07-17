@@ -7,6 +7,7 @@ public class Tuba.API.Instance : Entity {
 	public string uri { get; set; default=""; }
 	public string title { get; set; default=""; }
 	public string thumbnail { get; set; default=null; }
+	public string? version { get; set; default=null; }
 
 	public Gee.ArrayList<string>? languages { get; set; }
 	public API.Mastodon.Configurations? configuration { get; set; default = null; }
@@ -17,7 +18,7 @@ public class Tuba.API.Instance : Entity {
 	public Gee.ArrayList<Rule>? rules { get; set; }
 
 	public bool tuba_can_translate { get; set; default=false; }
-	public API.InstanceV2.APIVersions tuba_api_versions { get; set; default= new API.InstanceV2.APIVersions (); }
+	public int64 tuba_max_alt_chars { get; set; default = 1500; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
@@ -44,7 +45,7 @@ public class Tuba.API.Instance : Entity {
 		get {
 			if (pleroma != null && pleroma.metadata != null && pleroma.metadata.features != null) {
 				return "bubble_timeline" in pleroma.metadata.features;
-			} else if (tuba_api_versions.chuckya > 0) {
+			} else if (accounts.active.tuba_api_versions.chuckya > 0) {
 				return true;
 			}
 

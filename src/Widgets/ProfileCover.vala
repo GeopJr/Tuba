@@ -266,6 +266,9 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	string stats_string = "";
 	string profile_id;
 	public Cover (Views.Profile.ProfileAccount profile, bool mini = false) {
+		#if !ADW_1_7_5
+			avatar.size = 100;
+		#endif
 		profile_id = profile.account.id;
 		if (settings.scale_emoji_hover)
 			this.add_css_class ("lww-scale-emoji-hover");
@@ -277,7 +280,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			note_row.sensitive = false;
 		} else if (!is_self) {
 			moved_btn.clicked.connect (on_moved_btn_clicked);
-			if (accounts.active.instance_info != null && accounts.active.instance_info.tuba_api_versions.mastodon > 0) {
+			if (accounts.active.tuba_api_versions.mastodon > 0 || InstanceAccount.InstanceFeatures.MUTUALS in accounts.active.tuba_instance_features) {
 				GLib.Idle.add (populate_mutuals);
 			}
 		}
@@ -674,7 +677,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
 
 		posts_btn = new ProfileStatsButton ();
-		posts_btn.clicked.connect (() => timeline_change ("statuses"));
+		posts_btn.clicked.connect (() => timeline_change ("statuses-like"));
 		sizegroup.add_widget (posts_btn);
 		box.append (posts_btn);
 

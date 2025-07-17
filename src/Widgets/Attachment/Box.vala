@@ -113,30 +113,26 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 
 		var single_attachment = list.size == 1;
 		list.@foreach (item => {
-			try {
-				var widget = item.to_widget ();
-				var flowboxchild = new Gtk.FlowBoxChild () {
-					child = widget,
-					focusable = false
-				};
-				box.insert (flowboxchild, -1);
-				attachment_widgets += ((Widgets.Attachment.Image) widget);
-				((Widgets.Attachment.Image) widget).spoiler_revealed.connect (on_spoiler_reveal);
+			var widget = item.to_widget ();
+			var flowboxchild = new Gtk.FlowBoxChild () {
+				child = widget,
+				focusable = false
+			};
+			box.insert (flowboxchild, -1);
+			attachment_widgets += ((Widgets.Attachment.Image) widget);
+			((Widgets.Attachment.Image) widget).spoiler_revealed.connect (on_spoiler_reveal);
 
-				if (single_attachment) {
-					widget.height_request = 334;
-				}
-
-				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (open_all_attachments);
-
-				#if GSTREAMER
-					if (!this.has_thumbnailess_audio && ((Widgets.Attachment.Image) widget).media_kind == Tuba.Attachment.MediaType.AUDIO) {
-						this.has_thumbnailess_audio = item.blurhash == null || item.blurhash == "" || ((Widgets.Attachment.Image) widget).pic.paintable == null;
-					}
-				#endif
-			} catch (Oopsie e) {
-				warning (@"Error updating attachments: $(e.message)");
+			if (single_attachment) {
+				widget.height_request = 334;
 			}
+
+			((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (open_all_attachments);
+
+			#if GSTREAMER
+				if (!this.has_thumbnailess_audio && ((Widgets.Attachment.Image) widget).media_kind == Tuba.Attachment.MediaType.AUDIO) {
+					this.has_thumbnailess_audio = item.blurhash == null || item.blurhash == "" || ((Widgets.Attachment.Image) widget).pic.paintable == null;
+				}
+			#endif
 			return true;
 		});
 
@@ -156,7 +152,10 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		spoiler_revealed = true;
 	}
 
+	public bool usable { get; set; default = true; }
 	private void open_all_attachments (string url) {
+		if (!usable) return;
+
 		int attachment_length = attachment_widgets.length;
 		for (int i = 0; i < attachment_length; i++) {
 			bool? is_main = null;

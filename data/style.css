@@ -1,3 +1,11 @@
+.search.rounded {
+	border-radius: 999px;
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
 calendar, calendar>header {
 	border: none;
 }
@@ -23,6 +31,10 @@ calendar>header>button, calendar>grid>label {
 .no-min-size {
 	min-width: 0;
 	min-height: 0;
+}
+
+.initial-font-size {
+	font-size: initial;
 }
 
 .notification-badge.no-attention {
@@ -125,6 +137,18 @@ headerbar.flat.no-title .title {
 	to {}
 }
 
+@keyframes beat {
+	0% {}
+	50% { -gtk-icon-transform: scale(1.2); }
+	100% {}
+}
+
+.grouped-icon {
+	padding: 6px;
+	background-color: color-mix(in srgb, currentColor 15%, transparent);
+	border-radius: 9999px;
+}
+
 .ttl-status-action-reblog.enabled image {
 	animation: rotate_half 0.4s ease;
 }
@@ -137,6 +161,11 @@ headerbar.flat.no-title .title {
 	animation: rotate_star 0.4s ease;
 }
 
+.ttl-status-action-heart.enabled image {
+	animation: beat 1s ease;
+}
+
+.grouped-icon.star,
 .ttl-status-action-star:hover,
 .ttl-status-action-star.enabled {
 	color: var(--yellow-5);
@@ -146,6 +175,7 @@ headerbar.flat.no-title .title {
 	color: var(--yellow-4);
 }
 
+.grouped-icon.reblog,
 .ttl-status-action-reblog:hover,
 .ttl-status-action-reblog.enabled {
 	color: var(--purple-3);
@@ -155,6 +185,7 @@ headerbar.flat.no-title .title {
 	color: var(--purple-4);
 }
 
+.grouped-icon.follow,
 .ttl-status-action-reply:hover,
 .ttl-status-action-reply.enabled {
 	color: var(--green-3);
@@ -164,11 +195,15 @@ headerbar.flat.no-title .title {
 	color: var(--green-4);
 }
 
+.grouped-icon.sign-up,
+.ttl-status-action-heart:hover,
+.ttl-status-action-heart.enabled,
 .ttl-status-action-bookmark:hover,
 .ttl-status-action-bookmark.enabled {
 	color: var(--red-3);
 }
 
+.ttl-status-action-heart:active,
 .ttl-status-action-bookmark:active {
 	color: var(--red-4);
 }
@@ -338,8 +373,21 @@ headerbar.flat.no-title .title {
 	background-color: darker(alpha(var(--warning-bg-color), .1));
 }
 
+.ttl-post.local {
+	background-color: color-mix(in srgb, var(--purple-1) 10%, transparent);
+}
+
+.ttl-post.local:hover {
+	background-color: color-mix(in srgb, color-mix(in srgb, var(--purple-1) 10%, transparent), black 1%);
+}
+
 .ttl-post-actions {
 	margin-bottom: -12px;
+}
+
+.ttl-post-actions button image,
+.ttl-post-actions button label {
+	transition-duration: 200ms;
 }
 
 .ttl-quote {
@@ -353,8 +401,30 @@ headerbar.flat.no-title .title {
 	min-width: 64px;
 }
 
+.composer-attachment,
 .attachment-picture {
-	border-radius: 6px;
+	border-radius: 12px;
+}
+
+.composer-attachment {
+	background-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.composer-attachment .alt-indicator {
+	background-color: color-mix(in srgb, color-mix(in srgb, var(--error-bg-color) 35%, white) 80%, transparent);
+	font-size: smaller;
+	border-radius: 6px; /* 12px (parent radius) - 6px (margin) */
+	font-weight: bold;
+	padding: 3px 8px;
+}
+
+.composer-attachment .alt-indicator.success {
+	background-color: color-mix(in srgb, color-mix(in srgb, var(--success-bg-color) 35%, white) 80%, transparent);
+}
+
+.attachment-editor-picker {
+	background-color: var(--shade-color);
+	padding: 12px 0;
 }
 
 .about .app-version{color:#fff;text-shadow:-1px -1px 0#000,1px -1px 0#000,-1px 1px 0#000,1px 1px 0#000;background:linear-gradient(150deg,#fdd81755 0,#66338b55 8.3%,#fff5 16.6%,#f4aec855 24.9%,#7bcce555 33.2%,#94551655 41.5%,#0005 49.8%,#e2201655 58.1%,#f2891755 66.4%,#efe52455 74.7%,#78b82a55 83%,#2c58a4 91.3%,#6d238055 100%);}
@@ -399,8 +469,12 @@ flowboxchild,
 	padding: 12px;
 }
 
-video > overlay > revealer > controls, .audio-controls {
+video > overlay > revealer > controls {
 	padding: 12px;
+}
+
+.spoilered-attachmentsbin picture {
+	filter: blur(15px);
 }
 
 .spoilered-attachment {
@@ -554,6 +628,7 @@ video > overlay > revealer > controls, .audio-controls {
 }
 
 /* .ttl-view:not(.large-view) .content .card:first-child { */
+.ttl-view:not(.large-view) .fake-content .toggle-group-17 +.card,
 .ttl-view:not(.large-view) .fake-content .card:first-child {
 	border-top: 1px var(--border-color) solid;
 }
@@ -632,7 +707,7 @@ video > overlay > revealer > controls, .audio-controls {
 	border-radius: 9999px;
 	border: solid var(--accent-bg-color) 2px;
 	background-color: var(--accent-bg-color);
-	margin-bottom: 6px;
+	margin-bottom: 10px;
 	opacity: 0;
 }
 
@@ -720,6 +795,19 @@ GtkSourceAssistant row:last-child {
 	font-size: small;
 }
 
+.accented-color {
+	color: @accent_color;
+}
+
+.font-large {
+	font-size: large;
+}
+
+.composer-toggle-button,
+.dropdown-border-radius > button {
+	border-radius: 9999px;
+}
+
 .filter {
 	margin: -2px;
 	border-radius: 0;
@@ -753,12 +841,7 @@ popover.mini-profile > contents {
 	filter: none;
 }
 
-.focuspickerdialog .last-row {
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-}
-
-.focuspickerdialog .focus-picker {
+.focus-picker {
 	border-radius: 9999px;
 	padding: 4px;
 }
@@ -788,6 +871,8 @@ list.uniform-border-color row {
 .toggle-group-17 {
 	background: none;
 	padding: 0;
+	margin-top: 6px;
+	margin-bottom: 6px;
 }
 
 @keyframes annual-avi-bg {
@@ -840,3 +925,67 @@ list.uniform-border-color row {
 	background-image: linear-gradient(135deg, rgba(92,206,250,0.5) 0%, rgba(246,168,183,0.5) 25%, rgba(255,255,255,0.5) 50%, rgba(246,168,183,0.5) 75%, rgba(92,206,250,0.5) 100%);
 	background-color: var(--window-bg-color);
 }
+
+.audio-controls {
+	background-color: rgba(38,38,38,0.8);
+	border-radius: 9999px;
+	padding: 2px;
+}
+.audio-controls,
+clapper-gtk-lead-container>box {
+	--accent-bg-color: @accent_bg_color;
+	--accent-color: oklab(from var(--accent-bg-color) var(--standalone-color-oklab));
+}
+.audio-controls scale trough highlight {
+	min-height: 6px;
+}
+.audio-controls>button:hover,
+.audio-controls>button:checked {
+	background-color: rgba(63,63,63,0.8);
+}
+.audio-controls>button:active {
+	background-color: rgba(82,82,82,0.8);
+}
+.audio-controls>scalebutton>button {
+	border-radius: 9999px;
+}
+
+.editor-component {
+	padding-bottom: 28px;
+}
+
+.devel-bg {
+	background-image: cross-fade(5% -gtk-recolor(url(resource:///org/gnome/Adwaita/styles/assets/devel-symbolic.svg)), image(rgba(0,0,0,0)));
+}
+
+dropoverlay,
+dropoverlay > overlay > :not(revealer) {
+	box-shadow: none;
+}
+
+dropoverlay .status {
+	background-color: color-mix(in srgb, var(--accent-bg-color) 60%, transparent);
+	color: var(--accent-fg-color);
+}
+
+splitbutton.pill {
+	border-radius: 9999px;
+}
+
+splitbutton.pill > button {
+	padding: 10px 16px;
+	border-top-left-radius: inherit;
+	border-bottom-left-radius: inherit;
+}
+
+splitbutton.pill > menubutton {
+	border-top-right-radius: inherit;
+	border-bottom-right-radius: inherit;
+}
+
+splitbutton.pill > menubutton > button {
+	padding: 10px 8px;
+	border-top-right-radius: inherit;
+	border-bottom-right-radius: inherit;
+}
+

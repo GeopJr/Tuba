@@ -3,12 +3,23 @@ public class Tuba.API.InstanceV2 : Entity {
 		public class Translation : Entity {
 			public bool enabled { get; set; default = false; }
 		}
+
+		public class MediaAttachments : Entity {
+			public int64 description_limit { get; set; default = 1500; }
+		}
+
 		public Translation translation { get; set; default = null; }
+		public MediaAttachments media_attachments { get; set; default = null; }
 	}
 
 	public class APIVersions : Entity {
 		public int8 mastodon { get; set; default = 0; }
 		public int8 chuckya { get; set; default = 0; }
+
+		public bool tuba_same (APIVersions new_val) {
+			return new_val.mastodon == this.mastodon
+				&& new_val.chuckya == this.chuckya;
+		}
 	}
 
 	public Configuration configuration { get; set; default = null; }

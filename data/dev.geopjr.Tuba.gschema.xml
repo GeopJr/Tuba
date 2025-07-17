@@ -19,10 +19,16 @@
 		<key name="recently-used-custom-emojis" type="as">
 			<default>[]</default>
 		</key>
+    <key name="recent-searches" type="as">
+			<default>[]</default>
+		</key>
 		<key name="notification-filters" type="as">
 			<default>[]</default>
 		</key>
 		<key name="favorite-lists-ids" type="as">
+			<default>[]</default>
+		</key>
+    <key name="favorite-tags-ids" type="as">
 			<default>[]</default>
 		</key>
 		<key name="account-suggestions" type="b">
@@ -134,6 +140,9 @@
 			<default>true</default>
 		</key>
     <key name="collapse-long-posts" type="b">
+			<default>true</default>
+		</key>
+    <key name="auto-detect-features" type="b">
 			<default>true</default>
 		</key>
 
