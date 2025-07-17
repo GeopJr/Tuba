@@ -153,8 +153,9 @@ public class Tuba.Views.Drive : Views.Base {
 	private void load_folder (string? id = null) {
 		base_status = new StatusMessage () { loading = true };
 		var folder_id = id == null ? "" : @"/$id";
-		new Request.GET (@"/api/iceshrimp/drive/folder$folder_id") {temp_testing_token = "0OUiTvLg4m1HCEM1hmDMhZynPCwxRJoP"}
+		new Request.GET (@"/api/iceshrimp/drive/folder$folder_id")
 			.with_account (accounts.active)
+			.with_token (accounts.active.tuba_iceshrimp_api_key)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
