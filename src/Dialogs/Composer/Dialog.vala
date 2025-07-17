@@ -469,7 +469,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		if (InstanceAccount.InstanceFeatures.LOCAL_ONLY in accounts.active.tuba_instance_features) {
 			install_local_only_button (default_visibility == "local" || (precompose != null && precompose.local_only));
-			if (precompose != null && precompose.content != null && precompose.content.has_suffix (LOCAL_ONLY_GLITCH_SUFFIX)) {
+			if (local_only_button.active && precompose != null && precompose.content != null && precompose.content.has_suffix (LOCAL_ONLY_GLITCH_SUFFIX)) {
 				precompose.content = precompose.content.substring (0, precompose.content.length - LOCAL_ONLY_GLITCH_SUFFIX.length);
 			}
 			local_only_button.sensitive = !this.edit_mode;
@@ -956,7 +956,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			: editor.buffer.text
 		);
 
-		if (is_local && !is_glitch && !is_pleroma) {
+		if (is_local && !is_glitch && (!is_pleroma || is_shrimp)) {
 			builder.set_member_name ("local_only");
 			builder.add_boolean_value (true);
 		}
