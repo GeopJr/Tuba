@@ -654,6 +654,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 							add_button.remove = is_already;
 
 							var row = new Adw.ActionRow () {
+								use_markup = false,
 								title = list.title
 							};
 							row.add_suffix (add_button);
