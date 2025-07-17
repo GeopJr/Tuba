@@ -47,7 +47,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		LOCAL_ONLY
 	}
 	public InstanceFeatures tuba_instance_features { get; set; default = NONE; }
-	//  public string? tuba_iceshrimp_api_key { get; set; default = null; }
+	public string? tuba_iceshrimp_api_key { get; set; default = null; }
 
 	private void tuba_instance_features_update_and_save (InstanceFeatures features) {
 		if (features == tuba_instance_features || !settings.get_boolean ("auto-detect-features")) return;

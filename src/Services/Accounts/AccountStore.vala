@@ -134,8 +134,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		if (obj.has_member ("instance-features")) {
 			account.tuba_instance_features = (InstanceAccount.InstanceFeatures) obj.get_int_member ("instance-features");
 
-			//  if (ICESHRIMP in account.tuba_instance_features && obj.has_member ("iceshrimp-api-key"))
-			//  	account.tuba_iceshrimp_api_key = obj.get_string_member ("iceshrimp-api-key");
+			if (InstanceAccount.InstanceFeatures.ICESHRIMP in account.tuba_instance_features && obj.has_member ("iceshrimp-api-key"))
+				account.tuba_iceshrimp_api_key = obj.get_string_member ("iceshrimp-api-key");
 		}
 
 		if (account.uuid == null || !GLib.Uuid.string_is_valid (account.uuid)) account.uuid = GLib.Uuid.string_random ();

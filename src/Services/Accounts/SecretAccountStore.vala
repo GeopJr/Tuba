@@ -204,10 +204,10 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 		builder.set_member_name ("instance-features");
 		builder.add_int_value ((int) account.tuba_instance_features);
-		//  if (ICESHRIMP in account.tuba_instance_features && account.tuba_iceshrimp_api_key != null) {
-		//  	builder.set_member_name ("iceshrimp-api-key");
-		//  	builder.add_string_value (account.tuba_iceshrimp_api_key);
-		//  }
+		if (InstanceAccount.InstanceFeatures.ICESHRIMP in account.tuba_instance_features && account.tuba_iceshrimp_api_key != null) {
+			builder.set_member_name ("iceshrimp-api-key");
+			builder.add_string_value (account.tuba_iceshrimp_api_key);
+		}
 
 		// If display name has emojis it's
 		// better to save and load them
