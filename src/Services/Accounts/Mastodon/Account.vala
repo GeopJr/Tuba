@@ -1,26 +1,4 @@
 public class Tuba.Mastodon.Account : InstanceAccount {
-	public const string BACKEND = "Mastodon";
-
-	class Test : AccountStore.BackendTest {
-		public override string? get_backend (Json.Object obj) {
-			return BACKEND; // Always treat instances as compatible with Mastodon
-		}
-	}
-
-	public static void register (AccountStore store) {
-		store.backend_tests.add (new Test ());
-		store.create_for_backend[BACKEND].connect ((node) => {
-			try {
-				var account = Entity.from_json (typeof (Account), node) as Account;
-				account.backend = BACKEND;
-				return account;
-			} catch (Error e) {
-				warning (@"Error creating backend: $(e.message)");
-			}
-			return null;
-		});
-	}
-
 	public static Place PLACE_HOME = new Place () { // vala-lint=naming-convention
 
 		icon = "tuba-user-home-symbolic",

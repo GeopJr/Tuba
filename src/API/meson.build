@@ -18,6 +18,7 @@ sources += files(
     'InstanceV2.vala',
     'List.vala',
     'Mention.vala',
+    'Nodeinfo.vala',
     'Notification.vala',
     'NotificationFilter.vala',
     'Poll.vala',
