@@ -26,6 +26,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 	}
 
 	public virtual void init () throws GLib.Error {
+		Mastodon.Account.register (this);
+
 		load ();
 		ensure_active_account ();
 	}
@@ -110,14 +112,12 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		switched (active);
 	}
 
-	[Signal (detailed = true)]
 	public signal InstanceAccount? create_for_backend (Json.Node node);
-
 	public InstanceAccount create_account (Json.Node node) throws GLib.Error {
 		var obj = node.get_object ();
 		var backend = obj.get_string_member ("backend");
 		var handle = obj.get_string_member ("handle");
-		var account = create_for_backend[backend] (node);
+		var account = create_for_backend (node);
 		if (account == null)
 			throw new Oopsie.INTERNAL (@"Account $handle has unknown backend: $backend");
 
@@ -172,8 +172,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			if (!link.rel.contains ("://nodeinfo.diaspora.software/ns/schema/2")) continue;
 			supports = true;
 
-			if (link.rel.has_suffix ("://nodeinfo.diaspora.software/ns/schema/2.0")) {
-				req = new Request.GET (link.rel);
+			if (link.rel.has_suffix ("://nodeinfo.diaspora.software/ns/schema/2.0") && link.href != null && link.href != "") {
+				req = new Request.GET (link.href.replace ("https://shrimp.example.org", account.instance));
 				try {
 					yield req.await ();
 					parser = Network.get_parser_from_inputstream (req.response_body);

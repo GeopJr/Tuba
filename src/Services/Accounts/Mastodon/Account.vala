@@ -1,4 +1,19 @@
 public class Tuba.Mastodon.Account : InstanceAccount {
+	public static void register (AccountStore store) {
+		store.create_for_backend.connect (create_for_backend);
+	}
+
+	private static InstanceAccount? create_for_backend (Json.Node node) {
+		try {
+			var account = Entity.from_json (typeof (Account), node) as Account;
+			if (account.backend == null || account.backend == "") account.backend = "Fediverse";
+			return account;
+		} catch (Error e) {
+			warning (@"Error creating backend: $(e.message)");
+		}
+		return null;
+	}
+
 	public static Place PLACE_HOME = new Place () { // vala-lint=naming-convention
 
 		icon = "tuba-user-home-symbolic",
