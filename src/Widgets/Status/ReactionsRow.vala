@@ -231,7 +231,7 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 		}
 
 		if (last_reaction == null) {
-			reaction_box.append (badge_button);
+			reaction_box.prepend (badge_button);
 		} else {
 			reaction_box.insert_child_after (badge_button, last_reaction);
 		}

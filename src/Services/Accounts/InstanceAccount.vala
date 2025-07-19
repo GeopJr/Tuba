@@ -37,7 +37,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		QUOTE,
 		EMOJI_REACTIONS,
 		BUBBLE,
-		GROUP_NOTIFCATIONS,
+		GROUP_NOTIFICATIONS,
 		FEATURE_TAGS,
 		ENDORSE_USERS,
 		MUTUALS,
@@ -47,12 +47,23 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		LOCAL_ONLY
 	}
 	public InstanceFeatures tuba_instance_features { get; set; default = NONE; }
-	//  public string? tuba_iceshrimp_api_key { get; set; default = null; }
+	public string? tuba_iceshrimp_api_key { get; set; default = null; }
 
 	private void tuba_instance_features_update_and_save (InstanceFeatures features) {
 		if (features == tuba_instance_features || !settings.get_boolean ("auto-detect-features")) return;
 
 		this.tuba_instance_features = features;
+		try {
+			accounts.update_account (this);
+		} catch (Error e) {
+			critical (@"Couldn't update instance features for $id: $(e.code) $(e.message)");
+		}
+	}
+
+	public void tuba_update_iceshrimp_api_key (string? new_key) {
+		if (this.tuba_iceshrimp_api_key == new_key) return;
+
+		this.tuba_iceshrimp_api_key = new_key;
 		try {
 			accounts.update_account (this);
 		} catch (Error e) {
@@ -556,11 +567,12 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					new_flags = instance_info.supports_bubble ? new_flags | InstanceFeatures.BUBBLE : new_flags & ~InstanceFeatures.BUBBLE;
 				}
 
-				if (instance_info.version != null) {
+				// LOCAL_ONLY is common between them and we can use it to skip the whole string parsing
+				if (instance_info.version != null && !(InstanceFeatures.LOCAL_ONLY in new_flags)) {
 					if ("Pleroma " in instance_info.version) {
 						new_flags |= InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS | InstanceFeatures.MUTUALS | InstanceFeatures.LOCAL_ONLY;
 					} else if ("Iceshrimp.NET/" in instance_info.version) {
-						new_flags |= InstanceFeatures.ICESHRIMP | InstanceFeatures.EMOJI_REACTIONS;
+						new_flags |= InstanceFeatures.ICESHRIMP | InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.LOCAL_ONLY;
 					} else if ("+glitch" in instance_info.version) {
 						new_flags |= InstanceFeatures.GLITCH | InstanceFeatures.LOCAL_ONLY | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS;
 					} else if ("+hometown" in instance_info.version) {
@@ -608,7 +620,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 						if (this.tuba_api_versions.mastodon > 1) {
 							gather_annual_report ();
-							new_flags |= InstanceFeatures.GROUP_NOTIFCATIONS;
+							new_flags |= InstanceFeatures.GROUP_NOTIFICATIONS;
 						}
 
 						if (this.tuba_api_versions.chuckya > 0) {
