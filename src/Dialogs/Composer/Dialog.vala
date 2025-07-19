@@ -392,11 +392,15 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	}
 
 	private void local_only_button_toggled () {
-		if (accounts.active.instance_info.pleroma != null) {
+		update_local_only_button_state ();
+	}
+
+	private void update_local_only_button_state (bool skip_remaining_char_recalc = false) {
+		if (accounts.active.instance_info.pleroma != null && !(InstanceAccount.InstanceFeatures.ICESHRIMP in accounts.active.tuba_instance_features)) {
 			visibility_button.sensitive = !local_only_button.active && !this.edit_mode;
 		} else if (InstanceAccount.InstanceFeatures.GLITCH in accounts.active.tuba_instance_features) {
 			this.reserved_chars = local_only_button.active && !editor.buffer.text.has_suffix (LOCAL_ONLY_GLITCH_SUFFIX) ? 2 : 0;
-			update_remaining_chars ();
+			if (!skip_remaining_char_recalc) update_remaining_chars ();
 		}
 	}
 
