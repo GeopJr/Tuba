@@ -60,7 +60,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		}
 	}
 
-	private void tuba_update_iceshrimp_api_key (string? new_key) {
+	public void tuba_update_iceshrimp_api_key (string? new_key) {
 		if (this.tuba_iceshrimp_api_key == new_key) return;
 
 		this.tuba_iceshrimp_api_key = new_key;
