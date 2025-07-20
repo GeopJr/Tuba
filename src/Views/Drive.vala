@@ -25,6 +25,7 @@ public class Tuba.Views.Drive : Views.Base {
 
 		public signal void refresh ();
 		public signal void delete_me ();
+		public signal void fill_reserved_names (EntryPopover popover);
 		public bool folder { get; private set; default = false; }
 		public string? item_id { get; private set; default = null; }
 		public string filename { get { return label.label; } }
@@ -111,8 +112,9 @@ public class Tuba.Views.Drive : Views.Base {
 				this.folder ? _("Rename Folder") : _("Rename File"),
 				label.label,
 				_("Rename"),
-				{ label.label } // FIX: needs all files, maybe move to toplevel
+				null
 			);
+			fill_reserved_names (rename_popover);
 			rename_popover.set_parent (this);
 			rename_popover.text = label.label;
 			rename_popover.done.connect (on_rename_real);
@@ -509,6 +511,7 @@ public class Tuba.Views.Drive : Views.Base {
 	private void setup_listitem_cb (GLib.Object obj) {
 		Gtk.ListItem list_item = (Gtk.ListItem) obj;
 		var item_widget = new ItemWidget ();
+		item_widget.fill_reserved_names.connect (fill_reserved_names);
 		item_widget.delete_me.connect (on_delete_request);
 		item_widget.refresh.connect (on_refresh);
 		list_item.set_child (item_widget);
@@ -546,6 +549,11 @@ public class Tuba.Views.Drive : Views.Base {
 			Utils.Host.open_url.begin (item.file.url);
 		}
 	}
+
+	private void fill_reserved_names (EntryPopover popover) {
+		popover.update_taken_names (reserved_names ());
+	}
+
 	struct ItemData {
 		string id;
 		string name;
