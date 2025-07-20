@@ -25,10 +25,12 @@ public class Tuba.Views.Drive : Views.Base {
 
 		public signal void refresh ();
 		public signal void delete_me ();
+		public signal void open_me (Item? item);
 		public signal void fill_reserved_names (EntryPopover popover);
 		public bool folder { get; private set; default = false; }
 		public string? item_id { get; private set; default = null; }
 		public string filename { get { return label.label; } }
+		public Item? item { get; private set; default = null; }
 
 		Gtk.Image image;
 		Gtk.Label label;
@@ -56,6 +58,7 @@ public class Tuba.Views.Drive : Views.Base {
 			var open_action = new SimpleAction ("open", null);
 			var rename_action = new SimpleAction ("rename", null);
 			var delete_action = new SimpleAction ("delete", null);
+			open_action.activate.connect (on_open);
 			rename_action.activate.connect (on_rename);
 			delete_action.activate.connect (on_delete);
 
@@ -96,6 +99,10 @@ public class Tuba.Views.Drive : Views.Base {
 			add_controller (gesture_lp_controller);
 			gesture_click_controller.pressed.connect (on_secondary_click);
 			gesture_lp_controller.pressed.connect (on_long_press);
+		}
+
+		private void on_open () {
+			open_me (this.item);
 		}
 
 		private void on_delete () {
@@ -162,6 +169,8 @@ public class Tuba.Views.Drive : Views.Base {
 		}
 
 		public void populate (Item item) {
+			this.item = item;
+
 			if (item.folder != null) {
 				(Adw.StyleManager.get_default ()).notify["accent-color-rgba"].connect (update_folder_color);
 				update_folder_color ();
@@ -512,6 +521,7 @@ public class Tuba.Views.Drive : Views.Base {
 		Gtk.ListItem list_item = (Gtk.ListItem) obj;
 		var item_widget = new ItemWidget ();
 		item_widget.fill_reserved_names.connect (fill_reserved_names);
+		item_widget.open_me.connect (on_open_request);
 		item_widget.delete_me.connect (on_delete_request);
 		item_widget.refresh.connect (on_refresh);
 		list_item.set_child (item_widget);
@@ -539,6 +549,10 @@ public class Tuba.Views.Drive : Views.Base {
 		if (selection.get_selection ().get_size () != 1) return;
 
 		var item = (Item) store.get_item (pos);
+		open_item_real (item);
+	}
+
+	private void open_item_real (Item item) {
 		if (item.folder != null) {
 			load_folder (item.folder.id);
 		} else if (item.file.contentType.has_prefix ("image/")) {
@@ -552,6 +566,10 @@ public class Tuba.Views.Drive : Views.Base {
 
 	private void fill_reserved_names (EntryPopover popover) {
 		popover.update_taken_names (reserved_names ());
+	}
+
+	private void on_open_request (Item? item) {
+		if (item != null) open_item_real (item);
 	}
 
 	struct ItemData {
