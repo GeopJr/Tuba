@@ -284,7 +284,7 @@ public class Tuba.Views.Drive : Views.Base {
 
 		private void validate () {
 			string stripped_text = entry.text.strip ();
-			bool invalid = stripped_text == "" || "/" in stripped_text || stripped_text.down () in taken_names;
+			bool invalid = stripped_text == "" || stripped_text.down () in taken_names;
 			action.sensitive = !invalid;
 
 			if (invalid) {
