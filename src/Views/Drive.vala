@@ -546,6 +546,11 @@ public class Tuba.Views.Drive : Views.Base {
 			Utils.Host.open_url.begin (item.file.url);
 		}
 	}
+	struct ItemData {
+		string id;
+		string name;
+		bool folder;
+	}
 
 	private void on_delete_request (ItemWidget item) {
 		var bitset = selection.get_selection ();
@@ -554,7 +559,7 @@ public class Tuba.Views.Drive : Views.Base {
 			app.question.begin (
 				// translators: the variable is a folder/file name
 				{_("Delete '%s'?").printf (item.filename), false},
-				null,
+				{_("This is irreversible."), false},
 				app.main_window,
 				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 				null,
@@ -578,8 +583,7 @@ public class Tuba.Views.Drive : Views.Base {
 				}
 			);
 		} else if (size > 1) {
-			string[] folder_ids = {};
-			string[] file_ids = {};
+			ItemData[] items = {};
 
 			uint[] positions = {};
 			uint val;
@@ -592,62 +596,67 @@ public class Tuba.Views.Drive : Views.Base {
 			foreach (uint pos in positions) {
 				var sub_item = (Item) store.get_item (pos);
 				if (sub_item.folder != null) {
-					if (sub_item.folder.id != null && sub_item.folder.id != "") folder_ids += sub_item.folder.id;
+					if (sub_item.folder.id != null && sub_item.folder.id != "") {
+						items += ItemData () {
+							id = sub_item.folder.id,
+							name = sub_item.folder.name,
+							folder = true
+						};
+					}
 				} else {
-					if (sub_item.file.id != null && sub_item.file.id != "") file_ids += sub_item.file.id;
+					if (sub_item.file.id != null && sub_item.file.id != "") {
+						items += ItemData () {
+							id = sub_item.file.id,
+							name = sub_item.file.filename,
+							folder = false
+						};
+					}
 				}
 			}
 
 			app.question.begin (
 				// translators: confirmation dialog in a file-browser-like page
 				{_("Delete Selected Items?"), false},
-				null,
+				{_("This is irreversible."), false},
 				app.main_window,
 				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {
-						delete_real_many.begin (folder_ids, file_ids);
+						delete_real_many.begin (items);
 					}
 				}
 			);
 		}
 	}
 
-	private async void delete_real_many (string[] folder_ids, string[] file_ids) { // TODO: progress bar? Cancel?
+	struct ReqData {
+		Request req;
+		string filename;
+	}
+	private async void delete_real_many (ItemData[] items) { // TODO: progress bar? Cancel?
 		bool requires_refresh = false;
 
-		if (folder_ids.length > 0) {
-			foreach (string folder_id in folder_ids) {
-				var req = new Request.DELETE (@"/api/iceshrimp/drive/folder/$(folder_id)")
-					.with_account (accounts.active)
-					.with_token (accounts.active.tuba_iceshrimp_api_key);
-
-				try {
-					yield req.await ();
-					requires_refresh = true;
-				} catch (Error e) {
-					app.toast (_("Couldn't delete '%s': %s").printf (GLib.Markup.escape_text (folder_id), e.message));
-					warning (@"Couldn't delete folder '$folder_id': $(e.code) $(e.message)");
-				}
+		ReqData[] rqs = {};
+		if (items.length > 0) {
+			foreach (ItemData item_data in items) {
+				rqs += ReqData () {
+					req = new Request.DELETE (@"/api/iceshrimp/drive/$(item_data.folder ? "folder/" : "")$(item_data.id)")
+						.with_account (accounts.active)
+						.with_token (accounts.active.tuba_iceshrimp_api_key),
+					filename = item_data.name
+				};
 			}
 		}
 
-		if (file_ids.length > 0) {
-			foreach (string file_id in file_ids) {
-				var req = new Request.DELETE (@"/api/iceshrimp/drive/$(file_id)")
-					.with_account (accounts.active)
-					.with_token (accounts.active.tuba_iceshrimp_api_key);
-
-				try {
-					yield req.await ();
-					requires_refresh = true;
-				} catch (Error e) {
-					// TODO figure out why it segfaults
-					app.toast (_("Couldn't delete '%s': %s").printf (GLib.Markup.escape_text (file_id), e.message));
-					warning (@"Couldn't delete file '$file_id': $(e.code) $(e.message)");
-				}
+		foreach (ReqData rq in rqs) {
+			try {
+				yield rq.req.await ();
+				requires_refresh = true;
+			} catch (Error e) {
+				app.toast (_("Couldn't delete '%s': %s").printf (GLib.Markup.escape_text (rq.filename), e.message));
+				warning (@"Couldn't delete item '$(rq.filename)': $(e.code) $(e.message)");
 			}
 		}
 
