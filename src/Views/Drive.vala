@@ -3,6 +3,26 @@ public class Tuba.Views.Drive : Views.Base {
 		public API.Iceshrimp.Folder? folder { get; set; default=null; }
 		public API.Iceshrimp.File? file { get; set; default=null; }
 
+		public bool can_delete (out string? reason = null) {
+			bool res = false;
+			reason = null;
+
+			if (this.folder != null) {
+				res = (this.folder.files == null || this.folder.files.size == 0)
+					&& (this.folder.folders == null || this.folder.folders.size == 0);
+
+				// translators: Error reason when trying to delete a non-empty folder
+				if (!res) reason = _("Folder is not empty");
+			} else if (this.file != null) {
+				res = !this.file.isAvatar && !this.file.isBanner;
+
+				// translators: Error reason when trying to delete an actively used file
+				if (!res) reason = this.file.isAvatar ? _("File is used as an avatar") : _("File is used as a banner");
+			}
+
+			return res;
+		}
+
 		public Item.from_folder (API.Iceshrimp.Folder folder) {
 			this.folder = folder;
 		}
@@ -21,16 +41,52 @@ public class Tuba.Views.Drive : Views.Base {
 				rename_popover.unparent ();
 				rename_popover = null;
 			}
+
+			if (alt_popover != null) {
+				alt_popover.unparent ();
+				alt_popover = null;
+			}
 		}
 
 		public signal void refresh ();
 		public signal void delete_me ();
 		public signal void open_me (Item? item);
 		public signal void fill_reserved_names (EntryPopover popover);
-		public bool folder { get; private set; default = false; }
-		public string? item_id { get; private set; default = null; }
-		public string filename { get { return label.label; } }
-		public Item? item { get; private set; default = null; }
+
+		public bool folder {
+			get { return item == null ? false : item.folder != null; }
+		}
+
+		public string filename {
+			get { return item == null ? "" : (this.folder ? item.folder.name : item.file.filename); }
+			set { label.label = value; }
+		}
+
+		public string item_id {
+			get { return item == null ? "" : (this.folder ? item.folder.id : item.file.id); }
+		}
+
+		ulong last_style_manager_notify = 0;
+		private unowned Item? _item = null;
+		public Item? item {
+			get { return _item; }
+			private set {
+				_item = value;
+
+				if (_item.folder != null) {
+					if (last_style_manager_notify == 0) {
+						last_style_manager_notify = (Adw.StyleManager.get_default ()).notify["accent-color-rgba"].connect (update_folder_color);
+						update_folder_color ();
+					}
+				} else {
+					if (_item.file.contentType.has_prefix ("image/") || _item.file.contentType.has_prefix ("audio/"))
+						Helper.Image.request_paintable (_item.file.thumbnailUrl.replace ("https://shrimp.example.org", accounts.active.instance), null, false, on_thumbnail_loaded);
+				}
+
+				this.filename = this.filename;
+				update_actions ();
+			}
+		}
 
 		Gtk.Image image;
 		Gtk.Label label;
@@ -38,7 +94,10 @@ public class Tuba.Views.Drive : Views.Base {
 		Gtk.GestureClick gesture_click_controller;
 		Gtk.GestureLongPress gesture_lp_controller;
 		EntryPopover? rename_popover = null;
+		EntryPopover? alt_popover = null;
 		SimpleAction[] file_only_actions;
+		SimpleAction ms_action;
+		SimpleAction delete_action;
 		construct {
 			this.orientation = Gtk.Orientation.VERTICAL;
 			this.spacing = 6;
@@ -58,14 +117,14 @@ public class Tuba.Views.Drive : Views.Base {
 
 			var open_action = new SimpleAction ("open", null);
 			var copy_link_action = new SimpleAction ("copy-link", null);
-			var ms_action = new SimpleAction ("mark-as-sensitive", null);
+			ms_action = new SimpleAction.stateful ("mark-as-sensitive", null, false);
 			var alt_action = new SimpleAction ("set-alt-text", null);
 			var rename_action = new SimpleAction ("rename", null);
-			var delete_action = new SimpleAction ("delete", null);
+			delete_action = new SimpleAction ("delete", null);
 			open_action.activate.connect (on_open);
-			//  copy_link_action.activate.connect (on_open);
-			//  ms_action.activate.connect (on_open);
-			//  alt_action.activate.connect (on_open);
+			copy_link_action.activate.connect (on_copy);
+			ms_action.change_state.connect (on_ms_change);
+			alt_action.activate.connect (on_alt_text);
 			rename_action.activate.connect (on_rename);
 			delete_action.activate.connect (on_delete);
 
@@ -129,9 +188,50 @@ public class Tuba.Views.Drive : Views.Base {
 		}
 
 		private void update_actions () {
+			if (item != null) {
+				delete_action.set_enabled (item.can_delete ());
+				if (item.file != null) ms_action.set_state (item.file.sensitive);
+			}
+
 			foreach (var action in file_only_actions) {
 				action.set_enabled (!folder);
 			}
+		}
+
+		private void on_ms_change (GLib.Variant? variant) {
+			if (variant == null || this.folder) return;
+
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+			builder.set_member_name ("description");
+			builder.add_null_value ();
+			builder.set_member_name ("filename");
+			builder.add_null_value ();
+			builder.set_member_name ("sensitive");
+			builder.add_boolean_value (!this.item.file.sensitive);
+			builder.end_object ();
+
+			new Request.PATCH (@"/api/iceshrimp/drive/$(this.item_id)")
+				.with_account (accounts.active)
+				.with_token (accounts.active.tuba_iceshrimp_api_key)
+				.body_json (builder)
+				.then (() => {
+					ms_action.set_state (!this.item.file.sensitive);
+					this.item.file.sensitive = !this.item.file.sensitive;
+				})
+				.on_error ((code, message) => {
+					// translators: the first variable is a filename,
+					//				the second is an error message
+					app.toast (_("Couldn't mark '%s' as sensitive: %s").printf (GLib.Markup.escape_text (this.filename), message));
+					warning (@"Couldn't mark $(this.folder ? "folder" : "file") '$(this.filename)' as sensitive: $code $message");
+				})
+				.exec ();
+		}
+
+		private void on_copy () {
+			if (this.folder || this.item == null) return;
+
+			Utils.Host.copy (this.item.file.url);
 		}
 
 		private void on_open () {
@@ -150,34 +250,103 @@ public class Tuba.Views.Drive : Views.Base {
 
 			rename_popover = new EntryPopover (
 				this.folder ? _("Rename Folder") : _("Rename File"),
-				label.label,
+				this.filename,
 				_("Rename"),
 				null
 			);
 			fill_reserved_names (rename_popover);
 			rename_popover.set_parent (this);
-			rename_popover.text = label.label;
+			rename_popover.text = this.filename;
 			rename_popover.done.connect (on_rename_real);
 			rename_popover.popup ();
 		}
 
-		private void on_rename_real (string new_name) {
-			Json.Node node = new Json.Node (Json.NodeType.VALUE);
-			node.set_string (new_name);
-			Json.Generator gen = new Json.Generator ();
-			gen.set_root (node);
-			new Request.PUT (@"/api/iceshrimp/drive/$(this.folder ? "folder/" : "" )$(this.item_id)")
+		private void on_alt_text () {
+			if (this.folder || this.item == null) return;
+
+			if (alt_popover == null) {
+				alt_popover = new EntryPopover (
+					_("Alt Text"),
+					this.item.file.description == null ? "" : this.item.file.description,
+					_("Save"),
+					null
+				);
+				alt_popover.set_parent (this);
+			} else {
+				alt_popover.text = this.item.file.description == null ? "" : this.item.file.description;
+			}
+
+			alt_popover.done.connect (on_alt_real);
+			alt_popover.popup ();
+		}
+
+		private void on_alt_real (string new_alt) {
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+			builder.set_member_name ("filename");
+			builder.add_null_value ();
+			builder.set_member_name ("sensitive");
+			builder.add_null_value ();
+			builder.set_member_name ("description");
+			builder.add_string_value (new_alt);
+			builder.end_object ();
+
+			new Request.PATCH (@"/api/iceshrimp/drive/$(this.item_id)")
+				.body_json (builder)
 				.with_account (accounts.active)
 				.with_token (accounts.active.tuba_iceshrimp_api_key)
-				.body ("application/json", new Bytes.take (gen.to_data (null).data))
 				.then (() => {
-					refresh ();
+					this.item.file.description = new_alt;
 				})
 				.on_error ((code, message) => {
 					// translators: the first variable is a filename,
 					//				the second is an error message
-					app.toast (_("Couldn't rename '%s': %s").printf (GLib.Markup.escape_text (label.label), message));
-					warning (@"Couldn't rename $(this.folder ? "folder" : "file") '$(label.label)' to '$new_name': $code $message");
+					app.toast (_("Couldn't change alt text for '%s': %s").printf (GLib.Markup.escape_text (this.filename), message));
+					warning (@"Couldn't change alt for '$(this.filename)' to '$new_alt': $code $message");
+				})
+				.exec ();
+		}
+
+		private void on_rename_real (string new_name) {
+			Request req;
+			if (this.folder) {
+				Json.Node node = new Json.Node (Json.NodeType.VALUE);
+				node.set_string (new_name);
+				Json.Generator gen = new Json.Generator ();
+				gen.set_root (node);
+				req = new Request.PUT (@"/api/iceshrimp/drive/folder/$(this.item_id)")
+					.body ("application/json", new Bytes.take (gen.to_data (null).data));
+			} else {
+				var builder = new Json.Builder ();
+				builder.begin_object ();
+				builder.set_member_name ("description");
+				builder.add_null_value ();
+				builder.set_member_name ("sensitive");
+				builder.add_null_value ();
+				builder.set_member_name ("filename");
+				builder.add_string_value (new_name);
+				builder.end_object ();
+
+				req = new Request.PATCH (@"/api/iceshrimp/drive/$(this.item_id)")
+					.body_json (builder);
+			}
+
+			req
+				.with_account (accounts.active)
+				.with_token (accounts.active.tuba_iceshrimp_api_key)
+				.then (() => {
+					this.filename = new_name;
+					if (this.folder) {
+						item.folder.name = new_name;
+					} else {
+						item.file.filename = new_name;
+					}
+				})
+				.on_error ((code, message) => {
+					// translators: the first variable is a filename,
+					//				the second is an error message
+					app.toast (_("Couldn't rename '%s': %s").printf (GLib.Markup.escape_text (this.filename), message));
+					warning (@"Couldn't rename $(this.folder ? "folder" : "file") '$(this.filename)' to '$new_name': $code $message");
 				})
 				.exec ();
 		}
@@ -203,21 +372,6 @@ public class Tuba.Views.Drive : Views.Base {
 
 		public void populate (Item item) {
 			this.item = item;
-
-			if (item.folder != null) {
-				(Adw.StyleManager.get_default ()).notify["accent-color-rgba"].connect (update_folder_color);
-				update_folder_color ();
-				label.label = item.folder.name;
-				this.folder = true;
-				this.item_id = item.folder.id;
-			} else {
-				if (item.file.contentType.has_prefix ("image/") || item.file.contentType.has_prefix ("audio/")) Helper.Image.request_paintable (item.file.thumbnailUrl.replace ("https://shrimp.example.org", accounts.active.instance), null, false, on_thumbnail_loaded);
-				label.label = item.file.filename;
-				this.folder = false;
-				this.item_id = item.file.id;
-			}
-
-			update_actions ();
 		}
 
 		protected void update_folder_color () {
@@ -410,7 +564,13 @@ public class Tuba.Views.Drive : Views.Base {
 		base_status = new StatusMessage () { loading = true };
 		try {
 			yield req.await ();
-			on_refresh ();
+
+			var parser = Network.get_parser_from_inputstream (req.response_body);
+			var node = network.parse_node (parser);
+			var entity = Helper.Entity.from_json (node, typeof (API.Iceshrimp.Folder));
+			if (entity is API.Iceshrimp.Folder) {
+				store.splice (0, 0, {new Item.from_folder ((API.Iceshrimp.Folder) entity)});
+			}
 		} catch (Error e) {
 			base_status = null;
 			// translators: error that shows up as a toast when creating folders
@@ -421,6 +581,7 @@ public class Tuba.Views.Drive : Views.Base {
 			return false;
 		}
 
+		base_status = null;
 		return true;
 	}
 
@@ -442,6 +603,7 @@ public class Tuba.Views.Drive : Views.Base {
 		signallistitemfactory.bind.connect (bind_listitem_cb);
 
 		store = new GLib.ListStore (typeof (Item));
+		store.items_changed.connect (on_store_changed);
 		selection = new Gtk.MultiSelection (store);
 		grid = new Gtk.GridView (selection, signallistitemfactory) {
 			enable_rubberband = true,
@@ -456,7 +618,8 @@ public class Tuba.Views.Drive : Views.Base {
 			maximum_size = 670,
 			tightening_threshold = 670,
 			child = grid,
-			css_classes = { "ttl-view" }
+			css_classes = { "ttl-view" },
+			overflow = HIDDEN
 		};
 		scrolled.child = content_box_scrollable;
 
@@ -510,11 +673,14 @@ public class Tuba.Views.Drive : Views.Base {
 				open_folder (current_folder);
 				if (create_folder_btn_popover != null) {
 					create_folder_btn_popover.clear ();
-					create_folder_btn_popover.update_taken_names (reserved_names ());
 				}
 			})
 			.on_error (on_error)
 			.exec ();
+	}
+
+	private void on_store_changed () {
+		if (create_folder_btn_popover != null) create_folder_btn_popover.update_taken_names (reserved_names ());
 	}
 
 	private string[] reserved_names () {
@@ -611,12 +777,23 @@ public class Tuba.Views.Drive : Views.Base {
 		string id;
 		string name;
 		bool folder;
+		Item item;
 	}
 
 	private void on_delete_request (ItemWidget item) {
 		var bitset = selection.get_selection ();
 		var size = bitset.get_size ();
 		if (size <= 1 && item.item_id != null) {
+			string? error_reason = null;
+			if (!item.item.can_delete (out error_reason)) {
+				// translators: Error when trying to delete a file that cannot be deleted.
+				//				The first variable is a string file name, the second is an error.
+				string message = _("'%s' cannot be deleted: %s").printf (GLib.Markup.escape_text (item.filename), error_reason);
+				app.toast (message);
+				warning (message);
+				return;
+			}
+
 			app.question.begin (
 				// translators: the variable is a folder/file name
 				{_("Delete '%s'?").printf (item.filename), false},
@@ -631,7 +808,12 @@ public class Tuba.Views.Drive : Views.Base {
 							.with_account (accounts.active)
 							.with_token (accounts.active.tuba_iceshrimp_api_key)
 							.then (() => {
-								on_refresh ();
+								uint pos;
+								if (store.find (item.item, out pos)) {
+									store.remove (pos);
+								} else {
+									on_refresh ();
+								}
 							})
 							.on_error ((code, message) => {
 								// translators: the first variable is a filename,
@@ -656,12 +838,15 @@ public class Tuba.Views.Drive : Views.Base {
 
 			foreach (uint pos in positions) {
 				var sub_item = (Item) store.get_item (pos);
+				if (!sub_item.can_delete ()) continue;
+
 				if (sub_item.folder != null) {
 					if (sub_item.folder.id != null && sub_item.folder.id != "") {
 						items += ItemData () {
 							id = sub_item.folder.id,
 							name = sub_item.folder.name,
-							folder = true
+							folder = true,
+							item = sub_item
 						};
 					}
 				} else {
@@ -669,15 +854,23 @@ public class Tuba.Views.Drive : Views.Base {
 						items += ItemData () {
 							id = sub_item.file.id,
 							name = sub_item.file.filename,
-							folder = false
+							folder = false,
+							item = sub_item
 						};
 					}
 				}
 			}
 
+			if (items.length == 0) {
+				// translators: Error when trying to delete files/folders
+				//				that cannot be deleted.
+				app.toast (_("No Deletable Files in Selection"));
+				return;
+			}
+
 			app.question.begin (
 				// translators: confirmation dialog in a file-browser-like page
-				{_("Delete Selected Items?"), false},
+				{_("Delete Selection?"), false},
 				{_("This is irreversible."), false},
 				app.main_window,
 				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
@@ -694,7 +887,7 @@ public class Tuba.Views.Drive : Views.Base {
 
 	struct ReqData {
 		Request req;
-		string filename;
+		ItemData item_data;
 	}
 	private async void delete_real_many (ItemData[] items) { // TODO: progress bar? Cancel?
 		bool requires_refresh = false;
@@ -706,7 +899,7 @@ public class Tuba.Views.Drive : Views.Base {
 					req = new Request.DELETE (@"/api/iceshrimp/drive/$(item_data.folder ? "folder/" : "")$(item_data.id)")
 						.with_account (accounts.active)
 						.with_token (accounts.active.tuba_iceshrimp_api_key),
-					filename = item_data.name
+					item_data = item_data
 				};
 			}
 		}
@@ -714,10 +907,16 @@ public class Tuba.Views.Drive : Views.Base {
 		foreach (ReqData rq in rqs) {
 			try {
 				yield rq.req.await ();
-				requires_refresh = true;
+
+				uint pos;
+				if (store.find (rq.item_data.item, out pos)) {
+					store.remove (pos);
+				} else {
+					requires_refresh = true;
+				}
 			} catch (Error e) {
-				app.toast (_("Couldn't delete '%s': %s").printf (GLib.Markup.escape_text (rq.filename), e.message));
-				warning (@"Couldn't delete item '$(rq.filename)': $(e.code) $(e.message)");
+				app.toast (_("Couldn't delete '%s': %s").printf (GLib.Markup.escape_text (rq.item_data.name), e.message));
+				warning (@"Couldn't delete item '$(rq.item_data.name)': $(e.code) $(e.message)");
 			}
 		}
 
