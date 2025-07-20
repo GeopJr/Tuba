@@ -87,8 +87,11 @@ public class Tuba.Network : GLib.Object {
 						try {
 							var parser = Network.get_parser_from_inputstream (in_stream);
 							var root = network.parse (parser);
-							if (root != null)
-								error_msg = root.get_string_member_with_default ("error", msg.reason_phrase);
+							if (root != null) {
+								error_msg = root.has_member ("message")
+								? root.get_string_member_with_default ("message", msg.reason_phrase)
+								: root.get_string_member_with_default ("error", msg.reason_phrase);
+							}
 						} catch {}
 
 						ecb ((int32) status, error_msg);
