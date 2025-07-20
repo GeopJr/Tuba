@@ -69,7 +69,7 @@ public class Tuba.Network : GLib.Object {
 				var in_stream = session.send_async.end (res);
 
 				var status = msg.status_code;
-				if (status == Soup.Status.OK || status == Soup.Status.ACCEPTED) {
+				if (status >= 200 && status < 300) {
 					try {
 						if (cb != null)
 							cb (in_stream, extra_data == ExtraData.RESPONSE_HEADERS ? msg.response_headers : null);
