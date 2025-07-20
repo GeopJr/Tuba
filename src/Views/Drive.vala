@@ -38,6 +38,7 @@ public class Tuba.Views.Drive : Views.Base {
 		Gtk.GestureClick gesture_click_controller;
 		Gtk.GestureLongPress gesture_lp_controller;
 		EntryPopover? rename_popover = null;
+		SimpleAction[] file_only_actions;
 		construct {
 			this.orientation = Gtk.Orientation.VERTICAL;
 			this.spacing = 6;
@@ -56,31 +57,57 @@ public class Tuba.Views.Drive : Views.Base {
 			this.append (label);
 
 			var open_action = new SimpleAction ("open", null);
+			var copy_link_action = new SimpleAction ("copy-link", null);
+			var ms_action = new SimpleAction ("mark-as-sensitive", null);
+			var alt_action = new SimpleAction ("set-alt-text", null);
 			var rename_action = new SimpleAction ("rename", null);
 			var delete_action = new SimpleAction ("delete", null);
 			open_action.activate.connect (on_open);
+			//  copy_link_action.activate.connect (on_open);
+			//  ms_action.activate.connect (on_open);
+			//  alt_action.activate.connect (on_open);
 			rename_action.activate.connect (on_rename);
 			delete_action.activate.connect (on_delete);
 
-			//  var draft_action = new SimpleAction ("draft", null);
-			//  draft_action.activate.connect (on_draft_action_activated);
+			file_only_actions = {
+				copy_link_action,
+				ms_action,
+				alt_action
+			};
 
 			var action_group = new GLib.SimpleActionGroup ();
 			action_group.add_action (open_action);
+			action_group.add_action (copy_link_action);
+			action_group.add_action (ms_action);
+			action_group.add_action (alt_action);
 			action_group.add_action (rename_action);
 			action_group.add_action (delete_action);
-			//  action_group.add_action (draft_action);
 
 			this.insert_action_group ("driveitem", action_group);
 
 			var menu_model = new GLib.Menu ();
-			menu_model.append (_("Open"), "driveitem.open");
-			menu_model.append (_("Rename"), "driveitem.rename");
-			menu_model.append (_("Delete"), "driveitem.delete");
+			var open_menu = new GLib.Menu ();
+			open_menu.append (_("Open"), "driveitem.open");
 
-			//  var copy_media_menu_item = new MenuItem (_("Copy Media"), "attachment.copy-media");
-			//  copy_media_menu_item.set_attribute_value ("hidden-when", "action-disabled");
-			//  menu_model.append_item (copy_media_menu_item);
+			var copy_link_menu_item = new MenuItem (_("Copy Link"), "driveitem.copy-link");
+			copy_link_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+			open_menu.append_item (copy_link_menu_item);
+			menu_model.append_section (null, open_menu);
+
+			var file_menu = new GLib.Menu ();
+			var ms_menu_item = new MenuItem (_("Mark as Sensitive"), "driveitem.mark-as-sensitive");
+			ms_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+			file_menu.append_item (ms_menu_item);
+
+			var alt_menu_item = new MenuItem (_("Edit Alt Text"), "driveitem.set-alt-text");
+			alt_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+			file_menu.append_item (alt_menu_item);
+			menu_model.append_section (null, file_menu);
+
+			var item_menu = new GLib.Menu ();
+			item_menu.append (_("Rename"), "driveitem.rename");
+			item_menu.append (_("Delete"), "driveitem.delete");
+			menu_model.append_section (null, item_menu);
 
 			context_menu = new Gtk.PopoverMenu.from_model (menu_model) {
 				has_arrow = false,
@@ -99,6 +126,12 @@ public class Tuba.Views.Drive : Views.Base {
 			add_controller (gesture_lp_controller);
 			gesture_click_controller.pressed.connect (on_secondary_click);
 			gesture_lp_controller.pressed.connect (on_long_press);
+		}
+
+		private void update_actions () {
+			foreach (var action in file_only_actions) {
+				action.set_enabled (!folder);
+			}
 		}
 
 		private void on_open () {
@@ -183,6 +216,8 @@ public class Tuba.Views.Drive : Views.Base {
 				this.folder = false;
 				this.item_id = item.file.id;
 			}
+
+			update_actions ();
 		}
 
 		protected void update_folder_color () {
