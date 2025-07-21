@@ -376,7 +376,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 	private void install_local_only_button (bool active) {
 		local_only_button = new Gtk.ToggleButton () {
-			icon_name = "tuba-network-server-symbolic",
+			icon_name = "tuba-user-home-symbolic",
 			// translators: tooltip button on composer dialog headerbar button
 			//				that makes the post visible only on the current
 			//				instance. You might be able to find it on

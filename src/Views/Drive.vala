@@ -85,7 +85,22 @@ public class Tuba.Views.Drive : Views.Base {
 
 				this.filename = this.filename;
 				update_actions ();
+				update_indicators ();
 			}
+		}
+
+		private void update_indicators () {
+			if (this.folder || this.item == null) {
+				indicator_alt.visible =
+				indicator_avi.visible =
+				indicator_sensitive.visible = false;
+			} else {
+				indicator_alt.visible = this.item.file.description != null && this.item.file.description != "";
+				indicator_avi.visible = this.item.file.isAvatar || this.item.file.isBanner;
+				indicator_sensitive.visible = this.item.file.sensitive;
+			}
+
+			indicator_box.visible = indicator_alt.visible || indicator_avi.visible || indicator_sensitive.visible;
 		}
 
 		Gtk.Image image;
@@ -98,6 +113,10 @@ public class Tuba.Views.Drive : Views.Base {
 		SimpleAction[] file_only_actions;
 		SimpleAction ms_action;
 		SimpleAction delete_action;
+		Gtk.Image indicator_alt;
+		Gtk.Image indicator_avi;
+		Gtk.Image indicator_sensitive;
+		Gtk.Box indicator_box;
 		construct {
 			this.orientation = Gtk.Orientation.VERTICAL;
 			this.spacing = 6;
@@ -112,7 +131,49 @@ public class Tuba.Views.Drive : Views.Base {
 				ellipsize = Pango.EllipsizeMode.MIDDLE
 			};
 
-			this.append (image);
+			indicator_box = new Gtk.Box (HORIZONTAL, 6) {
+				halign = END,
+				valign = START,
+				margin_end = 6,
+				margin_top = 6,
+				can_focus = false,
+				focusable = false,
+				css_classes = { "osd", "drive-item-indicator-box" },
+				visible = false
+			};
+
+			indicator_alt = new Gtk.Image.from_icon_name ("document-edit-symbolic") {
+				valign = CENTER,
+				halign = CENTER,
+				tooltip_text = _("Alternative Text"),
+				visible = false
+			};
+			indicator_box.append (indicator_alt);
+
+			indicator_avi = new Gtk.Image.from_icon_name ("tuba-person-symbolic") {
+				valign = CENTER,
+				halign = CENTER,
+				// translators: tooltip text on an icon that indicates that a file is used
+				//				by a user profile (like an avatar)
+				tooltip_text = _("Used by a Profile"),
+				visible = false
+			};
+			indicator_box.append (indicator_avi);
+
+			indicator_sensitive = new Gtk.Image.from_icon_name ("tuba-eye-not-looking-symbolic") {
+				valign = CENTER,
+				halign = CENTER,
+				tooltip_text = _("Sensitive"),
+				visible = false
+			};
+			indicator_box.append (indicator_sensitive);
+
+			var overlay = new Gtk.Overlay () {
+				child = image
+			};
+			overlay.add_overlay (indicator_box);
+
+			this.append (overlay);
 			this.append (label);
 
 			var open_action = new SimpleAction ("open", null);
@@ -218,6 +279,7 @@ public class Tuba.Views.Drive : Views.Base {
 				.then (() => {
 					ms_action.set_state (!this.item.file.sensitive);
 					this.item.file.sensitive = !this.item.file.sensitive;
+					update_indicators ();
 				})
 				.on_error ((code, message) => {
 					// translators: the first variable is a filename,
@@ -266,10 +328,11 @@ public class Tuba.Views.Drive : Views.Base {
 
 			if (alt_popover == null) {
 				alt_popover = new EntryPopover (
-					_("Alt Text"),
+					_("Alternative Text"),
 					this.item.file.description == null ? "" : this.item.file.description,
 					_("Save"),
-					null
+					null,
+					true
 				);
 				alt_popover.set_parent (this);
 			} else {
@@ -297,6 +360,7 @@ public class Tuba.Views.Drive : Views.Base {
 				.with_token (accounts.active.tuba_iceshrimp_api_key)
 				.then (() => {
 					this.item.file.description = new_alt;
+					update_indicators ();
 				})
 				.on_error ((code, message) => {
 					// translators: the first variable is a filename,
@@ -424,6 +488,7 @@ public class Tuba.Views.Drive : Views.Base {
 		Gtk.Entry entry;
 		Gtk.Button action;
 		string[] taken_names = {};
+		bool can_be_empty = false;
 		construct {
 			var box = new Gtk.Box (VERTICAL, 12) {
 				width_request = 200,
@@ -452,11 +517,12 @@ public class Tuba.Views.Drive : Views.Base {
 			this.default_widget = entry;
 		}
 
-		public EntryPopover (string title_label, string placeholder, string button_label, string[]? taken_names = null) {
+		public EntryPopover (string title_label, string placeholder, string button_label, string[]? taken_names = null, bool empty_allowed = false) {
 			title.label = title_label;
 			entry.placeholder_text = placeholder;
 			action.label = button_label;
 			if (taken_names != null) this.taken_names = taken_names;
+			this.can_be_empty = empty_allowed;
 		}
 
 		public void clear () {
@@ -478,13 +544,15 @@ public class Tuba.Views.Drive : Views.Base {
 		}
 
 		private void on_action () {
+			if (!action.sensitive) return;
+
 			done (entry.buffer.text.strip ());
 			this.popdown ();
 		}
 
 		private void validate () {
 			string stripped_text = entry.text.strip ();
-			bool invalid = stripped_text == "" || stripped_text.down () in taken_names;
+			bool invalid = (!this.can_be_empty && stripped_text == "") || stripped_text.down () in taken_names;
 			action.sensitive = !invalid;
 
 			if (invalid) {

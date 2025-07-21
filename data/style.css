@@ -992,3 +992,8 @@ splitbutton.pill > menubutton > button {
 rubberband {
 	border-radius: 9px;
 }
+
+.drive-item-indicator-box {
+	border-radius: 9999px;
+	padding: 6px;
+}
