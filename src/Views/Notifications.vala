@@ -189,45 +189,51 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			.with_ctx (this)
 			.with_extra_data (Tuba.Network.ExtraData.RESPONSE_HEADERS)
 			.then ((in_stream, headers) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) return;
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						if (node == null) return;
 
-				Object[] to_add = {};
-				var group_notifications = API.GroupedNotificationsResults.from (node);
-				foreach (var group in group_notifications.notification_groups) {
-					Gee.ArrayList<API.Account> group_accounts = new Gee.ArrayList<API.Account> ();
-					foreach (var account in group_notifications.accounts) {
-						if (account.id in group.sample_account_ids)
-							group_accounts.add (account);
-					}
-					group.tuba_accounts = group_accounts;
-
-					if (group.tuba_accounts.size == 1) {
-						group.account = group.tuba_accounts.get (0);
-					}
-
-					if (group.status_id != null) {
-						foreach (var status in group_notifications.statuses) {
-							if (status.id == group.status_id) {
-								group.status = status;
-								break;
+						Object[] to_add = {};
+						var group_notifications = API.GroupedNotificationsResults.from (node);
+						foreach (var group in group_notifications.notification_groups) {
+							Gee.ArrayList<API.Account> group_accounts = new Gee.ArrayList<API.Account> ();
+							foreach (var account in group_notifications.accounts) {
+								if (account.id in group.sample_account_ids)
+									group_accounts.add (account);
 							}
+							group.tuba_accounts = group_accounts;
+
+							if (group.tuba_accounts.size == 1) {
+								group.account = group.tuba_accounts.get (0);
+							}
+
+							if (group.status_id != null) {
+								foreach (var status in group_notifications.statuses) {
+									if (status.id == group.status_id) {
+										group.status = status;
+										break;
+									}
+								}
+							}
+
+							// filtering is based on the status
+							// so it can only happen after the above
+							if (!(should_hide (group))) to_add += group;
 						}
+						model.splice (model.get_n_items (), 0, to_add);
+
+						if (headers != null)
+							get_pages (headers.get_one ("Link"));
+
+						if (to_add.length == 0)
+							on_content_changed ();
+						on_request_finish ();
+					} catch (Error e) {
+						on_error (e.code, e.message);
 					}
-
-					// filtering is based on the status
-					// so it can only happen after the above
-					if (!(should_hide (group))) to_add += group;
-				}
-				model.splice (model.get_n_items (), 0, to_add);
-
-				if (headers != null)
-					get_pages (headers.get_one ("Link"));
-
-				if (to_add.length == 0)
-					on_content_changed ();
-				on_request_finish ();
+				});
 			})
 			.on_error (on_error)
 			.exec ();
@@ -239,17 +245,24 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		new Request.GET ("/api/v1/notifications/policy")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) {
-					accounts.active.filtered_notifications_count = 0;
-					return;
-				};
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						if (node == null) {
+							accounts.active.filtered_notifications_count = 0;
+							return;
+						};
 
-				var policies = API.NotificationFilter.Policy.from (node);
-				if (policies.summary != null) {
-					accounts.active.filtered_notifications_count = policies.summary.pending_notifications_count;
-				}
+						var policies = API.NotificationFilter.Policy.from (node);
+						if (policies.summary != null) {
+							accounts.active.filtered_notifications_count = policies.summary.pending_notifications_count;
+						}
+					} catch (Error e) {
+						accounts.active.filtered_notifications_count = 0;
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.on_error ((code, message) => {
 				accounts.active.filtered_notifications_count = 0;

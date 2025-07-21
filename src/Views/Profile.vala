@@ -14,7 +14,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 			try {
 				yield req.await ();
-				var parser = Network.get_parser_from_inputstream (req.response_body);
+				var parser = yield Network.get_parser_from_inputstream_async (req.response_body);
 				var node = network.parse_node (parser);
 				var updated = API.Account.from (node);
 
@@ -147,17 +147,23 @@ public class Tuba.Views.Profile : Views.Accounts {
 				.with_param ("pinned", "true")
 				.with_ctx (this)
 				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
+					Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+						try {
+							var parser = Network.get_parser_from_inputstream_async.end (res);
 
-					Object[] to_add = {};
-					Network.parse_array (parser, node => {
-						var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
-						var e_status = e as API.Status;
-						if (e_status != null) e_status.pinned = true;
+							Object[] to_add = {};
+							Network.parse_array (parser, node => {
+								var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+								var e_status = e as API.Status;
+								if (e_status != null) e_status.pinned = true;
 
-						to_add += e_status;
+								to_add += e_status;
+							});
+							model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
+						} catch (Error e) {
+							critical (@"Couldn't parse json: $(e.code) $(e.message)");
+						}
 					});
-					model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
 				})
 				.exec ();
 		}
@@ -322,7 +328,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 				.with_ctx (this);
 		yield req.await ();
 
-		var parser = Network.get_parser_from_inputstream (req.response_body);
+		var parser = yield Network.get_parser_from_inputstream_async (req.response_body);
 		Network.parse_array (parser, node => {
 			to_add += Tuba.Helper.Entity.from_json (node, typeof (API.FeaturedTag));
 		});
@@ -621,68 +627,80 @@ public class Tuba.Views.Profile : Views.Accounts {
 			title = _("You don't have any lists")
 		};
 
+		// TODO: async yield these
 		new Request.GET ("/api/v1/lists/")
 			.with_account (accounts.active)
 			.with_ctx (this)
 			.on_error (on_error)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				if (Network.get_array_size (parser) > 0) {
-					new Request.GET (@"/api/v1/accounts/$(profile.account.id)/lists")
-					.with_account (accounts.active)
-					.with_ctx (this)
-					.on_error (on_error)
-					.then ((in_stream2) => {
-						var added = false;
-						var in_list = new Gee.ArrayList<string> ();
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						if (Network.get_array_size (parser) > 0) {
+							new Request.GET (@"/api/v1/accounts/$(profile.account.id)/lists")
+								.with_account (accounts.active)
+								.with_ctx (this)
+								.on_error (on_error)
+								.then ((in_stream2) => {
+									Network.get_parser_from_inputstream_async.begin (in_stream2, (obj, res) => {
+										try {
+											var added = false;
+											var in_list = new Gee.ArrayList<string> ();
+											var parser2 = Network.get_parser_from_inputstream_async.end (res);
+											Network.parse_array (parser2, node => {
+												var list = API.List.from (node);
+												in_list.add (list.id);
+											});
+											Network.parse_array (parser, node => {
+												var list = API.List.from (node);
+												var is_already = in_list.contains (list.id);
 
-						var parser2 = Network.get_parser_from_inputstream (in_stream2);
-						Network.parse_array (parser2, node => {
-							var list = API.List.from (node);
-							in_list.add (list.id);
-						});
-						Network.parse_array (parser, node => {
-							var list = API.List.from (node);
-							var is_already = in_list.contains (list.id);
+												var add_button = new RowButton () {
+													icon_name = is_already ? "tuba-minus-large-symbolic" : "tuba-plus-large-symbolic",
+													tooltip_text = is_already
+													? _("Remove \"%s\" from \"%s\"").printf (profile.account.handle, list.title)
+													: _("Add \"%s\" to \"%s\"").printf (profile.account.handle, list.title),
+													halign = Gtk.Align.CENTER,
+													valign = Gtk.Align.CENTER,
+													css_classes = { "flat", "circular" }
+												};
+												add_button.remove = is_already;
 
-							var add_button = new RowButton () {
-								icon_name = is_already ? "tuba-minus-large-symbolic" : "tuba-plus-large-symbolic",
-								tooltip_text = is_already
-									? _("Remove \"%s\" from \"%s\"").printf (profile.account.handle, list.title)
-									: _("Add \"%s\" to \"%s\"").printf (profile.account.handle, list.title),
-								halign = Gtk.Align.CENTER,
-								valign = Gtk.Align.CENTER,
-								css_classes = { "flat", "circular" }
-							};
-							add_button.remove = is_already;
+												var row = new Adw.ActionRow () {
+													use_markup = false,
+													title = list.title
+												};
+												row.add_suffix (add_button);
 
-							var row = new Adw.ActionRow () {
-								use_markup = false,
-								title = list.title
-							};
-							row.add_suffix (add_button);
+												add_button.clicked.connect (() => {
+													handle_list_edit (list, row, toast_overlay, add_button);
+												});
 
-							add_button.clicked.connect (() => {
-								handle_list_edit (list, row, toast_overlay, add_button);
-							});
+												preferences_group.add (row);
+												added = true;
+											});
 
-							preferences_group.add (row);
-							added = true;
-						});
+											if (added) {
+												preferences_page.add (preferences_group);
 
-						if (added) {
-							preferences_page.add (preferences_group);
-
-							toast_overlay.child = preferences_page;
-							toast_overlay.valign = Gtk.Align.FILL;
+												toast_overlay.child = preferences_page;
+												toast_overlay.valign = Gtk.Align.FILL;
+											} else {
+												toast_overlay.child = no_lists_page;
+											}
+										} catch (Error e) {
+											critical (@"Couldn't parse json: $(e.code) $(e.message)");
+										}
+									});
+								})
+								.exec ();
 						} else {
 							toast_overlay.child = no_lists_page;
 						}
-					})
-					.exec ();
-				} else {
-					toast_overlay.child = no_lists_page;
-				}
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.exec ();
 

@@ -64,10 +64,17 @@ public class Tuba.Widgets.Admin.AssignedToRow : Adw.ActionRow {
 		new Request.POST (@"/api/v1/admin/reports/$report_id/$endpoint")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				update_account (API.Admin.Report.from (node).assigned_account);
-				assign_button.sensitive = true;
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						update_account (API.Admin.Report.from (node).assigned_account);
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+
+					assign_button.sensitive = true;
+				});
 			})
 			.on_error ((code, message) => {
 				warning (@"Error trying to re-assign $report_id: $message $code");

@@ -24,9 +24,15 @@ public class Tuba.API.Mention : Entity, Widgetizable {
 		new Request.GET (@"/api/v1/accounts/$id")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				API.Account.from (node).open ();
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						API.Account.from (node).open ();
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.exec ();
 	}

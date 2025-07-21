@@ -165,23 +165,30 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 		new Request.GET ("/api/v1/notifications/policy")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) return;
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						if (node == null) return;
 
-				filtered_notifications_group.visible = true;
-				var policies = API.NotificationFilter.Policy.from (node);
+						filtered_notifications_group.visible = true;
+						var policies = API.NotificationFilter.Policy.from (node);
 
-				notification_filter_policy_status = new Gee.HashMap<Adw.SwitchRow, bool> ();
-				notification_filter_policy_status.set (filter_notifications_following_switch, policies.filter_not_following);
-				notification_filter_policy_status.set (filter_notifications_follower_switch, policies.filter_not_followers);
-				notification_filter_policy_status.set (filter_notifications_new_account_switch, policies.filter_new_accounts);
-				notification_filter_policy_status.set (filter_notifications_dm_switch, policies.filter_private_mentions);
+						notification_filter_policy_status = new Gee.HashMap<Adw.SwitchRow, bool> ();
+						notification_filter_policy_status.set (filter_notifications_following_switch, policies.filter_not_following);
+						notification_filter_policy_status.set (filter_notifications_follower_switch, policies.filter_not_followers);
+						notification_filter_policy_status.set (filter_notifications_new_account_switch, policies.filter_new_accounts);
+						notification_filter_policy_status.set (filter_notifications_dm_switch, policies.filter_private_mentions);
 
-				notification_filter_policy_status.@foreach (entry => {
-					((Adw.SwitchRow) entry.key).active = (bool) entry.value;
+						notification_filter_policy_status.@foreach (entry => {
+							((Adw.SwitchRow) entry.key).active = (bool) entry.value;
 
-					return true;
+							return true;
+						});
+
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
 				});
 			})
 			.on_error ((code, message) => {

@@ -91,9 +91,15 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				new Request.GET (@"/api/v1/annual_reports/$year")
 					.with_account (accounts.active)
 					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						API.AnnualReports.from (node).open (year);
+						Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+							try {
+								var parser = Network.get_parser_from_inputstream_async.end (res);
+								var node = network.parse_node (parser);
+								API.AnnualReports.from (node).open (year);
+							} catch (Error e) {
+								critical (@"Couldn't parse json: $(e.code) $(e.message)");
+							}
+						});
 					})
 					.exec ();
 				break;

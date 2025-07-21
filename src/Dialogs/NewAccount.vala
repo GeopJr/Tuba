@@ -186,7 +186,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.with_form_data ("website", Build.WEBSITE);
 		yield msg.await ();
 
-		var parser = Network.get_parser_from_inputstream (msg.response_body);
+		var parser = yield Network.get_parser_from_inputstream_async (msg.response_body);
 		var root = network.parse (parser);
 
 		if (root.get_string_member ("name") != Build.NAME)
@@ -226,7 +226,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.with_form_data ("code", code_entry.text);
 		yield token_req.await ();
 
-		var parser = Network.get_parser_from_inputstream (token_req.response_body);
+		var parser = yield Network.get_parser_from_inputstream_async (token_req.response_body);
 		var root = network.parse (parser);
 		account.access_token = root.get_string_member ("access_token");
 

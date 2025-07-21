@@ -485,12 +485,18 @@ public class Tuba.Views.Search : Views.TabbedBase {
 				.with_param ("exclude_unreviewed", "true")
 				.with_param ("limit", "1")
 				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
-					var search_results = API.SearchResults.from (network.parse_node (parser));
+					Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+						try {
+							var parser = Network.get_parser_from_inputstream_async.end (res);
+							var search_results = API.SearchResults.from (network.parse_node (parser));
 
-					if (search_results.accounts.size > 0) {
-						user_row.text = search_results.accounts.get (0).full_handle;
-					}
+							if (search_results.accounts.size > 0) {
+								user_row.text = search_results.accounts.get (0).full_handle;
+							}
+						} catch (Error e) {
+							critical (@"Couldn't parse json: $(e.code) $(e.message)");
+						}
+					});
 
 					auto_fill_users_button.sensitive = true;
 				})

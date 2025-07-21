@@ -24,17 +24,23 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 		fr_row.sensitive = false;
 		req
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var relationship = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
-				if (relationship.followed_by == true) {
-					uint indx;
-					var found = model.find (widget, out indx);
-					if (found)
-						model.remove (indx);
-				} else {
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						var relationship = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
+						if (relationship.followed_by == true) {
+							uint indx;
+							var found = model.find (widget, out indx);
+							if (found)
+								model.remove (indx);
+						}
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+
 					fr_row.sensitive = true;
-				}
+				});
 			})
 			.exec ();
 	}

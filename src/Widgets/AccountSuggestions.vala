@@ -155,30 +155,36 @@ public class Tuba.Widgets.AccountSuggestions : Gtk.ListBoxRow {
 			.with_account (accounts.active)
 			.with_param ("limit", "10")
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						Gee.HashMap<string, AccountSuggestion> widgets = new Gee.HashMap<string, AccountSuggestion> ();
+						Gtk.Widget? last_sep = null;
+						Network.parse_array (parser, node => {
+							var entity = Tuba.Helper.Entity.from_json (node, typeof (API.Suggestion)) as API.Suggestion;
+							if (entity != null) {
+								var widget = new AccountSuggestion (((API.Suggestion) entity).account);
+								widgets.set (((API.Suggestion) entity).account.id, widget);
+								account_box.append (widget);
 
-				Gee.HashMap<string, AccountSuggestion> widgets = new Gee.HashMap<string, AccountSuggestion> ();
-				Gtk.Widget? last_sep = null;
-				Network.parse_array (parser, node => {
-					var entity = Tuba.Helper.Entity.from_json (node, typeof (API.Suggestion)) as API.Suggestion;
-					if (entity != null) {
-						var widget = new AccountSuggestion (((API.Suggestion) entity).account);
-						widgets.set (((API.Suggestion) entity).account.id, widget);
-						account_box.append (widget);
+								last_sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+								account_box.append (last_sep);
+							}
+						});
 
-						last_sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-						account_box.append (last_sep);
+						if (last_sep != null) account_box.remove (last_sep);
+						if (widgets.size > 0) {
+							this.visible = true;
+							populate_account_suggestions_relationships (widgets);
+						} else {
+							this.visible = false;
+						}
+						on_page_changed ();
+					} catch (Error e) {
+						this.visible = false;
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
 					}
 				});
-
-				if (last_sep != null) account_box.remove (last_sep);
-				if (widgets.size > 0) {
-					this.visible = true;
-					populate_account_suggestions_relationships (widgets);
-				} else {
-					this.visible = false;
-				}
-				on_page_changed ();
 			})
 			.on_error (() => {
 				this.visible = false;

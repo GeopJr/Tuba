@@ -317,8 +317,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 		}
 
 		yield req.await ();
-
-		accounts.active.update_object (req.response_body);
+		yield accounts.active.update_object (req.response_body);
 		saved ();
 	}
 

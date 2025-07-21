@@ -120,34 +120,40 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 		new Request.GET (@"/api/v1/lists/$(list.id)/accounts")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				if (Network.get_array_size (parser) > 0) {
-					this.add (members_page);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						if (Network.get_array_size (parser) > 0) {
+							this.add (members_page);
 
-					Network.parse_array (parser, node => {
-						var member = API.Account.from (node);
-						var avi = new Widgets.Avatar () {
-							account = member,
-							size = 32
-						};
+							Network.parse_array (parser, node => {
+								var member = API.Account.from (node);
+								var avi = new Widgets.Avatar () {
+									account = member,
+									size = 32
+								};
 
-						var remove_button = new MemberCheckButton (member.id) {
-							active = false,
-							valign = Gtk.Align.CENTER,
-							halign = Gtk.Align.CENTER,
-						};
-						remove_button.changed.connect (on_member_remove_changed);
+								var remove_button = new MemberCheckButton (member.id) {
+									active = false,
+									valign = Gtk.Align.CENTER,
+									halign = Gtk.Align.CENTER,
+								};
+								remove_button.changed.connect (on_member_remove_changed);
 
-						var member_row = new Adw.ActionRow () {
-							title = member.full_handle
-						};
+								var member_row = new Adw.ActionRow () {
+									title = member.full_handle
+								};
 
-						member_row.add_prefix (avi);
-						member_row.add_suffix (remove_button);
+								member_row.add_prefix (avi);
+								member_row.add_suffix (remove_button);
 
-						members_group.add (member_row);
-					});
-				}
+								members_group.add (member_row);
+							});
+						}
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.exec ();
 	}

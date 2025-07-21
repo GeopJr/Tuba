@@ -44,12 +44,19 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
 			foreach (var author in t_obj.authors) {
 				new Request.GET (@"$author.json")
 					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						var author_obj = API.BookWyrmAuthor.from (node);
-						if (author_obj.id == author) {
-							authors.label = generate_authors_label (author_obj.name, author_obj.id);
-						}
+						Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+							try {
+								var parser = Network.get_parser_from_inputstream_async.end (res);
+								var node = network.parse_node (parser);
+								var author_obj = API.BookWyrmAuthor.from (node);
+								if (author_obj.id == author) {
+									authors.label = generate_authors_label (author_obj.name, author_obj.id);
+								}
+							} catch (Error e) {
+								authors.visible = false;
+								critical (@"Couldn't parse json: $(e.code) $(e.message)");
+							}
+						});
 					})
 					.on_error (() => authors.visible = false)
 					.exec ();

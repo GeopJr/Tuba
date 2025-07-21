@@ -1,5 +1,5 @@
 public class Tuba.Mastodon.Account : InstanceAccount {
-	public const string BACKEND = "Mastodon";
+	public const string BACKEND = "Fediverse";
 
 	class Test : AccountStore.BackendTest {
 		public override string? get_backend (Json.Object obj) {

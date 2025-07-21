@@ -163,12 +163,18 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 				.with_account (accounts.active)
 				.then ((in_stream) => {
 					if (!this.is_announcement) {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						var status = API.Status.from (node);
-						if (status.formal.compat_status_reactions != null) {
-							update_reactions_diff (status.formal.compat_status_reactions);
-						}
+						Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+							try {
+								var parser = Network.get_parser_from_inputstream_async.end (res);
+								var node = network.parse_node (parser);
+								var status = API.Status.from (node);
+								if (status.formal.compat_status_reactions != null) {
+									update_reactions_diff (status.formal.compat_status_reactions);
+								}
+							} catch (Error e) {
+								critical (@"Couldn't parse json: $(e.code) $(e.message)");
+							}
+						});
 					}
 				})
 				.on_error ((code, message) => {

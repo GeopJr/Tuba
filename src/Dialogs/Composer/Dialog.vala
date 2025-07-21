@@ -1080,7 +1080,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		publish_req.body_json (populate_json_body ());
 		yield publish_req.await ();
 
-		var parser = Network.get_parser_from_inputstream (publish_req.response_body);
+		var parser = yield Network.get_parser_from_inputstream_async (publish_req.response_body);
 		var node = network.parse_node (parser);
 		var status = API.Status.from (node);
 		debug (@"Published post with id $(status.id)");
