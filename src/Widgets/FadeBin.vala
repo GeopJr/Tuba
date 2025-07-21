@@ -75,6 +75,7 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 
 	Adw.TimedAnimation animation;
 	construct {
+		this.overflow = HIDDEN;
 		var target = new Adw.CallbackAnimationTarget (animation_target_cb);
 		animation = new Adw.TimedAnimation (this, 0.0, 1.0, ANIMATION_DURATION, target) {
 			easing = Adw.Easing.EASE_IN_OUT_QUART
