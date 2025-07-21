@@ -52,6 +52,8 @@ public class Tuba.Views.Drive : Views.Base {
 		public signal void delete_me ();
 		public signal void open_me (Item? item);
 		public signal void fill_reserved_names (EntryPopover popover);
+		public signal void pressed (bool not_pressing);
+		public signal void move (string to_folder, Item? grabbed_item);
 
 		public bool folder {
 			get { return item == null ? false : item.folder != null; }
@@ -86,6 +88,7 @@ public class Tuba.Views.Drive : Views.Base {
 				this.filename = this.filename;
 				update_actions ();
 				update_indicators ();
+				update_drop_target ();
 			}
 		}
 
@@ -103,9 +106,22 @@ public class Tuba.Views.Drive : Views.Base {
 			indicator_box.visible = indicator_alt.visible || indicator_avi.visible || indicator_sensitive.visible;
 		}
 
+		private void update_drop_target (bool dragging = false) {
+			if (this.folder && !dragging) {
+				drop_target_controller.set_gtypes ({typeof (Views.Drive.Item?)});
+			} else {
+				drop_target_controller.set_gtypes (null);
+			}
+		}
+
+		static construct {
+			set_css_name ("drive-item");
+		}
+
 		Gtk.Image image;
 		Gtk.Label label;
 		Gtk.PopoverMenu context_menu;
+		Gtk.GestureClick gesture_click_controller_grab;
 		Gtk.GestureClick gesture_click_controller;
 		Gtk.GestureLongPress gesture_lp_controller;
 		EntryPopover? rename_popover = null;
@@ -117,6 +133,7 @@ public class Tuba.Views.Drive : Views.Base {
 		Gtk.Image indicator_avi;
 		Gtk.Image indicator_sensitive;
 		Gtk.Box indicator_box;
+		Gtk.DropTarget drop_target_controller;
 		construct {
 			this.orientation = Gtk.Orientation.VERTICAL;
 			this.spacing = 6;
@@ -134,11 +151,10 @@ public class Tuba.Views.Drive : Views.Base {
 			indicator_box = new Gtk.Box (HORIZONTAL, 6) {
 				halign = END,
 				valign = START,
-				margin_end = 6,
 				margin_top = 6,
 				can_focus = false,
 				focusable = false,
-				css_classes = { "osd", "drive-item-indicator-box" },
+				css_classes = { "osd", "indicator-box" },
 				visible = false
 			};
 
@@ -235,6 +251,9 @@ public class Tuba.Views.Drive : Views.Base {
 			};
 			context_menu.set_parent (this);
 
+			gesture_click_controller_grab = new Gtk.GestureClick () {
+				button = Gdk.BUTTON_PRIMARY
+			};
 			gesture_click_controller = new Gtk.GestureClick () {
 				button = Gdk.BUTTON_SECONDARY
 			};
@@ -242,10 +261,61 @@ public class Tuba.Views.Drive : Views.Base {
 				button = Gdk.BUTTON_PRIMARY,
 				touch_only = true
 			};
+			add_controller (gesture_click_controller_grab);
 			add_controller (gesture_click_controller);
 			add_controller (gesture_lp_controller);
+			gesture_click_controller_grab.pressed.connect (on_primary_click_pressed);
+			gesture_click_controller_grab.released.connect (on_primary_click_released);
+			gesture_click_controller_grab.stopped.connect (on_primary_click_released);
 			gesture_click_controller.pressed.connect (on_secondary_click);
 			gesture_lp_controller.pressed.connect (on_long_press);
+
+			var drag_source_controller = new Gtk.DragSource () {
+				actions = MOVE
+			};
+			drag_source_controller.prepare.connect (on_drag_prepare);
+			drag_source_controller.drag_begin.connect (on_drag_begin);
+			drag_source_controller.drag_end.connect (on_drag_end);
+			drag_source_controller.drag_cancel.connect (on_drag_cancel);
+			this.add_controller (drag_source_controller);
+
+			drop_target_controller = new Gtk.DropTarget (typeof (Views.Drive.Item?), MOVE);
+			drop_target_controller.drop.connect (on_drop);
+			this.add_controller (drop_target_controller);
+		}
+
+		private bool on_drop (Gtk.DropTarget dt_controller, GLib.Value value, double x, double y) {
+			if (!this.folder || this.item == null || dt_controller.get_value () == null) return false;
+			move (this.item_id, (Views.Drive.Item?) dt_controller.get_value ());
+			return true;
+		}
+
+		double drag_x = 0;
+		double drag_y = 0;
+		private Gdk.ContentProvider? on_drag_prepare (double x, double y) {
+			if (this.item == null) return null;
+			pressed (false);
+
+			drag_x = x;
+			drag_y = y;
+
+			return new Gdk.ContentProvider.for_value (this.item); // TODO leak test...
+		}
+
+		private void on_drag_begin (Gtk.DragSource ds_controller, Gdk.Drag drag) {
+			ds_controller.set_icon ((new Gtk.WidgetPaintable (this)).get_current_image (), (int) drag_x, (int) drag_y);
+			update_drop_target (true);
+		}
+
+		private void on_drag_end (Gdk.Drag drag, bool delete_data) {
+			pressed (true);
+			update_drop_target (false);
+		}
+
+		private bool on_drag_cancel (Gdk.Drag drag, Gdk.DragCancelReason reason) {
+			pressed (true);
+			update_drop_target (false);
+			return false;
 		}
 
 		private void update_actions () {
@@ -432,6 +502,14 @@ public class Tuba.Views.Drive : Views.Base {
 			};
 			context_menu.set_pointing_to (rectangle);
 			context_menu.popup ();
+		}
+
+		private void on_primary_click_pressed () {
+			pressed (false);
+		}
+
+		private void on_primary_click_released () {
+			pressed (true);
 		}
 
 		public void populate (Item item) {
@@ -681,6 +759,7 @@ public class Tuba.Views.Drive : Views.Base {
 		grid.activate.connect (on_item_activated);
 		grid.remove_css_class ("view");
 
+		scrolled.child = null; // FIX remove clamp properly
 		var content_box_scrollable = new Adw.ClampScrollable () {
 			vexpand = true,
 			maximum_size = 670,
@@ -719,7 +798,7 @@ public class Tuba.Views.Drive : Views.Base {
 	}
 
 	private void on_primary_click (Gtk.GestureClick gesture, int n_press, double x, double y) {
-		if (n_press == 1) {
+		if (n_press == 1 && grid.enable_rubberband) {
 			grid.grab_focus ();
 			var modifier = gesture.get_current_event_state () & Gdk.MODIFIER_MASK;
 			if (modifier != Gdk.ModifierType.CONTROL_MASK && modifier != Gdk.ModifierType.SHIFT_MASK && selection.get_n_items () > 0)
@@ -793,6 +872,8 @@ public class Tuba.Views.Drive : Views.Base {
 		item_widget.open_me.connect (on_open_request);
 		item_widget.delete_me.connect (on_delete_request);
 		item_widget.refresh.connect (on_refresh);
+		item_widget.pressed.connect (update_rubberband);
+		item_widget.move.connect (move_items);
 		list_item.set_child (item_widget);
 	}
 
@@ -841,11 +922,106 @@ public class Tuba.Views.Drive : Views.Base {
 		if (item != null) open_item_real (item);
 	}
 
+	private void update_rubberband (bool enable) {
+		grid.enable_rubberband = enable;
+	}
+
 	struct ItemData {
 		string id;
 		string name;
 		bool folder;
 		Item item;
+	}
+
+	struct ReqData {
+		Request req;
+		ItemData item_data;
+	}
+
+	private void move_items (string to_folder, Item? sample_item) {
+		var bitset = selection.get_selection ();
+		ItemData[] items = {};
+
+		uint[] positions = {};
+		uint val;
+		Gtk.BitsetIter iter = Gtk.BitsetIter ();
+		if (iter.init_first (bitset, out val)) {
+			positions += val;
+			while (iter.next (out val)) positions += val;
+		}
+
+		if (sample_item != null && (sample_item.folder != null ? sample_item.folder.id : sample_item.file.id) != to_folder) {
+			uint pos;
+			if (store.find (sample_item, out pos)) {
+				if (!(pos in positions)) positions += pos;
+			}
+		}
+
+		foreach (uint pos in positions) {
+			var sub_item = (Item) store.get_item (pos);
+			if (sub_item.folder != null) {
+				if (sub_item.folder.id != null && sub_item.folder.id != "" && sub_item.folder.id != to_folder) {
+					items += ItemData () {
+						id = sub_item.folder.id,
+						name = sub_item.folder.name,
+						folder = true,
+						item = sub_item
+					};
+				}
+			} else {
+				if (sub_item.file.id != null && sub_item.file.id != "") {
+					items += ItemData () {
+						id = sub_item.file.id,
+						name = sub_item.file.filename,
+						folder = false,
+						item = sub_item
+					};
+				}
+			}
+		}
+
+		move_items_real.begin (to_folder, items);
+	}
+
+	private async void move_items_real (string to_folder, ItemData[] items) {
+		bool requires_refresh = false;
+
+		var builder = new Json.Builder ();
+		builder.begin_object ();
+		builder.set_member_name ("folderId");
+		builder.add_string_value (to_folder);
+		builder.end_object ();
+
+		ReqData[] rqs = {};
+		if (items.length > 0) {
+			foreach (ItemData item_data in items) {
+				rqs += ReqData () {
+					req = new Request.POST (@"/api/iceshrimp/drive/$(item_data.folder ? "folder/" : "")$(item_data.id)/move")
+						.with_account (accounts.active)
+						.with_token (accounts.active.tuba_iceshrimp_api_key)
+						.body_json (builder),
+					item_data = item_data
+				};
+			}
+		}
+
+		foreach (ReqData rq in rqs) {
+			try {
+				yield rq.req.await ();
+
+				uint pos;
+				if (store.find (rq.item_data.item, out pos)) {
+					store.remove (pos);
+				} else {
+					requires_refresh = true;
+				}
+			} catch (Error e) {
+				app.toast (_("Couldn't move '%s': %s").printf (GLib.Markup.escape_text (rq.item_data.name), e.message));
+				warning (@"Couldn't move item '$(rq.item_data.name)': $(e.code) $(e.message)");
+			}
+		}
+
+		if (requires_refresh) on_refresh ();
 	}
 
 	private void on_delete_request (ItemWidget item) {
@@ -953,10 +1129,6 @@ public class Tuba.Views.Drive : Views.Base {
 		}
 	}
 
-	struct ReqData {
-		Request req;
-		ItemData item_data;
-	}
 	private async void delete_real_many (ItemData[] items) { // TODO: progress bar? Cancel?
 		bool requires_refresh = false;
 
