@@ -815,6 +815,19 @@ public class Tuba.Views.Drive : Views.Base {
 		} else {
 			load_folder ();
 		}
+
+		var delete_action = new SimpleAction ("delete", null);
+		delete_action.activate.connect (on_delete_action);
+
+		var action_group = new GLib.SimpleActionGroup ();
+		action_group.add_action (delete_action);
+		grid.insert_action_group ("drive", action_group);
+
+		grid.add_binding_action (Gdk.Key.Delete, 0, "drive.delete", null);
+		grid.add_binding_action (Gdk.Key.KP_Delete, 0, "drive.delete", null);
+	}
+	private void on_delete_action () {
+		on_delete_request (null);
 	}
 
 	private void on_primary_click (Gtk.GestureClick gesture, int n_press, double x, double y) {
@@ -1048,10 +1061,10 @@ public class Tuba.Views.Drive : Views.Base {
 		if (requires_refresh) on_refresh ();
 	}
 
-	private void on_delete_request (ItemWidget item) {
+	private void on_delete_request (ItemWidget? item) {
 		var bitset = selection.get_selection ();
 		var size = bitset.get_size ();
-		if (size <= 1 && item.item_id != null) {
+		if (size <= 1 && item != null && item.item_id != null) {
 			string? error_reason = null;
 			if (!item.item.can_delete (out error_reason)) {
 				// translators: Error when trying to delete a file that cannot be deleted.
@@ -1093,7 +1106,7 @@ public class Tuba.Views.Drive : Views.Base {
 					}
 				}
 			);
-		} else if (size > 1) {
+		} else if (size > 1 || item == null) {
 			ItemData[] items = {};
 
 			uint[] positions = {};
