@@ -81,7 +81,7 @@ public class Tuba.Views.Drive : Views.Base {
 						update_folder_color ();
 					}
 				} else {
-					if (_item.file.contentType.has_prefix ("image/") || _item.file.contentType.has_prefix ("audio/"))
+					if (_item.file.contentType.has_prefix ("image/"))
 						Helper.Image.request_paintable (_item.file.thumbnailUrl.replace ("https://shrimp.example.org", accounts.active.instance), null, false, on_thumbnail_loaded);
 				}
 
