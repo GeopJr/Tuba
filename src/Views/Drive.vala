@@ -657,6 +657,10 @@ public class Tuba.Views.Drive : Views.Base {
 		go_back_btn.clicked.connect (on_go_back);
 		header.pack_start (go_back_btn);
 
+		var back_drop_target_controller = new Gtk.DropTarget (typeof (Views.Drive.Item?), MOVE);
+		back_drop_target_controller.drop.connect (on_back_drop);
+		go_back_btn.add_controller (back_drop_target_controller);
+
 		create_folder_btn_popover = new EntryPopover (_("New Folder"), _("Folder Name"), _("Create"));
 		create_folder_btn_popover.done.connect (on_create_folder_done);
 		create_folder_btn = new Gtk.MenuButton () {
@@ -676,6 +680,13 @@ public class Tuba.Views.Drive : Views.Base {
 
 		header.pack_end (upload_file_btn);
 		header.pack_end (create_folder_btn);
+	}
+
+	private bool on_back_drop (Gtk.DropTarget dt_controller, GLib.Value value, double x, double y) {
+		if (this.current_folder == null || dt_controller.get_value () == null) return false;
+
+		move_items (this.current_folder.parentId, (Views.Drive.Item?) dt_controller.get_value ());
+		return true;
 	}
 
 	private void on_create_folder_done (EntryPopover popover, string name) {
@@ -938,7 +949,7 @@ public class Tuba.Views.Drive : Views.Base {
 		ItemData item_data;
 	}
 
-	private void move_items (string to_folder, Item? sample_item) {
+	private void move_items (string? to_folder, Item? sample_item) {
 		var bitset = selection.get_selection ();
 		ItemData[] items = {};
 
@@ -950,7 +961,7 @@ public class Tuba.Views.Drive : Views.Base {
 			while (iter.next (out val)) positions += val;
 		}
 
-		if (sample_item != null && (sample_item.folder != null ? sample_item.folder.id : sample_item.file.id) != to_folder) {
+		if (sample_item != null && (to_folder == null || (sample_item.folder != null ? sample_item.folder.id : sample_item.file.id) != to_folder)) {
 			uint pos;
 			if (store.find (sample_item, out pos)) {
 				if (!(pos in positions)) positions += pos;
@@ -960,7 +971,7 @@ public class Tuba.Views.Drive : Views.Base {
 		foreach (uint pos in positions) {
 			var sub_item = (Item) store.get_item (pos);
 			if (sub_item.folder != null) {
-				if (sub_item.folder.id != null && sub_item.folder.id != "" && sub_item.folder.id != to_folder) {
+				if (sub_item.folder.id != null && sub_item.folder.id != "" && (to_folder == null || sub_item.folder.id != to_folder)) {
 					items += ItemData () {
 						id = sub_item.folder.id,
 						name = sub_item.folder.name,
@@ -983,13 +994,17 @@ public class Tuba.Views.Drive : Views.Base {
 		move_items_real.begin (to_folder, items);
 	}
 
-	private async void move_items_real (string to_folder, ItemData[] items) {
+	private async void move_items_real (string? to_folder, ItemData[] items) {
 		bool requires_refresh = false;
 
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 		builder.set_member_name ("folderId");
-		builder.add_string_value (to_folder);
+		if (to_folder == null) {
+			builder.add_null_value ();
+		} else {
+			builder.add_string_value (to_folder);
+		}
 		builder.end_object ();
 
 		ReqData[] rqs = {};
