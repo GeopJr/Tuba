@@ -676,7 +676,7 @@ public class Tuba.Views.Drive : Views.Base {
 			css_classes = { "flat" },
 			tooltip_text = _("Upload File")
 		};
-		//  upload_file_btn.clicked.connect (on_upload_file);
+		upload_file_btn.clicked.connect (upload_pick);
 
 		header.pack_end (upload_file_btn);
 		header.pack_end (create_folder_btn);
@@ -726,6 +726,11 @@ public class Tuba.Views.Drive : Views.Base {
 			var node = network.parse_node (parser);
 			var entity = Helper.Entity.from_json (node, typeof (API.Iceshrimp.Folder));
 			if (entity is API.Iceshrimp.Folder) {
+				if (this.current_folder.folders == null) {
+					this.current_folder.folders = new Gee.ArrayList<API.Iceshrimp.Folder> ();
+				}
+
+				this.current_folder.folders.insert (0, (API.Iceshrimp.Folder) entity);
 				store.splice (0, 0, {new Item.from_folder ((API.Iceshrimp.Folder) entity)});
 			}
 		} catch (Error e) {
@@ -1180,5 +1185,137 @@ public class Tuba.Views.Drive : Views.Base {
 		}
 
 		if (requires_refresh) on_refresh ();
+	}
+
+	private void upload_pick () {
+		var chooser = new Gtk.FileDialog () {
+			title = _("Upload Files"),
+			modal = true
+		};
+
+		chooser.open_multiple.begin (app.main_window, null, (obj, res) => {
+			try {
+				var files = chooser.open_multiple.end (res);
+
+				File[] files_to_upload = {};
+				var amount_of_files = files.get_n_items ();
+				for (var i = 0; i < amount_of_files; i++) {
+					var file = files.get_item (i) as File;
+
+					if (file != null)
+						files_to_upload += file;
+				}
+
+				upload_files.begin (files_to_upload);
+			} catch (Error e) {
+				// User dismissing the dialog also ends here so don't make it sound like
+				// it's an error
+				warning (@"Couldn't get the result of FileDialog for Drive: $(e.message)");
+			}
+		});
+	}
+
+	private async void upload_files (owned File[] files_to_upload) {
+		if (files_to_upload.length == 0) return;
+		if (this.current_folder.files == null) {
+			this.current_folder.files = new Gee.ArrayList<API.Iceshrimp.File> ();
+		}
+
+		string[] reserved = {};
+		foreach (var file in this.current_folder.files) {
+			reserved += file.id;
+		}
+
+		int folders_start_pos = this.current_folder.folders == null ? 0 : this.current_folder.folders.size;
+		string to_folder = this.current_folder.id;
+		foreach (File file in files_to_upload) {
+			try {
+				API.Iceshrimp.File is_file = yield upload_file_real (to_folder, file);
+				if (is_file.id in reserved) {
+					// translators: toast popping up when a user uploads a file that already exists in drive
+					//				The variable is a string filename.
+					app.toast (_("'%s' already exists").printf (is_file.filename));
+				} else {
+					this.current_folder.files.insert (0, is_file);
+					store.splice (folders_start_pos, 0, { new Item.from_file (is_file) });
+					reserved += is_file.id;
+				}
+			} catch (Error e) {
+				warning (@"$(e.message) $(e.code)");
+			}
+		}
+	}
+
+	private async API.Iceshrimp.File upload_file_real (string? to_folder, GLib.File file) throws Error {
+		//  bytes_written = 0;
+		//  total_bytes = 0;
+
+		Bytes buffer;
+		string mime;
+		string uri = file.get_uri ();
+		debug (@"Uploading new media: $(uri)…");
+
+		{
+			uint8[] contents;
+			try {
+				file.load_contents (null, out contents, null);
+				GLib.FileInfo type = file.query_info (GLib.FileAttribute.STANDARD_CONTENT_TYPE, 0);
+				mime = type.get_content_type ();
+			} catch (Error e) {
+				throw new Oopsie.INTERNAL ("Can't open file %s:\n%s".printf (uri, e.message));
+			}
+			buffer = new Bytes.take (contents);
+			//  total_bytes = buffer.get_size ();
+		}
+
+		string? filename = file.get_basename ();
+		if (filename == null) filename = mime.replace ("/", ".");
+
+		var multipart = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
+		multipart.append_form_file ("file", filename, mime, buffer);
+
+		string folder_id = to_folder == null ? "" : @"?folderId=$to_folder";
+		var msg = new Soup.Message.from_multipart (@"$(accounts.active.instance)/api/iceshrimp/drive$folder_id", multipart);
+		msg.request_headers.append ("Authorization", @"Bearer $(accounts.active.tuba_iceshrimp_api_key)");
+		//  msg.wrote_body_data.connect (on_upload_bytes_written);
+
+		string? error = null;
+		InputStream? in_stream = null;
+		network.queue (msg, null,
+			(t_is) => {
+				in_stream = t_is;
+				upload_file_real.callback ();
+			},
+			(code, reason) => {
+				error = reason;
+				upload_file_real.callback ();
+			}
+		);
+		yield;
+
+		if (error != null || in_stream == null) {
+			throw new Oopsie.INTERNAL (error);
+		}
+
+		//  this.progress = 1;
+		var parser = Network.get_parser_from_inputstream (in_stream);
+		var node = network.parse_node (parser);
+		var entity = (API.Iceshrimp.File) Helper.Entity.from_json (node, typeof (API.Iceshrimp.File));
+
+		//  this.media_id = entity.id;
+		//  this.kind = MediaType.from_string (entity.kind);
+		//  var working_loader = new AttachmentThumbnailer (uri, this.kind);
+		//  working_loader.done.connect (on_done);
+		//  #if GEXIV2
+		//  	working_loader.extracted_alt.connect (on_extracted_alt_text);
+		//  #endif
+
+		//  debug (@"OK! ID $(entity.id)");
+
+		// translators: screen reader announcement when the
+		//				drive successfully uploads a file
+		this.announce (_("Finished Uploading File"), LOW);
+
+		return entity;
 	}
 }
