@@ -382,7 +382,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			//				instance. You might be able to find it on
 			//				https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
 			tooltip_text = _("Local Only"),
-			active = active
+			active = active,
+			sensitive = !this.edit_mode
 		};
 		local_only_button.toggled.connect (local_only_button_toggled);
 		visibility_button.sensitive = !active && !this.edit_mode;
