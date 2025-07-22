@@ -756,6 +756,7 @@ public class Tuba.Views.Drive : Views.Base {
 	Gtk.GridView grid;
 	Gtk.MultiSelection selection;
 	GLib.ListStore store;
+	Dialogs.Composer.Components.DropOverlay drop_overlay;
 	construct {
 		this.icon = "tuba-folder-visiting-symbolic";
 		this.label = _("Drive");
@@ -775,20 +776,25 @@ public class Tuba.Views.Drive : Views.Base {
 		grid.activate.connect (on_item_activated);
 		grid.remove_css_class ("view");
 
+		drop_overlay = new Dialogs.Composer.Components.DropOverlay () {
+			title = _("Drop files to upload them"),
+			overlay_child = new Gtk.ScrolledWindow () {
+				vexpand = true,
+				child = new Adw.ClampScrollable () {
+					vexpand = true,
+					maximum_size = 670,
+					tightening_threshold = 670,
+					child = grid,
+					css_classes = { "ttl-view" },
+					overflow = HIDDEN
+				}
+			}
+		};
+
 		// Replacing the widget is messy with Base
 		// so let's just replace the page
 		states.get_page (scrolled).name = "old-content";
-		states.add_named (new Gtk.ScrolledWindow () {
-			vexpand = true,
-			child = new Adw.ClampScrollable () {
-				vexpand = true,
-				maximum_size = 670,
-				tightening_threshold = 670,
-				child = grid,
-				css_classes = { "ttl-view" },
-				overflow = HIDDEN
-			}
-		}, "content");
+		states.add_named (drop_overlay, "content");
 
 		var primary_click = new Gtk.GestureClick () {
 			button = Gdk.BUTTON_PRIMARY
@@ -825,7 +831,41 @@ public class Tuba.Views.Drive : Views.Base {
 
 		grid.add_binding_action (Gdk.Key.Delete, 0, "drive.delete", null);
 		grid.add_binding_action (Gdk.Key.KP_Delete, 0, "drive.delete", null);
+
+		var base_drop_target_controller = new Gtk.DropTarget (typeof (Gdk.FileList), Gdk.DragAction.COPY);
+		base_drop_target_controller.enter.connect (on_drag_enter);
+		base_drop_target_controller.leave.connect (on_drag_leave);
+		base_drop_target_controller.drop.connect (on_drag_drop);
+		drop_overlay.add_controller (base_drop_target_controller);
 	}
+
+	private Gdk.DragAction on_drag_enter (double x, double y) {
+		drop_overlay.dropping = true;
+		return Gdk.DragAction.COPY;
+	}
+
+	private void on_drag_leave () {
+		drop_overlay.dropping = false;
+	}
+
+	private bool on_drag_drop (Value val, double x, double y) {
+		drop_overlay.dropping = false;
+
+		var file_list = val as Gdk.FileList;
+		if (file_list == null) return false;
+
+		var files = file_list.get_files ();
+		if (files.length () == 0) return false;
+
+		File[] files_to_upload = {};
+		foreach (var file in files) {
+			files_to_upload += file;
+		}
+		if (files_to_upload.length == 0) return false;
+		upload_files.begin (files_to_upload);
+		return true;
+	}
+
 	private void on_delete_action () {
 		on_delete_request (null);
 	}
@@ -1341,7 +1381,8 @@ public class Tuba.Views.Drive : Views.Base {
 
 		// translators: screen reader announcement when the
 		//				drive successfully uploads a file
-		this.announce (_("Finished Uploading File"), LOW);
+		//				The variable is a string filename
+		this.announce (_("Finished Uploading '%s'").printf (filename), LOW);
 
 		return entity;
 	}
