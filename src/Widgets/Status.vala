@@ -487,15 +487,21 @@
 		req
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var source = API.StatusSource.from (node);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						var source = API.StatusSource.from (node);
 
-				if (redraft) {
-					new Dialogs.Composer.Dialog.edit (status.formal, source, null, true);
-				} else {
-					new Dialogs.Composer.Dialog.edit (status.formal, source, on_edit);
-				}
+						if (redraft) {
+							new Dialogs.Composer.Dialog.edit (status.formal, source, null, true);
+						} else {
+							new Dialogs.Composer.Dialog.edit (status.formal, source, on_edit);
+						}
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.on_error ((code, message) => {
 				if (redraft) {
@@ -611,17 +617,23 @@
 			new Request.GET (@"/api/v1/statuses/$(status.formal.id)/translations/$(Tuba.default_locale)")
 				.with_account (accounts.active)
 				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
-					var node = network.parse_node (parser);
-					var akkotrans = API.AkkomaTranslation.from (node);
-					translation = new API.Translation () {
-						content = akkotrans.text,
-						detected_source_language = akkotrans.detected_language
-					};
-					bind ();
+					Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+						try {
+							var parser = Network.get_parser_from_inputstream_async.end (res);
+							var node = network.parse_node (parser);
+							var akkotrans = API.AkkomaTranslation.from (node);
+							translation = new API.Translation () {
+								content = akkotrans.text,
+								detected_source_language = akkotrans.detected_language
+							};
+							bind ();
 
-					translate_simple_action.set_enabled (false);
-					show_original_simple_action.set_enabled (true);
+							translate_simple_action.set_enabled (false);
+							show_original_simple_action.set_enabled (true);
+						} catch (Error e) {
+							critical (@"Couldn't parse json: $(e.code) $(e.message)");
+						}
+					});
 				})
 				.on_error ((code, message) => {
 					warning (@"Couldn't translate $(status.formal.id): $code $message");
@@ -636,13 +648,19 @@
 			.with_form_data ("lang", Tuba.default_locale)
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				translation = API.Translation.from (node);
-				bind ();
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						translation = API.Translation.from (node);
+						bind ();
 
-				translate_simple_action.set_enabled (false);
-				show_original_simple_action.set_enabled (true);
+						translate_simple_action.set_enabled (false);
+						show_original_simple_action.set_enabled (true);
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.on_error ((code, message) => {
 				warning (@"Couldn't translate $(status.formal.id): $code $message");

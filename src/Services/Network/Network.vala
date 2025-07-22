@@ -82,16 +82,21 @@ public class Tuba.Network : GLib.Object {
 					if (ecb == null) {
 						critical (@"Request \"$(msg.uri.to_string ())\" failed: $status $(msg.reason_phrase)");
 					} else {
-						string error_msg = msg.reason_phrase;
+						Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+							string error_msg = msg.reason_phrase;
 
-						try {
-							var parser = Network.get_parser_from_inputstream (in_stream);
-							var root = network.parse (parser);
-							if (root != null)
-								error_msg = root.get_string_member_with_default ("error", msg.reason_phrase);
-						} catch {}
+							try {
+								var parser = Network.get_parser_from_inputstream_async.end (res);
+								var root = network.parse (parser);
+								if (root != null)
+									error_msg = root.get_string_member_with_default ("error", msg.reason_phrase);
+							} catch (Error e) {
+								critical (@"Couldn't parse json: $(e.code) $(e.message)");
+							}
 
-						ecb ((int32) status, error_msg);
+							ecb ((int32) status, error_msg);
+						});
+
 					}
 				}
 			} catch (GLib.Error e) {
@@ -122,6 +127,12 @@ public class Tuba.Network : GLib.Object {
 	public static Json.Parser get_parser_from_inputstream (InputStream in_stream) throws Error {
 		var parser = new Json.Parser ();
 		parser.load_from_stream (in_stream);
+		return parser;
+	}
+
+	public static async Json.Parser get_parser_from_inputstream_async (InputStream in_stream) throws Error {
+		var parser = new Json.Parser ();
+		yield parser.load_from_stream_async (in_stream);
 		return parser;
 	}
 

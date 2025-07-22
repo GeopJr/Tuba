@@ -382,39 +382,45 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			.with_account (accounts.active)
 			.with_param ("id", profile_id)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) return;
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						if (node == null) return;
 
-				Value res_accounts;
-				Entity.des_list (out res_accounts, node, typeof (API.FamiliarFollowers));
-				var res_mutual_accounts = (Gee.ArrayList<API.FamiliarFollowers>) res_accounts;
-				if (res_mutual_accounts.size == 0) return;
+						Value res_accounts;
+						Entity.des_list (out res_accounts, node, typeof (API.FamiliarFollowers));
+						var res_mutual_accounts = (Gee.ArrayList<API.FamiliarFollowers>) res_accounts;
+						if (res_mutual_accounts.size == 0) return;
 
-				mutual_accounts = res_mutual_accounts.get (0).accounts;
-				if (mutual_accounts.size > 0) {
-					mutuals_button.visible = true;
+						mutual_accounts = res_mutual_accounts.get (0).accounts;
+						if (mutual_accounts.size > 0) {
+							mutuals_button.visible = true;
 
-					mutuals_button.child = new MutualsButtonContent (mutual_accounts);
-					mutuals_listbox = new Gtk.ListBox () {
-						selection_mode = Gtk.SelectionMode.NONE,
-						css_classes = {"boxed-list"}
-					};
+							mutuals_button.child = new MutualsButtonContent (mutual_accounts);
+							mutuals_listbox = new Gtk.ListBox () {
+								selection_mode = Gtk.SelectionMode.NONE,
+								css_classes = {"boxed-list"}
+							};
 
-					mutuals_button.popover = new Gtk.Popover () {
-						child = new Gtk.ScrolledWindow () {
-							child = mutuals_listbox,
-							hexpand = true,
-							vexpand = true,
-							hscrollbar_policy = Gtk.PolicyType.NEVER,
-							max_content_height = 500,
-							width_request = 360,
-							propagate_natural_height = true
+							mutuals_button.popover = new Gtk.Popover () {
+								child = new Gtk.ScrolledWindow () {
+									child = mutuals_listbox,
+									hexpand = true,
+									vexpand = true,
+									hscrollbar_policy = Gtk.PolicyType.NEVER,
+									max_content_height = 500,
+									width_request = 360,
+									propagate_natural_height = true
+								}
+							};
+
+							mutuals_button.notify["active"].connect (on_mutuals_popover);
 						}
-					};
-
-					mutuals_button.notify["active"].connect (on_mutuals_popover);
-				}
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.exec ();
 

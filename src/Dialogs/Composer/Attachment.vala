@@ -455,7 +455,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 		this.progress = 1;
 		this.file = file;
 		try {
-			var parser = Network.get_parser_from_inputstream (in_stream);
+			var parser = yield Network.get_parser_from_inputstream_async (in_stream);
 			var node = network.parse_node (parser);
 			var entity = accounts.active.create_entity<API.Attachment> (node);
 

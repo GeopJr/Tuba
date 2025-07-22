@@ -73,16 +73,22 @@ public class Tuba.SecretAccountStore : AccountStore {
 				new Request.GET (@"/api/v1/accounts/$(account.id)")
 					.with_account (account)
 					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						var acc = API.Account.from (node);
+						Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+							try {
+								var parser = Network.get_parser_from_inputstream_async.end (res);
+								var node = network.parse_node (parser);
+								var acc = API.Account.from (node);
 
-						if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
-							account.display_name = acc.display_name;
-							account.avatar = acc.avatar;
+								if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
+									account.display_name = acc.display_name;
+									account.avatar = acc.avatar;
 
-							account_to_secret (account);
-						}
+									account_to_secret (account);
+								}
+							} catch (Error e) {
+								critical (@"Couldn't parse json: $(e.code) $(e.message)");
+							}
+						});
 					})
 					.exec ();
 				saved.add (account);

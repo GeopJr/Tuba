@@ -51,14 +51,20 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 
 		API.Poll.vote (accounts.active, poll.options, selected_index, poll.id)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
 
-				freeze_notify ();
-				poll = API.Poll.from (network.parse_node (parser));
-				thaw_notify ();
-				update_rows ();
+						freeze_notify ();
+						poll = API.Poll.from (network.parse_node (parser));
+						thaw_notify ();
+						update_rows ();
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
 
-				button.sensitive = true;
+					button.sensitive = true;
+				});
 			})
 			.on_error ((code, reason) => {
 				app.toast ("%s: %s".printf (_("Error"), reason));
@@ -191,14 +197,20 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 			.then ((in_stream) => {
 				button_refresh.sensitive = true;
 
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var parsed_poll = API.Poll.from (node);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						var parsed_poll = API.Poll.from (node);
 
-				if (parsed_poll != null) {
-					poll = parsed_poll;
-					update_rows ();
-				}
+						if (parsed_poll != null) {
+							poll = parsed_poll;
+							update_rows ();
+						}
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.on_error ((code, message) => {
 				warning (@"Couldn't refresh poll $(poll.id): $code $message");

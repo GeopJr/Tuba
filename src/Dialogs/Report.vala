@@ -485,40 +485,49 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 					css_classes = {"boxed-list"}
 				};
 				listbox.row_activated.connect (on_row_activated);
-				var parser = Network.get_parser_from_inputstream (in_stream);
 
-				Network.parse_array (parser, node => {
-					var status = API.Status.from (node);
-					if (status_id != null && status.id == status_id) return;
-					status.spoiler_text = null;
-					status.tuba_spoiler_revealed = true;
-					status.sensitive = false;
-					status.card = null;
+				bool parsing_failed = false;
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
 
-					var widget_status = status.to_widget () as Widgets.Status;
-					if (widget_status == null) return;
+						Network.parse_array (parser, node => {
+							var status = API.Status.from (node);
+							if (status_id != null && status.id == status_id) return;
+							status.spoiler_text = null;
+							status.tuba_spoiler_revealed = true;
+							status.sensitive = false;
+							status.card = null;
 
-					var checkbutton = new Gtk.CheckButton () {
-						css_classes = {"selection-mode"},
-						valign = Gtk.Align.CENTER
-					};
-					status_buttons.set (status.id, checkbutton);
+							var widget_status = status.to_widget () as Widgets.Status;
+							if (widget_status == null) return;
 
-					widget_status.hexpand = true;
-					widget_status.indicators.visible = false;
-					widget_status.can_focus = false;
-					widget_status.can_target = false;
-					widget_status.focusable = false;
-					widget_status.actions.visible = false;
-					#if USE_LISTVIEW
-						widget_status.can_be_opened = false;
-					#else
-						widget_status.activatable = false;
-					#endif
-					listbox.append (new StatusRow (checkbutton, widget_status));
+							var checkbutton = new Gtk.CheckButton () {
+								css_classes = {"selection-mode"},
+								valign = Gtk.Align.CENTER
+							};
+							status_buttons.set (status.id, checkbutton);
+
+							widget_status.hexpand = true;
+							widget_status.indicators.visible = false;
+							widget_status.can_focus = false;
+							widget_status.can_target = false;
+							widget_status.focusable = false;
+							widget_status.actions.visible = false;
+							#if USE_LISTVIEW
+								widget_status.can_be_opened = false;
+							#else
+								widget_status.activatable = false;
+							#endif
+							listbox.append (new StatusRow (checkbutton, widget_status));
+						});
+					} catch (Error e) {
+						parsing_failed = true;
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
 				});
 
-				if (status_buttons.size == 0) {
+				if (status_buttons.size == 0 || parsing_failed) {
 					page_3.visible = false;
 					page_3_error.description = _("%s. You can continue with the report however.").printf (_("No posts found"));
 					page_3_stack.visible_child_name = "error";

@@ -39,7 +39,7 @@ public class Tuba.API.SearchResults : Entity {
 			.with_param ("q", q);
 		yield req.await ();
 
-		var parser = Network.get_parser_from_inputstream (req.response_body);
+		var parser = yield Network.get_parser_from_inputstream_async (req.response_body);
 		return from (network.parse_node (parser));
 	}
 }

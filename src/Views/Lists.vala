@@ -188,10 +188,16 @@ public class Tuba.Views.Lists : Views.Timeline {
 			.with_account (accounts.active)
 			.body_json (builder)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var list = API.List.from (node);
-				model.insert (0, list);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						var list = API.List.from (node);
+						model.insert (0, list);
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.exec ();
 	}

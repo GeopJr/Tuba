@@ -175,10 +175,16 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 			.with_account (accounts.active)
 			.with_form_data ("scheduled_at", iso8601)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var e = Tuba.Helper.Entity.from_json (node, typeof (API.ScheduledStatus), true);
-				if (e is API.ScheduledStatus) bind ((API.ScheduledStatus) e);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						var e = Tuba.Helper.Entity.from_json (node, typeof (API.ScheduledStatus), true);
+						if (e is API.ScheduledStatus) bind ((API.ScheduledStatus) e);
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.on_error ((code, message) => {
 				warning (@"Error while rescheduling: $code $message");

@@ -83,7 +83,7 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 		if (error != null || in_stream == null)
 			throw new Oopsie.INSTANCE (error);
 		else {
-			var parser = Network.get_parser_from_inputstream (in_stream);
+			var parser = yield Network.get_parser_from_inputstream_async (in_stream);
 			var node = network.parse_node (parser);
 			var entity = accounts.active.create_entity<API.Attachment> (node);
 			debug (@"OK! ID $(entity.id)");

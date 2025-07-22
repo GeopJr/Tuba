@@ -163,7 +163,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			.with_account (account);
 		yield req.await ();
 
-		var parser = Network.get_parser_from_inputstream (req.response_body);
+		var parser = yield Network.get_parser_from_inputstream_async (req.response_body);
 		var root = network.parse (parser);
 
 		string? backend = null;

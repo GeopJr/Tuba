@@ -212,29 +212,36 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 
 		new Request.GET (api_url)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
 
-				switch (this.special_card) {
-					case API.PreviewCard.CardSpecialType.FUNKWHALE:
-						var funkwhale_obj = API.Funkwhale.from (node);
-						string res_url;
+						switch (this.special_card) {
+							case API.PreviewCard.CardSpecialType.FUNKWHALE:
+								var funkwhale_obj = API.Funkwhale.from (node);
+								string res_url;
 
-						if (funkwhale_obj.get_track (host, out res_url)) {
-							app.main_window.show_media_viewer (res_url, Tuba.Attachment.MediaType.AUDIO, null, null, false, null, this.url, null, true);
+								if (funkwhale_obj.get_track (host, out res_url)) {
+									app.main_window.show_media_viewer (res_url, Tuba.Attachment.MediaType.AUDIO, null, null, false, null, this.url, null, true);
+								}
+								break;
+							case API.PreviewCard.CardSpecialType.BOOKWYRM:
+								API.BookWyrm bookwyrm_obj = API.BookWyrm.from (node);
+
+								if (bookwyrm_obj.title != null && bookwyrm_obj.title != "") {
+									app.main_window.show_book (bookwyrm_obj);
+								}
+								break;
+							default:
+								open_url (this.url);
+								break;
 						}
-						break;
-					case API.PreviewCard.CardSpecialType.BOOKWYRM:
-						API.BookWyrm bookwyrm_obj = API.BookWyrm.from (node);
-
-						if (bookwyrm_obj.title != null && bookwyrm_obj.title != "") {
-							app.main_window.show_book (bookwyrm_obj);
-						}
-						break;
-					default:
+					} catch (Error e) {
 						open_url (this.url);
-						break;
-				}
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.on_error (() => {
 				open_url (this.url);

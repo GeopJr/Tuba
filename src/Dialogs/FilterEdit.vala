@@ -315,9 +315,16 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 			.body_json (builder)
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				saved (API.Filters.Filter.from (node));
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						saved (API.Filters.Filter.from (node));
+					} catch (Error e) {
+						this.sensitive = true;
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 				on_close ();
 			})
 			.on_error ((code, message) => {

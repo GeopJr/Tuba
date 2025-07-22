@@ -63,27 +63,32 @@ public class Tuba.Views.Admin.Page.Dashboard : Views.Admin.Page.Base {
 			.with_account (accounts.active)
 			.body_json (get_dimensions_body (key))
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				Network.parse_array (parser, node => {
-					if (node != null) {
-						var dimension = API.Admin.Dimension.from (node);
-						if (dimension.key == key && dimension.total != null) {
-							add_stat (
-								new Adw.ActionRow () {
-									title = title,
-									subtitle = dimension.total,
-									use_markup = false,
-									subtitle_selectable = true
-								}
-							);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						Network.parse_array (parser, node => {
+							if (node != null) {
+								var dimension = API.Admin.Dimension.from (node);
+								if (dimension.key == key && dimension.total != null) {
+									add_stat (
+										new Adw.ActionRow () {
+											title = title,
+											subtitle = dimension.total,
+											use_markup = false,
+											subtitle_selectable = true
+										}
+									);
 
-							if (next_i > -1) {
-								populate_stats (next_i);
+									if (next_i > -1) {
+										populate_stats (next_i);
+									}
+								}
 							}
-						}
+						});
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
 					}
 				});
-
 				update_requests (-1);
 			})
 			.on_error ((code, message) => {
@@ -100,23 +105,29 @@ public class Tuba.Views.Admin.Page.Dashboard : Views.Admin.Page.Base {
 			.with_account (accounts.active)
 			.body_json (get_dimensions_body (key, limit))
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				Network.parse_array (parser, node => {
-					if (node != null) {
-						var dimension = API.Admin.Dimension.from (node);
-						if (dimension.key == key && dimension.data != null && dimension.data.size > 0) {
-							foreach (var entry in dimension.data) {
-								group.add (
-									new Adw.ActionRow () {
-										title = entry.human_key,
-										subtitle = entry.human_value != null ? entry.human_value : entry.value,
-										use_markup = false,
-										subtitle_selectable = true
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						Network.parse_array (parser, node => {
+							if (node != null) {
+								var dimension = API.Admin.Dimension.from (node);
+								if (dimension.key == key && dimension.data != null && dimension.data.size > 0) {
+									foreach (var entry in dimension.data) {
+										group.add (
+											new Adw.ActionRow () {
+												title = entry.human_key,
+												subtitle = entry.human_value != null ? entry.human_value : entry.value,
+												use_markup = false,
+												subtitle_selectable = true
+											}
+										);
+										group.visible = true;
 									}
-								);
-								group.visible = true;
+								}
 							}
-						}
+						});
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
 					}
 				});
 				update_requests (-1);

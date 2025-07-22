@@ -204,21 +204,26 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			.with_ctx (this)
 			.with_extra_data (Tuba.Network.ExtraData.RESPONSE_HEADERS)
 			.then ((in_stream, headers) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						Object[] to_add = {};
+						Network.parse_array (parser, node => {
+							var e = Tuba.Helper.Entity.from_json (node, accepts);
+							if (!(should_hide (e))) to_add += e;
+						});
+						model.splice (model.get_n_items (), 0, to_add);
 
-				Object[] to_add = {};
-				Network.parse_array (parser, node => {
-					var e = Tuba.Helper.Entity.from_json (node, accepts);
-					if (!(should_hide (e))) to_add += e;
+						if (headers != null)
+							get_pages (headers.get_one ("Link"));
+
+						if (to_add.length == 0)
+							on_content_changed ();
+						on_request_finish ();
+					} catch (Error e) {
+						on_error (e.code, e.message);
+					}
 				});
-				model.splice (model.get_n_items (), 0, to_add);
-
-				if (headers != null)
-					get_pages (headers.get_one ("Link"));
-
-				if (to_add.length == 0)
-					on_content_changed ();
-				on_request_finish ();
 			})
 			.on_error (on_error)
 			.exec ();

@@ -133,15 +133,22 @@ public class Tuba.Views.Admin.Timeline.PaginationTimeline : Gtk.Box {
 			.with_extra_data (Tuba.Network.ExtraData.RESPONSE_HEADERS)
 			.then ((in_stream, headers) => {
 				content.remove_all ();
-				var parser = Network.get_parser_from_inputstream (in_stream);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
 
-				Network.parse_array (parser, node => {
-					content.append (on_create_model_widget (Tuba.Helper.Entity.from_json (node, accepts)));
+						Network.parse_array (parser, node => {
+							content.append (on_create_model_widget (Tuba.Helper.Entity.from_json (node, accepts)));
+						});
+
+						if (headers != null)
+							get_pages (headers.get_one ("Link"));
+					} catch (Error e) {
+						on_error (e.code, e.message);
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+					this.working = false;
 				});
-
-				this.working = false;
-				if (headers != null)
-					get_pages (headers.get_one ("Link"));
 			})
 			.on_error ((code, message) => {
 				on_error (code, message);

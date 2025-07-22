@@ -58,13 +58,21 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 		new Request.POST (@"/api/v1/tags/$tag/$(!this.featured ? "unfeature" : "feature")") // we reversed it above
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
 
-				var node = network.parse_node (parser);
-				var tag_info = API.Tag.from (node);
+						var node = network.parse_node (parser);
+						var tag_info = API.Tag.from (node);
 
-				if (this.following != tag_info.following) this.following = tag_info.following;
-				if (this.featured != tag_info.featuring) this.featured = tag_info.featuring;
+						if (this.following != tag_info.following) this.following = tag_info.following;
+						if (this.featured != tag_info.featuring) this.featured = tag_info.featuring;
+
+					} catch (Error e) {
+						this.featured = !this.featured;
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 
 				app.refresh_featured ();
 				feature_tag_btn.unblock_clicked ();
@@ -108,11 +116,18 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 		new Request.POST (@"/api/v1/tags/$tag/$action")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var root = network.parse (parser);
-				if (!root.has_member ("following")) {
-					this.following = !this.following;
-				};
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var root = network.parse (parser);
+						if (!root.has_member ("following")) {
+							this.following = !this.following;
+						};
+					} catch (Error e) {
+						this.following = !this.following;
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.exec ();
 	}
@@ -121,12 +136,18 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 		new Request.GET (@"/api/v1/tags/$tag")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var tag_info = API.Tag.from (node);
-				this.following = tag_info.following;
-				this.featured = tag_info.featuring;
-				create_featuring_button ();
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						var tag_info = API.Tag.from (node);
+						this.following = tag_info.following;
+						this.featured = tag_info.featuring;
+						create_featuring_button ();
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.exec ();
 	}

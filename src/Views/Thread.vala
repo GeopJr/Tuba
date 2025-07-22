@@ -47,15 +47,21 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			.with_account (account)
 			.with_ctx (this)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var api_status = API.Status.from (node);
-				if (api_status != null) {
-					if (root_status != null) root_status.patch (api_status);
-					if (root_status_widget != null) {
-						root_status_widget.on_edit (api_status);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						var api_status = API.Status.from (node);
+						if (api_status != null) {
+							if (root_status != null) root_status.patch (api_status);
+							if (root_status_widget != null) {
+								root_status_widget.on_edit (api_status);
+							}
+						}
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
 					}
-				}
+				});
 			})
 			.exec ();
 	}
@@ -165,42 +171,48 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			.with_account (account)
 			.with_ctx (this)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var root = network.parse (parser);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var root = network.parse (parser);
 
-				Object[] to_add_ancestors = {};
-				var ancestors = root.get_array_member ("ancestors");
-				ancestors.foreach_element ((array, i, node) => {
-					var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
-					if (!e.formal.tuba_filter_hidden)
-						to_add_ancestors += e;
-				});
-				to_add_ancestors += root_status;
-				model.splice (model.get_n_items (), 0, to_add_ancestors);
+						Object[] to_add_ancestors = {};
+						var ancestors = root.get_array_member ("ancestors");
+						ancestors.foreach_element ((array, i, node) => {
+							var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+							if (!e.formal.tuba_filter_hidden)
+								to_add_ancestors += e;
+						});
+						to_add_ancestors += root_status;
+						model.splice (model.get_n_items (), 0, to_add_ancestors);
 
-				Object[] to_add_descendants = {};
-				var descendants = root.get_array_member ("descendants");
-				descendants.foreach_element ((array, i, node) => {
-					var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
-					if (!e.formal.tuba_filter_hidden)
-						to_add_descendants += e;
-				});
-				model.splice (model.get_n_items (), 0, to_add_descendants);
+						Object[] to_add_descendants = {};
+						var descendants = root.get_array_member ("descendants");
+						descendants.foreach_element ((array, i, node) => {
+							var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+							if (!e.formal.tuba_filter_hidden)
+								to_add_descendants += e;
+						});
+						model.splice (model.get_n_items (), 0, to_add_descendants);
 
-				connect_threads ();
-				on_content_changed ();
+						connect_threads ();
+						on_content_changed ();
 
-				#if USE_LISTVIEW
-					if (to_add_ancestors.length > 0) {
-						uint timeout = 0;
-						timeout = Timeout.add (1000, () => {
-							content.scroll_to (to_add_ancestors.length, Gtk.ListScrollFlags.FOCUS, null);
+						#if USE_LISTVIEW
+							if (to_add_ancestors.length > 0) {
+								uint timeout = 0;
+								timeout = Timeout.add (1000, () => {
+									content.scroll_to (to_add_ancestors.length, Gtk.ListScrollFlags.FOCUS, null);
 
-							GLib.Source.remove (timeout);
-							return true;
-						}, Priority.LOW);
+									GLib.Source.remove (timeout);
+									return true;
+								}, Priority.LOW);
+							}
+						#endif
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
 					}
-				#endif
+				});
 			})
 			.exec ();
 
@@ -213,16 +225,22 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			.with_param ("q", q)
 			.with_param ("resolve", "true")
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var root = network.parse (parser);
-				var statuses = root.get_array_member ("statuses");
-				var node = statuses.get_element (0);
-				if (node != null) {
-					var status = API.Status.from (node);
-					app.main_window.open_view (new Views.Thread (status));
-				}
-				else
-					Utils.Host.open_url.begin (q);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var root = network.parse (parser);
+						var statuses = root.get_array_member ("statuses");
+						var node = statuses.get_element (0);
+						if (node != null) {
+							var status = API.Status.from (node);
+							app.main_window.open_view (new Views.Thread (status));
+						}
+						else
+							Utils.Host.open_url.begin (q);
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.exec ();
 	}

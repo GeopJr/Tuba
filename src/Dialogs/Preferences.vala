@@ -214,11 +214,17 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		new Request.GET ("/api/v2/filters")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				Network.parse_array (parser, node => {
-					var row = new FilterRow (API.Filters.Filter.from (node), this);
-					row.filter_deleted.connect (on_filter_delete);
-					keywords_group.add (row);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						Network.parse_array (parser, node => {
+							var row = new FilterRow (API.Filters.Filter.from (node), this);
+							row.filter_deleted.connect (on_filter_delete);
+							keywords_group.add (row);
+						});
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
 				});
 			})
 			.exec ();
@@ -356,11 +362,17 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 					.with_account (accounts.active)
 					.with_form_data ("source[language]", new_lang)
 					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						var updated = API.Account.from (node);
+						Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+							try {
+								var parser = Network.get_parser_from_inputstream_async.end (res);
+								var node = network.parse_node (parser);
+								var updated = API.Account.from (node);
 
-						settings.default_language = updated.source.language;
+								settings.default_language = updated.source.language;
+							} catch (Error e) {
+								critical (@"Couldn't parse json: $(e.code) $(e.message)");
+							}
+						});
 					})
 					.exec ();
 			}

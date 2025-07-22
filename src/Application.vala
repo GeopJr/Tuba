@@ -803,7 +803,7 @@ namespace Tuba {
 
 			try {
 				yield msg.await ();
-				var parser = Network.get_parser_from_inputstream (msg.response_body);
+				var parser = yield Network.get_parser_from_inputstream_async (msg.response_body);
 
 				string[] new_contributors = {};
 				Network.parse_array (parser, node => {

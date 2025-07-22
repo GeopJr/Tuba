@@ -48,9 +48,15 @@ public class Tuba.API.Relationship : Entity {
 			.with_account (accounts.active)
 			.with_param ("id", id)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				Network.parse_array (parser, node => {
-					invalidate (node);
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						Network.parse_array (parser, node => {
+							invalidate (node);
+						});
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
 				});
 			})
 			.exec ();
@@ -64,7 +70,7 @@ public class Tuba.API.Relationship : Entity {
 			.with_account (accounts.active);
 		yield req.await ();
 
-		var parser = Network.get_parser_from_inputstream (req.response_body);
+		var parser = yield Network.get_parser_from_inputstream_async (req.response_body);
 		Network.parse_array (parser, node => {
 			API.Relationship entity = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
 			entity.tuba_has_loaded = true;
@@ -92,13 +98,19 @@ public class Tuba.API.Relationship : Entity {
 		var req = new Request.POST (@"/api/v1/accounts/$id/$operation")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				invalidate (node);
-				debug (@"Performed \"$operation\" on Relationship $id");
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						invalidate (node);
+						debug (@"Performed \"$operation\" on Relationship $id");
 
-				if (operation in REQUIRES_USER_REMOVAL) app.remove_user_id (id);
-				else if (operation in REQUIRES_FEATURED_REFRESH) app.refresh_featured ();
+						if (operation in REQUIRES_USER_REMOVAL) app.remove_user_id (id);
+						else if (operation in REQUIRES_FEATURED_REFRESH) app.refresh_featured ();
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			});
 
 		if (modify_params != null) {
@@ -123,10 +135,16 @@ public class Tuba.API.Relationship : Entity {
 			.with_account (accounts.active)
 			.body_json (builder)
 			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				invalidate (node);
-				debug (@"Performed \"note\" on Relationship $id");
+				Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+					try {
+						var parser = Network.get_parser_from_inputstream_async.end (res);
+						var node = network.parse_node (parser);
+						invalidate (node);
+						debug (@"Performed \"note\" on Relationship $id");
+					} catch (Error e) {
+						critical (@"Couldn't parse json: $(e.code) $(e.message)");
+					}
+				});
 			})
 			.exec ();
 	}

@@ -88,8 +88,14 @@ public class Tuba.Request : GLib.Object {
 
 	public Request then_parse_array (owned Network.NodeCallback _cb) {
 		this.cb = (in_stream) => {
-			var parser = Network.get_parser_from_inputstream (in_stream);
-			Network.parse_array (parser, (owned) _cb);
+			Network.get_parser_from_inputstream_async.begin (in_stream, (obj, res) => {
+				try {
+					var parser = Network.get_parser_from_inputstream_async.end (res);
+					Network.parse_array (parser, (owned) _cb);
+				} catch (Error e) {
+					critical (@"Couldn't parse json: $(e.code) $(e.message)");
+				}
+			});
 		};
 		return this;
 	}
