@@ -18,6 +18,7 @@ sources += files(
     'InstanceV2.vala',
     'List.vala',
     'Mention.vala',
+    'Nodeinfo.vala',
     'Notification.vala',
     'NotificationFilter.vala',
     'Poll.vala',
@@ -40,6 +41,7 @@ subdir('Akkoma')
 subdir('BookWyrm')
 subdir('Filters')
 subdir('Funkwhale')
+subdir('Iceshrimp')
 subdir('Instance')
 subdir('PeerTube')
 subdir('Pleroma')

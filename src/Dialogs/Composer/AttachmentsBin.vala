@@ -331,9 +331,6 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 		var temp = attachment_widgets[from_index];
 		attachment_widgets[from_index] = attachment_widgets[to_index];
 		attachment_widgets[to_index] = temp;
-
-		from.cleanup ();
-		to.cleanup ();
 	}
 
 	private void on_delete (Composer.Components.Attachment attachment) {
@@ -393,7 +390,7 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 		}
 	}
 
-	public async void upload_files (File[] files) {
+	public async void upload_files (owned File[] files) {
 		if (files.length == 0) return;
 
 		// We want to only upload as many attachments as the server
@@ -505,7 +502,7 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 			} catch (Error e) {
 				// User dismissing the dialog also ends here so don't make it sound like
 				// it's an error
-				warning (@"Couldn't get the result of FileDialog for AttachmentsPage: $(e.message)");
+				warning (@"Couldn't get the result of FileDialog for AttachmentsBin: $(e.message)");
 			}
 		});
 	}

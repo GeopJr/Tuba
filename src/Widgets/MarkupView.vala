@@ -189,6 +189,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				case "pre":
 				case "body":
 				case "p":
+				case "div":
 					blockquote_handler (node, bold_text_regex);
 					break;
 				case "b":
@@ -267,6 +268,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				break;
 			case "html":
 			case "markup":
+			case "div":
 				traverse_and_handle (v, root, default_handler);
 				break;
 			case "body":

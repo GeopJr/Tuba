@@ -1,24 +1,17 @@
 public class Tuba.Mastodon.Account : InstanceAccount {
-	public const string BACKEND = "Mastodon";
-
-	class Test : AccountStore.BackendTest {
-		public override string? get_backend (Json.Object obj) {
-			return BACKEND; // Always treat instances as compatible with Mastodon
-		}
+	public static void register (AccountStore store) {
+		store.create_for_backend.connect (create_for_backend);
 	}
 
-	public static void register (AccountStore store) {
-		store.backend_tests.add (new Test ());
-		store.create_for_backend[BACKEND].connect ((node) => {
-			try {
-				var account = Entity.from_json (typeof (Account), node) as Account;
-				account.backend = BACKEND;
-				return account;
-			} catch (Error e) {
-				warning (@"Error creating backend: $(e.message)");
-			}
-			return null;
-		});
+	private static InstanceAccount? create_for_backend (Json.Node node) {
+		try {
+			var account = Entity.from_json (typeof (Account), node) as Account;
+			if (account.backend == null || account.backend == "") account.backend = "Fediverse";
+			return account;
+		} catch (Error e) {
+			warning (@"Error creating backend: $(e.message)");
+		}
+		return null;
 	}
 
 	public static Place PLACE_HOME = new Place () { // vala-lint=naming-convention
@@ -149,6 +142,15 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		}
 	};
 
+	public static Place PLACE_DRIVE = new Place () { // vala-lint=naming-convention
+
+		icon = "tuba-folder-visiting-symbolic",
+		title = _("Drive"),
+		open_func = (win) => {
+			win.open_view (set_as_sidebar_item (new Views.Drive ()));
+		}
+	};
+
 	private static Place[] SIDEBAR_PLACES = { // vala-lint=naming-convention
 		PLACE_HOME,
 		PLACE_NOTIFICATIONS,
@@ -162,11 +164,13 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		PLACE_LOCAL,
 		PLACE_BUBBLE,
 		PLACE_FEDERATED,
-		PLACE_LISTS
+		PLACE_LISTS,
+		PLACE_DRIVE
 	};
 
 	protected override void bump_sidebar_items () {
 		PLACE_BUBBLE.visible = (this.instance_info != null && this.instance_info.supports_bubble) || BUBBLE in this.tuba_instance_features;
+		PLACE_DRIVE.visible = ICESHRIMP in this.tuba_instance_features;
 	}
 
 	public override void register_known_places (GLib.ListStore places) {
