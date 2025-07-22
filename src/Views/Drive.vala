@@ -1,5 +1,14 @@
 public class Tuba.Views.Drive : Views.Base {
+	~Drive () {
+		this.cleanup ();
+		debug ("Destroying Drive");
+	}
+
 	public class Item : GLib.Object {
+		~Item () {
+			debug ("Destroying DriveItem");
+		}
+
 		public API.Iceshrimp.Folder? folder { get; set; default=null; }
 		public API.Iceshrimp.File? file { get; set; default=null; }
 
@@ -46,6 +55,9 @@ public class Tuba.Views.Drive : Views.Base {
 				alt_popover.unparent ();
 				alt_popover = null;
 			}
+
+			this.cleanup ();
+			debug ("Destroying DriveItemWidget");
 		}
 
 		public signal void refresh ();
@@ -54,6 +66,7 @@ public class Tuba.Views.Drive : Views.Base {
 		public signal void fill_reserved_names (EntryPopover popover);
 		public signal void pressed (bool not_pressing);
 		public signal void move (string to_folder, Item? grabbed_item);
+		public bool working { get; set; default = false; }
 
 		public bool folder {
 			get { return item == null ? false : item.folder != null; }
@@ -144,6 +157,7 @@ public class Tuba.Views.Drive : Views.Base {
 				height_request =
 				width_request = 96
 			};
+
 			label = new Gtk.Label ("") {
 				ellipsize = Pango.EllipsizeMode.MIDDLE
 			};
@@ -235,6 +249,7 @@ public class Tuba.Views.Drive : Views.Base {
 			ms_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 			file_menu.append_item (ms_menu_item);
 
+			// translators: alternative text context menu item in drive
 			var alt_menu_item = new MenuItem (_("Edit Alt Text"), "driveitem.set-alt-text");
 			alt_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 			file_menu.append_item (alt_menu_item);
@@ -285,26 +300,31 @@ public class Tuba.Views.Drive : Views.Base {
 		}
 
 		private bool on_drop (Gtk.DropTarget dt_controller, GLib.Value value, double x, double y) {
-			if (!this.folder || this.item == null || dt_controller.get_value () == null) return false;
+			if (this.working || !this.folder || this.item == null || dt_controller.get_value () == null) return false;
 			move (this.item_id, (Views.Drive.Item?) dt_controller.get_value ());
 			return true;
+		}
+
+		public void cleanup () {
+			if (drop_target_controller.get_value () != null) drop_target_controller.get_value ().set_object (null);
 		}
 
 		double drag_x = 0;
 		double drag_y = 0;
 		private Gdk.ContentProvider? on_drag_prepare (double x, double y) {
-			if (this.item == null) return null;
+			if (this.item == null || this.working) return null;
 			pressed (false);
 
 			drag_x = x;
 			drag_y = y;
 
-			return new Gdk.ContentProvider.for_value (this.item); // TODO leak test...
+			return new Gdk.ContentProvider.for_value (this.item);
 		}
 
 		private void on_drag_begin (Gtk.DragSource ds_controller, Gdk.Drag drag) {
-			ds_controller.set_icon ((new Gtk.WidgetPaintable (this)).get_current_image (), (int) drag_x, (int) drag_y);
 			update_drop_target (true);
+			if (this.working) return;
+			ds_controller.set_icon ((new Gtk.WidgetPaintable (this)).get_current_image (), (int) drag_x, (int) drag_y);
 		}
 
 		private void on_drag_end (Gdk.Drag drag, bool delete_data) {
@@ -342,6 +362,7 @@ public class Tuba.Views.Drive : Views.Base {
 			builder.add_boolean_value (!this.item.file.sensitive);
 			builder.end_object ();
 
+			this.working = true;
 			new Request.PATCH (@"/api/iceshrimp/drive/$(this.item_id)")
 				.with_account (accounts.active)
 				.with_token (accounts.active.tuba_iceshrimp_api_key)
@@ -350,8 +371,10 @@ public class Tuba.Views.Drive : Views.Base {
 					ms_action.set_state (!this.item.file.sensitive);
 					this.item.file.sensitive = !this.item.file.sensitive;
 					update_indicators ();
+					this.working = false;
 				})
 				.on_error ((code, message) => {
+					this.working = false;
 					// translators: the first variable is a filename,
 					//				the second is an error message
 					app.toast (_("Couldn't mark '%s' as sensitive: %s").printf (GLib.Markup.escape_text (this.filename), message));
@@ -424,6 +447,7 @@ public class Tuba.Views.Drive : Views.Base {
 			builder.add_string_value (new_alt);
 			builder.end_object ();
 
+			this.working = true;
 			new Request.PATCH (@"/api/iceshrimp/drive/$(this.item_id)")
 				.body_json (builder)
 				.with_account (accounts.active)
@@ -431,8 +455,10 @@ public class Tuba.Views.Drive : Views.Base {
 				.then (() => {
 					this.item.file.description = new_alt;
 					update_indicators ();
+					this.working = false;
 				})
 				.on_error ((code, message) => {
+					this.working = false;
 					// translators: the first variable is a filename,
 					//				the second is an error message
 					app.toast (_("Couldn't change alt text for '%s': %s").printf (GLib.Markup.escape_text (this.filename), message));
@@ -465,6 +491,7 @@ public class Tuba.Views.Drive : Views.Base {
 					.body_json (builder);
 			}
 
+			this.working = true;
 			req
 				.with_account (accounts.active)
 				.with_token (accounts.active.tuba_iceshrimp_api_key)
@@ -475,8 +502,10 @@ public class Tuba.Views.Drive : Views.Base {
 					} else {
 						item.file.filename = new_name;
 					}
+					this.working = false;
 				})
 				.on_error ((code, message) => {
+					this.working = false;
 					// translators: the first variable is a filename,
 					//				the second is an error message
 					app.toast (_("Couldn't rename '%s': %s").printf (GLib.Markup.escape_text (this.filename), message));
@@ -490,6 +519,8 @@ public class Tuba.Views.Drive : Views.Base {
 		}
 
 		private void on_secondary_click (int n_press, double x, double y) {
+			if (this.working) return;
+
 			gesture_click_controller.set_state (Gtk.EventSequenceState.CLAIMED);
 			gesture_lp_controller.set_state (Gtk.EventSequenceState.CLAIMED);
 
@@ -641,12 +672,45 @@ public class Tuba.Views.Drive : Views.Base {
 		}
 	}
 
+	private bool _working = false;
+	private bool working {
+		get { return _working; }
+		set {
+			drop_overlay.sensitive =
+			go_back_btn.sensitive =
+			grid.sensitive =
+			create_folder_btn.sensitive =
+			upload_file_btn.sensitive = !value;
+			_working = value;
+
+			if (value) {
+				main_cancellable.reset ();
+			} else {
+				progress = 0;
+				cancel_btn.visible = false;
+			}
+		}
+	}
+
+	public void cleanup () {
+		if (back_drop_target_controller.get_value () != null) back_drop_target_controller.get_value ().set_object (null);
+	}
+
 	private Gtk.Button go_back_btn;
 	private Gtk.MenuButton create_folder_btn;
 	private Gtk.Button upload_file_btn;
 	private EntryPopover create_folder_btn_popover;
+	private Gtk.Button cancel_btn;
+	private Gtk.DropTarget back_drop_target_controller;
 	protected override void build_header () {
 		base.build_header ();
+
+		cancel_btn = new Gtk.Button.from_icon_name ("tuba-cross-large-symbolic") {
+			css_classes = {"error"},
+			tooltip_text = _("Cancel"),
+			visible = false
+		};
+		cancel_btn.clicked.connect (on_cancel);
 
 		go_back_btn = new Gtk.Button () {
 			icon_name = "go-previous-symbolic",
@@ -657,7 +721,7 @@ public class Tuba.Views.Drive : Views.Base {
 		go_back_btn.clicked.connect (on_go_back);
 		header.pack_start (go_back_btn);
 
-		var back_drop_target_controller = new Gtk.DropTarget (typeof (Views.Drive.Item?), MOVE);
+		back_drop_target_controller = new Gtk.DropTarget (typeof (Views.Drive.Item?), MOVE);
 		back_drop_target_controller.drop.connect (on_back_drop);
 		go_back_btn.add_controller (back_drop_target_controller);
 
@@ -680,6 +744,7 @@ public class Tuba.Views.Drive : Views.Base {
 
 		header.pack_end (upload_file_btn);
 		header.pack_end (create_folder_btn);
+		header.pack_end (cancel_btn);
 	}
 
 	private bool on_back_drop (Gtk.DropTarget dt_controller, GLib.Value value, double x, double y) {
@@ -687,6 +752,12 @@ public class Tuba.Views.Drive : Views.Base {
 
 		move_items (this.current_folder.parentId, (Views.Drive.Item?) dt_controller.get_value ());
 		return true;
+	}
+
+	GLib.Cancellable main_cancellable = new GLib.Cancellable ();
+	private void on_cancel () {
+		if (!this.working) return;
+		main_cancellable.cancel ();
 	}
 
 	private void on_create_folder_done (EntryPopover popover, string name) {
@@ -718,8 +789,8 @@ public class Tuba.Views.Drive : Views.Base {
 			.with_token (accounts.active.tuba_iceshrimp_api_key)
 			.body_json (builder);
 
-		base_status = new StatusMessage () { loading = true };
 		try {
+			this.working = true;
 			yield req.await ();
 
 			var parser = Network.get_parser_from_inputstream (req.response_body);
@@ -734,7 +805,7 @@ public class Tuba.Views.Drive : Views.Base {
 				store.splice (0, 0, {new Item.from_folder ((API.Iceshrimp.Folder) entity)});
 			}
 		} catch (Error e) {
-			base_status = null;
+			this.working = false;
 			// translators: error that shows up as a toast when creating folders
 			//				in iceshrimp drive
 			app.toast (_("Couldn't create folder: %s").printf (e.message));
@@ -743,12 +814,20 @@ public class Tuba.Views.Drive : Views.Base {
 			return false;
 		}
 
-		base_status = null;
+		this.working = false;
 		return true;
 	}
 
 	private void on_go_back () {
 		load_folder (this.current_folder == null ? null : this.current_folder.parentId);
+	}
+
+	private double progress {
+		get { return osd_bar.fraction; }
+		set {
+			osd_bar.fraction = value.clamp (0, 1);
+			osd_bar.visible = osd_bar.fraction != 0 && osd_bar.fraction != 1;
+		}
 	}
 
 	API.Iceshrimp.Folder? current_folder { get; set; default = null; }
@@ -757,9 +836,17 @@ public class Tuba.Views.Drive : Views.Base {
 	Gtk.MultiSelection selection;
 	GLib.ListStore store;
 	Dialogs.Composer.Components.DropOverlay drop_overlay;
+	Gtk.ProgressBar osd_bar;
 	construct {
 		this.icon = "tuba-folder-visiting-symbolic";
 		this.label = _("Drive");
+
+		osd_bar = new Gtk.ProgressBar () {
+			valign = START,
+			hexpand = true
+		};
+		osd_bar.add_css_class ("osd");
+		scrolled_overlay.add_overlay (osd_bar);
 
 		Gtk.SignalListItemFactory signallistitemfactory = new Gtk.SignalListItemFactory ();
 		signallistitemfactory.setup.connect (setup_listitem_cb);
@@ -837,6 +924,8 @@ public class Tuba.Views.Drive : Views.Base {
 		base_drop_target_controller.leave.connect (on_drag_leave);
 		base_drop_target_controller.drop.connect (on_drag_drop);
 		drop_overlay.add_controller (base_drop_target_controller);
+
+		app.refresh.connect (on_refresh);
 	}
 
 	private Gdk.DragAction on_drag_enter (double x, double y) {
@@ -951,7 +1040,9 @@ public class Tuba.Views.Drive : Views.Base {
 	}
 
 	private void on_refresh () {
+		if (this.working) return;
 		load_folder (this.current_folder.id);
+		this.working = false;
 	}
 
 	private void bind_listitem_cb (GLib.Object item) {
@@ -1058,6 +1149,8 @@ public class Tuba.Views.Drive : Views.Base {
 
 	private async void move_items_real (string? to_folder, ItemData[] items) {
 		bool requires_refresh = false;
+		this.working = true;
+		cancel_btn.visible = true;
 
 		var builder = new Json.Builder ();
 		builder.begin_object ();
@@ -1082,8 +1175,11 @@ public class Tuba.Views.Drive : Views.Base {
 			}
 		}
 
+		double step = 1 / rqs.length;
 		foreach (ReqData rq in rqs) {
+			if (main_cancellable.is_cancelled ()) break;
 			try {
+				this.progress += step;
 				yield rq.req.await ();
 
 				uint pos;
@@ -1098,6 +1194,7 @@ public class Tuba.Views.Drive : Views.Base {
 			}
 		}
 
+		this.working = false;
 		if (requires_refresh) on_refresh ();
 	}
 
@@ -1125,10 +1222,12 @@ public class Tuba.Views.Drive : Views.Base {
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {
+						this.working = true;
 						new Request.DELETE (@"/api/iceshrimp/drive/$(item.folder ? "folder/" : "" )$(item.item_id)")
 							.with_account (accounts.active)
 							.with_token (accounts.active.tuba_iceshrimp_api_key)
 							.then (() => {
+								this.working = false;
 								uint pos;
 								if (store.find (item.item, out pos)) {
 									store.remove (pos);
@@ -1137,6 +1236,7 @@ public class Tuba.Views.Drive : Views.Base {
 								}
 							})
 							.on_error ((code, message) => {
+								this.working = false;
 								// translators: the first variable is a filename,
 								//				the second is an error message
 								app.toast (_("Couldn't delete '%s': %s").printf (GLib.Markup.escape_text (item.filename), message));
@@ -1220,8 +1320,10 @@ public class Tuba.Views.Drive : Views.Base {
 		}
 	}
 
-	private async void delete_real_many (ItemData[] items) { // TODO: progress bar? Cancel?
+	private async void delete_real_many (ItemData[] items) {
 		bool requires_refresh = false;
+		this.working = true;
+		cancel_btn.visible = true;
 
 		ReqData[] rqs = {};
 		if (items.length > 0) {
@@ -1235,8 +1337,11 @@ public class Tuba.Views.Drive : Views.Base {
 			}
 		}
 
+		double step = 1 / rqs.length;
 		foreach (ReqData rq in rqs) {
+			if (main_cancellable.is_cancelled ()) break;
 			try {
+				this.progress += step;
 				yield rq.req.await ();
 
 				uint pos;
@@ -1251,6 +1356,7 @@ public class Tuba.Views.Drive : Views.Base {
 			}
 		}
 
+		this.working = false;
 		if (requires_refresh) on_refresh ();
 	}
 
@@ -1284,6 +1390,9 @@ public class Tuba.Views.Drive : Views.Base {
 
 	private async void upload_files (owned File[] files_to_upload) {
 		if (files_to_upload.length == 0) return;
+
+		this.working = true;
+		cancel_btn.visible = true;
 		if (this.current_folder.files == null) {
 			this.current_folder.files = new Gee.ArrayList<API.Iceshrimp.File> ();
 		}
@@ -1293,10 +1402,13 @@ public class Tuba.Views.Drive : Views.Base {
 			reserved += file.id;
 		}
 
+		double step = 1 / files_to_upload.length;
 		int folders_start_pos = this.current_folder.folders == null ? 0 : this.current_folder.folders.size;
 		string to_folder = this.current_folder.id;
 		foreach (File file in files_to_upload) {
+			if (main_cancellable.is_cancelled ()) break;
 			try {
+				this.progress += step;
 				API.Iceshrimp.File is_file = yield upload_file_real (to_folder, file);
 				if (is_file.id in reserved) {
 					// translators: toast popping up when a user uploads a file that already exists in drive
@@ -1311,11 +1423,12 @@ public class Tuba.Views.Drive : Views.Base {
 				warning (@"$(e.message) $(e.code)");
 			}
 		}
+		this.working = false;
 	}
 
 	private async API.Iceshrimp.File upload_file_real (string? to_folder, GLib.File file) throws Error {
-		//  bytes_written = 0;
-		//  total_bytes = 0;
+		bytes_written = 0;
+		total_bytes = 0;
 
 		Bytes buffer;
 		string mime;
@@ -1332,7 +1445,7 @@ public class Tuba.Views.Drive : Views.Base {
 				throw new Oopsie.INTERNAL ("Can't open file %s:\n%s".printf (uri, e.message));
 			}
 			buffer = new Bytes.take (contents);
-			//  total_bytes = buffer.get_size ();
+			total_bytes = buffer.get_size ();
 		}
 
 		string? filename = file.get_basename ();
@@ -1344,11 +1457,11 @@ public class Tuba.Views.Drive : Views.Base {
 		string folder_id = to_folder == null ? "" : @"?folderId=$to_folder";
 		var msg = new Soup.Message.from_multipart (@"$(accounts.active.instance)/api/iceshrimp/drive$folder_id", multipart);
 		msg.request_headers.append ("Authorization", @"Bearer $(accounts.active.tuba_iceshrimp_api_key)");
-		//  msg.wrote_body_data.connect (on_upload_bytes_written);
+		msg.wrote_body_data.connect (on_upload_bytes_written);
 
 		string? error = null;
 		InputStream? in_stream = null;
-		network.queue (msg, null,
+		network.queue (msg, main_cancellable,
 			(t_is) => {
 				in_stream = t_is;
 				upload_file_real.callback ();
@@ -1362,22 +1475,27 @@ public class Tuba.Views.Drive : Views.Base {
 
 		if (error != null || in_stream == null) {
 			throw new Oopsie.INTERNAL (error);
+		} else if (main_cancellable.is_cancelled ()) {
+			throw new Oopsie.USER ("Cancelled");
 		}
 
-		//  this.progress = 1;
+		this.progress = 1;
 		var parser = Network.get_parser_from_inputstream (in_stream);
 		var node = network.parse_node (parser);
 		var entity = (API.Iceshrimp.File) Helper.Entity.from_json (node, typeof (API.Iceshrimp.File));
 
-		//  this.media_id = entity.id;
-		//  this.kind = MediaType.from_string (entity.kind);
-		//  var working_loader = new AttachmentThumbnailer (uri, this.kind);
-		//  working_loader.done.connect (on_done);
-		//  #if GEXIV2
-		//  	working_loader.extracted_alt.connect (on_extracted_alt_text);
-		//  #endif
+		#if GEXIV2
+			if (entity.contentType.has_prefix ("image/")) {
+				var working_loader = new ItemAltExtractor (uri, entity);
+				working_loader.extracted_alt.connect (on_extracted_alt_text);
 
-		//  debug (@"OK! ID $(entity.id)");
+				try {
+					new GLib.Thread<void>.try (@"Item Alt Extractor $uri", working_loader.fetch);
+				} catch (Error e) {
+					critical ("Couldn't spawn alt extractor for %s: %s", uri, e.message);
+				}
+			}
+		#endif
 
 		// translators: screen reader announcement when the
 		//				drive successfully uploads a file
@@ -1386,4 +1504,59 @@ public class Tuba.Views.Drive : Views.Base {
 
 		return entity;
 	}
+
+	uint bytes_written = 0;
+	size_t total_bytes = 0;
+	private void on_upload_bytes_written (Soup.Message msg, uint chunk) {
+		bytes_written += chunk;
+		this.progress = ((double) bytes_written / (double) total_bytes).clamp (0, 0.999999999);
+	}
+
+	#if GEXIV2
+		private class ItemAltExtractor : GLib.Object {
+			public signal void extracted_alt (string extracted_alt_text, API.Iceshrimp.File is_file);
+
+			~ItemAltExtractor () {
+				debug ("Destroying ItemAltExtractor");
+			}
+
+			File file;
+			API.Iceshrimp.File is_file;
+			public ItemAltExtractor (string file_uri, API.Iceshrimp.File is_file) {
+				this.file = File.new_for_uri (file_uri);
+				this.is_file = is_file;
+			}
+
+			public void fetch () {
+				string file_uri = this.file.get_uri ();
+				debug (@"Extracting alt text for $file_uri");
+
+				string? extracted_alt_text = Utils.Exif.extract_alt_text (file_uri);
+				if (extracted_alt_text != null) extracted_alt (extracted_alt_text, is_file);
+			}
+		}
+
+		private void on_extracted_alt_text (string new_alt_text, API.Iceshrimp.File is_file) {
+			if ((is_file.description != null && is_file.description != "") || new_alt_text == "") return;
+
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+			builder.set_member_name ("description");
+			builder.add_string_value (new_alt_text);
+			builder.set_member_name ("filename");
+			builder.add_null_value ();
+			builder.set_member_name ("sensitive");
+			builder.add_null_value ();
+			builder.end_object ();
+
+			new Request.PATCH (@"/api/iceshrimp/drive/$(is_file.id)")
+				.with_account (accounts.active)
+				.with_token (accounts.active.tuba_iceshrimp_api_key)
+				.body_json (builder)
+				.then (() => {
+					is_file.description = new_alt_text;
+				})
+				.exec ();
+		}
+	#endif
 }
