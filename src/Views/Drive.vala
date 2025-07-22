@@ -61,7 +61,7 @@ public class Tuba.Views.Drive : Views.Base {
 
 		public string filename {
 			get { return item == null ? "" : (this.folder ? item.folder.name : item.file.filename); }
-			set { label.label = value; }
+			set { label.label = label.tooltip_text = value; }
 		}
 
 		public string item_id {
