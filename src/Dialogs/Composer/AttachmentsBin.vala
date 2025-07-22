@@ -331,9 +331,6 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 		var temp = attachment_widgets[from_index];
 		attachment_widgets[from_index] = attachment_widgets[to_index];
 		attachment_widgets[to_index] = temp;
-
-		from.cleanup ();
-		to.cleanup ();
 	}
 
 	private void on_delete (Composer.Components.Attachment attachment) {
