@@ -770,16 +770,20 @@ public class Tuba.Views.Drive : Views.Base {
 		grid.activate.connect (on_item_activated);
 		grid.remove_css_class ("view");
 
-		scrolled.child = null; // FIX remove clamp properly
-		var content_box_scrollable = new Adw.ClampScrollable () {
+		// Replacing the widget is messy with Base
+		// so let's just replace the page
+		states.get_page (scrolled).name = "old-content";
+		states.add_named (new Gtk.ScrolledWindow () {
 			vexpand = true,
-			maximum_size = 670,
-			tightening_threshold = 670,
-			child = grid,
-			css_classes = { "ttl-view" },
-			overflow = HIDDEN
-		};
-		scrolled.child = content_box_scrollable;
+			child = new Adw.ClampScrollable () {
+				vexpand = true,
+				maximum_size = 670,
+				tightening_threshold = 670,
+				child = grid,
+				css_classes = { "ttl-view" },
+				overflow = HIDDEN
+			}
+		}, "content");
 
 		var primary_click = new Gtk.GestureClick () {
 			button = Gdk.BUTTON_PRIMARY
