@@ -1117,9 +1117,19 @@ public class Tuba.Views.Drive : Views.Base {
 				while (iter.next (out val)) positions += val;
 			}
 
+			string[] undeletable_messages = {};
 			foreach (uint pos in positions) {
 				var sub_item = (Item) store.get_item (pos);
-				if (!sub_item.can_delete ()) continue;
+				{
+					string? error_reason = null;
+					if (!sub_item.can_delete (out error_reason)) {
+						undeletable_messages += _("'%s' cannot be deleted: %s").printf (
+							GLib.Markup.escape_text (sub_item.folder != null ? sub_item.folder.name : sub_item.file.filename),
+							error_reason
+						);
+						continue;
+					}
+				}
 
 				if (sub_item.folder != null) {
 					if (sub_item.folder.id != null && sub_item.folder.id != "") {
@@ -1159,6 +1169,10 @@ public class Tuba.Views.Drive : Views.Base {
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {
+						foreach (string message in undeletable_messages) {
+							app.toast (message);
+							warning (message);
+						}
 						delete_real_many.begin (items);
 					}
 				}
