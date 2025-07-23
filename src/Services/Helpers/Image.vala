@@ -77,7 +77,7 @@ public class Tuba.Helper.Image {
 		bool has_loaded = false;
 		cb (null);
 
-		if (blurhash != null) {
+		if (blurhash != null && settings.use_blurhash) {
 			GLib.Idle.add (() => {
 				if (!has_loaded)
 					cb (Tuba.Helper.Blurhash.decode (blurhash));
