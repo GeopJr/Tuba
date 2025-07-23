@@ -173,7 +173,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			supports = true;
 
 			if (link.rel.has_suffix ("://nodeinfo.diaspora.software/ns/schema/2.0") && link.href != null && link.href != "") {
-				req = new Request.GET (link.href.replace ("https://shrimp.example.org", account.instance));
+				req = new Request.GET (link.href);
 				try {
 					yield req.await ();
 					parser = Network.get_parser_from_inputstream (req.response_body);
