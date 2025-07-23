@@ -1181,7 +1181,6 @@
 			}
 
 			attachments = new Widgets.Attachment.Box ();
-			attachments.spoiler_revealed = settings.show_sensitive_media;
 			attachments.has_spoiler = status.formal.sensitive;
 			attachments.list = status.formal.media_attachments;
 
