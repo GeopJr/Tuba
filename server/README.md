@@ -29,6 +29,7 @@ The analytics in question are anonymized voluntarily published (aka OPT-IN) Tuba
         "media-viewer-expand-pictures": "TRUE",
         "enlarge-custom-emojis": "FALSE",
         "use-blurhash": "TRUE",
+        "show-sensitive-media": "FALSE",
         "group-push-notifications": "FALSE",
         "advanced-boost-dialog": "TRUE",
         "reply-to-old-post-reminder": "TRUE",

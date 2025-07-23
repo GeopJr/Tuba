@@ -124,6 +124,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow strip_tracking;
 	[GtkChild] unowned Adw.SwitchRow letterbox_media;
 	[GtkChild] unowned Adw.SwitchRow enlarge_custom_emojis;
+	[GtkChild] unowned Adw.SwitchRow show_sensitive_media;
 	[GtkChild] unowned Adw.SwitchRow group_push_notifications;
 	[GtkChild] unowned Adw.SwitchRow advanced_boost_dialog;
 	[GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
@@ -254,6 +255,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("strip-tracking", strip_tracking, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("letterbox-media", letterbox_media, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("enlarge-custom-emojis", enlarge_custom_emojis, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("show-sensitive-media", show_sensitive_media, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("group-push-notifications", group_push_notifications, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("advanced-boost-dialog", advanced_boost_dialog, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);

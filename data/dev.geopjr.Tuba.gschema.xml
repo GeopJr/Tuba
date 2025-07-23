@@ -147,6 +147,10 @@
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<description>Show a blurred version of the media until they fully load</description>
 		</key>
+		<key name="show-sensitive-media" type="b">
+			<default>false</default>
+			<summary>Reveal Sensitive Media by Default</summary>
+		</key>
 		<key name="group-push-notifications" type="b">
 			<default>false</default>
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
