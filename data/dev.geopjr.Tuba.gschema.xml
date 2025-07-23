@@ -149,6 +149,7 @@
 		</key>
 		<key name="show-sensitive-media" type="b">
 			<default>false</default>
+			<summary>Reveal Sensitive Media by Default</summary>
 		</key>
 		<key name="group-push-notifications" type="b">
 			<default>false</default>
