@@ -121,7 +121,7 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		}
 
 		int child_for_size;
-		if (this.reveal || orientation == Gtk.Orientation.VERTICAL || for_size < MAX_HEIGHT_OVER || for_size == -1) {
+		if ((this.reveal || for_size < MAX_HEIGHT_OVER || for_size == -1) && orientation == Gtk.Orientation.VERTICAL) {
 			child_for_size = for_size;
 		} else if (this.animation.value == 0.0) {
 			child_for_size = -1;
