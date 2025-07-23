@@ -564,7 +564,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 					new_flags = instance_info.supports_quote_posting ? new_flags | InstanceFeatures.QUOTE : new_flags & ~InstanceFeatures.QUOTE;
 					new_flags = instance_info.tuba_can_translate ? new_flags | InstanceFeatures.TRANSLATION : new_flags & ~InstanceFeatures.TRANSLATION;
-					new_flags = instance_info.supports_bubble ? new_flags | InstanceFeatures.BUBBLE : new_flags & ~InstanceFeatures.BUBBLE;
+					if (instance_info.supports_bubble) new_flags |= InstanceFeatures.BUBBLE;
 				}
 
 				// LOCAL_ONLY is common between them and we can use it to skip the whole string parsing
@@ -572,7 +572,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					if ("Pleroma " in instance_info.version) {
 						new_flags |= InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS | InstanceFeatures.MUTUALS | InstanceFeatures.LOCAL_ONLY;
 					} else if ("Iceshrimp.NET/" in instance_info.version) {
-						new_flags |= InstanceFeatures.ICESHRIMP | InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.LOCAL_ONLY;
+						new_flags |= InstanceFeatures.ICESHRIMP | InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.LOCAL_ONLY | InstanceFeatures.BUBBLE;
 					} else if ("+glitch" in instance_info.version) {
 						new_flags |= InstanceFeatures.GLITCH | InstanceFeatures.LOCAL_ONLY | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS;
 					} else if ("+hometown" in instance_info.version) {
@@ -628,7 +628,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 						}
 
 						new_flags |= InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS | InstanceFeatures.MUTUALS;
-						new_flags = instance_info.supports_bubble ? new_flags | InstanceFeatures.BUBBLE : new_flags & ~InstanceFeatures.BUBBLE;
+						if (instance_info.supports_bubble) new_flags |= InstanceFeatures.BUBBLE;
 					}
 				}
 

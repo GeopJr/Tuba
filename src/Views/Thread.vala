@@ -60,10 +60,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			.exec ();
 	}
 
-	public override void on_account_changed (InstanceAccount? acc) {
-		account = acc;
-		GLib.Idle.add (request);
-	}
+	public override void on_account_changed (InstanceAccount? acc) {}
 
 	void connect_threads () {
 		API.Status? last_status = null;
