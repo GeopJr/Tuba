@@ -145,10 +145,12 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	public static Place PLACE_DRIVE = new Place () { // vala-lint=naming-convention
 
 		icon = "tuba-folder-visiting-symbolic",
+		// translators: Drive as in 'Google Drive'
 		title = _("Drive"),
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item (new Views.Drive ()));
-		}
+		},
+		visible = false
 	};
 
 	private static Place[] SIDEBAR_PLACES = { // vala-lint=naming-convention
@@ -169,7 +171,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	};
 
 	protected override void bump_sidebar_items () {
-		PLACE_BUBBLE.visible = (this.instance_info != null && this.instance_info.supports_bubble) || BUBBLE in this.tuba_instance_features;
+		PLACE_BUBBLE.visible = (this.instance_info != null && this.instance_info.supports_bubble) || BUBBLE in this.tuba_instance_features || ICESHRIMP in this.tuba_instance_features;
 		PLACE_DRIVE.visible = ICESHRIMP in this.tuba_instance_features;
 	}
 
