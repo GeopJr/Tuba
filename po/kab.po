@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # R_SACI <rgebbid@gmail.com>, 2023.
 # ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2024, 2025.
+# Moonshadow <moonshadow@users.noreply.hosted.weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-02-28 16:02+0000\n"
+"PO-Revision-Date: 2025-05-28 11:01+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/tuba/tuba/kab/>\n"
 "Language: kab\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.10.3-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -228,7 +229,7 @@ msgstr ""
 #. 'media', 'poll'...
 #: data/ui/dialogs/advanced_search.ui:118
 msgid "Containing"
-msgstr ""
+msgstr "Deg-s"
 
 #: data/ui/dialogs/advanced_search.ui:121
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
@@ -238,7 +239,7 @@ msgstr "Amidya"
 
 #: data/ui/dialogs/advanced_search.ui:126 src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr ""
+msgstr "Afmiḍi"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:132
@@ -251,7 +252,7 @@ msgstr ""
 
 #: data/ui/dialogs/advanced_search.ui:142
 msgid "Everywhere"
-msgstr ""
+msgstr "Deg yal adeg"
 
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:157
@@ -283,7 +284,7 @@ msgstr "Send"
 #. The user is searching for posts posted *during* this date
 #: data/ui/dialogs/advanced_search.ui:221
 msgid "During"
-msgstr ""
+msgstr "Ɣef teɣzi"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *after* this date
@@ -318,7 +319,7 @@ msgstr ""
 
 #: data/ui/dialogs/filter_edit.ui:75
 msgid "Contexts"
-msgstr ""
+msgstr "Isatalen"
 
 #: data/ui/dialogs/filter_edit.ui:76
 msgid "One or multiple contexts where the filter should apply"
@@ -977,7 +978,7 @@ msgstr "Wali"
 
 #: data/ui/widgets/announcement.ui:96
 msgid "Unread"
-msgstr ""
+msgstr "Ur yettwaɣra ara"
 
 #: data/ui/widgets/announcement.ui:107 data/ui/widgets/status.ui:190
 msgid "Edited"
@@ -1033,7 +1034,7 @@ msgstr "Ula yiwen"
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
 msgid "Limit"
-msgstr ""
+msgstr "Eg talast"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
@@ -1560,12 +1561,12 @@ msgstr "Awennit"
 #. translators: Admin dashboard ip block expiration date row title.
 #: src/Dialogs/Admin/AddIPBlock.vala:123 src/Dialogs/Composer/PollPage.vala:268
 msgid "Expiration"
-msgstr ""
+msgstr "Ad yemmet"
 
 #. translators: Admin dashboard ip block rule (e.g. no access)
 #: src/Dialogs/Admin/AddIPBlock.vala:131
 msgid "Rule"
-msgstr ""
+msgstr "Alugan"
 
 #. translators: Admin dashboard ip block rule descriptions.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1591,7 +1592,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:101
 msgid "Reopen"
-msgstr ""
+msgstr "Ales ldi"
 
 #. translators: Admin dashboard, take action against user headerbar button
 #: src/Dialogs/Admin/Report.vala:95 src/Dialogs/Admin/TakeAction.vala:18
@@ -1634,16 +1635,16 @@ msgstr "Addad"
 
 #: src/Dialogs/Admin/Report.vala:147
 msgid "Resolved"
-msgstr ""
+msgstr "Yefra"
 
 #: src/Dialogs/Admin/Report.vala:147
 msgid "Unresolved"
-msgstr ""
+msgstr "Ur yefri ara"
 
 #. translators: admin dashboard, whether a report was 'forwarded' from another server
 #: src/Dialogs/Admin/Report.vala:154
 msgid "Forwarded"
-msgstr ""
+msgstr "Yettuselleh"
 
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:160 src/Widgets/Admin/Report.vala:22
@@ -1678,7 +1679,7 @@ msgstr "Azen"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
-msgstr ""
+msgstr "Ɣur-k"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:61
@@ -2019,7 +2020,7 @@ msgstr "Ẓr_eg"
 
 #: src/Dialogs/Composer/Dialog.vala:362
 msgid "_Redraft"
-msgstr ""
+msgstr "Err-d arewway (_R)"
 
 #: src/Dialogs/Composer/Dialog.vala:408
 msgid "_Reply"
@@ -2115,7 +2116,7 @@ msgstr[1] ""
 #: src/Dialogs/Composer/PollPage.vala:230
 #, c-format
 msgid "%dm"
-msgstr ""
+msgstr "%dtsd"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:234
@@ -2696,7 +2697,7 @@ msgstr "Tura kan"
 #: src/Utils/DateTime.vala:88
 #, c-format
 msgid "%sm"
-msgstr ""
+msgstr "%stsd"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:93
@@ -3061,7 +3062,7 @@ msgstr ""
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:73
 msgid "Announcements"
-msgstr ""
+msgstr "Tisemmalin"
 
 #: src/Views/Announcements.vala:8
 msgid "No Announcements"
@@ -3484,7 +3485,7 @@ msgstr ""
 #: src/Widgets/AccountSuggestions.vala:113
 #: src/Widgets/Status/ActionsRow.vala:172 src/Widgets/Status.vala:393
 msgid "Don't remind me again"
-msgstr "Ur ttεawad ara ad yi-d-tesmektiḍ"
+msgstr "Ur ttɛawad ara ad yi-d-tesmektiḍ"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4097,7 +4098,7 @@ msgstr ""
 
 #: src/Widgets/VoteBox.vala:138 src/Widgets/VoteBox.vala:165
 msgid "Voted"
-msgstr ""
+msgstr "Yefren"
 
 #. translators: the variable is the amount of people that voted
 #: src/Widgets/VoteBox.vala:191
