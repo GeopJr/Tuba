@@ -6,17 +6,21 @@ public class Tuba.Settings : GLib.Settings {
 		public bool account_suggestions { get; set; default = true; }
 		public string[] muted_notification_types { get; set; default = {}; }
 		public string[] recently_used_custom_emojis { get; set; default = {}; }
+		public string[] recent_searches { get; set; default = {}; }
 		public string[] notification_filters { get; set; default = {}; }
 		public string[] favorite_lists_ids { get; set; default = {}; }
+		public string[] favorite_tags_ids { get; set; default = {}; }
 
 		private const string[] KEYS_TO_INIT = {
 			"default-post-visibility",
 			"muted-notification-types",
 			"default-content-type",
 			"recently-used-custom-emojis",
+			"recent-searches",
 			"notification-filters",
 			"account-suggestions",
-			"favorite-lists-ids"
+			"favorite-lists-ids",
+			"favorite-tags-ids"
 		};
 
 		public Account (string id) {
@@ -107,6 +111,16 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
+	public string[] recent_searches {
+		get {
+			return active_account_settings.recent_searches;
+		}
+
+		set {
+			active_account_settings.recent_searches = value;
+		}
+	}
+
 	public string[] notification_filters {
 		get {
 			return active_account_settings.notification_filters;
@@ -124,6 +138,16 @@ public class Tuba.Settings : GLib.Settings {
 
 		set {
 			active_account_settings.favorite_lists_ids = value;
+		}
+	}
+
+	public string[] favorite_tags_ids {
+		get {
+			return active_account_settings.favorite_tags_ids;
+		}
+
+		set {
+			active_account_settings.favorite_tags_ids = value;
 		}
 	}
 

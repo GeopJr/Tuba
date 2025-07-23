@@ -37,9 +37,12 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	[GtkChild] unowned Gtk.Label manual_auth_label;
 
 	public string get_full_scopes () {
-		if (this.admin_mode) return @"$SCOPES $ADMIN_SCOPES";
+		string scopes = SCOPES;
+		if (this.admin_mode) scopes = @"$scopes $ADMIN_SCOPES";
+		if (account != null && (InstanceAccount.InstanceFeatures.ICESHRIMP in account.tuba_instance_features))
+			scopes = @"$scopes iceshrimp";
 
-		return SCOPES;
+		return scopes;
 	}
 
 	public NewAccount (bool can_access_settings = false) {

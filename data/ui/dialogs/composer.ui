@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+	<requires lib="gtk" version="4.0" />
+	<requires lib="Adw" version="1.0" />
+	<template class="TubaDialogsComposerDialog" parent="AdwDialog">
+		<property name="content_width">500</property>
+		<property name="content-height">400</property>
+		<property name="follows-content-size">1</property>
+		<property name="width-request">200</property>
+		<property name="height-request">360</property>
+		<property name="can-close">0</property>
+		<child>
+			<object class="AdwToastOverlay" id="toast_overlay">
+				<property name="child">
+					<object class="AdwNavigationView" id="nav_view">
+						<child>
+							<object class="AdwNavigationPage" id="nav_page">
+								<property name="title" translatable="yes">New Post</property>
+								<property name="child">
+									<object class="TubaDialogsComposerComponentsDropOverlay" id="drop_overlay">
+										<!-- translators: composer overlay shown when dragging files above it -->
+										<property name="title" translatable="yes">Drop media to attach them</property>
+										<property name="overlay-child">
+											<object class="AdwToolbarView" id="toolbar_view">
+												<child type="top">
+													<object class="AdwHeaderBar" id="headerbar">
+														<property name="show-title">0</property>
+													</object>
+												</child>
+												<property name="content">
+													<object class="GtkScrolledWindow" id="scroller">
+														<property name="hexpand">1</property>
+														<property name="vexpand">1</property>
+														<property name="propagate-natural-height">1</property>
+														<property name="propagate-natural-width">1</property>
+													</object>
+												</property>
+												<child type="bottom">
+													<object class="GtkRevealer" id="cw_revealer">
+														<property name="transition_type">slide-up</property>
+														<property name="reveal-child" bind-source="cw_button" bind-property="active" bind-flags="sync-create" />
+														<property name="child">
+															<object class="GtkEntry" id="cw_entry">
+																<property name="placeholder-text" translatable="yes">Write your content warning here</property>
+																<property name="margin-start">32</property>
+																<property name="margin-end">32</property>
+																<property name="margin-top">6</property>
+																<style>
+																	<class name="devel-bg" />
+																</style>
+															</object>
+														</property>
+													</object>
+												</child>
+												<child type="bottom">
+													<object class="GtkGrid" id="grid">
+														<property name="margin-top">20</property>
+														<property name="margin-start">32</property>
+														<property name="margin-end">32</property>
+														<property name="margin-bottom">20</property>
+														<property name="row-spacing">16</property>
+														<child>
+															<object class="GtkBox" id="btns_box">
+																<property name="orientation">horizontal</property>
+																<property name="spacing">6</property>
+																<child>
+																	<object class="GtkMenuButton" id="native_emojis_button">
+																		<property name="icon-name">tuba-sentiment-satisfied-symbolic</property>
+																		<property name="tooltip-text" translatable="yes">Emoji Picker</property>
+																		<style>
+																			<class name="flat" />
+																		</style>
+																	</object>
+																</child>
+																<child>
+																	<object class="GtkMenuButton" id="custom_emojis_button">
+																		<property name="icon-name">tuba-bear-symbolic</property>
+																		<property name="tooltip-text" translatable="yes">Custom Emoji Picker</property>
+																		<style>
+																			<class name="flat" />
+																		</style>
+																	</object>
+																</child>
+																<child>
+																	<object class="GtkButton" id="add_media_button">
+																		<property name="icon-name">tuba-image-round-symbolic</property>
+																		<property name="sensitive" bind-source="poll_button" bind-property="active" bind-flags="sync-create|invert-boolean" />
+																		<property name="tooltip-text" translatable="yes">Add Media</property>
+																		<style>
+																			<class name="flat" />
+																		</style>
+																	</object>
+																</child>
+																<child>
+																	<object class="GtkToggleButton" id="poll_button">
+																		<property name="icon-name">tuba-polls-symbolic</property>
+																		<property name="tooltip-text" translatable="yes">Create Poll</property>
+																		<style>
+																			<class name="flat" />
+																		</style>
+																	</object>
+																</child>
+																<child>
+																	<object class="GtkToggleButton" id="cw_button">
+																		<property name="icon-name">tuba-warning-symbolic</property>
+																		<property name="tooltip-text" translatable="yes">Content Warning</property>
+																		<style>
+																			<class name="flat" />
+																		</style>
+																	</object>
+																</child>
+																<child>
+																	<object class="GtkToggleButton" id="sensitive_media_button">
+																		<property name="icon-name">tuba-eye-not-looking-symbolic</property>
+																		<property name="visible">0</property>
+																		<property name="tooltip-text" translatable="yes">Mark media as sensitive</property>
+																		<style>
+																			<class name="flat" />
+																		</style>
+																	</object>
+																</child>
+																<layout>
+																	<property name="column">0</property>
+																	<property name="row">0</property>
+																	<property name="column-span">2</property>
+																</layout>
+															</object>
+														</child>
+														<child>
+															<object class="GtkBox" id="dropdowns_box">
+																<property name="orientation">horizontal</property>
+																<property name="spacing">12</property>
+																<property name="margin-end">6</property>
+																<layout>
+																	<property name="column">0</property>
+																	<property name="row">1</property>
+																</layout>
+															</object>
+														</child>
+														<child>
+															<object class="GtkLabel" id="counter_label">
+																<property name="halign">end</property>
+																<property name="valign">center</property>
+																<property name="ellipsize">end</property>
+																<property name="margin-start">12</property>
+																<property name="accessible-role">presentation</property>
+																<style>
+																	<class name="font-bold" />
+																	<class name="numeric" />
+																	<class name="accented-color" />
+																</style>
+																<layout>
+																	<property name="column">1</property>
+																	<property name="row">1</property>
+																</layout>
+															</object>
+														</child>
+														<child>
+															<object class="TubaDialogsComposerDialogPostButton" id="post_btn">
+																<property name="hexpand">1</property>
+																<property name="halign">end</property>
+																<property name="valign">center</property>
+																<layout>
+																	<property name="column">2</property>
+																	<property name="row">0</property>
+																	<property name="row-span">2</property>
+																</layout>
+															</object>
+														</child>
+													</object>
+												</child>
+											</object>
+										</property>
+									</object>
+								</property>
+							</object>
+						</child>
+					</object>
+				</property>
+			</object>
+		</child>
+	</template>
+</interface>

@@ -102,7 +102,7 @@
 		}
 	}
 
-	public Dialogs.Compose.SuccessCallback? reply_cb;
+	public Dialogs.Composer.Dialog.SuccessCallback? reply_cb;
 
 	[GtkChild] protected unowned Gtk.Box status_box;
 	[GtkChild] protected unowned Gtk.Box avatar_side;
@@ -304,7 +304,7 @@
 			var delete_status_simple_action = new SimpleAction ("delete-status", null);
 			delete_status_simple_action.activate.connect (delete_status);
 			action_group.add_action (delete_status_simple_action);
-		} else if (accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate) {
+		} else if ((accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate) || InstanceAccount.InstanceFeatures.TRANSLATION in accounts.active.tuba_instance_features) {
 			translate_simple_action = new SimpleAction ("translate", null);
 			translate_simple_action.activate.connect (translate);
 			translate_simple_action.set_enabled (true);
@@ -357,8 +357,10 @@
 			menu_model.append_item (unmute_menu_item);
 
 			if (
-				accounts.active.instance_info != null
-				&& accounts.active.instance_info.tuba_can_translate
+				(
+					(accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate)
+					|| InstanceAccount.InstanceFeatures.TRANSLATION in accounts.active.tuba_instance_features
+				)
 				&& status.formal.tuba_translatable
 				&& (
 					status.formal.visibility == "public"
@@ -471,43 +473,85 @@
 	}
 
 	private void edit_status () {
-		new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source")
+		edit_status_real ();
+	}
+
+	private void edit_status_real (bool redraft = false) {
+		Request req;
+		if (redraft) {
+			req = this.status.formal.annihilate ();
+		} else {
+			req = new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source");
+		}
+
+		req
 			.with_account (accounts.active)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				var source = API.StatusSource.from (node);
 
-				new Dialogs.Compose.edit (status.formal, source, on_edit);
+				if (redraft) {
+					new Dialogs.Composer.Dialog.edit (status.formal, source, null, true);
+				} else {
+					new Dialogs.Composer.Dialog.edit (status.formal, source, on_edit);
+				}
 			})
-			.on_error (() => {
-				new Dialogs.Compose.edit (status.formal, null, on_edit);
+			.on_error ((code, message) => {
+				if (redraft) {
+					warning (@"Error while deleting status for redrafting: $code $message");
+					app.toast (message, 0);
+				} else {
+					new Dialogs.Composer.Dialog.edit (status.formal, null, on_edit);
+				}
 			})
+
 			.exec ();
 	}
 
 	private void delete_status () {
-		app.question.begin (
-			{_("Delete Post?"), false},
-			null,
-			app.main_window,
-			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
-			null,
-			false,
-			(obj, res) => {
-				if (app.question.end (res).truthy ()) {
-					this.status.formal.annihilate ()
-						//  .then ((in_stream) => {
-						//  	var parser = Network.get_parser_from_inputstream (in_stream);
-						//  	var root = network.parse (parser);
-						//  	if (root.has_member ("error")) {
-						//  		// TODO: Handle error (probably a toast?)
-						//  	};
-						//  })
-						.exec ();
-				}
-			}
+		var dlg = new Adw.AlertDialog (_("Delete Post?"), null) {
+			heading_use_markup = false,
+			body_use_markup = false,
+			default_response = "delete",
+			close_response = "cancel"
+		};
+
+		dlg.add_responses (
+			"cancel", _("Cancel"),
+			// translators: button on the delete post dialog that
+			//				deletes the post and fills the composer
+			//				with it so you can edit it
+			"redraft", _("Redraft"),
+
+			"delete", _("Delete")
 		);
+		dlg.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+		dlg.set_response_appearance ("redraft", Adw.ResponseAppearance.DESTRUCTIVE);
+		dlg.choose.begin (app.main_window, null, (obj, res) => {
+			switch (dlg.choose.end (res)) {
+				case "delete":
+					delete_status_real ();
+					break;
+				case "redraft":
+					edit_status_real (true);
+					break;
+				default:
+					break;
+			}
+		});
+	}
+
+	private void delete_status_real () {
+		this.status.formal.annihilate ()
+			//  .then ((in_stream) => {
+			//  	var parser = Network.get_parser_from_inputstream (in_stream);
+			//  	var root = network.parse (parser);
+			//  	if (root.has_member ("error")) {
+			//  		// TODO: Handle error (probably a toast?)
+			//  	};
+			//  })
+			.exec ();
 	}
 
 	private void toggle_mute_conversation () {
@@ -990,6 +1034,7 @@
 	private Widgets.Attachment.Box attachments;
 	private Gtk.Label translation_label;
 	public Widgets.VoteBox poll;
+	private Gtk.Image? local_only_indicator = null;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};
 	ulong[] this_handler_ids = {};
@@ -1067,15 +1112,33 @@
 		edited_indicator.visible = status.formal.is_edited;
 		edit_history_simple_action.set_enabled (status.formal.is_edited);
 
-		var t_visibility = accounts.active.visibility[status.formal.visibility];
-		visibility_indicator.icon_name = t_visibility.small_icon_name;
-		visibility_indicator.tooltip_text = t_visibility.name;
-		visibility_indicator.update_property (Gtk.AccessibleProperty.LABEL, t_visibility.name, -1);
+		if (accounts.active.visibility.has_key (status.formal.visibility)) {
+			visibility_indicator.visible = true;
+			var t_visibility = accounts.active.visibility[status.formal.visibility];
+			visibility_indicator.icon_name = t_visibility.small_icon_name;
+			visibility_indicator.tooltip_text = t_visibility.name;
+			visibility_indicator.update_property (Gtk.AccessibleProperty.LABEL, t_visibility.name, -1);
+		} else {
+			visibility_indicator.visible = false;
+		}
 
 		if (change_background_on_direct && status.formal.visibility == "direct") {
 			this.add_css_class ("direct");
 		} else {
 			this.remove_css_class ("direct");
+		}
+
+		if (local_only_indicator != null) indicators.remove (local_only_indicator);
+		if (status.formal.compat_local_only) {
+			this.add_css_class ("local");
+
+			if (local_only_indicator == null) local_only_indicator = new Gtk.Image.from_icon_name ("tuba-important-small-symbolic") {
+				css_classes = {"dim-label"},
+				tooltip_text = _("Local Only")
+			};
+			indicators.prepend (local_only_indicator);
+		} else {
+			this.remove_css_class ("local");
 		}
 
 		avatar.account = status.formal.account;
@@ -1203,7 +1266,7 @@
 	}
 
 	private void on_reply_button_clicked () {
-		new Dialogs.Compose.reply (status.formal, on_reply);
+		new Dialogs.Composer.Dialog.reply (status.formal, on_reply);
 	}
 
 	[GtkCallback] public void on_fade_reveal () {
@@ -1230,6 +1293,42 @@
 		status.formal.account.open ();
 	}
 
+	public void to_display_only () {
+		if (poll != null) {
+			poll.usable = false;
+			poll.can_target = false;
+			poll.focusable = false;
+			poll.can_focus = false;
+		}
+		if (hashtag_bar != null) {
+			hashtag_bar.can_target = false;
+			hashtag_bar.can_focus = false;
+			hashtag_bar.focusable = false;
+		}
+		if (attachments != null) attachments.usable = false;
+		if (emoji_reactions != null) emoji_reactions.visible = false;
+		this.can_be_opened = false;
+		this.actions.visible = false;
+		this.menu_button.visible = false;
+		this.activatable = false;
+		this.avatar.allow_mini_profile = false;
+		this.avatar.can_target = false;
+		this.avatar.focusable = false;
+		this.avatar.can_focus = false;
+		name_button.can_target = false;
+		name_button.can_focus = false;
+		name_button.focusable = false;
+		this.content.selectable = true;
+		this.content.can_open = false;
+		this.avatar.accessible_role = Gtk.AccessibleRole.PRESENTATION;
+		this.date_label.accessible_role = Gtk.AccessibleRole.PRESENTATION;
+		name_button.accessible_role = Gtk.AccessibleRole.PRESENTATION;
+		//  this.fade_bin.reveal = true;
+		this.reset_relation (DESCRIBED_BY);
+		this.reset_property (LABEL);
+		this.reset_property (DESCRIPTION);
+	}
+
 	bool expanded = false;
 	public void expand_root () {
 		if (expanded) return;
@@ -1252,6 +1351,7 @@
 		if (status.formal.is_edited)
 			indicators.remove (edited_indicator);
 		indicators.remove (visibility_indicator);
+		if (local_only_indicator != null) local_only_indicator.visible = false;
 
 		date_label.label = this.date;
 		date_label.wrap = true;

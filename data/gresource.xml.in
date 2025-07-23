@@ -4,6 +4,7 @@
         <file>style.css</file>
         <file>style-dark.css</file>
         <file>style-hc.css</file>
+        <file preprocess="xml-stripblanks" alias="metainfo.xml">dev.geopjr.Tuba.metainfo.xml.in</file>
 
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-hashtag-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bookmarks-symbolic.svg</file>
@@ -57,6 +58,9 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-markdown-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-rich-text-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-earth-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bear-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-image-round-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-sentiment-satisfied-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-verified-checkmark-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-funnel-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-error-symbolic.svg</file>
@@ -81,11 +85,29 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-channel-insecure-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-refresh-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-check-plain-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-folder-visiting-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-folder-new-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-polls-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-heart-outline-thick-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-network-server-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-user-home-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-person-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
+
+        <file preprocess="xml-stripblanks">icons/folders/blue.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/green.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/orange.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/pink.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/purple.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/red.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/slate.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/teal.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/yellow.svg</file>
 
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Archives.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Calligraphy.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Collision.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Turntable.svg</file>
 
         <file>gtk/help-overlay.ui</file>
         <file>gtk/dropdown/content_type_title.ui</file>
@@ -116,7 +138,7 @@
         <file>ui/dialogs/list_edit.ui</file>
         <file>ui/dialogs/advanced_search.ui</file>
         <file>ui/dialogs/new_account.ui</file>
-        <file>ui/dialogs/compose.ui</file>
+        <file>ui/dialogs/composer.ui</file>
         <file>ui/dialogs/notification_settings.ui</file>
         <file>ui/dialogs/main.ui</file>
         <file>ui/dialogs/preferences.ui</file>

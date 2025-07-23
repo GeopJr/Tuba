@@ -93,7 +93,7 @@
 										<property name="valign">end</property>
 										<property name="margin-start">12</property>
 										<property name="margin-end">12</property>
-										<property name="size">100</property>
+										<property name="size">88</property>
 										<!-- translators: tooltip text on profile avatars. -->
 										<!--              You can replace 'Avatar' with 'Profile Picture' if needed. -->
 										<property name="tooltip-text" translatable="yes">View Avatar</property>

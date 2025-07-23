@@ -34,13 +34,18 @@
       <attribute name="action">view.notify_on_post</attribute>
       <attribute name="hidden-when">action-disabled</attribute>
     </item>
+	<item>
+      <attribute name="label" translatable="yes">Feature on Profile</attribute>
+      <attribute name="action">view.endorsed</attribute>
+      <attribute name="hidden-when">action-disabled</attribute>
+    </item>
 
     <section>
         <attribute name="label" translatable="yes">Moderation</attribute>
         <item>
           <attribute name="label" translatable="yes">Hide Boosts</attribute>
           <attribute name="action">view.hiding_reblogs</attribute>
-          <!-- <attribute name="hidden-when">action-disabled</attribute> -->
+          <attribute name="hidden-when">action-disabled</attribute>
         </item>
         <item>
           <attribute name="label" translatable="yes">Mute</attribute>

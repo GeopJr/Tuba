@@ -47,6 +47,7 @@ namespace Tuba {
 
 		public signal void refresh ();
 		public signal void refresh_scheduled_statuses ();
+		public signal void refresh_featured ();
 		public signal void relationship_invalidated (API.Relationship new_relationship);
 		public signal void remove_user_id (string user_id);
 		public signal void toast (string title, uint timeout = 5);
@@ -167,14 +168,7 @@ namespace Tuba {
 		public void handle_share () {
 			if (to_share == null || accounts.active == null || accounts.active.instance_info == null) return;
 
-			var status = new API.Status.empty ();
-			status.content = to_share.text;
-			if (to_share.cw != null) {
-				status.spoiler_text = to_share.cw;
-				status.sensitive = true;
-			}
-
-			new Dialogs.Compose (status);
+			new Dialogs.Composer.Dialog ({to_share.text, to_share.cw, null, null, null, null, null, true, false});
 			to_share = null;
 		}
 
@@ -194,6 +188,9 @@ namespace Tuba {
 				warning (e.message);
 			}
 
+			#if GEXIV2
+				GExiv2.initialize ();
+			#endif
 			#if GSTREAMER
 				Gst.init (ref args);
 			#endif
@@ -478,7 +475,7 @@ namespace Tuba {
 		void compose_activated () {
 			if (accounts.active.instance_info == null) return;
 
-			new Dialogs.Compose ();
+			new Dialogs.Composer.Dialog ();
 		}
 
 		void back_activated () {
@@ -561,7 +558,7 @@ namespace Tuba {
 				split_view.show_sidebar = false;
 		}
 
-		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s\nlibspelling: %s\nClapper: %s\nGStreamer: %s".printf ( // vala-lint=line-length
+		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s\nlibspelling: %s\nClapper: %s\nGStreamer: %s\nGExiv2: %s".printf ( // vala-lint=line-length
 				GLib.Environment.get_os_info ("NAME"), GLib.Environment.get_os_info ("VERSION"),
 				Build.PREFIX,
 				Tuba.is_flatpak.to_string (),
@@ -598,6 +595,12 @@ namespace Tuba {
 				#else
 					"false"
 				#endif
+				,
+				#if GEXIV2
+					@"$(GExiv2.get_version ()) ($(GExiv2.MAJOR_VERSION).$(GExiv2.MINOR_VERSION).$(GExiv2.MICRO_VERSION))"
+				#else
+					"false"
+				#endif
 			);
 
 		void about_activated () {
@@ -612,20 +615,14 @@ namespace Tuba {
 			};
 
 			const string[] DEVELOPERS = {
-				"bleak_grey",
-				"Evangelos \"GeopJr\" Paterakis"
+				"Evangelos “GeopJr” Paterakis",
+				"bleak_grey"
 			};
 
-			const string COPYRIGHT = "© 2022 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis";
+			const string COPYRIGHT = "© 2018-2022 bleak_grey\n© 2022 Evangelos “GeopJr” Paterakis";
 
-			var dialog = new Adw.AboutDialog () {
-				application_icon = Build.DOMAIN,
-				application_name = Build.NAME,
-				developer_name = "Evangelos “GeopJr” Paterakis",
+			var dialog = new Adw.AboutDialog.from_appdata ("/dev/geopjr/Tuba/metainfo.xml", Build.PROFILE == "development" ? null : Build.VERSION) {
 				version = Build.VERSION,
-				issue_url = Build.ISSUES_WEBSITE,
-				support_url = Build.SUPPORT_WEBSITE,
-				license_type = Gtk.License.GPL_3_0_ONLY,
 				copyright = COPYRIGHT,
 				developers = DEVELOPERS,
 				artists = ARTISTS,
@@ -648,6 +645,8 @@ namespace Tuba {
 			dialog.add_other_app ("dev.geopjr.Calligraphy", _("Calligraphy"), _("Turn text into ASCII banners"));
 			// translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 			dialog.add_other_app ("dev.geopjr.Collision", _("Collision"), _("Check hashes for your files"));
+			// translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
+			dialog.add_other_app ("dev.geopjr.Turntable", _("Turntable"), _("Scrobble your music"));
 
 			// For some obscure reason, const arrays produce duplicates in the credits.
 			// Static functions seem to avoid this peculiar behavior.

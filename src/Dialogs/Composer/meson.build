@@ -1,10 +1,11 @@
 sources += files(
-    'AttachmentsPage.vala',
-    'AttachmentsPageAttachment.vala',
     'Dialog.vala',
-    'EditorPage.vala',
-    'Page.vala',
-    'PollPage.vala',
+    'Attachable.vala',
+    'Attachment.vala',
+    'AttachmentsBin.vala',
+    'DropOverlay.vala',
+    'Editor.vala',
+    'Polls.vala',
     'Schedule.vala',
 )
 

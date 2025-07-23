@@ -19,6 +19,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	public bool reblogged { get; set; default = false; }
 	public bool favourited { get; set; default = false; }
 	public bool bookmarked { get; set; default = false; }
+	public bool local_only { get; set; default = false; }
 	public bool sensitive { get; set; default = false; }
 	public bool muted { get; set; default = false; }
 	public bool pinned { get; set; default = false; }
@@ -149,6 +150,16 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		}
 	}
 
+	public bool compat_local_only {
+		get {
+			if (pleroma != null && visibility == "local") {
+				return true;
+			}
+
+			return this.local_only;
+		}
+	}
+
 	public string? t_url { get; set; }
 	public string? url {
 		owned get { return this.get_modified_url (); }
@@ -178,7 +189,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 
 	public bool can_be_quoted {
 		get {
-			return this.formal.visibility != "direct" && this.formal.visibility != "private";
+			return this.formal.visibility != "direct" && this.formal.visibility != "private" && this.formal.visibility != "local";
 		}
 	}
 
@@ -239,21 +250,21 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	}
 
 	public virtual string get_reply_mentions () {
-		var result = "";
+		string[] result = {};
 		if (account.acct != accounts.active.acct)
-			result = @"$(account.handle) ";
+			result += account.handle;
 
 		if (mentions != null) {
 			foreach (var mention in mentions) {
 				var equals_current = mention.acct == accounts.active.acct;
-				var already_mentioned = mention.acct in result;
+				var already_mentioned = mention.handle in result;
 
 				if (!equals_current && !already_mentioned)
-					result += @"$(mention.handle) ";
+					result += mention.handle;
 			}
 		}
 
-		return result;
+		return string.joinv (" ", result);
 	}
 
 	private Request action (string action) {
@@ -282,7 +293,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		PUBLIC,
 		UNLISTED,
 		PRIVATE,
-		DIRECT;
+		DIRECT,
+		LOCAL;
 
 		public string to_string () {
 			switch (this) {
@@ -294,6 +306,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return "private";
 				case DIRECT:
 					return "direct";
+				case LOCAL:
+					return "local";
 				default:
 					assert_not_reached ();
 			}
@@ -310,6 +324,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return _("Followers Only");
 				case DIRECT:
 					return _("Direct");
+				case LOCAL:
+					return _("Local");
 				default:
 					assert_not_reached ();
 			}
@@ -325,6 +341,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return PRIVATE;
 				case "direct":
 					return DIRECT;
+				case "local":
+					return LOCAL;
 				default:
 					return null;
 			}
@@ -340,6 +358,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return 2;
 				case DIRECT:
 					return 3;
+				case LOCAL: // it's not actually more private but it should take priority
+					return 4;
 				default:
 					assert_not_reached ();
 			}

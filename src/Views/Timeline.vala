@@ -187,12 +187,12 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	public virtual Request append_params (Request req) {
 		if (page_next == null)
-			return req.with_param ("limit", settings.timeline_page_size.to_string ());
+			return req.with_param ("limit", settings.timeline_page_size.clamp (10, 40).to_string ());
 		else
 			return req;
 	}
 
-	bool has_finished_request = false;
+	protected bool has_finished_request { get; private set; default = false; }
 	public virtual void on_request_finish () {
 		has_finished_request = true;
 		base.on_bottom_reached ();
@@ -261,7 +261,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	protected override void on_bottom_reached () {
 		if (is_last_page) {
-			info ("Last page reached");
+			debug ("Last page reached");
 			return;
 		}
 		request ();
@@ -324,7 +324,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		// So just if the id exists already in the first page and remove it.
 		if (accepts == typeof (API.Status)) {
 			string e_id = ((API.Status) entity).id;
-			for (uint i = 0; i < uint.min (model.n_items, settings.timeline_page_size); i++) {
+			for (uint i = 0; i < uint.min (model.n_items, settings.timeline_page_size.clamp (10, 40)); i++) {
 				var status_obj = model.get_item (i) as API.Status;
 				if (status_obj != null && status_obj.id == e_id) {
 					model.remove (i);

@@ -152,7 +152,10 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		spoiler_revealed = true;
 	}
 
+	public bool usable { get; set; default = true; }
 	private void open_all_attachments (string url) {
+		if (!usable) return;
+
 		int attachment_length = attachment_widgets.length;
 		for (int i = 0; i < attachment_length; i++) {
 			bool? is_main = null;

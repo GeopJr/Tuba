@@ -33,7 +33,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	construct {
-		enabled_group_notifications = accounts.active.tuba_api_versions.mastodon >= 2;
+		enabled_group_notifications = accounts.active.tuba_api_versions.mastodon >= 2 || InstanceAccount.InstanceFeatures.GROUP_NOTIFICATIONS in accounts.active.tuba_instance_features;
 		url = @"/api/v$(enabled_group_notifications ? 2 : 1)/notifications";
 		label = _("Notifications");
 		icon = "tuba-bell-outline-symbolic";
@@ -120,7 +120,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	public override void on_account_changed (InstanceAccount? acc) {
-		enabled_group_notifications = acc.tuba_api_versions.mastodon >= 2;
+		enabled_group_notifications = acc.tuba_api_versions.mastodon >= 2 || InstanceAccount.InstanceFeatures.GROUP_NOTIFICATIONS in acc.tuba_instance_features;
 		accepts = enabled_group_notifications ? typeof (API.GroupedNotificationsResults.NotificationGroup) : typeof (API.Notification);
 		filters_changed (false);
 		base.on_account_changed (acc);

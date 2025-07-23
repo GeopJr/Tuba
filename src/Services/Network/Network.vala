@@ -69,7 +69,7 @@ public class Tuba.Network : GLib.Object {
 				var in_stream = session.send_async.end (res);
 
 				var status = msg.status_code;
-				if (status == Soup.Status.OK) {
+				if (status >= 200 && status < 300) {
 					try {
 						if (cb != null)
 							cb (in_stream, extra_data == ExtraData.RESPONSE_HEADERS ? msg.response_headers : null);
@@ -87,8 +87,11 @@ public class Tuba.Network : GLib.Object {
 						try {
 							var parser = Network.get_parser_from_inputstream (in_stream);
 							var root = network.parse (parser);
-							if (root != null)
-								error_msg = root.get_string_member_with_default ("error", msg.reason_phrase);
+							if (root != null) {
+								error_msg = root.has_member ("message")
+								? root.get_string_member_with_default ("message", msg.reason_phrase)
+								: root.get_string_member_with_default ("error", msg.reason_phrase);
+							}
 						} catch {}
 
 						ecb ((int32) status, error_msg);

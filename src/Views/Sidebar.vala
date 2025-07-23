@@ -1,6 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/view.ui")]
 public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	public const int MAX_SIDEBAR_LISTS = 25;
+	public const int MAX_SIDEBAR_TAGS = 25;
 
 	[GtkChild] unowned Gtk.ListBox items;
 	[GtkChild] unowned Gtk.ListBox saved_accounts;
@@ -13,6 +14,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	protected InstanceAccount? account { get; set; default = null; }
 
+	protected Gtk.SliceListModel tags_items;
 	protected Gtk.SliceListModel app_items;
 	protected Gtk.SliceListModel account_items;
 	protected Gtk.FlattenListModel item_model;
@@ -97,12 +99,14 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		menu_btn.menu_model = menu_model;
 
+		tags_items = new Gtk.SliceListModel (null, 0, MAX_SIDEBAR_TAGS);
 		app_items = new Gtk.SliceListModel (null, 0, MAX_SIDEBAR_LISTS);
 		account_items = new Gtk.SliceListModel (null, 0, 15);
 
 		var models = new GLib.ListStore (typeof (Object));
 		models.append (account_items);
 		models.append (app_items);
+		models.append (tags_items);
 		item_model = new Gtk.FlattenListModel (models);
 
 		items.bind_model (item_model, on_item_create);
@@ -181,6 +185,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			wrapped_binding = this.account.bind_property ("tuba-last-fediwrapped-year", this, "tuba-wrapped", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;
 			app_items.model = account.list_places;
+			tags_items.model = account.tags_places;
 			update_selected_account ();
 
 			var dashboard_action = app.lookup_action ("open-admin-dashboard") as SimpleAction;
@@ -192,6 +197,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 			account_items.model = null;
 			app_items.model = null;
+			tags_items.model = null;
 			accounts_button_avi.account = null;
 		}
 	}
