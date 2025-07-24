@@ -322,30 +322,36 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		} else {
 			background.height_request = 64;
 
-			// translators: Used in profile stats.
-			//              The variable is a shortened number of the amount of posts a user has made.
-			string posts_str = GLib.ngettext (
-				"%s Post",
-				"%s Posts",
-				(ulong) profile.account.statuses_count
-			).printf (@"<b>$(Utils.Units.shorten (profile.account.statuses_count))</b>");
+			string[] stats = {};
+			{
+				// translators: Used in profile stats.
+				//              The variable is a shortened number of the amount of posts a user has made.
+				string posts_str = GLib.ngettext (
+					"%s Post",
+					"%s Posts",
+					(ulong) profile.account.statuses_count
+				).printf (@"<b>$(Utils.Units.shorten (profile.account.statuses_count))</b>");
+				stats += "<span allow_breaks=\"false\">%s</span>".printf (posts_str);
+			}
 
-			// translators: Used in profile stats.
-			//              The variable is a shortened number of the amount of followers a user has.
-			string followers_str = GLib.ngettext (
-				"%s Follower",
-				"%s Followers",
-				(ulong) profile.account.statuses_count
-			).printf (@"<b>$(Utils.Units.shorten (profile.account.followers_count))</b>");
+			if (profile.account.followers_count >= 0) {
+				// translators: Used in profile stats.
+				//              The variable is a shortened number of the amount of followers a user has.
+				string followers_str = GLib.ngettext (
+					"%s Follower",
+					"%s Followers",
+					(ulong) profile.account.statuses_count
+				).printf (@"<b>$(Utils.Units.shorten (profile.account.followers_count))</b>");
+				stats += "<span allow_breaks=\"false\">%s</span>".printf (followers_str);
+			}
 
-			stats_string = "<span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>".printf (
-				posts_str,
+			if (profile.account.following_count >= 0) {
 				// translators: Used in profile stats.
 				//              The variable is a shortened number of the amount of people a user follows.
-				_("%s Following").printf (@"<b>$(Utils.Units.shorten (profile.account.following_count))</b>"),
-				followers_str
-			);
+				stats += "<span allow_breaks=\"false\">%s</span>".printf (_("%s Following").printf (@"<b>$(Utils.Units.shorten (profile.account.following_count))</b>"));
+			}
 
+			stats_string = string.joinv ("   ", stats);
 			info.append (
 				new Gtk.ListBoxRow () {
 					activatable = false,
@@ -652,8 +658,14 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		public string label_template { get; set; default = "%s"; }
 		public int64 amount {
 			set {
-				this.label = label_template.printf (Utils.Units.shorten (value));
-				this.tooltip_text = label_template.printf (value.to_string ());
+				if (value == -1) {
+					this.label = label_template.printf ("").strip ();
+					// translators: shown when the user has hidden their followers/following counts
+					this.tooltip_text = label_template.printf (_("Hidden"));
+				} else {
+					this.label = label_template.printf (Utils.Units.shorten (value));
+					this.tooltip_text = label_template.printf (value.to_string ());
+				}
 			}
 		}
 
