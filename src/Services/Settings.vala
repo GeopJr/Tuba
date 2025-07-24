@@ -187,6 +187,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool use_in_app_browser_if_available { get; set; }
 	public bool collapse_long_posts { get; set; }
 	public bool show_interaction_counters { get; set; }
+	public bool extract_alt_from_metadata { get; set; }
 
 	private const string[] KEYS_TO_INIT = {
 		"active-account",
@@ -220,7 +221,8 @@ public class Tuba.Settings : GLib.Settings {
 		"status-aria-verbosity",
 		"use-in-app-browser-if-available",
 		"collapse-long-posts",
-		"show-interaction-counters"
+		"show-interaction-counters",
+		"extract-alt-from-metadata"
 	};
 
 	public Settings () {

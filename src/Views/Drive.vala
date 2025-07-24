@@ -1485,7 +1485,7 @@ public class Tuba.Views.Drive : Views.Base {
 		var entity = (API.Iceshrimp.File) Helper.Entity.from_json (node, typeof (API.Iceshrimp.File));
 
 		#if GEXIV2
-			if (entity.contentType.has_prefix ("image/")) {
+			if (entity.contentType.has_prefix ("image/") && settings.extract_alt_from_metadata) {
 				var working_loader = new ItemAltExtractor (uri, entity);
 				working_loader.extracted_alt.connect (on_extracted_alt_text);
 
