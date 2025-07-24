@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-03-20 22:22+0000\n"
+"PO-Revision-Date: 2025-07-25 17:03+0000\n"
 "Last-Translator: rdbende <rdbende@proton.me>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/"
-">\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/>"
+"\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -71,7 +71,7 @@ msgstr "Alapértelmezett bejegyzéstípus"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:21
 msgid "Muted Push Notification Types"
-msgstr ""
+msgstr "Muted Push Notification Types"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:26
@@ -95,7 +95,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:45
 msgid "Hashtags shown on the sidebar"
-msgstr ""
+msgstr "Az oldalsávban megjelenő hashtagek"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
@@ -192,7 +192,7 @@ msgstr "Egyedi emojik nagyítása rámutatáskor"
 
 #: data/dev.geopjr.Tuba.gschema.xml:113
 msgid "lightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "enyhén felnagyítja az egyedi emojikat, amikor az egeret feléjük viszed"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:118
@@ -258,7 +258,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr ""
+msgstr "Érzékeny tartalom megjelenítése"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
@@ -426,7 +426,7 @@ msgstr ""
 #. translators: in-app as in a browser inside Tuba
 #: data/dev.geopjr.Tuba.gschema.xml:255 data/ui/dialogs/preferences.ui:94
 msgid "Open Links In-App"
-msgstr ""
+msgstr "Linkek megnyitása alkalmazáson belül"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:257
@@ -435,7 +435,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
 msgid "Collapse Long Posts"
-msgstr ""
+msgstr "Hosszú bejegyzések összecsukása"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:263
@@ -732,11 +732,11 @@ msgstr "Új bejegyzés"
 #. translators: composer overlay shown when dragging files above it
 #: data/ui/dialogs/composer.ui:22
 msgid "Drop media to attach them"
-msgstr ""
+msgstr "Engedd el itt a csatoláshoz"
 
 #: data/ui/dialogs/composer.ui:44
 msgid "Write your content warning here"
-msgstr ""
+msgstr "Ide írhatod a tartalmi figyelmeztetést"
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
@@ -753,7 +753,7 @@ msgstr "Média hozzáadása"
 
 #: data/ui/dialogs/composer.ui:97
 msgid "Create Poll"
-msgstr ""
+msgstr "Szavazás létrehozása"
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
@@ -1001,6 +1001,7 @@ msgstr "Alapértelmezett bejegyzésnyelv"
 #: data/ui/dialogs/preferences.ui:177
 msgid "This will increase memory usage when browsing high traffic timelines"
 msgstr ""
+"Ez megnöveli a memóriahasználatot nagy forgalmú idővonalak böngészésekor"
 
 #: data/ui/dialogs/preferences.ui:184
 msgid "Online Services"
@@ -1184,7 +1185,7 @@ msgstr "Értesítés bejegyzésekről"
 #. the hashtag on the user's profile
 #: data/ui/menus.ui:39 src/Views/Hashtag.vala:47
 msgid "Feature on Profile"
-msgstr ""
+msgstr "Kiemelés a profilon"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:45 src/Views/Admin/Pages/Accounts.vala:118
@@ -1488,14 +1489,14 @@ msgstr[1] "%s bejegyzés"
 #. shows the amount of posts that use said hashtag
 #: src/API/FeaturedTag.vala:32
 msgid "Posts Including this Hashtag"
-msgstr ""
+msgstr "Bejegyzések ezzel a hashtaggel"
 
 #. translators: subtitle on featured hashtags on profiles. The variable is a string date.
 #. E.g. Last post on 2025-06-29
 #: src/API/FeaturedTag.vala:39
 #, c-format
 msgid "Last post on %s"
-msgstr ""
+msgstr "Legutóbbi bejegyzés ekkor: %s"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
@@ -1518,7 +1519,7 @@ msgstr "Profilok"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "Mappa"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1741,8 +1742,7 @@ msgstr "Helyi"
 #. translators: the variable is the amount of times a hashtag was used in a week
 #. in the composer auto-complete popup (so keep it short)
 #: src/API/Tag.vala:47
-#, fuzzy, c-format
-#| msgid "%d per week"
+#, c-format
 msgid "%d per week"
 msgid_plural "%d per week"
 msgstr[0] "Hetente %d alkalommal"
@@ -1754,8 +1754,8 @@ msgstr[1] "Hetente %d alkalommal"
 #, c-format
 msgid "%d person yesterday"
 msgid_plural "%d people yesterday"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tegnap %d fő"
+msgstr[1] "Tegnap %d fő"
 
 #. total_uses += int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1763,8 +1763,8 @@ msgstr[1] ""
 #, c-format
 msgid "%d person in the past 2 days"
 msgid_plural "%d people in the past 2 days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d fő az elmúlt 2 napban"
+msgstr[1] "%d fő az elmúlt 2 napban"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
@@ -1813,38 +1813,38 @@ msgstr "Adományozás"
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
 msgid "Archives"
-msgstr ""
+msgstr "Archives"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
-msgstr ""
+msgstr "Webarchívumok létrehozása és megtekintése"
 
 #. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 #: src/Application.vala:645
 msgid "Calligraphy"
-msgstr ""
+msgstr "Calligraphy"
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
-msgstr ""
+msgstr "Szöveg ASCII szalagcímmé alakítása"
 
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
 msgid "Collision"
-msgstr ""
+msgstr "Collision"
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
-msgstr ""
+msgstr "Fájlok hash-értékének ellenőrzéése"
 
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 #: src/Application.vala:649
 msgid "Turntable"
-msgstr ""
+msgstr "Turntable"
 
 #: src/Application.vala:649
 msgid "Scrobble your music"
-msgstr ""
+msgstr "Oszd meg, mit hallgatsz"
 
 #: src/Application.vala:671
 msgid "OK"
@@ -2336,25 +2336,25 @@ msgstr "%s Wrapped mentve"
 #. translators: title on the composer alt text editor dialog
 #: src/Dialogs/Composer/AttachmentsBin.vala:88
 msgid "Attachment Editor"
-msgstr ""
+msgstr "Melléklet szerkesztő"
 
 #. translators: placeholder shown in the composer alt text editor text area
 #: src/Dialogs/Composer/AttachmentsBin.vala:115
 #: src/Dialogs/Composer/AttachmentsBin.vala:126
 msgid "Describe the media…"
-msgstr ""
+msgstr "Ismertesd a média tartalmát…"
 
 #. translators: tooltip text on the remaining characters counter in the
 #. composer alt text editor
 #: src/Dialogs/Composer/AttachmentsBin.vala:148
 msgid "Remaining Characters"
-msgstr ""
+msgstr "Maradék karakter"
 
 #. translators: toast shown when saving alt text and focus position in the composer
 #: src/Dialogs/Composer/AttachmentsBin.vala:186
 #: src/Dialogs/Composer/AttachmentsBin.vala:209
 msgid "Saved Media Metadata"
-msgstr ""
+msgstr "Média adatai mentve"
 
 #. translators: shown in file picker filter dropdown
 #: src/Dialogs/Composer/AttachmentsBin.vala:291 src/Dialogs/ProfileEdit.vala:81
@@ -2372,7 +2372,7 @@ msgstr "„%s” nagyobb, mint amit a példány megenged"
 #: src/Dialogs/Composer/AttachmentsBin.vala:457
 #, c-format
 msgid "Attachment limit reached (%lld)"
-msgstr ""
+msgstr "Melléklet korlát elérve (%ll darab)"
 
 #. translators: Open file
 #: src/Dialogs/Composer/AttachmentsBin.vala:491
@@ -2391,31 +2391,31 @@ msgstr "Melléklet eltávolítása"
 #. to translate, leave it as just "Edit"
 #: src/Dialogs/Composer/Attachment.vala:247
 msgid "Edit Metadata"
-msgstr ""
+msgstr "Szerkesztés"
 
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:307
 #: src/Dialogs/Composer/Attachment.vala:672
 msgid "Media Attachment"
-msgstr ""
+msgstr "Média melléklet"
 
 #. translators: screen reader announcement when the user
 #. deletes attachments in the composer
 #: src/Dialogs/Composer/Attachment.vala:325
 msgid "Deleted Attachment"
-msgstr ""
+msgstr "Melléklet törölve"
 
 #. translators: screen reader announcement when the composer
 #. successfully uploads an attachment
 #: src/Dialogs/Composer/Attachment.vala:490
 msgid "Finished Uploading Attachment"
-msgstr ""
+msgstr "Melléklet feltöltése kész"
 
 #. translators: aria label on composer media attachments. The variable is a string file name.
 #: src/Dialogs/Composer/Attachment.vala:666
 #, c-format
 msgid "Media Attachment (%s)"
-msgstr ""
+msgstr "Média melléklet (%s)"
 
 #. translators: 'Draft' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:49
@@ -2425,7 +2425,7 @@ msgstr "Bejegyzés fogalmazása"
 #. translators: 'Schedule' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:52
 msgid "Schedule Post…"
-msgstr ""
+msgstr "Bejegyzés időzítése…"
 
 #. translators: screen reader announcement when the composer
 #. passed the character limit. The variable is
@@ -2434,7 +2434,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:169
 #, c-format
 msgid "Exceeded character limit by %lld"
-msgstr ""
+msgstr "Karakterkorlát %lld karakterrel túllépve"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:240
@@ -2444,7 +2444,7 @@ msgstr "Bejegyzés láthatósága"
 #. translators: post compositor post button label when the visibility is 'mentioned only'
 #: src/Dialogs/Composer/Dialog.vala:265
 msgid "Send"
-msgstr ""
+msgstr "Küldés"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:276
@@ -2457,7 +2457,7 @@ msgstr "Bejegyzés nyelve"
 #. https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
 #: src/Dialogs/Composer/Dialog.vala:384 src/Widgets/Status.vala:1137
 msgid "Local Only"
-msgstr ""
+msgstr "Csak helyi"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:414
@@ -2468,7 +2468,7 @@ msgstr "Bejegyzés típusa"
 #: src/Dialogs/Composer/Dialog.vala:458 src/Dialogs/Composer/Dialog.vala:469
 #: src/Dialogs/Composer/Dialog.vala:692
 msgid "Post"
-msgstr ""
+msgstr "Közzététel"
 
 #. translators: composer post button label
 #. translators: verb
@@ -2480,13 +2480,13 @@ msgstr "Válasz"
 #. translators: composer embedded replying-to post, aria label
 #: src/Dialogs/Composer/Dialog.vala:563
 msgid "The post you are replying to."
-msgstr ""
+msgstr "A bejegyzés, amire válaszolsz."
 
 #. translators: composer title. The variable is a string username
 #: src/Dialogs/Composer/Dialog.vala:571
 #, c-format
 msgid "Reply to @%s"
-msgstr ""
+msgstr "Válasz neki: @%s"
 
 #. translators: composer post button label, verb
 #: src/Dialogs/Composer/Dialog.vala:604 src/Widgets/Status/ActionsRow.vala:129
@@ -2497,13 +2497,13 @@ msgstr "Idézés"
 #. translators: composer embedded quoting post, aria label
 #: src/Dialogs/Composer/Dialog.vala:634
 msgid "The post you are quoting."
-msgstr ""
+msgstr "A bejegyzés, amit idézel."
 
 #. translators: composer title. The variable is a string username
 #: src/Dialogs/Composer/Dialog.vala:642
 #, c-format
 msgid "Quoting @%s"
-msgstr ""
+msgstr "Idézés tőle: @%s"
 
 #. translators: composer post button label
 #. translators: button on the delete post dialog that
