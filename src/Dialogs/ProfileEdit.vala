@@ -77,6 +77,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 	[GtkChild] unowned Adw.EntryRow header_alt_text_row;
 
 	Gtk.FileFilter filter = new Gtk.FileFilter () {
+		// translators: shown in file picker filter dropdown
 		name = _("All Supported Files")
 	};
 

@@ -52,12 +52,14 @@ public class Tuba.Widgets.ProfileFilterGroup : Gtk.ListBoxRow {
 		}
 
 		toggle_group.add (new Adw.Toggle () {
+			// translators: noun, plural
 			label = _("Posts"),
 			name = Filter.POSTS.to_string (),
 			enabled = true
 		});
 
 		toggle_group.add (new Adw.Toggle () {
+			// translators: noun, plural, shown on profiles
 			label = _("Replies"),
 			name = Filter.REPLIES.to_string ()
 		});

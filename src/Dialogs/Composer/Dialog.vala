@@ -600,7 +600,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			},
 			final_visibility,
 			to.language,
-			// translators: composer post button label
+			// translators: composer post button label, verb
 			_("Quote"),
 			false,
 			!supports_quotes
@@ -868,6 +868,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			// translators: they = media / files from clipboard, instance = server
 			{_("They will be uploaded to your instance"), false},
 			this,
+			// translators: dialog button label when pasting from clipboard, verb
 			{ { _("Paste"), Adw.ResponseAppearance.SUGGESTED }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 			null,
 			false,
@@ -1159,6 +1160,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				//				empty)
 				{_("Your progress will be lost."), false},
 				this,
+				// translators: dialog button action, verb
 				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 				null,
 				false,

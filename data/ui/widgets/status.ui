@@ -284,7 +284,7 @@
 									  	<child type="overlay">
 											<object class="GtkButton">
 												<!-- translators: as in 'Expand collapsed post'. It's a button label. -->
-                                        		<property name="label" translatable="yes">Expand</property>
+                                        		<property name="label" translatable="yes">Show More</property>
                                         		<property name="halign">center</property>
                                         		<property name="valign">end</property>
 												<property name="visible" bind-source="fade_bin" bind-property="faded" bind-flags="sync-create" />

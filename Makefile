@@ -24,10 +24,14 @@ test:
 
 potfiles:
 	find ./ -not -path '*/.*' -type f -name "*.in" | sort > po/POTFILES
+	echo "./data/dev.geopjr.Tuba.gschema.xml" >> po/POTFILES
 	echo "" >> po/POTFILES
 	find ./ -not -path '*/.*' -type f -name "*.ui" -exec grep -l "translatable=\"yes\"" {} \; | sort >> po/POTFILES
 	echo "" >> po/POTFILES
 	find ./ -not -path '*/.*' -type f -name "*.vala" -exec grep -l "_(\"\|ngettext" {} \; | sort >> po/POTFILES
+
+xgettext:
+	xgettext --files-from=po/POTFILES --output=po/dev.geopjr.Tuba.pot --from-code=UTF-8 --add-comments --keyword=_ --keyword=C_:1c,2
 
 windows: PREFIX = $(PWD)/tuba_windows_portable
 windows: __windows_pre build install __windows_set_icon __windows_copy_deps __windows_schemas __windows_copy_icons __windows_cleanup __windows_package

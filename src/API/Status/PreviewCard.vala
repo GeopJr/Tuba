@@ -19,25 +19,25 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			}
 		}
 
-		public string to_dialog_title () {
-			switch (this) {
-				case PEERTUBE:
-					// translators: the variable is an external service like "PeerTube"
-					return _("You are about to open a %s video").printf (this.to_string ());
-				case FUNKWHALE:
-					// translators: the variable is an external service like "Funkwhale",
-					//				track as in song
-					return _("You are about to open a %s track").printf (this.to_string ());
-				case BOOKWYRM:
-					// translators: the variable is an external service like "BookWyrm"
-					return _("You are about to open a %s book").printf (this.to_string ());
-				case CLAPPER:
-					return _("You are about to open a video");
-				default:
-					// translators: the variable is the app name (Tuba)
-					return _("You are about to leave %s").printf (Build.NAME);
-			}
-		}
+		//  public string to_dialog_title () {
+		//  	switch (this) {
+		//  		case PEERTUBE:
+		//  			// translators: the variable is an external service like "PeerTube"
+		//  			return _("You are about to open a %s video").printf (this.to_string ());
+		//  		case FUNKWHALE:
+		//  			// translators: the variable is an external service like "Funkwhale",
+		//  			//				track as in song
+		//  			return _("You are about to open a %s track").printf (this.to_string ());
+		//  		case BOOKWYRM:
+		//  			// translators: the variable is an external service like "BookWyrm"
+		//  			return _("You are about to open a %s book").printf (this.to_string ());
+		//  		case CLAPPER:
+		//  			return _("You are about to open a video");
+		//  		default:
+		//  			// translators: the variable is the app name (Tuba)
+		//  			return _("You are about to leave %s").printf (Build.NAME);
+		//  	}
+		//  }
 
 		public string to_dialog_body (string t_url) {
 			var dlg_url = t_url;
