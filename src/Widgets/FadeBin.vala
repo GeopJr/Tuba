@@ -121,7 +121,7 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		}
 
 		int child_for_size;
-		if ((this.reveal || for_size < MAX_HEIGHT_OVER || for_size == -1) && orientation == Gtk.Orientation.VERTICAL) {
+		if (this.reveal || for_size < MAX_HEIGHT_OVER || for_size == -1 || orientation == Gtk.Orientation.VERTICAL) {
 			child_for_size = for_size;
 		} else if (this.animation.value == 0.0) {
 			child_for_size = -1;
@@ -145,7 +145,7 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		if (orientation == Gtk.Orientation.VERTICAL && !this.reveal) {
 			minimum_baseline = natural_baseline = -1;
 
-			if (minimum > MAX_HEIGHT_OVER) {
+			if (minimum > MAX_HEIGHT) {
 				minimum = (int) Math.ceil (lerp (
 					MAX_HEIGHT,
 					minimum,
@@ -153,7 +153,7 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 				));
 			}
 
-			if (natural > MAX_HEIGHT_OVER) {
+			if (natural > MAX_HEIGHT) {
 				natural = (int) Math.ceil (lerp (
 					MAX_HEIGHT,
 					natural,
