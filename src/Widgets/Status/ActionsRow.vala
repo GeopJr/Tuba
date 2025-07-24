@@ -81,6 +81,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		this.spacing = 6;
 
 		reply_button = new Widgets.StatusActionButton.with_icon_name ("tuba-reply-sender-symbolic") {
+			show_counts = settings.show_interaction_counters,
 			active = false,
 			css_classes = { "ttl-status-action-reply", "flat", "circular" },
 			halign = Gtk.Align.START,
@@ -100,6 +101,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		this.append (reply_button);
 
 		reblog_button = new Widgets.StatusActionButton.with_icon_name ("tuba-media-playlist-repeat-symbolic") {
+			show_counts = settings.show_interaction_counters,
 			css_classes = { "ttl-status-action-reblog", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,
@@ -119,6 +121,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 
 		if ((accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) || InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features) {
 			quote_button = new Widgets.StatusActionButton.with_icon_name ("tuba-quotation-symbolic") {
+				show_counts = settings.show_interaction_counters,
 				css_classes = { "ttl-status-action-quote", "flat", "circular" },
 				halign = Gtk.Align.START,
 				hexpand = true,
@@ -130,6 +133,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		}
 
 		favorite_button = new Widgets.StatusActionButton.with_icon_name ("tuba-unstarred-symbolic") {
+			show_counts = settings.show_interaction_counters,
 			active_icon_name = "tuba-starred-symbolic",
 			css_classes = { "ttl-status-action-star", "flat", "circular" },
 			halign = Gtk.Align.START,

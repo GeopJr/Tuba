@@ -269,6 +269,11 @@
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<description>Used to detect what features an instance supports like quote-posts on account activation</description>
 		</key>
+    <key name="show-interaction-counters" type="b">
+			<default>true</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Replies, Favorites and Boosts Counters</summary>
+		</key>
 
 		<key name="window-w" type="i">
 			<default>600</default>
