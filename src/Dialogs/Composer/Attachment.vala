@@ -492,6 +492,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 
 	private class AttachmentThumbnailer : GLib.Object {
 		public signal void done (Gdk.Paintable? paintable);
+		private bool can_extract_alt = settings.extract_alt_from_metadata;
 		#if GEXIV2
 			public signal void extracted_alt (string extracted_alt_text);
 		#endif
@@ -556,7 +557,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 			}
 
 			#if GEXIV2
-				if (kind == IMAGE) {
+				if (kind == IMAGE && this.can_extract_alt) {
 					debug (@"Extracting alt text for $file_uri");
 
 					string? extracted_alt_text = Utils.Exif.extract_alt_text (file_uri);
