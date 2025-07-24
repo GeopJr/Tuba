@@ -725,7 +725,14 @@ public class Tuba.Views.Drive : Views.Base {
 		back_drop_target_controller.drop.connect (on_back_drop);
 		go_back_btn.add_controller (back_drop_target_controller);
 
-		create_folder_btn_popover = new EntryPopover (_("New Folder"), _("Folder Name"), _("Create"));
+		create_folder_btn_popover = new EntryPopover (
+			// translators: title on an entry
+			_("New Folder"),
+			// translators: placeholder on an entry
+			_("Folder Name"),
+			// translators: button label, verb
+			_("Create")
+		);
 		create_folder_btn_popover.done.connect (on_create_folder_done);
 		create_folder_btn = new Gtk.MenuButton () {
 			icon_name = "tuba-folder-new-symbolic",

@@ -39,10 +39,12 @@ public class Tuba.Views.Browser : Adw.Dialog {
 							return;
 						case Security.SECURE:
 							ssl_icon.icon_name = "tuba-padlock2-symbolic";
+							// translators: in-app web browser, tooltip on SSL icon
 							ssl_icon.tooltip_text = _("Secure");
 							break;
 						default:
 							ssl_icon.icon_name = "tuba-channel-insecure-symbolic";
+							// translators: in-app web browser, tooltip on SSL icon
 							ssl_icon.tooltip_text = _("Insecure");
 							break;
 					}
@@ -160,6 +162,7 @@ public class Tuba.Views.Browser : Adw.Dialog {
 			refresh_item.set_attribute_value ("verb-icon", "tuba-view-refresh-symbolic");
 			sub_menu_model.append_item (refresh_item);
 
+			// translators: in-app web browser, move forward in history action
 			var forward_item = new GLib.MenuItem (_("Forward"), "browser.go-forward");
 			forward_item.set_attribute_value ("verb-icon", "tuba-right-large-symbolic");
 			sub_menu_model.append_item (forward_item);
@@ -193,6 +196,7 @@ public class Tuba.Views.Browser : Adw.Dialog {
 
 		private void on_copy_url () {
 			Utils.Host.copy (this.subtitle);
+			// translators: toast shown when copying a url with the action in the in-app web browser
 			app.toast (_("Copied url to clipboard"));
 		}
 

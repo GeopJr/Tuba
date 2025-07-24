@@ -43,7 +43,8 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 			}
 		}
 		// translators: the variable is the amount of times a hashtag was used in a week
-		return _("%d per week").printf (used_times);
+		//				in the composer auto-complete popup (so keep it short)
+		return GLib.ngettext ("%d per week", "%d per week", (ulong) used_times).printf (used_times);
 	}
 
 	public override Gtk.Widget to_widget () {
@@ -55,18 +56,18 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 
 		if (history != null && history.size > 0) {
 			var last_history_entry = history.get (0);
-			var total_uses = int.parse (last_history_entry.uses);
+			//  var total_uses = int.parse (last_history_entry.uses);
 			var total_accounts = int.parse (last_history_entry.accounts);
-			// translators: the variables are numbers
-			var subtitle = _("Used %d times by %d people yesterday").printf (total_uses, total_accounts);
+			// translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
+			var subtitle = GLib.ngettext ("%d person yesterday", "%d people yesterday", (ulong) total_accounts).printf (total_accounts);
 
 			if (history.size > 1) {
 				last_history_entry = history.get (1);
-				total_uses += int.parse (last_history_entry.uses);
+				//  total_uses += int.parse (last_history_entry.uses);
 				total_accounts += int.parse (last_history_entry.accounts);
 
-				// translators: the variables are numbers
-				subtitle = _("Used %d times by %d people in the past 2 days").printf (total_uses, total_accounts);
+				// translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
+				subtitle = GLib.ngettext ("%d person in the past 2 days", "%d people in the past 2 days", (ulong) total_accounts).printf (total_accounts);
 			}
 
 			w.subtitle = subtitle;

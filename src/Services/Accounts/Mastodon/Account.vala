@@ -214,6 +214,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			name = API.Status.Visibility.PUBLIC.to_title (),
 			icon_name = "tuba-globe-symbolic",
 			small_icon_name = "tuba-globe-small-symbolic",
+			// translators: visibility dropdown subtitle
 			description = _("Post to public timelines")
 		});
 		set_visibility (new Visibility () {
@@ -221,6 +222,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			name = API.Status.Visibility.UNLISTED.to_title (),
 			icon_name = "tuba-padlock2-open-symbolic",
 			small_icon_name = "tuba-padlock2-open-small-symbolic",
+			// translators: visibility dropdown subtitle
 			description = _("Don\'t post to public timelines")
 		});
 		set_visibility (new Visibility () {
@@ -228,6 +230,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			name = API.Status.Visibility.PRIVATE.to_title (),
 			icon_name = "tuba-padlock2-symbolic",
 			small_icon_name = "tuba-padlock2-small-symbolic",
+			// translators: visibility dropdown subtitle
 			description = _("Post to followers only")
 		});
 		set_visibility (new Visibility () {
@@ -235,6 +238,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			name = API.Status.Visibility.DIRECT.to_title (),
 			icon_name = "tuba-mail-unread-symbolic",
 			small_icon_name = "tuba-mail-small-symbolic",
+			// translators: visibility dropdown subtitle
 			description = _("Post to mentioned users only")
 		});
 	}

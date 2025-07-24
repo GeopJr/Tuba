@@ -227,18 +227,20 @@ public class Tuba.Dialogs.Composer.Components.Polls : Gtk.Box, Attachable {
 
 		multi_button = new StatefulButton (
 			{ "tuba-checkbox-checked-symbolic", "tuba-radio-checked-symbolic" },
+			// translators: multiple choice as in allow the user to pick multiple poll options
 			{ _("Multiple Choice"), _("Single Choice") }
 		) {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.FILL,
 			hexpand = true,
 			css_classes = {"composer-toggle-button"},
+			// translators: tooltip text on composer polls that toggles
+			//				whether the poll is single or multiple choice
 			tooltip_text = _("Toggle Choice Type")
 		};
 
 		show_results_button = new StatefulButton (
 			{ "tuba-eye-open-negative-filled-symbolic", "tuba-eye-not-looking-symbolic" },
-			// translators: multiple choice as in allow the user to pick multiple poll options
 			{ _("Show Results"), _("Hide Results") },
 			true
 		) {
@@ -246,6 +248,8 @@ public class Tuba.Dialogs.Composer.Components.Polls : Gtk.Box, Attachable {
 			halign = Gtk.Align.FILL,
 			hexpand = true,
 			css_classes = {"composer-toggle-button"},
+			// translators: tooltip text on composer polls that toggles
+			//				whether the poll results should be visible
 			tooltip_text = _("Toggle Results Visibility")
 		};
 		this.bind_property ("edit-mode", show_results_button, "sensitive", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);

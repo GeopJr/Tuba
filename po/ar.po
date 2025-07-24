@@ -44,7 +44,7 @@ msgstr "تبويق;تووت;ماستدون;ماستودون;مستدون;الف�
 msgid ""
 "Explore the federated social web with Tuba for GNOME. Stay connected to your "
 "favorite communities, family and friends with support for popular Fediverse "
-"platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
+"platforms like Mastodon, GoToSocial, Akkoma & more!"
 msgstr ""
 "استكشف الوِب الإجتماعي الموحَّد من خلال توبا لجنوم. ابق متصلًا مع مجتمعاتك "
 "المفضلة وعائلتك وأصدقائك مع دعم منصات الفديفرس الشهيرة كماستدون، وغوتو سوشل، "

@@ -86,6 +86,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			css_classes = { "ttl-status-action-reply", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,
+			// translators: verb
 			tooltip_text = _("Reply"),
 			//  aria_label_template = (amount) => {
 			//  	// translators: Accessibility label on post buttons.

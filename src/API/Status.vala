@@ -316,15 +316,21 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		public string to_title () {
 			switch (this) {
 				case PUBLIC:
+					// translators: post visibility label
 					return _("Public");
 				case UNLISTED:
 					// translators: Probably follow Mastodon's translation
+					// 				post visibility label
 					return _("Unlisted");
 				case PRIVATE:
+					// translators: post visibility label
 					return _("Followers Only");
 				case DIRECT:
+					// translators: post visibility label
 					return _("Direct");
 				case LOCAL:
+					// translators: post visibility label
+					//				local = will be displayed in this instance only
 					return _("Local");
 				default:
 					assert_not_reached ();
