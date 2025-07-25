@@ -254,11 +254,17 @@ public class Tuba.Views.Profile : Views.Accounts {
 		} else {
 			source = t_source;
 		}
+		string pleroma =
+			source == "endorsements"
+			&& accounts.active.instance_info != null
+			&& accounts.active.instance_info.pleroma != null
+			&& !(InstanceAccount.InstanceFeatures.ICESHRIMP in accounts.active.tuba_instance_features)
+			? "/pleroma" : "";
 
 		filter_group.visible = source == "statuses" || source == "endorsements";
 		source_meta_update (source);
 
-		url = @"/api/v1/accounts/$(profile.account.id)/$source";
+		url = @"/api/v1$pleroma/accounts/$(profile.account.id)/$source";
 		invalidate_actions (true);
 	}
 

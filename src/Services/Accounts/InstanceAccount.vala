@@ -623,11 +623,15 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 							new_flags |= InstanceFeatures.GROUP_NOTIFICATIONS;
 						}
 
+						if (this.tuba_api_versions.mastodon > 5) {
+							new_flags |= InstanceFeatures.ENDORSE_USERS;
+						}
+
 						if (this.tuba_api_versions.chuckya > 0) {
 							new_flags |= InstanceFeatures.EMOJI_REACTIONS;
 						}
 
-						new_flags |= InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS | InstanceFeatures.MUTUALS;
+						new_flags |= InstanceFeatures.FEATURE_TAGS | InstanceFeatures.MUTUALS;
 						if (instance_info.supports_bubble) new_flags |= InstanceFeatures.BUBBLE;
 					}
 				}
