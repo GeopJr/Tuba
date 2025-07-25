@@ -532,8 +532,16 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			final_visibility = settings.default_post_visibility;
 		}
 
+		string filled_content = "";
+		{
+			string joined_mentions;
+			if (to.formal.get_reply_mentions (out joined_mentions)) {
+				filled_content = @"$joined_mentions ";
+			}
+		}
+
 		// translators: composer post button label
-		this ({@"$(to.formal.get_reply_mentions ()) ", to.spoiler_text, null, null, to.id, null, null, false, to.local_only, false}, final_visibility, to.language, _("Reply"));
+		this ({filled_content, to.spoiler_text, null, null, to.id, null, null, false, to.local_only, false}, final_visibility, to.language, _("Reply"));
 
 		var sample = new API.Status.empty () {
 			poll = to.poll,

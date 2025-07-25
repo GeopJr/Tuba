@@ -249,7 +249,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		}
 	}
 
-	public virtual string get_reply_mentions () {
+	public virtual bool get_reply_mentions (out string joined_mentions) {
 		string[] result = {};
 		if (account.acct != accounts.active.acct)
 			result += account.handle;
@@ -264,7 +264,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 			}
 		}
 
-		return string.joinv (" ", result);
+		joined_mentions = string.joinv (" ", result);
+		return result.length > 0;
 	}
 
 	private Request action (string action) {
