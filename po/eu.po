@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-25 17:05+0000\n"
+"PO-Revision-Date: 2025-07-26 14:14+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -998,6 +998,7 @@ msgstr "Bidalketaren hizkuntza, defektuz"
 #: data/ui/dialogs/preferences.ui:177
 msgid "This will increase memory usage when browsing high traffic timelines"
 msgstr ""
+"Memoriaren erabilera areagotuko du trafiko handiko denbora-lerroak arakatzean"
 
 #: data/ui/dialogs/preferences.ui:184
 msgid "Online Services"
@@ -2342,7 +2343,7 @@ msgstr "%s(e)ko Wrapped gorde da"
 #. translators: title on the composer alt text editor dialog
 #: src/Dialogs/Composer/AttachmentsBin.vala:88
 msgid "Attachment Editor"
-msgstr ""
+msgstr "Eranskinen editorea"
 
 #. translators: placeholder shown in the composer alt text editor text area
 #: src/Dialogs/Composer/AttachmentsBin.vala:115
@@ -2378,7 +2379,7 @@ msgstr "\"%s\" fitxategia instantziak ezarritako muga baino handiagoa da"
 #: src/Dialogs/Composer/AttachmentsBin.vala:457
 #, c-format
 msgid "Attachment limit reached (%lld)"
-msgstr ""
+msgstr "Eranskinen muga gainditu da (%lld)"
 
 #. translators: Open file
 #: src/Dialogs/Composer/AttachmentsBin.vala:491
@@ -2402,8 +2403,9 @@ msgstr "Editatu"
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:307
 #: src/Dialogs/Composer/Attachment.vala:672
+#, fuzzy
 msgid "Media Attachment"
-msgstr ""
+msgstr "Multimedia eranskinak"
 
 #. translators: screen reader announcement when the user
 #. deletes attachments in the composer
@@ -2419,9 +2421,9 @@ msgstr "Eranskina igotzen amaitu da"
 
 #. translators: aria label on composer media attachments. The variable is a string file name.
 #: src/Dialogs/Composer/Attachment.vala:666
-#, c-format
+#, c-format, fuzzy
 msgid "Media Attachment (%s)"
-msgstr ""
+msgstr "Multimedia eranskinak (%s)"
 
 #. translators: 'Draft' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:49
@@ -2438,9 +2440,9 @@ msgstr "Programatu bidalketa…"
 #. the amount of characters the user exceeded
 #. the limit by.
 #: src/Dialogs/Composer/Dialog.vala:169
-#, c-format, fuzzy
+#, c-format
 msgid "Exceeded character limit by %lld"
-msgstr "Karaktereen muga gainditu da (%lld)"
+msgstr "Karaktereen muga gainditu da (%lld mugaz gaindi)"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:240
@@ -2463,7 +2465,7 @@ msgstr "Bidalketaren hizkuntza"
 #. https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
 #: src/Dialogs/Composer/Dialog.vala:384 src/Widgets/Status.vala:1137
 msgid "Local Only"
-msgstr ""
+msgstr "Instantzia lokalean bakarrik"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:414
@@ -4385,7 +4387,7 @@ msgstr[1] "%d erreakzio"
 #. translators: focus picking knob(?)/target(?) tooltip in the focus picker
 #: src/Widgets/FocusPicker.vala:49
 msgid "Focus Picker"
-msgstr "Foku-hautatzailea"
+msgstr "Foku-puntu hautatzailea"
 
 #. translators: the variable is a number. This is used in a button that shows
 #. all post hashtags when clicked.
