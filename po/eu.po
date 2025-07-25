@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-25 17:03+0000\n"
+"PO-Revision-Date: 2025-07-25 17:05+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -727,13 +727,12 @@ msgstr "Bidalketa berria"
 
 #. translators: composer overlay shown when dragging files above it
 #: data/ui/dialogs/composer.ui:22
-#, fuzzy
 msgid "Drop media to attach them"
 msgstr "Jaregin multimedia eransteko"
 
 #: data/ui/dialogs/composer.ui:44
 msgid "Write your content warning here"
-msgstr "Idatzi hemen edukiari buruzko oharra"
+msgstr "Idatzi hemen edukiari buruzko abisua"
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
