@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# xabirequejo <xabi.rn@gmail.com>, 2023, 2024.
+# xabirequejo <xabi.rn@gmail.com>, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2024-12-15 11:03+0000\n"
+"PO-Revision-Date: 2025-07-25 17:03+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-rc\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -68,17 +68,17 @@ msgstr "Bidalketaren eduki-mota, defektuz"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:21
 msgid "Muted Push Notification Types"
-msgstr ""
+msgstr "Mutututako push jakinarazpen motak"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:26
 msgid "Recently Used Custom Emojis"
-msgstr ""
+msgstr "Berriki erabilitako instantziako emojiak"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:31
 msgid "Recent Search Queries"
-msgstr ""
+msgstr "Berriki egindako bilaketa-kontsultak"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:36
@@ -92,7 +92,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:45
 msgid "Hashtags shown on the sidebar"
-msgstr ""
+msgstr "Alboko barran erakusten diren traolak"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
@@ -189,7 +189,7 @@ msgstr "Handiagotu instantziako emojiak sagua gainetik pasatzean"
 
 #: data/dev.geopjr.Tuba.gschema.xml:113
 msgid "lightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "Handiagotu apur bat instantziako emojiak sagua gainetik pasatzean"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:118
@@ -253,7 +253,7 @@ msgstr "Irudi lauso bat erakutsi multimedia osorik kargatu arte"
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr ""
+msgstr "Erakutsi eduki hunkigarria defektuz"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
@@ -421,16 +421,16 @@ msgstr ""
 #. translators: in-app as in a browser inside Tuba
 #: data/dev.geopjr.Tuba.gschema.xml:255 data/ui/dialogs/preferences.ui:94
 msgid "Open Links In-App"
-msgstr ""
+msgstr "Ireki estekak aplikazioan bertan"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:257
 msgid "Open links in a nested web browser instead of the host one"
-msgstr ""
+msgstr "Ireki estekak txertatutako web arakatzaile batean, kanpoko batean baino"
 
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
 msgid "Collapse Long Posts"
-msgstr ""
+msgstr "Tolestu bidalketa luzeak"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:263
@@ -727,12 +727,13 @@ msgstr "Bidalketa berria"
 
 #. translators: composer overlay shown when dragging files above it
 #: data/ui/dialogs/composer.ui:22
+#, fuzzy
 msgid "Drop media to attach them"
-msgstr ""
+msgstr "Jaregin multimedia eransteko"
 
 #: data/ui/dialogs/composer.ui:44
 msgid "Write your content warning here"
-msgstr ""
+msgstr "Idatzi hemen edukiari buruzko oharra"
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
@@ -741,7 +742,7 @@ msgstr "Txertatu emojia"
 #: data/ui/dialogs/composer.ui:78 data/ui/dialogs/profile_edit.ui:140
 #: src/Widgets/Status/ReactionsRow.vala:57
 msgid "Custom Emoji Picker"
-msgstr "Emoji hautatzailea"
+msgstr "Instantziako emoji hautatzailea"
 
 #: data/ui/dialogs/composer.ui:88
 msgid "Add Media"
@@ -749,7 +750,7 @@ msgstr "Gehitu multimedia"
 
 #: data/ui/dialogs/composer.ui:97
 msgid "Create Poll"
-msgstr ""
+msgstr "Sortu bozketa"
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
@@ -1181,7 +1182,7 @@ msgstr "Jaso bidalketen jakinarazpenak"
 #. the hashtag on the user's profile
 #: data/ui/menus.ui:39 src/Views/Hashtag.vala:47
 msgid "Feature on Profile"
-msgstr ""
+msgstr "Nabarmendu profilean"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:45 src/Views/Admin/Pages/Accounts.vala:118
@@ -1485,14 +1486,14 @@ msgstr[1] "%s bidalketa"
 #. shows the amount of posts that use said hashtag
 #: src/API/FeaturedTag.vala:32
 msgid "Posts Including this Hashtag"
-msgstr ""
+msgstr "Traola hau duten bidalketak"
 
 #. translators: subtitle on featured hashtags on profiles. The variable is a string date.
 #. E.g. Last post on 2025-06-29
 #: src/API/FeaturedTag.vala:39
 #, c-format
 msgid "Last post on %s"
-msgstr ""
+msgstr "Azken bidalketa: %s"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
@@ -1515,7 +1516,7 @@ msgstr "Profilak"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "Karpeta"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1754,8 +1755,8 @@ msgstr[1] "%d asteko"
 #, c-format
 msgid "%d person yesterday"
 msgid_plural "%d people yesterday"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "pertsona %dek atzo"
+msgstr[1] "%d pertsonak atzo"
 
 #. total_uses += int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1763,8 +1764,8 @@ msgstr[1] ""
 #, c-format
 msgid "%d person in the past 2 days"
 msgid_plural "%d people in the past 2 days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "pertsona %dek azken bi egunetan"
+msgstr[1] "%d pertsonak azken bi egunetan"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
@@ -1813,38 +1814,38 @@ msgstr "Dohaintza egin"
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
 msgid "Archives"
-msgstr ""
+msgstr "Artxiboak"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
-msgstr ""
+msgstr "Sortu eta ikuskatu web-artxiboak"
 
 #. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 #: src/Application.vala:645
 msgid "Calligraphy"
-msgstr ""
+msgstr "Kaligrafia"
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
-msgstr ""
+msgstr "Bihurtu testua ASCII banner"
 
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
 msgid "Collision"
-msgstr ""
+msgstr "Talka"
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
-msgstr ""
+msgstr "Egiaztatu fitxategien osotasuna"
 
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 #: src/Application.vala:649
 msgid "Turntable"
-msgstr ""
+msgstr "Disko-jogailua"
 
 #: src/Application.vala:649
 msgid "Scrobble your music"
-msgstr ""
+msgstr "Partekatu zure musika ohiturak hirugarrenen zerbitzuekin"
 
 #: src/Application.vala:671
 msgid "OK"
@@ -2348,19 +2349,19 @@ msgstr ""
 #: src/Dialogs/Composer/AttachmentsBin.vala:115
 #: src/Dialogs/Composer/AttachmentsBin.vala:126
 msgid "Describe the media…"
-msgstr ""
+msgstr "Deskribatu multimedia…"
 
 #. translators: tooltip text on the remaining characters counter in the
 #. composer alt text editor
 #: src/Dialogs/Composer/AttachmentsBin.vala:148
 msgid "Remaining Characters"
-msgstr ""
+msgstr "Karaktere gehienez"
 
 #. translators: toast shown when saving alt text and focus position in the composer
 #: src/Dialogs/Composer/AttachmentsBin.vala:186
 #: src/Dialogs/Composer/AttachmentsBin.vala:209
 msgid "Saved Media Metadata"
-msgstr ""
+msgstr "Multimediaren metadatuak gorde dira"
 
 #. translators: shown in file picker filter dropdown
 #: src/Dialogs/Composer/AttachmentsBin.vala:291 src/Dialogs/ProfileEdit.vala:81
@@ -2397,7 +2398,7 @@ msgstr "Kendu eranskina(k)"
 #. to translate, leave it as just "Edit"
 #: src/Dialogs/Composer/Attachment.vala:247
 msgid "Edit Metadata"
-msgstr ""
+msgstr "Editatu"
 
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:307
@@ -2409,13 +2410,13 @@ msgstr ""
 #. deletes attachments in the composer
 #: src/Dialogs/Composer/Attachment.vala:325
 msgid "Deleted Attachment"
-msgstr ""
+msgstr "Eranskina ezabatu da"
 
 #. translators: screen reader announcement when the composer
 #. successfully uploads an attachment
 #: src/Dialogs/Composer/Attachment.vala:490
 msgid "Finished Uploading Attachment"
-msgstr ""
+msgstr "Eranskina igotzen amaitu da"
 
 #. translators: aria label on composer media attachments. The variable is a string file name.
 #: src/Dialogs/Composer/Attachment.vala:666
@@ -2431,16 +2432,16 @@ msgstr "Zirriborratu bidalketa"
 #. translators: 'Schedule' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:52
 msgid "Schedule Post…"
-msgstr ""
+msgstr "Programatu bidalketa…"
 
 #. translators: screen reader announcement when the composer
 #. passed the character limit. The variable is
 #. the amount of characters the user exceeded
 #. the limit by.
 #: src/Dialogs/Composer/Dialog.vala:169
-#, c-format
+#, c-format, fuzzy
 msgid "Exceeded character limit by %lld"
-msgstr ""
+msgstr "Karaktereen muga gainditu da (%lld)"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:240
@@ -2450,7 +2451,7 @@ msgstr "Bidalketaren pribatutasuna"
 #. translators: post compositor post button label when the visibility is 'mentioned only'
 #: src/Dialogs/Composer/Dialog.vala:265
 msgid "Send"
-msgstr ""
+msgstr "Bidali"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:276
@@ -2474,7 +2475,7 @@ msgstr "Bidalketaren eduki mota"
 #: src/Dialogs/Composer/Dialog.vala:458 src/Dialogs/Composer/Dialog.vala:469
 #: src/Dialogs/Composer/Dialog.vala:692
 msgid "Post"
-msgstr ""
+msgstr "Argitaratu"
 
 #. translators: composer post button label
 #. translators: verb
@@ -2486,13 +2487,13 @@ msgstr "Erantzun"
 #. translators: composer embedded replying-to post, aria label
 #: src/Dialogs/Composer/Dialog.vala:563
 msgid "The post you are replying to."
-msgstr ""
+msgstr "Erantzuten ari zaren bidalketa."
 
 #. translators: composer title. The variable is a string username
 #: src/Dialogs/Composer/Dialog.vala:571
 #, c-format
 msgid "Reply to @%s"
-msgstr ""
+msgstr "Erantzun @%s(r)i"
 
 #. translators: composer post button label, verb
 #: src/Dialogs/Composer/Dialog.vala:604 src/Widgets/Status/ActionsRow.vala:129
@@ -2503,13 +2504,13 @@ msgstr "Aipatu"
 #. translators: composer embedded quoting post, aria label
 #: src/Dialogs/Composer/Dialog.vala:634
 msgid "The post you are quoting."
-msgstr ""
+msgstr "Aipatzen ari zaren bidalketa."
 
 #. translators: composer title. The variable is a string username
 #: src/Dialogs/Composer/Dialog.vala:642
 #, c-format
 msgid "Quoting @%s"
-msgstr ""
+msgstr "@%s aipatzen"
 
 #. translators: composer post button label
 #. translators: button on the delete post dialog that
@@ -2517,7 +2518,7 @@ msgstr ""
 #. with it so you can edit it
 #: src/Dialogs/Composer/Dialog.vala:661 src/Widgets/Status.vala:525
 msgid "Redraft"
-msgstr ""
+msgstr "Berridatzi"
 
 #: src/Dialogs/Composer/Dialog.vala:661 src/Dialogs/Composer/Dialog.vala:692
 #: src/Dialogs/Preferences.vala:32 src/Views/Lists.vala:16
@@ -2529,17 +2530,17 @@ msgstr "Editatu"
 #. translators: composer title
 #: src/Dialogs/Composer/Dialog.vala:669 src/Dialogs/Composer/Dialog.vala:699
 msgid "Edit Post"
-msgstr ""
+msgstr "Editatu bidalketa"
 
 #. translators: media as in picture or files
 #: src/Dialogs/Composer/Dialog.vala:866
 msgid "Paste Media from Clipboard?"
-msgstr ""
+msgstr "Itsatsi multimedia arbeletik?"
 
 #. translators: they = media / files from clipboard, instance = server
 #: src/Dialogs/Composer/Dialog.vala:869
 msgid "They will be uploaded to your instance"
-msgstr ""
+msgstr "Zure instantziara igoko dira"
 
 #. translators: dialog button label when pasting from clipboard, verb
 #: src/Dialogs/Composer/Dialog.vala:872
@@ -2591,22 +2592,22 @@ msgstr "Kendu"
 #: src/Dialogs/Composer/Polls.vala:138
 #, c-format
 msgid "Changed state to \"%s\""
-msgstr ""
+msgstr "Egoera \"%s\"(e)ra aldatu da"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/Polls.vala:231
 msgid "Multiple Choice"
-msgstr ""
+msgstr "Aukera bat baino gehiago"
 
 #: src/Dialogs/Composer/Polls.vala:231
 msgid "Single Choice"
-msgstr ""
+msgstr "Aukera bakarra"
 
 #. translators: tooltip text on composer polls that toggles
 #. whether the poll is single or multiple choice
 #: src/Dialogs/Composer/Polls.vala:239
 msgid "Toggle Choice Type"
-msgstr ""
+msgstr "Aldatu aukeraketa mota"
 
 #. translators: tooltip of poll button that shows the current vote results
 #: src/Dialogs/Composer/Polls.vala:244 src/Widgets/VoteBox.vala:235
@@ -2622,7 +2623,7 @@ msgstr "Ezkutatu emaitzak"
 #. whether the poll results should be visible
 #: src/Dialogs/Composer/Polls.vala:253
 msgid "Toggle Results Visibility"
-msgstr ""
+msgstr "Aldatu emaitzen ikusgarritasuna"
 
 #. translators: poll entry title; the variable is a number
 #: src/Dialogs/Composer/Polls.vala:307 src/Dialogs/Composer/Polls.vala:354
@@ -2643,7 +2644,7 @@ msgstr[1] "%d minutu"
 #: src/Dialogs/Composer/Polls.vala:380 src/Dialogs/Composer/Polls.vala:382
 #, c-format
 msgid "%dmin"
-msgstr ""
+msgstr "%d m"
 
 #. translators: the variable is a number, short form for hours
 #: src/Dialogs/Composer/Polls.vala:386 src/Dialogs/Composer/Polls.vala:388
@@ -2795,7 +2796,7 @@ msgstr "Edukia"
 #. translators: profile field, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:209
 msgid "Add Field"
-msgstr ""
+msgstr "Gehitu eremua"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:228
@@ -3074,7 +3075,7 @@ msgstr "Traolak"
 #: src/Services/Accounts/Mastodon/Account.vala:149 src/Views/Drive.vala:849
 #: src/Views/Drive.vala:988
 msgid "Drive"
-msgstr ""
+msgstr "Drive"
 
 #. translators: visibility dropdown subtitle
 #: src/Services/Accounts/Mastodon/Account.vala:218
@@ -3281,8 +3282,8 @@ msgstr[1] "duela %s ordu"
 #, c-format
 msgid "a month old"
 msgid_plural "%d months old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "duela hilabete"
+msgstr[1] "duela %d hilabete"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:196
@@ -3608,22 +3609,22 @@ msgstr "Ez dago laster-markarik"
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:43
 msgid "Secure"
-msgstr ""
+msgstr "Segurua"
 
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:48
 msgid "Insecure"
-msgstr ""
+msgstr "Arriskutsua"
 
 #. translators: in-app web browser, move forward in history action
 #: src/Views/Browser.vala:166
 msgid "Forward"
-msgstr ""
+msgstr "Aurrera"
 
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
 msgid "Copied url to clipboard"
-msgstr ""
+msgstr "URLa arbelera kopiatu da"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
@@ -3642,30 +3643,30 @@ msgstr "Ez dago zirriborrorik"
 #. translators: Error reason when trying to delete a non-empty folder
 #: src/Views/Drive.vala:24
 msgid "Folder is not empty"
-msgstr ""
+msgstr "Karpeta ez dago hutsik"
 
 #. translators: Error reason when trying to delete an actively used file
 #: src/Views/Drive.vala:29
 msgid "File is used as an avatar"
-msgstr ""
+msgstr "Fitxategia abatar gisa erabiltzen da"
 
 #: src/Views/Drive.vala:29
 msgid "File is used as a banner"
-msgstr ""
+msgstr "Fitxategia goiburu gisa erabiltzen da"
 
 #. translators: tooltip text on an icon that indicates that a file is used
 #. by a user profile (like an avatar)
 #: src/Views/Drive.vala:188
 msgid "Used by a Profile"
-msgstr ""
+msgstr "Profil batek erabiltzen du"
 
 #: src/Views/Drive.vala:242
 msgid "Copy Link"
-msgstr ""
+msgstr "Kopiatu esteka"
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
-msgstr ""
+msgstr "Markatu hunkigarri gisa"
 
 #. translators: alternative text context menu item in drive
 #: src/Views/Drive.vala:253
@@ -3674,121 +3675,121 @@ msgstr "Editatu deskribapena"
 
 #: src/Views/Drive.vala:259 src/Views/Drive.vala:409
 msgid "Rename"
-msgstr ""
+msgstr "Berrizendatu"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:380
 #, c-format
 msgid "Couldn't mark '%s' as sensitive: %s"
-msgstr ""
+msgstr "Ezin izan da '%s' hunkigarritzat markatu: %s"
 
 #: src/Views/Drive.vala:407
 msgid "Rename Folder"
-msgstr ""
+msgstr "Berrizendatu karpeta"
 
 #: src/Views/Drive.vala:407
 msgid "Rename File"
-msgstr ""
+msgstr "Berrizendatu fitxategia"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:464
 #, c-format
 msgid "Couldn't change alt text for '%s': %s"
-msgstr ""
+msgstr "Ezin izan da '%s'(r)en deskribapena aldatu: %s"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:511
 #, c-format
 msgid "Couldn't rename '%s': %s"
-msgstr ""
+msgstr "Ezin izan da '%s' berrizendatu: %s"
 
 #. translators: title on an entry
 #: src/Views/Drive.vala:730
 msgid "New Folder"
-msgstr ""
+msgstr "Karpeta berria"
 
 #. translators: placeholder on an entry
 #: src/Views/Drive.vala:732
 msgid "Folder Name"
-msgstr ""
+msgstr "Karpetaren izena"
 
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
 msgid "Create"
-msgstr ""
+msgstr "Sortu"
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
-msgstr ""
+msgstr "Sortu karpeta"
 
 #: src/Views/Drive.vala:748
 msgid "Upload File"
-msgstr ""
+msgstr "Igo fitxategia"
 
 #. translators: error that shows up as a toast when creating folders
 #. in iceshrimp drive
 #: src/Views/Drive.vala:818
 #, c-format
 msgid "Couldn't create folder: %s"
-msgstr ""
+msgstr "Ezin izan da karpeta sortu: %s"
 
 #: src/Views/Drive.vala:874
 msgid "Drop files to upload them"
-msgstr ""
+msgstr "Jaregin fitxategiak igotzeko"
 
 #: src/Views/Drive.vala:1199
 #, c-format
 msgid "Couldn't move '%s': %s"
-msgstr ""
+msgstr "Ezin izan da '%s' mugitu: %s"
 
 #. translators: Error when trying to delete a file that cannot be deleted.
 #. The first variable is a string file name, the second is an error.
 #: src/Views/Drive.vala:1216 src/Views/Drive.vala:1273
 #, c-format
 msgid "'%s' cannot be deleted: %s"
-msgstr ""
+msgstr "Ezin da '%s' ezabatu: %s"
 
 #. translators: the variable is a folder/file name
 #: src/Views/Drive.vala:1224
 #, c-format
 msgid "Delete '%s'?"
-msgstr ""
+msgstr "'%s' ezabatu?"
 
 #: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
 msgid "This is irreversible."
-msgstr ""
+msgstr "Ezin da desegin."
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:1249 src/Views/Drive.vala:1361
 #, c-format
 msgid "Couldn't delete '%s': %s"
-msgstr ""
+msgstr "Ezin izan da '%s' ezabatu: %s"
 
 #. translators: Error when trying to delete files/folders
 #. that cannot be deleted.
 #: src/Views/Drive.vala:1305
 msgid "No Deletable Files in Selection"
-msgstr ""
+msgstr "Hautaketan ez dago ezaba daitekeen fitxategirik"
 
 #. translators: confirmation dialog in a file-browser-like page
 #: src/Views/Drive.vala:1311
 msgid "Delete Selection?"
-msgstr ""
+msgstr "Hautatutakoak ezabatu?"
 
 #: src/Views/Drive.vala:1372
 msgid "Upload Files"
-msgstr ""
+msgstr "Igo fitxategiak"
 
 #. translators: toast popping up when a user uploads a file that already exists in drive
 #. The variable is a string filename.
 #: src/Views/Drive.vala:1423
 #, c-format
 msgid "'%s' already exists"
-msgstr ""
+msgstr "'%s' badago lehendik ere"
 
 #. translators: screen reader announcement when the
 #. drive successfully uploads a file
@@ -3796,7 +3797,7 @@ msgstr ""
 #: src/Views/Drive.vala:1510
 #, c-format
 msgid "Finished Uploading '%s'"
-msgstr ""
+msgstr "'%s' igotzen amaitu da"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -3968,7 +3969,7 @@ msgstr "Erabiltzaile honek oraindik ez dio inori jarraitzen"
 #. translators: featured tab on profiles, shown when empty.
 #: src/Views/Profile.vala:285
 msgid "This user doesn't have any featured hashtags or accounts."
-msgstr ""
+msgstr "Erabiltzaileak ez du nabarmendutako traola edo konturik."
 
 #: src/Views/Profile.vala:441
 msgid "Copied handle to clipboard"
@@ -4385,7 +4386,7 @@ msgstr[1] "%d erreakzio"
 #. translators: focus picking knob(?)/target(?) tooltip in the focus picker
 #: src/Widgets/FocusPicker.vala:49
 msgid "Focus Picker"
-msgstr ""
+msgstr "Foku-hautatzailea"
 
 #. translators: the variable is a number. This is used in a button that shows
 #. all post hashtags when clicked.
@@ -4477,7 +4478,7 @@ msgstr "%s %s(e)ra aldatu da"
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "Ez da publikoa"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
@@ -4486,7 +4487,7 @@ msgstr "Errorea: Oharrak 2000 karaktere baino gehiago ditu"
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
 msgid "Featured"
-msgstr ""
+msgstr "Nabarmendua"
 
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63
@@ -4522,7 +4523,7 @@ msgstr "%s(e)rako programatuta"
 
 #: src/Widgets/ScheduledStatus.vala:155
 msgid "Reschedule Post"
-msgstr ""
+msgstr "Birprogramatu bidalketa"
 
 #. translators: the variable is an error
 #: src/Widgets/ScheduledStatus.vala:187
