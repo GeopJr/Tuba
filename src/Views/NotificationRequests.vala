@@ -5,6 +5,7 @@ public class Tuba.Views.NotificationRequests : Views.Timeline {
 		icon = "tuba-bell-outline-symbolic";
 		accepts = typeof (API.NotificationFilter.Request);
 		empty_state_title = _("No Filtered Notifications");
+		batch_size_min = 20;
 	}
 
 	public override Gtk.Widget on_create_model_widget (Object obj) {

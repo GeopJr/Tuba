@@ -7,6 +7,14 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		public bool use_queue { get; set; default = true; }
 	#endif
 
+	private int _batch_size_min = 10;
+	public int batch_size_min {
+		get { return _batch_size_min; }
+		set {
+			assert (value >= 10 && value <= 40);
+			_batch_size_min = value;
+		}
+	}
 	protected InstanceAccount? account { get; set; default = null; }
 
 	public bool is_last_page { get; set; default = false; }
@@ -187,7 +195,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	public virtual Request append_params (Request req) {
 		if (page_next == null)
-			return req.with_param ("limit", settings.timeline_page_size.clamp (10, 40).to_string ());
+			return req.with_param ("limit", settings.timeline_page_size.clamp (this.batch_size_min, 40).to_string ());
 		else
 			return req;
 	}
