@@ -65,4 +65,16 @@ public class Tuba.Widgets.HashtagBar : Adw.Bin {
 			w = w.get_next_sibling ();
 		};
 	}
+
+	public void to_display_only () {
+		var w = wrapbox.get_first_child ();
+		while (w != null) {
+			if (w is HashtagButton) {
+				w.can_target =
+				w.can_focus =
+				w.focusable = false;
+			}
+			w = w.get_next_sibling ();
+		};
+	}
 }

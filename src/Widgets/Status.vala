@@ -1300,11 +1300,7 @@
 			poll.focusable = false;
 			poll.can_focus = false;
 		}
-		if (hashtag_bar != null) {
-			hashtag_bar.can_target = false;
-			hashtag_bar.can_focus = false;
-			hashtag_bar.focusable = false;
-		}
+		if (hashtag_bar != null) hashtag_bar.to_display_only ();
 		if (attachments != null) attachments.usable = false;
 		if (emoji_reactions != null) emoji_reactions.visible = false;
 		this.can_be_opened = false;
