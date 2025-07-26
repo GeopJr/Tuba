@@ -459,11 +459,14 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		cover_bot_badge.visible = profile.bot;
 		update_cover_badge ();
 
-		var w = roles.get_first_child ();
-		while (w != null) {
-			roles.remove (w);
-			w = w.get_next_sibling ();
-		};
+		{
+			var w = roles.get_first_child ();
+			while (w != null) {
+				var w2 = w.get_next_sibling ();
+				roles.remove (w);
+				w = w2;
+			};
+		}
 
 		if (profile.roles != null && profile.roles.size > 0) {
 			roles.visible = true;
