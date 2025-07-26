@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-26 14:40+0000\n"
+"PO-Revision-Date: 2025-07-27 15:05+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
@@ -200,7 +200,7 @@ msgstr "هنگام رفتن روی شکلک‌های سفارشی اندازه�
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:118
 msgid "Aggressive User Resolving"
-msgstr ""
+msgstr "تجزیهٔ کاربر تهاجمی"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:120
@@ -209,6 +209,9 @@ msgid ""
 "it leads to a user or a post regardless if it matches the typical post and "
 "user URLs"
 msgstr ""
+"وقتی روی پیوندی می‌زنید توبا از نمونه‌تان می‌خواهد تجزیه‌اش کند تا ببیند به "
+"کاربر یا فرسته‌ای می‌رسد یا نه. فارغ از این که با نشانی‌های کاربری و فرستهٔ "
+"معمول مطابقت دارد یا نه"
 
 #: data/dev.geopjr.Tuba.gschema.xml:124 data/ui/dialogs/preferences.ui:99
 msgid "Strip Tracking Parameters From Links"
@@ -369,6 +372,8 @@ msgid ""
 "Leaving it empty will use the default connection which might be proxied "
 "based on the system settings"
 msgstr ""
+"خالی گذاشتنش از اتصال پیش‌گزیده استفاده کرده که ممکن است بر اساس تنظیمات "
+"سامانه پیشکار شود"
 
 #: data/dev.geopjr.Tuba.gschema.xml:216 data/ui/dialogs/preferences.ui:189
 msgid "Send Preference Analytics"
@@ -381,6 +386,9 @@ msgid ""
 "You can preview exactly what's being sent in-app, they are opt-in and the "
 "server is open source."
 msgstr ""
+"هر دو هقته یک بار اولویت‌هایتان را برای تخقیقات محبوبیت به توسعه دهندگان "
+"بفرستید. می توانید دقیقاً آنچه را که فرستاده می شود در برنامه ببینید. این کار "
+"انتخابی بوده و کارساز نرم‌افزار آزاد است."
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/dev.geopjr.Tuba.gschema.xml:222 data/ui/dialogs/preferences.ui:213
@@ -400,7 +408,7 @@ msgstr "تاریخ آخرین به‌روز رسانی تحلیل‌ها"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:230 data/dev.geopjr.Tuba.gschema.xml:237
 msgid "Used for keeping track if 2 weeks have passed since the last update"
-msgstr ""
+msgstr "استفاده شده برای پیگیری اگر ۲ هفته از آخرین به روز رسانی گذشته باشد"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:235
@@ -418,6 +426,8 @@ msgid ""
 "A list of hashed handles that belong to Tuba contributors so they can be "
 "used in-app"
 msgstr ""
+"سیاهه‌ای از حساب‌های درهم ریخته که متعلق به مشارکت‌کنندگان توباست، بنابراین می "
+"توان آنها را در برنامه استفاده کرد"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:249
@@ -427,7 +437,7 @@ msgstr "پرگویی برجسب ناحیهٔ فرستادن"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:251
 msgid "0 to 5 verbosity level, 0 being no aria label and 5 being very detailed"
-msgstr ""
+msgstr "سطح پرگویی ۰ تا ۵. ۰ بدون برجسب ناحیه و ۵ با جزییات بسیار زیاد"
 
 #. translators: in-app as in a browser inside Tuba
 #: data/dev.geopjr.Tuba.gschema.xml:255 data/ui/dialogs/preferences.ui:94
@@ -437,7 +447,7 @@ msgstr "گشودن درون‌کاره‌ای پیوندها"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:257
 msgid "Open links in a nested web browser instead of the host one"
-msgstr ""
+msgstr "گشودن پیوندها در مرورگر وب داخلی به جای مرورگر میزبان"
 
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
 msgid "Collapse Long Posts"
@@ -448,6 +458,8 @@ msgstr "جمع کردن فرسته‌های طولانی"
 msgid ""
 "Whether to automatically collapse posts to a set height when they exceed it"
 msgstr ""
+"این که فرسته‌ها را به طور خودکار به ارتفاع تعیین شده تبدیل کند زمانی که از آن "
+"تجاوز می کند"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:268
@@ -460,6 +472,8 @@ msgid ""
 "Used to detect what features an instance supports like quote-posts on "
 "account activation"
 msgstr ""
+"استفاده شده برای تشخیص ویژگی‌های پشتیبانی شدهٔ نمونه مثل نقل قول هنگام فعّال "
+"سازی"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:275
@@ -469,7 +483,7 @@ msgstr "شمارشگرهای پاسخ‌ها، برگزیده‌ها و تقوی
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:280
 msgid "Automatically extract alt text from file metadata"
-msgstr ""
+msgstr "استخراج خودکار همهٔ متن‌ها از فرادادهٔ پرونده"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:286
