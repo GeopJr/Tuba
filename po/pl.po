@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-25 17:03+0000\n"
+"PO-Revision-Date: 2025-07-26 14:14+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -435,17 +435,19 @@ msgid ""
 "A list of hashed handles that belong to Tuba contributors so they can be "
 "used in-app"
 msgstr ""
+"Lista hashy kont należących do osób współtworzących Tubę, by można było użyć "
+"ich w aplikacji"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:249
 msgid "Post aria label verbosity"
-msgstr ""
+msgstr "Szczegółowość etykiet aria wpisu"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:251
 msgid "0 to 5 verbosity level, 0 being no aria label and 5 being very detailed"
 msgstr ""
-"Poziom szczegółowości od 0 do 5, gdzie 0 to brak etykiety arii, a 5 to "
+"Poziom szczegółowości od 0 do 5, gdzie 0 to brak etykiety aria, a 5 to "
 "bardzo szczegółowa"
 
 #. translators: in-app as in a browser inside Tuba
@@ -507,7 +509,7 @@ msgstr "Wysokość okna"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:296
 msgid "Window Maximized State"
-msgstr ""
+msgstr "Stan maksymalizacji okna"
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:8
@@ -762,11 +764,11 @@ msgstr "Nowy wpis"
 #. translators: composer overlay shown when dragging files above it
 #: data/ui/dialogs/composer.ui:22
 msgid "Drop media to attach them"
-msgstr ""
+msgstr "Upuść media, by je załączyć"
 
 #: data/ui/dialogs/composer.ui:44
 msgid "Write your content warning here"
-msgstr ""
+msgstr "Wpisz tutaj ostrzeżenie o zawartości"
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
@@ -783,7 +785,7 @@ msgstr "Dodaj media"
 
 #: data/ui/dialogs/composer.ui:97
 msgid "Create Poll"
-msgstr ""
+msgstr "Utwórz ankietę"
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
@@ -1031,7 +1033,7 @@ msgstr "Domyślny język wpisu"
 #. translators: setting row subtitle, by high traffic we mean the federated and local timelines
 #: data/ui/dialogs/preferences.ui:177
 msgid "This will increase memory usage when browsing high traffic timelines"
-msgstr ""
+msgstr "To zwiększy użycie pamięci przy przeglądaniu bardzo aktywnych osi czasu"
 
 #: data/ui/dialogs/preferences.ui:184
 msgid "Online Services"
@@ -1215,7 +1217,7 @@ msgstr "Otrzymuj powiadomienia o wpisach"
 #. the hashtag on the user's profile
 #: data/ui/menus.ui:39 src/Views/Hashtag.vala:47
 msgid "Feature on Profile"
-msgstr ""
+msgstr "Wyróżnij na profilu"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:45 src/Views/Admin/Pages/Accounts.vala:118
@@ -1520,14 +1522,14 @@ msgstr[2] "%s wpisów"
 #. shows the amount of posts that use said hashtag
 #: src/API/FeaturedTag.vala:32
 msgid "Posts Including this Hashtag"
-msgstr ""
+msgstr "Wpisy zawierające ten hasztag"
 
 #. translators: subtitle on featured hashtags on profiles. The variable is a string date.
 #. E.g. Last post on 2025-06-29
 #: src/API/FeaturedTag.vala:39
 #, c-format
 msgid "Last post on %s"
-msgstr ""
+msgstr "Ostatni wpis z %s"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
@@ -1550,7 +1552,7 @@ msgstr "Profile"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "Katalog"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1785,13 +1787,12 @@ msgstr "Lokalna oś czasu"
 #. translators: the variable is the amount of times a hashtag was used in a week
 #. in the composer auto-complete popup (so keep it short)
 #: src/API/Tag.vala:47
-#, fuzzy, c-format
-#| msgid "%d per week"
+#, c-format
 msgid "%d per week"
 msgid_plural "%d per week"
-msgstr[0] "%d tygodniowo"
-msgstr[1] "%d tygodniowo"
-msgstr[2] "%d tygodniowo"
+msgstr[0] "%d na tydzień"
+msgstr[1] "%d na tydzień"
+msgstr[2] "%d na tydzień"
 
 #. var total_uses = int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1799,9 +1800,9 @@ msgstr[2] "%d tygodniowo"
 #, c-format
 msgid "%d person yesterday"
 msgid_plural "%d people yesterday"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d osoba wczoraj"
+msgstr[1] "%d osoby wczoraj"
+msgstr[2] "%d osób wczoraj"
 
 #. total_uses += int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1809,9 +1810,9 @@ msgstr[2] ""
 #, c-format
 msgid "%d person in the past 2 days"
 msgid_plural "%d people in the past 2 days"
-msgstr[0] "%d osoba w ostatnich 2 dniach"
-msgstr[1] "%d osoby w ostatnich 2 dniach"
-msgstr[2] "%d osób w ostatnich 2 dniach"
+msgstr[0] "%d osoba w ciągu ostatnich 2 dni"
+msgstr[1] "%d osoby w ciągu ostatnich 2 dni"
+msgstr[2] "%d osób w ciągu ostatnich 2 dni"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
@@ -1882,7 +1883,7 @@ msgstr "Collision"
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
-msgstr ""
+msgstr "Sprawdź hashe swoich plików"
 
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 #: src/Application.vala:649
@@ -2667,7 +2668,7 @@ msgstr "Ukryj wyniki"
 #. whether the poll results should be visible
 #: src/Dialogs/Composer/Polls.vala:253
 msgid "Toggle Results Visibility"
-msgstr ""
+msgstr "Przełącz widoczność wyników"
 
 #. translators: poll entry title; the variable is a number
 #: src/Dialogs/Composer/Polls.vala:307 src/Dialogs/Composer/Polls.vala:354
@@ -2689,7 +2690,7 @@ msgstr[2] "%d minut"
 #: src/Dialogs/Composer/Polls.vala:380 src/Dialogs/Composer/Polls.vala:382
 #, c-format
 msgid "%dmin"
-msgstr ""
+msgstr "%d min"
 
 #. translators: the variable is a number, short form for hours
 #: src/Dialogs/Composer/Polls.vala:386 src/Dialogs/Composer/Polls.vala:388
@@ -2842,7 +2843,7 @@ msgstr "Zawartość"
 #. translators: profile field, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:209
 msgid "Add Field"
-msgstr ""
+msgstr "Dodaj pole"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:228
@@ -3122,7 +3123,7 @@ msgstr "Hasztagi"
 #: src/Services/Accounts/Mastodon/Account.vala:149 src/Views/Drive.vala:849
 #: src/Views/Drive.vala:988
 msgid "Drive"
-msgstr ""
+msgstr "Dysk"
 
 #. translators: visibility dropdown subtitle
 #: src/Services/Accounts/Mastodon/Account.vala:218
@@ -3331,9 +3332,9 @@ msgstr[2] "%s godzin"
 #, c-format
 msgid "a month old"
 msgid_plural "%d months old"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "sprzed miesiąca"
+msgstr[1] "sprzed %d miesięcy"
+msgstr[2] "sprzed %d miesięcy"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:196
@@ -3661,22 +3662,22 @@ msgstr "Brak zakładek"
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:43
 msgid "Secure"
-msgstr ""
+msgstr "Połączenie zabezpieczone"
 
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:48
 msgid "Insecure"
-msgstr ""
+msgstr "Połączenie niezabezpieczone"
 
 #. translators: in-app web browser, move forward in history action
 #: src/Views/Browser.vala:166
 msgid "Forward"
-msgstr ""
+msgstr "Naprzód"
 
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
 msgid "Copied url to clipboard"
-msgstr ""
+msgstr "Skopiowano adres do schowka"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
@@ -3695,30 +3696,30 @@ msgstr "Brak szkiców"
 #. translators: Error reason when trying to delete a non-empty folder
 #: src/Views/Drive.vala:24
 msgid "Folder is not empty"
-msgstr ""
+msgstr "Katalog nie jest pusty"
 
 #. translators: Error reason when trying to delete an actively used file
 #: src/Views/Drive.vala:29
 msgid "File is used as an avatar"
-msgstr ""
+msgstr "Plik jest używany jako awatar"
 
 #: src/Views/Drive.vala:29
 msgid "File is used as a banner"
-msgstr ""
+msgstr "Plik jest używany jako obraz nagłówka"
 
 #. translators: tooltip text on an icon that indicates that a file is used
 #. by a user profile (like an avatar)
 #: src/Views/Drive.vala:188
 msgid "Used by a Profile"
-msgstr ""
+msgstr "Używany przez profil"
 
 #: src/Views/Drive.vala:242
 msgid "Copy Link"
-msgstr ""
+msgstr "Skopiuj odnośnik"
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
-msgstr ""
+msgstr "Oznacz jako drażliwy"
 
 #. translators: alternative text context menu item in drive
 #: src/Views/Drive.vala:253
@@ -3727,75 +3728,75 @@ msgstr "Edytuj opis"
 
 #: src/Views/Drive.vala:259 src/Views/Drive.vala:409
 msgid "Rename"
-msgstr ""
+msgstr "Zmień nazwę"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:380
 #, c-format
 msgid "Couldn't mark '%s' as sensitive: %s"
-msgstr ""
+msgstr "Nie powiodło się oznaczenie '%s' jako drażliwy: %s"
 
 #: src/Views/Drive.vala:407
 msgid "Rename Folder"
-msgstr ""
+msgstr "Zmień nazwę katalogu"
 
 #: src/Views/Drive.vala:407
 msgid "Rename File"
-msgstr ""
+msgstr "Zmień nazwę pliku"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:464
 #, c-format
 msgid "Couldn't change alt text for '%s': %s"
-msgstr ""
+msgstr "Nie powiodła się zmiana alt tekstu dla '%s': %s"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:511
 #, c-format
 msgid "Couldn't rename '%s': %s"
-msgstr ""
+msgstr "Nie powiodła się zmiana nazwy '%s': %s"
 
 #. translators: title on an entry
 #: src/Views/Drive.vala:730
 msgid "New Folder"
-msgstr ""
+msgstr "Nowy katalog"
 
 #. translators: placeholder on an entry
 #: src/Views/Drive.vala:732
 msgid "Folder Name"
-msgstr ""
+msgstr "Nazwa katalogu"
 
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
 msgid "Create"
-msgstr ""
+msgstr "Utwórz"
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
-msgstr ""
+msgstr "Utwórz katalog"
 
 #: src/Views/Drive.vala:748
 msgid "Upload File"
-msgstr ""
+msgstr "Prześlij plik"
 
 #. translators: error that shows up as a toast when creating folders
 #. in iceshrimp drive
 #: src/Views/Drive.vala:818
 #, c-format
 msgid "Couldn't create folder: %s"
-msgstr ""
+msgstr "Nie powiodło się utworzenie katalogu: %s"
 
 #: src/Views/Drive.vala:874
 msgid "Drop files to upload them"
-msgstr ""
+msgstr "Upuść pliki, by je przesłać"
 
 #: src/Views/Drive.vala:1199
 #, c-format
 msgid "Couldn't move '%s': %s"
-msgstr ""
+msgstr "Nie udało się przenieść '%s': %s"
 
 #. translators: Error when trying to delete a file that cannot be deleted.
 #. The first variable is a string file name, the second is an error.
@@ -4022,7 +4023,7 @@ msgstr "Ten użytkownik jeszcze nikogo nie obserwuje"
 #. translators: featured tab on profiles, shown when empty.
 #: src/Views/Profile.vala:285
 msgid "This user doesn't have any featured hashtags or accounts."
-msgstr ""
+msgstr "Ta osoba nie ma żadnych wyróżnionych hasztagów lub kont."
 
 #: src/Views/Profile.vala:441
 msgid "Copied handle to clipboard"
@@ -4443,7 +4444,7 @@ msgstr[2] "%d reakcji"
 #. translators: focus picking knob(?)/target(?) tooltip in the focus picker
 #: src/Widgets/FocusPicker.vala:49
 msgid "Focus Picker"
-msgstr ""
+msgstr "Ustawianie punktu skupienia"
 
 #. translators: the variable is a number. This is used in a button that shows
 #. all post hashtags when clicked.
@@ -4538,7 +4539,7 @@ msgstr "Konto %s zostało przeniesione na %s"
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "Ukryte"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
@@ -4547,7 +4548,7 @@ msgstr "Błąd: Notatka ma ponad 2000 znaków"
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
 msgid "Featured"
-msgstr ""
+msgstr "Wyróżnione"
 
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63
@@ -4583,7 +4584,7 @@ msgstr "Zaplanowany na %s"
 
 #: src/Widgets/ScheduledStatus.vala:155
 msgid "Reschedule Post"
-msgstr ""
+msgstr "Przełóż wpis"
 
 #. translators: the variable is an error
 #: src/Widgets/ScheduledStatus.vala:187
