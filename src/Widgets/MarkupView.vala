@@ -298,6 +298,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 						visible = true,
 						css_classes = { "ttl-code", "monospace" },
 						use_markup = true,
+						selectable = v.selectable,
 						//  focusable_label = true
 						// markup = MarkupPolicy.DISALLOW
 					};
@@ -325,6 +326,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					visible = true,
 					css_classes = { "ttl-code", "italic" },
 					use_markup = true,
+					selectable = v.selectable
 					//  focusable_label = true
 					// markup = MarkupPolicy.DISALLOW
 				};
