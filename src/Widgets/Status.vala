@@ -833,6 +833,13 @@
 		spoiler_stack.visible_child_name = status.formal.tuba_spoiler_revealed ? "content" : "spoiler";
 	}
 
+	private void update_spoiler_status_no_transition () {
+		Gtk.StackTransitionType old_transition = spoiler_stack.transition_type;
+		spoiler_stack.transition_type = NONE;
+		update_spoiler_status ();
+		spoiler_stack.transition_type = old_transition;
+	}
+
 	public void show_toggle_pinned_action () {
 		if (toggle_pinned_simple_action != null)
 			toggle_pinned_simple_action.set_enabled (true);
@@ -1097,7 +1104,7 @@
 		spoiler_label_rev.label = this.spoiler_text_revealed;
 
 		status.formal.tuba_spoiler_revealed = !status.formal.has_spoiler || status.formal.tuba_spoiler_revealed;
-		update_spoiler_status ();
+		update_spoiler_status_no_transition ();
 
 		handle_label.label = this.subtitle_text;
 		date_label.label = this.date;
