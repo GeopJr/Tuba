@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-25 17:03+0000\n"
+"PO-Revision-Date: 2025-07-26 14:14+0000\n"
 "Last-Translator: rdbende <rdbende@proton.me>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/>"
 "\n"
@@ -2585,16 +2585,16 @@ msgstr "Eltávolítás"
 #: src/Dialogs/Composer/Polls.vala:138
 #, c-format
 msgid "Changed state to \"%s\""
-msgstr ""
+msgstr "Állapot megváltozott erre: „%s”"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/Polls.vala:231
 msgid "Multiple Choice"
-msgstr ""
+msgstr "Több lehetőség"
 
 #: src/Dialogs/Composer/Polls.vala:231
 msgid "Single Choice"
-msgstr ""
+msgstr "Egyetlen lehetőség"
 
 #. translators: tooltip text on composer polls that toggles
 #. whether the poll is single or multiple choice
@@ -3617,7 +3617,7 @@ msgstr ""
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
 msgid "Copied url to clipboard"
-msgstr ""
+msgstr "Hivatkozás másolva a vágólapra"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
@@ -3636,12 +3636,12 @@ msgstr "Nincs piszkozat"
 #. translators: Error reason when trying to delete a non-empty folder
 #: src/Views/Drive.vala:24
 msgid "Folder is not empty"
-msgstr ""
+msgstr "A mappa nem üres"
 
 #. translators: Error reason when trying to delete an actively used file
 #: src/Views/Drive.vala:29
 msgid "File is used as an avatar"
-msgstr ""
+msgstr "A fájl profilképként van beállítva"
 
 #: src/Views/Drive.vala:29
 msgid "File is used as a banner"
