@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-26 14:14+0000\n"
+"PO-Revision-Date: 2025-07-26 14:40+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
@@ -72,12 +72,12 @@ msgstr "گونهٔ محتوای پیش‌گزیدهٔ فرستهٔ"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:21
 msgid "Muted Push Notification Types"
-msgstr ""
+msgstr "گونه‌های آگاهی‌های ارسالی خموش"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:26
 msgid "Recently Used Custom Emojis"
-msgstr ""
+msgstr "شکلک‌های اخیراً استفاده شده"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:31
@@ -92,11 +92,11 @@ msgstr "گونه‌های آگاهی پالوده"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:41
 msgid "IDs of Lists shown on the sidebar"
-msgstr ""
+msgstr "شناسه‌های سیاهه‌های نمایشی در نوار کناری"
 
 #: data/dev.geopjr.Tuba.gschema.xml:45
 msgid "Hashtags shown on the sidebar"
-msgstr ""
+msgstr "برجسب‌های نمایش داده در نوار کناری"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
@@ -109,6 +109,8 @@ msgid ""
 "Whether account suggestions should be shown in the Home tab when the user "
 "doesn't follow enough people"
 msgstr ""
+"این که آیا پیشنهادات حساب باید در برگه خانه نشان داده شود، زمانی که کاربر به "
+"اندازه کافی افراد را دنبال نمی کند"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
@@ -118,12 +120,12 @@ msgstr "حساب فعّال"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:62
 msgid "The UUID of the active account"
-msgstr ""
+msgstr "شناسهٔ یکتای حساب فعّال"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:67
 msgid "The default color scheme"
-msgstr ""
+msgstr "طرحوارهٔ رنگی پیش‌گزیده"
 
 #: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
 msgid "Run in Background"
@@ -143,7 +145,7 @@ msgstr "تعداد فرسته‌ها در دستهٔ بار شده"
 msgid ""
 "The amount of posts that should be displayed on every scroll on timelines "
 "(10-40)"
-msgstr ""
+msgstr "مقدار فرسته‌هایی که باید در هر لغزش در خط زمانی نمایش داده شود (10-40)"
 
 #: data/dev.geopjr.Tuba.gschema.xml:83 data/ui/dialogs/preferences.ui:168
 msgid "Stream Timelines"
@@ -161,7 +163,7 @@ msgstr "خط‌های زمانی عمومی جریانی"
 #: data/dev.geopjr.Tuba.gschema.xml:90
 msgid ""
 "Public means the local and federated ones that usually have a lot of traffic"
-msgstr ""
+msgstr "عمومی به معنای محلی و خوراکی است که معمولا شدآمد زیادی دارد"
 
 #: data/dev.geopjr.Tuba.gschema.xml:94 data/ui/dialogs/preferences.ui:72
 msgid "Reveal Spoilers by Default"
@@ -193,7 +195,7 @@ msgstr "مقیاس روی شکلک‌های سفارشی"
 
 #: data/dev.geopjr.Tuba.gschema.xml:113
 msgid "lightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "هنگام رفتن روی شکلک‌های سفارشی اندازه‌شان را کمی افزایش می‌دهد"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:118
@@ -257,12 +259,12 @@ msgstr "نمایش نگارشی مات شده از رسانه تا زمان با
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr ""
+msgstr "آشکار سازی پیش‌گزیدهٔ رسانه‌های حسّاس"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
 msgid "Group Similar Push Notifications"
-msgstr ""
+msgstr "گروه کردن آگاهی‌های ارسالی مشابه"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/dev.geopjr.Tuba.gschema.xml:158 data/ui/dialogs/preferences.ui:276
@@ -288,6 +290,8 @@ msgid ""
 "Before replying to a post that was made at least 3 months ago, Tuba will "
 "warn you that the conversation might be over"
 msgstr ""
+"قبل از پاسخ به فرسته‌ای که حداقل ۳ ماه پیش فرستاده شده بود، توبا هشدار می دهد "
+"که مکالمه ممکن است تمام شده باشد"
 
 #: data/dev.geopjr.Tuba.gschema.xml:173 data/ui/dialogs/preferences.ui:111
 msgid "Warn before copying a link to a private post"
@@ -299,18 +303,21 @@ msgid ""
 "If you copy the link to a post that is not publicly accessible, Tuba will "
 "warn you that people might not be able to view the post the link points to"
 msgstr ""
+"اگر پیوند را بدر فرسته‌ای که به طور عمومی در دسترس نیست رونوشت کنید، هشدار می "
+"دهد که افراد ممکن است نتوانند فرسته‌ای که پیوند به آن اشاره می‌کند را مشاهده "
+"کنند"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
 msgid "Spellchecker"
-msgstr ""
+msgstr "بررسی نوشتاری"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:182
 msgid ""
 "The last state of the spellchecker in the composer, can be toggled by right "
 "clicking"
-msgstr ""
+msgstr "آخرین حالت بررسی نوشتاری در سازنده. می تواند با کلیک راست تغییر کند"
 
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:14
 msgid "Darken Images on Dark Mode"
@@ -322,6 +329,8 @@ msgid ""
 "Images will be darker when dark mode is enabled and gain their full "
 "brightness when hovered"
 msgstr ""
+"تصاویر در حالت تاریک تاریک‌تر می‌شوند و با شناوری روشنایی کامل خود را به دست "
+"می‌آورند"
 
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/dev.geopjr.Tuba.gschema.xml:192 data/ui/dialogs/preferences.ui:20
@@ -335,7 +344,7 @@ msgstr "آگاهی‌هایی چون پسندها و تقویت‌ها کم‌ت
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:198
 msgid "The last volume value used in the media viewer for videos and audio"
-msgstr ""
+msgstr "آخرین حجم استفاده شده در بینندهٔ رسانه برای ویدیوها و صدا"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:203
@@ -347,7 +356,7 @@ msgstr "پایش تغییرات شبکه"
 msgid ""
 "When the network disconnects and reconnects Tuba will detect it and "
 "gracefully recover"
-msgstr ""
+msgstr "توبا قطعی و وصلی شبکه را تشخیص داده و سعی می‌کند بهبود یابد"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:210
@@ -386,7 +395,7 @@ msgstr "واکشی هر دو هفته یک بار سیاههٔ حامیان تو
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:228
 msgid "Date of the last analytics update"
-msgstr ""
+msgstr "تاریخ آخرین به‌روز رسانی تحلیل‌ها"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:230 data/dev.geopjr.Tuba.gschema.xml:237
@@ -396,7 +405,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:235
 msgid "Date of the last contributors update"
-msgstr ""
+msgstr "تاریخ آخرین به‌روز رسانی مشارکت‌کنندگان"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:242
@@ -413,7 +422,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:249
 msgid "Post aria label verbosity"
-msgstr ""
+msgstr "پرگویی برجسب ناحیهٔ فرستادن"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:251
@@ -455,7 +464,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:275
 msgid "Replies, Favorites and Boosts Counters"
-msgstr ""
+msgstr "شمارشگرهای پاسخ‌ها، برگزیده‌ها و تقویت‌ها"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:280
@@ -729,11 +738,11 @@ msgstr "فرستهٔ جدید"
 #. translators: composer overlay shown when dragging files above it
 #: data/ui/dialogs/composer.ui:22
 msgid "Drop media to attach them"
-msgstr ""
+msgstr "انداختن رسانه برای پیوست کردن"
 
 #: data/ui/dialogs/composer.ui:44
 msgid "Write your content warning here"
-msgstr ""
+msgstr "نوشتن هشدار محتوایتان در این‌جا"
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
@@ -996,6 +1005,8 @@ msgstr "زبانی پیش‌گزیدهٔ فرستهٔ"
 #: data/ui/dialogs/preferences.ui:177
 msgid "This will increase memory usage when browsing high traffic timelines"
 msgstr ""
+"این کار استفادهٔ حافظه را هنگام مرور خط‌های زمانی با شدآمد بالا افزایش خواهد "
+"داد"
 
 #: data/ui/dialogs/preferences.ui:184
 msgid "Online Services"
@@ -1482,14 +1493,14 @@ msgstr[1] "%s فرسته"
 #. shows the amount of posts that use said hashtag
 #: src/API/FeaturedTag.vala:32
 msgid "Posts Including this Hashtag"
-msgstr ""
+msgstr "فرسته‌های دارای این برچسب"
 
 #. translators: subtitle on featured hashtags on profiles. The variable is a string date.
 #. E.g. Last post on 2025-06-29
 #: src/API/FeaturedTag.vala:39
 #, c-format
 msgid "Last post on %s"
-msgstr ""
+msgstr "آخرین فرسته در %s"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
@@ -1733,12 +1744,11 @@ msgstr "محلی"
 #. translators: the variable is the amount of times a hashtag was used in a week
 #. in the composer auto-complete popup (so keep it short)
 #: src/API/Tag.vala:47
-#, fuzzy, c-format
-#| msgid "%d per week"
+#, c-format
 msgid "%d per week"
 msgid_plural "%d per week"
-msgstr[0] "%Id در هفته"
-msgstr[1] "%Id در هفته"
+msgstr[0] "هفته‌ای %Id بار"
+msgstr[1] "هفته‌ای %Id بار"
 
 #. var total_uses = int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1746,8 +1756,8 @@ msgstr[1] "%Id در هفته"
 #, c-format
 msgid "%d person yesterday"
 msgid_plural "%d people yesterday"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "دیروز %Id نفر"
+msgstr[1] "دیروز %Id نفر"
 
 #. total_uses += int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1755,8 +1765,8 @@ msgstr[1] ""
 #, c-format
 msgid "%d person in the past 2 days"
 msgid_plural "%d people in the past 2 days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "در ۲ روز گذشته %Id نفر"
+msgstr[1] "در ۲ روز گذشته %Id نفر"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
@@ -1811,7 +1821,7 @@ msgstr "بایگانی‌ها"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
-msgstr ""
+msgstr "ایجاد و نمایش بایگانی‌های وب"
 
 #. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 #: src/Application.vala:645
@@ -1820,7 +1830,7 @@ msgstr "خوشنویسی"
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
-msgstr ""
+msgstr "تبدیل متن به بیرق‌های اسکی"
 
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
@@ -1829,7 +1839,7 @@ msgstr "تصادم"
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
-msgstr ""
+msgstr "بررسی درهم ریزی‌های پرونده‌هایتان"
 
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 #: src/Application.vala:649
@@ -2343,7 +2353,7 @@ msgstr "نویسه‌های مانده"
 #: src/Dialogs/Composer/AttachmentsBin.vala:186
 #: src/Dialogs/Composer/AttachmentsBin.vala:209
 msgid "Saved Media Metadata"
-msgstr ""
+msgstr "فرادادهٔ رسانهٔ ذخیره شده"
 
 #. translators: shown in file picker filter dropdown
 #: src/Dialogs/Composer/AttachmentsBin.vala:291 src/Dialogs/ProfileEdit.vala:81
@@ -2361,7 +2371,7 @@ msgstr "پروندهٔ «%s» بزرگ‌تر از کران نمونه است"
 #: src/Dialogs/Composer/AttachmentsBin.vala:457
 #, c-format
 msgid "Attachment limit reached (%lld)"
-msgstr ""
+msgstr "رسیدن به محدودیت پیوست (%lld)"
 
 #. translators: Open file
 #: src/Dialogs/Composer/AttachmentsBin.vala:491
@@ -2398,13 +2408,13 @@ msgstr "پیوست حذف شده"
 #. successfully uploads an attachment
 #: src/Dialogs/Composer/Attachment.vala:490
 msgid "Finished Uploading Attachment"
-msgstr ""
+msgstr "بارگذاری پیوست پایان یافت"
 
 #. translators: aria label on composer media attachments. The variable is a string file name.
 #: src/Dialogs/Composer/Attachment.vala:666
 #, c-format
 msgid "Media Attachment (%s)"
-msgstr ""
+msgstr "پیوست رسانه (%s)"
 
 #. translators: 'Draft' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:49
@@ -2423,7 +2433,7 @@ msgstr "زمان‌بندی فرسته…"
 #: src/Dialogs/Composer/Dialog.vala:169
 #, c-format
 msgid "Exceeded character limit by %lld"
-msgstr ""
+msgstr "گذر از کران نویسه‌ها با %lld"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:240
@@ -2469,13 +2479,13 @@ msgstr "پاسخ"
 #. translators: composer embedded replying-to post, aria label
 #: src/Dialogs/Composer/Dialog.vala:563
 msgid "The post you are replying to."
-msgstr ""
+msgstr "فرسته‌ای که به آن پاسخ می‌دهید."
 
 #. translators: composer title. The variable is a string username
 #: src/Dialogs/Composer/Dialog.vala:571
 #, c-format
 msgid "Reply to @%s"
-msgstr ""
+msgstr "پاسخ به ‪@%s"
 
 #. translators: composer post button label, verb
 #: src/Dialogs/Composer/Dialog.vala:604 src/Widgets/Status/ActionsRow.vala:129
@@ -2486,7 +2496,7 @@ msgstr "نقل قول"
 #. translators: composer embedded quoting post, aria label
 #: src/Dialogs/Composer/Dialog.vala:634
 msgid "The post you are quoting."
-msgstr ""
+msgstr "فرسته‌ای که نقل‌قولش می‌کنید."
 
 #. translators: composer title. The variable is a string username
 #: src/Dialogs/Composer/Dialog.vala:642
@@ -2517,12 +2527,12 @@ msgstr "ویرایش فرسته"
 #. translators: media as in picture or files
 #: src/Dialogs/Composer/Dialog.vala:866
 msgid "Paste Media from Clipboard?"
-msgstr ""
+msgstr "جای‌گذاری رسانه از تخته‌گیره؟"
 
 #. translators: they = media / files from clipboard, instance = server
 #: src/Dialogs/Composer/Dialog.vala:869
 msgid "They will be uploaded to your instance"
-msgstr ""
+msgstr "روی نمونه‌تان بارگذاری خواهند شد"
 
 #. translators: dialog button label when pasting from clipboard, verb
 #: src/Dialogs/Composer/Dialog.vala:872
@@ -2574,7 +2584,7 @@ msgstr "برداشتن"
 #: src/Dialogs/Composer/Polls.vala:138
 #, c-format
 msgid "Changed state to \"%s\""
-msgstr ""
+msgstr "وضعیت به «%s» تغییر کرد"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/Polls.vala:231
@@ -2589,7 +2599,7 @@ msgstr "تک گزینه‌ای"
 #. whether the poll is single or multiple choice
 #: src/Dialogs/Composer/Polls.vala:239
 msgid "Toggle Choice Type"
-msgstr ""
+msgstr "تغییر گونهٔ گزینه"
 
 #. translators: tooltip of poll button that shows the current vote results
 #: src/Dialogs/Composer/Polls.vala:244 src/Widgets/VoteBox.vala:235
@@ -2605,7 +2615,7 @@ msgstr "نهفتن نتیجه‌ها"
 #. whether the poll results should be visible
 #: src/Dialogs/Composer/Polls.vala:253
 msgid "Toggle Results Visibility"
-msgstr ""
+msgstr "تغییر وضعیت نمایانی نتیجه"
 
 #. translators: poll entry title; the variable is a number
 #: src/Dialogs/Composer/Polls.vala:307 src/Dialogs/Composer/Polls.vala:354
@@ -3264,8 +3274,8 @@ msgstr[1] "%s ساعت پیش"
 #, c-format
 msgid "a month old"
 msgid_plural "%d months old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "یک ماهه"
+msgstr[1] "%Id ماهه"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:196
@@ -3606,7 +3616,7 @@ msgstr "پیش‌روی"
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
 msgid "Copied url to clipboard"
-msgstr ""
+msgstr "نشانی در تخته‌گیره رونوشت شد"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
@@ -3625,22 +3635,22 @@ msgstr "بدون فرستهٔ پیش‌نوشته"
 #. translators: Error reason when trying to delete a non-empty folder
 #: src/Views/Drive.vala:24
 msgid "Folder is not empty"
-msgstr ""
+msgstr "شاخه خالی نیست"
 
 #. translators: Error reason when trying to delete an actively used file
 #: src/Views/Drive.vala:29
 msgid "File is used as an avatar"
-msgstr ""
+msgstr "پرونده به عنوان چهرک استفاده می‌شود"
 
 #: src/Views/Drive.vala:29
 msgid "File is used as a banner"
-msgstr ""
+msgstr "پرونده به عنوان بیرق استفاده می‌شود"
 
 #. translators: tooltip text on an icon that indicates that a file is used
 #. by a user profile (like an avatar)
 #: src/Views/Drive.vala:188
 msgid "Used by a Profile"
-msgstr ""
+msgstr "استفاده شده به دست یک نماگر"
 
 #: src/Views/Drive.vala:242
 msgid "Copy Link"
@@ -3648,7 +3658,7 @@ msgstr "رونوشت از پیوند"
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
-msgstr ""
+msgstr "علامت به حسّاس"
 
 #. translators: alternative text context menu item in drive
 #: src/Views/Drive.vala:253
@@ -3664,7 +3674,7 @@ msgstr "تغییر نام"
 #: src/Views/Drive.vala:380
 #, c-format
 msgid "Couldn't mark '%s' as sensitive: %s"
-msgstr ""
+msgstr "نمی‌توان «%s» را به حسّاس علامت زد: %s"
 
 #: src/Views/Drive.vala:407
 msgid "Rename Folder"
@@ -3679,14 +3689,14 @@ msgstr "تغییر نام پرونده"
 #: src/Views/Drive.vala:464
 #, c-format
 msgid "Couldn't change alt text for '%s': %s"
-msgstr ""
+msgstr "نمی‌توان متن جایگزین «%s» را تغییر داد: %s"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:511
 #, c-format
 msgid "Couldn't rename '%s': %s"
-msgstr ""
+msgstr "نمی‌توان نام «⁨%s⁩»‌ را تغییر داد: %s⁩"
 
 #. translators: title on an entry
 #: src/Views/Drive.vala:730
@@ -3716,23 +3726,23 @@ msgstr "بارگذاری پرونده"
 #: src/Views/Drive.vala:818
 #, c-format
 msgid "Couldn't create folder: %s"
-msgstr ""
+msgstr "نمی‌توان ساخه را ساخت: %s⁩"
 
 #: src/Views/Drive.vala:874
 msgid "Drop files to upload them"
-msgstr ""
+msgstr "انداختن پرونده‌ها برای بارگذاریشان"
 
 #: src/Views/Drive.vala:1199
 #, c-format
 msgid "Couldn't move '%s': %s"
-msgstr ""
+msgstr "نمی‌توان «⁨%s⁩»‌ را جابه‌جا کرد: %s⁩"
 
 #. translators: Error when trying to delete a file that cannot be deleted.
 #. The first variable is a string file name, the second is an error.
 #: src/Views/Drive.vala:1216 src/Views/Drive.vala:1273
 #, c-format
 msgid "'%s' cannot be deleted: %s"
-msgstr ""
+msgstr "نمی‌توان «⁨%s⁩»‌ را حذف کرد: %s⁩"
 
 #. translators: the variable is a folder/file name
 #: src/Views/Drive.vala:1224
@@ -3742,20 +3752,20 @@ msgstr "حذف %s؟"
 
 #: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
 msgid "This is irreversible."
-msgstr ""
+msgstr "این کار بازگشت‌ناپذیر است."
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:1249 src/Views/Drive.vala:1361
 #, c-format
 msgid "Couldn't delete '%s': %s"
-msgstr ""
+msgstr "نمی‌توان «⁨%s⁩»‌ را حذف کرد: %s⁩"
 
 #. translators: Error when trying to delete files/folders
 #. that cannot be deleted.
 #: src/Views/Drive.vala:1305
 msgid "No Deletable Files in Selection"
-msgstr ""
+msgstr "هیچ پروندهٔ قابل حذفی در گزینش وجود ندارد"
 
 #. translators: confirmation dialog in a file-browser-like page
 #: src/Views/Drive.vala:1311
@@ -3771,7 +3781,7 @@ msgstr "بارگذاری پرونده‌ها"
 #: src/Views/Drive.vala:1423
 #, c-format
 msgid "'%s' already exists"
-msgstr ""
+msgstr "پروندهٔ «%s» از پیش موجود است"
 
 #. translators: screen reader announcement when the
 #. drive successfully uploads a file
@@ -3779,7 +3789,7 @@ msgstr ""
 #: src/Views/Drive.vala:1510
 #, c-format
 msgid "Finished Uploading '%s'"
-msgstr ""
+msgstr "بارگذاری «%s» پایان یافت"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -3951,7 +3961,7 @@ msgstr "این کاربر هنوز کسی را پی نمی‌گیرد"
 #. translators: featured tab on profiles, shown when empty.
 #: src/Views/Profile.vala:285
 msgid "This user doesn't have any featured hashtags or accounts."
-msgstr ""
+msgstr "این کاربر هیچ حساب یا برجسب معرّفی شده‌ای ندارد."
 
 #: src/Views/Profile.vala:441
 msgid "Copied handle to clipboard"
