@@ -162,10 +162,12 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 	public delegate void TabCB (Views.ContentBase tab);
 	public void foreach_tab (TabCB cb) {
-		for (var w = stack.get_first_child (); w != null; w = w.get_next_sibling ()) {
+		var w = stack.get_first_child ();
+		while (w != null) {
 			var tab = w as Views.ContentBase;
 			if (tab != null)
 				cb (tab);
+			w = w.get_next_sibling ();
 		}
 	}
 

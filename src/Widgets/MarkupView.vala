@@ -75,14 +75,16 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	void update_aria () {
 		string total_aria = "";
 
-		var w = this.get_first_child ();
-		while (w != null) {
-			var label = w as RichLabel;
-			if (label != null) {
-				total_aria += @"\n$(label.accessible_text)";
-			}
-			w = w.get_next_sibling ();
-		};
+		{
+			var w = this.get_first_child ();
+			while (w != null) {
+				var label = w as RichLabel;
+				if (label != null) {
+					total_aria += @"\n$(label.accessible_text)";
+				}
+				w = w.get_next_sibling ();
+			};
+		}
 
 		this.update_property (Gtk.AccessibleProperty.LABEL, total_aria, -1);
 		this.update_property (Gtk.AccessibleProperty.DESCRIPTION, null, -1);
@@ -93,9 +95,13 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		extracted_tags = null;
 		has_link = false;
 
-		for (var w = get_first_child (); w != null; w = w.get_next_sibling ()) {
-			w.unparent ();
-			w.destroy ();
+		{
+			var w = this.get_first_child ();
+			while (w != null) {
+				var w2 = w.get_next_sibling ();
+				this.remove (w);
+				w = w2;
+			};
 		}
 
 		string to_parse = Utils.Htmlx.replace_with_pango_markup (content);
