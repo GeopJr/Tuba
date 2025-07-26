@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Sajad Mousavi <s.sajad.mousavi@gmail.com>, 2023.
-# Danial Behzadi <dani.behzi@ubuntu.com>, 2023, 2024.
+# Danial Behzadi <dani.behzi@ubuntu.com>, 2023, 2024, 2025.
 # EndermanXD <82046100+EndermanCo@users.noreply.github.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2024-12-29 22:00+0000\n"
+"PO-Revision-Date: 2025-07-26 14:14+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -82,12 +82,12 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:31
 msgid "Recent Search Queries"
-msgstr ""
+msgstr "پرس‌وجوهای جست‌وجوی اخیر"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:36
 msgid "Filtered-out Notification Types"
-msgstr ""
+msgstr "گونه‌های آگاهی پالوده"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:41
@@ -101,7 +101,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
 msgid "Account Suggestions"
-msgstr ""
+msgstr "پیشنهادهای حساب"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:52
@@ -113,7 +113,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
 msgid "Active Account"
-msgstr ""
+msgstr "حساب فعّال"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:62
@@ -340,7 +340,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:203
 msgid "Monitor Network Changes"
-msgstr ""
+msgstr "پایش تغییرات شبکه"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:205
@@ -352,7 +352,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:210
 msgid "Proxy URL"
-msgstr ""
+msgstr "نشانی پیشکار"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:212
@@ -401,7 +401,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:242
 msgid "Tuba contributors"
-msgstr ""
+msgstr "مشارکت کنندگان توبا"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:244
@@ -423,7 +423,7 @@ msgstr ""
 #. translators: in-app as in a browser inside Tuba
 #: data/dev.geopjr.Tuba.gschema.xml:255 data/ui/dialogs/preferences.ui:94
 msgid "Open Links In-App"
-msgstr ""
+msgstr "گشودن درون‌کاره‌ای پیوندها"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:257
@@ -432,7 +432,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
 msgid "Collapse Long Posts"
-msgstr ""
+msgstr "جمع کردن فرسته‌های طولانی"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:263
@@ -443,7 +443,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:268
 msgid "Auto-detect instance features"
-msgstr ""
+msgstr "تشخیص خودکار ویژگی‌های نمونه"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:270
@@ -465,17 +465,17 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:286
 msgid "Window Width"
-msgstr ""
+msgstr "پهنای پنجره"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:291
 msgid "Window Height"
-msgstr ""
+msgstr "بلندای پنجره"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:296
 msgid "Window Maximized State"
-msgstr ""
+msgstr "وضعیت بیشینگی پنجره"
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:8
@@ -750,7 +750,7 @@ msgstr "افزودن رسانه"
 
 #: data/ui/dialogs/composer.ui:97
 msgid "Create Poll"
-msgstr ""
+msgstr "ایجاد نظرسنجی"
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
@@ -1178,7 +1178,7 @@ msgstr "دریافت آگاهی‌های فرسته"
 #. the hashtag on the user's profile
 #: data/ui/menus.ui:39 src/Views/Hashtag.vala:47
 msgid "Feature on Profile"
-msgstr ""
+msgstr "معرّفی در نماگر"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:45 src/Views/Admin/Pages/Accounts.vala:118
@@ -1512,7 +1512,7 @@ msgstr "نمایه‌ها"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "پوشه"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1807,7 +1807,7 @@ msgstr "اعانه"
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
 msgid "Archives"
-msgstr ""
+msgstr "بایگانی‌ها"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
@@ -1816,7 +1816,7 @@ msgstr ""
 #. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 #: src/Application.vala:645
 msgid "Calligraphy"
-msgstr ""
+msgstr "خوشنویسی"
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
@@ -1825,7 +1825,7 @@ msgstr ""
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
 msgid "Collision"
-msgstr ""
+msgstr "تصادم"
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
@@ -1834,11 +1834,11 @@ msgstr ""
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 #: src/Application.vala:649
 msgid "Turntable"
-msgstr ""
+msgstr "ثبت صوت"
 
 #: src/Application.vala:649
 msgid "Scrobble your music"
-msgstr ""
+msgstr "ثبت آهنگ‌هایتان"
 
 #: src/Application.vala:671
 msgid "OK"
@@ -2325,19 +2325,19 @@ msgstr "خلاصهٔ %s ذخیره شد"
 #. translators: title on the composer alt text editor dialog
 #: src/Dialogs/Composer/AttachmentsBin.vala:88
 msgid "Attachment Editor"
-msgstr ""
+msgstr "ویرایشگر پیوست"
 
 #. translators: placeholder shown in the composer alt text editor text area
 #: src/Dialogs/Composer/AttachmentsBin.vala:115
 #: src/Dialogs/Composer/AttachmentsBin.vala:126
 msgid "Describe the media…"
-msgstr ""
+msgstr "توصیف رسانه…"
 
 #. translators: tooltip text on the remaining characters counter in the
 #. composer alt text editor
 #: src/Dialogs/Composer/AttachmentsBin.vala:148
 msgid "Remaining Characters"
-msgstr ""
+msgstr "نویسه‌های مانده"
 
 #. translators: toast shown when saving alt text and focus position in the composer
 #: src/Dialogs/Composer/AttachmentsBin.vala:186
@@ -2380,19 +2380,19 @@ msgstr "برداشتن پیوست"
 #. to translate, leave it as just "Edit"
 #: src/Dialogs/Composer/Attachment.vala:247
 msgid "Edit Metadata"
-msgstr ""
+msgstr "ویرایش فراداده"
 
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:307
 #: src/Dialogs/Composer/Attachment.vala:672
 msgid "Media Attachment"
-msgstr ""
+msgstr "پیوست رسانه"
 
 #. translators: screen reader announcement when the user
 #. deletes attachments in the composer
 #: src/Dialogs/Composer/Attachment.vala:325
 msgid "Deleted Attachment"
-msgstr ""
+msgstr "پیوست حذف شده"
 
 #. translators: screen reader announcement when the composer
 #. successfully uploads an attachment
@@ -2414,7 +2414,7 @@ msgstr "پیش‌نویس کردن فرسته"
 #. translators: 'Schedule' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:52
 msgid "Schedule Post…"
-msgstr ""
+msgstr "زمان‌بندی فرسته…"
 
 #. translators: screen reader announcement when the composer
 #. passed the character limit. The variable is
@@ -2433,7 +2433,7 @@ msgstr "محرمانگی فرسته"
 #. translators: post compositor post button label when the visibility is 'mentioned only'
 #: src/Dialogs/Composer/Dialog.vala:265
 msgid "Send"
-msgstr ""
+msgstr "فرستادن"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:276
@@ -2446,7 +2446,7 @@ msgstr "زبان فرسته"
 #. https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
 #: src/Dialogs/Composer/Dialog.vala:384 src/Widgets/Status.vala:1137
 msgid "Local Only"
-msgstr ""
+msgstr "فقط محلی"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:414
@@ -2457,7 +2457,7 @@ msgstr "گونهٔ محتوای فرسته"
 #: src/Dialogs/Composer/Dialog.vala:458 src/Dialogs/Composer/Dialog.vala:469
 #: src/Dialogs/Composer/Dialog.vala:692
 msgid "Post"
-msgstr ""
+msgstr "فرستادن"
 
 #. translators: composer post button label
 #. translators: verb
@@ -2492,7 +2492,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:642
 #, c-format
 msgid "Quoting @%s"
-msgstr ""
+msgstr "نقل قول کردن ‪@%s‬"
 
 #. translators: composer post button label
 #. translators: button on the delete post dialog that
@@ -2500,7 +2500,7 @@ msgstr ""
 #. with it so you can edit it
 #: src/Dialogs/Composer/Dialog.vala:661 src/Widgets/Status.vala:525
 msgid "Redraft"
-msgstr ""
+msgstr "پیش‌نویسی دوباره"
 
 #: src/Dialogs/Composer/Dialog.vala:661 src/Dialogs/Composer/Dialog.vala:692
 #: src/Dialogs/Preferences.vala:32 src/Views/Lists.vala:16
@@ -2512,7 +2512,7 @@ msgstr "ویرایش"
 #. translators: composer title
 #: src/Dialogs/Composer/Dialog.vala:669 src/Dialogs/Composer/Dialog.vala:699
 msgid "Edit Post"
-msgstr ""
+msgstr "ویرایش فرسته"
 
 #. translators: media as in picture or files
 #: src/Dialogs/Composer/Dialog.vala:866
@@ -2579,11 +2579,11 @@ msgstr ""
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/Polls.vala:231
 msgid "Multiple Choice"
-msgstr ""
+msgstr "چند گزینه‌ای"
 
 #: src/Dialogs/Composer/Polls.vala:231
 msgid "Single Choice"
-msgstr ""
+msgstr "تک گزینه‌ای"
 
 #. translators: tooltip text on composer polls that toggles
 #. whether the poll is single or multiple choice
@@ -2626,7 +2626,7 @@ msgstr[1] "%Id دقیقه"
 #: src/Dialogs/Composer/Polls.vala:380 src/Dialogs/Composer/Polls.vala:382
 #, c-format
 msgid "%dmin"
-msgstr ""
+msgstr "%dد"
 
 #. translators: the variable is a number, short form for hours
 #: src/Dialogs/Composer/Polls.vala:386 src/Dialogs/Composer/Polls.vala:388
@@ -2778,7 +2778,7 @@ msgstr "محتوا"
 #. translators: profile field, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:209
 msgid "Add Field"
-msgstr ""
+msgstr "افزودن زمینه"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:228
@@ -3057,7 +3057,7 @@ msgstr "برچسب‌ها"
 #: src/Services/Accounts/Mastodon/Account.vala:149 src/Views/Drive.vala:849
 #: src/Views/Drive.vala:988
 msgid "Drive"
-msgstr ""
+msgstr "درایو"
 
 #. translators: visibility dropdown subtitle
 #: src/Services/Accounts/Mastodon/Account.vala:218
@@ -3591,17 +3591,17 @@ msgstr "بدون نشانک"
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:43
 msgid "Secure"
-msgstr ""
+msgstr "امن"
 
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:48
 msgid "Insecure"
-msgstr ""
+msgstr "ناامن"
 
 #. translators: in-app web browser, move forward in history action
 #: src/Views/Browser.vala:166
 msgid "Forward"
-msgstr ""
+msgstr "پیش‌روی"
 
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
@@ -3644,7 +3644,7 @@ msgstr ""
 
 #: src/Views/Drive.vala:242
 msgid "Copy Link"
-msgstr ""
+msgstr "رونوشت از پیوند"
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
@@ -3657,7 +3657,7 @@ msgstr "ویرایش متن جایگزین"
 
 #: src/Views/Drive.vala:259 src/Views/Drive.vala:409
 msgid "Rename"
-msgstr ""
+msgstr "تغییر نام"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
@@ -3668,11 +3668,11 @@ msgstr ""
 
 #: src/Views/Drive.vala:407
 msgid "Rename Folder"
-msgstr ""
+msgstr "تغییر نام پوشه"
 
 #: src/Views/Drive.vala:407
 msgid "Rename File"
-msgstr ""
+msgstr "تغییر نام پرونده"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
@@ -3691,25 +3691,25 @@ msgstr ""
 #. translators: title on an entry
 #: src/Views/Drive.vala:730
 msgid "New Folder"
-msgstr ""
+msgstr "پوشهٔ جدید"
 
 #. translators: placeholder on an entry
 #: src/Views/Drive.vala:732
 msgid "Folder Name"
-msgstr ""
+msgstr "نام پوشه"
 
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
 msgid "Create"
-msgstr ""
+msgstr "ایجاد"
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
-msgstr ""
+msgstr "ایجاد پوشه"
 
 #: src/Views/Drive.vala:748
 msgid "Upload File"
-msgstr ""
+msgstr "بارگذاری پرونده"
 
 #. translators: error that shows up as a toast when creating folders
 #. in iceshrimp drive
@@ -3738,7 +3738,7 @@ msgstr ""
 #: src/Views/Drive.vala:1224
 #, c-format
 msgid "Delete '%s'?"
-msgstr ""
+msgstr "حذف %s؟"
 
 #: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
 msgid "This is irreversible."
@@ -3760,11 +3760,11 @@ msgstr ""
 #. translators: confirmation dialog in a file-browser-like page
 #: src/Views/Drive.vala:1311
 msgid "Delete Selection?"
-msgstr ""
+msgstr "حذف گزینش؟"
 
 #: src/Views/Drive.vala:1372
 msgid "Upload Files"
-msgstr ""
+msgstr "بارگذاری پرونده‌ها"
 
 #. translators: toast popping up when a user uploads a file that already exists in drive
 #. The variable is a string filename.
@@ -4367,7 +4367,7 @@ msgstr[1] "%Id واکنش"
 #. translators: focus picking knob(?)/target(?) tooltip in the focus picker
 #: src/Widgets/FocusPicker.vala:49
 msgid "Focus Picker"
-msgstr ""
+msgstr "تمرکز گزین"
 
 #. translators: the variable is a number. This is used in a button that shows
 #. all post hashtags when clicked.
@@ -4459,7 +4459,7 @@ msgstr "کاربر %s به %s جابه‌جا شد"
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "نهفته"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
@@ -4468,7 +4468,7 @@ msgstr "خطا: یادداشت بیش از ۲۰۰۰ نویسه طول دارد"
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
 msgid "Featured"
-msgstr ""
+msgstr "معرّفی شده"
 
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63
@@ -4504,7 +4504,7 @@ msgstr "زمان بسته برای %s"
 
 #: src/Widgets/ScheduledStatus.vala:155
 msgid "Reschedule Post"
-msgstr ""
+msgstr "زمان‌بندی دوبارهٔ فرسته"
 
 #. translators: the variable is an error
 #: src/Widgets/ScheduledStatus.vala:187
