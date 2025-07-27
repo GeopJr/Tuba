@@ -69,16 +69,14 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 		this.playing = false;
 	}
 
-	bool should_hide_controls = true;
 	protected void on_leave () {
-		should_hide_controls = false;
+		on_reveal_media_buttons ();
 	}
 
 	double on_motion_last_x = 0.0;
 	double on_motion_last_y = 0.0;
 	protected void on_motion (double x, double y) {
 		if (on_motion_last_x == x && on_motion_last_y == y) return;
-		should_hide_controls = true;
 
 		on_motion_last_x = x;
 		on_motion_last_y = y;
@@ -95,7 +93,7 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 
 	private bool on_hide_media_buttons () {
 		revealer_timeout = 0;
-		if (should_hide_controls) controls_revealer.set_reveal_child (false);
+		controls_revealer.set_reveal_child (false);
 
 		return GLib.Source.REMOVE;
 	}
