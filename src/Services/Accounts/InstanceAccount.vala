@@ -49,6 +49,12 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public InstanceFeatures tuba_instance_features { get; set; default = NONE; }
 	public string? tuba_iceshrimp_api_key { get; set; default = null; }
 
+	private string? _tuba_streaming_url = null;
+	public string? tuba_streaming_url {
+		get { return _tuba_streaming_url == null ? this.instance : _tuba_streaming_url; }
+		set { _tuba_streaming_url = value; }
+	}
+
 	private void tuba_instance_features_update_and_save (InstanceFeatures features) {
 		if (features == tuba_instance_features || !settings.get_boolean ("auto-detect-features")) return;
 
@@ -68,6 +74,31 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			accounts.update_account (this);
 		} catch (Error e) {
 			critical (@"Couldn't update instance features for $id: $(e.code) $(e.message)");
+		}
+	}
+
+	private void tuba_update_streaming_url (string new_url) {
+		if (new_url == "") return;
+
+		string new_host = this.instance;
+		try {
+			var new_uri = GLib.Uri.parse (new_url, GLib.UriFlags.NONE);
+			string? new_host_uri = new_uri.get_host ();
+
+			if (new_host_uri != null && new_host_uri != "")
+				new_host = @"https://$new_host_uri";
+		} catch (Error e) {
+			warning (@"$new_url is not a valid URI: $(e.code) $(e.message)");
+		}
+
+		if (new_host != tuba_streaming_url) {
+			this.tuba_streaming_url = new_host;
+			try {
+				accounts.update_account (this);
+				app.app_streams.upgrade (this.instance, new_host);
+			} catch (Error e) {
+				critical (@"Couldn't update instance features for $id: $(e.code) $(e.message)");
+			}
 		}
 	}
 
@@ -582,6 +613,9 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					}
 				}
 				tuba_instance_features_update_and_save (new_flags);
+
+				if (instance_info.urls != null && instance_info.urls.streaming_api != null)
+					tuba_update_streaming_url (instance_info.urls.streaming_api);
 
 				app.handle_share ();
 				bump_sidebar_items ();
