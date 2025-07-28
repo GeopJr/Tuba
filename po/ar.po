@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-27 15:05+0000\n"
+"PO-Revision-Date: 2025-07-28 23:36+0000\n"
 "Last-Translator: Ahmed Najmawi <iramosu@protonmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
@@ -74,36 +74,36 @@ msgstr "نوع محتويات المنشورات المبدئي"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:21
 msgid "Muted Push Notification Types"
-msgstr ""
+msgstr "كُتِمت أنواع الإخطارات"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:26
 msgid "Recently Used Custom Emojis"
-msgstr ""
+msgstr "الإموجيات المخصَّصة المستخدمة مؤخرًا"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:31
 msgid "Recent Search Queries"
-msgstr ""
+msgstr "استعلامات البحث الأخيرة"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:36
 msgid "Filtered-out Notification Types"
-msgstr ""
+msgstr "أنواع التنبيهات المرشَّحة"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:41
 msgid "IDs of Lists shown on the sidebar"
-msgstr ""
+msgstr "معرِّفات القوائم الظاهرة على الشريط الجانبي"
 
 #: data/dev.geopjr.Tuba.gschema.xml:45
 msgid "Hashtags shown on the sidebar"
-msgstr ""
+msgstr "الوسوم الظاهرة على الشريط الجانبي"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
 msgid "Account Suggestions"
-msgstr ""
+msgstr "اقتراحات الحساب"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:52
@@ -111,21 +111,22 @@ msgid ""
 "Whether account suggestions should be shown in the Home tab when the user "
 "doesn't follow enough people"
 msgstr ""
+"فيما لو تعرض اقتراحات الحساب في خانة المنزل حين لا يتابع المستخدم أناسًا كافين"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
 msgid "Active Account"
-msgstr ""
+msgstr "حساب نشط"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:62
 msgid "The UUID of the active account"
-msgstr ""
+msgstr "معرِّف UUID للحساب النشاط"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:67
 msgid "The default color scheme"
-msgstr ""
+msgstr "تخطيط الألوان المبدئي"
 
 #: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
 msgid "Run in Background"
@@ -145,7 +146,7 @@ msgstr "المنشورات حسب دفعة التحميل"
 msgid ""
 "The amount of posts that should be displayed on every scroll on timelines "
 "(10-40)"
-msgstr ""
+msgstr "كمية المنشورات التي ينبغي أن تظهر عن كل لفَّة في الخطوط الزمنية (10-40)"
 
 #: data/dev.geopjr.Tuba.gschema.xml:83 data/ui/dialogs/preferences.ui:168
 msgid "Stream Timelines"
@@ -163,7 +164,7 @@ msgstr "بُث الخطوط الزمنية العامة"
 #: data/dev.geopjr.Tuba.gschema.xml:90
 msgid ""
 "Public means the local and federated ones that usually have a lot of traffic"
-msgstr ""
+msgstr "عام تعني أن المحليَّة والموحدَّة لديها حركة عالية"
 
 #: data/dev.geopjr.Tuba.gschema.xml:94 data/ui/dialogs/preferences.ui:72
 msgid "Reveal Spoilers by Default"
@@ -195,12 +196,12 @@ msgstr "حجّم الإيموجيات المخصصة عند التحليق"
 
 #: data/dev.geopjr.Tuba.gschema.xml:113
 msgid "lightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "يزيد حجم الإموجيات المخصَّصة قليلًا حين تحلق فوقهم"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:118
 msgid "Aggressive User Resolving"
-msgstr ""
+msgstr "حل المستخدم الشديد"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:120
@@ -209,6 +210,8 @@ msgid ""
 "it leads to a user or a post regardless if it matches the typical post and "
 "user URLs"
 msgstr ""
+"عند النقر على رابط، فسيطلب توبا من مثيلك حله ليرى إن كان يقود إي مستخدم أو "
+"منشور في حال طابق مسارات المنشورات والمستخدمين الاعتيادية"
 
 #: data/dev.geopjr.Tuba.gschema.xml:124 data/ui/dialogs/preferences.ui:99
 msgid "Strip Tracking Parameters From Links"
@@ -259,12 +262,12 @@ msgstr "اعرض صورة غائمة قبل تحميل الوسائط كليًا
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr ""
+msgstr "اكشف الوسائط الحساسة مبدئيًا"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
 msgid "Group Similar Push Notifications"
-msgstr ""
+msgstr "إخطارات المجموعات المشابهة"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/dev.geopjr.Tuba.gschema.xml:158 data/ui/dialogs/preferences.ui:276
@@ -289,7 +292,7 @@ msgstr "حذّر قبل الرد على المنشور قديم"
 msgid ""
 "Before replying to a post that was made at least 3 months ago, Tuba will "
 "warn you that the conversation might be over"
-msgstr ""
+msgstr "سيحذرك توبا بأن النقاش انتهى قبل الرد على محادثة أقدم من 3 أشهر"
 
 #: data/dev.geopjr.Tuba.gschema.xml:173 data/ui/dialogs/preferences.ui:111
 msgid "Warn before copying a link to a private post"
@@ -300,19 +303,19 @@ msgstr "حذِّر قبل نسخ مسار منشور خاص"
 msgid ""
 "If you copy the link to a post that is not publicly accessible, Tuba will "
 "warn you that people might not be able to view the post the link points to"
-msgstr ""
+msgstr "إن نسخت رابط منشور غير مرئي، فسيحذرك توبا بأن الناس لن يتمكنوا من عرضه"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
 msgid "Spellchecker"
-msgstr ""
+msgstr "مُدَقِّق اللغة"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:182
 msgid ""
 "The last state of the spellchecker in the composer, can be toggled by right "
 "clicking"
-msgstr ""
+msgstr "آخر حالة لمدقِّق اللغة في المركِّب، يمكن تبديلها عبر النقر يمينًا"
 
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:14
 msgid "Darken Images on Dark Mode"
@@ -3144,7 +3147,7 @@ msgstr "انشر لمن أشار إليك فقط"
 #. different account
 #: src/Services/Accounts/Mastodon/Account.vala:270
 msgid "Notification was pushed for a different account"
-msgstr "دُفعت الإشعارات لحساب مختلف"
+msgstr "دُفعت الإخطارات لحساب مختلف"
 
 #. translators: The variable is "Fediverse" or a backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:237
