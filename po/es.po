@@ -6,14 +6,14 @@
 # iceCat3003 <danielespinoza0109@gmail.com>, 2023.
 # gallegonovato <fran-carro@hotmail.es>, 2023, 2024.
 # Óscar Fernández Díaz <42654671+oscfdezdz@users.noreply.github.com>, 2025.
+# Tarcísio Surdi <tarcisio.surdi@pm.me>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-25 17:03+0000\n"
-"Last-Translator: Óscar Fernández Díaz "
-"<42654671+oscfdezdz@users.noreply.github.com>\n"
+"PO-Revision-Date: 2025-07-28 23:36+0000\n"
+"Last-Translator: Tarcísio Surdi <tarcisio.surdi@pm.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -2397,7 +2397,7 @@ msgstr "Describa el contenido…"
 #. composer alt text editor
 #: src/Dialogs/Composer/AttachmentsBin.vala:148
 msgid "Remaining Characters"
-msgstr "Personajes restantes"
+msgstr "Caracteres restantes"
 
 #. translators: toast shown when saving alt text and focus position in the composer
 #: src/Dialogs/Composer/AttachmentsBin.vala:186
