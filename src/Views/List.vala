@@ -42,7 +42,7 @@ public class Tuba.Views.List : Views.Timeline {
 		if (list == null)
 			return null;
 		return account != null
-			? @"$(account.instance)/api/v1/streaming?stream=list&list=$(list.id)&access_token=$(account.access_token)"
+			? @"$(account.tuba_streaming_url)/api/v1/streaming?stream=list&list=$(list.id)&access_token=$(account.access_token)"
 			: null;
 	}
 }

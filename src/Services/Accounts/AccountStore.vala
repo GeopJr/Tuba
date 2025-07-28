@@ -136,6 +136,10 @@ public abstract class Tuba.AccountStore : GLib.Object {
 				account.tuba_iceshrimp_api_key = obj.get_string_member ("iceshrimp-api-key");
 		}
 
+		if (obj.has_member ("streaming")) {
+			account.tuba_streaming_url = obj.get_string_member ("streaming");
+		}
+
 		if (account.uuid == null || !GLib.Uuid.string_is_valid (account.uuid)) account.uuid = GLib.Uuid.string_random ();
 		return account;
 	}

@@ -19,7 +19,7 @@ public class Tuba.Views.Conversations : Views.Timeline {
 
 	public override string? get_stream_url () {
 		return account != null
-			? @"$(account.instance)/api/v1/streaming?stream=direct&access_token=$(account.access_token)"
+			? @"$(account.tuba_streaming_url)/api/v1/streaming?stream=direct&access_token=$(account.access_token)"
 			: null;
 	}
 

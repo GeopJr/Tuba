@@ -10,7 +10,7 @@ public class Tuba.Views.Bubble : Views.Timeline {
 
 	public override string? get_stream_url () {
 		return account != null && account.tuba_api_versions.chuckya > 0
-			? @"$(account.instance)/api/v1/streaming?stream=public:bubble&access_token=$(account.access_token)"
+			? @"$(account.tuba_streaming_url)/api/v1/streaming?stream=public:bubble&access_token=$(account.access_token)"
 			: null;
 	}
 }

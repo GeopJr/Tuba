@@ -209,6 +209,11 @@ public class Tuba.SecretAccountStore : AccountStore {
 			builder.add_string_value (account.tuba_iceshrimp_api_key);
 		}
 
+		if (account.tuba_streaming_url != "" && account.tuba_streaming_url != account.instance) {
+			builder.set_member_name ("streaming");
+			builder.add_string_value (account.tuba_streaming_url);
+		}
+
 		// If display name has emojis it's
 		// better to save and load them
 		// so users don't see their shortcode
