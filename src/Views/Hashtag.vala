@@ -112,9 +112,26 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 				var root = network.parse (parser);
 				if (!root.has_member ("following")) {
 					this.following = !this.following;
-				};
+				} else if (!this.following) {
+					remove_from_favs ();
+				}
 			})
 			.exec ();
+	}
+
+	private void remove_from_favs () {
+		if (settings.favorite_tags_ids.length == 0) return;
+
+		string[] new_ids = {};
+		string down_name = this.tag.down ();
+		foreach (string tag_name in settings.favorite_tags_ids) {
+			if (down_name != tag_name.down ()) new_ids += tag_name;
+		}
+
+		if (settings.favorite_tags_ids.length != new_ids.length) {
+			settings.favorite_tags_ids = new_ids;
+			GLib.Idle.add (accounts.active.gather_fav_tags);
+		}
 	}
 
 	private void init_tag () {
