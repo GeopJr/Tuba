@@ -52,6 +52,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 	public string? emoji_url { get; set; default = null; }
 	public API.Admin.Report? report { get; set; default = null; }
 	public ModerationWarning? moderation_warning { get; set; default = null; }
+	public string? group_key { get; set; default = null; }
 
 	// the docs claim that 'relationship_severance_event'
 	// is the one used but that is not true
@@ -61,11 +62,11 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 	public override void open () {
 		switch (kind) {
 			case InstanceAccount.KIND_SEVERED_RELATIONSHIPS:
-				Host.open_url.begin (@"$(accounts.active.instance)/severed_relationships");
+				Utils.Host.open_url.begin (@"$(accounts.active.instance)/severed_relationships");
 				break;
 			case InstanceAccount.KIND_MODERATION_WARNING:
 				string dispute_id = this.moderation_warning == null ? "" : this.moderation_warning.id;
-				Host.open_url.begin (@"$(accounts.active.instance)/disputes/strikes/$dispute_id");
+				Utils.Host.open_url.begin (@"$(accounts.active.instance)/disputes/strikes/$dispute_id");
 				break;
 			case InstanceAccount.KIND_ADMIN_REPORT:
 				if (report != null) {
@@ -74,7 +75,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 						admin_window.present ();
 						admin_window.open_reports ();
 					} else {
-						Host.open_url.begin (@"$(accounts.active.instance)/admin/reports/$(report.id)");
+						Utils.Host.open_url.begin (@"$(accounts.active.instance)/admin/reports/$(report.id)");
 					}
 				}
 				break;
@@ -190,7 +191,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		var toast = new GLib.Notification (res_kind.description);
 		if (status != null) {
 			var body = "";
-			body += HtmlUtils.remove_tags (status.content);
+			body += Utils.Htmlx.remove_tags (status.content);
 			toast.set_body (body);
 		}
 

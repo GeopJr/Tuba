@@ -19,13 +19,14 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	public bool reblogged { get; set; default = false; }
 	public bool favourited { get; set; default = false; }
 	public bool bookmarked { get; set; default = false; }
+	public bool local_only { get; set; default = false; }
 	public bool sensitive { get; set; default = false; }
 	public bool muted { get; set; default = false; }
 	public bool pinned { get; set; default = false; }
 	public string? edited_at { get; set; default = null; }
 	public string visibility { get; set; default = settings.default_post_visibility; }
 	public API.Status? reblog { get; set; default = null; }
-	public API.Status? quote { get; set; default = null; }
+	public API.Quote? quote { get; set; default = null; }
 	//  public API.Akkoma? akkoma { get; set; default = null; }
 	public Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
 	public Gee.ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
@@ -149,6 +150,16 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		}
 	}
 
+	public bool compat_local_only {
+		get {
+			if (pleroma != null && visibility == "local") {
+				return true;
+			}
+
+			return this.local_only;
+		}
+	}
+
 	public string? t_url { get; set; }
 	public string? url {
 		owned get { return this.get_modified_url (); }
@@ -178,7 +189,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 
 	public bool can_be_quoted {
 		get {
-			return this.formal.visibility != "direct" && this.formal.visibility != "private";
+			return this.formal.visibility != "direct" && this.formal.visibility != "private" && this.formal.visibility != "local";
 		}
 	}
 
@@ -238,22 +249,23 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		}
 	}
 
-	public virtual string get_reply_mentions () {
-		var result = "";
+	public virtual bool get_reply_mentions (out string joined_mentions) {
+		string[] result = {};
 		if (account.acct != accounts.active.acct)
-			result = @"$(account.handle) ";
+			result += account.handle;
 
 		if (mentions != null) {
 			foreach (var mention in mentions) {
 				var equals_current = mention.acct == accounts.active.acct;
-				var already_mentioned = mention.acct in result;
+				var already_mentioned = mention.handle in result;
 
 				if (!equals_current && !already_mentioned)
-					result += @"$(mention.handle) ";
+					result += mention.handle;
 			}
 		}
 
-		return result;
+		joined_mentions = string.joinv (" ", result);
+		return result.length > 0;
 	}
 
 	private Request action (string action) {
@@ -278,10 +290,12 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		return action ("unbookmark");
 	}
 
-	public enum ReblogVisibility {
+	public enum Visibility {
 		PUBLIC,
 		UNLISTED,
-		PRIVATE;
+		PRIVATE,
+		DIRECT,
+		LOCAL;
 
 		public string to_string () {
 			switch (this) {
@@ -291,26 +305,75 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return "unlisted";
 				case PRIVATE:
 					return "private";
+				case DIRECT:
+					return "direct";
+				case LOCAL:
+					return "local";
 				default:
-					return "";
+					assert_not_reached ();
 			}
 		}
 
-		public static ReblogVisibility? from_string (string id) {
-			switch (id) {
+		public string to_title () {
+			switch (this) {
+				case PUBLIC:
+					// translators: post visibility label
+					return _("Public");
+				case UNLISTED:
+					// translators: Probably follow Mastodon's translation
+					// 				post visibility label
+					return _("Unlisted");
+				case PRIVATE:
+					// translators: post visibility label
+					return _("Followers Only");
+				case DIRECT:
+					// translators: post visibility label
+					return _("Direct");
+				case LOCAL:
+					// translators: post visibility label
+					//				local = will be displayed in this instance only
+					return _("Local");
+				default:
+					assert_not_reached ();
+			}
+		}
+
+		public static Visibility? from_string (string id) {
+			switch (id.down ()) {
 				case "public":
 					return PUBLIC;
 				case "unlisted":
 					return UNLISTED;
 				case "private":
 					return PRIVATE;
+				case "direct":
+					return DIRECT;
+				case "local":
+					return LOCAL;
 				default:
 					return null;
 			}
 		}
+
+		public int privacy_rate () {
+			switch (this) {
+				case PUBLIC:
+					return 0;
+				case UNLISTED:
+					return 1;
+				case PRIVATE:
+					return 2;
+				case DIRECT:
+					return 3;
+				case LOCAL: // it's not actually more private but it should take priority
+					return 4;
+				default:
+					assert_not_reached ();
+			}
+		}
 	}
 
-	public Request reblog_req (ReblogVisibility? visibility = null) {
+	public Request reblog_req (Visibility? visibility = null) {
 		var req = action ("reblog");
 		if (visibility != null)
 			req.with_form_data ("visibility", visibility.to_string ());

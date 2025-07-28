@@ -17,8 +17,8 @@ const TestUnits[] UNITS = {
 
 public void test_shorten () {
 	foreach (var test_unit in UNITS) {
-		var shorten_unit = Tuba.Units.shorten (test_unit.original);
-		var shorten_unit_negative = Tuba.Units.shorten (test_unit.original * -1);
+		var shorten_unit = Tuba.Utils.Units.shorten (test_unit.original);
+		var shorten_unit_negative = Tuba.Utils.Units.shorten (test_unit.original * -1);
 
 		assert_cmpstr (shorten_unit, CompareOperator.EQ, test_unit.result);
 		assert_cmpstr (

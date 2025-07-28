@@ -6,24 +6,28 @@ public class Tuba.Settings : GLib.Settings {
 		public bool account_suggestions { get; set; default = true; }
 		public string[] muted_notification_types { get; set; default = {}; }
 		public string[] recently_used_custom_emojis { get; set; default = {}; }
+		public string[] recent_searches { get; set; default = {}; }
 		public string[] notification_filters { get; set; default = {}; }
 		public string[] favorite_lists_ids { get; set; default = {}; }
+		public string[] favorite_tags_ids { get; set; default = {}; }
 
-		private static string[] keys_to_init = {
+		private const string[] KEYS_TO_INIT = {
 			"default-post-visibility",
 			"muted-notification-types",
 			"default-content-type",
 			"recently-used-custom-emojis",
+			"recent-searches",
 			"notification-filters",
 			"account-suggestions",
-			"favorite-lists-ids"
+			"favorite-lists-ids",
+			"favorite-tags-ids"
 		};
 
 		public Account (string id) {
 			Object (schema_id: @"$(Build.DOMAIN).Account", path: @"/$(Build.DOMAIN.replace (".", "/"))/accounts/$id/");
 			this.delay ();
 
-			foreach (var key in keys_to_init) {
+			foreach (var key in KEYS_TO_INIT) {
 				init (key);
 			}
 		}
@@ -107,6 +111,16 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
+	public string[] recent_searches {
+		get {
+			return active_account_settings.recent_searches;
+		}
+
+		set {
+			active_account_settings.recent_searches = value;
+		}
+	}
+
 	public string[] notification_filters {
 		get {
 			return active_account_settings.notification_filters;
@@ -127,6 +141,16 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
+	public string[] favorite_tags_ids {
+		get {
+			return active_account_settings.favorite_tags_ids;
+		}
+
+		set {
+			active_account_settings.favorite_tags_ids = value;
+		}
+	}
+
 	public ColorScheme color_scheme { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
@@ -143,6 +167,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool media_viewer_expand_pictures { get; set; }
 	public bool enlarge_custom_emojis { get; set; }
 	public bool use_blurhash { get; set; }
+	public bool show_sensitive_media { get; set; }
 	public bool group_push_notifications { get; set; }
 	public bool advanced_boost_dialog { get; set; }
 	public bool reply_to_old_post_reminder { get; set; }
@@ -161,8 +186,10 @@ public class Tuba.Settings : GLib.Settings {
 	public int status_aria_verbosity { get; set; default = 3; }
 	public bool use_in_app_browser_if_available { get; set; }
 	public bool collapse_long_posts { get; set; }
+	public bool show_interaction_counters { get; set; }
+	public bool extract_alt_from_metadata { get; set; }
 
-	private static string[] keys_to_init = {
+	private const string[] KEYS_TO_INIT = {
 		"active-account",
 		"color-scheme",
 		"timeline-page-size",
@@ -179,6 +206,7 @@ public class Tuba.Settings : GLib.Settings {
 		"media-viewer-expand-pictures",
 		"enlarge-custom-emojis",
 		"use-blurhash",
+		"show-sensitive-media",
 		"group-push-notifications",
 		"advanced-boost-dialog",
 		"reply-to-old-post-reminder",
@@ -187,25 +215,27 @@ public class Tuba.Settings : GLib.Settings {
 		"darken-images-on-dark-mode",
 		"media-viewer-last-used-volume",
 		"monitor-network",
-		"proxy",
 		"dim-trivial-notifications",
 		"analytics",
 		"update-contributors",
 		"status-aria-verbosity",
 		"use-in-app-browser-if-available",
-		"collapse-long-posts"
+		"collapse-long-posts",
+		"show-interaction-counters",
+		"extract-alt-from-metadata"
 	};
 
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
 
-		foreach (var key in keys_to_init) {
+		foreach (var key in KEYS_TO_INIT) {
 			init (key);
 		}
 
 		init ("work-in-background", true);
 		init ("last-analytics-update", true);
 		init ("last-contributors-update", true);
+		init ("proxy", true);
 		init ("contributors", true);
 		changed.connect (on_changed);
 	}
@@ -241,7 +271,7 @@ public class Tuba.Settings : GLib.Settings {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 
-		foreach (string key in keys_to_init) {
+		foreach (string key in KEYS_TO_INIT) {
 			if (key in SENSITIVE_KEYS) continue;
 
 			var val = Value (Type.STRING);

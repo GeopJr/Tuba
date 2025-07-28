@@ -102,7 +102,7 @@
 		}
 	}
 
-	public Dialogs.Compose.SuccessCallback? reply_cb;
+	public Dialogs.Composer.Dialog.SuccessCallback? reply_cb;
 
 	[GtkChild] protected unowned Gtk.Box status_box;
 	[GtkChild] protected unowned Gtk.Box avatar_side;
@@ -304,7 +304,7 @@
 			var delete_status_simple_action = new SimpleAction ("delete-status", null);
 			delete_status_simple_action.activate.connect (delete_status);
 			action_group.add_action (delete_status_simple_action);
-		} else if (accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate) {
+		} else if ((accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate) || InstanceAccount.InstanceFeatures.TRANSLATION in accounts.active.tuba_instance_features) {
 			translate_simple_action = new SimpleAction ("translate", null);
 			translate_simple_action.activate.connect (translate);
 			translate_simple_action.set_enabled (true);
@@ -357,8 +357,10 @@
 			menu_model.append_item (unmute_menu_item);
 
 			if (
-				accounts.active.instance_info != null
-				&& accounts.active.instance_info.tuba_can_translate
+				(
+					(accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate)
+					|| InstanceAccount.InstanceFeatures.TRANSLATION in accounts.active.tuba_instance_features
+				)
 				&& status.formal.tuba_translatable
 				&& (
 					status.formal.visibility == "public"
@@ -419,12 +421,12 @@
 						settings.copy_private_link_reminder = false;
 					}
 
-					Host.copy (status.formal.url);
+					Utils.Host.copy (status.formal.url);
 					app.toast (_("Copied post url to clipboard"));
 				}
 			);
 		} else {
-			Host.copy (status.formal.url ?? status.formal.account.url);
+			Utils.Host.copy (status.formal.url ?? status.formal.account.url);
 			app.toast (_("Copied post url to clipboard"));
 		}
 	}
@@ -433,16 +435,16 @@
 		string final_url = status.formal.url ?? status.formal.account.url;
 		#if WEBKIT
 			if (settings.use_in_app_browser_if_available && Views.Browser.can_handle_url (final_url)) {
-				app.main_window.open_in_app_browser_for_url (final_url);
+				(new Views.Browser.with_url (final_url)).present (app.main_window);
 				return;
 			}
 		#endif
 
-		Host.open_url.begin (final_url);
+		Utils.Host.open_url.begin (final_url);
 	}
 
 	private void report_status () {
-		new Dialogs.Report (status.formal.account, status.formal.id);
+		new Dialogs.Report (status.formal.account, status.formal.id, status.formal.mentions);
 	}
 
 	private void view_edit_history () {
@@ -471,43 +473,85 @@
 	}
 
 	private void edit_status () {
-		new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source")
+		edit_status_real ();
+	}
+
+	private void edit_status_real (bool redraft = false) {
+		Request req;
+		if (redraft) {
+			req = this.status.formal.annihilate ();
+		} else {
+			req = new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source");
+		}
+
+		req
 			.with_account (accounts.active)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				var source = API.StatusSource.from (node);
 
-				new Dialogs.Compose.edit (status.formal, source, on_edit);
+				if (redraft) {
+					new Dialogs.Composer.Dialog.edit (status.formal, source, null, true);
+				} else {
+					new Dialogs.Composer.Dialog.edit (status.formal, source, on_edit);
+				}
 			})
-			.on_error (() => {
-				new Dialogs.Compose.edit (status.formal, null, on_edit);
+			.on_error ((code, message) => {
+				if (redraft) {
+					warning (@"Error while deleting status for redrafting: $code $message");
+					app.toast (message, 0);
+				} else {
+					new Dialogs.Composer.Dialog.edit (status.formal, null, on_edit);
+				}
 			})
+
 			.exec ();
 	}
 
 	private void delete_status () {
-		app.question.begin (
-			{_("Delete Post?"), false},
-			null,
-			app.main_window,
-			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
-			null,
-			false,
-			(obj, res) => {
-				if (app.question.end (res).truthy ()) {
-					this.status.formal.annihilate ()
-						//  .then ((in_stream) => {
-						//  	var parser = Network.get_parser_from_inputstream (in_stream);
-						//  	var root = network.parse (parser);
-						//  	if (root.has_member ("error")) {
-						//  		// TODO: Handle error (probably a toast?)
-						//  	};
-						//  })
-						.exec ();
-				}
-			}
+		var dlg = new Adw.AlertDialog (_("Delete Post?"), null) {
+			heading_use_markup = false,
+			body_use_markup = false,
+			default_response = "delete",
+			close_response = "cancel"
+		};
+
+		dlg.add_responses (
+			"cancel", _("Cancel"),
+			// translators: button on the delete post dialog that
+			//				deletes the post and fills the composer
+			//				with it so you can edit it
+			"redraft", _("Redraft"),
+
+			"delete", _("Delete")
 		);
+		dlg.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+		dlg.set_response_appearance ("redraft", Adw.ResponseAppearance.DESTRUCTIVE);
+		dlg.choose.begin (app.main_window, null, (obj, res) => {
+			switch (dlg.choose.end (res)) {
+				case "delete":
+					delete_status_real ();
+					break;
+				case "redraft":
+					edit_status_real (true);
+					break;
+				default:
+					break;
+			}
+		});
+	}
+
+	private void delete_status_real () {
+		this.status.formal.annihilate ()
+			//  .then ((in_stream) => {
+			//  	var parser = Network.get_parser_from_inputstream (in_stream);
+			//  	var root = network.parse (parser);
+			//  	if (root.has_member ("error")) {
+			//  		// TODO: Handle error (probably a toast?)
+			//  	};
+			//  })
+			.exec ();
 	}
 
 	private void toggle_mute_conversation () {
@@ -643,7 +687,7 @@
 
 				return date_parsed.format (@"$date_local $EXPANDED_SEPARATOR %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
 			} else {
-				return DateTime.humanize (this.full_date);
+				return Utils.DateTime.humanize (this.full_date);
 			}
 		}
 	}
@@ -789,6 +833,13 @@
 		spoiler_stack.visible_child_name = status.formal.tuba_spoiler_revealed ? "content" : "spoiler";
 	}
 
+	private void update_spoiler_status_no_transition () {
+		Gtk.StackTransitionType old_transition = spoiler_stack.transition_type;
+		spoiler_stack.transition_type = NONE;
+		update_spoiler_status ();
+		spoiler_stack.transition_type = old_transition;
+	}
+
 	public void show_toggle_pinned_action () {
 		if (toggle_pinned_simple_action != null)
 			toggle_pinned_simple_action.set_enabled (true);
@@ -833,7 +884,7 @@
 			this.subtitle_text
 		);
 
-		string aria_date = DateTime.humanize_aria (this.full_date);
+		string aria_date = Utils.DateTime.humanize_aria (this.full_date);
 		string aria_date_prefixed = status.formal.is_edited
 			// translators: This is an accessibility label.
 			//				Screen reader users are going to hear this a lot,
@@ -990,6 +1041,7 @@
 	private Widgets.Attachment.Box attachments;
 	private Gtk.Label translation_label;
 	public Widgets.VoteBox poll;
+	private Gtk.Image? local_only_indicator = null;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};
 	ulong[] this_handler_ids = {};
@@ -1017,7 +1069,7 @@
 		content_column.append (actions);
 
 		this.content.bold_text_regex = status.tuba_search_query_regex;
-		this.content.has_quote = status.formal.quote != null;
+		this.content.has_quote = status.formal.quote != null && status.formal.quote.tuba_has_quote;
 		this.content.mentions = status.formal.mentions;
 		this.content.instance_emojis = status.formal.emojis_map;
 
@@ -1028,22 +1080,18 @@
 		}
 
 		if (quoted_status_btn != null) content_box.remove (quoted_status_btn);
-		if (status.formal.quote != null && !is_quote) {
-			try {
-				var quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
-				quoted_status.is_quote = true;
-				quoted_status.add_css_class ("frame");
-				quoted_status.add_css_class ("ttl-quote");
+		if (this.content.has_quote && !is_quote) {
+			var quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
+			quoted_status.is_quote = true;
+			quoted_status.add_css_class ("frame");
+			quoted_status.add_css_class ("ttl-quote");
 
-				quoted_status_btn = new Gtk.Button () {
-					child = quoted_status,
-					css_classes = { "ttl-flat-button", "flat" }
-				};
-				quoted_status_btn.clicked.connect (quoted_status.on_open);
-				content_box.append (quoted_status_btn);
-			} catch {
-				critical (@"Widgets.Status ($(status.formal.id)): Couldn't build quote");
-			}
+			quoted_status_btn = new Gtk.Button () {
+				child = quoted_status,
+				css_classes = { "ttl-flat-button", "flat" }
+			};
+			quoted_status_btn.clicked.connect (quoted_status.on_open);
+			content_box.append (quoted_status_btn);
 		}
 
 		if (emoji_reactions != null) content_column.remove (emoji_reactions);
@@ -1056,7 +1104,7 @@
 		spoiler_label_rev.label = this.spoiler_text_revealed;
 
 		status.formal.tuba_spoiler_revealed = !status.formal.has_spoiler || status.formal.tuba_spoiler_revealed;
-		update_spoiler_status ();
+		update_spoiler_status_no_transition ();
 
 		handle_label.label = this.subtitle_text;
 		date_label.label = this.date;
@@ -1071,15 +1119,33 @@
 		edited_indicator.visible = status.formal.is_edited;
 		edit_history_simple_action.set_enabled (status.formal.is_edited);
 
-		var t_visibility = accounts.active.visibility[status.formal.visibility];
-		visibility_indicator.icon_name = t_visibility.small_icon_name;
-		visibility_indicator.tooltip_text = t_visibility.name;
-		visibility_indicator.update_property (Gtk.AccessibleProperty.LABEL, t_visibility.name, -1);
+		if (accounts.active.visibility.has_key (status.formal.visibility)) {
+			visibility_indicator.visible = true;
+			var t_visibility = accounts.active.visibility[status.formal.visibility];
+			visibility_indicator.icon_name = t_visibility.small_icon_name;
+			visibility_indicator.tooltip_text = t_visibility.name;
+			visibility_indicator.update_property (Gtk.AccessibleProperty.LABEL, t_visibility.name, -1);
+		} else {
+			visibility_indicator.visible = false;
+		}
 
 		if (change_background_on_direct && status.formal.visibility == "direct") {
 			this.add_css_class ("direct");
 		} else {
 			this.remove_css_class ("direct");
+		}
+
+		if (local_only_indicator != null) indicators.remove (local_only_indicator);
+		if (status.formal.compat_local_only) {
+			this.add_css_class ("local");
+
+			if (local_only_indicator == null) local_only_indicator = new Gtk.Image.from_icon_name ("tuba-important-small-symbolic") {
+				css_classes = {"dim-label"},
+				tooltip_text = _("Local Only")
+			};
+			indicators.prepend (local_only_indicator);
+		} else {
+			this.remove_css_class ("local");
 		}
 
 		avatar.account = status.formal.account;
@@ -1157,11 +1223,9 @@
 
 		if (prev_card != null) content_box.remove (prev_card);
 		if (settings.show_preview_cards && !status.formal.has_media && quoted_status_btn == null && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
-			try {
-				prev_card = (Widgets.PreviewCard) status.formal.card.to_widget ();
-				prev_card.button.clicked.connect (open_card_url);
-				content_box.append (prev_card);
-			} catch {}
+			prev_card = (Widgets.PreviewCard) status.formal.card.to_widget ();
+			prev_card.button.clicked.connect (open_card_url);
+			content_box.append (prev_card);
 		}
 
 		if (hashtag_bar != null) content_box.remove (hashtag_bar);
@@ -1209,7 +1273,7 @@
 	}
 
 	private void on_reply_button_clicked () {
-		new Dialogs.Compose.reply (status.formal, on_reply);
+		new Dialogs.Composer.Dialog.reply (status.formal, on_reply);
 	}
 
 	[GtkCallback] public void on_fade_reveal () {
@@ -1236,6 +1300,38 @@
 		status.formal.account.open ();
 	}
 
+	public void to_display_only () {
+		if (poll != null) {
+			poll.usable = false;
+			poll.can_target = false;
+			poll.focusable = false;
+			poll.can_focus = false;
+		}
+		if (hashtag_bar != null) hashtag_bar.to_display_only ();
+		if (attachments != null) attachments.usable = false;
+		if (emoji_reactions != null) emoji_reactions.visible = false;
+		this.can_be_opened = false;
+		this.actions.visible = false;
+		this.menu_button.visible = false;
+		this.activatable = false;
+		this.avatar.allow_mini_profile = false;
+		this.avatar.can_target = false;
+		this.avatar.focusable = false;
+		this.avatar.can_focus = false;
+		name_button.can_target = false;
+		name_button.can_focus = false;
+		name_button.focusable = false;
+		this.content.selectable = true;
+		this.content.can_open = false;
+		this.avatar.accessible_role = Gtk.AccessibleRole.PRESENTATION;
+		this.date_label.accessible_role = Gtk.AccessibleRole.PRESENTATION;
+		name_button.accessible_role = Gtk.AccessibleRole.PRESENTATION;
+		//  this.fade_bin.reveal = true;
+		this.reset_relation (DESCRIBED_BY);
+		this.reset_property (LABEL);
+		this.reset_property (DESCRIPTION);
+	}
+
 	bool expanded = false;
 	public void expand_root () {
 		if (expanded) return;
@@ -1258,6 +1354,7 @@
 		if (status.formal.is_edited)
 			indicators.remove (edited_indicator);
 		indicators.remove (visibility_indicator);
+		if (local_only_indicator != null) local_only_indicator.visible = false;
 
 		date_label.label = this.date;
 		date_label.wrap = true;

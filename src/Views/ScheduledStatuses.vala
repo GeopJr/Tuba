@@ -7,6 +7,7 @@ public class Tuba.Views.ScheduledStatuses : Views.Timeline {
 		// translators: as in posts set to be posted sometime in the future
 		empty_state_title = _("No Scheduled Posts");
 		accepts = typeof (API.ScheduledStatus);
+		batch_size_min = 20;
 
 		app.refresh_scheduled_statuses.connect (on_refresh);
 	}

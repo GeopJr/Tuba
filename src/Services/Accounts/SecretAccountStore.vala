@@ -13,7 +13,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		schema_attributes["version"] = Secret.SchemaAttributeType.STRING;
 		schema = new Secret.Schema.newv (
 			Build.DOMAIN,
-			Secret.SchemaFlags.DONT_MATCH_NAME,
+			Secret.SchemaFlags.NONE,
 			schema_attributes
 		);
 
@@ -56,8 +56,8 @@ public class Tuba.SecretAccountStore : AccountStore {
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {
-						Host.open_url.begin (wiki_page, (obj, res) => {
-							Host.open_url.end (res);
+						Utils.Host.open_url.begin (wiki_page, (obj, res) => {
+							Utils.Host.open_url.end (res);
 							Process.exit (1);
 						});
 					} else {
@@ -68,9 +68,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		}
 
 		secrets.foreach (item => {
-			// TODO: remove uuid fallback
-			bool force_save = false;
-			var account = secret_to_account (item, out force_save);
+			var account = secret_to_account (item);
 			if (account != null && account.id != "") {
 				new Request.GET (@"/api/v1/accounts/$(account.id)")
 					.with_account (account)
@@ -89,9 +87,6 @@ public class Tuba.SecretAccountStore : AccountStore {
 					.exec ();
 				saved.add (account);
 				account.added ();
-
-				// TODO: remove uuid fallback
-				if (force_save) safe_save ();
 			}
 		});
 		changed (saved);
@@ -105,6 +100,11 @@ public class Tuba.SecretAccountStore : AccountStore {
 			return true;
 		});
 		debug (@"Saved $(saved.size) accounts");
+	}
+
+	public override void update_account (InstanceAccount account) throws GLib.Error {
+		account_to_secret (account);
+		debug (@"Updated $(account.full_handle)");
 	}
 
 	public override void remove (InstanceAccount account) throws GLib.Error {
@@ -187,6 +187,33 @@ public class Tuba.SecretAccountStore : AccountStore {
 		builder.set_member_name ("admin-mode");
 		builder.add_boolean_value (account.admin_mode);
 
+		builder.set_member_name ("api-versions");
+		builder.begin_object ();
+
+		if (account.tuba_api_versions.mastodon > 0) {
+			builder.set_member_name ("mastodon");
+			builder.add_int_value (account.tuba_api_versions.mastodon);
+		}
+
+		if (account.tuba_api_versions.chuckya > 0) {
+			builder.set_member_name ("chuckya");
+			builder.add_int_value (account.tuba_api_versions.chuckya);
+		}
+
+		builder.end_object ();
+
+		builder.set_member_name ("instance-features");
+		builder.add_int_value ((int) account.tuba_instance_features);
+		if (InstanceAccount.InstanceFeatures.ICESHRIMP in account.tuba_instance_features && account.tuba_iceshrimp_api_key != null) {
+			builder.set_member_name ("iceshrimp-api-key");
+			builder.add_string_value (account.tuba_iceshrimp_api_key);
+		}
+
+		if (account.tuba_streaming_url != "" && account.tuba_streaming_url != account.instance) {
+			builder.set_member_name ("streaming");
+			builder.add_string_value (account.tuba_streaming_url);
+		}
+
 		// If display name has emojis it's
 		// better to save and load them
 		// so users don't see their shortcode
@@ -211,8 +238,12 @@ public class Tuba.SecretAccountStore : AccountStore {
 		builder.end_object ();
 		generator.set_root (builder.get_root ());
 		var secret = generator.to_data (null);
-		// translators: The variable is the backend like "Mastodon"
-		var label = _("%s Account").printf (account.backend);
+		// translators: The variable is "Fediverse" or a backend like "Mastodon"
+		var label = _("%s Account").printf (
+			account.backend == null || account.backend == ""
+			? "Fediverse"
+			: @"$(account.backend[0].to_string ().up ())$(account.backend.substring (1))"
+		);
 
 		Secret.password_storev.begin (
 			schema,
@@ -235,11 +266,9 @@ public class Tuba.SecretAccountStore : AccountStore {
 		);
 	}
 
-	InstanceAccount? secret_to_account (Secret.Retrievable item, out bool force_save) {
+	InstanceAccount? secret_to_account (Secret.Retrievable item) {
 		InstanceAccount? account = null;
 
-		// TODO: remove uuid fallback
-		force_save = false;
 		try {
 			var secret = item.retrieve_secret_sync ();
 			var contents = secret.get_text ();
@@ -258,14 +287,10 @@ public class Tuba.SecretAccountStore : AccountStore {
 				|| !root_obj.has_member ("client-secret")
 				|| !root_obj.has_member ("client-id")
 				|| !root_obj.has_member ("access-token")
+				|| !root_obj.has_member ("uuid")
 			) return null;
 
-			// TODO: remove uuid fallback
-			bool had_uuid = root_obj.has_member ("uuid");
 			account = accounts.create_account (root);
-
-			// TODO: remove uuid fallback
-			force_save = !had_uuid && account.uuid != null;
 		} catch (GLib.Error e) {
 			warning (e.message);
 		}

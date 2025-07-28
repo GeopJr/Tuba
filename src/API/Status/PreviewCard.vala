@@ -19,25 +19,25 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			}
 		}
 
-		public string to_dialog_title () {
-			switch (this) {
-				case PEERTUBE:
-					// translators: the variable is an external service like "PeerTube"
-					return _("You are about to open a %s video").printf (this.to_string ());
-				case FUNKWHALE:
-					// translators: the variable is an external service like "Funkwhale",
-					//				track as in song
-					return _("You are about to open a %s track").printf (this.to_string ());
-				case BOOKWYRM:
-					// translators: the variable is an external service like "BookWyrm"
-					return _("You are about to open a %s book").printf (this.to_string ());
-				case CLAPPER:
-					return _("You are about to open a video");
-				default:
-					// translators: the variable is the app name (Tuba)
-					return _("You are about to leave %s").printf (Build.NAME);
-			}
-		}
+		//  public string to_dialog_title () {
+		//  	switch (this) {
+		//  		case PEERTUBE:
+		//  			// translators: the variable is an external service like "PeerTube"
+		//  			return _("You are about to open a %s video").printf (this.to_string ());
+		//  		case FUNKWHALE:
+		//  			// translators: the variable is an external service like "Funkwhale",
+		//  			//				track as in song
+		//  			return _("You are about to open a %s track").printf (this.to_string ());
+		//  		case BOOKWYRM:
+		//  			// translators: the variable is an external service like "BookWyrm"
+		//  			return _("You are about to open a %s book").printf (this.to_string ());
+		//  		case CLAPPER:
+		//  			return _("You are about to open a video");
+		//  		default:
+		//  			// translators: the variable is the app name (Tuba)
+		//  			return _("You are about to leave %s").printf (Build.NAME);
+		//  	}
+		//  }
 
 		public string to_dialog_body (string t_url) {
 			var dlg_url = t_url;
@@ -228,7 +228,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 						API.BookWyrm bookwyrm_obj = API.BookWyrm.from (node);
 
 						if (bookwyrm_obj.title != null && bookwyrm_obj.title != "") {
-							app.main_window.show_book (bookwyrm_obj, this.url);
+							app.main_window.show_book (bookwyrm_obj);
 						}
 						break;
 					default:
@@ -245,11 +245,11 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 	private void open_url (string url) {
 		#if WEBKIT
 			if (settings.use_in_app_browser_if_available && Views.Browser.can_handle_url (url)) {
-				app.main_window.open_in_app_browser_for_url (url);
+				(new Views.Browser.with_url (url)).present (app.main_window);
 				return;
 			}
 		#endif
 
-		Host.open_url.begin (url);
+		Utils.Host.open_url.begin (url);
 	}
 }

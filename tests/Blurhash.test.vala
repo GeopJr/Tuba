@@ -69,7 +69,7 @@ const TestBlurhashData[] BLURHASH_TO_DATA_TESTS = {
 
 public void test_base83_decode () {
 	foreach (var test_base83_decode in BASE83_DECODE_TESTS) {
-		var res = Tuba.Blurhash.Base83.decode (test_base83_decode.encoded);
+		var res = Tuba.Utils.Blurhash.Base83.decode (test_base83_decode.encoded);
 
 		assert_cmpint (res, CompareOperator.EQ, test_base83_decode.decoded);
 	}
@@ -77,7 +77,7 @@ public void test_base83_decode () {
 
 public void test_blurhash_validity () {
 	foreach (var test_blurhash_validity in BLURHASH_VALIDITY_TESTS) {
-		var res = Tuba.Blurhash.is_valid_blurhash (test_blurhash_validity.blurhash, null, null, null, null);
+		var res = Tuba.Utils.Blurhash.is_valid_blurhash (test_blurhash_validity.blurhash, null, null, null, null);
 
 		if (test_blurhash_validity.valid) {
 			assert_true (res);
@@ -91,7 +91,7 @@ public void test_blurhash_ratio () {
 	foreach (var test_blurhash_ratio in BLURHASH_RATIO_TESTS) {
 		var res_x = 0;
 		var res_y = 0;
-		var res = Tuba.Blurhash.is_valid_blurhash (test_blurhash_ratio.blurhash, null, out res_x, out res_y, null);
+		var res = Tuba.Utils.Blurhash.is_valid_blurhash (test_blurhash_ratio.blurhash, null, out res_x, out res_y, null);
 
 		assert_true (res);
 		assert_cmpint (res_x, CompareOperator.EQ, test_blurhash_ratio.x);
@@ -101,7 +101,7 @@ public void test_blurhash_ratio () {
 
 public void test_blurhash_data () {
 	foreach (var test_blurhash_data in BLURHASH_TO_DATA_TESTS) {
-		var res = Tuba.Blurhash.decode_to_data (test_blurhash_data.blurhash, 10, 10);
+		var res = Tuba.Utils.Blurhash.decode_to_data (test_blurhash_data.blurhash, 10, 10);
 
 		if (test_blurhash_data.blurhash == "invalid") {
 			assert (res == null);

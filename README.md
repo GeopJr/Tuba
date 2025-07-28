@@ -26,9 +26,9 @@
 ### Nightly
 
 Flatpak | Windows
-:---:
-[x86_64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-x86_64.zip) | [x86_64 Installer](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/Tuba%20Setup.exe.zip)
-[aarch64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-aarch64.zip) | [x86_64 Portable](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/tuba_windows_portable.zip)
+:---: | :---:
+[x86_64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-x86_64.zip) | [x86_64 Installer](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/Tuba%20Setup.exe.zip)<br/>[x86_64 Portable](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/tuba_windows_portable.zip)
+[aarch64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-aarch64.zip) | [aarch64 Portable](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/tuba_windows_portable_aarch64.zip)
 
 ## Third Party
 
@@ -55,6 +55,7 @@ libspelling | ❌
 gstreamer + gst-plugins-good | ❌
 clapper | ❌
 webkitgtk | ❌
+gexiv2 | ❌
 
 </details>
 

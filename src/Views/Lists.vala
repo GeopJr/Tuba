@@ -210,6 +210,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 		icon = "tuba-list-compact-symbolic";
 		accepts = typeof (API.List);
 		empty_state_title = _("No Lists");
+		batch_size_min = 20;
 
 		child_entry = new Gtk.Entry () {
 			input_purpose = Gtk.InputPurpose.FREE_FORM,

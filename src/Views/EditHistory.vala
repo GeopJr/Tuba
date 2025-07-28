@@ -4,7 +4,8 @@ public class Tuba.Views.EditHistory : Views.Timeline {
 			url: @"/api/v1/statuses/$(status_id)/history",
 			label: _("Edit History"),
 			icon: "document-edit-symbolic",
-			empty_state_title: _("No Edit History")
+			empty_state_title: _("No Edit History"),
+			batch_size_min: 20
 		);
 	}
 

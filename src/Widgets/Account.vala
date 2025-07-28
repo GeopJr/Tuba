@@ -174,6 +174,9 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 	private string account_id = "";
 	private ulong open_signal = -1;
 	public Account (API.Account account) {
+		#if !ADW_1_7_5
+			avatar.size = 100;
+		#endif
 		account_id = account.id;
 		open.connect (account.open);
 		background.clicked.connect (account.open);
@@ -213,30 +216,36 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 				background.alternative_text = account.header_description;
 		}
 
-		// translators: Used in profile stats.
-		//              The variable is a shortened number of the amount of posts a user has made.
-		string posts_str = GLib.ngettext (
-			"%s Post",
-			"%s Posts",
-			(ulong) account.statuses_count
-		).printf (@"<b>$(Tuba.Units.shorten (account.statuses_count))</b>");
+		string[] stats = {};
+		{
+			// translators: Used in profile stats.
+			//              The variable is a shortened number of the amount of posts a user has made.
+			string posts_str = GLib.ngettext (
+				"%s Post",
+				"%s Posts",
+				(ulong) account.statuses_count
+			).printf (@"<b>$(Utils.Units.shorten (account.statuses_count))</b>");
+			stats += "<span allow_breaks=\"false\">%s</span>".printf (posts_str);
+		}
 
-		// translators: Used in profile stats.
-		//              The variable is a shortened number of the amount of followers a user has.
-		string followers_str = GLib.ngettext (
-			"%s Follower",
-			"%s Followers",
-			(ulong) account.statuses_count
-		).printf (@"<b>$(Tuba.Units.shorten (account.followers_count))</b>");
+		if (account.followers_count >= 0) {
+			// translators: Used in profile stats.
+			//              The variable is a shortened number of the amount of followers a user has.
+			string followers_str = GLib.ngettext (
+				"%s Follower",
+				"%s Followers",
+				(ulong) account.statuses_count
+			).printf (@"<b>$(Utils.Units.shorten (account.followers_count))</b>");
+			stats += "<span allow_breaks=\"false\">%s</span>".printf (followers_str);
+		}
 
-		stats_label.label = "<span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>".printf (
-			posts_str,
+		if (account.following_count >= 0) {
 			// translators: Used in profile stats.
 			//              The variable is a shortened number of the amount of people a user follows.
-			_("%s Following").printf (@"<b>$(Tuba.Units.shorten (account.following_count))</b>"),
-			followers_str
-		);
+			stats += "<span allow_breaks=\"false\">%s</span>".printf (_("%s Following").printf (@"<b>$(Utils.Units.shorten (account.following_count))</b>"));
+		}
 
+		stats_label.label = string.joinv ("   ", stats);
 		update_aria ();
 	}
 

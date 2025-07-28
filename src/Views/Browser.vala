@@ -1,4 +1,4 @@
-public class Tuba.Views.Browser : Adw.Bin {
+public class Tuba.Views.Browser : Adw.Dialog {
 	private class HeaderBar : Adw.Bin {
 		~HeaderBar () {
 			debug ("Destroying Browser HeaderBar");
@@ -39,10 +39,12 @@ public class Tuba.Views.Browser : Adw.Bin {
 							return;
 						case Security.SECURE:
 							ssl_icon.icon_name = "tuba-padlock2-symbolic";
+							// translators: in-app web browser, tooltip on SSL icon
 							ssl_icon.tooltip_text = _("Secure");
 							break;
 						default:
 							ssl_icon.icon_name = "tuba-channel-insecure-symbolic";
+							// translators: in-app web browser, tooltip on SSL icon
 							ssl_icon.tooltip_text = _("Insecure");
 							break;
 					}
@@ -127,19 +129,12 @@ public class Tuba.Views.Browser : Adw.Bin {
 
 			window_title = new Adw.WindowTitle ("", "");
 			var headerbar = new Adw.HeaderBar () {
-				show_start_title_buttons = false,
-				show_end_title_buttons = false,
 				title_widget = window_title
 			};
 
-			var back_btn = new Gtk.Button.from_icon_name (is_rtl ? "tuba-right-large-symbolic" : "tuba-left-large-symbolic") {
-				tooltip_text = _("Back")
-			};
-			back_btn.clicked.connect (on_exit);
-			headerbar.pack_start (back_btn);
-
 			ssl_icon = new Gtk.Image () {
-				visible = false
+				visible = false,
+				margin_start = 8
 			};
 			headerbar.pack_start (ssl_icon);
 
@@ -167,6 +162,7 @@ public class Tuba.Views.Browser : Adw.Bin {
 			refresh_item.set_attribute_value ("verb-icon", "tuba-view-refresh-symbolic");
 			sub_menu_model.append_item (refresh_item);
 
+			// translators: in-app web browser, move forward in history action
 			var forward_item = new GLib.MenuItem (_("Forward"), "browser.go-forward");
 			forward_item.set_attribute_value ("verb-icon", "tuba-right-large-symbolic");
 			sub_menu_model.append_item (forward_item);
@@ -194,12 +190,13 @@ public class Tuba.Views.Browser : Adw.Bin {
 		}
 
 		private void on_open_in_browser () {
-			Host.open_url.begin (this.subtitle);
+			Utils.Host.open_url.begin (this.subtitle);
 			exit ();
 		}
 
 		private void on_copy_url () {
-			Host.copy (this.subtitle);
+			Utils.Host.copy (this.subtitle);
+			// translators: toast shown when copying a url with the action in the in-app web browser
 			app.toast (_("Copied url to clipboard"));
 		}
 
@@ -214,56 +211,6 @@ public class Tuba.Views.Browser : Adw.Bin {
 		private void on_go_forward () {
 			go_forward ();
 		}
-
-		private void on_exit () {
-			exit ();
-		}
-	}
-
-	const uint ANIMATION_DURATION = 250;
-	public override void snapshot (Gtk.Snapshot snapshot) {
-		var progress = this.animation.value;
-		if (progress == 1.0) {
-			base.snapshot (snapshot);
-			return;
-		}
-
-		float width = (float) this.get_width ();
-		snapshot.translate (Graphene.Point () {
-			x = width - width * (float) progress,
-			y = 0
-		});
-		base.snapshot (snapshot);
-	}
-
-	private void animation_target_cb (double value) {
-		this.queue_draw ();
-	}
-
-	private void on_animation_end () {
-		if (reveal_child) {
-			this.grab_focus ();
-		} else {
-			exit ();
-			animation = null; // leaks without
-		}
-	}
-
-	private bool _reveal_child = false;
-	public bool reveal_child {
-		get {
-			return _reveal_child;
-		}
-
-		set {
-			if (_reveal_child == value) return;
-			animation.value_from = animation.value;
-			animation.value_to = value ? 1.0 : 0.0;
-
-			_reveal_child = value;
-			animation.play ();
-			this.notify_property ("reveal-child");
-		}
 	}
 
 	~Browser () {
@@ -272,19 +219,18 @@ public class Tuba.Views.Browser : Adw.Bin {
 
 	WebKit.WebView webview;
 	HeaderBar headerbar;
-	Adw.TimedAnimation animation;
 
 	public new bool grab_focus () {
 		return this.webview.grab_focus ();
 	}
 
-	public signal void exit ();
+	public Browser.with_url (string url) {
+		load_url (url);
+	}
+
 	construct {
-		var target = new Adw.CallbackAnimationTarget (animation_target_cb);
-		animation = new Adw.TimedAnimation (this, 0.0, 1.0, ANIMATION_DURATION, target) {
-			easing = Adw.Easing.EASE_IN_OUT_QUART
-		};
-		animation.done.connect (on_animation_end);
+		this.content_width = 1200;
+		this.content_height = 1200;
 
 		this.webview = new WebKit.WebView () {
 			vexpand = true,
@@ -319,7 +265,8 @@ public class Tuba.Views.Browser : Adw.Bin {
 			hardware_acceleration_policy = WebKit.HardwareAccelerationPolicy.NEVER
 		};
 
-		webkit_settings.set_user_agent_with_application_details (Build.NAME, Build.VERSION);
+		if (Build.PROFILE != "development")
+			webkit_settings.set_user_agent_with_application_details (Build.NAME, Build.VERSION);
 		webview.settings = webkit_settings;
 
 		Gtk.GestureClick back_click_gesture = new Gtk.GestureClick () {
@@ -356,6 +303,7 @@ public class Tuba.Views.Browser : Adw.Bin {
 
 		toolbar_view.content = this.webview;
 		this.child = toolbar_view;
+		this.focus_widget = this.webview;
 	}
 
 	protected virtual void on_load_changed (WebKit.LoadEvent load_event) {
@@ -390,7 +338,7 @@ public class Tuba.Views.Browser : Adw.Bin {
 
 	protected void download_in_browser (WebKit.Download download) {
 		download.cancel ();
-		Host.open_url.begin (download.get_request ().uri);
+		Utils.Host.open_url.begin (download.get_request ().uri);
 	}
 
 	protected bool open_new_tab_in_browser (WebKit.PolicyDecision decision, WebKit.PolicyDecisionType type) {
@@ -410,7 +358,7 @@ public class Tuba.Views.Browser : Adw.Bin {
 					|| response_decision.response.mime_type.has_prefix ("text/")
 				) return false;
 
-				Host.open_url.begin (response_decision.request.uri);
+				Utils.Host.open_url.begin (response_decision.request.uri);
 				response_decision.ignore ();
 				return true;
 			default:
@@ -419,7 +367,7 @@ public class Tuba.Views.Browser : Adw.Bin {
 	}
 
 	protected Gtk.Widget on_create (WebKit.NavigationAction navigation_action) {
-		Host.open_url.begin (navigation_action.get_request ().get_uri ());
+		Utils.Host.open_url.begin (navigation_action.get_request ().get_uri ());
 
 		// According to the docs, we should return null if
 		// we are not creating a new WebView, but the vapi
@@ -442,6 +390,6 @@ public class Tuba.Views.Browser : Adw.Bin {
 	}
 
 	private void on_exit () {
-		this.reveal_child = false;
+		this.force_close ();
 	}
 }

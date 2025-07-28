@@ -4,6 +4,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	public string url { get; set; }
 	public Gee.ArrayList<API.TagHistory>? history { get; set; default = null; }
 	public bool following { get; set; default = false; }
+	public bool featuring { get; set; default = false; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
@@ -29,7 +30,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 
 	public override void open () {
 		#if USE_LISTVIEW
-			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url)));
+			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url), this.featuring));
 		#endif
 	}
 
@@ -42,29 +43,31 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 			}
 		}
 		// translators: the variable is the amount of times a hashtag was used in a week
-		return _("%d per week").printf (used_times);
+		//				in the composer auto-complete popup (so keep it short)
+		return GLib.ngettext ("%d per week", "%d per week", (ulong) used_times).printf (used_times);
 	}
 
 	public override Gtk.Widget to_widget () {
 		var w = new Adw.ActionRow () {
 			title = @"#$name",
-			activatable = true
+			activatable = true,
+			use_markup = false
 		};
 
 		if (history != null && history.size > 0) {
 			var last_history_entry = history.get (0);
-			var total_uses = int.parse (last_history_entry.uses);
+			//  var total_uses = int.parse (last_history_entry.uses);
 			var total_accounts = int.parse (last_history_entry.accounts);
-			// translators: the variables are numbers
-			var subtitle = _("Used %d times by %d people yesterday").printf (total_uses, total_accounts);
+			// translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
+			var subtitle = GLib.ngettext ("%d person yesterday", "%d people yesterday", (ulong) total_accounts).printf (total_accounts);
 
 			if (history.size > 1) {
 				last_history_entry = history.get (1);
-				total_uses += int.parse (last_history_entry.uses);
+				//  total_uses += int.parse (last_history_entry.uses);
 				total_accounts += int.parse (last_history_entry.accounts);
 
-				// translators: the variables are numbers
-				subtitle = _("Used %d times by %d people in the past 2 days").printf (total_uses, total_accounts);
+				// translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
+				subtitle = GLib.ngettext ("%d person in the past 2 days", "%d people in the past 2 days", (ulong) total_accounts).printf (total_accounts);
 			}
 
 			w.subtitle = subtitle;
@@ -79,7 +82,19 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 
 	#if !USE_LISTVIEW
 		protected void on_activated () {
-			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url)));
+			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url), this.featuring));
 		}
 	#endif
+
+	//  public Request feature (bool? feature = null) {
+	//  	string endpoint = "feature";
+	//  	if (feature == null) {
+	//  		endpoint = this.featuring ? "unfeature" : "feature";
+	//  	} else if (feature == false) {
+	//  		endpoint = "unfeature";
+	//  	}
+
+	//  	return new Request.POST (@"/api/v1/tags/$(Path.get_basename (url) ?? name)/$endpoint")
+	//  		.with_account (accounts.active);
+	//  }
 }

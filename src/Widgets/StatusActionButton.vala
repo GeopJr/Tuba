@@ -14,8 +14,8 @@ public class Tuba.Widgets.StatusActionButton : Gtk.Button {
 	}
 
 	public string? active_icon_name { get; construct set; default = null; }
-
 	public bool working { get; private set; default = false; }
+	public bool show_counts { get; set; default = true; }
 
 	private int64 _amount = 0;
 	public int64 amount {
@@ -70,7 +70,7 @@ public class Tuba.Widgets.StatusActionButton : Gtk.Button {
 	}
 
 	private void update_button_content (int64 new_value) {
-		if (new_value == 0) {
+		if (new_value == 0 || !this.show_counts) {
 			content.label = "";
 			content.margin_start = 0;
 			content.margin_end = 0;
@@ -78,7 +78,7 @@ public class Tuba.Widgets.StatusActionButton : Gtk.Button {
 			return;
 		}
 
-		content.label = Tuba.Units.shorten (new_value);
+		content.label = Utils.Units.shorten (new_value);
 		content.margin_start = 12;
 		content.margin_end = 9;
 	}

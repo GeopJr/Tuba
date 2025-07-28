@@ -1,72 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
 
-  <menu id="profile-menu">
+	<menu id="profile-menu">
 
-    <section>
-      <attribute name="display-hint">circular-buttons</attribute>
-      <!-- <attribute name="label" translatable="yes">Interaction</attribute> -->
-      <item>
-        <attribute name="label" translatable="yes">Mention</attribute>
-        <attribute name="action">view.mention</attribute>
-        <attribute name="target">public</attribute>
-        <attribute name="verb-icon">tuba-online-symbolic</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Direct Message</attribute>
-        <attribute name="action">view.mention</attribute>
-        <attribute name="target">direct</attribute>
-        <attribute name="verb-icon">tuba-mail-unread-symbolic</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Copy Handle</attribute>
-        <attribute name="action">view.copy_handle</attribute>
-        <attribute name="verb-icon">edit-copy-symbolic</attribute>
-      </item>
-    </section>
+		<section>
+			<attribute name="display-hint">circular-buttons</attribute>
+			<!-- <attribute name="label" translatable="yes">Interaction</attribute> -->
+			<item>
+				<attribute name="label" translatable="yes">Mention</attribute>
+				<attribute name="action">view.mention</attribute>
+				<attribute name="target">public</attribute>
+				<attribute name="verb-icon">tuba-online-symbolic</attribute>
+			</item>
+			<item>
+				<attribute name="label" translatable="yes">Direct Message</attribute>
+				<attribute name="action">view.mention</attribute>
+				<attribute name="target">direct</attribute>
+				<attribute name="verb-icon">tuba-mail-unread-symbolic</attribute>
+			</item>
+			<item>
+				<attribute name="label" translatable="yes">Copy Handle</attribute>
+				<attribute name="action">view.copy_handle</attribute>
+				<attribute name="verb-icon">edit-copy-symbolic</attribute>
+			</item>
+		</section>
 
-    <item>
-      <attribute name="label" translatable="yes">Open in Browser</attribute>
-      <attribute name="action">view.open_in_browser</attribute>
-    </item>
-    <item>
-      <attribute name="label" translatable="yes">Receive Post Notifications</attribute>
-      <attribute name="action">view.notify_on_post</attribute>
-      <attribute name="hidden-when">action-disabled</attribute>
-    </item>
+		<item>
+			<attribute name="label" translatable="yes">Open in Browser</attribute>
+			<attribute name="action">view.open_in_browser</attribute>
+		</item>
+		<item>
+			<attribute name="label" translatable="yes">Receive Post Notifications</attribute>
+			<attribute name="action">view.notify_on_post</attribute>
+			<attribute name="hidden-when">action-disabled</attribute>
+		</item>
+		<item>
+			<!-- translators: used in profile actions for endorsing a user -->
+			<attribute name="label" translatable="yes">Feature on Profile</attribute>
+			<attribute name="action">view.endorsed</attribute>
+			<attribute name="hidden-when">action-disabled</attribute>
+		</item>
 
-    <section>
-        <attribute name="label" translatable="yes">Moderation</attribute>
-        <item>
-          <attribute name="label" translatable="yes">Hide Boosts</attribute>
-          <attribute name="action">view.hiding_reblogs</attribute>
-          <!-- <attribute name="hidden-when">action-disabled</attribute> -->
-        </item>
-        <item>
-          <attribute name="label" translatable="yes">Mute</attribute>
-          <attribute name="action">view.muting</attribute>
-        </item>
-        <section>
-          <item>
-            <attribute name="label" translatable="yes">Block</attribute>
-            <attribute name="action">view.blocking</attribute>
-          </item>
-          <item>
-            <attribute name="label" translatable="yes">Block Domain</attribute>
-            <attribute name="action">view.domain_blocking</attribute>
-            <!-- <attribute name="hidden-when">action-disabled</attribute> -->
-          </item>
-          <item>
-            <attribute name="label" translatable="yes">Report</attribute>
-            <attribute name="action">view.report</attribute>
-          </item>
-        </section>
-    </section>
+		<section>
+			<attribute name="label" translatable="yes">Moderation</attribute>
+			<item>
+				<attribute name="label" translatable="yes">Hide Boosts</attribute>
+				<attribute name="action">view.hiding_reblogs</attribute>
+				<attribute name="hidden-when">action-disabled</attribute>
+			</item>
+			<item>
+				<attribute name="label" translatable="yes">Mute</attribute>
+				<attribute name="action">view.muting</attribute>
+			</item>
+			<section>
+				<item>
+					<attribute name="label" translatable="yes">Block</attribute>
+					<attribute name="action">view.blocking</attribute>
+				</item>
+				<item>
+					<attribute name="label" translatable="yes">Block Domain</attribute>
+					<attribute name="action">view.domain_blocking</attribute>
+					<!-- <attribute name="hidden-when">action-disabled</attribute> -->
+				</item>
+				<item>
+					<attribute name="label" translatable="yes">Report</attribute>
+					<attribute name="action">view.report</attribute>
+				</item>
+			</section>
+		</section>
 
-    <section>
-      <attribute name="label" translatable="yes">Timeline</attribute>
-    <!-- <section> -->
-      <!-- <submenu id="copy-menu">
+		<section>
+			<attribute name="label" translatable="yes">Timeline</attribute>
+			<!-- <section> -->
+			<!-- <submenu id="copy-menu">
         <attribute name="label" translatable="yes">Share</attribute>
         <item>
           <attribute name="label" translatable="yes">Copy Profile Handle</attribute>
@@ -77,15 +83,15 @@
           <attribute name="action">view.copy_handle</attribute>
         </item>
       </submenu> -->
-    <!-- </section> -->
+			<!-- </section> -->
 
-      <item>
-        <attribute name="label" translatable="yes">Lists</attribute>
-        <attribute name="action">view.ar_list</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-    </section>
+			<item>
+				<attribute name="label" translatable="yes">Lists</attribute>
+				<attribute name="action">view.ar_list</attribute>
+				<attribute name="hidden-when">action-disabled</attribute>
+			</item>
+		</section>
 
-  </menu>
+	</menu>
 
 </interface>

@@ -8,10 +8,6 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	[GtkChild] unowned Adw.Breakpoint breakpoint;
 	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 
-	#if WEBKIT
-		[GtkChild] unowned Gtk.Overlay main_overlay;
-	#endif
-
 	public void set_sidebar_selected_item (int pos) {
 		sidebar.set_sidebar_selected_item (pos);
 	}
@@ -135,58 +131,34 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public void show_book (API.BookWyrm book, string? fallback = null) {
-		try {
-			var book_widget = book.to_widget ();
-			var clamp = new Adw.Clamp () {
-				child = book_widget,
-				tightening_threshold = 100,
-				valign = Gtk.Align.START
-			};
-			var scroller = new Gtk.ScrolledWindow () {
-				hexpand = true,
-				vexpand = true
-			};
-			scroller.child = clamp;
+		var book_widget = book.to_widget ();
+		var clamp = new Adw.Clamp () {
+			child = book_widget,
+			tightening_threshold = 100,
+			valign = Gtk.Align.START
+		};
+		var scroller = new Gtk.ScrolledWindow () {
+			hexpand = true,
+			vexpand = true
+		};
+		scroller.child = clamp;
 
-			var toolbar_view = new Adw.ToolbarView ();
-			var headerbar = new Adw.HeaderBar ();
+		var toolbar_view = new Adw.ToolbarView ();
+		var headerbar = new Adw.HeaderBar ();
 
-			toolbar_view.add_top_bar (headerbar);
-			toolbar_view.set_content (scroller);
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.set_content (scroller);
 
-			var book_dialog = new Adw.Dialog () {
-				title = book.title,
-				child = toolbar_view,
-				content_width = 460,
-				content_height = 640
-			};
+		var book_dialog = new Adw.Dialog () {
+			title = book.title,
+			child = toolbar_view,
+			content_width = 460,
+			content_height = 640
+		};
 
-			book_dialog.present (this);
-
-			((Widgets.BookWyrmPage) book_widget).selectable = true;
-		} catch {
-			if (fallback != null) Host.open_url.begin (fallback);
-		}
+		book_dialog.present (this);
+		((Widgets.BookWyrmPage) book_widget).selectable = true;
 	}
-
-	#if WEBKIT
-		Gtk.Widget? browser_last_focused_widget = null;
-		public void open_in_app_browser_for_url (string url) {
-			browser_last_focused_widget = app.main_window.get_focus ();
-			var browser = new Views.Browser ();
-			browser.exit.connect (on_browser_exit);
-			browser.load_url (url);
-			main_overlay.add_overlay (browser);
-			browser.reveal_child = true;
-		}
-
-		private void on_browser_exit (Views.Browser browser) {
-			main_overlay.remove_overlay (browser);
-
-			browser_last_focused_widget.grab_focus ();
-			browser_last_focused_widget = null;
-		}
-	#endif
 
 	public Views.Base open_view (Views.Base view) {
 		if (

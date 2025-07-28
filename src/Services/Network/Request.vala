@@ -102,11 +102,13 @@ public class Tuba.Request : GLib.Object {
 	public Request with_ctx (Gtk.Widget ctx) {
 		this.has_ctx = true;
 		this.ctx = ctx;
-		this.ctx.destroy.connect (() => {
-			this.cancellable.cancel ();
-			this.ctx = null;
-		});
+		this.ctx.destroy.connect (on_ctx_destroy);
 		return this;
+	}
+
+	private void on_ctx_destroy () {
+		this.cancellable.cancel ();
+		this.ctx = null;
 	}
 
 	public Request on_error (owned Network.ErrorCallback cb) {
@@ -116,6 +118,12 @@ public class Tuba.Request : GLib.Object {
 
 	public Request with_account (InstanceAccount? account = null) {
 		this.account = account;
+		return this;
+	}
+
+	string? force_token = null;
+	public Request with_token (string token) {
+		force_token = token;
 		return this;
 	}
 
@@ -201,7 +209,10 @@ public class Tuba.Request : GLib.Object {
 			msg.uri = t_uri;
 		}
 
-		if (account != null && account.access_token != null) {
+		if (force_token != null) {
+			msg.request_headers.remove ("Authorization");
+			msg.request_headers.append ("Authorization", @"Bearer $force_token");
+		} else if (account != null && account.access_token != null) {
 			msg.request_headers.remove ("Authorization");
 			msg.request_headers.append ("Authorization", @"Bearer $(account.access_token)");
 		}

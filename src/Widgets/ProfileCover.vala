@@ -72,7 +72,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 					//				displayed in the list. The singular version will not be used.
 					"Followed by %s & %s Other", "Followed by %s & %s Others",
 					(ulong) others_count
-				).printf (string.joinv (", ", display_named), Units.shorten (others_count));
+				).printf (string.joinv (", ", display_named), Utils.Units.shorten (others_count));
 			} else {
 				string display_name_list;
 				switch (display_named.length) {
@@ -266,6 +266,9 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	string stats_string = "";
 	string profile_id;
 	public Cover (Views.Profile.ProfileAccount profile, bool mini = false) {
+		#if !ADW_1_7_5
+			avatar.size = 100;
+		#endif
 		profile_id = profile.account.id;
 		if (settings.scale_emoji_hover)
 			this.add_css_class ("lww-scale-emoji-hover");
@@ -277,7 +280,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			note_row.sensitive = false;
 		} else if (!is_self) {
 			moved_btn.clicked.connect (on_moved_btn_clicked);
-			if (accounts.active.instance_info != null && accounts.active.instance_info.tuba_api_versions.mastodon > 0) {
+			if (accounts.active.tuba_api_versions.mastodon > 0 || InstanceAccount.InstanceFeatures.MUTUALS in accounts.active.tuba_instance_features) {
 				GLib.Idle.add (populate_mutuals);
 			}
 		}
@@ -319,30 +322,36 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		} else {
 			background.height_request = 64;
 
-			// translators: Used in profile stats.
-			//              The variable is a shortened number of the amount of posts a user has made.
-			string posts_str = GLib.ngettext (
-				"%s Post",
-				"%s Posts",
-				(ulong) profile.account.statuses_count
-			).printf (@"<b>$(Tuba.Units.shorten (profile.account.statuses_count))</b>");
+			string[] stats = {};
+			{
+				// translators: Used in profile stats.
+				//              The variable is a shortened number of the amount of posts a user has made.
+				string posts_str = GLib.ngettext (
+					"%s Post",
+					"%s Posts",
+					(ulong) profile.account.statuses_count
+				).printf (@"<b>$(Utils.Units.shorten (profile.account.statuses_count))</b>");
+				stats += "<span allow_breaks=\"false\">%s</span>".printf (posts_str);
+			}
 
-			// translators: Used in profile stats.
-			//              The variable is a shortened number of the amount of followers a user has.
-			string followers_str = GLib.ngettext (
-				"%s Follower",
-				"%s Followers",
-				(ulong) profile.account.statuses_count
-			).printf (@"<b>$(Tuba.Units.shorten (profile.account.followers_count))</b>");
+			if (profile.account.followers_count >= 0) {
+				// translators: Used in profile stats.
+				//              The variable is a shortened number of the amount of followers a user has.
+				string followers_str = GLib.ngettext (
+					"%s Follower",
+					"%s Followers",
+					(ulong) profile.account.statuses_count
+				).printf (@"<b>$(Utils.Units.shorten (profile.account.followers_count))</b>");
+				stats += "<span allow_breaks=\"false\">%s</span>".printf (followers_str);
+			}
 
-			stats_string = "<span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>".printf (
-				posts_str,
+			if (profile.account.following_count >= 0) {
 				// translators: Used in profile stats.
 				//              The variable is a shortened number of the amount of people a user follows.
-				_("%s Following").printf (@"<b>$(Tuba.Units.shorten (profile.account.following_count))</b>"),
-				followers_str
-			);
+				stats += "<span allow_breaks=\"false\">%s</span>".printf (_("%s Following").printf (@"<b>$(Utils.Units.shorten (profile.account.following_count))</b>"));
+			}
 
+			stats_string = string.joinv ("   ", stats);
 			info.append (
 				new Gtk.ListBoxRow () {
 					activatable = false,
@@ -450,11 +459,14 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		cover_bot_badge.visible = profile.bot;
 		update_cover_badge ();
 
-		var w = roles.get_first_child ();
-		while (w != null) {
-			roles.remove (w);
-			w = w.get_next_sibling ();
-		};
+		{
+			var w = roles.get_first_child ();
+			while (w != null) {
+				var w2 = w.get_next_sibling ();
+				roles.remove (w);
+				w = w2;
+			};
+		}
 
 		if (profile.roles != null && profile.roles.size > 0) {
 			roles.visible = true;
@@ -505,7 +517,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 				var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
 					css_classes = {"ttl-profile-field"}
 				};
-				var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val)) {
+				var val = new Widgets.RichLabel (Utils.Htmlx.simplify (f.val)) {
 					use_markup = true,
 					xalign = 0,
 					selectable = true
@@ -649,8 +661,14 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		public string label_template { get; set; default = "%s"; }
 		public int64 amount {
 			set {
-				this.label = label_template.printf (Tuba.Units.shorten (value));
-				this.tooltip_text = label_template.printf (value.to_string ());
+				if (value == -1) {
+					this.label = label_template.printf ("").strip ();
+					// translators: shown when the user has hidden their followers/following counts
+					this.tooltip_text = label_template.printf (_("Hidden"));
+				} else {
+					this.label = label_template.printf (Utils.Units.shorten (value));
+					this.tooltip_text = label_template.printf (value.to_string ());
+				}
 			}
 		}
 
@@ -674,7 +692,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
 
 		posts_btn = new ProfileStatsButton ();
-		posts_btn.clicked.connect (() => timeline_change ("statuses"));
+		posts_btn.clicked.connect (() => timeline_change ("statuses-like"));
 		sizegroup.add_widget (posts_btn);
 		box.append (posts_btn);
 

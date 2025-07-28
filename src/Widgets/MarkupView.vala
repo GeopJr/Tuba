@@ -23,8 +23,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	public bool extract_last_tags { get; set; default=false; }
 	public bool has_link { get; set; default=false; }
 
-	TagExtractor.Tag[]? extracted_tags = null;
-	public TagExtractor.Tag[]? get_extracted_tags () {
+	Utils.TagExtractor.Tag[]? extracted_tags = null;
+	public Utils.TagExtractor.Tag[]? get_extracted_tags () {
 		return extracted_tags;
 	}
 
@@ -45,9 +45,26 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		}
 	}
 
-	static construct {
-		set_accessible_role (Gtk.AccessibleRole.GENERIC);
+	private bool _can_open = true;
+	public bool can_open {
+		get { return _can_open; }
+		set {
+			_can_open = value;
+
+			var w = this.get_first_child ();
+			while (w != null) {
+				var label = w as RichLabel;
+				if (label != null) {
+					label.can_open = _can_open;
+				}
+				w = w.get_next_sibling ();
+			};
+		}
 	}
+
+	//  static construct {
+	//  	set_accessible_role (Gtk.AccessibleRole.GENERIC);
+	//  }
 
 	construct {
 		this.focusable = true;
@@ -58,14 +75,16 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	void update_aria () {
 		string total_aria = "";
 
-		var w = this.get_first_child ();
-		while (w != null) {
-			var label = w as RichLabel;
-			if (label != null) {
-				total_aria += @"\n$(label.accessible_text)";
-			}
-			w = w.get_next_sibling ();
-		};
+		{
+			var w = this.get_first_child ();
+			while (w != null) {
+				var label = w as RichLabel;
+				if (label != null) {
+					total_aria += @"\n$(label.accessible_text)";
+				}
+				w = w.get_next_sibling ();
+			};
+		}
 
 		this.update_property (Gtk.AccessibleProperty.LABEL, total_aria, -1);
 		this.update_property (Gtk.AccessibleProperty.DESCRIPTION, null, -1);
@@ -76,12 +95,16 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		extracted_tags = null;
 		has_link = false;
 
-		for (var w = get_first_child (); w != null; w = w.get_next_sibling ()) {
-			w.unparent ();
-			w.destroy ();
+		{
+			var w = this.get_first_child ();
+			while (w != null) {
+				var w2 = w.get_next_sibling ();
+				this.remove (w);
+				w = w2;
+			};
 		}
 
-		string to_parse = HtmlUtils.replace_with_pango_markup (content);
+		string to_parse = Utils.Htmlx.replace_with_pango_markup (content);
 		if (to_parse == "") return;
 
 		var doc = Html.Doc.read_doc (to_parse, "", "utf8");
@@ -112,7 +135,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 	void extract_tags () {
 		if (current_chunk == null || !this.has_link) return;
-		var extracted = TagExtractor.from_string (current_chunk);
+		var extracted = Utils.TagExtractor.from_string (current_chunk);
 		if (extracted.input_without_tags == null || extracted.extracted_tags == null) return;
 
 		current_chunk = extracted.input_without_tags;
@@ -172,6 +195,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				case "pre":
 				case "body":
 				case "p":
+				case "div":
 					blockquote_handler (node, bold_text_regex);
 					break;
 				case "b":
@@ -250,6 +274,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				break;
 			case "html":
 			case "markup":
+			case "div":
 				traverse_and_handle (v, root, default_handler);
 				break;
 			case "body":
@@ -279,6 +304,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 						visible = true,
 						css_classes = { "ttl-code", "monospace" },
 						use_markup = true,
+						selectable = v.selectable,
 						//  focusable_label = true
 						// markup = MarkupPolicy.DISALLOW
 					};
@@ -306,6 +332,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					visible = true,
 					css_classes = { "ttl-code", "italic" },
 					use_markup = true,
+					selectable = v.selectable
 					//  focusable_label = true
 					// markup = MarkupPolicy.DISALLOW
 				};

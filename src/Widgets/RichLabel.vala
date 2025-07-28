@@ -92,6 +92,8 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		if (text != null) this.label = text;
 	}
 
+	public bool can_open { get; set; default = true; }
+
 	static construct {
 		set_accessible_role (Gtk.AccessibleRole.LABEL);
 	}
@@ -117,8 +119,9 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	}
 
 	public bool on_activate_link (string url) {
-		widget.grab_focus ();
+		if (!can_open) return true;
 
+		widget.grab_focus ();
 		if (mentions != null) {
 			bool found = false;
 			mentions.@foreach (mention => {
@@ -183,15 +186,15 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 					(uri != null && Views.Browser.can_handle_uri (uri))
 					|| Views.Browser.can_handle_url (url)
 				) {
-					app.main_window.open_in_app_browser_for_url (url);
+					(new Views.Browser.with_url (url)).present (app.main_window);
 					return;
 				}
 			}
 		#endif
 		if (uri == null) {
-			Host.open_url.begin (url);
+			Utils.Host.open_url.begin (url);
 		} else {
-			Host.open_uri.begin (uri);
+			Utils.Host.open_uri.begin (uri);
 		}
 	}
 
@@ -208,7 +211,7 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			string? current_uri = widget.get_current_uri ();
 			if (current_uri == null) return;
 
-			Host.open_url.begin (current_uri);
+			Utils.Host.open_url.begin (current_uri);
 		}
 	#endif
 }

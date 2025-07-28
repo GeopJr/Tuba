@@ -28,13 +28,13 @@ const TestMention[] MENTIONS = {
 
 public void test_count () {
 	foreach (var test_count in COUNTS) {
-		assert_cmpint (Tuba.Counting.chars (test_count.content), CompareOperator.EQ, test_count.count);
+		assert_cmpint (Tuba.Utils.Counting.chars (test_count.content), CompareOperator.EQ, test_count.count);
 	}
 }
 
 public void test_mention () {
 	foreach (var test_mention in MENTIONS) {
-		assert_cmpstr (Tuba.Counting.replace_mentions (test_mention.content), CompareOperator.EQ, test_mention.without_mentions);
+		assert_cmpstr (Tuba.Utils.Counting.replace_mentions (test_mention.content), CompareOperator.EQ, test_mention.without_mentions);
 	}
 }
 

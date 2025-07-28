@@ -13,7 +13,20 @@ name: Windows
 jobs:
   msys2:
     name: "Windows Builder"
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        variant:
+          - arch: x86_64
+            runner: windows-latest
+            sys: mingw64
+            package: x86_64
+          - arch: aarch64
+            runner: windows-11-arm
+            sys: CLANGARM64
+            package: clang-aarch64
+      # Don't fail the whole workflow if one architecture fails
+      fail-fast: false
+    runs-on: ${{ matrix.variant.runner }}
     # if: ${{ false }}
     defaults:
       run:
@@ -24,23 +37,27 @@ jobs:
           lfs: 'true'
       - uses: msys2/setup-msys2@v2
         with:
-          msystem: mingw64
+          msystem: ${{ matrix.variant.sys }}
           update: true
-          install: git make zip wget unzip mingw-w64-x86_64-meson mingw-w64-x86_64-gcc mingw-w64-x86_64-vala mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-libxml2 mingw-w64-x86_64-gtksourceview5 mingw-w64-x86_64-webp-pixbuf-loader mingw-w64-x86_64-libadwaita mingw-w64-x86_64-libgee mingw-w64-x86_64-json-glib mingw-w64-x86_64-libsecret mingw-w64-x86_64-desktop-file-utils mingw-w64-x86_64-imagemagick mingw-w64-x86_64-icu mingw-w64-x86_64-libspelling mingw-w64-x86_64-gstreamer mingw-w64-x86_64-gst-plugins-base mingw-w64-x86_64-gst-plugins-good mingw-w64-x86_64-nsis
-      - run: make windows release=1
-        if: ${{ inputs.release }}
-      - run: make windows
-        if: ${{ !inputs.release }}
+          install: git make zip wget unzip mingw-w64-${{ matrix.variant.package }}-meson mingw-w64-${{ matrix.variant.package }}-gcc mingw-w64-${{ matrix.variant.package }}-vala mingw-w64-${{ matrix.variant.package }}-libsoup3 mingw-w64-${{ matrix.variant.package }}-libxml2 mingw-w64-${{ matrix.variant.package }}-gtksourceview5 mingw-w64-${{ matrix.variant.package }}-webp-pixbuf-loader mingw-w64-${{ matrix.variant.package }}-libadwaita mingw-w64-${{ matrix.variant.package }}-libgee mingw-w64-${{ matrix.variant.package }}-json-glib mingw-w64-${{ matrix.variant.package }}-libsecret mingw-w64-${{ matrix.variant.package }}-desktop-file-utils mingw-w64-${{ matrix.variant.package }}-imagemagick mingw-w64-${{ matrix.variant.package }}-icu mingw-w64-${{ matrix.variant.package }}-libspelling mingw-w64-${{ matrix.variant.package }}-gstreamer mingw-w64-${{ matrix.variant.package }}-gst-plugins-base mingw-w64-${{ matrix.variant.package }}-gst-plugins-good mingw-w64-${{ matrix.variant.package }}-gexiv2 mingw-w64-x86_64-nsis
+      - run: make windows ${{ (inputs.release && 'release=1') || '' }} ${{ (matrix.variant.arch == 'aarch64' && 'msys_sys=clangarm64') || '' }}
       - uses: actions/upload-artifact@v4
+        if: matrix.variant.arch == 'x86_64' # let's not break nightly links
         with:
           name: tuba_windows_portable
           path: tuba_windows_portable/
-      - run: make windows_nsis release=1
-        if: ${{ inputs.release }}
-      - run: make windows_nsis
-        if: ${{ !inputs.release }}
       - uses: actions/upload-artifact@v4
+        if: matrix.variant.arch != 'x86_64'
+        with:
+          name: tuba_windows_portable_${{ matrix.variant.arch }}
+          path: tuba_windows_portable/
+      # NSIS is not available on arm
+      - run: make windows_nsis ${{ (inputs.release && 'release=1') || '' }}
+        if: matrix.variant.arch == 'x86_64'
+      - uses: actions/upload-artifact@v4
+        if: matrix.variant.arch == 'x86_64'
         with:
           name: Tuba Setup.exe
           path: nsis/Tuba Setup.exe
       - run: sha256sum nsis/Tuba\ Setup.exe
+        if: matrix.variant.arch == 'x86_64'

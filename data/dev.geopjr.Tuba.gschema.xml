@@ -9,142 +9,291 @@
 	<schema id="dev.geopjr.Tuba.Account">
 		<key name="default-post-visibility" type="s">
 			<default>'public'</default>
+			<summary>Default Post Visibility</summary>
 		</key>
 		<key name="default-content-type" type="s">
 			<default>'text/plain'</default>
+			<summary>Default Post Content Type</summary>
 		</key>
 		<key name="muted-notification-types" type="as">
 			<default>[]</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Muted Push Notification Types</summary>
 		</key>
 		<key name="recently-used-custom-emojis" type="as">
 			<default>[]</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Recently Used Custom Emojis</summary>
+		</key>
+		<key name="recent-searches" type="as">
+			<default>[]</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Recent Search Queries</summary>
 		</key>
 		<key name="notification-filters" type="as">
 			<default>[]</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Filtered-out Notification Types</summary>
 		</key>
 		<key name="favorite-lists-ids" type="as">
 			<default>[]</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>IDs of Lists shown on the sidebar</summary>
+		</key>
+		<key name="favorite-tags-ids" type="as">
+			<default>[]</default>
+			<summary>Hashtags shown on the sidebar</summary>
 		</key>
 		<key name="account-suggestions" type="b">
 			<default>true</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Account Suggestions</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Whether account suggestions should be shown in the Home tab when the user doesn't follow enough people</description>
 		</key>
 	</schema>
 
 	<schema path="/dev/geopjr/Tuba/" id="dev.geopjr.Tuba" gettext-domain="dev.geopjr.Tuba">
 		<key name="active-account" type="s">
 			<default>''</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Active Account</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>The UUID of the active account</description>
 		</key>
 		<key name="color-scheme" enum="dev.geopjr.Tuba.ColorScheme">
 			<default>'system'</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>The default color scheme</summary>
 		</key>
 		<key name="work-in-background" type="b">
 			<default>false</default>
+			<summary>Run in Background</summary>
+			<description>Fetch notifications while the app is closed</description>
 		</key>
 		<key name="timeline-page-size" type="i">
 			<default>20</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Posts per Load Batch</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>The amount of posts that should be displayed on every scroll on timelines (10-40)</description>
 		</key>
 		<key name="live-updates" type="b">
 			<default>true</default>
+			<summary>Stream Timelines</summary>
+			<description>Receive new posts and notifications in real-time</description>
 		</key>
 		<key name="public-live-updates" type="b">
 			<default>false</default>
+			<summary>Stream Public Timelines</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Public means the local and federated ones that usually have a lot of traffic</description>
 		</key>
 		<key name="show-spoilers" type="b">
 			<default>false</default>
+			<summary>Reveal Spoilers by Default</summary>
 		</key>
 		<key name="show-preview-cards" type="b">
 			<default>true</default>
+			<summary>Show Link Preview Cards</summary>
 		</key>
 		<key name="larger-font-size" type="b">
 			<default>false</default>
+			<summary>Large Text</summary>
+			<description>Increase the size of text in posts</description>
 		</key>
 		<key name="larger-line-height" type="b">
 			<default>false</default>
+			<summary>Large Line Height</summary>
+			<description>Increase the line height in posts</description>
 		</key>
 		<key name="scale-emoji-hover" type="b">
-			<default>false</default>
+			<default>true</default>
+			<summary>Scale Custom Emojis on Hover</summary>
+			<description>lightly increases the size of custom emojis when you hover over them</description>
 		</key>
 		<key name="aggressive-resolving" type="b">
 			<default>false</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Aggressive User Resolving</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>When clicking on a link, Tuba will ask your instance to resolve it to see if it leads to a user or a post regardless if it matches the typical post and user URLs</description>
 		</key>
 		<key name="strip-tracking" type="b">
 			<default>true</default>
+			<summary>Strip Tracking Parameters From Links</summary>
+			<description>This option can lead to broken links when enabled</description>
 		</key>
 		<key name="letterbox-media" type="b">
 			<default>false</default>
+			<summary>Letterbox Media</summary>
+			<description>Scale down and letterbox media to fill the image containers instead of stretching and cropping them</description>
 		</key>
 		<key name="media-viewer-expand-pictures" type="b">
 			<default>true</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated; expand as in enlarge -->
+			<summary>Expand Pictures in Media Viewer</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated; expand as in enlarge -->
+			<description>Expand pictures to fill the media viewer by default</description>
 		</key>
 		<key name="enlarge-custom-emojis" type="b">
 			<default>false</default>
+			<summary>Large Custom Emojis</summary>
 		</key>
 		<key name="use-blurhash" type="b">
 			<default>true</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated; leave this as is unless you want to transliterate. BlurHash is a recognizable product name. -->
+			<summary>BlurHash</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Show a blurred version of the media until they fully load</description>
+		</key>
+		<key name="show-sensitive-media" type="b">
+			<default>false</default>
+			<summary>Reveal Sensitive Media by Default</summary>
 		</key>
 		<key name="group-push-notifications" type="b">
 			<default>false</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Group Similar Push Notifications</summary>
+			<description>Combine recently pushed notifications of the same type and post into one</description>
 		</key>
 		<key name="advanced-boost-dialog" type="b">
 			<default>false</default>
+			<summary>Advanced Boost Dialog</summary>
+			<description>Change boost visibility, quote and confirm boosting</description>
 		</key>
 		<key name="reply-to-old-post-reminder" type="b">
 			<default>true</default>
+			<summary>Warn before replying to an old post</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Before replying to a post that was made at least 3 months ago, Tuba will warn you that the conversation might be over</description>
 		</key>
-    <key name="copy-private-link-reminder" type="b">
+		<key name="copy-private-link-reminder" type="b">
 			<default>true</default>
+			<summary>Warn before copying a link to a private post</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>If you copy the link to a post that is not publicly accessible, Tuba will warn you that people might not be able to view the post the link points to</description>
 		</key>
 		<key name="spellchecker-enabled" type="b">
 			<default>true</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Spellchecker</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>The last state of the spellchecker in the composer, can be toggled by right clicking</description>
 		</key>
 		<key name="darken-images-on-dark-mode" type="b">
 			<default>false</default>
+			<summary>Darken Images on Dark Mode</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Images will be darker when dark mode is enabled and gain their full brightness when hovered</description>
 		</key>
 		<key name="dim-trivial-notifications" type="b">
 			<default>false</default>
+			<summary>Dim Trivial Notifications</summary>
+			<description>Notifications like favorites and boosts will be less visible</description>
 		</key>
 		<key name="media-viewer-last-used-volume" type="d">
 			<default>1.0</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>The last volume value used in the media viewer for videos and audio</summary>
 		</key>
 		<key name="monitor-network" type="b">
 			<default>true</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Monitor Network Changes</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>When the network disconnects and reconnects Tuba will detect it and gracefully recover</description>
 		</key>
 		<key name="proxy" type="s">
 			<default>''</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Proxy URL</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Leaving it empty will use the default connection which might be proxied based on the system settings</description>
 		</key>
-    <key name="analytics" type="b">
+		<key name="analytics" type="b">
 			<default>false</default>
+			<summary>Send Preference Analytics</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Send your preferences to Tuba's developers for popularity research biweekly. You can preview exactly what's being sent in-app, they are opt-in and the server is open source.</description>
 		</key>
-    <key name="update-contributors" type="b">
+		<key name="update-contributors" type="b">
 			<default>false</default>
+			<summary>Update Supporters Periodically</summary>
+			<description>Fetch the list of Tuba's supporters biweekly</description>
 		</key>
-    <key name="last-analytics-update" type="s">
+		<key name="last-analytics-update" type="s">
 			<default>''</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Date of the last analytics update</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Used for keeping track if 2 weeks have passed since the last update</description>
 		</key>
-    <key name="last-contributors-update" type="s">
+		<key name="last-contributors-update" type="s">
 			<default>''</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Date of the last contributors update</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Used for keeping track if 2 weeks have passed since the last update</description>
 		</key>
-    <key name="contributors" type="as">
+		<key name="contributors" type="as">
 			<default>['1021928818','2964685538','2486375860','3456423266','1352322503','445941323','3177176442','2813905310','2386917030','987913018','1837154139','4173902237','4223975552','3163563143','3320460562','4233664772','136476033','4041964504','3998595277','580879396']</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Tuba contributors</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>A list of hashed handles that belong to Tuba contributors so they can be used in-app</description>
 		</key>
-    <key name="status-aria-verbosity" type="i">
+		<key name="status-aria-verbosity" type="i">
 			<default>3</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Post aria label verbosity</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>0 to 5 verbosity level, 0 being no aria label and 5 being very detailed</description>
 		</key>
-    <key name="use-in-app-browser-if-available" type="b">
+		<key name="use-in-app-browser-if-available" type="b">
 			<default>true</default>
+			<summary>Open Links In-App</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Open links in a nested web browser instead of the host one</description>
 		</key>
-    <key name="collapse-long-posts" type="b">
+		<key name="collapse-long-posts" type="b">
 			<default>true</default>
+			<summary>Collapse Long Posts</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Whether to automatically collapse posts to a set height when they exceed it</description>
+		</key>
+		<key name="auto-detect-features" type="b">
+			<default>true</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Auto-detect instance features</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Used to detect what features an instance supports like quote-posts on account activation</description>
+		</key>
+    <key name="show-interaction-counters" type="b">
+			<default>true</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Replies, Favorites and Boosts Counters</summary>
+		</key>
+    <key name="extract-alt-from-metadata" type="b">
+			<default>true</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Automatically extract alt text from file metadata</summary>
 		</key>
 
 		<key name="window-w" type="i">
 			<default>600</default>
+			 <!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Window Width</summary>
 		</key>
 		<key name="window-h" type="i">
 			<default>700</default>
+			 <!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Window Height</summary>
 		</key>
 		<key name="window-maximized" type="b">
 			<default>false</default>
+			 <!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Window Maximized State</summary>
 		</key>
 	</schema>
 </schemalist>

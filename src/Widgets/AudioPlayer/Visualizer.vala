@@ -2,20 +2,30 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 	const float SQR = 256;
 	const int MAX_CIRCLE_HEIGHT = 800;
 	const float ALPHA = 0.5f;
+	const uint ANIMATION_DURATION = 100;
 
 	Cairo.Context context;
 	Gdk.RGBA color;
 	Gdk.Texture cover_texture;
+	Adw.TimedAnimation visualizer_animation;
 	bool animations_enabled = true;
 
 	double _level = 0.0;
 	public double level {
 		get { return _level; }
 		set {
+			if (animations_enabled) {
+				visualizer_animation.value_from = _level;
+				visualizer_animation.value_to = value;
+				visualizer_animation.play ();
+			}
+
 			_level = value;
-			if (animations_enabled)
-				this.queue_draw ();
 		}
+	}
+
+	private void animation_target_cb (double value) {
+		this.queue_draw ();
 	}
 
 	construct {
@@ -24,6 +34,9 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 
 		var gtk_settings = Gtk.Settings.get_default ();
 		if (gtk_settings != null) animations_enabled = gtk_settings.gtk_enable_animations;
+
+		var target = new Adw.CallbackAnimationTarget (animation_target_cb);
+		visualizer_animation = new Adw.TimedAnimation (this, 0.0, 1.0, ANIMATION_DURATION, target);
 	}
 
 	public Visualizer (Gdk.Texture? texture = null, string? blurhash = null) {
@@ -31,7 +44,7 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 		context = new Cairo.Context (surface);
 
 		if (blurhash != null && blurhash != "") {
-			var avg = Tuba.Blurhash.get_blurhash_average_color (blurhash);
+			var avg = Utils.Blurhash.get_blurhash_average_color (blurhash);
 			color = {
 				avg.r / 255.0f,
 				avg.g / 255.0f,
@@ -78,7 +91,7 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 		snapshot.translate (point);
 
 		if (animations_enabled) {
-			float res = (float) level * (int.min (MAX_CIRCLE_HEIGHT, win_h) - SQR) + SQR;
+			float res = (float) visualizer_animation.value * (int.min (MAX_CIRCLE_HEIGHT, win_h) - SQR) + SQR;
 
         	var rect = Graphene.Rect ().init (- res / 2, - res / 2, res, res);
         	var rounded_rect = Gsk.RoundedRect ().init_from_rect (rect, 9999);

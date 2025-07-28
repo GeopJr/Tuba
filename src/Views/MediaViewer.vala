@@ -823,7 +823,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		Item? page = safe_get ((int) carousel.position);
 		if (page == null) return;
 
-		Host.copy (page.url);
+		Utils.Host.copy (page.url);
 		app.toast (_("Copied media url to clipboard"));
 	}
 
@@ -831,7 +831,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		Item? page = safe_get ((int) carousel.position);
 		if (page == null) return;
 
-		Host.open_url.begin (page.url);
+		Utils.Host.open_url.begin (page.url);
 	}
 
 	private void save_as () {
@@ -959,9 +959,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			scale_revealer.source_widget = revealer_widgets.get (new_pos);
 	}
 
-	private async string download_video (string url) throws Error {
-		return yield Host.download (url);
-	}
+	#if !CLAPPER
+		private async string download_video (string url) throws Error {
+			return yield Utils.Host.download (url);
+		}
+	#endif
 
 	private bool revealed = false;
 	public void reveal (Gtk.Widget? widget) {

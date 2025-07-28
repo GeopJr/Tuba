@@ -6,13 +6,14 @@
         <property name="spacing">6</property>
         <child>
           <object class="GtkImage">
+		  	<property name="accessible-role">presentation</property>
             <property name="icon_name">tuba-language-symbolic</property>
           </object>
         </child>
         <child> -->
           <object class="GtkLabel">
             <binding name="label">
-              <lookup name="locale" type="TubaLocalesLocale">
+              <lookup name="locale" type="TubaUtilsLocalesLocale">
                 <lookup name="item">GtkListItem</lookup>
               </lookup>
             </binding>

@@ -40,7 +40,7 @@ msgstr "toot ;pouet ;fédiverse ;gotosocial ;pleroma ;akkoma ;mastod
 msgid ""
 "Explore the federated social web with Tuba for GNOME. Stay connected to your "
 "favorite communities, family and friends with support for popular Fediverse "
-"platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
+"platforms like Mastodon, GoToSocial, Akkoma & more!"
 msgstr ""
 "Explorez le web social fédéré avec Tuba pour GNOME. Restez connecté à vos "
 "communautés favorites, vos amis et votre famille avec la prise en charge de "

@@ -11,6 +11,7 @@
         <property name="spacing">12</property>
         <child>
           <object class="GtkImage" id="icon">
+			<property name="accessible-role">presentation</property>
             <property name="icon_name">horizontal</property>
           </object>
         </child>

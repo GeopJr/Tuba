@@ -9,20 +9,21 @@
 # Konstantin Tutsch <mail@konstantintutsch.com>, 2024.
 # Max Harmathy <max.harmathy@web.de>, 2024.
 # mondstern <mondstern@monocles.de>, 2024.
+# Florian Kummerer <florian.kummerer@gmx.at>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2024-12-22 10:00+0000\n"
-"Last-Translator: Konstantin Tutsch <mail@konstantintutsch.com>\n"
+"PO-Revision-Date: 2025-06-28 13:05+0000\n"
+"Last-Translator: Florian Kummerer <florian.kummerer@gmx.at>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tuba/tuba/de/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -44,7 +45,7 @@ msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 msgid ""
 "Explore the federated social web with Tuba for GNOME. Stay connected to your "
 "favorite communities, family and friends with support for popular Fediverse "
-"platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
+"platforms like Mastodon, GoToSocial, Akkoma & more!"
 msgstr ""
 "Entdecke das föderierte soziale Netz mit Tuba für GNOME. Bleibe mit Deinen "
 "Lieblingscommunitys, Familie und Freunden in Verbindung, mit Unterstützung "
@@ -510,6 +511,8 @@ msgstr "unerwünschten privaten Erwähnungen"
 msgid ""
 "Filtered unless it's in reply to your own mention or if you follow the sender"
 msgstr ""
+"Gefiltert, außer es ist eine Antwort auf eine Erwähnung von dir oder wenn du "
+"dem Sender folgst"
 
 #: data/ui/dialogs/preferences.ui:23
 msgid "Appearance"
@@ -658,7 +661,7 @@ msgstr "Vor dem Antworten auf alte Beiträge warnen"
 
 #: data/ui/dialogs/preferences.ui:170
 msgid "Warn before copying a link to a private post"
-msgstr ""
+msgstr "Warne, bevor ein Link zu einem privaten Beitrag kopiert wird"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:177 src/Dialogs/NewAccount.vala:330
@@ -686,13 +689,15 @@ msgid "Warning: This will increase memory usage"
 msgstr "Warnung: Dies erhöht die Speichernutzung"
 
 #: data/ui/dialogs/preferences.ui:211
+#, fuzzy
 msgid "Online Services"
-msgstr ""
+msgstr "Online-Dienste"
 
 #. translators: leave api.tuba.geopjr.dev as is
 #: data/ui/dialogs/preferences.ui:213
 msgid "Configure features that connect to api.tuba.geopjr.dev"
 msgstr ""
+"Konfiguriere Eigenschaften, welche sich mit api.tuba.geopjr.dev verbinden"
 
 #: data/ui/dialogs/preferences.ui:216
 msgid "Send Preference Analytics"
@@ -711,13 +716,15 @@ msgstr "Analytiken betrachten"
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/ui/dialogs/preferences.ui:240
+#, fuzzy
 msgid "Update Supporters Periodically"
-msgstr ""
+msgstr "Erneuere Unterstützer regelmäßig"
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/ui/dialogs/preferences.ui:242
+#, fuzzy
 msgid "Fetch the list of Tuba's supporters biweekly"
-msgstr ""
+msgstr "Lade die Liste der Unterstützer für Tuba zweiwöchentlich"
 
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:256
@@ -810,12 +817,12 @@ msgstr "Benutzerdefinierte-Emoji-Auswahl"
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:94
 #: src/Widgets/Attachment/Item.vala:159
 msgid "Alternative Text"
-msgstr ""
+msgstr "Alternativer Text"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile picture
 #: data/ui/dialogs/profile_edit.ui:167
 msgid "Profile Picture Description"
-msgstr ""
+msgstr "Profilbildbeschreibung"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile header/cover
 #: data/ui/dialogs/profile_edit.ui:174
@@ -830,13 +837,15 @@ msgstr "Felder"
 #. translators: window title
 #. translators: 'Schedule' is a verb
 #: data/ui/dialogs/schedule.ui:29 src/Dialogs/Composer/Dialog.vala:159
+#, fuzzy
 msgid "Schedule Post"
-msgstr ""
+msgstr "Plane Beitrag"
 
 #. translators: verb
 #: data/ui/dialogs/schedule.ui:47
+#, fuzzy
 msgid "Schedule"
-msgstr ""
+msgstr "Zeitplan"
 
 #. translators: Title used for calendar date picking
 #: data/ui/dialogs/schedule.ui:74
@@ -1138,12 +1147,12 @@ msgstr "Sonstige"
 #. translators: the variable is a string report comment
 #: src/API/Admin/Report.vala:72
 msgid "With the comment"
-msgstr ""
+msgstr "Mit dem Kommentar"
 
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "Grund"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
@@ -1196,14 +1205,18 @@ msgstr "Profile"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
 msgid_plural ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
+"Du hast %s blockiert, %s deiner Folgenden und &s deiner Profile denen du "
+"folgst wird entfernt."
 msgstr[1] ""
+"Du hast %s blockiert, %s deiner Folgenden und &s deiner Profile denen du "
+"folgst werden entfernt."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24
@@ -1329,14 +1342,15 @@ msgstr ""
 
 #. translators: Dropdown title for picking when a mute should expire
 #: src/API/Relationship.vala:168
+#, fuzzy
 msgid "Expire In"
-msgstr ""
+msgstr "Läuft ab in"
 
 #. translators: the variable is a user handle
 #: src/API/Relationship.vala:181
 #, c-format
 msgid "Mute \"%s\"?"
-msgstr ""
+msgstr "Stumme \"%s\"?"
 
 #: src/API/Relationship.vala:221 src/Dialogs/FilterEdit.vala:29
 msgid "Never"
@@ -1348,24 +1362,22 @@ msgstr "Nie"
 #: src/Dialogs/Composer/PollPage.vala:235
 #: src/Dialogs/Composer/PollPage.vala:236 src/Dialogs/FilterEdit.vala:31
 #: src/Dialogs/FilterEdit.vala:32 src/Dialogs/FilterEdit.vala:33
-#, fuzzy, c-format
-#| msgid "%d Hour"
+#, c-format
 msgid "%d Hour"
 msgid_plural "%d Hours"
 msgstr[0] "%d Stunde"
-msgstr[1] "%d Stunde"
+msgstr[1] "%d Stunden"
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:224 src/API/Relationship.vala:225
 #: src/Dialogs/Admin/AddIPBlock.vala:27 src/Dialogs/Composer/PollPage.vala:238
 #: src/Dialogs/Composer/PollPage.vala:241
 #: src/Dialogs/Composer/PollPage.vala:242 src/Dialogs/FilterEdit.vala:34
-#, fuzzy, c-format
-#| msgid "%d Day"
+#, c-format
 msgid "%d Day"
 msgid_plural "%d Days"
 msgstr[0] "%d Tag"
-msgstr[1] "%d Tag"
+msgstr[1] "%d Tage"
 
 #: src/API/SearchResults.vala:32
 msgid "Search returned no results"
@@ -1435,8 +1447,9 @@ msgstr "%d mal von %d Personen in den letzten 2 Tagen benutzt"
 #. an invalid proxy url has
 #. been provided in settings
 #: src/Application.vala:350 src/Dialogs/Preferences.vala:386
+#, fuzzy
 msgid "Invalid Proxy URL"
-msgstr ""
+msgstr "Ungültige Proxy URL"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:417
@@ -1494,32 +1507,37 @@ msgstr ""
 #: src/Dialogs/Admin/AddFederationBlock.vala:40
 #: src/Dialogs/Admin/AddIPBlock.vala:79
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #. translators: Admin dashboard, federation block dialog,
 #. e.g. 'gnome.org'
 #: src/Dialogs/Admin/AddFederationBlock.vala:52
+#, fuzzy
 msgid "Domain"
-msgstr ""
+msgstr "Domäne"
 
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
+#, fuzzy
 msgid "Severity"
-msgstr ""
+msgstr "Schweregrad"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:92
 #: src/Widgets/Admin/DomainBlock.vala:30
+#, fuzzy
 msgid "Reject Media Files"
-msgstr ""
+msgstr "Lehne Mediendateien ab"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:95
+#, fuzzy
 msgid ""
 "Removes locally stored media files and refuses to download any in the future"
 msgstr ""
+"Entfernt lokal gespeicherte Medien und verweigert zukünftiges Herunterladen"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1538,8 +1556,9 @@ msgstr ""
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:114
 #: src/Widgets/Admin/DomainBlock.vala:32
+#, fuzzy
 msgid "Obfuscate Domain Name"
-msgstr ""
+msgstr "Verschleiere Domainnamen"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1553,39 +1572,40 @@ msgstr ""
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
 #: src/Widgets/Admin/DomainBlock.vala:17
 msgid "Private Comment"
-msgstr ""
+msgstr "Privater Kommentar"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:131
 #: src/Widgets/Admin/DomainBlock.vala:24
 msgid "Public Comment"
-msgstr ""
+msgstr "Öffentlicher Kommentar"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:17 src/Dialogs/Admin/AddIPBlock.vala:19
 #, c-format
 msgid "%d Year"
 msgid_plural "%d Years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Jahr"
+msgstr[1] "%d Jahre"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:21 src/Dialogs/Admin/AddIPBlock.vala:23
 #, c-format
 msgid "%d Month"
 msgid_plural "%d Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Monat"
+msgstr[1] "%d Monate"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:25 src/Dialogs/FilterEdit.vala:35
 #, c-format
 msgid "%d Week"
 msgid_plural "%d Weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Woche"
+msgstr[1] "%d Wochen"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:68
 #: src/Views/Admin/Pages/BlockedIPs.vala:10
+#, fuzzy
 msgid "Add IP Block"
-msgstr ""
+msgstr "Füge IP-Block hinzu"
 
 #. translators: Admin dashboard ip block comment entry title
 #: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
@@ -1665,11 +1685,12 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:146
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: src/Dialogs/Admin/Report.vala:147
+#, fuzzy
 msgid "Resolved"
-msgstr ""
+msgstr "Gelöst"
 
 #: src/Dialogs/Admin/Report.vala:147
 msgid "Unresolved"
@@ -1678,7 +1699,7 @@ msgstr ""
 #. translators: admin dashboard, whether a report was 'forwarded' from another server
 #: src/Dialogs/Admin/Report.vala:154
 msgid "Forwarded"
-msgstr ""
+msgstr "Weitergeleited"
 
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:160 src/Widgets/Admin/Report.vala:22
@@ -1699,7 +1720,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:237
 msgid "Violated Rules"
-msgstr ""
+msgstr "Regeln verletzt"
 
 #. translators: 'Reported Posts: <amount>'
 #: src/Dialogs/Admin/Report.vala:268 src/Widgets/Admin/Report.vala:34
@@ -1713,13 +1734,16 @@ msgstr "Einreichen"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
-msgstr ""
+msgstr "Warnung"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:61
+#, fuzzy
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
 msgstr ""
+"Benutze dies, um eine Warnung an den Benutzer zu senden, ohne eine andere "
+"Aktion auszulösen"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"

@@ -31,7 +31,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 		freeze_notify ();
 		foreach (ParamSpec spec in specs) {
 			var name = spec.get_name ();
-			var defined = get_class ().find_property (name) != null;
+			var defined = find_property (name) != null;
 			if (defined && is_spec_valid (ref spec)) {
 				var val = Value (spec.value_type);
 				obj.get_property (name, ref val);

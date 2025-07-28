@@ -1,4 +1,6 @@
 public class Tuba.Views.Profile : Views.Accounts {
+	const int TOTAL_STATIC_ITEMS = 3;
+
 	public class ProfileAccount : Widgetizable, GLib.Object {
 		public API.Account account { get; construct set; }
 		public API.Relationship rs { get; construct set; }
@@ -59,6 +61,38 @@ public class Tuba.Views.Profile : Views.Accounts {
 		}
 	}
 
+	public class ErrorMessageRow : Widgetizable, GLib.Object {
+		public bool visible { get; set; default=true; }
+		public string message { get; set; default = ""; }
+
+		public override Gtk.Widget to_widget () {
+			var widget = new Gtk.Label (message) {
+				wrap = true,
+				wrap_mode = WORD_CHAR,
+				css_classes = { "title-1" },
+				margin_start = 16,
+				margin_end = 16,
+				margin_top = 16,
+				margin_bottom = 16,
+				justify = CENTER
+			};
+
+			var row = new Gtk.ListBoxRow () {
+				child = widget,
+				overflow = Gtk.Overflow.HIDDEN,
+				activatable = false
+			};
+
+			this.bind_property ("visible", row, "visible", GLib.BindingFlags.SYNC_CREATE);
+			this.bind_property ("message", widget, "label", GLib.BindingFlags.SYNC_CREATE);
+			return row;
+		}
+	}
+
+	public override bool empty {
+		get { return false; }
+	}
+
 	public ProfileAccount profile { get; construct set; }
 	public Widgets.ProfileFilterGroup.Filter filter { get; set; default = Widgets.ProfileFilterGroup.Filter.POSTS; }
 	public string source { get; set; default = "statuses"; }
@@ -69,11 +103,15 @@ public class Tuba.Views.Profile : Views.Accounts {
 	protected SimpleAction hiding_reblogs_action;
 	protected SimpleAction blocking_action;
 	protected SimpleAction domain_blocking_action;
+	protected SimpleAction endorse_action;
 	protected SimpleAction ar_list_action;
 	protected SimpleAction notify_on_new_post_action;
 	//  protected SimpleAction source_action;
 
 	private FilterGroup filter_group;
+	private ErrorMessageRow error_message_row = new ErrorMessageRow () {
+		visible = false
+	};
 	public Profile (API.Account acc) {
 		Object (
 			profile: new ProfileAccount (acc),
@@ -82,15 +120,24 @@ public class Tuba.Views.Profile : Views.Accounts {
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
 
+		this.bind_property ("empty-state-title", error_message_row, "message", SYNC_CREATE);
 		filter_group = new FilterGroup ();
 		model.insert (0, profile);
 		model.insert (1, filter_group);
+		model.insert (2, error_message_row);
 		profile.rs.invalidated.connect (on_rs_updated);
 
-		if (acc.is_self ()) update_profile_cover ();
+		if (acc.is_self ()) {
+			update_profile_cover ();
+			app.refresh_featured.connect (on_featured_refresh_request);
+		}
 	}
 	~Profile () {
 		debug ("Destroying Profile view");
+	}
+
+	private void on_featured_refresh_request () {
+		if (this.filter == FEATURED) on_refresh ();
 	}
 
 	public bool append_pinned () {
@@ -110,12 +157,17 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 						to_add += e_status;
 					});
-					model.splice (2, 0, to_add);
+					model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
 				})
 				.exec ();
 		}
 
 		return GLib.Source.REMOVE;
+	}
+
+	public override void on_request_finish () {
+		base.on_request_finish ();
+		on_content_changed ();
 	}
 
 	private void on_cover_aria_update (Widgets.Cover p_cover, string new_aria) {
@@ -159,7 +211,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 		var widget_filter_group = widget as Widgets.ProfileFilterGroup;
 		if (widget_filter_group != null) {
 			widget_filter_group.remove_css_class ("card");
+			widget_filter_group.remove_css_class ("card-spacing");
 			widget_filter_group.filter_change.connect (change_filter);
+		}
+
+		if (obj is ErrorMessageRow) {
+			widget.remove_css_class ("card");
 		}
 
 		return widget;
@@ -175,8 +232,15 @@ public class Tuba.Views.Profile : Views.Accounts {
 	#endif
 
 	public override void on_refresh () {
+		error_message_row.visible = false;
 		base.on_refresh ();
 		GLib.Idle.add (append_pinned);
+		GLib.Idle.add (append_featured_tags);
+	}
+
+	public override bool request () {
+		base.request ();
+		return GLib.Source.REMOVE;
 	}
 
 	public override void on_manual_refresh () {
@@ -185,33 +249,108 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	protected void change_timeline_source (string t_source) {
-		source = t_source;
+		if (t_source == "statuses-like") {
+			source = this.filter == FEATURED ? "endorsements" : "statuses";
+		} else {
+			source = t_source;
+		}
+		string pleroma =
+			source == "endorsements"
+			&& accounts.active.instance_info != null
+			&& accounts.active.instance_info.pleroma != null
+			&& !(InstanceAccount.InstanceFeatures.ICESHRIMP in accounts.active.tuba_instance_features)
+			? "/pleroma" : "";
 
-		filter_group.visible = t_source == "statuses";
+		filter_group.visible = source == "statuses" || source == "endorsements";
+		source_meta_update (source);
+
+		url = @"/api/v1$pleroma/accounts/$(profile.account.id)/$source";
+		invalidate_actions (true);
+	}
+
+	private void source_meta_update (string t_source) {
 		switch (t_source) {
 			case "statuses":
 				accepts = typeof (API.Status);
+				// translators: posts tab on profiles, shown when empty.
 				empty_state_title = _("No Posts");
 				break;
 			case "followers":
 				accepts = typeof (API.Account);
+				// translators: followers tab on profiles, shown when empty.
 				empty_state_title = _("No Followers");
 				break;
 			case "following":
 				accepts = typeof (API.Account);
+				// translators: following tab on profiles, shown when empty.
 				empty_state_title = _("This user doesn't follow anyone yet");
+				break;
+			case "endorsements":
+				accepts = typeof (API.Account);
+				// translators: featured tab on profiles, shown when empty.
+				empty_state_title = _("This user doesn't have any featured hashtags or accounts.");
 				break;
 			default:
 				assert_not_reached ();
 		}
-
-		url = @"/api/v1/accounts/$(profile.account.id)/$t_source";
-		invalidate_actions (true);
 	}
 
 	protected void change_filter (Widgets.ProfileFilterGroup.Filter filter) {
+		bool was_featured = this.filter == FEATURED;
 		this.filter = filter;
-		invalidate_actions (true);
+		if (this.filter == FEATURED || was_featured) {
+			change_timeline_source ("statuses-like");
+		} else {
+			source_meta_update (source);
+			invalidate_actions (true);
+		}
+	}
+
+	private bool append_featured_tags () {
+		if (source == "endorsements" && filter == Widgets.ProfileFilterGroup.Filter.FEATURED) {
+			fill_featured.begin ((obj, res) => {
+				try {
+					fill_featured.end (res);
+				} catch (Error e) {
+					on_error (e.code, e.message);
+				}
+			});
+		}
+
+		return GLib.Source.REMOVE;
+	}
+
+	private async void fill_featured () throws Error {
+		Object[] to_add = {};
+
+		var req = new Request.GET (@"/api/v1/accounts/$(profile.account.id)/featured_tags")
+				.with_account (account)
+				.with_ctx (this);
+		yield req.await ();
+
+		var parser = Network.get_parser_from_inputstream (req.response_body);
+		Network.parse_array (parser, node => {
+			to_add += Tuba.Helper.Entity.from_json (node, typeof (API.FeaturedTag));
+		});
+
+		//  req = new Request.GET (@"/api/v1/accounts/$(profile.account.id)/endorsements")
+		//  		.with_account (account)
+		//  		.with_ctx (this);
+		//  yield req.await ();
+
+		//  parser = Network.get_parser_from_inputstream (req.response_body);
+		//  Network.parse_array (parser, node => {
+		//  	to_add += Tuba.Helper.Entity.from_json (node, typeof (API.Account));
+		//  });
+		model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
+	}
+
+	public override void on_content_changed () {
+		error_message_row.visible = false;
+		base.on_content_changed ();
+		if (has_finished_request && base_status == null && model.get_n_items () == TOTAL_STATIC_ITEMS) {
+			error_message_row.visible = true;
+		}
 	}
 
 	protected override void build_header () {
@@ -267,7 +406,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	protected override void clear () {
-		base.clear_all_but_first (2);
+		base.clear_all_but_first (TOTAL_STATIC_ITEMS);
 	}
 
 	protected override void build_actions () {
@@ -298,16 +437,13 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		var mention_action = new SimpleAction ("mention", VariantType.STRING);
 		mention_action.activate.connect (v => {
-			var status = new API.Status.empty ();
-			status.visibility = v.get_string ();
-			status.content = @"$(profile.account.handle) ";
-			new Dialogs.Compose (status);
+			new Dialogs.Composer.Dialog ({@"$(profile.account.handle) ", null, null, null, null, null, null, false, false}, v.get_string ());
 		});
 		actions.add_action (mention_action);
 
 		var copy_handle_action = new SimpleAction ("copy_handle", null);
 		copy_handle_action.activate.connect (v => {
-			Host.copy (profile.account.full_handle);
+			Utils.Host.copy (profile.account.full_handle);
 			app.toast (_("Copied handle to clipboard"));
 		});
 		actions.add_action (copy_handle_action);
@@ -316,12 +452,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 		open_in_browser_action.activate.connect (v => {
 			#if WEBKIT
 				if (settings.use_in_app_browser_if_available && Views.Browser.can_handle_url (profile.account.url)) {
-					app.main_window.open_in_app_browser_for_url (profile.account.url);
+					(new Views.Browser.with_url (profile.account.url)).present (app.main_window);
 					return;
 				}
 			#endif
 
-			Host.open_url.begin (profile.account.url);
+			Utils.Host.open_url.begin (profile.account.url);
 		});
 		actions.add_action (open_in_browser_action);
 
@@ -390,11 +526,23 @@ public class Tuba.Views.Profile : Views.Accounts {
 		});
 		actions.add_action (domain_blocking_action);
 
+		string endorse_str = accounts.active.tuba_api_versions.mastodon >= 6 ? "endorse" : "pin";
+		string unendorse_str = accounts.active.tuba_api_versions.mastodon >= 6 ? "unendorse" : "unpin";
+
+		endorse_action = new SimpleAction.stateful ("endorsed", null, false);
+		endorse_action.change_state.connect (v => {
+			profile.rs.modify (v.get_boolean () ? endorse_str : unendorse_str);
+			invalidate_actions (false);
+		});
+		actions.add_action (endorse_action);
+
 		invalidate_actions (false);
 	}
 
 	void invalidate_actions (bool refresh) {
 		muting_action.set_state (profile.rs.muting);
+		endorse_action.set_state (profile.rs.endorsed);
+		endorse_action.set_enabled (profile.rs.following);
 		hiding_reblogs_action.set_state (!profile.rs.showing_reblogs);
 		hiding_reblogs_action.set_enabled (profile.rs.following);
 		blocking_action.set_state (profile.rs.blocking);
@@ -427,6 +575,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 				case Widgets.ProfileFilterGroup.Filter.MEDIA:
 					req.with_param ("only_media", "true");
 					break;
+				case Widgets.ProfileFilterGroup.Filter.FEATURED: break;
 				default:
 					assert_not_reached ();
 			}
@@ -514,6 +663,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 							add_button.remove = is_already;
 
 							var row = new Adw.ActionRow () {
+								use_markup = false,
 								title = list.title
 							};
 							row.add_suffix (add_button);

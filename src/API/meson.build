@@ -10,16 +10,20 @@ sources += files(
     'Emoji.vala',
     'EmojiReaction.vala',
     'Entity.vala',
+    'FeaturedTag.vala',
     'FamiliarFollowers.vala',
     'Funkwhale.vala',
+    'GroupedNotificationsResults.vala',
     'Instance.vala',
     'InstanceV2.vala',
     'List.vala',
     'Mention.vala',
+    'Nodeinfo.vala',
     'Notification.vala',
     'NotificationFilter.vala',
     'Poll.vala',
     'PollOption.vala',
+    'Quote.vala',
     'Relationship.vala',
     'ScheduledStatus.vala',
     'SearchResult.vala',
@@ -37,6 +41,7 @@ subdir('Akkoma')
 subdir('BookWyrm')
 subdir('Filters')
 subdir('Funkwhale')
+subdir('Iceshrimp')
 subdir('Instance')
 subdir('PeerTube')
 subdir('Pleroma')

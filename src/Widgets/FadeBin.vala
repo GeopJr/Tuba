@@ -1,5 +1,6 @@
 public class Tuba.Widgets.FadeBin : Gtk.Widget {
-	const int MAX_HEIGHT = 300;
+	const int COLLAPSED_HEIGHT = 300;
+	const int HEIGHT_THRESHOLD = COLLAPSED_HEIGHT + 100;
 	const float FADE_HEIGHT = 125f;
 	const uint ANIMATION_DURATION = 300;
 
@@ -74,6 +75,7 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 
 	Adw.TimedAnimation animation;
 	construct {
+		this.overflow = HIDDEN;
 		var target = new Adw.CallbackAnimationTarget (animation_target_cb);
 		animation = new Adw.TimedAnimation (this, 0.0, 1.0, ANIMATION_DURATION, target) {
 			easing = Adw.Easing.EASE_IN_OUT_QUART
@@ -108,7 +110,7 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		var child_height = int.max (height, child_min_height);
 		this.child.allocate (width, child_height, baseline, null);
 
-		this.should_fade = !this.reveal && child_height >= MAX_HEIGHT;
+		this.should_fade = !this.reveal && child_height > HEIGHT_THRESHOLD;
 	}
 
 	public override void measure (Gtk.Orientation orientation, int for_size, out int minimum, out int natural, out int minimum_baseline, out int natural_baseline) {
@@ -119,16 +121,17 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		}
 
 		int child_for_size;
-		if (this.reveal || orientation == Gtk.Orientation.VERTICAL || for_size < MAX_HEIGHT || for_size == -1) {
+		if (this.reveal || for_size < COLLAPSED_HEIGHT || for_size == -1 || orientation == Gtk.Orientation.VERTICAL) {
 			child_for_size = for_size;
 		} else if (this.animation.value == 0.0) {
 			child_for_size = -1;
 		} else {
 			child_for_size = (int) Math.floor (inverse_lerp (
-				MAX_HEIGHT,
+				COLLAPSED_HEIGHT,
 				for_size,
 				this.animation.value
 			));
+			assert (child_for_size >= for_size);
 		}
 
 		this.child.measure (
@@ -143,21 +146,23 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		if (orientation == Gtk.Orientation.VERTICAL && !this.reveal) {
 			minimum_baseline = natural_baseline = -1;
 
-			if (minimum > MAX_HEIGHT) {
+			if (minimum > HEIGHT_THRESHOLD) {
 				minimum = (int) Math.ceil (lerp (
-					MAX_HEIGHT,
+					COLLAPSED_HEIGHT,
 					minimum,
 					this.animation.value
 				));
 			}
 
-			if (natural > MAX_HEIGHT) {
+			if (natural > HEIGHT_THRESHOLD) {
 				natural = (int) Math.ceil (lerp (
-					MAX_HEIGHT,
+					COLLAPSED_HEIGHT,
 					natural,
 					this.animation.value
 				));
 			}
+
+			natural = int.max (minimum, natural);
 		}
 	}
 

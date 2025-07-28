@@ -35,6 +35,14 @@ public class Tuba.Streams : Object {
 		}
 	}
 
+	public void forward (string? url, Streamable.Event ev) {
+		if (url == null) return;
+
+		if (connections.contains (url)) {
+			connections[url].push_event (ev);
+		}
+	}
+
 	// public void force_delete (string id) {
 	// 	connections.get_values ().@foreach (c => {
 	// 		c.subscribers.@foreach (s => {
@@ -126,16 +134,18 @@ public class Tuba.Streams : Object {
 			try {
 				Streamable.Event ev;
 				decode (bytes, out ev);
-
-				subscribers.@foreach (s => {
-					debug (@"$(name): $(ev.type) for $(s.get_subscriber_name ())");
-					s.stream_event[ev.type] (ev);
-					return true;
-				});
-			}
-			catch (Error e) {
+				push_event (ev);
+			} catch (Error e) {
 				warning (@"Failed to handle websocket message. Reason: $(e.message)");
 			}
+		}
+
+		public void push_event (Streamable.Event ev) {
+			subscribers.@foreach (s => {
+				debug (@"$(name): $(ev.type) for $(s.get_subscriber_name ())");
+				s.stream_event[ev.type] (ev);
+				return true;
+			});
 		}
 
 		void decode (Bytes bytes, out Streamable.Event event) throws Error {
@@ -153,6 +163,30 @@ public class Tuba.Streams : Object {
 			event.payload = obj.get_member ("payload");
 		}
 
+		public void upgrade (string new_url) {
+			try {
+				var uri = GLib.Uri.parse (url, GLib.UriFlags.NONE);
+				var new_uri = GLib.Uri.parse (new_url, GLib.UriFlags.NONE);
+				url = GLib.Uri.build (
+					uri.get_flags (),
+					new_uri.get_scheme (),
+					new_uri.get_userinfo (),
+					new_uri.get_host (),
+					new_uri.get_port (),
+					uri.get_path (),
+					uri.get_query (),
+					uri.get_fragment ()
+				).to_string ();
+				if (socket != null) socket.close (0, null);
+			} catch (Error e) {
+				warning (@"Error while upgrading $url to $new_url: $(e.code) $(e.message)");
+			}
+		}
 	}
 
+	public void upgrade (string old_url, string new_url) {
+		connections.foreach ((key, val) => {
+			if (key.has_prefix (@"$old_url/")) val.upgrade (new_url);
+		});
+	}
 }

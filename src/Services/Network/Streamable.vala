@@ -1,4 +1,4 @@
-public abstract interface Tuba.Streamable : Object {
+public interface Tuba.Streamable : Object {
 
 	public struct Event {
 		public string type;
@@ -36,6 +36,11 @@ public abstract interface Tuba.Streamable : Object {
 	void unsubscribe () {
 		streams.unsubscribe (t_connection_url, this);
 		t_connection_url = null;
+	}
+
+	protected void forward (string url, Streamable.Event ev) {
+		if (!subscribed) return;
+		streams.forward (url, ev);
 	}
 
 	public string get_subscriber_name () {

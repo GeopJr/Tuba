@@ -75,31 +75,29 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		bind (scheduled_status);
 	}
 
-	string scheduled_at;
-	string scheduled_id;
+	API.ScheduledStatus bound_scheduled_status;
 	Widgets.Status? status_widget = null;
+	API.Poll? status_poll = null;
 	public void bind (API.ScheduledStatus scheduled_status) {
 		if (status_widget != null) content_box.remove (status_widget);
-
-		scheduled_at = scheduled_status.scheduled_at;
-		scheduled_id = scheduled_status.id;
+		bound_scheduled_status = scheduled_status;
 
 		GLib.DateTime now_load = new GLib.DateTime.now_local ();
-		API.Poll? poll = null;
+		status_poll = null;
 		if (scheduled_status.props.poll != null) {
-			poll = new API.Poll ("0") {
+			status_poll = new API.Poll ("0") {
 				multiple = scheduled_status.props.poll.multiple,
 				options = new Gee.ArrayList<API.PollOption> ()
 			};
 
 			foreach (string poll_option in scheduled_status.props.poll.options) {
-				poll.options.add (new API.PollOption () {
+				status_poll.options.add (new API.PollOption () {
 					title = poll_option,
 					votes_count = 0
 				});
 			}
 
-			poll.expires_at = now_load.add_seconds (scheduled_status.props.poll.expires_in).format_iso8601 ();
+			status_poll.expires_at = now_load.add_seconds (scheduled_status.props.poll.expires_in).format_iso8601 ();
 		}
 
 		var status = new API.Status.empty () {
@@ -110,7 +108,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 			visibility = scheduled_status.props.visibility,
 			media_attachments = scheduled_status.media_attachments,
 			tuba_spoiler_revealed = true,
-			poll = poll,
+			poll = status_poll,
 			created_at = scheduled_status.scheduled_at
 		};
 
@@ -124,7 +122,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		widg.date_label.visible = false;
 		if (widg.poll != null) {
 			widg.poll.usable = false;
-			widg.poll.info_label.label = DateTime.humanize_ago (poll.expires_at);
+			widg.poll.info_label.label = Utils.DateTime.humanize_ago (status_poll.expires_at);
 		}
 
 		// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES
@@ -144,14 +142,36 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		status_widget = widg;
 	}
 
+	private class RescheduleDialog : Adw.Dialog {
+		public signal void schedule_picked (string iso8601);
+
+		public RescheduleDialog (string iso8601) {
+			this.follows_content_size = true;
+
+			var schedule_page = new Dialogs.Schedule (iso8601, _("Reschedule"));
+			schedule_page.schedule_picked.connect (on_schedule_picked);
+
+			var navigation_view = new Adw.NavigationView ();
+			this.title = schedule_page.title = _("Reschedule Post");
+			navigation_view.add (schedule_page);
+
+			this.child = navigation_view;
+		}
+
+		private void on_schedule_picked (string iso8601) {
+			schedule_picked (iso8601);
+			this.force_close ();
+		}
+	}
+
 	private void on_reschedule () {
-		var schedule_dlg = new Dialogs.Schedule (scheduled_at, _("Reschedule"));
-		schedule_dlg.schedule_picked.connect (on_schedule_picked);
-		schedule_dlg.present (this);
+		var dlg = new RescheduleDialog (bound_scheduled_status.scheduled_at);
+		dlg.schedule_picked.connect (on_schedule_picked);
+		dlg.present (app.main_window);
 	}
 
 	private void on_schedule_picked (string iso8601) {
-		new Request.PUT (@"/api/v1/scheduled_statuses/$scheduled_id")
+		new Request.PUT (@"/api/v1/scheduled_statuses/$(bound_scheduled_status.id)")
 			.with_account (accounts.active)
 			.with_form_data ("scheduled_at", iso8601)
 			.then ((in_stream) => {
@@ -193,10 +213,10 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	}
 
 	private void delete_status () {
-		new Request.DELETE (@"/api/v1/scheduled_statuses/$scheduled_id")
+		new Request.DELETE (@"/api/v1/scheduled_statuses/$(bound_scheduled_status.id)")
 			.with_account (accounts.active)
 			.then (() => {
-				deleted (scheduled_id);
+				deleted (bound_scheduled_status.id);
 			})
 			.on_error ((code, message) => {
 				warning (@"Error while deleting scheduled status: $code $message");
@@ -208,7 +228,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	private void on_activated () {
 		if (!_draft || status_widget == null) return;
 
-		new Dialogs.Compose.from_draft (status_widget.status, on_draft_posted);
+		new Dialogs.Composer.Dialog.from_scheduled (bound_scheduled_status, true, status_poll, on_draft_posted);
 	}
 
 	private void on_draft_posted (API.Status x) {
@@ -216,7 +236,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	}
 
 	private void on_edit () {
-		new Dialogs.Compose.from_scheduled (status_widget.status, scheduled_id, scheduled_at, on_edited);
+		new Dialogs.Composer.Dialog.from_scheduled (bound_scheduled_status, false, status_poll, on_edited);
 	}
 
 	private void on_edited (API.Status x) {

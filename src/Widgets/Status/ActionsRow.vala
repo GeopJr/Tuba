@@ -81,10 +81,12 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		this.spacing = 6;
 
 		reply_button = new Widgets.StatusActionButton.with_icon_name ("tuba-reply-sender-symbolic") {
+			show_counts = settings.show_interaction_counters,
 			active = false,
 			css_classes = { "ttl-status-action-reply", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,
+			// translators: verb
 			tooltip_text = _("Reply"),
 			//  aria_label_template = (amount) => {
 			//  	// translators: Accessibility label on post buttons.
@@ -100,6 +102,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		this.append (reply_button);
 
 		reblog_button = new Widgets.StatusActionButton.with_icon_name ("tuba-media-playlist-repeat-symbolic") {
+			show_counts = settings.show_interaction_counters,
 			css_classes = { "ttl-status-action-reblog", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,
@@ -117,8 +120,9 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		reblog_button.clicked.connect (on_boost_button_clicked);
 		this.append (reblog_button);
 
-		if (accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) {
+		if ((accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) || InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features) {
 			quote_button = new Widgets.StatusActionButton.with_icon_name ("tuba-quotation-symbolic") {
+				show_counts = settings.show_interaction_counters,
 				css_classes = { "ttl-status-action-quote", "flat", "circular" },
 				halign = Gtk.Align.START,
 				hexpand = true,
@@ -130,6 +134,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		}
 
 		favorite_button = new Widgets.StatusActionButton.with_icon_name ("tuba-unstarred-symbolic") {
+			show_counts = settings.show_interaction_counters,
 			active_icon_name = "tuba-starred-symbolic",
 			css_classes = { "ttl-status-action-star", "flat", "circular" },
 			halign = Gtk.Align.START,
@@ -160,11 +165,11 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_reply_button_clicked (Gtk.Button btn) {
-		if (settings.reply_to_old_post_reminder && Tuba.DateTime.is_3_months_old (status.formal.created_at)) {
+		if (settings.reply_to_old_post_reminder && Utils.DateTime.is_3_months_old (status.formal.created_at)) {
 			app.question.begin (
 				// translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
 				//				The "old" suffix is translated on the datetime strings, not here
-				{_("This post is %s").printf (Tuba.DateTime.humanize_old (status.formal.created_at)), false},
+				{_("This post is %s").printf (Utils.DateTime.humanize_old (status.formal.created_at)), false},
 				// translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
 				//				in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
 				{_("You can still reply, but it may no longer be relevant."), false},
@@ -240,11 +245,11 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			};
 
 			Gtk.CheckButton? group = null; // hashmap is not ordered
-			Gee.HashMap<API.Status.ReblogVisibility, Gtk.CheckButton> check_buttons = new Gee.HashMap<API.Status.ReblogVisibility, Gtk.CheckButton> ();
+			Gee.HashMap<API.Status.Visibility, Gtk.CheckButton> check_buttons = new Gee.HashMap<API.Status.Visibility, Gtk.CheckButton> ();
 			for (int i = 0; i < accounts.active.visibility_list.n_items; i++) {
 				var visibility = (InstanceAccount.Visibility) accounts.active.visibility_list.get_item (i);
-				var reblog_visibility = API.Status.ReblogVisibility.from_string (visibility.id);
-				if (reblog_visibility == null) continue;
+				var reblog_visibility = API.Status.Visibility.from_string (visibility.id);
+				if (reblog_visibility == null || reblog_visibility == API.Status.Visibility.DIRECT) continue;
 
 				var checkbutton = new Gtk.CheckButton () {
 					css_classes = {"selection-mode"},
@@ -288,10 +293,10 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 				switch (res) {
 					case "yes":
 					case "quote":
-						API.Status.ReblogVisibility? reblog_visibility = null;
+						API.Status.Visibility? reblog_visibility = null;
 						check_buttons.foreach (e => {
 							if (((Gtk.CheckButton) e.value).active) {
-								reblog_visibility = (API.Status.ReblogVisibility) e.key;
+								reblog_visibility = (API.Status.Visibility) e.key;
 								return false;
 							}
 
@@ -303,11 +308,8 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 								commit_boost (status_btn, reblog_visibility);
 								break;
 							case "quote":
-								bool supports_quotes = status.formal.can_be_quoted && accounts.active.instance_info.supports_quote_posting;
-								new Dialogs.Compose (new API.Status.empty () {
-									visibility = reblog_visibility == null ? settings.default_post_visibility : reblog_visibility.to_string (),
-									content = supports_quotes ? "" : @"\n\nRE: $(status.formal.url ?? status.formal.account.url)"
-								}, !supports_quotes, status.formal.id);
+								bool supports_quotes = status.formal.can_be_quoted && ((accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) || InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features);
+								new Dialogs.Composer.Dialog.quote (status.formal, reblog_visibility, supports_quotes);
 								status_btn.unblock_clicked ();
 								break;
 							default:
@@ -330,12 +332,10 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_quote_button_clicked () {
-		new Dialogs.Compose (new API.Status.empty () {
-			visibility = settings.default_post_visibility
-		}, false, status.formal.id);
+		new Dialogs.Composer.Dialog.quote (status.formal, null, true); // TODO: test
 	}
 
-	private void commit_boost (Widgets.StatusActionButton status_btn, API.Status.ReblogVisibility? visibility = null) {
+	private void commit_boost (Widgets.StatusActionButton status_btn, API.Status.Visibility? visibility = null) {
 			status_btn.active = !status_btn.active;
 
 			string action;

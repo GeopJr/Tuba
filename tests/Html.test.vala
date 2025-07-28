@@ -41,7 +41,7 @@ const TestContent[] REMOVE_TAGS_TESTS = {
 
 public void test_pango () {
 	foreach (var test_pango in PANGO_TESTS) {
-		var res = Tuba.HtmlUtils.replace_with_pango_markup (test_pango.original);
+		var res = Tuba.Utils.Htmlx.replace_with_pango_markup (test_pango.original);
 
 		assert_cmpstr (res, CompareOperator.EQ, test_pango.sanitized);
 	}
@@ -49,7 +49,7 @@ public void test_pango () {
 
 public void test_restore () {
 	foreach (var test_restore in RESTORE_TESTS) {
-		var res = Tuba.HtmlUtils.restore_entities (test_restore.original);
+		var res = Tuba.Utils.Htmlx.restore_entities (test_restore.original);
 
 		assert_cmpstr (res, CompareOperator.EQ, test_restore.sanitized);
 	}
@@ -57,7 +57,7 @@ public void test_restore () {
 
 public void test_simplify () {
 	foreach (var test_simplify in SIMPLIFY_TESTS) {
-		var res = Tuba.HtmlUtils.simplify (test_simplify.original);
+		var res = Tuba.Utils.Htmlx.simplify (test_simplify.original);
 
 		assert_cmpstr (res, CompareOperator.EQ, test_simplify.sanitized);
 	}
@@ -65,7 +65,7 @@ public void test_simplify () {
 
 public void test_remove_tags () {
 	foreach (var test_remove_tag in REMOVE_TAGS_TESTS) {
-		var res = Tuba.HtmlUtils.remove_tags (test_remove_tag.original);
+		var res = Tuba.Utils.Htmlx.remove_tags (test_remove_tag.original);
 
 		assert_cmpstr (res, CompareOperator.EQ, test_remove_tag.sanitized);
 	}

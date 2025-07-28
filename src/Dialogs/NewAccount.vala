@@ -37,9 +37,12 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	[GtkChild] unowned Gtk.Label manual_auth_label;
 
 	public string get_full_scopes () {
-		if (this.admin_mode) return @"$SCOPES $ADMIN_SCOPES";
+		string scopes = SCOPES;
+		if (this.admin_mode) scopes = @"$scopes $ADMIN_SCOPES";
+		if (account != null && (InstanceAccount.InstanceFeatures.ICESHRIMP in account.tuba_instance_features))
+			scopes = @"$scopes iceshrimp";
 
-		return SCOPES;
+		return scopes;
 	}
 
 	public NewAccount (bool can_access_settings = false) {
@@ -131,18 +134,48 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	}
 
 	void setup_instance () throws Error {
-		debug ("Checking instance URL");
+		bool skip_strict_validation = GLib.Environment.get_variable ("TUBA_SKIP_STRICT_VALIDATION") == "1";
+		debug ("Checking instance URL (strict: %s)", skip_strict_validation.to_string ());
 
-		var str = instance_entry.text
-			.replace ("/", "")
-			.replace (":", "")
-			.replace ("https", "")
-			.replace ("http", "");
-		account.instance = @"https://$str";
-		instance_entry.text = str;
+		string final_string = instance_entry.text;
+		if (!final_string.contains ("://")) final_string = @"https://$final_string";
 
-		if (str.char_count () <= 0 || !("." in account.instance))
+		string final_string_no_scheme = final_string;
+		try {
+			GLib.Uri instance_uri = GLib.Uri.parse (final_string, GLib.UriFlags.NONE);
+			string scheme = instance_uri.get_scheme ();
+			string host = instance_uri.get_host ();
+			int port = instance_uri.get_port ();
+			string? userinfo = instance_uri.get_userinfo ();
+
+			if (!skip_strict_validation) {
+				scheme = "https";
+				port = -1;
+				userinfo = null;
+
+				if (!host.contains (".")) {
+					throw new Error.literal (-1, 1, @"Host '$host' is missing a dot");
+				}
+			}
+
+			final_string_no_scheme = GLib.Uri.build (
+				instance_uri.get_flags (),
+				"",
+				userinfo,
+				host,
+				port,
+				"",
+				null,
+				null
+			).to_string ().substring (3);
+			final_string = @"$scheme://$final_string_no_scheme";
+		} catch (Error e) {
+			warning ("Couldn't parse instance URI: %s", e.message);
 			throw new Oopsie.USER (_("Please enter a valid instance URL"));
+		}
+
+		account.instance = final_string;
+		instance_entry.text = final_string_no_scheme;
 	}
 
 	async void register_client () throws Error {
@@ -179,7 +212,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		var esc_redirect = Uri.escape_string (redirect_uri);
 		var pars = @"scope=$esc_scopes&response_type=code&redirect_uri=$esc_redirect&client_id=$(Uri.escape_string (account.client_id))";
 		var url = @"$(account.instance)/oauth/authorize?$pars";
-		Host.open_url.begin (url);
+		Utils.Host.open_url.begin (url);
 	}
 
 	async void request_token () throws Error {
