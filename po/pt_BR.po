@@ -11,13 +11,14 @@
 # Dalton Scavassa <daltux@users.noreply.hosted.weblate.org>, 2023.
 # Daltux <daltux@users.noreply.hosted.weblate.org>, 2023.
 # Daltux <134404797+daltux@users.noreply.github.com>, 2023, 2024, 2025.
+# Tarcísio Surdi <tarcisio.surdi@pm.me>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
 "PO-Revision-Date: 2025-07-28 23:36+0000\n"
-"Last-Translator: Daltux <134404797+daltux@users.noreply.github.com>\n"
+"Last-Translator: Tarcísio Surdi <tarcisio.surdi@pm.me>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -116,21 +117,23 @@ msgid ""
 "Whether account suggestions should be shown in the Home tab when the user "
 "doesn't follow enough people"
 msgstr ""
+"Se as sugestões de contas devem ser exibidas na aba \"Home\" caso o usuário "
+"não siga pessoas suficientes"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
 msgid "Active Account"
-msgstr ""
+msgstr "Conta Ativa"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:62
 msgid "The UUID of the active account"
-msgstr ""
+msgstr "UUID da conta ativa"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:67
 msgid "The default color scheme"
-msgstr ""
+msgstr "O esquema de cores padrão"
 
 #: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
 msgid "Run in Background"
@@ -151,6 +154,8 @@ msgid ""
 "The amount of posts that should be displayed on every scroll on timelines "
 "(10-40)"
 msgstr ""
+"A quantidade de publicações que deverão ser exibidas a cada deslizamento nas "
+"linhas do tempo (10-40)"
 
 #: data/dev.geopjr.Tuba.gschema.xml:83 data/ui/dialogs/preferences.ui:168
 msgid "Stream Timelines"
@@ -169,6 +174,7 @@ msgstr "Carregar continuamente as cronologias públicas"
 msgid ""
 "Public means the local and federated ones that usually have a lot of traffic"
 msgstr ""
+"Público significa ambos local e federado que usualmente têm bastante tráfego"
 
 #: data/dev.geopjr.Tuba.gschema.xml:94 data/ui/dialogs/preferences.ui:72
 msgid "Reveal Spoilers by Default"
@@ -201,11 +207,13 @@ msgstr "Escalonar emojis personalizados ao serem apontados"
 #: data/dev.geopjr.Tuba.gschema.xml:113
 msgid "lightly increases the size of custom emojis when you hover over them"
 msgstr ""
+"aumenta ligeiramente o tamanho de emojis customizados quando você sobrepõe "
+"seu cursor neles"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:118
 msgid "Aggressive User Resolving"
-msgstr ""
+msgstr "Resolução Agressiva de Usuários"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:120
@@ -214,6 +222,9 @@ msgid ""
 "it leads to a user or a post regardless if it matches the typical post and "
 "user URLs"
 msgstr ""
+"Ao clicar em um link, Tuba irá pedir a sua instância para que o resolva a "
+"fim de determinar se aponta a um usuário ou publicação independentemente de "
+"coincidir com as URLs típicas de publicações e usuários"
 
 #: data/dev.geopjr.Tuba.gschema.xml:124 data/ui/dialogs/preferences.ui:99
 msgid "Strip Tracking Parameters From Links"
@@ -265,20 +276,20 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr ""
+msgstr "Revelar Conteúdo Sensível por Padrão"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
 msgid "Group Similar Push Notifications"
-msgstr ""
+msgstr "Agrupar Notificações Similares"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/dev.geopjr.Tuba.gschema.xml:158 data/ui/dialogs/preferences.ui:276
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
 msgstr ""
-"Combinar notificações do mesmo tipo recebidas recentemente em apenas uma "
-"notificação"
+"Combinar notificações de push do mesmo tipo recebidas recentemente em apenas "
+"uma notificação"
 
 #: data/dev.geopjr.Tuba.gschema.xml:162 data/ui/dialogs/preferences.ui:87
 msgid "Advanced Boost Dialog"
@@ -292,7 +303,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:167 data/ui/dialogs/preferences.ui:106
 msgid "Warn before replying to an old post"
-msgstr "Avisar antes de responder uma publicação antiga"
+msgstr "Avisar antes de responder a uma publicação antiga"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:169
@@ -300,10 +311,12 @@ msgid ""
 "Before replying to a post that was made at least 3 months ago, Tuba will "
 "warn you that the conversation might be over"
 msgstr ""
+"Antes de responder a uma publicação que foi feita há pelo menos 3 meses, o "
+"Tuba irá lhe avisar de que a conversa pode já ter encerrado"
 
 #: data/dev.geopjr.Tuba.gschema.xml:173 data/ui/dialogs/preferences.ui:111
 msgid "Warn before copying a link to a private post"
-msgstr "Avisar antes de copiar uma ligação para uma publicação privada"
+msgstr "Avisar antes de copiar um link para uma publicação privada"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:175
@@ -311,11 +324,14 @@ msgid ""
 "If you copy the link to a post that is not publicly accessible, Tuba will "
 "warn you that people might not be able to view the post the link points to"
 msgstr ""
+"Se você copiar um link a uma publicação que não é publicamente acessível, o "
+"Tuba irá lhe avisar de que as pessoas podem não conseguir ver a publicação "
+"para qual o link aponta"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
 msgid "Spellchecker"
-msgstr ""
+msgstr "Corretor ortográfico"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:182
@@ -323,6 +339,8 @@ msgid ""
 "The last state of the spellchecker in the composer, can be toggled by right "
 "clicking"
 msgstr ""
+"O último estado do corretor ortográfico no compositor, pode ser alterado "
+"clicando com o botão direito"
 
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:14
 msgid "Darken Images on Dark Mode"
@@ -334,6 +352,8 @@ msgid ""
 "Images will be darker when dark mode is enabled and gain their full "
 "brightness when hovered"
 msgstr ""
+"As imagens serão mais escuras quando o modo escuro estiver ativado e obtêm "
+"seu brilho total ao sobrepor o mouse nelas"
 
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/dev.geopjr.Tuba.gschema.xml:192 data/ui/dialogs/preferences.ui:20
@@ -348,11 +368,12 @@ msgstr "Notificações como de favoritos e impulsionamentos serão menos visíve
 #: data/dev.geopjr.Tuba.gschema.xml:198
 msgid "The last volume value used in the media viewer for videos and audio"
 msgstr ""
+"O último valor de volume usado no visualizador de mídias para vídeos e áudio"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:203
 msgid "Monitor Network Changes"
-msgstr ""
+msgstr "Monitorar Mudanças de Rede"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:205
@@ -360,11 +381,13 @@ msgid ""
 "When the network disconnects and reconnects Tuba will detect it and "
 "gracefully recover"
 msgstr ""
+"Ao se desconectar e reconectar à rede o Tuba detectará isso e se recuperará "
+"automaticamente"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:210
 msgid "Proxy URL"
-msgstr ""
+msgstr "URL do Proxy"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:212
@@ -372,6 +395,8 @@ msgid ""
 "Leaving it empty will use the default connection which might be proxied "
 "based on the system settings"
 msgstr ""
+"Manter em branco fará com que a conexão padrão seja usada, a qual pode "
+"passar pelo proxy com base nas configurações do sistema"
 
 #: data/dev.geopjr.Tuba.gschema.xml:216 data/ui/dialogs/preferences.ui:189
 msgid "Send Preference Analytics"
@@ -384,6 +409,10 @@ msgid ""
 "You can preview exactly what's being sent in-app, they are opt-in and the "
 "server is open source."
 msgstr ""
+"Envie suas preferências aos desenvolvedores do Tuba para uma pesquisa de "
+"popularidade bissemanal. Você pode pré-visualizar exatamente o que será "
+"enviado diretamente no aplicativo, isso é de aceite voluntário e o servidor "
+"é de código aberto."
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/dev.geopjr.Tuba.gschema.xml:222 data/ui/dialogs/preferences.ui:213
@@ -398,22 +427,23 @@ msgstr "Obter quinzenalmente a lista de apoiadores de Tuba"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:228
 msgid "Date of the last analytics update"
-msgstr ""
+msgstr "Data da última atualização de estatísticas"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:230 data/dev.geopjr.Tuba.gschema.xml:237
 msgid "Used for keeping track if 2 weeks have passed since the last update"
 msgstr ""
+"Usado para acompanhar se 2 semanas se passaram desde a última atualização"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:235
 msgid "Date of the last contributors update"
-msgstr ""
+msgstr "Data da última atualização de colaboradores"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:242
 msgid "Tuba contributors"
-msgstr ""
+msgstr "Colaboradores do Tuba"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:244
@@ -421,41 +451,47 @@ msgid ""
 "A list of hashed handles that belong to Tuba contributors so they can be "
 "used in-app"
 msgstr ""
+"Uma lista cifrada com identificadores de colaboradores do Tuba para poder "
+"ser usada no aplicativo"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:249
 msgid "Post aria label verbosity"
-msgstr ""
+msgstr "Verbosidade da etiqueta aria da publicação"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:251
 msgid "0 to 5 verbosity level, 0 being no aria label and 5 being very detailed"
 msgstr ""
+"nível de verbosidade de 0 a 5, 0 representando \"sem etiqueta aria\" e 5 "
+"sendo bastante detalhado"
 
 #. translators: in-app as in a browser inside Tuba
 #: data/dev.geopjr.Tuba.gschema.xml:255 data/ui/dialogs/preferences.ui:94
 msgid "Open Links In-App"
-msgstr ""
+msgstr "Abrir Links no Aplicativo"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:257
 msgid "Open links in a nested web browser instead of the host one"
-msgstr ""
+msgstr "Abrir links em um navegador aninhado em vez do navegador principal"
 
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
 msgid "Collapse Long Posts"
-msgstr ""
+msgstr "Colapsar Publicações Longas"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:263
 msgid ""
 "Whether to automatically collapse posts to a set height when they exceed it"
 msgstr ""
+"Se deve-se automaticamente colapsar publicações a uma determinada altura "
+"quando elas a excedem"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:268
 msgid "Auto-detect instance features"
-msgstr ""
+msgstr "Detectar funções da instância automaticamente"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:270
@@ -463,31 +499,33 @@ msgid ""
 "Used to detect what features an instance supports like quote-posts on "
 "account activation"
 msgstr ""
+"Usado para detectar quais funções uma instância suporta, como posts "
+"mencionados, na ativação da conta"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:275
 msgid "Replies, Favorites and Boosts Counters"
-msgstr ""
+msgstr "Contadores de Respostas, Favoritos e Boosts"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:280
 msgid "Automatically extract alt text from file metadata"
-msgstr ""
+msgstr "Extrair automaticamente texto alternativo de metadados de arquivos"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:286
 msgid "Window Width"
-msgstr ""
+msgstr "Largura da Janela"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:291
 msgid "Window Height"
-msgstr ""
+msgstr "Altura da Janela"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:296
 msgid "Window Maximized State"
-msgstr ""
+msgstr "Estado de Janela Maximizado"
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:8
@@ -742,11 +780,11 @@ msgstr "Nova publicação"
 #. translators: composer overlay shown when dragging files above it
 #: data/ui/dialogs/composer.ui:22
 msgid "Drop media to attach them"
-msgstr ""
+msgstr "Solte as mídias para anexá-las"
 
 #: data/ui/dialogs/composer.ui:44
 msgid "Write your content warning here"
-msgstr ""
+msgstr "Escreva seu aviso de conteúdo aqui"
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
@@ -763,7 +801,7 @@ msgstr "Adicionar mídia"
 
 #: data/ui/dialogs/composer.ui:97
 msgid "Create Poll"
-msgstr ""
+msgstr "Criar Enquete"
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
@@ -1013,6 +1051,8 @@ msgstr "Idioma padrão da publicação"
 #: data/ui/dialogs/preferences.ui:177
 msgid "This will increase memory usage when browsing high traffic timelines"
 msgstr ""
+"Isso irá aumentar o consumo de memória ao navegar em linhas do tempo de alto "
+"tráfego"
 
 #: data/ui/dialogs/preferences.ui:184
 msgid "Online Services"
@@ -1196,7 +1236,7 @@ msgstr "Receber notificações da publicação"
 #. the hashtag on the user's profile
 #: data/ui/menus.ui:39 src/Views/Hashtag.vala:47
 msgid "Feature on Profile"
-msgstr ""
+msgstr "Destacar no Perfil"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:45 src/Views/Admin/Pages/Accounts.vala:118
@@ -1500,14 +1540,14 @@ msgstr[1] "%s publicações"
 #. shows the amount of posts that use said hashtag
 #: src/API/FeaturedTag.vala:32
 msgid "Posts Including this Hashtag"
-msgstr ""
+msgstr "Publicações incluindo essa Hashtag"
 
 #. translators: subtitle on featured hashtags on profiles. The variable is a string date.
 #. E.g. Last post on 2025-06-29
 #: src/API/FeaturedTag.vala:39
 #, c-format
 msgid "Last post on %s"
-msgstr ""
+msgstr "Última publicação em %s"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
@@ -1530,7 +1570,7 @@ msgstr "Perfis"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "Pasta"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1752,8 +1792,7 @@ msgstr "Local"
 #. translators: the variable is the amount of times a hashtag was used in a week
 #. in the composer auto-complete popup (so keep it short)
 #: src/API/Tag.vala:47
-#, fuzzy, c-format
-#| msgid "%d per week"
+#, c-format
 msgid "%d per week"
 msgid_plural "%d per week"
 msgstr[0] "%d por semana"
@@ -1765,8 +1804,8 @@ msgstr[1] "%d por semana"
 #, c-format
 msgid "%d person yesterday"
 msgid_plural "%d people yesterday"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d pessoa ontem"
+msgstr[1] "%d pessoas ontem"
 
 #. total_uses += int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1774,8 +1813,8 @@ msgstr[1] ""
 #, c-format
 msgid "%d person in the past 2 days"
 msgid_plural "%d people in the past 2 days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d pessoa nos últimos 2 dias"
+msgstr[1] "%d pessoas nos últimos 2 dias"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
@@ -1824,38 +1863,38 @@ msgstr "Doar"
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
 msgid "Archives"
-msgstr ""
+msgstr "Arquivos"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
-msgstr ""
+msgstr "Crie e visualize arquivos da web"
 
 #. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 #: src/Application.vala:645
 msgid "Calligraphy"
-msgstr ""
+msgstr "Caligrafia"
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
-msgstr ""
+msgstr "Converter texto em banners ASCII"
 
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
 msgid "Collision"
-msgstr ""
+msgstr "Colisão"
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
-msgstr ""
+msgstr "Verificar hashes dos seus arquivos"
 
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 #: src/Application.vala:649
 msgid "Turntable"
-msgstr ""
+msgstr "Toca-discos"
 
 #: src/Application.vala:649
 msgid "Scrobble your music"
-msgstr ""
+msgstr "Fazer scrobble de suas músicas"
 
 #: src/Application.vala:671
 msgid "OK"
@@ -2349,25 +2388,25 @@ msgstr "Wrapped %s salvo"
 #. translators: title on the composer alt text editor dialog
 #: src/Dialogs/Composer/AttachmentsBin.vala:88
 msgid "Attachment Editor"
-msgstr ""
+msgstr "Editor de Anexos"
 
 #. translators: placeholder shown in the composer alt text editor text area
 #: src/Dialogs/Composer/AttachmentsBin.vala:115
 #: src/Dialogs/Composer/AttachmentsBin.vala:126
 msgid "Describe the media…"
-msgstr ""
+msgstr "Descreva a mídia…"
 
 #. translators: tooltip text on the remaining characters counter in the
 #. composer alt text editor
 #: src/Dialogs/Composer/AttachmentsBin.vala:148
 msgid "Remaining Characters"
-msgstr ""
+msgstr "Caracteres restantes"
 
 #. translators: toast shown when saving alt text and focus position in the composer
 #: src/Dialogs/Composer/AttachmentsBin.vala:186
 #: src/Dialogs/Composer/AttachmentsBin.vala:209
 msgid "Saved Media Metadata"
-msgstr ""
+msgstr "Metadados de Mídia Salvos"
 
 #. translators: shown in file picker filter dropdown
 #: src/Dialogs/Composer/AttachmentsBin.vala:291 src/Dialogs/ProfileEdit.vala:81
@@ -2385,7 +2424,7 @@ msgstr "O arquivo \"%s\" é maior que o limite da instância"
 #: src/Dialogs/Composer/AttachmentsBin.vala:457
 #, c-format
 msgid "Attachment limit reached (%lld)"
-msgstr ""
+msgstr "Limite de anexos atingido (%lld)"
 
 #. translators: Open file
 #: src/Dialogs/Composer/AttachmentsBin.vala:491
@@ -2404,31 +2443,31 @@ msgstr "Remover anexo"
 #. to translate, leave it as just "Edit"
 #: src/Dialogs/Composer/Attachment.vala:247
 msgid "Edit Metadata"
-msgstr ""
+msgstr "Editar Metadados"
 
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:307
 #: src/Dialogs/Composer/Attachment.vala:672
 msgid "Media Attachment"
-msgstr ""
+msgstr "Anexo de Mídia"
 
 #. translators: screen reader announcement when the user
 #. deletes attachments in the composer
 #: src/Dialogs/Composer/Attachment.vala:325
 msgid "Deleted Attachment"
-msgstr ""
+msgstr "Anexo Removido"
 
 #. translators: screen reader announcement when the composer
 #. successfully uploads an attachment
 #: src/Dialogs/Composer/Attachment.vala:490
 msgid "Finished Uploading Attachment"
-msgstr ""
+msgstr "Upload do Anexo Finalizado"
 
 #. translators: aria label on composer media attachments. The variable is a string file name.
 #: src/Dialogs/Composer/Attachment.vala:666
 #, c-format
 msgid "Media Attachment (%s)"
-msgstr ""
+msgstr "Anexo de Mídia (%s)"
 
 #. translators: 'Draft' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:49
@@ -2438,7 +2477,7 @@ msgstr "Rascunhar publicação"
 #. translators: 'Schedule' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:52
 msgid "Schedule Post…"
-msgstr ""
+msgstr "Programar Publicação…"
 
 #. translators: screen reader announcement when the composer
 #. passed the character limit. The variable is
@@ -2447,7 +2486,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:169
 #, c-format
 msgid "Exceeded character limit by %lld"
-msgstr ""
+msgstr "Excedeu-se o limite de caracteres por %lld"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:240
@@ -2457,7 +2496,7 @@ msgstr "Privacidade da publicação"
 #. translators: post compositor post button label when the visibility is 'mentioned only'
 #: src/Dialogs/Composer/Dialog.vala:265
 msgid "Send"
-msgstr ""
+msgstr "Enviar"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:276
@@ -2470,7 +2509,7 @@ msgstr "Idioma da publicação"
 #. https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
 #: src/Dialogs/Composer/Dialog.vala:384 src/Widgets/Status.vala:1137
 msgid "Local Only"
-msgstr ""
+msgstr "Apenas Local"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:414
@@ -2481,7 +2520,7 @@ msgstr "Tipo de conteúdo da publicação"
 #: src/Dialogs/Composer/Dialog.vala:458 src/Dialogs/Composer/Dialog.vala:469
 #: src/Dialogs/Composer/Dialog.vala:692
 msgid "Post"
-msgstr ""
+msgstr "Publicar"
 
 #. translators: composer post button label
 #. translators: verb
@@ -2493,13 +2532,13 @@ msgstr "Responder"
 #. translators: composer embedded replying-to post, aria label
 #: src/Dialogs/Composer/Dialog.vala:563
 msgid "The post you are replying to."
-msgstr ""
+msgstr "A publicação a qual você está respondendo."
 
 #. translators: composer title. The variable is a string username
 #: src/Dialogs/Composer/Dialog.vala:571
 #, c-format
 msgid "Reply to @%s"
-msgstr ""
+msgstr "Responder para @%s"
 
 #. translators: composer post button label, verb
 #: src/Dialogs/Composer/Dialog.vala:604 src/Widgets/Status/ActionsRow.vala:129
@@ -2510,13 +2549,13 @@ msgstr "Citar"
 #. translators: composer embedded quoting post, aria label
 #: src/Dialogs/Composer/Dialog.vala:634
 msgid "The post you are quoting."
-msgstr ""
+msgstr "A publicação que você está citando."
 
 #. translators: composer title. The variable is a string username
 #: src/Dialogs/Composer/Dialog.vala:642
 #, c-format
 msgid "Quoting @%s"
-msgstr ""
+msgstr "Citando @%s"
 
 #. translators: composer post button label
 #. translators: button on the delete post dialog that
@@ -2524,7 +2563,7 @@ msgstr ""
 #. with it so you can edit it
 #: src/Dialogs/Composer/Dialog.vala:661 src/Widgets/Status.vala:525
 msgid "Redraft"
-msgstr ""
+msgstr "Reformular"
 
 #: src/Dialogs/Composer/Dialog.vala:661 src/Dialogs/Composer/Dialog.vala:692
 #: src/Dialogs/Preferences.vala:32 src/Views/Lists.vala:16
@@ -2536,17 +2575,17 @@ msgstr "Editar"
 #. translators: composer title
 #: src/Dialogs/Composer/Dialog.vala:669 src/Dialogs/Composer/Dialog.vala:699
 msgid "Edit Post"
-msgstr ""
+msgstr "Editar publicação"
 
 #. translators: media as in picture or files
 #: src/Dialogs/Composer/Dialog.vala:866
 msgid "Paste Media from Clipboard?"
-msgstr ""
+msgstr "Colar mídia da área de transferência?"
 
 #. translators: they = media / files from clipboard, instance = server
 #: src/Dialogs/Composer/Dialog.vala:869
 msgid "They will be uploaded to your instance"
-msgstr ""
+msgstr "Eles serão enviados a sua instância"
 
 #. translators: dialog button label when pasting from clipboard, verb
 #: src/Dialogs/Composer/Dialog.vala:872
@@ -2598,22 +2637,22 @@ msgstr "Remover"
 #: src/Dialogs/Composer/Polls.vala:138
 #, c-format
 msgid "Changed state to \"%s\""
-msgstr ""
+msgstr "Estado alterado para \"%s\""
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/Polls.vala:231
 msgid "Multiple Choice"
-msgstr ""
+msgstr "Múltipla Escolha"
 
 #: src/Dialogs/Composer/Polls.vala:231
 msgid "Single Choice"
-msgstr ""
+msgstr "Escolha Única"
 
 #. translators: tooltip text on composer polls that toggles
 #. whether the poll is single or multiple choice
 #: src/Dialogs/Composer/Polls.vala:239
 msgid "Toggle Choice Type"
-msgstr ""
+msgstr "Alternar Tipo de Escolha"
 
 #. translators: tooltip of poll button that shows the current vote results
 #: src/Dialogs/Composer/Polls.vala:244 src/Widgets/VoteBox.vala:235
@@ -2629,7 +2668,7 @@ msgstr "Ocultar resultados"
 #. whether the poll results should be visible
 #: src/Dialogs/Composer/Polls.vala:253
 msgid "Toggle Results Visibility"
-msgstr ""
+msgstr "Alternar Visibilidade dos Resultados"
 
 #. translators: poll entry title; the variable is a number
 #: src/Dialogs/Composer/Polls.vala:307 src/Dialogs/Composer/Polls.vala:354
@@ -2650,7 +2689,7 @@ msgstr[1] "%d minutos"
 #: src/Dialogs/Composer/Polls.vala:380 src/Dialogs/Composer/Polls.vala:382
 #, c-format
 msgid "%dmin"
-msgstr ""
+msgstr "%dmin"
 
 #. translators: the variable is a number, short form for hours
 #: src/Dialogs/Composer/Polls.vala:386 src/Dialogs/Composer/Polls.vala:388
@@ -2802,7 +2841,7 @@ msgstr "Conteúdo"
 #. translators: profile field, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:209
 msgid "Add Field"
-msgstr ""
+msgstr "Adicionar Campo"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:228
@@ -3081,7 +3120,7 @@ msgstr "Hashtags"
 #: src/Services/Accounts/Mastodon/Account.vala:149 src/Views/Drive.vala:849
 #: src/Views/Drive.vala:988
 msgid "Drive"
-msgstr ""
+msgstr "Drive"
 
 #. translators: visibility dropdown subtitle
 #: src/Services/Accounts/Mastodon/Account.vala:218
@@ -3288,8 +3327,8 @@ msgstr[1] "%s horas"
 #, c-format
 msgid "a month old"
 msgid_plural "%d months old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "há um mês"
+msgstr[1] "há %d meses"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:196
@@ -3615,22 +3654,22 @@ msgstr "Não há marcadores"
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:43
 msgid "Secure"
-msgstr ""
+msgstr "Seguro"
 
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:48
 msgid "Insecure"
-msgstr ""
+msgstr "Inseguro"
 
 #. translators: in-app web browser, move forward in history action
 #: src/Views/Browser.vala:166
 msgid "Forward"
-msgstr ""
+msgstr "Próximo"
 
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
 msgid "Copied url to clipboard"
-msgstr ""
+msgstr "URL copiada à área de transferência"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
@@ -3649,30 +3688,30 @@ msgstr "Sem publicações em rascunho"
 #. translators: Error reason when trying to delete a non-empty folder
 #: src/Views/Drive.vala:24
 msgid "Folder is not empty"
-msgstr ""
+msgstr "A pasta não está vazia"
 
 #. translators: Error reason when trying to delete an actively used file
 #: src/Views/Drive.vala:29
 msgid "File is used as an avatar"
-msgstr ""
+msgstr "O arquivo é usado como um avatar"
 
 #: src/Views/Drive.vala:29
 msgid "File is used as a banner"
-msgstr ""
+msgstr "O arquivo é usado como capa"
 
 #. translators: tooltip text on an icon that indicates that a file is used
 #. by a user profile (like an avatar)
 #: src/Views/Drive.vala:188
 msgid "Used by a Profile"
-msgstr ""
+msgstr "Usado por um Perfil"
 
 #: src/Views/Drive.vala:242
 msgid "Copy Link"
-msgstr ""
+msgstr "Copiar Link"
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
-msgstr ""
+msgstr "Marcar como Sensível"
 
 #. translators: alternative text context menu item in drive
 #: src/Views/Drive.vala:253
@@ -3681,121 +3720,121 @@ msgstr "Editar texto alternativo"
 
 #: src/Views/Drive.vala:259 src/Views/Drive.vala:409
 msgid "Rename"
-msgstr ""
+msgstr "Renomear"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:380
 #, c-format
 msgid "Couldn't mark '%s' as sensitive: %s"
-msgstr ""
+msgstr "Não foi possível marcar '%s' como sensível: %s"
 
 #: src/Views/Drive.vala:407
 msgid "Rename Folder"
-msgstr ""
+msgstr "Renomear Pasta"
 
 #: src/Views/Drive.vala:407
 msgid "Rename File"
-msgstr ""
+msgstr "Renomear Arquivo"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:464
 #, c-format
 msgid "Couldn't change alt text for '%s': %s"
-msgstr ""
+msgstr "Não foi possível alterar o texto alternativo de '%s': %s"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:511
 #, c-format
 msgid "Couldn't rename '%s': %s"
-msgstr ""
+msgstr "Não foi possível renomear '%s': %s"
 
 #. translators: title on an entry
 #: src/Views/Drive.vala:730
 msgid "New Folder"
-msgstr ""
+msgstr "Nova Pasta"
 
 #. translators: placeholder on an entry
 #: src/Views/Drive.vala:732
 msgid "Folder Name"
-msgstr ""
+msgstr "Nome da Pasta"
 
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
 msgid "Create"
-msgstr ""
+msgstr "Criar"
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
-msgstr ""
+msgstr "Criar Pasta"
 
 #: src/Views/Drive.vala:748
 msgid "Upload File"
-msgstr ""
+msgstr "Fazer upload de arquivo"
 
 #. translators: error that shows up as a toast when creating folders
 #. in iceshrimp drive
 #: src/Views/Drive.vala:818
 #, c-format
 msgid "Couldn't create folder: %s"
-msgstr ""
+msgstr "Não foi possível criar a pasta: %s"
 
 #: src/Views/Drive.vala:874
 msgid "Drop files to upload them"
-msgstr ""
+msgstr "Solte arquivos para fazer upload deles"
 
 #: src/Views/Drive.vala:1199
 #, c-format
 msgid "Couldn't move '%s': %s"
-msgstr ""
+msgstr "Não foi possível mover '%s': %s"
 
 #. translators: Error when trying to delete a file that cannot be deleted.
 #. The first variable is a string file name, the second is an error.
 #: src/Views/Drive.vala:1216 src/Views/Drive.vala:1273
 #, c-format
 msgid "'%s' cannot be deleted: %s"
-msgstr ""
+msgstr "'%s' não pôde ser excluído: %s"
 
 #. translators: the variable is a folder/file name
 #: src/Views/Drive.vala:1224
 #, c-format
 msgid "Delete '%s'?"
-msgstr ""
+msgstr "Excluir '%s'?"
 
 #: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
 msgid "This is irreversible."
-msgstr ""
+msgstr "Isso é irreversível."
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:1249 src/Views/Drive.vala:1361
 #, c-format
 msgid "Couldn't delete '%s': %s"
-msgstr ""
+msgstr "Não foi possível excluir '%s': %s"
 
 #. translators: Error when trying to delete files/folders
 #. that cannot be deleted.
 #: src/Views/Drive.vala:1305
 msgid "No Deletable Files in Selection"
-msgstr ""
+msgstr "Não há arquivos excluíveis na seleção"
 
 #. translators: confirmation dialog in a file-browser-like page
 #: src/Views/Drive.vala:1311
 msgid "Delete Selection?"
-msgstr ""
+msgstr "Excluir Seleção?"
 
 #: src/Views/Drive.vala:1372
 msgid "Upload Files"
-msgstr ""
+msgstr "Fazer upload de arquivos"
 
 #. translators: toast popping up when a user uploads a file that already exists in drive
 #. The variable is a string filename.
 #: src/Views/Drive.vala:1423
 #, c-format
 msgid "'%s' already exists"
-msgstr ""
+msgstr "'%s' já existe"
 
 #. translators: screen reader announcement when the
 #. drive successfully uploads a file
@@ -3803,7 +3842,7 @@ msgstr ""
 #: src/Views/Drive.vala:1510
 #, c-format
 msgid "Finished Uploading '%s'"
-msgstr ""
+msgstr "Finalizado o Upload de '%s'"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -3975,7 +4014,7 @@ msgstr "Este perfil ainda não segue nenhum outro"
 #. translators: featured tab on profiles, shown when empty.
 #: src/Views/Profile.vala:285
 msgid "This user doesn't have any featured hashtags or accounts."
-msgstr ""
+msgstr "Esse usuário não possui nenhuma hashtag ou contas destacadas."
 
 #: src/Views/Profile.vala:441
 msgid "Copied handle to clipboard"
@@ -4392,7 +4431,7 @@ msgstr[1] "%d reações"
 #. translators: focus picking knob(?)/target(?) tooltip in the focus picker
 #: src/Widgets/FocusPicker.vala:49
 msgid "Focus Picker"
-msgstr ""
+msgstr "Seletor de Foco"
 
 #. translators: the variable is a number. This is used in a button that shows
 #. all post hashtags when clicked.
@@ -4484,7 +4523,7 @@ msgstr "%s moveu-se para %s"
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "Oculto"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
@@ -4493,7 +4532,7 @@ msgstr "Erro: a anotação tem mais de 2000 caracteres"
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
 msgid "Featured"
-msgstr ""
+msgstr "Em Destaque"
 
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63
@@ -4529,7 +4568,7 @@ msgstr "Agendada para %s"
 
 #: src/Widgets/ScheduledStatus.vala:155
 msgid "Reschedule Post"
-msgstr ""
+msgstr "Reprogramar Publicação"
 
 #. translators: the variable is an error
 #: src/Widgets/ScheduledStatus.vala:187
