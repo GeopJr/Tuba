@@ -84,6 +84,7 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 		Gtk.Box content_box;
 		Gtk.Label dialog_char_counter;
 		construct {
+			// translators: title on the composer alt text editor dialog
 			this.title = _("Attachment Editor");
 
 			var toolbar_view = new Adw.ToolbarView ();
@@ -110,6 +111,7 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 			alt_editor.remove_css_class ("view");
 			alt_editor.add_css_class ("reset");
 
+			// translators: placeholder shown in the composer alt text editor text area
 			placeholder = new Composer.Components.Editor.PlaceholderHack (new Gtk.Label (_("Describe the media…")) {
 				valign = Gtk.Align.START,
 				halign = Gtk.Align.START,
@@ -141,6 +143,8 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 			});
 
 			dialog_char_counter = new Gtk.Label (alt_max_chars.to_string ()) {
+				// translators: tooltip text on the remaining characters counter in the
+				//				composer alt text editor
 				tooltip_text = _("Remaining Characters"),
 				css_classes = { "numeric", "dimmed" },
 				margin_end = 6
@@ -201,6 +205,7 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 				.body_json (builder)
 				.then (() => {
 					saved (this.pos_x, this.pos_y, alt_editor.buffer.text);
+					// translators: toast shown when saving alt text and focus position in the composer
 					toast (new Adw.Toast (_("Saved Media Metadata")));
 					working = false;
 				})
@@ -331,9 +336,6 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 		var temp = attachment_widgets[from_index];
 		attachment_widgets[from_index] = attachment_widgets[to_index];
 		attachment_widgets[to_index] = temp;
-
-		from.cleanup ();
-		to.cleanup ();
 	}
 
 	private void on_delete (Composer.Components.Attachment attachment) {
@@ -393,7 +395,7 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 		}
 	}
 
-	public async void upload_files (File[] files) {
+	public async void upload_files (owned File[] files) {
 		if (files.length == 0) return;
 
 		// We want to only upload as many attachments as the server
@@ -422,6 +424,8 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 						);
 
 						if (skip) {
+							// translators: toast shown when uploading a file bigger than what the instance allows.
+							//				The variable is a string filename
 							toast (new Adw.Toast (_("File \"%s\" is bigger than the instance limit").printf (file.get_basename ())));
 							continue;
 						}
@@ -505,7 +509,7 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 			} catch (Error e) {
 				// User dismissing the dialog also ends here so don't make it sound like
 				// it's an error
-				warning (@"Couldn't get the result of FileDialog for AttachmentsPage: $(e.message)");
+				warning (@"Couldn't get the result of FileDialog for AttachmentsBin: $(e.message)");
 			}
 		});
 	}

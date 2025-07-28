@@ -10,7 +10,7 @@ public class Tuba.Views.Home : Views.Timeline {
 	construct {
 		url = "/api/v1/timelines/home";
 		label = _("Home");
-		icon = "user-home-symbolic";
+		icon = "tuba-user-home-symbolic";
 		badge_number = 0;
 		needs_attention = false;
 
@@ -129,7 +129,7 @@ public class Tuba.Views.Home : Views.Timeline {
 
 	public override string? get_stream_url () {
 		return account != null
-			? @"$(account.instance)/api/v1/streaming?stream=user&access_token=$(account.access_token)"
+			? @"$(account.tuba_streaming_url)/api/v1/streaming?stream=user&access_token=$(account.access_token)"
 			: null;
 	}
 
@@ -144,6 +144,6 @@ public class Tuba.Views.Home : Views.Timeline {
 	}
 
 	private void forward_to_notifications (Streamable.Event ev) {
-		forward (@"$(account.instance)/api/v1/streaming?stream=user:notification&access_token=$(account.access_token)", ev);
+		forward (@"$(account.tuba_streaming_url)/api/v1/streaming?stream=user:notification&access_token=$(account.access_token)", ev);
 	}
 }

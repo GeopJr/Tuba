@@ -4,9 +4,15 @@ public class Tuba.API.Instance : Entity {
 		public string text { get; set; default=""; }
 	}
 
+	public class Urls : Entity {
+		public string streaming_api { get; set; default=""; }
+	}
+
 	public string uri { get; set; default=""; }
 	public string title { get; set; default=""; }
 	public string thumbnail { get; set; default=null; }
+	public string? version { get; set; default=null; }
+	public Urls? urls { get; set; default=null; }
 
 	public Gee.ArrayList<string>? languages { get; set; }
 	public API.Mastodon.Configurations? configuration { get; set; default = null; }

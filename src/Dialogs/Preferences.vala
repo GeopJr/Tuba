@@ -110,12 +110,10 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		public string event;
 	}
 
-	[GtkChild] unowned Adw.ComboRow scheme_combo_row;
 	[GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
 	[GtkChild] unowned Adw.ComboRow default_language_combo_row;
 	[GtkChild] unowned Adw.ComboRow default_content_type_combo_row;
 	[GtkChild] unowned Adw.SwitchRow work_in_background;
-	[GtkChild] unowned Adw.SpinRow timeline_page_size;
 	[GtkChild] unowned Adw.SwitchRow live_updates;
 	[GtkChild] unowned Adw.SwitchRow public_live_updates;
 	[GtkChild] unowned Adw.SwitchRow show_spoilers;
@@ -125,9 +123,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow scale_emoji_hover;
 	[GtkChild] unowned Adw.SwitchRow strip_tracking;
 	[GtkChild] unowned Adw.SwitchRow letterbox_media;
-	[GtkChild] unowned Adw.SwitchRow media_viewer_expand_pictures;
 	[GtkChild] unowned Adw.SwitchRow enlarge_custom_emojis;
-	[GtkChild] unowned Adw.SwitchRow use_blurhash;
+	[GtkChild] unowned Adw.SwitchRow show_sensitive_media;
 	[GtkChild] unowned Adw.SwitchRow group_push_notifications;
 	[GtkChild] unowned Adw.SwitchRow advanced_boost_dialog;
 	[GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
@@ -136,6 +133,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.EntryRow proxy_entry;
 	[GtkChild] unowned Adw.SwitchRow dim_trivial_notifications;
 	[GtkChild] unowned Adw.SwitchRow collapse_long_posts;
+	[GtkChild] unowned Adw.SwitchRow in_app_browser_switch;
 
 	[GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
@@ -180,8 +178,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		proxy_entry.text = settings.proxy;
 		post_visibility_combo_row.model = accounts.active.visibility_list;
 
-		// Setup scheme combo row
-		scheme_combo_row.selected = settings.get_enum ("color-scheme");
+		#if !WEBKIT
+			in_app_browser_switch.visible = false;
+		#endif
 
 		uint default_visibility_index;
 		if (
@@ -246,7 +245,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	void bind () {
 		//  settings.bind ("dark-theme", dark_theme, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("work-in-background", work_in_background, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("timeline-page-size", timeline_page_size.adjustment, "value", SettingsBindFlags.DEFAULT);
 		settings.bind ("live-updates", live_updates, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("public-live-updates", public_live_updates, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("show-spoilers", show_spoilers, "active", SettingsBindFlags.DEFAULT);
@@ -256,9 +254,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("scale-emoji-hover", scale_emoji_hover, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("strip-tracking", strip_tracking, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("letterbox-media", letterbox_media, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("media-viewer-expand-pictures", media_viewer_expand_pictures, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("enlarge-custom-emojis", enlarge_custom_emojis, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("use-blurhash", use_blurhash, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("show-sensitive-media", show_sensitive_media, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("group-push-notifications", group_push_notifications, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("advanced-boost-dialog", advanced_boost_dialog, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
@@ -268,6 +265,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("analytics", analytics_switch, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("update-contributors", update_contributors, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("collapse-long-posts", collapse_long_posts, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("use-in-app-browser-if-available", in_app_browser_switch, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
@@ -276,15 +274,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	private void dlcr_cb () {
 		lang_changed = true;
 		default_language_combo_row.disconnect (dlcr_id);
-	}
-
-	[GtkCallback]
-	private void on_scheme_changed () {
-		var selected_item = (ColorSchemeListItem) scheme_combo_row.selected_item;
-		var style_manager = Adw.StyleManager.get_default ();
-
-		style_manager.color_scheme = selected_item.adwaita_scheme;
-		settings.color_scheme = selected_item.color_scheme;
 	}
 
 	[GtkCallback]

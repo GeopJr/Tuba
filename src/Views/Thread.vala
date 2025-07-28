@@ -23,7 +23,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 
 	protected InstanceAccount? account { get; set; }
 	public API.Status root_status { get; set; }
-	public Widgets.Status? root_status_widget { get; set; default=null; }
+	private unowned Widgets.Status? root_status_widget { get; set; default=null; }
 
 	public Thread (API.Status status) {
 		Object (
@@ -35,6 +35,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		construct_account_holder ();
 		update_root_status (status.id);
 	}
+
 	~Thread () {
 		debug ("Destroying Thread");
 		destruct_account_holder ();
@@ -61,6 +62,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 	}
 
 	public override void on_account_changed (InstanceAccount? acc) {
+		if (account != null) return;
 		account = acc;
 		GLib.Idle.add (request);
 	}

@@ -112,14 +112,12 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		switched (active);
 	}
 
-	[Signal (detailed = true)]
 	public signal InstanceAccount? create_for_backend (Json.Node node);
-
 	public InstanceAccount create_account (Json.Node node) throws GLib.Error {
 		var obj = node.get_object ();
 		var backend = obj.get_string_member ("backend");
 		var handle = obj.get_string_member ("handle");
-		var account = create_for_backend[backend] (node);
+		var account = create_for_backend (node);
 		if (account == null)
 			throw new Oopsie.INTERNAL (@"Account $handle has unknown backend: $backend");
 
@@ -129,6 +127,17 @@ public abstract class Tuba.AccountStore : GLib.Object {
 				if (api_versions.has_member ("mastodon")) account.tuba_api_versions.mastodon = (int8) api_versions.get_int_member ("mastodon");
 				if (api_versions.has_member ("chuckya")) account.tuba_api_versions.chuckya = (int8) api_versions.get_int_member ("chuckya");
 			}
+		}
+
+		if (obj.has_member ("instance-features")) {
+			account.tuba_instance_features = (InstanceAccount.InstanceFeatures) obj.get_int_member ("instance-features");
+
+			if (InstanceAccount.InstanceFeatures.ICESHRIMP in account.tuba_instance_features && obj.has_member ("iceshrimp-api-key"))
+				account.tuba_iceshrimp_api_key = obj.get_string_member ("iceshrimp-api-key");
+		}
+
+		if (obj.has_member ("streaming")) {
+			account.tuba_streaming_url = obj.get_string_member ("streaming");
 		}
 
 		if (account.uuid == null || !GLib.Uuid.string_is_valid (account.uuid)) account.uuid = GLib.Uuid.string_random ();
@@ -149,28 +158,44 @@ public abstract class Tuba.AccountStore : GLib.Object {
 
 	}
 
-	public Gee.ArrayList<BackendTest> backend_tests = new Gee.ArrayList<BackendTest> ();
-
 	public async void guess_backend (InstanceAccount account) throws GLib.Error {
-		var req = new Request.GET ("/api/v1/instance")
+		account.backend = "Fediverse";
+		var req = new Request.GET ("/.well-known/nodeinfo")
 			.with_account (account);
 		yield req.await ();
 
 		var parser = Network.get_parser_from_inputstream (req.response_body);
-		var root = network.parse (parser);
+		var node = network.parse_node (parser);
+		API.Nodeinfo known_nodeinfo = (API.Nodeinfo) Helper.Entity.from_json (node, typeof (API.Nodeinfo));
 
-		string? backend = null;
-		backend_tests.foreach (test => {
-			backend = test.get_backend (root);
-			return true;
-		});
+		if (known_nodeinfo.links == null || known_nodeinfo.links.size == 0)
+			throw new Oopsie.INTERNAL ("Instance does not support nodeinfo");
 
-		if (backend == null)
-			throw new Oopsie.INTERNAL ("This instance is unsupported.");
-		else {
-			account.backend = backend;
-			debug (@"$(account.instance) is using $(account.backend)");
+		bool supports = false;
+		foreach (var link in known_nodeinfo.links) {
+			if (!link.rel.contains ("://nodeinfo.diaspora.software/ns/schema/2")) continue;
+			supports = true;
+
+			if (link.rel.has_suffix ("://nodeinfo.diaspora.software/ns/schema/2.0") && link.href != null && link.href != "") {
+				req = new Request.GET (link.href);
+				try {
+					yield req.await ();
+					parser = Network.get_parser_from_inputstream (req.response_body);
+					node = network.parse_node (parser);
+					API.Nodeinfo.V20 nodeinfo2 = (API.Nodeinfo.V20) Helper.Entity.from_json (node, typeof (API.Nodeinfo.V20));
+					if (nodeinfo2.software != null && nodeinfo2.software.name != null) {
+						account.backend = nodeinfo2.software.name;
+						if (nodeinfo2.software.name == "Iceshrimp.NET") account.tuba_instance_features |= InstanceAccount.InstanceFeatures.ICESHRIMP;
+					}
+				} catch (Error e) {
+					warning (@"Couldn't get Nodeinfo for $(link.rel): $(e.code) $(e.message)");
+				}
+			}
 		}
+
+		if (!supports)
+			throw new Oopsie.INTERNAL ("This instance does not support https://nodeinfo.diaspora.software/schema.html");
+		debug (@"$(account.instance) is using $(account.backend)");
 	}
 
 }

@@ -304,7 +304,7 @@
 			var delete_status_simple_action = new SimpleAction ("delete-status", null);
 			delete_status_simple_action.activate.connect (delete_status);
 			action_group.add_action (delete_status_simple_action);
-		} else if (accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate) {
+		} else if ((accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate) || InstanceAccount.InstanceFeatures.TRANSLATION in accounts.active.tuba_instance_features) {
 			translate_simple_action = new SimpleAction ("translate", null);
 			translate_simple_action.activate.connect (translate);
 			translate_simple_action.set_enabled (true);
@@ -357,8 +357,10 @@
 			menu_model.append_item (unmute_menu_item);
 
 			if (
-				accounts.active.instance_info != null
-				&& accounts.active.instance_info.tuba_can_translate
+				(
+					(accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate)
+					|| InstanceAccount.InstanceFeatures.TRANSLATION in accounts.active.tuba_instance_features
+				)
 				&& status.formal.tuba_translatable
 				&& (
 					status.formal.visibility == "public"
@@ -831,6 +833,13 @@
 		spoiler_stack.visible_child_name = status.formal.tuba_spoiler_revealed ? "content" : "spoiler";
 	}
 
+	private void update_spoiler_status_no_transition () {
+		Gtk.StackTransitionType old_transition = spoiler_stack.transition_type;
+		spoiler_stack.transition_type = NONE;
+		update_spoiler_status ();
+		spoiler_stack.transition_type = old_transition;
+	}
+
 	public void show_toggle_pinned_action () {
 		if (toggle_pinned_simple_action != null)
 			toggle_pinned_simple_action.set_enabled (true);
@@ -1032,6 +1041,7 @@
 	private Widgets.Attachment.Box attachments;
 	private Gtk.Label translation_label;
 	public Widgets.VoteBox poll;
+	private Gtk.Image? local_only_indicator = null;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};
 	ulong[] this_handler_ids = {};
@@ -1094,7 +1104,7 @@
 		spoiler_label_rev.label = this.spoiler_text_revealed;
 
 		status.formal.tuba_spoiler_revealed = !status.formal.has_spoiler || status.formal.tuba_spoiler_revealed;
-		update_spoiler_status ();
+		update_spoiler_status_no_transition ();
 
 		handle_label.label = this.subtitle_text;
 		date_label.label = this.date;
@@ -1109,15 +1119,33 @@
 		edited_indicator.visible = status.formal.is_edited;
 		edit_history_simple_action.set_enabled (status.formal.is_edited);
 
-		var t_visibility = accounts.active.visibility[status.formal.visibility];
-		visibility_indicator.icon_name = t_visibility.small_icon_name;
-		visibility_indicator.tooltip_text = t_visibility.name;
-		visibility_indicator.update_property (Gtk.AccessibleProperty.LABEL, t_visibility.name, -1);
+		if (accounts.active.visibility.has_key (status.formal.visibility)) {
+			visibility_indicator.visible = true;
+			var t_visibility = accounts.active.visibility[status.formal.visibility];
+			visibility_indicator.icon_name = t_visibility.small_icon_name;
+			visibility_indicator.tooltip_text = t_visibility.name;
+			visibility_indicator.update_property (Gtk.AccessibleProperty.LABEL, t_visibility.name, -1);
+		} else {
+			visibility_indicator.visible = false;
+		}
 
 		if (change_background_on_direct && status.formal.visibility == "direct") {
 			this.add_css_class ("direct");
 		} else {
 			this.remove_css_class ("direct");
+		}
+
+		if (local_only_indicator != null) indicators.remove (local_only_indicator);
+		if (status.formal.compat_local_only) {
+			this.add_css_class ("local");
+
+			if (local_only_indicator == null) local_only_indicator = new Gtk.Image.from_icon_name ("tuba-important-small-symbolic") {
+				css_classes = {"dim-label"},
+				tooltip_text = _("Local Only")
+			};
+			indicators.prepend (local_only_indicator);
+		} else {
+			this.remove_css_class ("local");
 		}
 
 		avatar.account = status.formal.account;
@@ -1279,11 +1307,7 @@
 			poll.focusable = false;
 			poll.can_focus = false;
 		}
-		if (hashtag_bar != null) {
-			hashtag_bar.can_target = false;
-			hashtag_bar.can_focus = false;
-			hashtag_bar.focusable = false;
-		}
+		if (hashtag_bar != null) hashtag_bar.to_display_only ();
 		if (attachments != null) attachments.usable = false;
 		if (emoji_reactions != null) emoji_reactions.visible = false;
 		this.can_be_opened = false;
@@ -1330,6 +1354,7 @@
 		if (status.formal.is_edited)
 			indicators.remove (edited_indicator);
 		indicators.remove (visibility_indicator);
+		if (local_only_indicator != null) local_only_indicator.visible = false;
 
 		date_label.label = this.date;
 		date_label.wrap = true;

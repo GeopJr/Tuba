@@ -167,6 +167,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool media_viewer_expand_pictures { get; set; }
 	public bool enlarge_custom_emojis { get; set; }
 	public bool use_blurhash { get; set; }
+	public bool show_sensitive_media { get; set; }
 	public bool group_push_notifications { get; set; }
 	public bool advanced_boost_dialog { get; set; }
 	public bool reply_to_old_post_reminder { get; set; }
@@ -185,6 +186,8 @@ public class Tuba.Settings : GLib.Settings {
 	public int status_aria_verbosity { get; set; default = 3; }
 	public bool use_in_app_browser_if_available { get; set; }
 	public bool collapse_long_posts { get; set; }
+	public bool show_interaction_counters { get; set; }
+	public bool extract_alt_from_metadata { get; set; }
 
 	private const string[] KEYS_TO_INIT = {
 		"active-account",
@@ -203,6 +206,7 @@ public class Tuba.Settings : GLib.Settings {
 		"media-viewer-expand-pictures",
 		"enlarge-custom-emojis",
 		"use-blurhash",
+		"show-sensitive-media",
 		"group-push-notifications",
 		"advanced-boost-dialog",
 		"reply-to-old-post-reminder",
@@ -216,7 +220,9 @@ public class Tuba.Settings : GLib.Settings {
 		"update-contributors",
 		"status-aria-verbosity",
 		"use-in-app-browser-if-available",
-		"collapse-long-posts"
+		"collapse-long-posts",
+		"show-interaction-counters",
+		"extract-alt-from-metadata"
 	};
 
 	public Settings () {

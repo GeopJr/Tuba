@@ -85,9 +85,24 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-channel-insecure-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-refresh-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-check-plain-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-folder-visiting-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-folder-new-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-polls-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-heart-outline-thick-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-network-server-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-user-home-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-person-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
+
+        <file preprocess="xml-stripblanks">icons/folders/blue.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/green.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/orange.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/pink.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/purple.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/red.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/slate.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/teal.svg</file>
+        <file preprocess="xml-stripblanks">icons/folders/yellow.svg</file>
 
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Archives.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Calligraphy.svg</file>

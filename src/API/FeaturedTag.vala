@@ -35,6 +35,7 @@ public class Tuba.API.FeaturedTag : Entity, Widgetizable {
 
 		if (statuses_count != "0" && last_status_at != "") {
 			// translators: subtitle on featured hashtags on profiles. The variable is a string date.
+			//				E.g. Last post on 2025-06-29
 			w.subtitle = _("Last post on %s").printf (this.last_status_at);
 		}
 

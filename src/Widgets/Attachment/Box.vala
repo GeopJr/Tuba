@@ -8,6 +8,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		set {
 			_list = value;
 			update ();
+			update_spoiler ();
 		}
 	}
 
@@ -24,11 +25,11 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 
 		set {
 			_has_spoiler = value;
-			if (value) spoiler_revealed = false;
+			update_spoiler ();
 		}
 	}
 
-	private bool _spoiler_revealed = false;
+	private bool _spoiler_revealed = settings.show_sensitive_media;
 	public bool spoiler_revealed {
 		get {
 			return _spoiler_revealed;
@@ -36,14 +37,18 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 
 		set {
 			_spoiler_revealed = value;
-			if (has_spoiler) {
-				foreach (var attachment_w in attachment_widgets) {
-					attachment_w.spoiler = !value;
-				}
-				reveal_btn.visible = value;
-				reveal_text.visible = !value;
-			}
+			update_spoiler ();
 		}
+	}
+
+	private void update_spoiler () {
+		if (!has_spoiler) return;
+
+		foreach (var attachment_w in attachment_widgets) {
+			attachment_w.spoiler = !this.spoiler_revealed;
+		}
+		reveal_btn.visible = this.spoiler_revealed;
+		reveal_text.visible = !this.spoiler_revealed;
 	}
 
 	protected Gtk.FlowBox box;
@@ -145,7 +150,6 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		}
 
 		visible = true;
-		spoiler_revealed = false;
 	}
 
 	private void on_spoiler_reveal () {

@@ -8,7 +8,8 @@ public class Tuba.Views.NotificationRequestsList : Views.Timeline {
 			label: _("Notifications by %s").printf (account_handle),
 			icon: "tuba-bell-outline-symbolic",
 			// translators: the variable is a user handle
-			empty_state_title: _("No Notifications by %s").printf (account_handle)
+			empty_state_title: _("No Notifications by %s").printf (account_handle),
+			batch_size_min: 20
 		);
 
 		this.accepts = typeof (API.Notification);

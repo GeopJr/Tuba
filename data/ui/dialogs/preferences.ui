@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-	<object class="GtkAdjustment" id="font_adjustment">
-		<property name="lower">100</property>
-		<property name="upper">500</property>
-		<property name="step_increment">5</property>
-		<property name="page_increment">5</property>
-	</object>
-	<object class="GtkAdjustment" id="page_adjustment">
-		<property name="lower">10</property>
-		<property name="upper">40</property>
-		<property name="step_increment">1</property>
-		<property name="page_increment">1</property>
-	</object>
 	<template class="TubaDialogsPreferences" parent="AdwPreferencesDialog">
 		<property name="search-enabled">True</property>
 		<child>
@@ -22,17 +10,20 @@
 					<object class="AdwPreferencesGroup">
 						<property name="title" translatable="yes">Appearance</property>
 						<child>
-							<object class="AdwComboRow" id="scheme_combo_row">
-								<property name="title" translatable="yes">Color Scheme</property>
-								<signal name="notify::selected-item" handler="on_scheme_changed" swapped="no" />
-
-								<property name="model">
-									<object class="TubaColorSchemeListModel" />
-								</property>
-
-								<property name="expression">
-									<lookup type="TubaColorSchemeListItem" name="name" />
-								</property>
+							<object class="AdwSwitchRow" id="darken_images_on_dark_mode">
+								<property name="title" translatable="yes">Darken Images on Dark Mode</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="dim_trivial_notifications">
+								<!-- translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts -->
+								<property name="title" translatable="yes">Dim Trivial Notifications</property>
+								<property name="subtitle" translatable="yes">Notifications like favorites and boosts will be less visible</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="enlarge_custom_emojis">
+								<property name="title" translatable="yes">Large Custom Emojis</property>
 							</object>
 						</child>
 						<child>
@@ -48,14 +39,19 @@
 							</object>
 						</child>
 						<child>
-							<object class="AdwSwitchRow" id="enlarge_custom_emojis">
-								<property name="title" translatable="yes">Large Custom Emojis</property>
-							</object>
-						</child>
-						<child>
 							<object class="AdwSwitchRow" id="scale_emoji_hover">
 								<property name="title" translatable="yes">Scale Custom Emojis on Hover</property>
 								<property name="subtitle" translatable="yes">Slightly increases the size of custom emojis when you hover over them</property>
+							</object>
+						</child>
+					</object>
+				</child>
+				<child>
+					<object class="AdwPreferencesGroup">
+						<property name="title" translatable="yes">Posts</property>
+						<child>
+							<object class="AdwSwitchRow" id="collapse_long_posts">
+								<property name="title" translatable="yes">Collapse Long Posts</property>
 							</object>
 						</child>
 						<child>
@@ -67,18 +63,8 @@
 							</object>
 						</child>
 						<child>
-							<object class="AdwSwitchRow" id="media_viewer_expand_pictures">
-								<!-- translators: expand as in enlarge -->
-								<property name="title" translatable="yes">Expand Pictures in Media Viewer</property>
-								<!-- translators: expand as in enlarge -->
-								<property name="subtitle" translatable="yes">Expand pictures to fill the media viewer by default</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="use_blurhash">
-								<!-- translators: leave this as is unless you want to transliterate. BlurHash is a recognizable product name. -->
-								<property name="title" translatable="yes">BlurHash</property>
-								<property name="subtitle" translatable="yes">Show a blurred version of the media until they fully load</property>
+							<object class="AdwSwitchRow" id="show_sensitive_media">
+								<property name="title" translatable="yes">Reveal Sensitive Media by Default</property>
 							</object>
 						</child>
 						<child>
@@ -87,25 +73,56 @@
 							</object>
 						</child>
 						<child>
-							<object class="AdwSwitchRow" id="collapse_long_posts">
-								<property name="title" translatable="yes">Collapse Long Posts</property>
-							</object>
-						</child>
-						<child>
 							<object class="AdwSwitchRow" id="show_preview_cards">
 								<property name="title" translatable="yes">Show Link Preview Cards</property>
 							</object>
 						</child>
+					</object>
+				</child>
+				<child>
+					<object class="AdwPreferencesGroup">
+						<property name="title" translatable="yes">Behavior</property>
 						<child>
-							<object class="AdwSwitchRow" id="darken_images_on_dark_mode">
-								<property name="title" translatable="yes">Darken Images on Dark Mode</property>
+							<object class="AdwSwitchRow" id="advanced_boost_dialog">
+								<property name="title" translatable="yes">Advanced Boost Dialog</property>
+								<property name="subtitle" translatable="yes">Change boost visibility, quote and confirm boosting</property>
 							</object>
 						</child>
 						<child>
-							<object class="AdwSwitchRow" id="dim_trivial_notifications">
-								<!-- translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts -->
-								<property name="title" translatable="yes">Dim Trivial Notifications</property>
-								<property name="subtitle" translatable="yes">Notifications like favorites and boosts will be less visible</property>
+							<object class="AdwSwitchRow" id="in_app_browser_switch">
+								<!-- translators: in-app as in a browser inside Tuba -->
+								<property name="title" translatable="yes">Open Links In-App</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="strip_tracking">
+								<property name="title" translatable="yes">Strip Tracking Parameters From Links</property>
+								<!-- translators: Broken as in incorrect -->
+								<property name="subtitle" translatable="yes">This option can lead to broken links when enabled</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="reply_to_old_post_reminder">
+								<property name="title" translatable="yes">Warn before replying to an old post</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="copy_private_link_reminder">
+								<property name="title" translatable="yes">Warn before copying a link to a private post</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="work_in_background">
+								<property name="title" translatable="yes">Run in Background</property>
+								<property name="subtitle" translatable="yes">Fetch notifications while the app is closed</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwEntryRow" id="proxy_entry">
+								<property name="show-apply-button">0</property>
+								<!-- translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning -->
+								<property name="title" translatable="yes">Proxy</property>
+								<property name="input-purpose">url</property>
 							</object>
 						</child>
 					</object>
@@ -145,57 +162,7 @@
 				</child>
 				<child>
 					<object class="AdwPreferencesGroup">
-						<property name="title" translatable="yes">Behavior</property>
-						<child>
-							<object class="AdwSwitchRow" id="work_in_background">
-								<property name="title" translatable="yes">Run in Background</property>
-								<property name="subtitle" translatable="yes">Fetch notifications while the app is closed</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="strip_tracking">
-								<property name="title" translatable="yes">Strip Tracking Parameters From Links</property>
-								<!-- translators: Broken as in incorrect -->
-								<property name="subtitle" translatable="yes">This option can lead to broken links when enabled</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="advanced_boost_dialog">
-								<property name="title" translatable="yes">Advanced Boost Dialog</property>
-								<property name="subtitle" translatable="yes">Change boost visibility, quote and confirm boosting</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="reply_to_old_post_reminder">
-								<property name="title" translatable="yes">Warn before replying to an old post</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="copy_private_link_reminder">
-								<property name="title" translatable="yes">Warn before copying a link to a private post</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwEntryRow" id="proxy_entry">
-								<property name="show-apply-button">0</property>
-								<!-- translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning -->
-								<property name="title" translatable="yes">Proxy</property>
-								<property name="input-purpose">url</property>
-							</object>
-						</child>
-					</object>
-				</child>
-				<child>
-					<object class="AdwPreferencesGroup">
 						<property name="title" translatable="yes">Timelines</property>
-						<child>
-							<object class="AdwSpinRow" id="timeline_page_size">
-								<property name="title" translatable="yes">Posts per Load Batch</property>
-								<property name="text">10</property>
-								<property name="adjustment">page_adjustment</property>
-								<property name="value">10</property>
-							</object>
-						</child>
 						<child>
 							<object class="AdwSwitchRow" id="live_updates">
 								<property name="title" translatable="yes">Stream Timelines</property>
@@ -206,7 +173,8 @@
 							<object class="AdwSwitchRow" id="public_live_updates">
 								<property name="sensitive" bind-source="live_updates" bind-property="active" bind-flags="sync-create" />
 								<property name="title" translatable="yes">Stream Public Timelines</property>
-								<property name="subtitle" translatable="yes">Warning: This will increase memory usage</property>
+								<!-- translators: setting row subtitle, by high traffic we mean the federated and local timelines -->
+								<property name="subtitle" translatable="yes">This will increase memory usage when browsing high traffic timelines</property>
 							</object>
 						</child>
 					</object>

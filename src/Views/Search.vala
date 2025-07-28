@@ -45,7 +45,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 			advanced_search.clicked.connect (open_advanced_search_dialog);
 			clear_search_button.clicked.connect (on_clear_entry);
 
-			this.append (new Gtk.Image.from_icon_name ("system-search-symbolic"));
+			this.append (new Gtk.Image.from_icon_name ("tuba-loupe-large-symbolic"));
 			this.append (entry);
 			this.append (clear_search_button);
 			this.append (advanced_search);

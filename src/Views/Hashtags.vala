@@ -5,6 +5,7 @@ public class Tuba.Views.Hashtags : Views.Timeline {
 		icon = "tuba-hashtag-symbolic";
 		accepts = typeof (FavoriteTag);
 		empty_state_title = _("No Hashtags");
+		batch_size_min = 20;
 	}
 
 	public class FavoriteTag : API.Tag, Widgetizable {

@@ -25,6 +25,83 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_ANNUAL_REPORT = "annual_report";
 	public const string KIND_MODERATION_WARNING = "moderation_warning";
 
+	// Not exactly sure where I'm going with this.
+	// I don't want *all* features listed here, just
+	// the ones that either take too long to figure
+	// out or the ones I need *early*.
+	// DO NOT use as the only feature detection
+	// mechanism.
+	[Flags]
+	public enum InstanceFeatures {
+		NONE,
+		QUOTE,
+		EMOJI_REACTIONS,
+		BUBBLE,
+		GROUP_NOTIFICATIONS,
+		FEATURE_TAGS,
+		ENDORSE_USERS,
+		MUTUALS,
+		TRANSLATION,
+		ICESHRIMP,
+		GLITCH,
+		LOCAL_ONLY
+	}
+	public InstanceFeatures tuba_instance_features { get; set; default = NONE; }
+	public string? tuba_iceshrimp_api_key { get; set; default = null; }
+
+	private string? _tuba_streaming_url = null;
+	public string? tuba_streaming_url {
+		get { return _tuba_streaming_url == null ? this.instance : _tuba_streaming_url; }
+		set { _tuba_streaming_url = value; }
+	}
+
+	private void tuba_instance_features_update_and_save (InstanceFeatures features) {
+		if (features == tuba_instance_features || !settings.get_boolean ("auto-detect-features")) return;
+
+		this.tuba_instance_features = features;
+		try {
+			accounts.update_account (this);
+		} catch (Error e) {
+			critical (@"Couldn't update instance features for $id: $(e.code) $(e.message)");
+		}
+	}
+
+	public void tuba_update_iceshrimp_api_key (string? new_key) {
+		if (this.tuba_iceshrimp_api_key == new_key) return;
+
+		this.tuba_iceshrimp_api_key = new_key;
+		try {
+			accounts.update_account (this);
+		} catch (Error e) {
+			critical (@"Couldn't update instance features for $id: $(e.code) $(e.message)");
+		}
+	}
+
+	private void tuba_update_streaming_url (string new_url) {
+		if (new_url == "") return;
+
+		string new_host = this.instance;
+		try {
+			var new_uri = GLib.Uri.parse (new_url, GLib.UriFlags.NONE);
+			string? new_host_uri = new_uri.get_host ();
+
+			if (new_host_uri != null && new_host_uri != "")
+				new_host = @"https://$new_host_uri";
+		} catch (Error e) {
+			warning (@"$new_url is not a valid URI: $(e.code) $(e.message)");
+		}
+
+		if (new_host != tuba_streaming_url) {
+			this.tuba_streaming_url = new_host;
+			try {
+				accounts.update_account (this);
+				app.app_streams.upgrade (this.instance, new_host);
+			} catch (Error e) {
+				critical (@"Couldn't update instance features for $id: $(e.code) $(e.message)");
+			}
+		}
+	}
+
 	public string uuid { get; set; }
 	public bool admin_mode { get; set; default=false; }
 	public string? backend { set; get; }
@@ -509,11 +586,36 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					}
 				}
 
+				var new_flags = this.tuba_instance_features;
+
 				if (instance_info.pleroma == null) {
 					gather_v2_instance_info ();
 				} else if (instance_info.pleroma.metadata != null && instance_info.pleroma.metadata.features != null) {
 					instance_info.tuba_can_translate = "akkoma:machine_translation" in instance_info.pleroma.metadata.features;
+
+					new_flags = instance_info.supports_quote_posting ? new_flags | InstanceFeatures.QUOTE : new_flags & ~InstanceFeatures.QUOTE;
+					new_flags = instance_info.tuba_can_translate ? new_flags | InstanceFeatures.TRANSLATION : new_flags & ~InstanceFeatures.TRANSLATION;
+					if (instance_info.supports_bubble) new_flags |= InstanceFeatures.BUBBLE;
 				}
+
+				// LOCAL_ONLY is common between them and we can use it to skip the whole string parsing
+				if (instance_info.version != null && !(InstanceFeatures.LOCAL_ONLY in new_flags)) {
+					if ("Pleroma " in instance_info.version) {
+						new_flags |= InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS | InstanceFeatures.MUTUALS | InstanceFeatures.LOCAL_ONLY;
+					} else if ("Iceshrimp.NET/" in instance_info.version) {
+						new_flags |= InstanceFeatures.ICESHRIMP | InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.LOCAL_ONLY | InstanceFeatures.BUBBLE;
+					} else if ("+glitch" in instance_info.version) {
+						new_flags |= InstanceFeatures.GLITCH | InstanceFeatures.LOCAL_ONLY | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS;
+					} else if ("+hometown" in instance_info.version) {
+						new_flags |= InstanceFeatures.LOCAL_ONLY | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS;
+					} else if ("Akkoma " in instance_info.version) {
+						new_flags |= InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.LOCAL_ONLY;
+					}
+				}
+				tuba_instance_features_update_and_save (new_flags);
+
+				if (instance_info.urls != null && instance_info.urls.streaming_api != null)
+					tuba_update_streaming_url (instance_info.urls.streaming_api);
 
 				app.handle_share ();
 				bump_sidebar_items ();
@@ -531,11 +633,16 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				var node = network.parse_node (parser);
 				if (node == null) return;
 
+				InstanceFeatures? new_flags = null;
 				var instance_v2 = API.InstanceV2.from (node);
 				if (instance_v2 != null) {
+					new_flags = this.tuba_instance_features;
+
 					if (instance_v2.configuration != null) {
 						if (instance_v2.configuration.translation != null) this.instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
 						if (instance_v2.configuration.media_attachments != null) this.instance_info.tuba_max_alt_chars = instance_v2.configuration.media_attachments.description_limit;
+
+						new_flags = instance_info.tuba_can_translate ? new_flags | InstanceFeatures.TRANSLATION : new_flags & ~InstanceFeatures.TRANSLATION;
 					}
 
 					if (instance_v2.api_versions != null && instance_v2.api_versions.mastodon > 0) {
@@ -545,10 +652,25 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 						}
 						this.tuba_probably_has_notification_filters = true;
 
-						if (this.tuba_api_versions.mastodon > 1) gather_annual_report ();
+						if (this.tuba_api_versions.mastodon > 1) {
+							gather_annual_report ();
+							new_flags |= InstanceFeatures.GROUP_NOTIFICATIONS;
+						}
+
+						if (this.tuba_api_versions.mastodon > 5) {
+							new_flags |= InstanceFeatures.ENDORSE_USERS;
+						}
+
+						if (this.tuba_api_versions.chuckya > 0) {
+							new_flags |= InstanceFeatures.EMOJI_REACTIONS;
+						}
+
+						new_flags |= InstanceFeatures.FEATURE_TAGS | InstanceFeatures.MUTUALS;
+						if (instance_info.supports_bubble) new_flags |= InstanceFeatures.BUBBLE;
 					}
 				}
 
+				if (new_flags != null) tuba_instance_features_update_and_save (new_flags);
 				bump_sidebar_items ();
 			})
 			.exec ();
@@ -572,7 +694,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		}
 
 		new Request.GET (@"/api/v1/annual_reports/$(year)")
-			.with_account (accounts.active)
+			.with_account (this)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
@@ -639,7 +761,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		}
 
 		new Request.GET ("/api/v1/lists")
-			.with_account (accounts.active)
+			.with_account (this)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				Place[] fav_lists = {};
@@ -789,7 +911,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public void send_toast (API.Notification obj) {
 		if (obj.kind != null && (obj.kind in settings.muted_notification_types)) return;
 
-		var id = accounts.active.id;
+		var id = this.id;
 		var others = 0;
 
 		if (settings.group_push_notifications && obj.status != null && obj.kind in GROUPED_KINDS) {

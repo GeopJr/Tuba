@@ -35,7 +35,7 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 
 	Widgets.StatusActionButton? feature_tag_btn = null;
 	private void create_featuring_button () {
-		if (accounts.active.tuba_api_versions.mastodon <= 5 || feature_tag_btn != null) return;
+		if ((accounts.active.tuba_api_versions.mastodon <= 5 && !(InstanceAccount.InstanceFeatures.FEATURE_TAGS in accounts.active.tuba_instance_features)) || feature_tag_btn != null) return;
 
 		feature_tag_btn = new Widgets.StatusActionButton.with_icon_name ("tuba-heart-outline-thick-symbolic") {
 			active_icon_name = "tuba-heart-filled-symbolic",
@@ -112,9 +112,26 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 				var root = network.parse (parser);
 				if (!root.has_member ("following")) {
 					this.following = !this.following;
-				};
+				} else if (!this.following) {
+					remove_from_favs ();
+				}
 			})
 			.exec ();
+	}
+
+	private void remove_from_favs () {
+		if (settings.favorite_tags_ids.length == 0) return;
+
+		string[] new_ids = {};
+		string down_name = this.tag.down ();
+		foreach (string tag_name in settings.favorite_tags_ids) {
+			if (down_name != tag_name.down ()) new_ids += tag_name;
+		}
+
+		if (settings.favorite_tags_ids.length != new_ids.length) {
+			settings.favorite_tags_ids = new_ids;
+			GLib.Idle.add (accounts.active.gather_fav_tags);
+		}
 	}
 
 	private void init_tag () {
@@ -135,7 +152,7 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 		var split_url = url.split ("/");
 		var tag = split_url[split_url.length - 1];
 		return account != null
-			? @"$(account.instance)/api/v1/streaming?stream=hashtag&tag=$tag&access_token=$(account.access_token)"
+			? @"$(account.tuba_streaming_url)/api/v1/streaming?stream=hashtag&tag=$tag&access_token=$(account.access_token)"
 			: null;
 	}
 
