@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-28 23:36+0000\n"
+"PO-Revision-Date: 2025-07-30 11:06+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -213,6 +213,9 @@ msgid ""
 "it leads to a user or a post regardless if it matches the typical post and "
 "user URLs"
 msgstr ""
+"Sõltumata sellest, et link sarnaneb tüüpilisele postituse või kasutaja "
+"võrguaadressile, küsib Tuba lingile klõpsides sinu koduserverilt üle, kas "
+"link viitab korrektselt postitusele või kasutajale"
 
 #: data/dev.geopjr.Tuba.gschema.xml:124 data/ui/dialogs/preferences.ui:99
 msgid "Strip Tracking Parameters From Links"
@@ -295,6 +298,8 @@ msgid ""
 "Before replying to a post that was made at least 3 months ago, Tuba will "
 "warn you that the conversation might be over"
 msgstr ""
+"Vastates enam kui 3 kuu vanusele postitusele teavitab Tuba, et vestlus võib "
+"olla lõppenud"
 
 #: data/dev.geopjr.Tuba.gschema.xml:173 data/ui/dialogs/preferences.ui:111
 msgid "Warn before copying a link to a private post"
@@ -306,11 +311,13 @@ msgid ""
 "If you copy the link to a post that is not publicly accessible, Tuba will "
 "warn you that people might not be able to view the post the link points to"
 msgstr ""
+"Kui kopeerid postitusse lingi, mis pole avalikult leitav, siis Tuba hoiatab "
+"sind, et kasutajatel pole võimalik seda linki kasutada"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
 msgid "Spellchecker"
-msgstr ""
+msgstr "Õigekirjakontroll"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:182
@@ -318,6 +325,8 @@ msgid ""
 "The last state of the spellchecker in the composer, can be toggled by right "
 "clicking"
 msgstr ""
+"Õigekirjakontrolli viimane olek postituse koostamisel - olek on vahetatav "
+"parema klõpsuga"
 
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:14
 msgid "Darken Images on Dark Mode"
@@ -329,6 +338,8 @@ msgid ""
 "Images will be darker when dark mode is enabled and gain their full "
 "brightness when hovered"
 msgstr ""
+"Tumedas kujunduses on ka pildid tumedamad ning kuvatakse tavalisena siis, "
+"kui hiire fookus on pildi kohal"
 
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/dev.geopjr.Tuba.gschema.xml:192 data/ui/dialogs/preferences.ui:20
@@ -342,7 +353,7 @@ msgstr "Teavitused lemmikute lisamise ja hooandmise kohta on vähemnähtavad"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:198
 msgid "The last volume value used in the media viewer for videos and audio"
-msgstr ""
+msgstr "Heli- ja videofailide viimane valjus meediaesitajas"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:203
@@ -406,16 +417,17 @@ msgstr "Analüütika viimase uuenduse kuupäev"
 #: data/dev.geopjr.Tuba.gschema.xml:230 data/dev.geopjr.Tuba.gschema.xml:237
 msgid "Used for keeping track if 2 weeks have passed since the last update"
 msgstr ""
+"Kasutatakse tuvastamiseks, kas kaks nädalat on möödunud viimasest uuendusest"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:235
 msgid "Date of the last contributors update"
-msgstr ""
+msgstr "Tuba kaasautorite andmete viimase uuenduse kuupäev"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:242
 msgid "Tuba contributors"
-msgstr ""
+msgstr "Tuba kaasautorid"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:244
@@ -423,16 +435,19 @@ msgid ""
 "A list of hashed handles that belong to Tuba contributors so they can be "
 "used in-app"
 msgstr ""
+"Tuba kaasautorite kasutajanimede räside loend kasutamiseks rakenduse sees"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:249
 msgid "Post aria label verbosity"
-msgstr ""
+msgstr "Postituse aria-sildi detailsus"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:251
 msgid "0 to 5 verbosity level, 0 being no aria label and 5 being very detailed"
 msgstr ""
+"Detailsus vahemikus 0 kuni 5, kus 0 tähistab sildi puudumist ja 5 väga "
+"üksikasjalikku silti"
 
 #. translators: in-app as in a browser inside Tuba
 #: data/dev.geopjr.Tuba.gschema.xml:255 data/ui/dialogs/preferences.ui:94
@@ -442,7 +457,7 @@ msgstr "Ava lingid rakenduse sees"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:257
 msgid "Open links in a nested web browser instead of the host one"
-msgstr ""
+msgstr "Arvuti brauseri asemel avatakse lingid rakendusse lõimitud brauseris"
 
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
 msgid "Collapse Long Posts"
@@ -452,7 +467,7 @@ msgstr "Näita pikki postitusi kokkupakituna"
 #: data/dev.geopjr.Tuba.gschema.xml:263
 msgid ""
 "Whether to automatically collapse posts to a set height when they exceed it"
-msgstr ""
+msgstr "Kas peaks pikki postitusi automaatselt kuvama etteantud kõrgusega"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:268
