@@ -1047,7 +1047,7 @@ public class Tuba.Views.Drive : Views.Base {
 	}
 
 	private void on_refresh () {
-		if (this.working) return;
+		if (this.working || !this.get_mapped ()) return;
 		load_folder (this.current_folder.id);
 		this.working = false;
 	}
