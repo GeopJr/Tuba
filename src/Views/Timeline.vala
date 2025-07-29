@@ -94,7 +94,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			reached_close_to_top.connect (finish_queue);
 		#endif
 
-		app.refresh.connect (on_manual_refresh);
+		app.refresh.connect (refresh_if_mapped);
 		status_button.clicked.connect (on_manual_refresh);
 
 		construct_account_holder ();
@@ -131,6 +131,11 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			entity_queue = {};
 			entity_queue_size = 0;
 		#endif
+	}
+
+	protected void refresh_if_mapped () {
+		if (!this.get_mapped ()) return;
+		on_manual_refresh ();
 	}
 
 	#if !USE_LISTVIEW

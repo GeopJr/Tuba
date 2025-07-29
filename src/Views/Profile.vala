@@ -137,7 +137,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	private void on_featured_refresh_request () {
-		if (this.filter == FEATURED) on_refresh ();
+		if (this.filter == FEATURED && this.get_mapped ()) on_refresh ();
 	}
 
 	public bool append_pinned () {

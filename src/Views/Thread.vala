@@ -34,11 +34,23 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		);
 		construct_account_holder ();
 		update_root_status (status.id);
+
+		app.refresh.connect (on_refresh);
 	}
 
 	~Thread () {
 		debug ("Destroying Thread");
 		destruct_account_holder ();
+	}
+
+	private void on_refresh () {
+		if (!this.get_mapped ()) return;
+
+		scrolled.vadjustment.value = 0;
+		status_button.sensitive = false;
+		clear ();
+		base_status = new StatusMessage () { loading = true };
+		GLib.Idle.add (request);
 	}
 
 	private void update_root_status (string status_id = root_status.id) {

@@ -9,7 +9,7 @@ public class Tuba.Views.ScheduledStatuses : Views.Timeline {
 		accepts = typeof (API.ScheduledStatus);
 		batch_size_min = 20;
 
-		app.refresh_scheduled_statuses.connect (on_refresh);
+		app.refresh_scheduled_statuses.connect (refresh_if_mapped);
 	}
 
 	public override Gtk.Widget on_create_model_widget (Object obj) {
@@ -18,7 +18,7 @@ public class Tuba.Views.ScheduledStatuses : Views.Timeline {
 
 		if (widget_scheduled != null) {
 			widget_scheduled.deleted.connect (on_deleted_scheduled);
-			widget_scheduled.refresh.connect (on_refresh);
+			widget_scheduled.refresh.connect (refresh_if_mapped);
 		}
 
 		return widget;
