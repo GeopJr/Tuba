@@ -79,7 +79,6 @@
 																<property name="margin-end">6</property>
 																<property name="vexpand">1</property>
 																<property name="hexpand">1</property>
-																<signal name="day-selected" handler="validate" />
 															</object>
 														</child>
 													</object>
@@ -110,7 +109,6 @@
 																		<property name="numeric">true</property>
 																		<property name="wrap">true</property>
 																		<property name="adjustment">hour_adjustment</property>
-																		<signal name="value-changed" handler="validate" swapped="no" />
 																	</object>
 																</child>
 																<child>
@@ -131,7 +129,6 @@
 																		<property name="numeric">true</property>
 																		<property name="wrap">true</property>
 																		<property name="adjustment">minutes_adjustment</property>
-																		<signal name="value-changed" handler="validate" swapped="no" />
 																	</object>
 																</child>
 																<child>
@@ -152,7 +149,6 @@
 																		<property name="numeric">true</property>
 																		<property name="wrap">true</property>
 																		<property name="adjustment">seconds_adjustment</property>
-																		<signal name="value-changed" handler="validate" swapped="no" />
 																	</object>
 																</child>
 															</object>
@@ -162,7 +158,6 @@
 												<child>
 													<object class="AdwComboRow" id="timezone_combo_row">
 														<property name="title" translatable="yes">Timezone</property>
-														<signal name="notify::selected" handler="validate" />
 													</object>
 												</child>
 											</object>

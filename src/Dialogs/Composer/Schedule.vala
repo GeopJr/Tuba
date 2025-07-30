@@ -38,6 +38,11 @@ public class Tuba.Dialogs.Schedule : Adw.NavigationPage {
 
 		if (button_label != null) schedule_button.label = button_label;
 
+		calendar.day_selected.connect (validate);
+		hours_spin_button.value_changed.connect (validate);
+		minutes_spin_button.value_changed.connect (validate);
+		seconds_spin_button.value_changed.connect (validate);
+		timezone_combo_row.notify["selected"].connect (validate);
 		validate ();
 	}
 
@@ -45,11 +50,10 @@ public class Tuba.Dialogs.Schedule : Adw.NavigationPage {
 		schedule_picked (result_dt.format_iso8601 ());
 	}
 
-	[GtkCallback] void validate () {
+	void validate () {
 		bool valid = true;
 		GLib.DateTime now = new GLib.DateTime.now_utc ();
-
-		if (((Gtk.StringObject) timezone_combo_row.selected_item).string == "UTC") {
+		if (timezone_combo_row.selected != Gtk.INVALID_LIST_POSITION && ((Gtk.StringObject) timezone_combo_row.selected_item).string == "UTC") {
 			result_dt = new GLib.DateTime.utc (
 				calendar.year,
 				calendar.month + 1,
