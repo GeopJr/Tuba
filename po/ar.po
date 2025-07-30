@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-30 11:14+0000\n"
+"PO-Revision-Date: 2025-07-31 12:01+0000\n"
 "Last-Translator: Ahmed Najmawi <iramosu@protonmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
@@ -865,7 +865,7 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"
-msgstr "مسار للخادوم"
+msgstr "مسار الخادوم"
 
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:332
@@ -1224,7 +1224,7 @@ msgstr "القوائم"
 #: data/ui/views/media_viewer.ui:10 src/Views/Browser.vala:175
 #: src/Widgets/Attachment/Item.vala:176 src/Widgets/Status.vala:327
 msgid "Copy URL"
-msgstr "انسخ الرابط"
+msgstr "انسخ المسار"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:177
 msgid "Save Media…"
@@ -1811,7 +1811,7 @@ msgstr[5] ""
 #. been provided in settings
 #: src/Application.vala:351 src/Dialogs/Preferences.vala:378
 msgid "Invalid Proxy URL"
-msgstr "رابط خادوم وكيل غير صالح"
+msgstr "مسار خادوم وكيل غير صالح"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:415
@@ -2744,7 +2744,7 @@ msgstr "انسخ رمز التصريح مِن المتصفح وألصِقه با
 
 #: src/Dialogs/NewAccount.vala:174
 msgid "Please enter a valid instance URL"
-msgstr "رجاءً قم بإدخال رابط تشعّبي لمثيل خادوم صالح"
+msgstr "رجاءً أدخل مسارًا لمثيل خادوم صالح"
 
 #: src/Dialogs/NewAccount.vala:220
 msgid "Please enter a valid authorization code"
@@ -3727,11 +3727,11 @@ msgstr ""
 
 #: src/Views/Drive.vala:242
 msgid "Copy Link"
-msgstr ""
+msgstr "انسخ الرابط"
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
-msgstr ""
+msgstr "علِّم كحساس"
 
 #. translators: alternative text context menu item in drive
 #: src/Views/Drive.vala:253
@@ -3740,88 +3740,88 @@ msgstr "عدّل النص البديل"
 
 #: src/Views/Drive.vala:259 src/Views/Drive.vala:409
 msgid "Rename"
-msgstr ""
+msgstr "أعِد التسمية"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:380
 #, c-format
 msgid "Couldn't mark '%s' as sensitive: %s"
-msgstr ""
+msgstr "تعذَّر تعليم '%s' كحساس: %s"
 
 #: src/Views/Drive.vala:407
 msgid "Rename Folder"
-msgstr ""
+msgstr "أعِد تسمية المجلد"
 
 #: src/Views/Drive.vala:407
 msgid "Rename File"
-msgstr ""
+msgstr "أعِد تسمية الملف"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:464
 #, c-format
 msgid "Couldn't change alt text for '%s': %s"
-msgstr ""
+msgstr "تعذَّر تغيير نص '%s' البديل: %s"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:511
 #, c-format
 msgid "Couldn't rename '%s': %s"
-msgstr ""
+msgstr "تعذَّرت إعادة تسمية '%s': %s"
 
 #. translators: title on an entry
 #: src/Views/Drive.vala:730
 msgid "New Folder"
-msgstr ""
+msgstr "مجلد جديد"
 
 #. translators: placeholder on an entry
 #: src/Views/Drive.vala:732
 msgid "Folder Name"
-msgstr ""
+msgstr "اسم المجلد"
 
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
 msgid "Create"
-msgstr ""
+msgstr "أنشئ"
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
-msgstr ""
+msgstr "أنشئ مجلدًا"
 
 #: src/Views/Drive.vala:748
 msgid "Upload File"
-msgstr ""
+msgstr "ارفع ملفًا"
 
 #. translators: error that shows up as a toast when creating folders
 #. in iceshrimp drive
 #: src/Views/Drive.vala:818
 #, c-format
 msgid "Couldn't create folder: %s"
-msgstr ""
+msgstr "تعذَّر إنشاء المجلد: %s"
 
 #: src/Views/Drive.vala:874
 msgid "Drop files to upload them"
-msgstr ""
+msgstr "أفلِت الملفات لرفعها"
 
 #: src/Views/Drive.vala:1199
 #, c-format
 msgid "Couldn't move '%s': %s"
-msgstr ""
+msgstr "تعذَّر نقل '%s': %s"
 
 #. translators: Error when trying to delete a file that cannot be deleted.
 #. The first variable is a string file name, the second is an error.
 #: src/Views/Drive.vala:1216 src/Views/Drive.vala:1273
 #, c-format
 msgid "'%s' cannot be deleted: %s"
-msgstr ""
+msgstr "لا يمكن حذف '%s': %s"
 
 #. translators: the variable is a folder/file name
 #: src/Views/Drive.vala:1224
 #, c-format
 msgid "Delete '%s'?"
-msgstr ""
+msgstr "أأحذف '%s'؟"
 
 #: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
 msgid "This is irreversible."
@@ -3832,7 +3832,7 @@ msgstr ""
 #: src/Views/Drive.vala:1249 src/Views/Drive.vala:1361
 #, c-format
 msgid "Couldn't delete '%s': %s"
-msgstr ""
+msgstr "تعذَّر حذف '%s': %s"
 
 #. translators: Error when trying to delete files/folders
 #. that cannot be deleted.
