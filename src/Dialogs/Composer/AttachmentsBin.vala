@@ -396,7 +396,10 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 	}
 
 	public async void upload_files (owned File[] files) {
-		if (files.length == 0) return;
+		if (files.length == 0) {
+			this.notify_property ("working");
+			return;
+		}
 
 		// We want to only upload as many attachments as the server
 		// accepts based on the amount we have already uploaded.
@@ -409,6 +412,10 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 				try {
 					var file_info = file.query_info ("standard::size,standard::content-type", 0);
 					var file_content_type = file_info.get_content_type ();
+
+					#if WINDOWS || DARWIN
+						if (file_content_type != null) file_content_type = GLib.ContentType.get_mime_type (file_content_type);
+					#endif
 
 					if (file_content_type != null) {
 						file_content_type = file_content_type.down ();
@@ -460,6 +467,7 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 		}
 
 		this.working = files_for_upload.length > 0;
+		this.notify_property ("working");
 		for (int i = 0; i < files_for_upload.length; i++) {
 			var file13 = files_for_upload[i];
 
