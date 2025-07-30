@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-28 23:36+0000\n"
+"PO-Revision-Date: 2025-07-30 11:14+0000\n"
 "Last-Translator: Ahmed Najmawi <iramosu@protonmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
@@ -3838,23 +3838,23 @@ msgstr ""
 #. that cannot be deleted.
 #: src/Views/Drive.vala:1305
 msgid "No Deletable Files in Selection"
-msgstr ""
+msgstr "لم تحدَّد ملفات قابلة للحذف"
 
 #. translators: confirmation dialog in a file-browser-like page
 #: src/Views/Drive.vala:1311
 msgid "Delete Selection?"
-msgstr ""
+msgstr "أأحذف المحدَّد؟"
 
 #: src/Views/Drive.vala:1372
 msgid "Upload Files"
-msgstr ""
+msgstr "ارفع ملفات"
 
 #. translators: toast popping up when a user uploads a file that already exists in drive
 #. The variable is a string filename.
 #: src/Views/Drive.vala:1423
 #, c-format
 msgid "'%s' already exists"
-msgstr ""
+msgstr "'%s' موجود بالفعل"
 
 #. translators: screen reader announcement when the
 #. drive successfully uploads a file
@@ -3862,7 +3862,7 @@ msgstr ""
 #: src/Views/Drive.vala:1510
 #, c-format
 msgid "Finished Uploading '%s'"
-msgstr ""
+msgstr "رُفِع '%s'"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -4038,7 +4038,7 @@ msgstr "هذا المستخدم لم يُتابِع أحدًا إلى الآن"
 #. translators: featured tab on profiles, shown when empty.
 #: src/Views/Profile.vala:285
 msgid "This user doesn't have any featured hashtags or accounts."
-msgstr ""
+msgstr "ليس لهذا المستخدم أي وسوم أو حسابات مختارة."
 
 #: src/Views/Profile.vala:441
 msgid "Copied handle to clipboard"
@@ -4578,7 +4578,7 @@ msgstr "نُقِل %s إلى %s"
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "مخفي"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
@@ -4587,7 +4587,7 @@ msgstr "خطأ: طول الملاحظة يفوق 2000 حرف"
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
 msgid "Featured"
-msgstr ""
+msgstr "مُختار"
 
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63
@@ -4623,7 +4623,7 @@ msgstr "جَدوِل إلى %s"
 
 #: src/Widgets/ScheduledStatus.vala:155
 msgid "Reschedule Post"
-msgstr ""
+msgstr "أعِد جدولة المنشور"
 
 #. translators: the variable is an error
 #: src/Widgets/ScheduledStatus.vala:187
