@@ -1106,7 +1106,7 @@
 		status.formal.tuba_spoiler_revealed = !status.formal.has_spoiler || status.formal.tuba_spoiler_revealed;
 		update_spoiler_status_no_transition ();
 
-		handle_label.label = this.subtitle_text;
+		handle_label.label = handle_label.tooltip_text = this.subtitle_text;
 		date_label.label = this.date;
 
 		if (!expanded) {

@@ -29,6 +29,11 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	//  	}
 	//  }
 
+	public bool ellipsize {
+		get { return widget.ellipsize; }
+		set { widget.ellipsize = value; }
+	}
+
 	public bool use_markup {
 		get { return widget.use_markup; }
 		set { widget.use_markup = value; }
