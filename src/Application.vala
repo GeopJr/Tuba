@@ -432,6 +432,8 @@ namespace Tuba {
 		}
 
 		public void present_window (bool destroy_main = false) {
+			if (!activated && ApplicationFlags.IS_SERVICE in this.flags) return;
+
 			if (accounts.saved.is_empty) {
 				if (main_window != null && destroy_main)
 					main_window.hide ();

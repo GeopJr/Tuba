@@ -1,19 +1,36 @@
 .\"                                      Hey, EMACS: -*- nroff -*-
 .\" (C) Copyright 2023 Danial Behzadi <dani.behzi@ubuntu.com>,
-.TH man 1 "21 Apr 2023" "@VERSION@" "@NAME@ man page"
+.\" (C) Copyright 2025 Evangelos Paterakis <evan@geopjr.dev>,
+.TH man 1 "29 Jul 2025" "@VERSION@" "@NAME@ man page"
 .SH NAME
 @NAME@ \- Browse the Fediverse
 .SH SYNOPSIS
 .B @EXEC_NAME@
-.RI [OPTION]
+.RI [OPTION?]
 .SH DESCRIPTION
 This manual page documents briefly the
 .B @EXEC_NAME@.
 .SH OPTIONS
---help     \- Show help options
-.br
---hidden   \- Do not show main window on start
-.br
+.SS "Help Options:"
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Show help options
+.TP
+\fB\-\-help\-all\fR
+Show all help options
+.TP
+\fB\-\-help\-gapplication\fR
+Show GApplication options
+.SS "GApplication Options:"
+.TP
+\fB\-\-gapplication\-service\fR
+Enter GApplication service mode (use from D\-Bus service files)
+.SS "Application Options:"
+.TP
+\fB\-\-hidden\fR
+Do not show main window on start
 .br
 .SH AUTHOR
 Danial Behzadi (dani.behzi@ubuntu.com)
+.br
+Evangelos "GeopJr" Paterakis (evan@geopjr.dev)

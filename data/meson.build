@@ -66,6 +66,18 @@ if desktop_utils.found()
     test('Validate desktop file', desktop_utils, args: [desktop_file])
 endif
 
+configure_file(
+    input: meson.project_name() + '.service.in',
+    output: meson.project_name() + '.service',
+    configuration: config,
+    install: true,
+    install_dir: join_paths(
+        get_option('datadir'),
+       'dbus-1',
+       'services',
+    ),
+)
+
 if host_machine.system() != 'windows' and host_machine.system() != 'darwin'
     appstream_file = i18n.merge_file(
         input: meson.project_name() + '.metainfo.xml.in',
