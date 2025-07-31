@@ -22,8 +22,10 @@ calendar>header>button, calendar>grid>label {
 	font-weight: bold;
 	font-size: 0.8em;
 	border-radius: 10px;
-	min-width: 0.7em;
-	padding: 2px 5px;
+	min-width: 0.8em;
+	min-height: 0.8em;
+	line-height: 0.8em;
+	padding: 0.4em 5px;
 	background: var(--accent-bg-color);
 	color: @text_view_bg;
 }
@@ -698,7 +700,7 @@ video > overlay > revealer > controls {
 	margin: 3px 0px;
 }
 
-.ttl-account-switcher row:selected avatar {
+.ttl-account-switcher row.active avatar {
 	border: 2px solid var(--accent-bg-color);
 }
 
@@ -707,11 +709,11 @@ video > overlay > revealer > controls {
 	border-radius: 9999px;
 	border: solid var(--accent-bg-color) 2px;
 	background-color: var(--accent-bg-color);
-	margin-bottom: 10px;
+	margin-bottom: 3px;
 	opacity: 0;
 }
 
-.ttl-account-switcher row:selected .blue-checkmark {
+.ttl-account-switcher row.active .blue-checkmark {
 	opacity: 1;
 }
 
