@@ -269,7 +269,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 	private void install_languages (string? locale_iso) {
 		language_button = new Gtk.DropDown (app.app_locales.list_store, null) {
-			expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "name"),
+			expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "en-name"),
 			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
 			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
 			// translators: composer dropdown tooltip text

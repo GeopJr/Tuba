@@ -347,7 +347,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 			};
 
 			lang_dropdown = new Gtk.DropDown (app.app_locales.list_store, null) {
-				expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "name"),
+				expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "en-name"),
 				factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
 				list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
 				enable_search = true,
