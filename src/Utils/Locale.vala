@@ -26,7 +26,7 @@ public class Tuba.Utils.Locales : GLib.Object {
 			new Locale ("an", "Aragonese", "aragonés"),
 			new Locale ("ar", "Arabic", "اللغة العربية"),
 			new Locale ("as", "Assamese", "অসমীয়া"),
-			//  new Locale ("ast", "Asturian", "Asturianu"), // ISO-639-3
+			new Locale ("ast", "Asturian", "Asturianu"), // ISO-639-3
 			new Locale ("av", "Avaric", "авар мацӀ"),
 			new Locale ("ay", "Aymara", "aymar aru"),
 			new Locale ("az", "Azerbaijani", "azərbaycan dili"),
@@ -43,8 +43,8 @@ public class Tuba.Utils.Locales : GLib.Object {
 			new Locale ("ca", "Catalan", "Català"),
 			new Locale ("ce", "Chechen", "нохчийн мотт"),
 			new Locale ("ch", "Chamorro", "Chamoru"),
-			//  new Locale ("ckb", "Sorani (Kurdish)", "سۆرانی"), // ISO-639-3
-			//  new Locale ("cnr", "Montenegrin", "crnogorski"), // ISO-639-3
+			new Locale ("ckb", "Sorani (Kurdish)", "سۆرانی"), // ISO-639-3
+			new Locale ("cnr", "Montenegrin", "crnogorski"), // ISO-639-3
 			new Locale ("co", "Corsican", "corsu"),
 			new Locale ("cr", "Cree", "ᓀᐦᐃᔭᐍᐏᐣ"),
 			new Locale ("cs", "Czech", "čeština"),
@@ -94,17 +94,17 @@ public class Tuba.Utils.Locales : GLib.Object {
 			new Locale ("it", "Italian", "Italiano"),
 			new Locale ("iu", "Inuktitut", "ᐃᓄᒃᑎᑐᑦ"),
 			new Locale ("ja", "Japanese", "日本語"),
-			//  new Locale ("jbo", "Lojban", "la .lojban."), // ISO-639-3
+			new Locale ("jbo", "Lojban", "la .lojban."), // ISO-639-3
 			new Locale ("jv", "Javanese", "basa Jawa"),
 			new Locale ("ka", "Georgian", "ქართული"),
-			//  new Locale ("kab", "Kabyle", "Taqbaylit"), // ISO-639-3
+			new Locale ("kab", "Kabyle", "Taqbaylit"), // ISO-639-3
 			new Locale ("kg", "Kongo", "Kikongo"),
 			new Locale ("ki", "Kikuyu", "Gĩkũyũ"),
 			new Locale ("kj", "Kwanyama", "Kuanyama"),
 			new Locale ("kk", "Kazakh", "қазақ тілі"),
 			new Locale ("kl", "Kalaallisut", "kalaallisut"),
 			new Locale ("km", "Khmer", "ខេមរភាសា"),
-			//  new Locale ("kmr", "Kurmanji (Kurdish)", "Kurmancî"), // ISO-639-3
+			new Locale ("kmr", "Kurmanji (Kurdish)", "Kurmancî"), // ISO-639-3
 			new Locale ("kn", "Kannada", "ಕನ್ನಡ"),
 			new Locale ("ko", "Korean", "한국어"),
 			new Locale ("kr", "Kanuri", "Kanuri"),
@@ -115,8 +115,8 @@ public class Tuba.Utils.Locales : GLib.Object {
 			new Locale ("ky", "Kyrgyz", "Кыргызча"),
 			new Locale ("la", "Latin", "latine"),
 			new Locale ("lb", "Luxembourgish", "Lëtzebuergesch"),
-			//  new Locale ("ldn", "Láadan", "Láadan"), // ISO-639-3
-			//  new Locale ("lfn", "Lingua Franca Nova", "lingua franca nova"), // ISO-639-3
+			new Locale ("ldn", "Láadan", "Láadan"), // ISO-639-3
+			new Locale ("lfn", "Lingua Franca Nova", "lingua franca nova"), // ISO-639-3
 			new Locale ("lg", "Ganda", "Luganda"),
 			new Locale ("li", "Limburgish", "Limburgs"),
 			new Locale ("ln", "Lingala", "Lingála"),
@@ -163,15 +163,15 @@ public class Tuba.Utils.Locales : GLib.Object {
 			new Locale ("rw", "Kinyarwanda", "Ikinyarwanda"),
 			new Locale ("sa", "Sanskrit", "संस्कृतम्"),
 			new Locale ("sc", "Sardinian", "sardu"),
-			//  new Locale ("sco", "Scots", "Scots"), // ISO-639-3
+			new Locale ("sco", "Scots", "Scots"), // ISO-639-3
 			new Locale ("sd", "Sindhi", "सिन्धी"),
 			new Locale ("se", "Northern Sami", "Davvisámegiella"),
 			new Locale ("sg", "Sango", "yângâ tî sängö"),
 			new Locale ("si", "Sinhala", "සිංහල"),
 			new Locale ("sk", "Slovak", "slovenčina"),
 			new Locale ("sl", "Slovenian", "slovenščina"),
-			//  new Locale ("sma", "Southern Sami", "Åarjelsaemien Gïele"), // ISO-639-3
-			//  new Locale ("smj", "Lule Sami", "Julevsámegiella"), // ISO-639-3
+			new Locale ("sma", "Southern Sami", "Åarjelsaemien Gïele"), // ISO-639-3
+			new Locale ("smj", "Lule Sami", "Julevsámegiella"), // ISO-639-3
 			new Locale ("sn", "Shona", "chiShona"),
 			new Locale ("so", "Somali", "Soomaaliga"),
 			new Locale ("sq", "Albanian", "Shqip"),
@@ -181,9 +181,9 @@ public class Tuba.Utils.Locales : GLib.Object {
 			new Locale ("su", "Sundanese", "Basa Sunda"),
 			new Locale ("sv", "Swedish", "Svenska"),
 			new Locale ("sw", "Swahili", "Kiswahili"),
-			//  new Locale ("szl", "Silesian", "ślůnsko godka"), // ISO-639-3
+			new Locale ("szl", "Silesian", "ślůnsko godka"), // ISO-639-3
 			new Locale ("ta", "Tamil", "தமிழ்"),
-			//  new Locale ("tai", "Tai", "ภาษาไท or ภาษาไต"), // ISO-639-3
+			new Locale ("tai", "Tai", "ภาษาไท or ภาษาไต"), // ISO-639-3
 			new Locale ("te", "Telugu", "తెలుగు"),
 			new Locale ("tg", "Tajik", "тоҷикӣ"),
 			new Locale ("th", "Thai", "ไทย"),
@@ -192,7 +192,7 @@ public class Tuba.Utils.Locales : GLib.Object {
 			new Locale ("tl", "Tagalog", "Wikang Tagalog"),
 			new Locale ("tn", "Tswana", "Setswana"),
 			new Locale ("to", "Tonga", "faka Tonga"),
-			//  new Locale ("tok", "Toki Pona", "toki pona"), // ISO-639-3
+			new Locale ("tok", "Toki Pona", "toki pona"), // ISO-639-3
 			new Locale ("tr", "Turkish", "Türkçe"),
 			new Locale ("ts", "Tsonga", "Xitsonga"),
 			new Locale ("tt", "Tatar", "татар теле"),
@@ -211,8 +211,8 @@ public class Tuba.Utils.Locales : GLib.Object {
 			new Locale ("yi", "Yiddish", "ייִדיש"),
 			new Locale ("yo", "Yoruba", "Yorùbá"),
 			new Locale ("za", "Zhuang", "Saɯ cueŋƅ"),
-			//  new Locale ("zba", "Balaibalan", "باليبلن"), // ISO-639-3
-			//  new Locale ("zgh", "Standard Moroccan Tamazight", "ⵜⴰⵎⴰⵣⵉⵖⵜ"), // ISO-639-3
+			new Locale ("zba", "Balaibalan", "باليبلن"), // ISO-639-3
+			new Locale ("zgh", "Standard Moroccan Tamazight", "ⵜⴰⵎⴰⵣⵉⵖⵜ"), // ISO-639-3
 			new Locale ("zh", "Chinese", "中文"),
 			new Locale ("zu", "Zulu", "isiZulu")
 		});
