@@ -144,13 +144,24 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		accounts_to_add += new Object ();
 
 		accounts_model.splice (0, 0, accounts_to_add);
-		update_selected_account ();
+		update_selected_account (false);
 	}
 
-	private void update_selected_account () {
+	private void update_selected_account (bool clear = true) {
+		if (clear) {
+			for (int i = 0; i < accounts_model.n_items; i++) {
+				var row = saved_accounts.get_row_at_index ((int) i);
+				if (row == null) break;
+				if (row.has_css_class ("active")) row.remove_css_class ("active");
+			}
+		}
+
 		uint index;
-		if (accounts_model.find (account, out index))
-			saved_accounts.select_row (saved_accounts.get_row_at_index ((int) index));
+		if (accounts_model.find (account, out index)) {
+			var row = saved_accounts.get_row_at_index ((int) index);
+			saved_accounts.select_row (row);
+			row.add_css_class ("active");
+		}
 	}
 
 	public void set_sidebar_selected_item (int index) {
