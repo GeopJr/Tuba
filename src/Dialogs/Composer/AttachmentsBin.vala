@@ -114,10 +114,11 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 			// translators: placeholder shown in the composer alt text editor text area
 			placeholder = new Composer.Components.Editor.PlaceholderHack (new Gtk.Label (_("Describe the media…")) {
 				valign = Gtk.Align.START,
-				halign = Gtk.Align.START,
+				halign = Gtk.Widget.get_default_direction () == Gtk.TextDirection.RTL ? Gtk.Align.END : Gtk.Align.START,
 				justify = Gtk.Justification.FILL,
 				//  margin_top = 6,
 				margin_start = 3,
+				margin_end = 3,
 				wrap = true,
 				wrap_mode = Pango.WrapMode.WORD_CHAR,
 				sensitive = false

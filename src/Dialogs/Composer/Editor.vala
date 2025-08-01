@@ -264,10 +264,11 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		// translators: composer placeholder
 		placeholder = new PlaceholderHack (new Gtk.Label (_("What's on your mind?")) {
 			valign = Gtk.Align.START,
-			halign = Gtk.Align.START,
+			halign = Gtk.Widget.get_default_direction () == Gtk.TextDirection.RTL ? Gtk.Align.END : Gtk.Align.START,
 			justify = Gtk.Justification.FILL,
 			//  margin_top = 6,
 			margin_start = 8,
+			margin_end = 8,
 			wrap = true,
 			wrap_mode = Pango.WrapMode.WORD_CHAR,
 			sensitive = false,

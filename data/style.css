@@ -976,17 +976,22 @@ splitbutton.pill {
 
 splitbutton.pill > button {
 	padding: 10px 16px;
-	border-top-left-radius: inherit;
-	border-bottom-left-radius: inherit;
-}
-
-splitbutton.pill > menubutton {
-	border-top-right-radius: inherit;
-	border-bottom-right-radius: inherit;
 }
 
 splitbutton.pill > menubutton > button {
 	padding: 10px 8px;
+}
+
+splitbutton.pill:dir(ltr) > button,
+splitbutton.pill:dir(rtl) > menubutton,
+splitbutton.pill:dir(rtl) > menubutton > button {
+	border-top-left-radius: inherit;
+	border-bottom-left-radius: inherit;
+}
+
+splitbutton.pill:dir(rtl) > button,
+splitbutton.pill:dir(ltr) > menubutton,
+splitbutton.pill:dir(ltr) > menubutton > button {
 	border-top-right-radius: inherit;
 	border-bottom-right-radius: inherit;
 }
