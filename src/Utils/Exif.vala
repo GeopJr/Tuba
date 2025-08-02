@@ -17,7 +17,7 @@ public class Tuba.Utils.Exif {
 
 			string meta_path = path;
 			if (meta_path.has_prefix ("file://")) {
-				meta_path = meta_path.substring (7);
+				meta_path = GLib.Uri.unescape_string (meta_path.substring (7));
 			}
 			metadata.open_path (meta_path);
 
