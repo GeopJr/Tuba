@@ -9,11 +9,12 @@ public class Tuba.Views.Browser : Adw.Dialog {
 		Gtk.Image ssl_icon;
 		SimpleAction go_back_action;
 		SimpleAction go_forward_action;
+		SimpleAction stop_loading_action;
+		SimpleAction refresh_action;
 
 		private const GLib.ActionEntry[] ACTION_ENTRIES = {
 			{"copy-url", on_copy_url},
-			{"open-in-browser", on_open_in_browser},
-			{"refresh", on_refresh}
+			{"open-in-browser", on_open_in_browser}
 		};
 
 		public signal void refresh ();
@@ -62,6 +63,16 @@ public class Tuba.Views.Browser : Adw.Dialog {
 		public string subtitle {
 			get { return window_title.subtitle; }
 			set { window_title.subtitle = value; }
+		}
+
+		private bool _loading = false;
+		public bool loading {
+			get { return _loading; }
+			set {
+				_loading = value;
+				refresh_action.set_enabled (!value);
+				stop_loading_action.set_enabled (value);
+			}
 		}
 
 		private double _progress = 0;
@@ -151,6 +162,14 @@ public class Tuba.Views.Browser : Adw.Dialog {
 			go_forward_action.set_enabled (false);
 			actions.add_action (go_forward_action);
 
+			refresh_action = new SimpleAction ("refresh", null);
+			refresh_action.activate.connect (on_refresh);
+			actions.add_action (refresh_action);
+
+			stop_loading_action = new SimpleAction ("stop-loading", null);
+			stop_loading_action.activate.connect (on_refresh);
+			actions.add_action (stop_loading_action);
+
 			this.insert_action_group ("browser", actions);
 
 			var sub_menu_model = new GLib.Menu ();
@@ -160,7 +179,14 @@ public class Tuba.Views.Browser : Adw.Dialog {
 
 			var refresh_item = new GLib.MenuItem (_("Refresh"), "browser.refresh");
 			refresh_item.set_attribute_value ("verb-icon", "tuba-view-refresh-symbolic");
+			refresh_item.set_attribute_value ("hidden-when", "action-disabled");
 			sub_menu_model.append_item (refresh_item);
+
+			// TODO: rename to "Stop" next string unfreeze
+			var stop_item = new GLib.MenuItem (_("Cancel"), "browser.stop-loading");
+			stop_item.set_attribute_value ("verb-icon", "tuba-cross-large-symbolic");
+			stop_item.set_attribute_value ("hidden-when", "action-disabled");
+			sub_menu_model.append_item (stop_item);
 
 			// translators: in-app web browser, move forward in history action
 			var forward_item = new GLib.MenuItem (_("Forward"), "browser.go-forward");
@@ -296,6 +322,7 @@ public class Tuba.Views.Browser : Adw.Dialog {
 		this.webview.bind_property ("uri", headerbar, "subtitle", BindingFlags.SYNC_CREATE);
 		this.webview.web_context.set_cache_model (WebKit.CacheModel.DOCUMENT_BROWSER);
 		this.webview.bind_property ("estimated-load-progress", headerbar, "progress", BindingFlags.SYNC_CREATE);
+		this.webview.bind_property ("is-loading", headerbar, "loading", BindingFlags.SYNC_CREATE);
 		this.webview.load_changed.connect (on_load_changed);
 		this.webview.network_session.download_started.connect (download_in_browser);
 		this.webview.decide_policy.connect (open_new_tab_in_browser);
@@ -382,7 +409,11 @@ public class Tuba.Views.Browser : Adw.Dialog {
 	}
 
 	private void on_refresh () {
-		this.webview.reload ();
+		if (this.webview.is_loading) {
+			this.webview.stop_loading ();
+		} else {
+			this.webview.reload ();
+		}
 	}
 
 	private void on_go_forward () {
