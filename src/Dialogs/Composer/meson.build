@@ -6,6 +6,7 @@ sources += files(
     'DropOverlay.vala',
     'Editor.vala',
     'Polls.vala',
+    'PreferredSizeBin.vala',
     'Schedule.vala',
 )
 

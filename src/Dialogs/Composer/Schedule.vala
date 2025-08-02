@@ -1,6 +1,16 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/schedule.ui")]
-public class Tuba.Dialogs.Schedule : Adw.NavigationPage {
+public class Tuba.Dialogs.Schedule : Adw.NavigationPage, Composer.PreferredSizeable {
 	public signal void schedule_picked (string iso8601);
+	public int preferred_height { get; set; default = -1; }
+	public int preferred_width { get; set; default = -1; }
+
+	~Schedule () {
+		debug ("Destroying Schedule");
+	}
+
+	static construct {
+		typeof (Dialogs.Composer.PreferredSizeBin).ensure ();
+	}
 
 	[GtkChild] unowned Gtk.Calendar calendar;
 	[GtkChild] unowned Gtk.SpinButton hours_spin_button;
@@ -8,6 +18,7 @@ public class Tuba.Dialogs.Schedule : Adw.NavigationPage {
 	[GtkChild] unowned Gtk.SpinButton seconds_spin_button;
 	[GtkChild] unowned Adw.ComboRow timezone_combo_row;
 	[GtkChild] unowned Gtk.Button schedule_button;
+	[GtkChild] unowned Dialogs.Composer.PreferredSizeBin size_bin;
 
 	GLib.DateTime result_dt;
 	construct {
@@ -17,6 +28,9 @@ public class Tuba.Dialogs.Schedule : Adw.NavigationPage {
 		string[] timezones = { local };
 		if (local != "UTC") timezones += "UTC";
 		timezone_combo_row.model = new Gtk.StringList (timezones);
+
+		this.bind_property ("preferred-height", size_bin, "height", SYNC_CREATE);
+		this.bind_property ("preferred-width", size_bin, "width", SYNC_CREATE);
 	}
 
 	public Schedule (string? iso8601 = null, string? button_label = null) {

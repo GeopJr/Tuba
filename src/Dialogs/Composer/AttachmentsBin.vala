@@ -56,9 +56,12 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 		return result;
 	}
 
-	private class Editor : Adw.NavigationPage {
+	private class Editor : Adw.NavigationPage, PreferredSizeable {
 		public signal void saved (float pos_x, float pos_y, string alt_text);
 		public signal void toast (Adw.Toast toast);
+
+		public int preferred_height { get; set; default = -1; }
+		public int preferred_width { get; set; default = -1; }
 
 		~Editor () {
 			debug ("Destroying Composer Attachment Editor");
@@ -153,7 +156,12 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 			headerbar.pack_end (dialog_char_counter);
 			alt_editor.buffer.changed.connect (on_alt_editor_buffer_change);
 
-			this.child = toolbar_view;
+			var psb = new Composer.PreferredSizeBin () {
+				child = toolbar_view
+			};
+			this.bind_property ("preferred-height", psb, "height", SYNC_CREATE);
+			this.bind_property ("preferred-width", psb, "width", SYNC_CREATE);
+			this.child = psb;
 			this.hidden.connect (on_save);
 		}
 
@@ -234,26 +242,6 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 			this.pos_x = pos_x;
 			this.pos_y = pos_y;
 			alt_editor.buffer.text = alt_text;
-		}
-
-		public override void measure (
-			Gtk.Orientation orientation,
-			int for_size,
-			out int minimum,
-			out int natural,
-			out int minimum_baseline,
-			out int natural_baseline
-		) {
-			base.measure (
-				orientation,
-				for_size,
-				out minimum,
-				out natural,
-				out minimum_baseline,
-				out natural_baseline
-			);
-
-			if (orientation == HORIZONTAL) natural = int.max (minimum, int.max (natural, 423));
 		}
 	}
 

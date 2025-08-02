@@ -24,131 +24,63 @@
 		<!-- translators: window title -->
 		<property name="title" translatable="yes">Schedule Post</property>
 		<child>
-			<object class="AdwToolbarView">
-				<child type="top">
-					<object class="AdwHeaderBar">
-						<property name="show_end_title_buttons">0</property>
-						<property name="show_start_title_buttons">0</property>
+			<object class="TubaDialogsComposerPreferredSizeBin" id="size_bin">
+				<property name="child">
+					<object class="AdwToolbarView">
+						<child type="top">
+							<object class="AdwHeaderBar">
+								<property name="show_end_title_buttons">0</property>
+								<property name="show_start_title_buttons">0</property>
 
-						<child type="end">
-							<object class="GtkButton" id="schedule_button">
-								<!-- translators: verb -->
-								<property name="label" translatable="yes">Schedule</property>
-								<signal name="clicked" handler="on_schedule" swapped="no" />
-								<style>
-									<class name="suggested-action" />
-								</style>
+								<child type="end">
+									<object class="GtkButton" id="schedule_button">
+										<!-- translators: verb -->
+										<property name="label" translatable="yes">Schedule</property>
+										<signal name="clicked" handler="on_schedule" swapped="no" />
+										<style>
+											<class name="suggested-action" />
+										</style>
+									</object>
+								</child>
 							</object>
 						</child>
-					</object>
-				</child>
 
-				<property name="content">
-					<object class="GtkScrolledWindow">
-						<property name="hexpand">1</property>
-						<property name="vexpand">1</property>
-						<property name="propagate-natural-height">1</property>
-						<property name="propagate-natural-width">1</property>
-						<child>
-							<object class="AdwClamp">
-								<property name="valign">start</property>
-								<property name="tightening-threshold">100</property>
+						<property name="content">
+							<object class="GtkScrolledWindow">
+								<property name="hexpand">1</property>
+								<property name="vexpand">1</property>
+								<property name="propagate-natural-height">1</property>
+								<property name="propagate-natural-width">1</property>
 								<child>
-									<object class="GtkBox">
-										<property name="orientation">vertical</property>
-										<property name="margin-top">6</property>
-										<property name="margin-bottom">24</property>
-										<property name="margin-start">12</property>
-										<property name="margin-end">12</property>
-										<property name="spacing">24</property>
+									<object class="AdwClamp">
+										<property name="valign">start</property>
+										<property name="tightening-threshold">100</property>
 										<child>
-											<object class="AdwPreferencesGroup">
-												<!-- translators: Title used for calendar date picking -->
-												<property name="title" translatable="yes">Date</property>
+											<object class="GtkBox">
+												<property name="orientation">vertical</property>
+												<property name="margin-top">6</property>
+												<property name="margin-bottom">24</property>
+												<property name="margin-start">12</property>
+												<property name="margin-end">12</property>
+												<property name="spacing">24</property>
 												<child>
-													<object class="GtkListBoxRow">
-														<property name="activatable">false</property>
-														<style>
-															<class name="card" />
-														</style>
+													<object class="AdwPreferencesGroup">
+														<!-- translators: Title used for calendar date picking -->
+														<property name="title" translatable="yes">Date</property>
 														<child>
-															<object class="GtkCalendar" id="calendar">
-																<property name="margin-top">6</property>
-																<property name="margin-bottom">6</property>
-																<property name="margin-start">6</property>
-																<property name="margin-end">6</property>
-																<property name="vexpand">1</property>
-																<property name="hexpand">1</property>
-															</object>
-														</child>
-													</object>
-												</child>
-											</object>
-										</child>
-										<child>
-											<object class="AdwPreferencesGroup">
-												<!-- translators: Title used for time picking -->
-												<property name="title" translatable="yes">Time</property>
-												<child>
-													<object class="AdwPreferencesRow">
-														<property name="activatable">0</property>
-														<child>
-															<object class="GtkBox">
-																<property name="halign">3</property>
-																<property name="margin-top">12</property>
-																<property name="margin-bottom">12</property>
+															<object class="GtkListBoxRow">
+																<property name="activatable">false</property>
+																<style>
+																	<class name="card" />
+																</style>
 																<child>
-																	<object class="GtkSpinButton" id="hours_spin_button">
-																		<style>
-																			<class name="vertical" />
-																		</style>
-																		<!-- translators: Label on an hour picker -->
-																		<property name="tooltip-text" translatable="yes">Hour</property>
-																		<property name="orientation">1</property>
-																		<property name="valign">3</property>
-																		<property name="numeric">true</property>
-																		<property name="wrap">true</property>
-																		<property name="adjustment">hour_adjustment</property>
-																	</object>
-																</child>
-																<child>
-																	<object class="GtkLabel">
-																		<property name="label"> ∶ </property>
-																		<property name="accessible-role">presentation</property>
-																	</object>
-																</child>
-																<child>
-																	<object class="GtkSpinButton" id="minutes_spin_button">
-																		<style>
-																			<class name="vertical" />
-																		</style>
-																		<!-- translators: Label on an minute picker -->
-																		<property name="tooltip-text" translatable="yes">Minute</property>
-																		<property name="orientation">1</property>
-																		<property name="valign">3</property>
-																		<property name="numeric">true</property>
-																		<property name="wrap">true</property>
-																		<property name="adjustment">minutes_adjustment</property>
-																	</object>
-																</child>
-																<child>
-																	<object class="GtkLabel">
-																		<property name="label"> ∶ </property>
-																		<property name="accessible-role">presentation</property>
-																	</object>
-																</child>
-																<child>
-																	<object class="GtkSpinButton" id="seconds_spin_button">
-																		<style>
-																			<class name="vertical" />
-																		</style>
-																		<!-- translators: Label on an minute picker -->
-																		<property name="tooltip-text" translatable="yes">Second</property>
-																		<property name="orientation">1</property>
-																		<property name="valign">3</property>
-																		<property name="numeric">true</property>
-																		<property name="wrap">true</property>
-																		<property name="adjustment">seconds_adjustment</property>
+																	<object class="GtkCalendar" id="calendar">
+																		<property name="margin-top">6</property>
+																		<property name="margin-bottom">6</property>
+																		<property name="margin-start">6</property>
+																		<property name="margin-end">6</property>
+																		<property name="vexpand">1</property>
+																		<property name="hexpand">1</property>
 																	</object>
 																</child>
 															</object>
@@ -156,8 +88,80 @@
 													</object>
 												</child>
 												<child>
-													<object class="AdwComboRow" id="timezone_combo_row">
-														<property name="title" translatable="yes">Timezone</property>
+													<object class="AdwPreferencesGroup">
+														<!-- translators: Title used for time picking -->
+														<property name="title" translatable="yes">Time</property>
+														<child>
+															<object class="AdwPreferencesRow">
+																<property name="activatable">0</property>
+																<child>
+																	<object class="GtkBox">
+																		<property name="halign">3</property>
+																		<property name="margin-top">12</property>
+																		<property name="margin-bottom">12</property>
+																		<child>
+																			<object class="GtkSpinButton" id="hours_spin_button">
+																				<style>
+																					<class name="vertical" />
+																				</style>
+																				<!-- translators: Label on an hour picker -->
+																				<property name="tooltip-text" translatable="yes">Hour</property>
+																				<property name="orientation">1</property>
+																				<property name="valign">3</property>
+																				<property name="numeric">true</property>
+																				<property name="wrap">true</property>
+																				<property name="adjustment">hour_adjustment</property>
+																			</object>
+																		</child>
+																		<child>
+																			<object class="GtkLabel">
+																				<property name="label"> ∶ </property>
+																				<property name="accessible-role">presentation</property>
+																			</object>
+																		</child>
+																		<child>
+																			<object class="GtkSpinButton" id="minutes_spin_button">
+																				<style>
+																					<class name="vertical" />
+																				</style>
+																				<!-- translators: Label on an minute picker -->
+																				<property name="tooltip-text" translatable="yes">Minute</property>
+																				<property name="orientation">1</property>
+																				<property name="valign">3</property>
+																				<property name="numeric">true</property>
+																				<property name="wrap">true</property>
+																				<property name="adjustment">minutes_adjustment</property>
+																			</object>
+																		</child>
+																		<child>
+																			<object class="GtkLabel">
+																				<property name="label"> ∶ </property>
+																				<property name="accessible-role">presentation</property>
+																			</object>
+																		</child>
+																		<child>
+																			<object class="GtkSpinButton" id="seconds_spin_button">
+																				<style>
+																					<class name="vertical" />
+																				</style>
+																				<!-- translators: Label on an minute picker -->
+																				<property name="tooltip-text" translatable="yes">Second</property>
+																				<property name="orientation">1</property>
+																				<property name="valign">3</property>
+																				<property name="numeric">true</property>
+																				<property name="wrap">true</property>
+																				<property name="adjustment">seconds_adjustment</property>
+																			</object>
+																		</child>
+																	</object>
+																</child>
+															</object>
+														</child>
+														<child>
+															<object class="AdwComboRow" id="timezone_combo_row">
+																<property name="title" translatable="yes">Timezone</property>
+															</object>
+														</child>
 													</object>
 												</child>
 											</object>
@@ -165,7 +169,7 @@
 									</object>
 								</child>
 							</object>
-						</child>
+						</property>
 					</object>
 				</property>
 			</object>
