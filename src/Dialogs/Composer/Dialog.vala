@@ -921,6 +921,13 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	}
 
 	private void on_push_subpage (Adw.NavigationPage page) {
+		{
+			var sizeable = page as PreferredSizeable;
+			if (sizeable != null) {
+				sizeable.preferred_height = toolbar_view.get_height ();
+				sizeable.preferred_width = toolbar_view.get_width ();
+			}
+		}
 		nav_view.push (page);
 	}
 
