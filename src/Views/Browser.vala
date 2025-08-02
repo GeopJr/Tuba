@@ -17,6 +17,7 @@ public class Tuba.Views.Browser : Adw.Dialog {
 			{"open-in-browser", on_open_in_browser}
 		};
 
+		public signal void stop_loading ();
 		public signal void refresh ();
 		public signal void go_back ();
 		public signal void go_forward ();
@@ -167,7 +168,7 @@ public class Tuba.Views.Browser : Adw.Dialog {
 			actions.add_action (refresh_action);
 
 			stop_loading_action = new SimpleAction ("stop-loading", null);
-			stop_loading_action.activate.connect (on_refresh);
+			stop_loading_action.activate.connect (on_stop_loading);
 			actions.add_action (stop_loading_action);
 
 			this.insert_action_group ("browser", actions);
@@ -228,6 +229,10 @@ public class Tuba.Views.Browser : Adw.Dialog {
 
 		private void on_refresh () {
 			refresh ();
+		}
+
+		private void on_stop_loading () {
+			stop_loading ();
 		}
 
 		private void on_go_back () {
@@ -310,6 +315,7 @@ public class Tuba.Views.Browser : Adw.Dialog {
 		headerbar = new HeaderBar ();
 		headerbar.go_back.connect (on_go_back);
 		headerbar.refresh.connect (on_refresh);
+		headerbar.stop_loading.connect (on_stop_loading);
 		headerbar.go_forward.connect (on_go_forward);
 		headerbar.exit.connect (on_exit);
 
@@ -409,11 +415,11 @@ public class Tuba.Views.Browser : Adw.Dialog {
 	}
 
 	private void on_refresh () {
-		if (this.webview.is_loading) {
-			this.webview.stop_loading ();
-		} else {
-			this.webview.reload ();
-		}
+		this.webview.reload ();
+	}
+
+	private void on_stop_loading () {
+		this.webview.stop_loading ();
 	}
 
 	private void on_go_forward () {
