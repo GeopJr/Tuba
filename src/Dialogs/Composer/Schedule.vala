@@ -4,6 +4,10 @@ public class Tuba.Dialogs.Schedule : Adw.NavigationPage, Composer.PreferredSizea
 	public int preferred_height { get; set; default = -1; }
 	public int preferred_width { get; set; default = -1; }
 
+	~Schedule () {
+		debug ("Destroying Schedule");
+	}
+
 	static construct {
 		typeof (Dialogs.Composer.PreferredSizeBin).ensure ();
 	}
