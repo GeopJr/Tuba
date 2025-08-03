@@ -109,7 +109,8 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 				margin_bottom = 6,
 				margin_top = 6,
 				margin_start = 6,
-				margin_end = 6
+				margin_end = 6,
+				input_hints = WORD_COMPLETION | SPELLCHECK | EMOJI
 			};
 			alt_editor.remove_css_class ("view");
 			alt_editor.add_css_class ("reset");

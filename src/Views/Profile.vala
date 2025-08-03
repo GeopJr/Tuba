@@ -215,10 +215,6 @@ public class Tuba.Views.Profile : Views.Accounts {
 			widget_filter_group.filter_change.connect (change_filter);
 		}
 
-		if (obj is ErrorMessageRow) {
-			widget.remove_css_class ("card");
-		}
-
 		return widget;
 	}
 
