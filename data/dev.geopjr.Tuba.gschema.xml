@@ -237,7 +237,7 @@
 			<description>Used for keeping track if 2 weeks have passed since the last update</description>
 		</key>
 		<key name="contributors" type="as">
-			<default>['1021928818','2964685538','2486375860','3456423266','1352322503','445941323','3177176442','2813905310','2386917030','987913018','1837154139','4173902237','4223975552','3163563143','3320460562','4233664772','136476033','4041964504','3998595277','580879396']</default>
+			<default>['2964685538','2486375860','3456423266','1352322503','445941323','3177176442','2813905310','1837154139','719735140','2386917030','3163563143','987913018','3320460562','4170269605','3355903820','716517886','4041964504','580879396','4086778421']</default>
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<summary>Tuba contributors</summary>
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
