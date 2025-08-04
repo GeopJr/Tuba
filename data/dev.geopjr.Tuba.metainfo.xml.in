@@ -33,15 +33,31 @@
   <screenshots>
     <screenshot type="default">
       <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-1.png</image>
+      <caption>Home Timeline</caption>
     </screenshot>
     <screenshot>
       <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-2.png</image>
+      <caption>Composer</caption>
     </screenshot>
     <screenshot>
       <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-3.png</image>
+      <caption>Profile View</caption>
     </screenshot>
     <screenshot>
       <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-4.png</image>
+      <caption>Home Timeline</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-5.png</image>
+      <caption>Schedule Post Dialog</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-6.png</image>
+      <caption>Scheduled Posts</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-7.png</image>
+      <caption>Search View</caption>
     </screenshot>
   </screenshots>
   <branding>
@@ -63,6 +79,74 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.10.0" date="2025-08-03">
+      <description translate="no">
+        <ul>
+            <li>Added new redesigned and featureful composer</li>
+            <li>Added in-app web browser</li>
+            <li>Added the ability to collapse long posts</li>
+            <li>Added grouped notifications</li>
+            <li>Added Clapper enhancers support for playing media from third-party services</li>
+            <li>Added desktop notification withdrawal when viewing the in-app ones</li>
+            <li>Added support for displaying custom emojis on poll options</li>
+            <li>Added tab switching shortcuts</li>
+            <li>Added Quit menu entry</li>
+            <li>Added other apps in the about dialog</li>
+            <li>Added input hints about spellcheck and completion on text inputs</li>
+            <li>Added more reactive scheduled and draft posts views updates</li>
+            <li>Added more fluid layout on horizontal lists like reaction and hashtag bars</li>
+            <li>Added clearing new notifications on the notifications view when scrolling to the top</li>
+            <li>Added showing up to two lines of the handle in the account switcher</li>
+            <li>Added using the most private visibility between the user-default and the replying-to when replying</li>
+            <li>Added instantly saving the proxy settings when changed</li>
+            <li>Added instantly saving settings when closing the window when work-in-background is enabled</li>
+            <li>Added proper instance URI validation and normalization when adding new accounts</li>
+            <li>Added Ctrl+L shortcut for searching</li>
+            <li>Added better audio visualizer controls style</li>
+            <li>Added support for displaying Mastodon quotes</li>
+            <li>Added ability to forward reports to all involved parties' instances</li>
+            <li>Added post action button transitions</li>
+            <li>Added rounded searchbar style</li>
+            <li>Added featured tab on profiles for endorsements and featured hashtags</li>
+            <li>Added the ability to redraft posts</li>
+            <li>Added search history</li>
+            <li>Added favorite hashtags that show up on the sidebar</li>
+            <li>Added endorsing accounts and featuring hashtags</li>
+            <li>Added the ability to post local-only on supported instances</li>
+            <li>Added Iceshrimp Drive and Bubble timeline</li>
+            <li>Added more settings in dconf while removing some from the GUI</li>
+            <li>Added setting that reveals sensitive media by default</li>
+            <li>Added alt text extraction from image file metadata</li>
+            <li>Added enabled more features for Pleroma</li>
+            <li>Added audio visualizer optimizations</li>
+            <li>Added ellipsization on long names and handles</li>
+            <li>Added searching langauges using their English locale name</li>
+            <li>Fixed manually refreshing being triggered for all timelines and not just the visible one</li>
+            <li>Fixed live updates not working reliably when the instance uses a different domain for them</li>
+            <li>Fixed random crashes due to the use of weak references</li>
+            <li>Fixed scrolling to open post when opening a thread</li>
+            <li>Fixed inability to toggle the sidebar when collapsed using gestures</li>
+            <li>Fixed Chinese translation not working due to the default locale name used</li>
+            <li>Fixed some missing icons on some platforms</li>
+            <li>Fixed schedule post dialog being too close to the edges</li>
+            <li>Fixed avatar size bugs</li>
+            <li>Fixed profile errors and empty states not being displayed</li>
+            <li>Fixed list names being blank when containing reserved characters when manipulating them from profiles</li>
+            <li>Fixed hidden followers/following counts being displayed as -1</li>
+            <li>Fixed timelines not being able to infinite scroll when the min batch size was set to too small</li>
+            <li>Fixed open post in a thread getting memory leaked</li>
+            <li>Fixed some widgets not removing all their children when updating</li>
+            <li>Fixed open post in a thread not being selectable after getting updated</li>
+            <li>Fixed spoiler being visible for a millisecond when opening a post in a thread even if it doesn't have a spoiler</li>
+            <li>Fixed sidebar badges not being centered</li>
+            <li>Fixed account switcher badges having the wrong size and position</li>
+            <li>Fixed screen readers freezing on the timeline</li>
+            <li>Removed hacks around labels with custom emojis since the bugs were fixed upstream</li>
+            <li>Updated translations</li>
+            <li>Other minor bug fixes and improvements</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.9.2" date="2025-03-01">
       <description translate="no">
         <ul>
