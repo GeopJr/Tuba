@@ -82,10 +82,7 @@ clapper_gtk_dep = dependency('clapper-gtk-0.0', required: get_option('clapper'))
 gstreamer_dep = dependency('gstreamer-1.0', required: get_option('gstreamer'))
 webkit_dep = dependency('webkitgtk-6.0', required: get_option('in-app-browser'))
 
-gexiv2_dep = dependency('gexiv2-0.16', version: '>=0.15', required: false)
-if not gexiv2_dep.found ()
-  gexiv2_dep = dependency('gexiv2', version: '>=0.14', required: get_option('gexiv2'))
-endif
+gexiv2_dep = dependency('gexiv2-0.16', 'gexiv2', version: '>=0.14', required: get_option('gexiv2'))
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
