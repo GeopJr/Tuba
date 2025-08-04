@@ -1416,7 +1416,9 @@ public class Tuba.Views.Drive : Views.Base {
 			if (main_cancellable.is_cancelled ()) break;
 			try {
 				this.progress += step;
+				var progress_before = this.progress;
 				API.Iceshrimp.File is_file = yield upload_file_real (to_folder, file);
+				this.progress = progress_before;
 				if (is_file.id in reserved) {
 					// translators: toast popping up when a user uploads a file that already exists in drive
 					//				The variable is a string filename.
