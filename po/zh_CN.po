@@ -8,13 +8,14 @@
 # LS-Shandong <ls-shandong@outlook.com>, 2025.
 # x <fixallbugs@gmail.com>, 2025.
 # "Yime Yan (imgradeone)" <imgradeone@outlook.com>, 2025.
+# Yuzu Vita <github@vitayuzu.day>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
 "PO-Revision-Date: 2025-08-05 04:02+0000\n"
-"Last-Translator: \"Yime Yan (imgradeone)\" <imgradeone@outlook.com>\n"
+"Last-Translator: Yuzu Vita <github@vitayuzu.day>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/tuba/tuba/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -1719,8 +1720,7 @@ msgstr "本站"
 #. translators: the variable is the amount of times a hashtag was used in a week
 #. in the composer auto-complete popup (so keep it short)
 #: src/API/Tag.vala:47
-#, fuzzy, c-format
-#| msgid "%d per week"
+#, c-format
 msgid "%d per week"
 msgid_plural "%d per week"
 msgstr[0] "每周 %d 次"
