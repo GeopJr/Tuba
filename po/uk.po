@@ -6,24 +6,24 @@
 # Dan <denqwerta@gmail.com>, 2023.
 # Xalis Ratt <xalisratt@linux.pl>, 2023, 2024.
 # volkov <d2oo1dle2x@gmail.com>, 2023.
-# EvilAngel <noptisun@mailfence.com>, 2024.
+# EvilAngel <noptisun@mailfence.com>, 2024, 2025.
 # mittwerk <mittwerk@disroot.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-04-19 00:58+0000\n"
-"Last-Translator: mittwerk <mittwerk@disroot.org>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/"
-">\n"
+"PO-Revision-Date: 2025-08-07 01:01+0000\n"
+"Last-Translator: EvilAngel <noptisun@mailfence.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/>"
+"\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -78,7 +78,7 @@ msgstr "Тип вмісту публікації за замовчуванням
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:21
 msgid "Muted Push Notification Types"
-msgstr ""
+msgstr "Затишені типи сповіщень"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:26
@@ -102,7 +102,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:45
 msgid "Hashtags shown on the sidebar"
-msgstr ""
+msgstr "Мітки, видимі на бічній панелі"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
@@ -199,7 +199,7 @@ msgstr "Збільшити користувацькі емодзі при нав
 
 #: data/dev.geopjr.Tuba.gschema.xml:113
 msgid "lightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "злегка збільшити розмір користувацьких емоджі при наведенні"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:118
@@ -264,7 +264,7 @@ msgstr "Показувати розмиту версію медіа до пов�
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr ""
+msgstr "Показувати чутливий вміст за замовчуванням"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
@@ -440,7 +440,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
 msgid "Collapse Long Posts"
-msgstr ""
+msgstr "Згортати довгі дописи"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:263
@@ -742,7 +742,7 @@ msgstr ""
 
 #: data/ui/dialogs/composer.ui:44
 msgid "Write your content warning here"
-msgstr ""
+msgstr "Напишіть попередження тут"
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
@@ -759,7 +759,7 @@ msgstr "Додати медіа"
 
 #: data/ui/dialogs/composer.ui:97
 msgid "Create Poll"
-msgstr ""
+msgstr "Створити опитування"
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
@@ -1191,7 +1191,7 @@ msgstr "Отримувати сповіщення про дописи"
 #. the hashtag on the user's profile
 #: data/ui/menus.ui:39 src/Views/Hashtag.vala:47
 msgid "Feature on Profile"
-msgstr ""
+msgstr "Показувати у моєму профілі"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:45 src/Views/Admin/Pages/Accounts.vala:118
@@ -1496,14 +1496,14 @@ msgstr[2] "%s дописів"
 #. shows the amount of posts that use said hashtag
 #: src/API/FeaturedTag.vala:32
 msgid "Posts Including this Hashtag"
-msgstr ""
+msgstr "Дописів із цією міткою"
 
 #. translators: subtitle on featured hashtags on profiles. The variable is a string date.
 #. E.g. Last post on 2025-06-29
 #: src/API/FeaturedTag.vala:39
 #, c-format
 msgid "Last post on %s"
-msgstr ""
+msgstr "Останній допис у %s"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
@@ -1526,7 +1526,7 @@ msgstr "Профілі"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "Тека"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1775,9 +1775,9 @@ msgstr[2] "%d на тиждень"
 #, c-format
 msgid "%d person yesterday"
 msgid_plural "%d people yesterday"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d людина вчора"
+msgstr[1] "%d людини вчора"
+msgstr[2] "%d людей учора"
 
 #. total_uses += int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1785,9 +1785,9 @@ msgstr[2] ""
 #, c-format
 msgid "%d person in the past 2 days"
 msgid_plural "%d people in the past 2 days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d людина впродовж останніх 2 днів"
+msgstr[1] "%d людини впродовж останніх 2 днів"
+msgstr[2] "%d людей упродовж останніх 2 днів"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
@@ -1838,38 +1838,38 @@ msgstr "Пожертувати"
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
 msgid "Archives"
-msgstr ""
+msgstr "Archives"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
-msgstr ""
+msgstr "Створити та переглядати вебархіви"
 
 #. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 #: src/Application.vala:645
 msgid "Calligraphy"
-msgstr ""
+msgstr "Calligraphy"
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
-msgstr ""
+msgstr "Перетворюйте текст у ASCII банери"
 
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
 msgid "Collision"
-msgstr ""
+msgstr "Колізія"
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
-msgstr ""
+msgstr "Перевіряйте хеш-суми ваших файлів"
 
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 #: src/Application.vala:649
 msgid "Turntable"
-msgstr ""
+msgstr "Turntable"
 
 #: src/Application.vala:649
 msgid "Scrobble your music"
-msgstr ""
+msgstr "Відстежуйте свою музику"
 
 #: src/Application.vala:671
 msgid "OK"
@@ -2366,25 +2366,25 @@ msgstr "Збережено %s Обгорнуто"
 #. translators: title on the composer alt text editor dialog
 #: src/Dialogs/Composer/AttachmentsBin.vala:88
 msgid "Attachment Editor"
-msgstr ""
+msgstr "Правник прикріплень"
 
 #. translators: placeholder shown in the composer alt text editor text area
 #: src/Dialogs/Composer/AttachmentsBin.vala:115
 #: src/Dialogs/Composer/AttachmentsBin.vala:126
 msgid "Describe the media…"
-msgstr ""
+msgstr "Опишіть прикріплення…"
 
 #. translators: tooltip text on the remaining characters counter in the
 #. composer alt text editor
 #: src/Dialogs/Composer/AttachmentsBin.vala:148
 msgid "Remaining Characters"
-msgstr ""
+msgstr "Залишок символів"
 
 #. translators: toast shown when saving alt text and focus position in the composer
 #: src/Dialogs/Composer/AttachmentsBin.vala:186
 #: src/Dialogs/Composer/AttachmentsBin.vala:209
 msgid "Saved Media Metadata"
-msgstr ""
+msgstr "Метадані збережено"
 
 #. translators: shown in file picker filter dropdown
 #: src/Dialogs/Composer/AttachmentsBin.vala:291 src/Dialogs/ProfileEdit.vala:81
@@ -2402,7 +2402,7 @@ msgstr "Файл \"%s\" більший за обмеження сервера"
 #: src/Dialogs/Composer/AttachmentsBin.vala:457
 #, c-format
 msgid "Attachment limit reached (%lld)"
-msgstr ""
+msgstr "Досягнуто обмеження прикріплень (%lld)"
 
 #. translators: Open file
 #: src/Dialogs/Composer/AttachmentsBin.vala:491
@@ -2421,31 +2421,31 @@ msgstr "Видалити вкладення"
 #. to translate, leave it as just "Edit"
 #: src/Dialogs/Composer/Attachment.vala:247
 msgid "Edit Metadata"
-msgstr ""
+msgstr "Правити метадані"
 
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:307
 #: src/Dialogs/Composer/Attachment.vala:672
 msgid "Media Attachment"
-msgstr ""
+msgstr "Прикріплення"
 
 #. translators: screen reader announcement when the user
 #. deletes attachments in the composer
 #: src/Dialogs/Composer/Attachment.vala:325
 msgid "Deleted Attachment"
-msgstr ""
+msgstr "Видалено прикріплення"
 
 #. translators: screen reader announcement when the composer
 #. successfully uploads an attachment
 #: src/Dialogs/Composer/Attachment.vala:490
 msgid "Finished Uploading Attachment"
-msgstr ""
+msgstr "Прикріплення завантажено"
 
 #. translators: aria label on composer media attachments. The variable is a string file name.
 #: src/Dialogs/Composer/Attachment.vala:666
 #, c-format
 msgid "Media Attachment (%s)"
-msgstr ""
+msgstr "Прикріплення (%s)"
 
 #. translators: 'Draft' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:49
@@ -2455,7 +2455,7 @@ msgstr "Проєкт допису"
 #. translators: 'Schedule' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:52
 msgid "Schedule Post…"
-msgstr ""
+msgstr "Запланувати допис…"
 
 #. translators: screen reader announcement when the composer
 #. passed the character limit. The variable is
@@ -2464,7 +2464,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:169
 #, c-format
 msgid "Exceeded character limit by %lld"
-msgstr ""
+msgstr "Обмеження символів перевищено на %lld"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:240
@@ -2474,7 +2474,7 @@ msgstr "Видимість допису"
 #. translators: post compositor post button label when the visibility is 'mentioned only'
 #: src/Dialogs/Composer/Dialog.vala:265
 msgid "Send"
-msgstr ""
+msgstr "Відправити"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:276
@@ -4459,7 +4459,7 @@ msgstr "Дивіться обговорення"
 #: src/Widgets/PreviewCard.vala:103 src/Widgets/PreviewCard.vala:111
 #, c-format
 msgid "By %s"
-msgstr "%sим"
+msgstr "%s"
 
 #. translators: the variable is a number. This is shown on
 #. preview cards of articles from 'verified' fedi authors,
