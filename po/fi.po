@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-03-05 05:12+0000\n"
+"PO-Revision-Date: 2025-08-08 13:01+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tuba/tuba/fi/>\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.3-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -81,7 +81,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:31
 msgid "Recent Search Queries"
-msgstr ""
+msgstr "Viimeisimmät hakukyselyt"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:36
@@ -100,7 +100,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
 msgid "Account Suggestions"
-msgstr ""
+msgstr "Tiliehdotukset"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:52
@@ -112,17 +112,17 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
 msgid "Active Account"
-msgstr ""
+msgstr "Aktiivinen tili"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:62
 msgid "The UUID of the active account"
-msgstr ""
+msgstr "Aktiivisen tilin UUID"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:67
 msgid "The default color scheme"
-msgstr ""
+msgstr "Oletusarvoinen väriteema"
 
 #: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
 msgid "Run in Background"
@@ -257,12 +257,12 @@ msgstr "Näytä sumennettu versio mediasta, kunnes se on täysin ladattu"
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr ""
+msgstr "Näytä arkaluonteinen media oletuksena"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
 msgid "Group Similar Push Notifications"
-msgstr ""
+msgstr "Ryhmitä samankaltaiset push-ilmoitukset"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/dev.geopjr.Tuba.gschema.xml:158 data/ui/dialogs/preferences.ui:276
@@ -303,7 +303,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
 msgid "Spellchecker"
-msgstr ""
+msgstr "Oikoluku"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:182
@@ -340,7 +340,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:203
 msgid "Monitor Network Changes"
-msgstr ""
+msgstr "Tarkkaile verkkomuutoksia"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:205
@@ -352,7 +352,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:210
 msgid "Proxy URL"
-msgstr ""
+msgstr "Välityspalvelimen URL-osoite"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:212
@@ -401,7 +401,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:242
 msgid "Tuba contributors"
-msgstr ""
+msgstr "Tuba-avustajat"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:244
@@ -423,7 +423,7 @@ msgstr ""
 #. translators: in-app as in a browser inside Tuba
 #: data/dev.geopjr.Tuba.gschema.xml:255 data/ui/dialogs/preferences.ui:94
 msgid "Open Links In-App"
-msgstr ""
+msgstr "Avaa linkit sovelluksen sisällä"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:257
@@ -432,7 +432,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
 msgid "Collapse Long Posts"
-msgstr ""
+msgstr "Supista pitkät viestit"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:263
@@ -443,7 +443,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:268
 msgid "Auto-detect instance features"
-msgstr ""
+msgstr "Havaitse automaattisesti instanssin ominaisuudet"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:270
@@ -465,12 +465,12 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:286
 msgid "Window Width"
-msgstr ""
+msgstr "Ikkunan leveys"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:291
 msgid "Window Height"
-msgstr ""
+msgstr "Ikkunan korkeus"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:296
@@ -730,11 +730,11 @@ msgstr "Uusi viesti"
 #. translators: composer overlay shown when dragging files above it
 #: data/ui/dialogs/composer.ui:22
 msgid "Drop media to attach them"
-msgstr ""
+msgstr "Pudota media liittääksesi"
 
 #: data/ui/dialogs/composer.ui:44
 msgid "Write your content warning here"
-msgstr ""
+msgstr "Kirjoita sisältövaroitus tähän"
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
@@ -751,7 +751,7 @@ msgstr "Lisää media"
 
 #: data/ui/dialogs/composer.ui:97
 msgid "Create Poll"
-msgstr ""
+msgstr "Luo kysely"
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
@@ -910,7 +910,7 @@ msgstr "Ilmoitukset"
 
 #: data/ui/dialogs/notification_settings.ui:37
 msgid "Included Notifications"
-msgstr ""
+msgstr "Sisällytetyt ilmoitukset"
 
 #. translators: Preferences group title
 #: data/ui/dialogs/notification_settings.ui:44
@@ -1000,7 +1000,7 @@ msgstr "Viestien oletuskieli"
 #. translators: setting row subtitle, by high traffic we mean the federated and local timelines
 #: data/ui/dialogs/preferences.ui:177
 msgid "This will increase memory usage when browsing high traffic timelines"
-msgstr ""
+msgstr "Tämä lisää muistinkäyttöä, kun selataan suuren trafiikin aikajanoja"
 
 #: data/ui/dialogs/preferences.ui:184
 msgid "Online Services"
@@ -1519,7 +1519,7 @@ msgstr "Profiilit"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "Kansio"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1757,8 +1757,8 @@ msgstr[1] "%d kertaa viikossa"
 #, c-format
 msgid "%d person yesterday"
 msgid_plural "%d people yesterday"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ihminen eilen"
+msgstr[1] "%d ihmistä eilen"
 
 #. total_uses += int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1766,8 +1766,8 @@ msgstr[1] ""
 #, c-format
 msgid "%d person in the past 2 days"
 msgid_plural "%d people in the past 2 days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ihminen viimeisen 2 päivän aikana"
+msgstr[1] "%d ihmistä viimeisen 2 päivän aikana"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
@@ -1838,7 +1838,7 @@ msgstr ""
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
-msgstr ""
+msgstr "Tarkista tiedostojen tarkistussummat"
 
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 #: src/Application.vala:649
@@ -2333,25 +2333,25 @@ msgstr "Tallennettu vuoden %s Wrapped"
 #. translators: title on the composer alt text editor dialog
 #: src/Dialogs/Composer/AttachmentsBin.vala:88
 msgid "Attachment Editor"
-msgstr ""
+msgstr "Liitemuokkain"
 
 #. translators: placeholder shown in the composer alt text editor text area
 #: src/Dialogs/Composer/AttachmentsBin.vala:115
 #: src/Dialogs/Composer/AttachmentsBin.vala:126
 msgid "Describe the media…"
-msgstr ""
+msgstr "Kuvaile mediaa…"
 
 #. translators: tooltip text on the remaining characters counter in the
 #. composer alt text editor
 #: src/Dialogs/Composer/AttachmentsBin.vala:148
 msgid "Remaining Characters"
-msgstr ""
+msgstr "Merkkejä jäljellä"
 
 #. translators: toast shown when saving alt text and focus position in the composer
 #: src/Dialogs/Composer/AttachmentsBin.vala:186
 #: src/Dialogs/Composer/AttachmentsBin.vala:209
 msgid "Saved Media Metadata"
-msgstr ""
+msgstr "Tallennettu median metatiedot"
 
 #. translators: shown in file picker filter dropdown
 #: src/Dialogs/Composer/AttachmentsBin.vala:291 src/Dialogs/ProfileEdit.vala:81
@@ -2369,7 +2369,7 @@ msgstr "Tiedosto \"%s\" on kooltaan suurempi mitä instanssi sallii"
 #: src/Dialogs/Composer/AttachmentsBin.vala:457
 #, c-format
 msgid "Attachment limit reached (%lld)"
-msgstr ""
+msgstr "Liitteen raja tuli vastaan (%lld)"
 
 #. translators: Open file
 #: src/Dialogs/Composer/AttachmentsBin.vala:491
@@ -2388,31 +2388,31 @@ msgstr "Poista liite"
 #. to translate, leave it as just "Edit"
 #: src/Dialogs/Composer/Attachment.vala:247
 msgid "Edit Metadata"
-msgstr ""
+msgstr "Muokkaa metatietoja"
 
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:307
 #: src/Dialogs/Composer/Attachment.vala:672
 msgid "Media Attachment"
-msgstr ""
+msgstr "Medialiite"
 
 #. translators: screen reader announcement when the user
 #. deletes attachments in the composer
 #: src/Dialogs/Composer/Attachment.vala:325
 msgid "Deleted Attachment"
-msgstr ""
+msgstr "Liite poistettu"
 
 #. translators: screen reader announcement when the composer
 #. successfully uploads an attachment
 #: src/Dialogs/Composer/Attachment.vala:490
 msgid "Finished Uploading Attachment"
-msgstr ""
+msgstr "Liitteen lähetys valmistui"
 
 #. translators: aria label on composer media attachments. The variable is a string file name.
 #: src/Dialogs/Composer/Attachment.vala:666
 #, c-format
 msgid "Media Attachment (%s)"
-msgstr ""
+msgstr "Medialiite (%s)"
 
 #. translators: 'Draft' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:49
@@ -2422,7 +2422,7 @@ msgstr "Tee viestiluonnos"
 #. translators: 'Schedule' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:52
 msgid "Schedule Post…"
-msgstr ""
+msgstr "Ajasta viesti…"
 
 #. translators: screen reader announcement when the composer
 #. passed the character limit. The variable is
@@ -2431,7 +2431,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:169
 #, c-format
 msgid "Exceeded character limit by %lld"
-msgstr ""
+msgstr "Merkkiraja ylittyi %lld merkillä"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:240
@@ -2441,7 +2441,7 @@ msgstr "Viestin yksityisyys"
 #. translators: post compositor post button label when the visibility is 'mentioned only'
 #: src/Dialogs/Composer/Dialog.vala:265
 msgid "Send"
-msgstr ""
+msgstr "Lähetä"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:276
@@ -2454,7 +2454,7 @@ msgstr "Viestin kieli"
 #. https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
 #: src/Dialogs/Composer/Dialog.vala:384 src/Widgets/Status.vala:1137
 msgid "Local Only"
-msgstr ""
+msgstr "Vain paikallinen"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:414
@@ -2465,7 +2465,7 @@ msgstr "Viestin sisältötyyppi"
 #: src/Dialogs/Composer/Dialog.vala:458 src/Dialogs/Composer/Dialog.vala:469
 #: src/Dialogs/Composer/Dialog.vala:692
 msgid "Post"
-msgstr ""
+msgstr "Lähetä"
 
 #. translators: composer post button label
 #. translators: verb
@@ -2477,13 +2477,13 @@ msgstr "Vastaa"
 #. translators: composer embedded replying-to post, aria label
 #: src/Dialogs/Composer/Dialog.vala:563
 msgid "The post you are replying to."
-msgstr ""
+msgstr "Viesti johon vastaat."
 
 #. translators: composer title. The variable is a string username
 #: src/Dialogs/Composer/Dialog.vala:571
 #, c-format
 msgid "Reply to @%s"
-msgstr ""
+msgstr "Vastaus käyttäjälle @%s"
 
 #. translators: composer post button label, verb
 #: src/Dialogs/Composer/Dialog.vala:604 src/Widgets/Status/ActionsRow.vala:129
@@ -2494,13 +2494,13 @@ msgstr "Lainaa"
 #. translators: composer embedded quoting post, aria label
 #: src/Dialogs/Composer/Dialog.vala:634
 msgid "The post you are quoting."
-msgstr ""
+msgstr "Viesti, jota lainaat."
 
 #. translators: composer title. The variable is a string username
 #: src/Dialogs/Composer/Dialog.vala:642
 #, c-format
 msgid "Quoting @%s"
-msgstr ""
+msgstr "Lainataan @%s"
 
 #. translators: composer post button label
 #. translators: button on the delete post dialog that
@@ -2508,7 +2508,7 @@ msgstr ""
 #. with it so you can edit it
 #: src/Dialogs/Composer/Dialog.vala:661 src/Widgets/Status.vala:525
 msgid "Redraft"
-msgstr ""
+msgstr "Uusi luonnos"
 
 #: src/Dialogs/Composer/Dialog.vala:661 src/Dialogs/Composer/Dialog.vala:692
 #: src/Dialogs/Preferences.vala:32 src/Views/Lists.vala:16
@@ -2520,17 +2520,17 @@ msgstr "Muokkaa"
 #. translators: composer title
 #: src/Dialogs/Composer/Dialog.vala:669 src/Dialogs/Composer/Dialog.vala:699
 msgid "Edit Post"
-msgstr ""
+msgstr "Muokkaa viestiä"
 
 #. translators: media as in picture or files
 #: src/Dialogs/Composer/Dialog.vala:866
 msgid "Paste Media from Clipboard?"
-msgstr ""
+msgstr "Liitetäänkö media leikepöydältä?"
 
 #. translators: they = media / files from clipboard, instance = server
 #: src/Dialogs/Composer/Dialog.vala:869
 msgid "They will be uploaded to your instance"
-msgstr ""
+msgstr "Tiedostot lähetetään käyttämääsi instanssiin"
 
 #. translators: dialog button label when pasting from clipboard, verb
 #: src/Dialogs/Composer/Dialog.vala:872
@@ -2587,17 +2587,17 @@ msgstr ""
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/Polls.vala:231
 msgid "Multiple Choice"
-msgstr ""
+msgstr "Monivalinta"
 
 #: src/Dialogs/Composer/Polls.vala:231
 msgid "Single Choice"
-msgstr ""
+msgstr "Yksi valinta"
 
 #. translators: tooltip text on composer polls that toggles
 #. whether the poll is single or multiple choice
 #: src/Dialogs/Composer/Polls.vala:239
 msgid "Toggle Choice Type"
-msgstr ""
+msgstr "Vaihda vastaustyyppiä"
 
 #. translators: tooltip of poll button that shows the current vote results
 #: src/Dialogs/Composer/Polls.vala:244 src/Widgets/VoteBox.vala:235
@@ -2613,7 +2613,7 @@ msgstr "Piilota tulokset"
 #. whether the poll results should be visible
 #: src/Dialogs/Composer/Polls.vala:253
 msgid "Toggle Results Visibility"
-msgstr ""
+msgstr "Vaihda tulosten näkyvyyttä"
 
 #. translators: poll entry title; the variable is a number
 #: src/Dialogs/Composer/Polls.vala:307 src/Dialogs/Composer/Polls.vala:354
@@ -2634,7 +2634,7 @@ msgstr[1] "%d minuuttia"
 #: src/Dialogs/Composer/Polls.vala:380 src/Dialogs/Composer/Polls.vala:382
 #, c-format
 msgid "%dmin"
-msgstr ""
+msgstr "%d min"
 
 #. translators: the variable is a number, short form for hours
 #: src/Dialogs/Composer/Polls.vala:386 src/Dialogs/Composer/Polls.vala:388
@@ -2784,7 +2784,7 @@ msgstr "Sisältö"
 #. translators: profile field, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:209
 msgid "Add Field"
-msgstr ""
+msgstr "Lisää kenttä"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:228
@@ -2987,14 +2987,14 @@ msgstr "%s muokkasi viestiä"
 #. translators: post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:364
 msgid "In Reply"
-msgstr ""
+msgstr "Vastauksena"
 
 #. translators: the variable is a string user handle,
 #. post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:368
 #, c-format
 msgid "In Reply to %s"
-msgstr ""
+msgstr "Vastauksena viestiin %s"
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
@@ -3064,7 +3064,7 @@ msgstr "Aihetunnisteet"
 #: src/Services/Accounts/Mastodon/Account.vala:149 src/Views/Drive.vala:849
 #: src/Views/Drive.vala:988
 msgid "Drive"
-msgstr ""
+msgstr "Drive"
 
 #. translators: visibility dropdown subtitle
 #: src/Services/Accounts/Mastodon/Account.vala:218
@@ -3271,8 +3271,8 @@ msgstr[1] "%s tuntia vanha"
 #, c-format
 msgid "a month old"
 msgid_plural "%d months old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "kuukauden vanha"
+msgstr[1] "%d kuukautta vanha"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:196
@@ -3596,22 +3596,22 @@ msgstr "Ei kirjanmerkkejä"
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:43
 msgid "Secure"
-msgstr ""
+msgstr "Suojattu"
 
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:48
 msgid "Insecure"
-msgstr ""
+msgstr "Suojaamaton"
 
 #. translators: in-app web browser, move forward in history action
 #: src/Views/Browser.vala:166
 msgid "Forward"
-msgstr ""
+msgstr "Eteenpäin"
 
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
 msgid "Copied url to clipboard"
-msgstr ""
+msgstr "URL-osoite kopioitu leikepöydälle"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
@@ -3630,12 +3630,12 @@ msgstr "Ei luonnosviestejä"
 #. translators: Error reason when trying to delete a non-empty folder
 #: src/Views/Drive.vala:24
 msgid "Folder is not empty"
-msgstr ""
+msgstr "Kansio ei ole tyhjä"
 
 #. translators: Error reason when trying to delete an actively used file
 #: src/Views/Drive.vala:29
 msgid "File is used as an avatar"
-msgstr ""
+msgstr "Tiedostoa käytetään profiilikuvana"
 
 #: src/Views/Drive.vala:29
 msgid "File is used as a banner"
@@ -3649,11 +3649,11 @@ msgstr ""
 
 #: src/Views/Drive.vala:242
 msgid "Copy Link"
-msgstr ""
+msgstr "Kopioi linkki"
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
-msgstr ""
+msgstr "Merkitse arkaluonteiseksi"
 
 #. translators: alternative text context menu item in drive
 #: src/Views/Drive.vala:253
@@ -3662,121 +3662,121 @@ msgstr "Muokkaa vaihtoehtoista tekstiä"
 
 #: src/Views/Drive.vala:259 src/Views/Drive.vala:409
 msgid "Rename"
-msgstr ""
+msgstr "Nimeä uudelleen"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:380
 #, c-format
 msgid "Couldn't mark '%s' as sensitive: %s"
-msgstr ""
+msgstr "Ei voitu merkitä '%s' arkaluonteiseksi: %s"
 
 #: src/Views/Drive.vala:407
 msgid "Rename Folder"
-msgstr ""
+msgstr "Nimeä kansio uudelleen"
 
 #: src/Views/Drive.vala:407
 msgid "Rename File"
-msgstr ""
+msgstr "Nimeä tiedosto uudelleen"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:464
 #, c-format
 msgid "Couldn't change alt text for '%s': %s"
-msgstr ""
+msgstr "Kuvan '%s' vaihtoehtoista tekstiä ei voitu muuttaa: %s"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:511
 #, c-format
 msgid "Couldn't rename '%s': %s"
-msgstr ""
+msgstr "Tiedostoa '%s' ei voitu nimetä uudelleen: %s"
 
 #. translators: title on an entry
 #: src/Views/Drive.vala:730
 msgid "New Folder"
-msgstr ""
+msgstr "Uusi kansio"
 
 #. translators: placeholder on an entry
 #: src/Views/Drive.vala:732
 msgid "Folder Name"
-msgstr ""
+msgstr "Kansion nimi"
 
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
 msgid "Create"
-msgstr ""
+msgstr "Luo"
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
-msgstr ""
+msgstr "Luo kansio"
 
 #: src/Views/Drive.vala:748
 msgid "Upload File"
-msgstr ""
+msgstr "Lähetä tiedosto"
 
 #. translators: error that shows up as a toast when creating folders
 #. in iceshrimp drive
 #: src/Views/Drive.vala:818
 #, c-format
 msgid "Couldn't create folder: %s"
-msgstr ""
+msgstr "Kansiota ei voitu luoda: %s"
 
 #: src/Views/Drive.vala:874
 msgid "Drop files to upload them"
-msgstr ""
+msgstr "Pudota tiedostot lähettääksesi ne"
 
 #: src/Views/Drive.vala:1199
 #, c-format
 msgid "Couldn't move '%s': %s"
-msgstr ""
+msgstr "Ei voitu siirtää '%s': %s"
 
 #. translators: Error when trying to delete a file that cannot be deleted.
 #. The first variable is a string file name, the second is an error.
 #: src/Views/Drive.vala:1216 src/Views/Drive.vala:1273
 #, c-format
 msgid "'%s' cannot be deleted: %s"
-msgstr ""
+msgstr "Ei voitu poistaa '%s': %s"
 
 #. translators: the variable is a folder/file name
 #: src/Views/Drive.vala:1224
 #, c-format
 msgid "Delete '%s'?"
-msgstr ""
+msgstr "Poistetaanko '%s'?"
 
 #: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
 msgid "This is irreversible."
-msgstr ""
+msgstr "Tätä ei voi perua."
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:1249 src/Views/Drive.vala:1361
 #, c-format
 msgid "Couldn't delete '%s': %s"
-msgstr ""
+msgstr "Ei voitu poistaa '%s': %s"
 
 #. translators: Error when trying to delete files/folders
 #. that cannot be deleted.
 #: src/Views/Drive.vala:1305
 msgid "No Deletable Files in Selection"
-msgstr ""
+msgstr "Valinnassa ei ole poistettavia tiedostoja"
 
 #. translators: confirmation dialog in a file-browser-like page
 #: src/Views/Drive.vala:1311
 msgid "Delete Selection?"
-msgstr ""
+msgstr "Poistetaanko valitut?"
 
 #: src/Views/Drive.vala:1372
 msgid "Upload Files"
-msgstr ""
+msgstr "Lähetä tiedostot"
 
 #. translators: toast popping up when a user uploads a file that already exists in drive
 #. The variable is a string filename.
 #: src/Views/Drive.vala:1423
 #, c-format
 msgid "'%s' already exists"
-msgstr ""
+msgstr "'%s' on jo olemassa"
 
 #. translators: screen reader announcement when the
 #. drive successfully uploads a file
@@ -3784,7 +3784,7 @@ msgstr ""
 #: src/Views/Drive.vala:1510
 #, c-format
 msgid "Finished Uploading '%s'"
-msgstr ""
+msgstr "Tiedoston '%s' lähetys valmistui"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -3902,13 +3902,13 @@ msgstr "Ei estettyjä tilejä"
 #: src/Views/NotificationRequestsList.vala:8
 #, c-format
 msgid "Notifications by %s"
-msgstr ""
+msgstr "Käyttäjän %s ilmoitukset"
 
 #. translators: the variable is a user handle
 #: src/Views/NotificationRequestsList.vala:11
 #, c-format
 msgid "No Notifications by %s"
-msgstr ""
+msgstr "Käyttäjällä %s ei ole ilmoituksia"
 
 #: src/Views/NotificationRequestsList.vala:26
 #: src/Widgets/NotificationRequest.vala:56
@@ -4465,7 +4465,7 @@ msgstr ""
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "Piilotettu"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
@@ -4474,7 +4474,7 @@ msgstr ""
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
 msgid "Featured"
-msgstr ""
+msgstr "Suositeltu"
 
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63
@@ -4510,7 +4510,7 @@ msgstr "Ajastettu ajankohtaan %s"
 
 #: src/Widgets/ScheduledStatus.vala:155
 msgid "Reschedule Post"
-msgstr ""
+msgstr "Ajasta viesti uudelleen"
 
 #. translators: the variable is an error
 #: src/Widgets/ScheduledStatus.vala:187
@@ -4582,13 +4582,13 @@ msgstr "Näytä alkuperäinen"
 #. post that is private or mentioned-only
 #: src/Widgets/Status.vala:400
 msgid "Only mentioned people will be able to view it."
-msgstr ""
+msgstr "Vain mainitut henkilöt voivat nähdä sen."
 
 #. translators: dialog subtitle visibility warning when copying a link to a
 #. post that is private or mentioned-only
 #: src/Widgets/Status.vala:404
 msgid "Only mentioned people and your followers will be able to view it."
-msgstr ""
+msgstr "Vain mainitut henkilöt ja seuraajasi voivat nähdä sen."
 
 #. translators: dialog subtitle visibility warning when copying a link to a post
 #. that is private or mentioned-only, the variable is a handle
@@ -4596,7 +4596,7 @@ msgstr ""
 #, c-format
 msgid ""
 "Only mentioned people and people that follow %s will be able to view it."
-msgstr ""
+msgstr "Vain mainitut henkilöt ja käyttäjää %s seuraavat voivat nähdä sen."
 
 #. translators: the variable is the post visibility e.g. Public, Unlisted...
 #: src/Widgets/Status.vala:413
@@ -4707,7 +4707,7 @@ msgstr "Sisältää äänestyksen."
 #. please be mindful.
 #: src/Widgets/Status.vala:940
 msgid "The post has a spoiler."
-msgstr ""
+msgstr "Tämä viesti sisältää juonipaljastuksen."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4716,7 +4716,7 @@ msgstr ""
 #: src/Widgets/Status.vala:946
 #, c-format
 msgid "The post has the following spoiler: %s."
-msgstr ""
+msgstr "Tässä viestissä on seuraava juonipaljastus: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
