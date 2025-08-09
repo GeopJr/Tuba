@@ -521,6 +521,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			}
 		}
 
+		editor.grab_focus ();
 		unique_state = generate_unique_state ();
 	}
 
