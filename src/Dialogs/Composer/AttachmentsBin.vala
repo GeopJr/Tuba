@@ -144,7 +144,9 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 			content_box.append (new Gtk.ScrolledWindow () {
 				hexpand = true,
 				vexpand = true,
-				child = alt_editor
+				child = alt_editor,
+				propagate_natural_height = true,
+				max_content_height = 209
 			});
 
 			dialog_char_counter = new Gtk.Label (alt_max_chars.to_string ()) {
