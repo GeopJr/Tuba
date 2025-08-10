@@ -79,6 +79,16 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.10.1" date="2025-08-10">
+      <description translate="no">
+        <ul>
+            <li>Fixed composer not being focused under some circumstances</li>
+            <li>Made the alt text editor's height change with the content</li>
+            <li>Fixed minor developer name change</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.10.0" date="2025-08-03">
       <description translate="no">
         <ul>
