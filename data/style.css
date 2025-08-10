@@ -974,6 +974,7 @@ dropoverlay .status {
 	color: var(--accent-fg-color);
 }
 
+.pill-like,
 splitbutton.pill {
 	border-radius: 9999px;
 }

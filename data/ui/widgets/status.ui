@@ -289,8 +289,8 @@
 												<property name="visible" bind-source="fade_bin" bind-property="faded" bind-flags="sync-create" />
 												<signal name="clicked" handler="on_fade_reveal" swapped="no" />
                                         		<style>
-                                        		  <class name="pill" />
-                                        		  <class name="osd" />
+                                        		  <class name="pill-like" />
+                                        		  <class name="opaque" />
                                         		</style>
                                      		</object>
 									  	</child>
