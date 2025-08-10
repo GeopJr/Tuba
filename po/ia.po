@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-02-01 12:02+0000\n"
+"PO-Revision-Date: 2025-08-05 04:02+0000\n"
 "Last-Translator: \"Emilio S.\" <emism.translations@gmail.com>\n"
 "Language-Team: Interlingua <https://hosted.weblate.org/projects/tuba/tuba/ia/"
 ">\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -29,7 +29,7 @@ msgstr "Naviga in le Fediverso"
 
 #: data/dev.geopjr.Tuba.desktop.in:5
 msgid "Fediverse Client"
-msgstr ""
+msgstr "Cliente pro le fediverso"
 
 #: data/dev.geopjr.Tuba.desktop.in:10
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -91,7 +91,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
 msgid "Account Suggestions"
-msgstr ""
+msgstr "Suggestiones de contos"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:52
@@ -103,21 +103,21 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
 msgid "Active Account"
-msgstr ""
+msgstr "Conto active"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:62
 msgid "The UUID of the active account"
-msgstr ""
+msgstr "Le UUID del conto active"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:67
 msgid "The default color scheme"
-msgstr ""
+msgstr "Le schema de colores predefinite"
 
 #: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
 msgid "Run in Background"
-msgstr ""
+msgstr "Executar in secunde plano"
 
 #: data/dev.geopjr.Tuba.gschema.xml:72 data/ui/dialogs/preferences.ui:117
 msgid "Fetch notifications while the app is closed"
@@ -137,7 +137,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:83 data/ui/dialogs/preferences.ui:168
 msgid "Stream Timelines"
-msgstr ""
+msgstr "Chronologias in fluxo"
 
 #: data/dev.geopjr.Tuba.gschema.xml:84 data/ui/dialogs/preferences.ui:169
 msgid "Receive new posts and notifications in real-time"
@@ -145,7 +145,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:88 data/ui/dialogs/preferences.ui:175
 msgid "Stream Public Timelines"
-msgstr ""
+msgstr "Chronologias public in fluxo"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:90
