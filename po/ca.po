@@ -42,7 +42,8 @@ msgid ""
 msgstr ""
 "Exploreu la web social federada amb tuba per a Gnome. Mantingueu -vos "
 "connectats a les vostres comunitats preferides, familiars i amics amb suport "
-"a plataformes populars de Fediverse com Mastodon, GoToSocial, Akkoma & Més!"
+"a plataformes populars de Fediverse com Mastodon, GoToSocial, Akkoma &amp; "
+"Més!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
