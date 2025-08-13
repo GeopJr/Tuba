@@ -53,7 +53,7 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
 			450, Adw.LengthUnit.SP
 		);
-		var breakpoint = new Adw.Breakpoint (condition);
+		var breakpoint = new Adw.Breakpoint (condition.copy());
 		breakpoint.add_setter (revealer_box, "halign", Gtk.Align.FILL);
 		breakpoint.add_setter (entry_box_1, "orientation", Gtk.Orientation.VERTICAL);
 		breakpoint.add_setter (entry_box_2, "orientation", Gtk.Orientation.VERTICAL);
