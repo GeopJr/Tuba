@@ -13,7 +13,9 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 			if (_locale != value) {
 				_locale = value;
 				count_chars ();
-				update_spelling_lang ();
+				#if LIBSPELLING
+					update_spelling_lang ();
+				#endif
 			}
 		}
 	}
