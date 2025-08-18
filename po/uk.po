@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-08-18 10:02+0000\n"
+"PO-Revision-Date: 2025-08-19 21:02+0000\n"
 "Last-Translator: EvilAngel <noiteluna@noleron.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/>"
 "\n"
@@ -2979,7 +2979,7 @@ msgstr "%s згадав(-ла) вас"
 #: src/Services/Accounts/InstanceAccount.vala:303
 #, c-format
 msgid "%s boosted your post"
-msgstr "%s поширив(-ла) ваш допис"
+msgstr "%s поширили ваш допис"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
