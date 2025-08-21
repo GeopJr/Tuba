@@ -47,7 +47,7 @@ public class Tuba.Views.NotificationRequestsList : Views.Timeline {
 
 	private void on_accept () {
 		dismiss_btn.sensitive = accept_btn.sensitive = false;
-		notification_req_wdg.on_dismiss ();
+		notification_req_wdg.on_accept ();
 		app.main_window.back ();
 	}
 }
