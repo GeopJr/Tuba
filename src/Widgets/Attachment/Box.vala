@@ -167,14 +167,12 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 				is_main = attachment_widgets[i].entity.url == url;
 
 			var paintable = attachment_widgets[i].pic.paintable;
-			var stream = false;
 
 			#if GSTREAMER
 				if (attachment_widgets[i].media_kind == Tuba.Attachment.MediaType.AUDIO) {
 					if (paintable == null) {
 						paintable = this.audio_fallback_paintable;
 					}
-					stream = true;
 				}
 			#endif
 
@@ -187,7 +185,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 				attachment_widgets[i].pic.alternative_text,
 				null,
 				attachment_widgets[i].entity.blurhash,
-				stream,
+				true,
 				is_main,
 				is_main == null
 			);

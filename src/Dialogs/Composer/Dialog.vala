@@ -341,7 +341,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
 			400, Adw.LengthUnit.SP
 		);
-		var breakpoint = new Adw.Breakpoint (condition);
+		var breakpoint = new Adw.Breakpoint (condition.copy());
 		breakpoint.add_setter (this, "is-narrow", true);
 		add_breakpoint (breakpoint);
 
