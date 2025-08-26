@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-05-28 11:01+0000\n"
+"PO-Revision-Date: 2025-08-27 14:01+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/tuba/tuba/kab/>\n"
 "Language: kab\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -851,7 +851,7 @@ msgstr "URL n uqeddac"
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:332
 msgid "Settings"
-msgstr "Iɣewwaṛen"
+msgstr "Iɣewwaren"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
