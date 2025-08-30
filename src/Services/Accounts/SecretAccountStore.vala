@@ -11,9 +11,12 @@ public class Tuba.SecretAccountStore : AccountStore {
 		schema_attributes = new GLib.HashTable<string,Secret.SchemaAttributeType> (str_hash, str_equal);
 		schema_attributes["login"] = Secret.SchemaAttributeType.STRING;
 		schema_attributes["version"] = Secret.SchemaAttributeType.STRING;
+		//  schema_attributes["appid"] = Secret.SchemaAttributeType.STRING;
 		schema = new Secret.Schema.newv (
 			Build.DOMAIN,
-			Secret.SchemaFlags.NONE,
+			// https://gitlab.gnome.org/GNOME/gnome-keyring/-/issues/89
+			// #1540 #701
+			Secret.SchemaFlags.DONT_MATCH_NAME,
 			schema_attributes
 		);
 
@@ -23,6 +26,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 	public override void load () throws GLib.Error {
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["version"] = VERSION;
+		//  attrs["appid"] = Build.DOMAIN;
 
 		List<Secret.Retrievable> secrets = new List<Secret.Retrievable> ();
 		try {
@@ -113,6 +117,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["version"] = VERSION;
 		attrs["login"] = account.handle;
+		//  attrs["appid"] = Build.DOMAIN;
 
 		Secret.password_clearv.begin (
 			schema,
@@ -135,6 +140,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["login"] = account.handle;
 		attrs["version"] = VERSION;
+		//  attrs["appid"] = Build.DOMAIN;
 
 		var generator = new Json.Generator ();
 
