@@ -79,6 +79,16 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.10.2" date="2025-08-30">
+      <description translate="no">
+        <ul>
+            <li>Fixed inability to read account credentials on some setups</li>
+            <li>Fixed notification request headerbar accept button denying requests</li>
+            <li>Updated the expand post button style</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.10.1" date="2025-08-10">
       <description translate="no">
         <ul>
