@@ -14,6 +14,8 @@ public class Tuba.SecretAccountStore : AccountStore {
 		//  schema_attributes["appid"] = Secret.SchemaAttributeType.STRING;
 		schema = new Secret.Schema.newv (
 			Build.DOMAIN,
+			// https://gitlab.gnome.org/GNOME/gnome-keyring/-/issues/89
+			// #1540 #701
 			Secret.SchemaFlags.DONT_MATCH_NAME,
 			schema_attributes
 		);
