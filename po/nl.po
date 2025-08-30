@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-02-05 13:02+0000\n"
+"PO-Revision-Date: 2025-08-14 06:02+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -70,36 +70,36 @@ msgstr "Standaard­inhoudstype van bericht"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:21
 msgid "Muted Push Notification Types"
-msgstr ""
+msgstr "Gedempte pushmeldings­typen"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:26
 msgid "Recently Used Custom Emojis"
-msgstr ""
+msgstr "Onlangs gebruikte aangepaste emoji's"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:31
 msgid "Recent Search Queries"
-msgstr ""
+msgstr "Recente zoek­opdrachten"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:36
 msgid "Filtered-out Notification Types"
-msgstr ""
+msgstr "Uit­gefilterde meldings­typen"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:41
 msgid "IDs of Lists shown on the sidebar"
-msgstr ""
+msgstr "Id's van getoonde lĳsten in de zĳbalk"
 
 #: data/dev.geopjr.Tuba.gschema.xml:45
 msgid "Hashtags shown on the sidebar"
-msgstr ""
+msgstr "Getoonde hashtags in de zĳbalk"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
 msgid "Account Suggestions"
-msgstr ""
+msgstr "Account­suggesties"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:52
@@ -107,21 +107,23 @@ msgid ""
 "Whether account suggestions should be shown in the Home tab when the user "
 "doesn't follow enough people"
 msgstr ""
+"Of account­suggesties moeten worden weer­gegeven op het hoofd­tabblad "
+"wanneer de gebruiker niet genoeg personen volgt"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
 msgid "Active Account"
-msgstr ""
+msgstr "Actief account"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:62
 msgid "The UUID of the active account"
-msgstr ""
+msgstr "De UUID van het actieve account"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:67
 msgid "The default color scheme"
-msgstr ""
+msgstr "Het standaard­kleurenschema"
 
 #: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
 msgid "Run in Background"
@@ -142,6 +144,8 @@ msgid ""
 "The amount of posts that should be displayed on every scroll on timelines "
 "(10-40)"
 msgstr ""
+"Het aantal berichten dat bij elke scroll op tĳd­lĳnen moet worden weer­"
+"gegeven (10-40)"
 
 #: data/dev.geopjr.Tuba.gschema.xml:83 data/ui/dialogs/preferences.ui:168
 msgid "Stream Timelines"
@@ -160,6 +164,8 @@ msgstr "Publieke tĳd­lĳnen streamen"
 msgid ""
 "Public means the local and federated ones that usually have a lot of traffic"
 msgstr ""
+"Publiek betekent de lokale en gefedereerde tĳd­lĳnen die doorgaans veel "
+"verkeer hebben"
 
 #: data/dev.geopjr.Tuba.gschema.xml:94 data/ui/dialogs/preferences.ui:72
 msgid "Reveal Spoilers by Default"
@@ -191,12 +197,12 @@ msgstr "Aan­gepaste emoji's schalen bĳ aan­wĳzen"
 
 #: data/dev.geopjr.Tuba.gschema.xml:113
 msgid "lightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "vergroot aangepaste emoji's lichtelĳk bĳ aanwĳzen"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:118
 msgid "Aggressive User Resolving"
-msgstr ""
+msgstr "Agressieve gebruikers­omzetting"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:120
@@ -205,6 +211,9 @@ msgid ""
 "it leads to a user or a post regardless if it matches the typical post and "
 "user URLs"
 msgstr ""
+"Wanneer u op een link klikt, zal Tuba uw instantie vragen om deze om te "
+"zetten om te zien of deze naar een gebruiker of een bericht leidt, ongeacht "
+"of deze overeenkomt met de typische bericht- en gebruikers-URL's"
 
 #: data/dev.geopjr.Tuba.gschema.xml:124 data/ui/dialogs/preferences.ui:99
 msgid "Strip Tracking Parameters From Links"
@@ -255,12 +264,12 @@ msgstr "Media vervagen tĳdens laden"
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr ""
+msgstr "Gevoelige media standaard zichtbaar maken"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
 msgid "Group Similar Push Notifications"
-msgstr ""
+msgstr "Vergelĳkbare push­meldingen groeperen"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/dev.geopjr.Tuba.gschema.xml:158 data/ui/dialogs/preferences.ui:276
@@ -286,6 +295,8 @@ msgid ""
 "Before replying to a post that was made at least 3 months ago, Tuba will "
 "warn you that the conversation might be over"
 msgstr ""
+"Voordat u reageert op een bericht dat minstens 3 maanden geleden is "
+"geplaatst, waarschuwt Tuba u dat het gesprek mogelĳk afgelopen is"
 
 #: data/dev.geopjr.Tuba.gschema.xml:173 data/ui/dialogs/preferences.ui:111
 msgid "Warn before copying a link to a private post"
@@ -301,7 +312,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
 msgid "Spellchecker"
-msgstr ""
+msgstr "Spellings­controle"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:182
@@ -350,7 +361,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:210
 msgid "Proxy URL"
-msgstr ""
+msgstr "Proxy-URL"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:212
@@ -399,7 +410,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:242
 msgid "Tuba contributors"
-msgstr ""
+msgstr "Tuba-bĳdragers"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:244
@@ -463,12 +474,12 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:286
 msgid "Window Width"
-msgstr ""
+msgstr "Venster­breedte"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:291
 msgid "Window Height"
-msgstr ""
+msgstr "Venster­hoogte"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:296
@@ -749,7 +760,7 @@ msgstr "Media toevoegen"
 
 #: data/ui/dialogs/composer.ui:97
 msgid "Create Poll"
-msgstr ""
+msgstr "Peiling maken"
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
@@ -1515,7 +1526,7 @@ msgstr "Profielen"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "Map"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -2452,7 +2463,7 @@ msgstr "Berichtprivacy"
 #. translators: post compositor post button label when the visibility is 'mentioned only'
 #: src/Dialogs/Composer/Dialog.vala:265
 msgid "Send"
-msgstr ""
+msgstr "Versturen"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:276
@@ -2476,7 +2487,7 @@ msgstr "Inhouds­type van bericht"
 #: src/Dialogs/Composer/Dialog.vala:458 src/Dialogs/Composer/Dialog.vala:469
 #: src/Dialogs/Composer/Dialog.vala:692
 msgid "Post"
-msgstr ""
+msgstr "Plaatsen"
 
 #. translators: composer post button label
 #. translators: verb
@@ -2519,7 +2530,7 @@ msgstr ""
 #. with it so you can edit it
 #: src/Dialogs/Composer/Dialog.vala:661 src/Widgets/Status.vala:525
 msgid "Redraft"
-msgstr ""
+msgstr "Heropstellen"
 
 #: src/Dialogs/Composer/Dialog.vala:661 src/Dialogs/Composer/Dialog.vala:692
 #: src/Dialogs/Preferences.vala:32 src/Views/Lists.vala:16
@@ -2645,7 +2656,7 @@ msgstr[1] "%d minuten"
 #: src/Dialogs/Composer/Polls.vala:380 src/Dialogs/Composer/Polls.vala:382
 #, c-format
 msgid "%dmin"
-msgstr ""
+msgstr "%d m"
 
 #. translators: the variable is a number, short form for hours
 #: src/Dialogs/Composer/Polls.vala:386 src/Dialogs/Composer/Polls.vala:388
@@ -3065,18 +3076,18 @@ msgstr "Verkennen"
 
 #: src/Services/Accounts/Mastodon/Account.vala:130 src/Views/Federated.vala:4
 msgid "Federated"
-msgstr "Gedecentraliseerd"
+msgstr "Gefedereerd"
 
 #: src/Services/Accounts/Mastodon/Account.vala:139 src/Views/Explore.vala:7
 #: src/Views/Hashtags.vala:4 src/Views/Search.vala:116
 msgid "Hashtags"
-msgstr "Onderwerpen"
+msgstr "Hashtags"
 
 #. translators: Drive as in 'Google Drive'
 #: src/Services/Accounts/Mastodon/Account.vala:149 src/Views/Drive.vala:849
 #: src/Views/Drive.vala:988
 msgid "Drive"
-msgstr ""
+msgstr "Schĳf"
 
 #. translators: visibility dropdown subtitle
 #: src/Services/Accounts/Mastodon/Account.vala:218
@@ -3091,19 +3102,19 @@ msgstr "Niet plaatsen op openbare tĳd­lĳnen"
 #. translators: visibility dropdown subtitle
 #: src/Services/Accounts/Mastodon/Account.vala:234
 msgid "Post to followers only"
-msgstr "Toon alleen aan volgers"
+msgstr "Alleen voor volgers plaatsen"
 
 #. translators: visibility dropdown subtitle
 #: src/Services/Accounts/Mastodon/Account.vala:242
 msgid "Post to mentioned users only"
-msgstr "Toon alleen aan vermelde gebruikers"
+msgstr "Alleen voor vermelde gebruikers plaatsen"
 
 #. translators: this error shows up when the user clicks a button
 #. in a desktop notification that was pushed for a
 #. different account
 #: src/Services/Accounts/Mastodon/Account.vala:270
 msgid "Notification was pushed for a different account"
-msgstr "Melding was voor een ander account"
+msgstr "Melding was verstuurd voor een ander account"
 
 #. translators: The variable is "Fediverse" or a backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:237
@@ -3610,17 +3621,17 @@ msgstr "Geen blad­wĳzers"
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:43
 msgid "Secure"
-msgstr ""
+msgstr "Beveiligd"
 
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:48
 msgid "Insecure"
-msgstr ""
+msgstr "Onbeveiligd"
 
 #. translators: in-app web browser, move forward in history action
 #: src/Views/Browser.vala:166
 msgid "Forward"
-msgstr ""
+msgstr "Vooruit"
 
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
@@ -3676,7 +3687,7 @@ msgstr "Alt-tekst bewerken"
 
 #: src/Views/Drive.vala:259 src/Views/Drive.vala:409
 msgid "Rename"
-msgstr ""
+msgstr "Hernoemen"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
@@ -3720,7 +3731,7 @@ msgstr ""
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
 msgid "Create"
-msgstr ""
+msgstr "Aanmaken"
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
@@ -4479,7 +4490,7 @@ msgstr "%s is verhuisd naar %s"
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "Verborgen"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
@@ -4488,7 +4499,7 @@ msgstr "Fout: Notitie is meer dan 2000 tekens lang"
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
 msgid "Featured"
-msgstr ""
+msgstr "Uitgelicht"
 
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63

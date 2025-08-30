@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-27 15:05+0000\n"
+"PO-Revision-Date: 2025-08-18 10:02+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.13\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -183,7 +183,7 @@ msgstr "افزایش اندازهٔ متن در فرسته‌ها"
 
 #: data/dev.geopjr.Tuba.gschema.xml:107 data/ui/dialogs/preferences.ui:37
 msgid "Large Line Height"
-msgstr "بلندای خط بزرگ"
+msgstr "بلندای خط زیاد"
 
 #: data/dev.geopjr.Tuba.gschema.xml:108 data/ui/dialogs/preferences.ui:38
 msgid "Increase the line height in posts"
@@ -232,9 +232,7 @@ msgstr "تنظیم نسبت‌تصویر رسانه"
 msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
-msgstr ""
-"کاهش مقیاس و تنظیم نسبت‌تصویر رسانه برای پرکردن محل تصویر به جای کشیدن یا "
-"بریدن آنها"
+msgstr "کاهش مقیاس رسانه‌ها و گذاشتنشان داخل چهارچوب به جای کشیدن یا بریدنشان"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; expand as in enlarge
 #: data/dev.geopjr.Tuba.gschema.xml:135
@@ -281,7 +279,7 @@ msgstr "گفت‌وگوی تقویت پیشرفته"
 
 #: data/dev.geopjr.Tuba.gschema.xml:163 data/ui/dialogs/preferences.ui:88
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr "تغییر نمایانی تفویت، نقل قول و تأیید تقویت"
+msgstr "تغییر نمایانی تقویت، نقل کردن و تأیید تقویت"
 
 #: data/dev.geopjr.Tuba.gschema.xml:167 data/ui/dialogs/preferences.ui:106
 msgid "Warn before replying to an old post"
@@ -306,9 +304,8 @@ msgid ""
 "If you copy the link to a post that is not publicly accessible, Tuba will "
 "warn you that people might not be able to view the post the link points to"
 msgstr ""
-"اگر پیوند را بدر فرسته‌ای که به طور عمومی در دسترس نیست رونوشت کنید، هشدار می "
-"دهد که افراد ممکن است نتوانند فرسته‌ای که پیوند به آن اشاره می‌کند را مشاهده "
-"کنند"
+"اگر پیوند را در فرسته‌ای که به طور عمومی در دسترس نیست رونوشت کنید هشدار می "
+"دهد که ممکن است افراد نتوانند فرسته‌ای که پیوند به آن اشاره می‌کند را ببینند"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
@@ -426,8 +423,8 @@ msgid ""
 "A list of hashed handles that belong to Tuba contributors so they can be "
 "used in-app"
 msgstr ""
-"سیاهه‌ای از حساب‌های درهم ریخته که متعلق به مشارکت‌کنندگان توباست، بنابراین می "
-"توان آنها را در برنامه استفاده کرد"
+"سیاهه‌ای از حساب‌های درهم ریختهٔ متعلّق به مشارکت‌کنندگان توبا برای استفاده داخل "
+"برنامه"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:249
@@ -976,13 +973,14 @@ msgstr "ساخته شده در ۳۰ روز گذشته"
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:74
 msgid "Unsolicited private mentions"
-msgstr "اشاره‌های شخصی ناخواسته"
+msgstr "نام‌بری‌های شخصی ناخواسته"
 
 #. translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:76
 msgid ""
 "Filtered unless it's in reply to your own mention or if you follow the sender"
-msgstr "پالوده مگر این که در پاسخ به اشارهٔ خودتان بوده یا فرستنده را پی بگیرید"
+msgstr ""
+"پالوده مگر این که در پاسخ به نام‌بری خودتان بوده یا فرستنده را پی بگیرید"
 
 #: data/ui/dialogs/preferences.ui:11
 msgid "Appearance"
@@ -990,7 +988,7 @@ msgstr "ظاهر"
 
 #: data/ui/dialogs/preferences.ui:44
 msgid "Slightly increases the size of custom emojis when you hover over them"
-msgstr "افزایش نسبی اندازهٔ شکلک‌های سفارشی هنگامی که رو رویشان می‌روید"
+msgstr "افزایش نسبی اندازهٔ شکلک‌های سفارشی هنگام رفتن رویشان"
 
 #. translators: noun, plural
 #: data/ui/dialogs/preferences.ui:51 src/Views/Explore.vala:6
@@ -1013,7 +1011,7 @@ msgstr "فرستادن"
 
 #: data/ui/dialogs/preferences.ui:144
 msgid "Default Post Language"
-msgstr "زبانی پیش‌گزیدهٔ فرستهٔ"
+msgstr "زبان پیش‌گزیدهٔ فرستهٔ"
 
 #. translators: setting row subtitle, by high traffic we mean the federated and local timelines
 #: data/ui/dialogs/preferences.ui:177
@@ -1035,7 +1033,7 @@ msgstr "پیکربندی ویژگی‌هایی که به api.tuba.geopjr.dev و�
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly"
 msgstr ""
-"فرستادنهر دو هفته یک بار ترجیحاتتان به توسعه‌دهندگان توبا برای تحقیق محبوبیت"
+"فرستادن هر دو هفته یک بار ترجیحاتتان به توسعه‌دهندگان توبا برای تحقیق محبوبیت"
 
 #: data/ui/dialogs/preferences.ui:196
 msgid "Preview Analytics"
@@ -1053,7 +1051,7 @@ msgstr "پی‌گیران جدید"
 
 #: data/ui/dialogs/preferences.ui:238
 msgid "New Follower Requests"
-msgstr "درخواست‌های پی‌گیرندهٔ جدید"
+msgstr "درخواست‌های پی‌گیری جدید"
 
 #: data/ui/dialogs/preferences.ui:244 src/Dialogs/NotificationSettings.vala:50
 #: src/Services/Accounts/Mastodon/Account.vala:74 src/Views/Favorites.vala:4
@@ -1062,7 +1060,7 @@ msgstr "برگزیده‌ها"
 
 #: data/ui/dialogs/preferences.ui:250 src/Dialogs/NotificationSettings.vala:49
 msgid "Mentions"
-msgstr "اشاره‌ها"
+msgstr "نام‌بری‌ها"
 
 #: data/ui/dialogs/preferences.ui:256 src/Dialogs/NotificationSettings.vala:51
 msgid "Boosts"
@@ -1178,7 +1176,7 @@ msgstr "ناحیهٔ زمانی"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr "اشاره"
+msgstr "نام‌بری"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
@@ -2367,7 +2365,7 @@ msgstr "نویسه‌های مانده"
 #: src/Dialogs/Composer/AttachmentsBin.vala:186
 #: src/Dialogs/Composer/AttachmentsBin.vala:209
 msgid "Saved Media Metadata"
-msgstr "فرادادهٔ رسانهٔ ذخیره شده"
+msgstr "فرادادهٔ رسانه ذخیره شد"
 
 #. translators: shown in file picker filter dropdown
 #: src/Dialogs/Composer/AttachmentsBin.vala:291 src/Dialogs/ProfileEdit.vala:81
@@ -2952,14 +2950,14 @@ msgstr "هیچ فرسته‌ای پیدا نشد"
 #: src/Services/Accounts/InstanceAccount.vala:294
 #, c-format
 msgid "%s mentioned you"
-msgstr "%s از شما یاد کرد"
+msgstr "‫‏%s از شما یاد کرد"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:303
 #, c-format
 msgid "%s boosted your post"
-msgstr "%s فرسته‌تان را تقویت کرد"
+msgstr "‫‏%s فرسته‌تان را تقویت کرد"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -2973,7 +2971,7 @@ msgstr "%s تقویت کرد"
 #: src/Services/Accounts/InstanceAccount.vala:321
 #, c-format
 msgid "%s favorited your post"
-msgstr "%s فرسته‌تان را برگزید"
+msgstr "‫‏%s فرسته‌تان را برگزید"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -3101,7 +3099,7 @@ msgstr "فقط فرستادن به پیگیران"
 #. translators: visibility dropdown subtitle
 #: src/Services/Accounts/Mastodon/Account.vala:242
 msgid "Post to mentioned users only"
-msgstr "فقط فرستادن به کاربران اشاره شده"
+msgstr "فقط فرستادن به کاربران نام برده"
 
 #. translators: this error shows up when the user clicks a button
 #. in a desktop notification that was pushed for a
@@ -4600,13 +4598,13 @@ msgstr "نمایش اصلی"
 #. post that is private or mentioned-only
 #: src/Widgets/Status.vala:400
 msgid "Only mentioned people will be able to view it."
-msgstr "تنها افراد اشاره شده قادر به دیدنش هستند."
+msgstr "تنها افراد نام برده قادر به دیدنش هستند."
 
 #. translators: dialog subtitle visibility warning when copying a link to a
 #. post that is private or mentioned-only
 #: src/Widgets/Status.vala:404
 msgid "Only mentioned people and your followers will be able to view it."
-msgstr "تنها افراد اشاره شده و پی‌گیرانتان قادر به دیدنش هستند."
+msgstr "تنها افراد نام برده و پی‌گیرندگانتان قادر به دیدنش هستند."
 
 #. translators: dialog subtitle visibility warning when copying a link to a post
 #. that is private or mentioned-only, the variable is a handle
@@ -4614,7 +4612,7 @@ msgstr "تنها افراد اشاره شده و پی‌گیرانتان قاد
 #, c-format
 msgid ""
 "Only mentioned people and people that follow %s will be able to view it."
-msgstr "تنها افراد اشاره شده و افرادی که %s را پی می‌گیرند قادر به دیدنش هستند."
+msgstr "تنها افراد نام برده و افرادی که %s را پی می‌گیرند قادر به دیدنش هستند."
 
 #. translators: the variable is the post visibility e.g. Public, Unlisted...
 #: src/Widgets/Status.vala:413
