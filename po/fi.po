@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-08-08 13:01+0000\n"
+"PO-Revision-Date: 2025-09-15 13:01+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tuba/tuba/fi/>\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -76,7 +76,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:26
 msgid "Recently Used Custom Emojis"
-msgstr ""
+msgstr "Viimeksi käytetyt mukautetut emojit"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:31
@@ -95,7 +95,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:45
 msgid "Hashtags shown on the sidebar"
-msgstr ""
+msgstr "Sivupalkissa näytettävät aihetunnisteet"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
@@ -1744,8 +1744,7 @@ msgstr "Paikallinen"
 #. translators: the variable is the amount of times a hashtag was used in a week
 #. in the composer auto-complete popup (so keep it short)
 #: src/API/Tag.vala:47
-#, fuzzy, c-format
-#| msgid "%d per week"
+#, c-format
 msgid "%d per week"
 msgid_plural "%d per week"
 msgstr[0] "%d kertaa viikossa"
@@ -3645,7 +3644,7 @@ msgstr ""
 #. by a user profile (like an avatar)
 #: src/Views/Drive.vala:188
 msgid "Used by a Profile"
-msgstr ""
+msgstr "Käytössä profiilissa"
 
 #: src/Views/Drive.vala:242
 msgid "Copy Link"
@@ -4460,7 +4459,7 @@ msgstr[1] "Sisältää %d kenttää."
 #: src/Widgets/ProfileCover.vala:496
 #, c-format
 msgid "%s has moved to %s"
-msgstr ""
+msgstr "%s on siirtynyt instanssiin %s"
 
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
