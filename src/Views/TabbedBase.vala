@@ -101,7 +101,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 		if (this.current_breakpoint != null) remove_breakpoint (this.current_breakpoint);
 		this.small = true;
-		var breakpoint = new Adw.Breakpoint (condition);
+		var breakpoint = new Adw.Breakpoint ((owned) condition);
 		breakpoint.add_setter (this, "title-stack-page-visible", true);
 		breakpoint.add_setter (switcher_bar, "reveal", true);
 		add_breakpoint (breakpoint);
