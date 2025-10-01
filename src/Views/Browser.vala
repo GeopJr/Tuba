@@ -357,6 +357,11 @@ public class Tuba.Views.Browser : Adw.Dialog {
 		}
 	}
 
+
+	public static inline bool can_handle (GLib.Uri? uri, string url) {
+		return uri == null ? can_handle_url (url) : can_handle_uri (uri);
+	}
+
 	public static bool can_handle_uri (GLib.Uri uri) {
 		return uri.get_scheme ().has_prefix ("http");
 	}

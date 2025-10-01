@@ -166,7 +166,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 
 	public void open_special_card () {
 		if (this.tuba_uri == null) {
-			open_url (this.url);
+			open_url.begin ();
 			return;
 		}
 
@@ -206,7 +206,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 					return;
 			#endif
 			default:
-				open_url (this.url);
+				open_url.begin ();
 				return;
 		}
 
@@ -232,24 +232,38 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 						}
 						break;
 					default:
-						open_url (this.url);
+						open_url.begin ();
 						break;
 				}
 			})
 			.on_error (() => {
-				open_url (this.url);
+				open_url.begin ();
 			})
 			.exec ();
 	}
 
-	private void open_url (string url) {
+	private async void open_url () {
+		if (Widgets.RichLabel.should_resolve (this.tuba_uri, this.url)) {
+			try {
+				(yield accounts.active.resolve (this.url)).open ();
+				return;
+			} catch (Error e) {
+				warning (@"Failed to resolve URL \"$(this.url)\":");
+				warning (e.message);
+			}
+		}
+
 		#if WEBKIT
-			if (settings.use_in_app_browser_if_available && Views.Browser.can_handle_url (url)) {
-				(new Views.Browser.with_url (url)).present (app.main_window);
+			if (settings.use_in_app_browser_if_available && Views.Browser.can_handle (this.tuba_uri, this.url)) {
+				(new Views.Browser.with_url (this.url)).present (app.main_window);
 				return;
 			}
 		#endif
 
-		Utils.Host.open_url.begin (url);
+		if (this.tuba_uri != null) {
+			yield Utils.Host.open_uri (this.tuba_uri);
+		} else {
+			yield Utils.Host.open_url (this.url);
+		}
 	}
 }
