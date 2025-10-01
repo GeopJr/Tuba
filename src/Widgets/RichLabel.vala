@@ -167,7 +167,7 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			warning (@"Failed to parse \"$url\": $(e.message)");
 		}
 
-		if (should_resolve_url (url)) {
+		if (should_resolve (uri, url)) {
 			accounts.active.resolve.begin (url, (obj, res) => {
 				try {
 					accounts.active.resolve.end (res).open ();
@@ -203,10 +203,26 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		}
 	}
 
+	public inline static bool should_resolve (GLib.Uri? uri, string url) {
+		return uri != null ? should_resolve_uri (uri) : should_resolve_url (url);
+	}
+
 	public static bool should_resolve_url (string url) {
 		return settings.aggressive_resolving
 			|| url.index_of_char ('@') != -1
-			|| "/user" in url;
+			|| "/users/" in url
+			|| "/notes/" in url
+			|| "/notice/" in url;
+	}
+
+	public static bool should_resolve_uri (GLib.Uri uri) {
+		if (settings.aggressive_resolving) return true;
+
+		string path = uri.get_path ();
+		return path.has_prefix ("/@")
+			|| path.has_prefix ("/users/")
+			|| path.has_prefix ("/notes/")
+			|| path.has_prefix ("/notice/");
 	}
 
 	#if WEBKIT
