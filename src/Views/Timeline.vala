@@ -48,7 +48,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	private void on_drag_update (double x, double y) {
-		if (scrolled.vadjustment.value != 0.0 || (y <= 0 && !is_pulling)) return;
+		if (scrolled.vadjustment.value != 0.0 || (y <= 15 && !is_pulling)) return;
 		is_pulling = true;
 
 		double clean_y = y;
