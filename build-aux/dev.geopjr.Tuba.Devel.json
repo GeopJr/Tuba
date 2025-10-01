@@ -1,7 +1,7 @@
 {
 	"app-id": "dev.geopjr.Tuba",
 	"runtime": "org.gnome.Platform",
-	"runtime-version": "48",
+	"runtime-version": "49",
 	"sdk": "org.gnome.Sdk",
 	"add-extensions": {
 		"org.freedesktop.Platform.ffmpeg-full": {
@@ -20,7 +20,7 @@
 		}
 	},
 	"sdk-extensions": [
-		"org.freedesktop.Sdk.Extension.llvm19"
+		"org.freedesktop.Sdk.Extension.llvm21"
 	],
 	"command": "dev.geopjr.Tuba",
 	"finish-args": [
@@ -85,8 +85,8 @@
 			"build-options": {
 				"arch": {
 					"aarch64": {
-						"append-path": "/usr/lib/sdk/llvm19/bin",
-						"prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
+						"append-path": "/usr/lib/sdk/llvm21/bin",
+						"prepend-ld-library-path": "/usr/lib/sdk/llvm21/lib",
 						"env": {
 							"CC": "clang"
 						}
@@ -110,8 +110,8 @@
 			"build-options": {
 				"arch": {
 					"aarch64": {
-						"append-path": "/usr/lib/sdk/llvm19/bin",
-						"prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
+						"append-path": "/usr/lib/sdk/llvm21/bin",
+						"prepend-ld-library-path": "/usr/lib/sdk/llvm21/lib",
 						"env": {
 							"CC": "clang"
 						}
@@ -192,8 +192,8 @@
 			"build-options": {
 				"arch": {
 					"aarch64": {
-						"append-path": "/usr/lib/sdk/llvm19/bin",
-						"prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
+						"append-path": "/usr/lib/sdk/llvm21/bin",
+						"prepend-ld-library-path": "/usr/lib/sdk/llvm21/lib",
 						"env": {
 							"CC": "clang"
 						}
