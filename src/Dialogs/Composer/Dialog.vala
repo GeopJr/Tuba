@@ -1055,7 +1055,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		}
 
 		if (this.quote_id != null) {
-			builder.set_member_name ("quote_id");
+			builder.set_member_name (accounts.active.tuba_api_versions.mastodon >= 7 ? "quoted_status_id" : "quote_id");
 			builder.add_string_value (quote_id);
 		}
 

@@ -4,6 +4,10 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		debug (@"[OBJ] Destroyed $(uri ?? "")");
 	}
 
+	public class QuoteApproval : Entity {
+		public string current_user { get; set; }
+	}
+
 	public string id { get; set; }
 	public API.Account account { get; set; }
 	public string uri { get; set; }
@@ -37,6 +41,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	public Gee.ArrayList<API.Emoji>? emojis { get; set; }
 	public API.PreviewCard? card { get; set; default = null; }
 	public Gee.ArrayList<API.Filters.FilterResult>? filtered { get; set; default = null; }
+	public QuoteApproval? quote_approval { get; set; default = null; }
+	//  public bool tuba_had_quote { get; set; default = false; } // TODO: preparation for 2-level nesting
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
@@ -189,6 +195,10 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 
 	public bool can_be_quoted {
 		get {
+			if (accounts.active.tuba_api_versions.mastodon >= 7 && this.formal.quote_approval != null) {
+				return this.formal.quote_approval.current_user != "denied";
+			}
+
 			return this.formal.visibility != "direct" && this.formal.visibility != "private" && this.formal.visibility != "local";
 		}
 	}

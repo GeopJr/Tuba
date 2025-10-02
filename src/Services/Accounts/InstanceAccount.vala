@@ -24,6 +24,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_REACTION = "reaction";
 	public const string KIND_ANNUAL_REPORT = "annual_report";
 	public const string KIND_MODERATION_WARNING = "moderation_warning";
+	public const string KIND_QUOTE = "quote";
+	public const string KIND_QUOTE_UPDATE = "quoted_update";
 
 	// Not exactly sure where I'm going with this.
 	// I don't want *all* features listed here, just
@@ -483,6 +485,24 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				result = {
 					"tuba-smile-symbolic",
 					body,
+					callback_url
+				};
+				break;
+			case KIND_QUOTE:
+				result = {
+					"tuba-quotation-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
+					_("%s quoted your post").printf (actor_name),
+					callback_url
+				};
+				break;
+			case KIND_QUOTE_UPDATE:
+				result = {
+					"tuba-quotation-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
+					_("%s edited a post you have quoted").printf (actor_name),
 					callback_url
 				};
 				break;
