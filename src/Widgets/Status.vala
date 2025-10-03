@@ -1069,7 +1069,9 @@
 		content_column.append (actions);
 
 		this.content.bold_text_regex = status.tuba_search_query_regex;
-		this.content.has_quote = status.formal.quote != null && status.formal.quote.tuba_has_quote;
+		bool has_quote = status.formal.quote != null && status.formal.quote.tuba_has_quote;
+		this.content.has_quote = has_quote;
+		//  this.content.has_quote = has_quote || status.formal.tuba_had_quote; // TODO: preparation for 2-level nesting
 		this.content.mentions = status.formal.mentions;
 		this.content.instance_emojis = status.formal.emojis_map;
 
@@ -1080,7 +1082,7 @@
 		}
 
 		if (quoted_status_btn != null) content_box.remove (quoted_status_btn);
-		if (this.content.has_quote && !is_quote) {
+		if (has_quote && !is_quote) {
 			var quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
 			quoted_status.is_quote = true;
 			quoted_status.add_css_class ("frame");

@@ -308,7 +308,13 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 								commit_boost (status_btn, reblog_visibility);
 								break;
 							case "quote":
-								bool supports_quotes = status.formal.can_be_quoted && ((accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) || InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features);
+								bool supports_quotes =
+									status.formal.can_be_quoted
+									&& (
+										(accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting)
+										|| InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features
+										|| accounts.active.tuba_api_versions.mastodon >= 7 // TODO: in next minor, move this to supports_quote_posting
+									);
 								new Dialogs.Composer.Dialog.quote (status.formal, reblog_visibility, supports_quotes);
 								status_btn.unblock_clicked ();
 								break;

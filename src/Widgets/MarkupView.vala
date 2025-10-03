@@ -284,6 +284,9 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				break;
 			case "p":
 				if (root->children == null && root->content == null) break;
+				string? classes = root->get_prop ("class");
+				if (v.has_quote && classes != null && classes.contains ("quote-inline")) break;
+
 				if (!v.chunk_ends_in_newline ()) v.write_chunk ("\n");
 				v.write_chunk ("\n");
 				traverse_and_handle (v, root, default_handler);
