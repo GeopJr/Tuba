@@ -134,48 +134,28 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	}
 
 	void setup_instance () throws Error {
-		bool skip_strict_validation = GLib.Environment.get_variable ("TUBA_SKIP_STRICT_VALIDATION") == "1";
-		debug ("Checking instance URL (strict: %s)", skip_strict_validation.to_string ());
-
 		string final_string = instance_entry.text;
 		if (!final_string.contains ("://")) final_string = @"https://$final_string";
 
-		string final_string_no_scheme = final_string;
 		try {
 			GLib.Uri instance_uri = GLib.Uri.parse (final_string, GLib.UriFlags.NONE);
-			string scheme = instance_uri.get_scheme ();
-			string host = instance_uri.get_host ();
-			int port = instance_uri.get_port ();
-			string? userinfo = instance_uri.get_userinfo ();
-
-			if (!skip_strict_validation) {
-				scheme = "https";
-				port = -1;
-				userinfo = null;
-
-				if (!host.contains (".")) {
-					throw new Error.literal (-1, 1, @"Host '$host' is missing a dot");
-				}
-			}
-
-			final_string_no_scheme = GLib.Uri.build (
+			final_string = GLib.Uri.build (
 				instance_uri.get_flags (),
-				"",
-				userinfo,
-				host,
-				port,
+				instance_uri.get_scheme (),
+				instance_uri.get_userinfo (),
+				instance_uri.get_host (),
+				instance_uri.get_port (),
 				"",
 				null,
 				null
-			).to_string ().substring (3);
-			final_string = @"$scheme://$final_string_no_scheme";
+			).to_string ();
 		} catch (Error e) {
 			warning ("Couldn't parse instance URI: %s", e.message);
 			throw new Oopsie.USER (_("Please enter a valid instance URL"));
 		}
 
 		account.instance = final_string;
-		instance_entry.text = final_string_no_scheme;
+		instance_entry.text = final_string;
 	}
 
 	async void register_client () throws Error {
