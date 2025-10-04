@@ -423,9 +423,19 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 									if (year > 0 && month > 0 && day > 0) {
 										before_expander_row.expanded = true;
-										before_calendar.year = year;
-										before_calendar.month = month;
-										before_calendar.day = day;
+
+										#if GTK_4_20_0
+											before_calendar.date = new GLib.DateTime.utc (
+												year,
+												month,
+												day,
+												0, 0 ,0
+											);
+										#else
+											before_calendar.year = year;
+											before_calendar.month = month;
+											before_calendar.day = day;
+										#endif
 									}
 								}
 							} else if (down_word.has_prefix ("during:")) {
@@ -438,9 +448,19 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 									if (year > 0 && month > 0 && day > 0) {
 										during_expander_row.expanded = true;
-										during_calendar.year = year;
-										during_calendar.month = month;
-										during_calendar.day = day;
+
+										#if GTK_4_20_0
+											during_calendar.date = new GLib.DateTime.utc (
+												year,
+												month,
+												day,
+												0, 0 ,0
+											);
+										#else
+											during_calendar.year = year;
+											during_calendar.month = month;
+											during_calendar.day = day;
+										#endif
 									}
 								}
 							} else if (down_word.has_prefix ("after:")) {
@@ -453,9 +473,19 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 									if (year > 0 && month > 0 && day > 0) {
 										after_expander_row.expanded = true;
-										after_calendar.year = year;
-										after_calendar.month = month;
-										after_calendar.day = day;
+
+										#if GTK_4_20_0
+											after_calendar.date = new GLib.DateTime.utc (
+												year,
+												month,
+												day,
+												0, 0 ,0
+											);
+										#else
+											after_calendar.year = year;
+											after_calendar.month = month;
+											after_calendar.day = day;
+										#endif
 									}
 								}
 							} else {
