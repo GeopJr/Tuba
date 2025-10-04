@@ -1,13 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
 protected class Tuba.Widgets.Cover : Gtk.Box {
-	static construct {
-		typeof (Widgets.Background).ensure ();
-		typeof (Widgets.Avatar).ensure ();
-		typeof (Widgets.RelationshipButton).ensure ();
-		typeof (Widgets.EmojiLabel).ensure ();
-		typeof (Widgets.MarkupView).ensure ();
-	}
-
 	public class MutualsButtonContent : Gtk.Box {
 		Gtk.Box avi_box;
 		Widgets.EmojiLabel emoji_label;
