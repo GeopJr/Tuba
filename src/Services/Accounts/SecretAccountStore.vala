@@ -279,9 +279,10 @@ public class Tuba.SecretAccountStore : AccountStore {
 			var secret = item.retrieve_secret_sync ();
 			var contents = secret.get_text ();
 			var parser = new Json.Parser ();
-			parser.load_from_data (contents, -1);
+			if (!parser.load_from_data (contents, -1)) return null;
 
 			var root = parser.get_root ();
+			if (root == null || root.get_node_type () != Json.NodeType.OBJECT) return null;
 			var root_obj = root.get_object ();
 
 			// HACK: Partial makeshift secret validation
