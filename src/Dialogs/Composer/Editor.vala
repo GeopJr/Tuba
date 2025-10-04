@@ -244,7 +244,8 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		status_box = new Gtk.Box (VERTICAL, 30) {
 			valign = START,
 			vexpand = true,
-			margin_bottom = 28
+			margin_bottom = 28,
+			css_classes = { "background-none" }
 		};
 
 		status_title = new Gtk.Label (_("New Post")) {
