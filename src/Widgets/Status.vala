@@ -456,7 +456,7 @@
 	}
 
 	public void on_edit (API.Status x) {
-		this.status.patch (x);
+		if (this.status != null) this.status.patch (x);
 		bind ();
 	}
 
