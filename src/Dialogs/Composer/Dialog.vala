@@ -485,7 +485,6 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		on_language_changed ();
 
 		update_remaining_chars ();
-		present (app.main_window);
 
 		scroller.vadjustment.value_changed.connect (on_vadjustment_value_changed);
 		poll_button.toggled.connect (toggle_poll_component);
@@ -521,8 +520,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			}
 		}
 
-		editor.grab_focus ();
 		unique_state = generate_unique_state ();
+		present (app.main_window);
 	}
 
 	public Dialog.reply (API.Status to, owned SuccessCallback? t_cb = null) {
