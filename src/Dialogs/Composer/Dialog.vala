@@ -524,6 +524,19 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		present (app.main_window);
 	}
 
+	private bool ensure_focus_and_vadjustment () {
+		if (editor == null) return false;
+		if (this.scroller.vadjustment.value != editor.top_margin) scroller_mapped ();
+		if (!editor.has_focus) return editor.grab_focus ();
+		return true;
+	}
+
+	public override bool grab_focus () {
+		bool base_focus = base.grab_focus ();
+		bool ensure = ensure_focus_and_vadjustment ();
+		return ensure || base_focus;
+	}
+
 	public Dialog.reply (API.Status to, owned SuccessCallback? t_cb = null) {
 		string final_visibility = to.visibility;
 		var default_visibility = API.Status.Visibility.from_string (settings.default_post_visibility);
