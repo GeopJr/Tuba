@@ -1,17 +1,139 @@
-.search.rounded {
-	border-radius: 999px;
-	padding-left: 12px;
-	padding-right: 12px;
-	padding-top: 3px;
-	padding-bottom: 3px;
+/*
+	Utility Classes
+*/
+.no-min-size {
+	min-width: 0;
+	min-height: 0;
 }
 
+.initial-font-size {
+	font-size: initial;
+}
+
+.font-bold {
+	font-weight: bold;
+}
+
+.no-shadow {
+	box-shadow: none;
+}
+
+.devel-bg {
+	background-image: cross-fade(5% -gtk-recolor(url(resource:///org/gnome/Adwaita/styles/assets/devel-symbolic.svg)), image(rgba(0,0,0,0)));
+}
+
+.italic {
+	font-style: italic;
+}
+
+.monospace {
+	font-family: monospace;
+}
+
+.no-padding {
+	padding: 0;
+}
+
+.color-yellow-4 {
+	color: var(--yellow-4);
+}
+
+.font-large {
+	font-size: large;
+}
+
+.pill-like {
+	border-radius: 9999px;
+}
+
+.background-none {
+	background: none;
+}
+
+/*
+	Overrides
+*/
 calendar, calendar>header {
 	border: none;
 }
 
 calendar>header>button, calendar>grid>label {
 	border-radius: 9px;
+}
+
+rubberband {
+	border-radius: 9px;
+}
+
+flowboxchild {
+	padding: 0;
+}
+
+video > overlay > revealer > controls {
+	padding: 12px;
+}
+
+GtkSourceAssistant {
+	background: var(--popover-bg-color);
+	padding: 8px;
+	/* border-radius of child + padding */
+	border-radius: 14px;
+}
+
+GtkSourceAssistant scrolledwindow undershoot {
+	background-image: none;
+	box-shadow: none;
+}
+
+GtkSourceAssistant scrolledwindow .cell.icon {
+	padding-left: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+GtkSourceAssistant row {
+	border-radius: 6px;
+	margin: 6px 0;
+	padding: 6px;
+}
+
+GtkSourceAssistant row:selected {
+	background: alpha(var(--accent-bg-color), .33);
+	color: currentColor;
+}
+
+GtkSourceAssistant row:first-child,
+GtkSourceAssistant row:last-child {
+	margin: 0;
+}
+
+.about .app-version{color:#fff;text-shadow:-1px -1px 0#000,1px -1px 0#000,-1px 1px 0#000,1px 1px 0#000;background:linear-gradient(150deg,#fdd81755 0,#66338b55 8.3%,#fff5 16.6%,#f4aec855 24.9%,#7bcce555 33.2%,#94551655 41.5%,#0005 49.8%,#e2201655 58.1%,#f2891755 66.4%,#efe52455 74.7%,#78b82a55 83%,#2c58a4 91.3%,#6d238055 100%);}
+.about .app-version:hover{background:radial-gradient(circle at 9.75% 50%,#0000 6.66%,#7902aa 6.7%,#0000 8.4%),conic-gradient(at 26.66% 50%,#0000 222.75deg,#ffd800 0 317.25deg,#0000 0),conic-gradient(at 33% 50%,#0000 222.75deg,white 0 317.25deg,#0000 0),conic-gradient(at 39% 50%,#0000 222.75deg,#ffa6b9 0 317.25deg,#0000 0),conic-gradient(at 45.66% 50%,#0000 222.75deg,#00d2ff 0 317.25deg,#0000 0),conic-gradient(at 52% 50%,#0000 222.75deg,#753000 0 317.25deg,#0000 0),conic-gradient(at 58.33% 50%,#0000 222.75deg,#000 0 317.25deg,#0000 0),linear-gradient(to bottom,#e40303,#e40303 16.67%,#ff8c00 16.67%,#ff8c00 33.33%,#ffed00 33.33%,#ffed00 50%,#008026 50%,#008026 66.67%,#004dff 66.67%,#004dff 83.33%,#750787 83.33%,#750787);}
+
+/*
+	Drive
+*/
+drive-item .indicator-box {
+	border-radius: 9999px;
+	padding: 6px;
+}
+
+drive-item:drop(active) {
+	border:none;
+	box-shadow: none;
+}
+
+drive-item:drop(active) image {
+	box-shadow: inset 0 0 0 1px var(--accent-color);
+	border-radius: 9px;
+}
+
+.search {
+	border-radius: 999px;
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-top: 3px;
+	padding-bottom: 3px;
 }
 
 .notifications-all.dim-enabled .can-be-dimmed {
@@ -27,32 +149,11 @@ calendar>header>button, calendar>grid>label {
 	line-height: 0.8em;
 	padding: 0.4em 5px;
 	background: var(--accent-bg-color);
-	color: @text_view_bg;
-}
-
-.no-min-size {
-	min-width: 0;
-	min-height: 0;
-}
-
-.initial-font-size {
-	font-size: initial;
+	color: @text_view_bg; /* replaceme with a var */
 }
 
 .notification-badge.no-attention {
 	background: alpha(var(--sidebar-fg-color), .4);
-}
-
-.font-bold {
-	font-weight: bold;
-}
-
-.no-shadow {
-	box-shadow: none;
-}
-
-headerbar.flat.no-title .title {
-	opacity: 0;
 }
 
 .cover-badge {
@@ -81,22 +182,6 @@ headerbar.flat.no-title .title {
 	border-radius: 6px;
 }
 
-.italic {
-	font-style: italic;
-}
-
-.monospace {
-	font-family: monospace;
-}
-
-.ttl-label-emoji-no-click:hover {
-	background: transparent;
-}
-
-.ttl-label-emoji-no-click {
-	background: transparent;
-	padding: 0;
-}
 
 .ttl-name-button {
 	padding: 0 5px;
@@ -363,6 +448,7 @@ headerbar.flat.no-title .title {
 	margin-bottom: 6px;
 }
 
+/* ??? */
 .card-spacing > *:focus-within {
 	border-radius: inherit;
 }
@@ -429,9 +515,6 @@ headerbar.flat.no-title .title {
 	padding: 12px 0;
 }
 
-.about .app-version{color:#fff;text-shadow:-1px -1px 0#000,1px -1px 0#000,-1px 1px 0#000,1px 1px 0#000;background:linear-gradient(150deg,#fdd81755 0,#66338b55 8.3%,#fff5 16.6%,#f4aec855 24.9%,#7bcce555 33.2%,#94551655 41.5%,#0005 49.8%,#e2201655 58.1%,#f2891755 66.4%,#efe52455 74.7%,#78b82a55 83%,#2c58a4 91.3%,#6d238055 100%);}
-.about .app-version:hover{background:radial-gradient(circle at 9.75% 50%,#0000 6.66%,#7902aa 6.7%,#0000 8.4%),conic-gradient(at 26.66% 50%,#0000 222.75deg,#ffd800 0 317.25deg,#0000 0),conic-gradient(at 33% 50%,#0000 222.75deg,white 0 317.25deg,#0000 0),conic-gradient(at 39% 50%,#0000 222.75deg,#ffa6b9 0 317.25deg,#0000 0),conic-gradient(at 45.66% 50%,#0000 222.75deg,#00d2ff 0 317.25deg,#0000 0),conic-gradient(at 52% 50%,#0000 222.75deg,#753000 0 317.25deg,#0000 0),conic-gradient(at 58.33% 50%,#0000 222.75deg,#000 0 317.25deg,#0000 0),linear-gradient(to bottom,#e40303,#e40303 16.67%,#ff8c00 16.67%,#ff8c00 33.33%,#ffed00 33.33%,#ffed00 50%,#008026 50%,#008026 66.67%,#004dff 66.67%,#004dff 83.33%,#750787 83.33%,#750787);}
-
 /* Composer auto completion */
 GtkSourceAssistant.completion list row {
 	padding: 6px 12px 6px 12px;
@@ -445,11 +528,9 @@ GtkSourceAssistant.completion list row {
 	text-transform: uppercase;
 }
 
-flowboxchild,
-.no-padding {
-	padding: 0;
-}
-
+/*
+	Preview and News Cards
+*/
 .preview_card {
 	padding: 0;
 }
@@ -466,12 +547,20 @@ flowboxchild,
 	border-radius: 0px 6px 6px 0px;
 }
 
-
-.bkwm-desc {
-	padding: 12px;
+.preview_card:not(.explore),
+.preview_card:not(.explore) image:not(.attachment-overlay-icon) {
+	background-color: alpha(currentColor, 0.0625);
 }
 
-video > overlay > revealer > controls {
+.preview_card:not(.explore):hover {
+	background-color: alpha(currentColor, 0.125);
+}
+
+.preview_card:not(.explore):active {
+	background-color: alpha(currentColor, 0.1625);
+}
+
+.bkwm-desc {
 	padding: 12px;
 }
 
@@ -489,6 +578,9 @@ video > overlay > revealer > controls {
 	margin-bottom: -5px;
 }
 
+/*
+	Celebrate
+*/
 .theme-disability.about .app-version{background:linear-gradient(45deg,#59595955 0,#59595955 37.5%,#cf728055 37.5%,#cf728055 42.5%,#eede7755 42.5%,#eede7755 47.5%,#e8e8e855 47.5%,#e8e8e855 52.5%,#7bc2e055 52.5%,#7bc2e055 57.5%,#3bb07d55 57.5%,#3bb07d55 62.5%,#59595955 62.5%,#59595955 100%);}
 .theme-disability.about .app-version:hover{background:linear-gradient(45deg,#595959 0,#595959 37.5%,#cf7280 37.5%,#cf7280 42.5%,#eede77 42.5%,#eede77 47.5%,#e8e8e8 47.5%,#e8e8e8 52.5%,#7bc2e0 52.5%,#7bc2e0 57.5%,#3bb07d 57.5%,#3bb07d 62.5%,#595959 62.5%,#595959 100%);}
 .theme-lesbian.about .app-version{background:linear-gradient(to bottom,#d1260155,#d1260155 20%,#ff8f4555 20%,#ff8f4555 40%,#fff5 40%,#fff5 60%,#cf559b55 60%,#cf559b55 80%,#9b1a5855 80%,#9b1a5855);}
@@ -542,10 +634,6 @@ video > overlay > revealer > controls {
 	padding: 5px;
 }
 
-.background-none {
-	background: none;
-}
-
 .profile-editor .background-none text {
 	background: none;
 }
@@ -563,10 +651,6 @@ video > overlay > revealer > controls {
 .circular-spinner {
 	border-radius: 100%;
 	padding: 3px;
-}
-
-.attention {
-	color: var(--yellow-4);
 }
 
 .ttl-view listview>row.activatable:selected:hover,
@@ -746,67 +830,12 @@ video > overlay > revealer > controls {
 	font-size: small;
 }
 
-.preview_card:not(.explore),
-.preview_card:not(.explore) image:not(.attachment-overlay-icon) {
-	background-color: alpha(currentColor, 0.0625);
-}
-
-.preview_card:not(.explore):hover {
-	background-color: alpha(currentColor, 0.125);
-}
-
-.preview_card:not(.explore):active {
-	background-color: alpha(currentColor, 0.1625);
-}
-
-GtkSourceAssistant {
-	background: var(--popover-bg-color);
-	padding: 8px;
-	/* border-radius of child + padding */
-	border-radius: 14px;
-}
-
-GtkSourceAssistant scrolledwindow undershoot {
-	background-image: none;
-	box-shadow: none;
-}
-
-GtkSourceAssistant scrolledwindow .cell.icon {
-	padding-left: 0;
-	padding-top: 0;
-	padding-bottom: 0;
-}
-
-GtkSourceAssistant row {
-	border-radius: 6px;
-	margin: 6px 0;
-	padding: 6px;
-}
-
-GtkSourceAssistant row:selected {
-	background: alpha(var(--accent-bg-color), .33);
-	color: currentColor;
-}
-
-GtkSourceAssistant row:first-child,
-GtkSourceAssistant row:last-child {
-	margin: 0;
-}
-
 .account-avatar {
 	margin-top: -30px;
 }
 
 .account-stats {
 	font-size: small;
-}
-
-.accented-color {
-	color: @accent_color;
-}
-
-.font-large {
-	font-size: large;
 }
 
 .composer-toggle-button,
@@ -881,6 +910,10 @@ list.uniform-border-color row {
 	margin-bottom: 6px;
 }
 
+
+/*
+	FediWrapped
+*/
 @keyframes annual-avi-bg {
 	0% { background-position: center 100%; }
 	100% { background-position: center 0%; }
@@ -932,6 +965,9 @@ list.uniform-border-color row {
 	background-color: var(--window-bg-color);
 }
 
+/*
+	Media Player Video/Audio controls
+*/
 .audio-controls {
 	background-color: rgba(38,38,38,0.8);
 	border-radius: 9999px;
@@ -960,10 +996,9 @@ clapper-gtk-lead-container>box {
 	padding-bottom: 28px;
 }
 
-.devel-bg {
-	background-image: cross-fade(5% -gtk-recolor(url(resource:///org/gnome/Adwaita/styles/assets/devel-symbolic.svg)), image(rgba(0,0,0,0)));
-}
-
+/*
+	DropOverlay
+*/
 dropoverlay,
 dropoverlay > overlay > :not(revealer) {
 	box-shadow: none;
@@ -974,7 +1009,9 @@ dropoverlay .status {
 	color: var(--accent-fg-color);
 }
 
-.pill-like,
+/*
+	Pill SplitButton
+*/
 splitbutton.pill {
 	border-radius: 9999px;
 }
@@ -1001,22 +1038,4 @@ splitbutton.pill:dir(ltr) > menubutton > button {
 	border-bottom-right-radius: inherit;
 }
 
-rubberband {
-	border-radius: 9px;
-}
-
-drive-item .indicator-box {
-	border-radius: 9999px;
-	padding: 6px;
-}
-
-drive-item:drop(active) {
-	border:none;
-	box-shadow: none;
-}
-
-drive-item:drop(active) image {
-	box-shadow: inset 0 0 0 1px var(--accent-color);
-	border-radius: 9px;
-}
 

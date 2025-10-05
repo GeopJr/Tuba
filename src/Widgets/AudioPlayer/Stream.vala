@@ -115,7 +115,7 @@ public class Tuba.Widgets.Audio.Stream : GLib.Object {
 		if (t_current != this.current) this.current = t_current;
 	}
 
-	uint timeout_id = -1;
+	uint timeout_id = 0;
 	construct {
 		string pipestr = "uridecodebin name=uridecodebin ! audioconvert ! audio/x-raw,channels=2 ! volume name=volume ! level name=level interval=100000000 ! autoaudiosink name=sink";
 		try {

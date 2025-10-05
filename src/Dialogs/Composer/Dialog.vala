@@ -160,7 +160,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 			if (value < 0) {
 				counter_label.add_css_class ("error");
-				counter_label.remove_css_class ("accented-color");
+				counter_label.remove_css_class ("accent");
 
 				// translators: screen reader announcement when the composer
 				//				passed the character limit. The variable is
@@ -169,7 +169,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				this.announce (_("Exceeded character limit by %lld").printf (value.abs ()), HIGH);
 			} else if (counter_label.has_css_class ("error")) {
 				counter_label.remove_css_class ("error");
-				counter_label.add_css_class ("accented-color");
+				counter_label.add_css_class ("accent");
 			}
 		}
 	}

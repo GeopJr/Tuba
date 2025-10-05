@@ -80,7 +80,7 @@
                         <property name="icon_size">1</property>
                         <property name="tooltip_text" translatable="yes">Unread</property>
                         <style>
-                          <class name="attention" />
+                          <class name="color-yellow-4" />
                         </style>
                       </object>
                     </child>

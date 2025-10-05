@@ -33,7 +33,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 				grid.can_focus = false;
 				grid.focusable = false;
 				grid.can_target = false;
-				if (open_signal != -1) this.disconnect (open_signal);
+				if (open_signal != 0) this.disconnect (open_signal);
 			}
 		}
 	}
@@ -172,7 +172,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 
 	private API.Account api_account { get; set; }
 	private string account_id = "";
-	private ulong open_signal = -1;
+	private ulong open_signal = 0;
 	public Account (API.Account account) {
 		#if !ADW_1_7_5
 			avatar.size = 100;
