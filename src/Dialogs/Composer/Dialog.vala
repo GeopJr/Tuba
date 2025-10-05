@@ -485,7 +485,6 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		on_language_changed ();
 
 		update_remaining_chars ();
-		present (app.main_window);
 
 		scroller.vadjustment.value_changed.connect (on_vadjustment_value_changed);
 		poll_button.toggled.connect (toggle_poll_component);
@@ -521,8 +520,21 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			}
 		}
 
-		editor.grab_focus ();
 		unique_state = generate_unique_state ();
+		present (app.main_window);
+	}
+
+	private bool ensure_focus_and_vadjustment () {
+		if (editor == null) return false;
+		if (this.scroller.vadjustment.value != editor.top_margin) scroller_mapped ();
+		if (!editor.has_focus) return editor.grab_focus ();
+		return true;
+	}
+
+	public override bool grab_focus () {
+		bool base_focus = base.grab_focus ();
+		bool ensure = ensure_focus_and_vadjustment ();
+		return ensure || base_focus;
 	}
 
 	public Dialog.reply (API.Status to, owned SuccessCallback? t_cb = null) {
