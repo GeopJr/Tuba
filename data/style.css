@@ -124,7 +124,7 @@ GtkSourceAssistant row {
 }
 
 GtkSourceAssistant row:selected {
-	background: alpha(var(--accent-bg-color), .33);
+	background: rgb(from var(--accent-bg-color), r g b / calc(alpha * 0.33));
 	color: currentColor;
 }
 
@@ -212,12 +212,12 @@ drive-item:drop(active) image {
 	min-height: 0.8em;
 	line-height: 0.8em;
 	padding: 0.4em 5px;
-	background: var(--accent-bg-color);
+	background-color: var(--accent-bg-color);
 	color: @text_view_bg; /* replaceme with a var */
 }
 
 .notification-badge.no-attention {
-	background: alpha(var(--sidebar-fg-color), .4);
+	background-color: rgb(from var(--sidebar-fg-color), r g b / calc(alpha * 0.4));
 }
 
 .notifications-all.dim-enabled .can-be-dimmed {
@@ -433,12 +433,12 @@ drive-item:drop(active) image {
 
 .ttl-verified-field {
 	color: var(--success-color);
-	background: alpha(var(--success-bg-color), 0.1);
+	background: rgb(from var(--success-bg-color), r g b / calc(alpha * 0.1));
 }
 
 .ttl-birthday-field {
 	color: var(--accent-pink);
-	background: alpha(var(--accent-pink), 0.1);
+	background: rgb(from var(--accent-pink), r g b / calc(alpha * 0.1));
 }
 
 .ttl-status-heading-padding {
@@ -486,11 +486,11 @@ drive-item:drop(active) image {
 }
 
 .ttl-post.direct {
-	background-color: alpha(var(--warning-bg-color), .1);
+	background-color: rgb(from var(--warning-bg-color), r g b / calc(alpha * 0.1));
 }
 
 .ttl-post.direct:hover {
-	background-color: darker(alpha(var(--warning-bg-color), .1));
+	background-color: hsl(from rgb(from var(--warning-bg-color), r g b / calc(alpha * 0.1)), h calc(s * 0.7) calc(l * 0.7));
 }
 
 .ttl-post.local {
@@ -531,15 +531,15 @@ drive-item:drop(active) image {
 
 .preview_card:not(.explore),
 .preview_card:not(.explore) image:not(.min-size-64) {
-	background-color: alpha(currentColor, 0.0625);
+	background-color: rgb(from currentColor, r g b / calc(alpha * 0.0625));
 }
 
 .preview_card:not(.explore):hover {
-	background-color: alpha(currentColor, 0.125);
+	background-color: rgb(from currentColor, r g b / calc(alpha * 0.125));
 }
 
 .preview_card:not(.explore):active {
-	background-color: alpha(currentColor, 0.1625);
+	background-color: rgb(from currentColor, r g b / calc(alpha * 0.1625));
 }
 
 .verified-author {
@@ -858,11 +858,11 @@ drive-item:drop(active) image {
 }
 
 .ttl-profile-cover.thanks {
-	background: alpha(var(--accent-bg-color), 0.1);
+	background-color: rgb(from var(--accent-bg-color), r g b / calc(alpha * 0.1));
 }
 
 .ttl-profile-cover.thanks avatar {
-	border-color: alpha(var(--accent-bg-color), 0.1);
+	border-color: rgb(from var(--accent-bg-color), r g b / calc(alpha * 0.1));
 }
 
 .ttl-profile-cover > .content {
@@ -875,7 +875,7 @@ drive-item:drop(active) image {
 }
 
 .profile-role {
-	background-color: alpha(currentColor, .1);
+	background-color: rgb(from currentColor, r g b / calc(alpha * 0.1));
 	padding: 4px 11px;
 	font-size: 12.2px;
 	font-weight: 500;
