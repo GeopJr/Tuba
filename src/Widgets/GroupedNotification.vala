@@ -84,7 +84,7 @@ public class Tuba.Widgets.GroupedNotification : Widgets.Notification {
 		var title_label = new Widgets.EmojiLabel () {
 			use_markup = false,
 			ellipsize = true,
-			css_classes = {"dim-label", "font-bold", "ttl-status-heading"}
+			css_classes = {"dim-label", "font-bold", "font-small"}
 		};
 		title_label.instance_emojis = mojis;
 		title_label.content = res_kind.description;

@@ -4,7 +4,7 @@ public class Tuba.Widgets.HashtagBar : Adw.Bin {
 	public class HashtagButton : Gtk.Button {
 		construct {
 			this.clicked.connect (on_clicked);
-			this.css_classes = { "profile-role-border-radius", "hashtag-bar-hashtag" };
+			this.css_classes = { "circular", "hashtag-bar-hashtag", "font-small" };
 		}
 
 		string tag;
@@ -48,7 +48,7 @@ public class Tuba.Widgets.HashtagBar : Adw.Bin {
 			// translators: the variable is a number. This is used in a button that shows
 			//				all post hashtags when clicked.
 			show_more = new Gtk.Button.with_label (_("Show %d More").printf (tags.length - MAX_VISIBLE_TAGS)) {
-				css_classes = { "flat", "profile-role-border-radius", "hashtag-bar-hashtag" }
+				css_classes = { "flat", "circular", "hashtag-bar-hashtag", "font-small" }
 			};
 			show_more.clicked.connect (on_clicked);
 

@@ -106,8 +106,5 @@
 				</property>
 			</object>
 		</child>
-		<style>
-			<class name="profile-editor" />
-		</style>
 	</template>
 </interface>

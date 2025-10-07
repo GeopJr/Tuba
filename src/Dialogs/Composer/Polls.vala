@@ -233,7 +233,7 @@ public class Tuba.Dialogs.Composer.Components.Polls : Gtk.Box, Attachable {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.FILL,
 			hexpand = true,
-			css_classes = {"composer-toggle-button"},
+			css_classes = {"circular"},
 			// translators: tooltip text on composer polls that toggles
 			//				whether the poll is single or multiple choice
 			tooltip_text = _("Toggle Choice Type")
@@ -247,7 +247,7 @@ public class Tuba.Dialogs.Composer.Components.Polls : Gtk.Box, Attachable {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.FILL,
 			hexpand = true,
-			css_classes = {"composer-toggle-button"},
+			css_classes = {"circular"},
 			// translators: tooltip text on composer polls that toggles
 			//				whether the poll results should be visible
 			tooltip_text = _("Toggle Results Visibility")
@@ -424,7 +424,7 @@ public class Tuba.Dialogs.Composer.Components.Polls : Gtk.Box, Attachable {
 			tooltip_text = _("Expiration"),
 			enable_search = false
 		};
-		expiration_button.add_css_class ("dropdown-border-radius");
+		expiration_button.add_css_class ("dropdown-circular");
 
 		if (expires_at != null) {
 			var date = new GLib.DateTime.from_iso8601 (expires_at, null);

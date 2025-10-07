@@ -241,7 +241,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			valign = Gtk.Align.CENTER,
 			sensitive = !this.edit_mode
 		};
-		visibility_button.add_css_class ("dropdown-border-radius");
+		visibility_button.add_css_class ("dropdown-circular");
 		visibility_button.notify["selected"].connect (visibility_changed);
 
 		var safe_visibility = accounts.active.visibility.has_key (default_visibility) ? default_visibility : "public";
@@ -277,7 +277,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			enable_search = true,
 			valign = Gtk.Align.CENTER
 		};
-		language_button.add_css_class ("dropdown-border-radius");
+		language_button.add_css_class ("dropdown-circular");
 
 		if (locale_iso != null) {
 			uint default_lang_index;

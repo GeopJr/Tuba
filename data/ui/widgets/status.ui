@@ -69,7 +69,7 @@
                         <style>
                           <class name="flat" />
                           <class name="ttl-status-heading-padding" />
-                          <class name="ttl-status-heading" />
+                          <class name="font-small" />
                         </style>
                       </object>
                     </child>

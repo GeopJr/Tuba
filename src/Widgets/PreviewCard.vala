@@ -41,7 +41,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 				overlay.add_overlay (new Gtk.Image () {
 					valign = Gtk.Align.CENTER,
 					halign = Gtk.Align.CENTER,
-					css_classes = {"osd", "circular", "attachment-overlay-icon"},
+					css_classes = {"osd", "circular", "min-size-64"},
 					icon_name = "media-playback-start-symbolic",
 					icon_size = Gtk.IconSize.LARGE
 				});
@@ -90,7 +90,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 
 			Gtk.Widget more_from_button = new Gtk.Button () {
 				halign = Gtk.Align.START,
-				css_classes = { "flat", "verified-author" }
+				css_classes = { "flat", "verified-author", "font-small" }
 			};
 
 			if (card_obj.authors.size == 1) {
@@ -118,6 +118,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 						more_from_button = verified_author_label;
 						more_from_button.add_css_class ("font-bold");
 						more_from_button.add_css_class ("verified-author");
+						more_from_button.add_css_class ("font-small");
 					} else {
 						author_url = verified_author.url;
 						((Gtk.Button) more_from_button).child = verified_author_label;

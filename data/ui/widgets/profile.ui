@@ -96,7 +96,7 @@
 						<property name="wrap-mode">word</property>
 						<property name="xalign">0</property>
 						<style>
-							<class name="account-stats" />
+							<class name="font-small" />
 						</style>
 						<layout>
 							<property name="column">0</property>

@@ -18,7 +18,7 @@
               </lookup>
             </binding>
             <style>
-              <class name="locale-dropdown-upcase"/>
+              <class name="text-uppercase"/>
             </style>
           </object>
         <!-- </child>

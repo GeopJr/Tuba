@@ -361,7 +361,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 						hexpand = true,
 						xalign = 0.0f,
 						use_markup = true,
-						css_classes = {"account-stats"},
+						css_classes = {"font-small"},
 						valign = Gtk.Align.CENTER,
 						margin_start = 12,
 						margin_end = 12,
@@ -473,7 +473,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 			foreach (API.AccountRole role in profile.roles) {
 				var role_widget = role.to_widget ();
-				role_widget.add_css_class ("profile-role-border-radius");
+				role_widget.add_css_class ("circular");
 
 				roles.append (role_widget);
 			}

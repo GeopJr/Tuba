@@ -95,7 +95,7 @@
 														<signal name="clicked" handler="on_previous_clicked" swapped="no" />
 														<style>
 															<class name="osd" />
-															<class name="media-viewer-fab" />
+															<class name="min-size-42" />
 															<class name="circular" />
 														</style>
 													</object>
@@ -107,7 +107,7 @@
 														<signal name="clicked" handler="on_next_clicked" swapped="no" />
 														<style>
 															<class name="osd" />
-															<class name="media-viewer-fab" />
+															<class name="min-size-42" />
 															<class name="circular" />
 														</style>
 													</object>
@@ -133,7 +133,7 @@
 												<signal name="clicked" handler="toggle_fullscreen" swapped="no" />
 												<style>
 													<class name="osd" />
-													<class name="media-viewer-fab" />
+													<class name="min-size-42" />
 													<class name="circular" />
 												</style>
 											</object>
@@ -161,7 +161,7 @@
 														<signal name="clicked" handler="on_zoom_out_clicked" swapped="no" />
 														<style>
 															<class name="osd" />
-															<class name="media-viewer-fab" />
+															<class name="min-size-42" />
 															<class name="circular" />
 														</style>
 													</object>
@@ -173,7 +173,7 @@
 														<signal name="clicked" handler="on_zoom_in_clicked" swapped="no" />
 														<style>
 															<class name="osd" />
-															<class name="media-viewer-fab" />
+															<class name="min-size-42" />
 															<class name="circular" />
 														</style>
 													</object>
