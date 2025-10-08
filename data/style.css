@@ -68,6 +68,7 @@
 	font-size: small;
 }
 
+.tuba-circular,
 .dropdown-circular > button {
 	border-radius: 9999px;
 }
@@ -124,17 +125,13 @@ GtkSourceAssistant row {
 }
 
 GtkSourceAssistant row:selected {
-	background: rgb(from var(--accent-bg-color), r g b / calc(alpha * 0.33));
+	background: rgb(from var(--accent-bg-color) r g b / calc(alpha * 0.33));
 	color: currentColor;
 }
 
 GtkSourceAssistant row:first-child,
 GtkSourceAssistant row:last-child {
 	margin: 0;
-}
-
-popover.mini-profile > contents {
-	padding: 0;
 }
 
 list.uniform-border-color row {
@@ -149,6 +146,13 @@ list.uniform-border-color row {
 .sourceview.reset {
 	background: transparent;
 	color: currentColor;
+}
+
+flowbox > flowboxchild:hover,
+flowbox > flowboxchild:active,
+flowbox > flowboxchild:selected:hover,
+flowbox > flowboxchild:selected:active {
+ background-color: inherit;
 }
 
 .about .app-version{color:#fff;text-shadow:-1px -1px 0#000,1px -1px 0#000,-1px 1px 0#000,1px 1px 0#000;background:linear-gradient(150deg,#fdd81755 0,#66338b55 8.3%,#fff5 16.6%,#f4aec855 24.9%,#7bcce555 33.2%,#94551655 41.5%,#0005 49.8%,#e2201655 58.1%,#f2891755 66.4%,#efe52455 74.7%,#78b82a55 83%,#2c58a4 91.3%,#6d238055 100%);}
@@ -217,7 +221,7 @@ drive-item:drop(active) image {
 }
 
 .notification-badge.no-attention {
-	background-color: rgb(from var(--sidebar-fg-color), r g b / calc(alpha * 0.4));
+	background-color: rgb(from var(--sidebar-fg-color) r g b / calc(alpha * 0.4));
 }
 
 .notifications-all.dim-enabled .can-be-dimmed {
@@ -368,8 +372,8 @@ drive-item:drop(active) image {
 	border-bottom-right-radius: 12px;
 }
 
-.small .ttl-profile-stat-button:first-child,
-.small .ttl-profile-stat-button:last-child {
+.small .ttl-profile-cover-container .ttl-profile-stat-button:first-child,
+.small .ttl-profile-cover-container .ttl-profile-stat-button:last-child {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
@@ -433,12 +437,12 @@ drive-item:drop(active) image {
 
 .ttl-verified-field {
 	color: var(--success-color);
-	background: rgb(from var(--success-bg-color), r g b / calc(alpha * 0.1));
+	background: rgb(from var(--success-bg-color) r g b / calc(alpha * 0.1));
 }
 
 .ttl-birthday-field {
 	color: var(--accent-pink);
-	background: rgb(from var(--accent-pink), r g b / calc(alpha * 0.1));
+	background: rgb(from var(--accent-pink) r g b / calc(alpha * 0.1));
 }
 
 .ttl-status-heading-padding {
@@ -475,22 +479,12 @@ drive-item:drop(active) image {
 	background-color: var(--popover-bg-color);
 }
 
-.card-spacing {
-	margin-top: 6px;
-	margin-bottom: 6px;
-}
-
-/* ??? */
-.card-spacing > *:focus-within {
-	border-radius: inherit;
-}
-
 .ttl-post.direct {
-	background-color: rgb(from var(--warning-bg-color), r g b / calc(alpha * 0.1));
+	background-color: rgb(from var(--warning-bg-color) r g b / calc(alpha * 0.1));
 }
 
 .ttl-post.direct:hover {
-	background-color: hsl(from rgb(from var(--warning-bg-color), r g b / calc(alpha * 0.1)), h calc(s * 0.7) calc(l * 0.7));
+	background-color: hsl(from rgb(from var(--warning-bg-color) r g b / calc(alpha * 0.1)) h calc(s * 0.7) calc(l * 0.7));
 }
 
 .ttl-post.local {
@@ -531,15 +525,15 @@ drive-item:drop(active) image {
 
 .preview_card:not(.explore),
 .preview_card:not(.explore) image:not(.min-size-64) {
-	background-color: rgb(from currentColor, r g b / calc(alpha * 0.0625));
+	background-color: rgb(from currentColor r g b / calc(alpha * 0.0625));
 }
 
 .preview_card:not(.explore):hover {
-	background-color: rgb(from currentColor, r g b / calc(alpha * 0.125));
+	background-color: rgb(from currentColor r g b / calc(alpha * 0.125));
 }
 
 .preview_card:not(.explore):active {
-	background-color: rgb(from currentColor, r g b / calc(alpha * 0.1625));
+	background-color: rgb(from currentColor r g b / calc(alpha * 0.1625));
 }
 
 .verified-author {
@@ -630,12 +624,26 @@ drive-item:drop(active) image {
 	border-bottom-right-radius: 12px;
 }
 
+/*
+	Timelines
+*/
 .circular-spinner {
 	border-radius: 100%;
 	padding: 3px;
 }
 
-.ttl-view listview>row.activatable:selected:hover,
+.card-spacing {
+	background-color: var(--card-bg-color);
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
+/* Focus ring */
+.card-spacing > *:focus-within {
+	border-radius: inherit;
+}
+
+/* .ttl-view listview>row.activatable:selected:hover,
 .ttl-view listview>row.activatable:hover {
 	background-color: transparent;
 }
@@ -643,75 +651,66 @@ drive-item:drop(active) image {
 .ttl-view listview>row.activatable:selected:active,
 .ttl-view listview>row.activatable:active {
 	box-shadow: none;
-}
+} */
 
 /* .ttl-view .content row:first-child { */
-.ttl-view .fake-content row:first-child {
+.ttl-view>.fake-content>row:first-child {
 	margin-top: 0px;
 }
 
 /* .ttl-view .content row:last-child { */
-.ttl-view .fake-content row:last-child {
+.ttl-view>.fake-content>row:last-child {
 	margin-bottom: 0px;
 }
 
 /* .ttl-view:not(.large-view) .content .card { */
-.ttl-view:not(.large-view) .fake-content .card,
-.ttl-view:not(.large-view) .fake-content .toggle-group-17 > toggle-group {
+.ttl-view:not(.large-view)>.fake-content>.card,
+.ttl-view:not(.large-view)>.fake-content>.toggle-group-17 > toggle-group {
 	border-left: none;
 	border-right: none;
 	border-radius: 0px;
 }
 
 /* .ttl-view:not(.large-view) .content { */
-.ttl-view:not(.large-view) .fake-content {
+.ttl-view:not(.large-view)>.fake-content {
 	padding: 0px;
-}
-
-/* .ttl-view .content row:not(.ttl-post) { */
-.ttl-view .fake-content row:not(.ttl-post):not(.toggle-group-17) {
-	padding: 0px;
-}
-
-.card-spacing {
-	background-color: var(--card-bg-color);
 }
 
 /* .ttl-view .content { */
-.ttl-view .fake-content {
+.ttl-view>.fake-content {
 	transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.ttl-view.large-view .fake-content:first-child {
+.ttl-view.large-view>.fake-content:first-child {
 	padding-top: 32px;
 }
 
-.ttl-view.large-view .fake-content:last-child {
+.ttl-view.large-view>.fake-content:last-child {
 	padding-bottom: 32px;
 }
 
 /* .ttl-view:not(.large-view) .content .card { */
-.ttl-view:not(.large-view) .fake-content .card {
+.ttl-view:not(.large-view)>.fake-content>.card {
 	border-bottom: 1px var(--border-color) solid;
 }
 
 /* .ttl-view:not(.large-view) .content .card:first-child { */
-.ttl-view:not(.large-view) .fake-content .toggle-group-17 +.card,
-.ttl-view:not(.large-view) .fake-content .card:first-child {
+.ttl-view:not(.large-view)>.fake-content>.toggle-group-17 +.card,
+.ttl-view:not(.large-view)>.fake-content>.card:first-child {
 	border-top: 1px var(--border-color) solid;
 }
 
 /* .ttl-view:not(.large-view) .content .card { */
-.ttl-view:not(.large-view) .fake-content .card {
+.ttl-view:not(.large-view)>.fake-content>.card {
 	box-shadow: none;
 }
 
 /* .ttl-view:not(.large-view) .content .card.card-spacing { */
-.ttl-view:not(.large-view) .fake-content .card.card-spacing {
+.ttl-view:not(.large-view)>.fake-content>.card.card-spacing {
 	margin: 0px;
 }
 
-.ttl-view.large-view .fake-content {
+.ttl-view.large-view>.fake-content {
 	padding-left: 0;
 	padding-right: 0;
 	margin-left: 18px;
@@ -842,9 +841,20 @@ drive-item:drop(active) image {
 	margin-top: -30px;
 }
 
+.ttl-profile-fields-box > flowboxchild {
+	border-radius: 0;
+}
+
 .ttl-profile-cover .header-image {
 	background: grey;
 	border-radius: 0;
+}
+
+.ttl-profile-cover-container,
+.ttl-profile-cover-container row,
+popover.mini-profile > .contents,
+popover.mini-profile row  {
+	padding: 0px;
 }
 
 .ttl-profile-cover .main-avi avatar,
@@ -858,11 +868,11 @@ drive-item:drop(active) image {
 }
 
 .ttl-profile-cover.thanks {
-	background-color: rgb(from var(--accent-bg-color), r g b / calc(alpha * 0.1));
+	background-color: rgb(from var(--accent-bg-color) r g b / calc(alpha * 0.1));
 }
 
 .ttl-profile-cover.thanks avatar {
-	border-color: rgb(from var(--accent-bg-color), r g b / calc(alpha * 0.1));
+	border-color: rgb(from var(--accent-bg-color) r g b / calc(alpha * 0.1));
 }
 
 .ttl-profile-cover > .content {
@@ -875,7 +885,7 @@ drive-item:drop(active) image {
 }
 
 .profile-role {
-	background-color: rgb(from currentColor, r g b / calc(alpha * 0.1));
+	background-color: rgb(from currentColor r g b / calc(alpha * 0.1));
 	padding: 4px 11px;
 	font-size: 12.2px;
 	font-weight: 500;

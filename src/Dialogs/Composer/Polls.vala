@@ -233,7 +233,7 @@ public class Tuba.Dialogs.Composer.Components.Polls : Gtk.Box, Attachable {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.FILL,
 			hexpand = true,
-			css_classes = {"circular"},
+			css_classes = {"tuba-circular"},
 			// translators: tooltip text on composer polls that toggles
 			//				whether the poll is single or multiple choice
 			tooltip_text = _("Toggle Choice Type")
@@ -247,7 +247,7 @@ public class Tuba.Dialogs.Composer.Components.Polls : Gtk.Box, Attachable {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.FILL,
 			hexpand = true,
-			css_classes = {"circular"},
+			css_classes = {"tuba-circular"},
 			// translators: tooltip text on composer polls that toggles
 			//				whether the poll results should be visible
 			tooltip_text = _("Toggle Results Visibility")

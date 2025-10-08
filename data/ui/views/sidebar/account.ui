@@ -28,7 +28,7 @@
 						<property name="pixel-size">11</property>
 						<style>
 							<class name="blue-checkmark" />
-							<class name="circular" />
+							<class name="tuba-circular" />
 						</style>
 					</object>
 				</child>

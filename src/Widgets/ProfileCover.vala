@@ -473,7 +473,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 			foreach (API.AccountRole role in profile.roles) {
 				var role_widget = role.to_widget ();
-				role_widget.add_css_class ("circular");
+				role_widget.add_css_class ("tuba-circular");
 
 				roles.append (role_widget);
 			}
@@ -564,7 +564,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 					wrap = true,
 					xalign = 0,
 					hexpand = true,
-					tooltip_text = parsed_date.format ("%F")
+					tooltip_text = parsed_date.format ("%F"),
+					selectable = true
 				};
 
 				var creation_date_time = new GLib.DateTime.from_iso8601 (profile.created_at, null);
