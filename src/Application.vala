@@ -611,7 +611,8 @@ namespace Tuba {
 
 			const string[] DEVELOPERS = {
 				"Evangelos “GeopJr” Paterakis",
-				"bleak_grey"
+				"bleak_grey",
+				"Sergey Bugaev"
 			};
 
 			const string COPYRIGHT = "© 2018-2022 bleak_grey\n© 2022 Evangelos “GeopJr” Paterakis";

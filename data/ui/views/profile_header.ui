@@ -182,6 +182,7 @@
 												<style>
 													<class name="flat" />
 													<class name="ttl-mutuals" />
+													<class name="font-small" />
 												</style>
 											</object>
 										</child>

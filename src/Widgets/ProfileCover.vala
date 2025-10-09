@@ -50,7 +50,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 				var avi = new Widgets.Avatar () {
 					account = acc,
-					size = 6
+					size = 24
 				};
 				if (i == 0) avi.add_css_class ("first-avi");
 				avi.add_css_class ("no-min-size");
@@ -361,7 +361,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 						hexpand = true,
 						xalign = 0.0f,
 						use_markup = true,
-						css_classes = {"account-stats"},
+						css_classes = {"font-small"},
 						valign = Gtk.Align.CENTER,
 						margin_start = 12,
 						margin_end = 12,
@@ -418,7 +418,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 							propagate_natural_height = true
 						}
 					};
-
+					mutuals_button.popover.add_css_class ("no-padding");
 					mutuals_button.notify["active"].connect (on_mutuals_popover);
 				}
 			})
@@ -473,7 +473,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 			foreach (API.AccountRole role in profile.roles) {
 				var role_widget = role.to_widget ();
-				role_widget.add_css_class ("profile-role-border-radius");
+				role_widget.add_css_class ("tuba-circular");
 
 				roles.append (role_widget);
 			}
@@ -564,7 +564,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 					wrap = true,
 					xalign = 0,
 					hexpand = true,
-					tooltip_text = parsed_date.format ("%F")
+					tooltip_text = parsed_date.format ("%F"),
+					selectable = true
 				};
 
 				var creation_date_time = new GLib.DateTime.from_iso8601 (profile.created_at, null);

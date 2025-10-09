@@ -82,7 +82,7 @@ public class Tuba.API.AccountRole : Entity {
 		return new Gtk.Label (name) {
 			wrap = true,
 			wrap_mode = Pango.WrapMode.WORD_CHAR,
-			css_classes = { "profile-role", "profile-role-border-radius" }
+			css_classes = { "profile-role", "tuba-circular" }
 		};
 	}
 }

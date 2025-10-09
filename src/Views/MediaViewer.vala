@@ -811,7 +811,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		if (!revealed) reset_media_viewer ();
 		scale_revealer.reveal_child = false;
 		load_and_scroll_to = -1;
-		old_pos = -1;
+		old_pos = 500;
 	}
 
 	[GtkCallback]
@@ -1226,7 +1226,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			page.zoom_in ();
 	}
 
-	private uint old_pos = -1;
+	private uint old_pos = 500;
 	private void on_carousel_page_changed (uint pos) {
 		if (old_pos == pos) return;
 		old_pos = pos;

@@ -1,9 +1,9 @@
 .ttl-profile-cover.thanks {
-	background: alpha(@accent_bg_color, 0.08);
+	background-color: rgb(from var(--accent-bg-color) r g b / calc(alpha * 0.08));
 }
 
 .ttl-profile-cover.thanks avatar {
-	border-color: alpha(@accent_bg_color, 0.08);
+	border-color: rgb(from var(--accent-bg-color) r g b / calc(alpha * 0.08));
 }
 
 .audio-controls,

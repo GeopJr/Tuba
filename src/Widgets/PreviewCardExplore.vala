@@ -92,6 +92,10 @@ public class Tuba.Widgets.PreviewCardExplore : Gtk.ListBoxRow {
 		};
 
 		if (accounts.active.tuba_api_versions.mastodon >= 1) {
+			used_times_label.margin_start =
+			used_times_label.margin_end = 6;
+			used_times_label.margin_top =
+			used_times_label.margin_bottom = 2;
 			Gtk.Button discussions_button = new Gtk.Button () {
 				margin_top = 6,
 				child = used_times_label,
@@ -105,6 +109,7 @@ public class Tuba.Widgets.PreviewCardExplore : Gtk.ListBoxRow {
 				// has padding. Looks out of place.
 				//  css_classes = { "flat" },
 			};
+			discussions_button.add_css_class ("ttl-flat-button");
 			discussions_button.clicked.connect (on_link_timeline_open);
 			box.internal_box.append (discussions_button);
 		} else {

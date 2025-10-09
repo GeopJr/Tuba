@@ -147,7 +147,7 @@
 																<style>
 																	<class name="font-bold" />
 																	<class name="numeric" />
-																	<class name="accented-color" />
+																	<class name="accent" />
 																</style>
 																<layout>
 																	<property name="column">1</property>

@@ -67,7 +67,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			};
 
 			if (media_kind != Tuba.Attachment.MediaType.AUDIO) {
-				media_icon.css_classes = { "osd", "circular", "attachment-overlay-icon" };
+				media_icon.css_classes = { "osd", "tuba-circular", "min-size-64" };
 				media_icon.icon_name = "media-playback-start-symbolic";
 			} else {
 				pic_paintable_id = pic.notify["paintable"].connect (on_audio_paintable_notify);
@@ -97,7 +97,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		if (pic.paintable == null) {
 			media_icon.css_classes = {};
 		} else {
-			media_icon.css_classes = { "osd", "circular", "attachment-overlay-icon" };
+			media_icon.css_classes = { "osd", "tuba-circular", "min-size-64" };
 		}
 		media_icon.icon_size = Gtk.IconSize.LARGE;
 	}

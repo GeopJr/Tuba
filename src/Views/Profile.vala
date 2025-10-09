@@ -194,7 +194,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 				focusable = true,
 				activatable = false,
 				child = widget_cover,
-				css_classes = { "card-spacing", "card" },
+				css_classes = { "card-spacing", "card", "ttl-profile-cover-container" },
 				overflow = Gtk.Overflow.HIDDEN
 			};
 			widget_cover.update_aria ();

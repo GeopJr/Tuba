@@ -267,7 +267,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			visible = false,
-			css_classes = { "osd", "circular", "attachment-overlay-icon" }
+			css_classes = { "osd", "tuba-circular", "min-size-64" }
 		};
 
 		overlay.add_overlay (delete_button);
