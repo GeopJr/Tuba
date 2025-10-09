@@ -138,12 +138,30 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 						_("Review your year's highlights and memorable moments on the Fediverse!")
 					)
 				);
-			default:
+			case InstanceAccount.KIND_MENTION:
+			case InstanceAccount.KIND_REBLOG:
+			case InstanceAccount.KIND_FAVOURITE:
+			case InstanceAccount.KIND_POLL:
+			case InstanceAccount.KIND_REMOTE_REBLOG:
+			case InstanceAccount.KIND_EDITED:
+			case InstanceAccount.KIND_REPLY:
+			case InstanceAccount.KIND_STATUS:
+			case InstanceAccount.KIND_PLEROMA_REACTION:
+			case InstanceAccount.KIND_REACTION:
+			case InstanceAccount.KIND_QUOTE:
+			case InstanceAccount.KIND_QUOTE_UPDATE:
 				return new Widgets.Notification (this);
+			default:
+				return create_basic_card (
+					"tuba-background-app-ghost-symbolic",
+					// translators: the variable is a string notification type
+					_("Unknown notification: %s").printf (kind),
+					false
+				);
 		}
 	}
 
-	private Gtk.Widget create_basic_card (string icon_name, string label) {
+	private Gtk.Widget create_basic_card (string icon_name, string label, bool can_open = true) {
 		var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 16) {
 			margin_top = 8,
 			margin_bottom = 8,
@@ -165,12 +183,13 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 
 		var row = new Widgets.ListBoxRowWrapper () {
 			child = box,
+			activatable = can_open
 		};
-		row.open.connect (open);
+		if (can_open) row.open.connect (open);
 		return row;
 	}
 
-	public virtual async GLib.Notification to_toast (InstanceAccount issuer, int others = 0) {
+	public virtual async GLib.Notification? to_toast (InstanceAccount issuer, int others = 0) {
 		Tuba.InstanceAccount.Kind res_kind;
 		bool should_show_buttons = issuer == accounts.active;
 
@@ -188,6 +207,8 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		}
 
 		issuer.describe_kind (kind, out res_kind, kind_actor_name, null, other_data);
+		if (res_kind.description == null) return null;
+
 		var toast = new GLib.Notification (res_kind.description);
 		if (status != null) {
 			var body = "";
