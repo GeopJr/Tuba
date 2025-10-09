@@ -136,6 +136,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 				}
 			};
 			mini_profile.add_css_class ("mini-profile");
+			mini_profile.add_css_class ("no-padding");
 			mini_profile.set_parent (this);
 			mini_profile.closed.connect (clear_mini);
 		}

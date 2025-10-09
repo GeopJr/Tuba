@@ -41,7 +41,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 				overlay.add_overlay (new Gtk.Image () {
 					valign = Gtk.Align.CENTER,
 					halign = Gtk.Align.CENTER,
-					css_classes = {"osd", "circular", "min-size-64"},
+					css_classes = {"osd", "tuba-circular", "min-size-64"},
 					icon_name = "media-playback-start-symbolic",
 					icon_size = Gtk.IconSize.LARGE
 				});

@@ -153,6 +153,10 @@ list.uniform-border-color row {
 	color: currentColor;
 }
 
+popover.no-padding > contents {
+	padding: 0;
+}
+
 flowbox > flowboxchild:hover,
 flowbox > flowboxchild:active,
 flowbox > flowboxchild:selected:hover,
@@ -188,7 +192,7 @@ drive-item:drop(active) image {
 /*
 	Search
 */
-.search {
+.search.rounded { /* .search is used on GTK widgets, avoid overriding */
 	border-radius: 999px;
 	padding-left: 12px;
 	padding-right: 12px;
@@ -785,8 +789,8 @@ drive-item:drop(active) image {
 	border-bottom-right-radius: 12px;
 }
 
-.small .ttl-profile-cover-container .ttl-profile-stat-button:first-child,
-.small .ttl-profile-cover-container .ttl-profile-stat-button:last-child {
+:not(.large-view) .ttl-profile-cover-container .ttl-profile-stat-button:first-child,
+:not(.large-view) .ttl-profile-cover-container .ttl-profile-stat-button:last-child {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
@@ -808,15 +812,14 @@ drive-item:drop(active) image {
 
 .ttl-profile-cover-container,
 .ttl-profile-cover-container row,
-popover.mini-profile > .contents,
 popover.mini-profile row  {
 	padding: 0px;
 }
 
 .ttl-profile-cover .main-avi avatar,
 .profile-editor avatar {
-	border: 6px solid var(--dialog-bg-color);
-	background: var(--dialog-bg-color);
+	border: 6px solid var(--window-bg-color);
+	background: var(--window-bg-color);
 }
 
 .large .header-image {
@@ -835,7 +838,7 @@ popover.mini-profile row  {
 	background: none;
 }
 
-.small .ttl-profile-cover>.content {
+:not(.large-view) .ttl-profile-cover>.content {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
@@ -890,6 +893,11 @@ popover.mini-profile row  {
 
 .ttl-mutuals .mutual-avi:not(.first-avi) {
 	margin-left: -6px;
+}
+
+.mutual-avi {
+	border: 2px solid var(--card-bg-color);
+	background-color: var(--card-bg-color);
 }
 
 /*

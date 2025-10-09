@@ -50,7 +50,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 				var avi = new Widgets.Avatar () {
 					account = acc,
-					size = 6
+					size = 24
 				};
 				if (i == 0) avi.add_css_class ("first-avi");
 				avi.add_css_class ("no-min-size");
@@ -418,7 +418,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 							propagate_natural_height = true
 						}
 					};
-
+					mutuals_button.popover.add_css_class ("no-padding");
 					mutuals_button.notify["active"].connect (on_mutuals_popover);
 				}
 			})

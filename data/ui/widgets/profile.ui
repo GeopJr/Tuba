@@ -154,6 +154,7 @@
 		</property>
 		<style>
 			<class name="ttl-profile-cover" />
+			<class name="ttl-profile-cover-container" />
 		</style>
 	</template>
 </interface>
