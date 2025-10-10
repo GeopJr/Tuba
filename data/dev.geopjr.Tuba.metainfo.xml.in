@@ -82,7 +82,7 @@
     <release version="0.10.3" date="2025-10-10">
       <description translate="no">
         <ul>
-            <li>Fixed pull-to-refresh spinned showing up even on tiny window drags</li>
+            <li>Fixed pull-to-refresh spinner showing up even on tiny window drags</li>
             <li>Fixed some Misskey and Pleroma links not resolving in-app</li>
             <li>Added preview card link resolving</li>
             <li>Optimized parts of the non-aggressive resolving link detection</li>
