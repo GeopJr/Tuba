@@ -79,6 +79,22 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.10.3" date="2025-10-10">
+      <description translate="no">
+        <ul>
+            <li>Fixed pull-to-refresh spinned showing up even on tiny window drags</li>
+            <li>Fixed some Misskey and Pleroma links not resolving in-app</li>
+            <li>Added preview card link resolving</li>
+            <li>Optimized parts of the non-aggressive resolving link detection</li>
+            <li>Added partial support for composing actual Mastodon quotes in the composer, Advanced Boost Dialog and for the relevant notification types</li>
+            <li>Fixed composer initial focus and scrolling position not being set under some circumstances on some machines</li>
+            <li>Refactored, optimized and cleaned up the entirety of the CSS used</li>
+            <li>Fixed minor style issues</li>
+            <li>Fixed other minor bugs and obscure crashes</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.10.2" date="2025-08-30">
       <description translate="no">
         <ul>
