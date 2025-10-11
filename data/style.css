@@ -288,8 +288,10 @@ drive-item:drop(active) image {
 }
 
 .grouped-icon {
+	--current-color-percentage: 15%;
+
 	padding: 6px;
-	background-color: color-mix(in srgb, currentColor 15%, transparent);
+	background-color: color-mix(in srgb, currentColor var(--current-color-percentage), transparent);
 	border-radius: 9999px;
 }
 
@@ -426,7 +428,10 @@ drive-item:drop(active) image {
 }
 
 .composer-attachment .alt-indicator {
-	background-color: color-mix(in srgb, color-mix(in srgb, var(--error-bg-color) 35%, white) 80%, transparent);
+	--accent-percentage: 35%;
+	--contrast-color: white;
+
+	background-color: color-mix(in srgb, color-mix(in srgb, var(--error-bg-color) var(--accent-percentage), var(--contrast-color)) 80%, transparent);
 	font-size: smaller;
 	border-radius: 6px; /* 12px (parent radius) - 6px (margin) */
 	font-weight: bold;
@@ -434,7 +439,7 @@ drive-item:drop(active) image {
 }
 
 .composer-attachment .alt-indicator.success {
-	background-color: color-mix(in srgb, color-mix(in srgb, var(--success-bg-color) 35%, white) 80%, transparent);
+	background-color: color-mix(in srgb, color-mix(in srgb, var(--success-bg-color) var(--accent-percentage), var(--contrast-color)) 80%, transparent);
 }
 
 .editor-component {
@@ -692,7 +697,8 @@ drive-item:drop(active) image {
 }
 
 .ttl-post.direct:hover {
-	background-color: hsl(from rgb(from var(--warning-bg-color) r g b / calc(alpha * 0.1)) h calc(s * 0.7) calc(l * 0.7));
+	--multiplier: 0.7;
+	background-color: hsl(from rgb(from var(--warning-bg-color) r g b / calc(alpha * 0.1)) h calc(s * var(--multiplier)) calc(l * var(--multiplier)));
 }
 
 .ttl-post.local {
@@ -700,7 +706,8 @@ drive-item:drop(active) image {
 }
 
 .ttl-post.local:hover {
-	background-color: color-mix(in srgb, color-mix(in srgb, var(--purple-1) 10%, transparent), black 1%);
+	--shade-color: black;
+	background-color: color-mix(in srgb, color-mix(in srgb, var(--purple-1) 10%, transparent), var(--shade-color) 1%);
 }
 
 .ttl-status-heading-padding {
@@ -827,11 +834,13 @@ popover.mini-profile row  {
 }
 
 .ttl-profile-cover.thanks {
-	background-color: rgb(from var(--accent-bg-color) r g b / calc(alpha * 0.1));
+	--alpha-multiplier: 0.1;
+
+	background-color: rgb(from var(--accent-bg-color) r g b / calc(alpha * var(--alpha-multiplier)));
 }
 
 .ttl-profile-cover.thanks avatar {
-	border-color: rgb(from var(--accent-bg-color) r g b / calc(alpha * 0.1));
+	border-color: rgb(from var(--accent-bg-color) r g b / calc(alpha * var(--alpha-multiplier)));
 }
 
 .ttl-profile-cover > .content {
@@ -979,7 +988,9 @@ popover.mini-profile row  {
 	Media Player Video/Audio controls
 */
 .audio-controls {
-	background-color: rgba(38,38,38,0.8);
+	--alpha: 0.8;
+
+	background-color: rgba(38,38,38,var(--alpha));
 	border-radius: 9999px;
 	padding: 2px;
 }
@@ -993,10 +1004,10 @@ clapper-gtk-lead-container>box {
 }
 .audio-controls>button:hover,
 .audio-controls>button:checked {
-	background-color: rgba(63,63,63,0.8);
+	background-color: rgba(63,63,63,var(--alpha));
 }
 .audio-controls>button:active {
-	background-color: rgba(82,82,82,0.8);
+	background-color: rgba(82,82,82,var(--alpha));
 }
 .audio-controls>scalebutton>button {
 	border-radius: 9999px;
@@ -1073,3 +1084,113 @@ splitbutton.pill:dir(ltr) > menubutton > button {
 .theme-intersex.about .app-version:hover{background:radial-gradient(closest-side circle at center,#ffd800 44%,#7902aa 44%,#7902aa 56%,#ffd800 56%);}
 .theme-autism.about .app-version{background:linear-gradient(to bottom,#e5304355,#e5304355 16.66%,#f6834755 16.66%,#f6834755 33.33%,#fac85755 33.33%,#fac85755 66.67%,#99d67155 66.67%,#99d67155 83.33%,#21ae7555 83.33%,#21ae7555);}
 .theme-autism.about .app-version:hover{background:linear-gradient(to bottom,#e53043,#e53043 16.66%,#f68347 16.66%,#f68347 33.33%,#fac857 33.33%,#fac857 66.67%,#99d671 66.67%,#99d671 83.33%,#21ae75 83.33%,#21ae75);}
+
+/*
+	Media Queries
+*/
+@media (prefers-color-scheme: dark) {
+	/* wait for light-dark() */
+	.grouped-icon.star,
+	.ttl-status-action-star:hover,
+	.ttl-status-action-star.enabled {
+		color: var(--yellow-1);
+	}
+
+	.ttl-status-action-star:active {
+		color: var(--yellow-2);
+	}
+
+	.grouped-icon.reblog,
+	.ttl-status-action-reblog:hover,
+	.ttl-status-action-reblog.enabled {
+		color: var(--purple-1);
+	}
+
+	.ttl-status-action-reblog:active {
+		color: var(--purple-2);
+	}
+
+	.grouped-icon.follow,
+	.ttl-status-action-reply:hover,
+	.ttl-status-action-reply.enabled {
+		color: var(--green-1);
+	}
+
+	.ttl-status-action-reply:active {
+		color: var(--green-2);
+	}
+
+	.grouped-icon.sign-up,
+	.ttl-status-action-heart:hover,
+	.ttl-status-action-heart.enabled,
+	.ttl-status-action-bookmark:hover,
+	.ttl-status-action-bookmark.enabled {
+		color: var(--red-1);
+	}
+
+	.ttl-status-action-heart:active,
+	.ttl-status-action-bookmark:active {
+		color: var(--red-2);
+	}
+
+	.ttl-status-action-quote:hover,
+	.ttl-status-action-quote.enabled {
+		color: var(--blue-1);
+	}
+
+	.ttl-status-action-quote:active {
+		color: var(--blue-2);
+	}
+
+	.ttl-post.direct:hover {
+		--multiplier: 1.3;
+	}
+
+	.ttl-post.local:hover {
+		--shade-color: white;
+	}
+
+	.ttl-darken-images avatar:not(:hover), .ttl-darken-images picture:not(:hover) {
+		filter: brightness(.8) contrast(1.2);
+	}
+
+	.composer-attachment .alt-indicator {
+		--accent-percentage: 50%;
+		--contrast-color: black;
+	}
+
+	.composer-attachment .alt-indicator.success {
+		--accent-percentage: 40%;
+	}
+}
+
+@media (prefers-contrast: more) {
+	.ttl-profile-cover.thanks {
+		--alpha-multiplier: 0.08;
+	}
+
+	.grouped-icon {
+		--current-color-percentage: 5%;
+	}
+
+	.grouped-icon,
+	.composer-attachment,
+	.composer-attachment .alt-indicator,
+	.audio-controls,
+	clapper-gtk-lead-container>box {
+		box-shadow: inset 0 0 0 1px var(--border-color);
+	}
+
+	.composer-attachment .alt-indicator {
+		background-color: var(--window-bg-color);
+		color: var(--window-fg-color);
+	}
+
+	clapper-gtk-lead-container>box {
+		background-color: rgba(38,38,38,1);
+	}
+
+	.audio-controls {
+		--alpha: 1;
+	}
+}
