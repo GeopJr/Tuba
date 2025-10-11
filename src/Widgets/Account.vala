@@ -174,9 +174,6 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 	private string account_id = "";
 	private ulong open_signal = 0;
 	public Account (API.Account account) {
-		#if !ADW_1_7_5
-			avatar.size = 100;
-		#endif
 		account_id = account.id;
 		open.connect (account.open);
 		background.clicked.connect (account.open);

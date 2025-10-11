@@ -361,19 +361,6 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		pop_subpage ();
 	}
 
-	// https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/8477
-	// I don't think it will be backported to 4.18, so this is a
-	// HACK: queue allocate the placeholder's parent
-	// 		 (textviewchild) so it stays in place while scrolling.
-	// NOTE: doesn't seem to work all the time, a full resize is
-	//		 needed
-	#if !GTK_4_19_1
-		public override void size_allocate (int width, int height, int baseline) {
-			base.size_allocate (width, height, baseline);
-			if (placeholder.visible) placeholder.get_parent ().queue_allocate ();
-		}
-	#endif
-
 	// HACK: we need the default dialog size to be wider
 	//		 but still follow the content, so let's set
 	//		 the nat width to this

@@ -72,8 +72,8 @@ i18n = import('i18n')
 gstreamer = false
 webkit = false
 gexiv2 = false
-gtk_dep = dependency('gtk4', version: '>=4.18', required: true)
-libadwaita_dep = dependency('libadwaita-1', version: '>=1.7', required: true)
+gtk_dep = dependency('gtk4', version: '>=4.19', required: true)
+libadwaita_dep = dependency('libadwaita-1', version: '>=1.8', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
 libspelling = dependency('libspelling-1', required: get_option('spelling'))
@@ -90,10 +90,6 @@ endif
 
 if libspelling.found ()
   add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
-endif
-
-if libadwaita_dep.version().version_compare('>=1.7.5')
-  add_project_arguments(['--define=ADW_1_7_5'], language: 'vala')
 endif
 
 if gtksourceview_dep.version().version_compare('>=5.7.1')
@@ -120,10 +116,6 @@ endif
 if webkit_dep.found ()
   add_project_arguments(['--define=WEBKIT'], language: 'vala')
   webkit = true
-endif
-
-if gtk_dep.version().version_compare('>=4.19.1')
-  add_project_arguments(['--define=GTK_4_19_1'], language: 'vala')
 endif
 
 if meson.get_compiler('vala').version().version_compare('>=0.56.19')
