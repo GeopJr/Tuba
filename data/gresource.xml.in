@@ -109,43 +109,43 @@
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Collision.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Turntable.svg</file>
 
-        <file>gtk/help-overlay.ui</file>
-        <file>gtk/dropdown/content_type_title.ui</file>
-        <file>gtk/dropdown/content_type.ui</file>
-        <file>gtk/dropdown/icon.ui</file>
-        <file>gtk/dropdown/full.ui</file>
-        <file>gtk/dropdown/language_title.ui</file>
-        <file>gtk/dropdown/language.ui</file>
-        <file>gtk/dropdown/expiration_title.ui</file>
-        <file>gtk/dropdown/expiration.ui</file>
+        <file preprocess="xml-stripblanks" alias="shortcuts-dialog.ui">gtk/shortcuts-dialog.ui</file>
+        <file preprocess="xml-stripblanks">gtk/dropdown/content_type_title.ui</file>
+        <file preprocess="xml-stripblanks">gtk/dropdown/content_type.ui</file>
+        <file preprocess="xml-stripblanks">gtk/dropdown/icon.ui</file>
+        <file preprocess="xml-stripblanks">gtk/dropdown/full.ui</file>
+        <file preprocess="xml-stripblanks">gtk/dropdown/language_title.ui</file>
+        <file preprocess="xml-stripblanks">gtk/dropdown/language.ui</file>
+        <file preprocess="xml-stripblanks">gtk/dropdown/expiration_title.ui</file>
+        <file preprocess="xml-stripblanks">gtk/dropdown/expiration.ui</file>
 
-        <file>ui/views/base.ui</file>
-        <file>ui/views/media_viewer.ui</file>
-        <file>ui/views/profile_header.ui</file>
-        <file>ui/views/sidebar/view.ui</file>
-        <file>ui/views/sidebar/account.ui</file>
-        <file>ui/views/sidebar/item.ui</file>
-        <file>ui/widgets/audiocontrols.ui</file>
-        <file>ui/widgets/bookwyrmpage.ui</file>
-        <file>ui/widgets/announcement.ui</file>
-        <file>ui/widgets/status.ui</file>
-        <file>ui/widgets/votebox.ui</file>
-        <file>ui/widgets/preview_card.ui</file>
-        <file>ui/widgets/preview_card_internal.ui</file>
-        <file>ui/widgets/preview_card_explore.ui</file>
-        <file>ui/widgets/profile.ui</file>
-        <file>ui/dialogs/admin_dashboard.ui</file>
-        <file>ui/dialogs/list_edit.ui</file>
-        <file>ui/dialogs/advanced_search.ui</file>
-        <file>ui/dialogs/new_account.ui</file>
-        <file>ui/dialogs/composer.ui</file>
-        <file>ui/dialogs/notification_settings.ui</file>
-        <file>ui/dialogs/main.ui</file>
-        <file>ui/dialogs/preferences.ui</file>
-        <file>ui/dialogs/profile_edit.ui</file>
-        <file>ui/dialogs/filter_edit.ui</file>
-        <file>ui/dialogs/schedule.ui</file>
-        <file>ui/menus.ui</file>
+        <file preprocess="xml-stripblanks">ui/views/base.ui</file>
+        <file preprocess="xml-stripblanks">ui/views/media_viewer.ui</file>
+        <file preprocess="xml-stripblanks">ui/views/profile_header.ui</file>
+        <file preprocess="xml-stripblanks">ui/views/sidebar/view.ui</file>
+        <file preprocess="xml-stripblanks">ui/views/sidebar/account.ui</file>
+        <file preprocess="xml-stripblanks">ui/views/sidebar/item.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/audiocontrols.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/bookwyrmpage.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/announcement.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/status.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/votebox.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/preview_card.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/preview_card_internal.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/preview_card_explore.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/profile.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/admin_dashboard.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/list_edit.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/advanced_search.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/new_account.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/composer.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/notification_settings.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/main.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/preferences.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/profile_edit.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/filter_edit.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/schedule.ui</file>
+        <file preprocess="xml-stripblanks">ui/menus.ui</file>
     </gresource>
     <gresource prefix="/org/gnome/gtksourceview/language-specs">
       <file preprocess="xml-stripblanks" alias="fedi-basic.lang">langs/fedi-basic.lang</file>
