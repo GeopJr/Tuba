@@ -945,7 +945,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		sent_notifications.set (id, others);
 
 		obj.to_toast.begin (this, others, (_obj, res) => {
-			app.send_notification (id, obj.to_toast.end (res));
+			GLib.Notification? notification = obj.to_toast.end (res);
+			if (notification != null) app.send_notification (id, notification);
 		});
 	}
 
