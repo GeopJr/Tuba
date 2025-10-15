@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-08-14 06:02+0000\n"
+"PO-Revision-Date: 2025-10-15 17:07+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -308,6 +308,9 @@ msgid ""
 "If you copy the link to a post that is not publicly accessible, Tuba will "
 "warn you that people might not be able to view the post the link points to"
 msgstr ""
+"Als u de link kopieert naar een bericht dat niet openbaar toegankelĳk is, "
+"waarschuwt Tuba u dat mensen het bericht waarnaar de link verwĳst mogelĳk "
+"niet kunnen bekĳken."
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
@@ -320,6 +323,8 @@ msgid ""
 "The last state of the spellchecker in the composer, can be toggled by right "
 "clicking"
 msgstr ""
+"De laatste staat van de spellings­controle in de opsteller; deze kan worden "
+"in- of uit­geschakeld door met de rechter­muisknop te klikken"
 
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:14
 msgid "Darken Images on Dark Mode"
@@ -331,6 +336,8 @@ msgid ""
 "Images will be darker when dark mode is enabled and gain their full "
 "brightness when hovered"
 msgstr ""
+"Afbeeldingen worden donkerder wanneer de donkere modus is ingeschakeld en "
+"krĳgen hun volledige helder­heid wanneer ze worden aan­gewezen"
 
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/dev.geopjr.Tuba.gschema.xml:192 data/ui/dialogs/preferences.ui:20
@@ -345,11 +352,13 @@ msgstr "Meldingen zoals favorieten en boosts zullen minder zichtbaar zĳn"
 #: data/dev.geopjr.Tuba.gschema.xml:198
 msgid "The last volume value used in the media viewer for videos and audio"
 msgstr ""
+"De laatste volume­waarde die in de media­weergave is gebruikt voor video's "
+"en audio"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:203
 msgid "Monitor Network Changes"
-msgstr ""
+msgstr "Netwerk­wĳzigingen bĳhouden"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:205
@@ -357,6 +366,8 @@ msgid ""
 "When the network disconnects and reconnects Tuba will detect it and "
 "gracefully recover"
 msgstr ""
+"Wanneer het netwerk de verbinding verbreekt en opnieuw verbinding maakt, zal "
+"Tuba dit detecteren en op een elegante manier herstellen"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:210
@@ -1828,7 +1839,7 @@ msgstr "Doneren"
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
 msgid "Archives"
-msgstr ""
+msgstr "Archives"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
@@ -1837,7 +1848,7 @@ msgstr ""
 #. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 #: src/Application.vala:645
 msgid "Calligraphy"
-msgstr ""
+msgstr "Calligraphy"
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
@@ -1846,7 +1857,7 @@ msgstr ""
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
 msgid "Collision"
-msgstr ""
+msgstr "Collision"
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
@@ -1855,7 +1866,7 @@ msgstr ""
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 #: src/Application.vala:649
 msgid "Turntable"
-msgstr ""
+msgstr "Turntable"
 
 #: src/Application.vala:649
 msgid "Scrobble your music"
@@ -2355,7 +2366,7 @@ msgstr "%s wrapped opgeslagen"
 #. translators: title on the composer alt text editor dialog
 #: src/Dialogs/Composer/AttachmentsBin.vala:88
 msgid "Attachment Editor"
-msgstr ""
+msgstr "Bĳlage­bewerker"
 
 #. translators: placeholder shown in the composer alt text editor text area
 #: src/Dialogs/Composer/AttachmentsBin.vala:115
@@ -2367,7 +2378,7 @@ msgstr ""
 #. composer alt text editor
 #: src/Dialogs/Composer/AttachmentsBin.vala:148
 msgid "Remaining Characters"
-msgstr ""
+msgstr "Resterende tekens"
 
 #. translators: toast shown when saving alt text and focus position in the composer
 #: src/Dialogs/Composer/AttachmentsBin.vala:186
@@ -2410,19 +2421,19 @@ msgstr "Bĳlage verwĳderen"
 #. to translate, leave it as just "Edit"
 #: src/Dialogs/Composer/Attachment.vala:247
 msgid "Edit Metadata"
-msgstr ""
+msgstr "Meta­gegevens bewerken"
 
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:307
 #: src/Dialogs/Composer/Attachment.vala:672
 msgid "Media Attachment"
-msgstr ""
+msgstr "Media­bĳlage"
 
 #. translators: screen reader announcement when the user
 #. deletes attachments in the composer
 #: src/Dialogs/Composer/Attachment.vala:325
 msgid "Deleted Attachment"
-msgstr ""
+msgstr "Bĳlage verwĳderd"
 
 #. translators: screen reader announcement when the composer
 #. successfully uploads an attachment
@@ -2444,7 +2455,7 @@ msgstr "Concept­bericht opslaan"
 #. translators: 'Schedule' is a verb; entry in composer post menu
 #: src/Dialogs/Composer/Dialog.vala:52
 msgid "Schedule Post…"
-msgstr ""
+msgstr "Bericht inplannen…"
 
 #. translators: screen reader announcement when the composer
 #. passed the character limit. The variable is
@@ -2476,7 +2487,7 @@ msgstr "Bericht­taal"
 #. https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
 #: src/Dialogs/Composer/Dialog.vala:384 src/Widgets/Status.vala:1137
 msgid "Local Only"
-msgstr ""
+msgstr "Enkel lokaal"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:414
@@ -4535,7 +4546,7 @@ msgstr "Gepland voor %s"
 
 #: src/Widgets/ScheduledStatus.vala:155
 msgid "Reschedule Post"
-msgstr ""
+msgstr "Bericht opnieuw plannen"
 
 #. translators: the variable is an error
 #: src/Widgets/ScheduledStatus.vala:187
