@@ -466,8 +466,8 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 			var attachment = new Composer.Components.Attachment ();
 			attachment.upload_error.connect (on_upload_error);
 			attachment.notify["done"].connect (on_attachment_done);
-			attachment.upload.begin (file13);
 			add_attachment (attachment);
+			attachment.upload.begin (file13);
 		}
 	}
 
