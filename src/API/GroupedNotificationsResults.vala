@@ -28,8 +28,26 @@ public class Tuba.API.GroupedNotificationsResults : Entity {
 				case InstanceAccount.KIND_FOLLOW:
 				case InstanceAccount.KIND_ADMIN_SIGNUP:
 					return create_basic_card ();
-				default:
+				case InstanceAccount.KIND_MENTION:
+				case InstanceAccount.KIND_REBLOG:
+				case InstanceAccount.KIND_FAVOURITE:
+				case InstanceAccount.KIND_POLL:
+				case InstanceAccount.KIND_FOLLOW_REQUEST:
+				case InstanceAccount.KIND_REMOTE_REBLOG:
+				case InstanceAccount.KIND_EDITED:
+				case InstanceAccount.KIND_REPLY:
+				case InstanceAccount.KIND_SEVERED_RELATIONSHIPS:
+				case InstanceAccount.KIND_ADMIN_REPORT:
+				case InstanceAccount.KIND_STATUS:
+				case InstanceAccount.KIND_PLEROMA_REACTION:
+				case InstanceAccount.KIND_REACTION:
+				case InstanceAccount.KIND_ANNUAL_REPORT:
+				case InstanceAccount.KIND_MODERATION_WARNING:
+				case InstanceAccount.KIND_QUOTE:
+				case InstanceAccount.KIND_QUOTE_UPDATE:
 					return new Widgets.GroupedNotification (this);
+				default:
+					return base.to_widget ();
 			}
 		}
 
