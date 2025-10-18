@@ -164,7 +164,14 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 	}
 
 	void on_bio_text_changed () {
-		var valid = bio_text_view.buffer.get_char_count () <= 500;
+		string replaced_urls = Utils.Tracking.cleanup_content_with_uris (
+			bio_text_view.buffer.text,
+			Utils.Tracking.extract_uris (bio_text_view.buffer.text),
+			Utils.Tracking.CleanupType.SPECIFIC_LENGTH,
+			accounts.active.instance_info.compat_status_characters_reserved_per_url
+		);
+		string replaced_mentions = Utils.Counting.replace_mentions (replaced_urls);
+		var valid = Utils.Counting.chars (replaced_mentions) <= 500;
 		Tuba.toggle_css (bio_row, !valid, "error");
 	}
 
