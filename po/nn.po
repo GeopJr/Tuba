@@ -1,0 +1,4845 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-24 14:23+0300\n"
+"PO-Revision-Date: 2025-10-19 19:03+0200\n"
+"Last-Translator: Sunniva Løvstad <turtle@turtle.garden>\n"
+"Language-Team: \n"
+"Language: nn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+
+#: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
+msgid "Tuba"
+msgstr "Tuba"
+
+#: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:7
+msgid "Browse the Fediverse"
+msgstr "Prat med vener på allheimen"
+
+#: data/dev.geopjr.Tuba.desktop.in:5
+msgid "Fediverse Client"
+msgstr "Allheimsklient"
+
+#: data/dev.geopjr.Tuba.desktop.in:10
+msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
+msgstr "tut;mastodon;allheimen;gotosocial;pleroma;akkoma;"
+
+#: data/dev.geopjr.Tuba.metainfo.xml.in:9
+msgid ""
+"Explore the federated social web with Tuba for GNOME. Stay connected to your "
+"favorite communities, family and friends with support for popular Fediverse "
+"platforms like Mastodon, GoToSocial, Akkoma & more!"
+msgstr ""
+"Ble gjennom det fødererte sosiale netet med Tuba for GNOME. Hald kontakt med "
+"yndlingssamfunna, ætta og venene dine med støtte for populære "
+"allheimsplattformer som Mastodon, GoToSocial, Akkoma og fleire!"
+
+#: data/dev.geopjr.Tuba.metainfo.xml.in:12
+msgid ""
+"The Fediverse is a decentralized social network that consists of multiple "
+"interconnected platforms and communities, allowing users to communicate and "
+"share content across different networks and servers. It promotes user "
+"privacy and data ownership, and offers an alternative to centralized social "
+"media platforms."
+msgstr ""
+"Allheimen (på engelsk «Fediverse») er eit desentralisert sosialt netverk som "
+"er utgjort av fleire sambundne plattformer og samfunn, som tillèt brukarar å "
+"kommunisera og dela innhald på tvers av fleire netverk og tenarar. Han "
+"fremjar brukarpersonvern og dataeigarskap, og tilbyd eit alternativ til "
+"sentraliserte sosiale medium."
+
+#: data/dev.geopjr.Tuba.gschema.xml:12 data/ui/dialogs/preferences.ui:135
+msgid "Default Post Visibility"
+msgstr "Standard innleggssynlegdom"
+
+#: data/dev.geopjr.Tuba.gschema.xml:16 data/ui/dialogs/preferences.ui:154
+msgid "Default Post Content Type"
+msgstr "Standard innleggsinnhaldstype"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:21
+msgid "Muted Push Notification Types"
+msgstr "Dempa skrivebordsvarseltypar"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:26
+msgid "Recently Used Custom Emojis"
+msgstr "Nyleg nøytte eigendefinerte kjensleteikn"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:31
+msgid "Recent Search Queries"
+msgstr "Nylege søk"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:36
+msgid "Filtered-out Notification Types"
+msgstr "Utfiltrerte varseltypar"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:41
+msgid "IDs of Lists shown on the sidebar"
+msgstr "ID-ar av lister synte i sidefeltet"
+
+#: data/dev.geopjr.Tuba.gschema.xml:45
+msgid "Hashtags shown on the sidebar"
+msgstr "Emneknaggar synte i sidefeltet"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:50
+msgid "Account Suggestions"
+msgstr "Kontoframlegg"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:52
+msgid ""
+"Whether account suggestions should be shown in the Home tab when the user "
+"doesn't follow enough people"
+msgstr ""
+"Om kontoframlegg skal synast i Heim-fana når brukaren ikkje fylgjer nok folk"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:60
+msgid "Active Account"
+msgstr "Aktiv konto"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:62
+msgid "The UUID of the active account"
+msgstr "UUID-en til den aktive kontoen"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:67
+msgid "The default color scheme"
+msgstr "Standardfargeskjema"
+
+#: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
+msgid "Run in Background"
+msgstr "Køyr i bakgrunnen"
+
+#: data/dev.geopjr.Tuba.gschema.xml:72 data/ui/dialogs/preferences.ui:117
+msgid "Fetch notifications while the app is closed"
+msgstr "Hent varsel medan appen er attlaten"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:77
+msgid "Posts per Load Batch"
+msgstr "Innlegg per innlastingsgruppe"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:79
+msgid ""
+"The amount of posts that should be displayed on every scroll on timelines "
+"(10-40)"
+msgstr ""
+"Mengd på innlegg som skal lastast inn på kvar skrolling på tidslinjer (10–40)"
+
+#: data/dev.geopjr.Tuba.gschema.xml:83 data/ui/dialogs/preferences.ui:168
+msgid "Stream Timelines"
+msgstr "Strøym tidslinjer"
+
+#: data/dev.geopjr.Tuba.gschema.xml:84 data/ui/dialogs/preferences.ui:169
+msgid "Receive new posts and notifications in real-time"
+msgstr "Tak imot nye innlegg og varsel i sanntid"
+
+#: data/dev.geopjr.Tuba.gschema.xml:88 data/ui/dialogs/preferences.ui:175
+msgid "Stream Public Timelines"
+msgstr "Strøym offentlege tidslinjer"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:90
+msgid ""
+"Public means the local and federated ones that usually have a lot of traffic"
+msgstr ""
+"Offentleg tyder dei lokale og fødererte som vanlegvis har mykje aktivitet"
+
+#: data/dev.geopjr.Tuba.gschema.xml:94 data/ui/dialogs/preferences.ui:72
+msgid "Reveal Spoilers by Default"
+msgstr "Vid ut innlegg med innhaldsåtvaringar som standard"
+
+#: data/dev.geopjr.Tuba.gschema.xml:98 data/ui/dialogs/preferences.ui:77
+msgid "Show Link Preview Cards"
+msgstr "Syn lenkjeførehandsvisningskort"
+
+#: data/dev.geopjr.Tuba.gschema.xml:102 data/ui/dialogs/preferences.ui:31
+msgid "Large Text"
+msgstr "Stor tekst"
+
+#: data/dev.geopjr.Tuba.gschema.xml:103 data/ui/dialogs/preferences.ui:32
+msgid "Increase the size of text in posts"
+msgstr "Auk storleiken på tekst i innlegg"
+
+#: data/dev.geopjr.Tuba.gschema.xml:107 data/ui/dialogs/preferences.ui:37
+msgid "Large Line Height"
+msgstr "Høg linjehøgd"
+
+#: data/dev.geopjr.Tuba.gschema.xml:108 data/ui/dialogs/preferences.ui:38
+msgid "Increase the line height in posts"
+msgstr "Auk linjehøgda i innlegg"
+
+#: data/dev.geopjr.Tuba.gschema.xml:112 data/ui/dialogs/preferences.ui:43
+msgid "Scale Custom Emojis on Hover"
+msgstr "Forstørr eigendefinerte kjensleteikn"
+
+#: data/dev.geopjr.Tuba.gschema.xml:113
+msgid "lightly increases the size of custom emojis when you hover over them"
+msgstr ""
+"auker storleiken på eigendefinerte kjensleteikn når muspeikaren sit ovanfor "
+"dei"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:118
+msgid "Aggressive User Resolving"
+msgstr "Aggressiv brukarløysing"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:120
+msgid ""
+"When clicking on a link, Tuba will ask your instance to resolve it to see if "
+"it leads to a user or a post regardless if it matches the typical post and "
+"user URLs"
+msgstr ""
+"Når du klikkar på ei lenkje, skal Tuba spørja tenaren din om å løysa han for "
+"å sjå om ho leier til ein brukar eller eit innlegg same om ho samsvarar med "
+"vanleg innleggs- og brukar-URL-ar"
+
+#: data/dev.geopjr.Tuba.gschema.xml:124 data/ui/dialogs/preferences.ui:99
+msgid "Strip Tracking Parameters From Links"
+msgstr "Tak sporingsleder bort frå lenkjer"
+
+#. translators: Broken as in incorrect
+#: data/dev.geopjr.Tuba.gschema.xml:125 data/ui/dialogs/preferences.ui:101
+msgid "This option can lead to broken links when enabled"
+msgstr "Dette valet kan leia til range lenkjer om påslege"
+
+#. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
+#: data/dev.geopjr.Tuba.gschema.xml:129 data/ui/dialogs/preferences.ui:60
+msgid "Letterbox Media"
+msgstr "Ikkje avskjer medium"
+
+#. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
+#: data/dev.geopjr.Tuba.gschema.xml:130 data/ui/dialogs/preferences.ui:62
+msgid ""
+"Scale down and letterbox media to fill the image containers instead of "
+"stretching and cropping them"
+msgstr "Minkar medium slik at dei passar i sin heilskap inn i mediumsramma"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; expand as in enlarge
+#: data/dev.geopjr.Tuba.gschema.xml:135
+msgid "Expand Pictures in Media Viewer"
+msgstr "Vid ut bilete i biletesynar"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; expand as in enlarge
+#: data/dev.geopjr.Tuba.gschema.xml:137
+msgid "Expand pictures to fill the media viewer by default"
+msgstr "Vid ut bilete for å fylla biletesynaren som standard"
+
+#: data/dev.geopjr.Tuba.gschema.xml:141 data/ui/dialogs/preferences.ui:26
+msgid "Large Custom Emojis"
+msgstr "Store eigendefinerte kjensleteikn"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; leave this as is unless you want to transliterate. BlurHash is a recognizable product name.
+#: data/dev.geopjr.Tuba.gschema.xml:146
+msgid "BlurHash"
+msgstr "BlurHash"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:148
+msgid "Show a blurred version of the media until they fully load"
+msgstr "Syn ei uskarp utgåva av medium til dei vert fullt lasta inn"
+
+#: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
+msgid "Reveal Sensitive Media by Default"
+msgstr "Syn gøymde medium som standard"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:157
+msgid "Group Similar Push Notifications"
+msgstr "Samla liknande skrivebordsvarsel"
+
+#. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
+#: data/dev.geopjr.Tuba.gschema.xml:158 data/ui/dialogs/preferences.ui:276
+msgid ""
+"Combine recently pushed notifications of the same type and post into one"
+msgstr ""
+"Samla nylege sende skrivebordsvarsel av same type på same innlegg til eitt "
+"varsel"
+
+#: data/dev.geopjr.Tuba.gschema.xml:162 data/ui/dialogs/preferences.ui:87
+msgid "Advanced Boost Dialog"
+msgstr "Avansert deling"
+
+#: data/dev.geopjr.Tuba.gschema.xml:163 data/ui/dialogs/preferences.ui:88
+msgid "Change boost visibility, quote and confirm boosting"
+msgstr "Tilpass delingssynlegdom, herm innlegget du deler og stadfest deling"
+
+#: data/dev.geopjr.Tuba.gschema.xml:167 data/ui/dialogs/preferences.ui:106
+msgid "Warn before replying to an old post"
+msgstr "Åtvar før å svara på gamle innlegg"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:169
+msgid ""
+"Before replying to a post that was made at least 3 months ago, Tuba will "
+"warn you that the conversation might be over"
+msgstr ""
+"Før å svara på eit innlegg som vart lagt ut meir enn 3 månader sidan, "
+"åtvarar Tuba deg om at samtala kan vera slutt"
+
+#: data/dev.geopjr.Tuba.gschema.xml:173 data/ui/dialogs/preferences.ui:111
+msgid "Warn before copying a link to a private post"
+msgstr "Åtvar før å kopiera lenkja til eit privat innlegg"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:175
+msgid ""
+"If you copy the link to a post that is not publicly accessible, Tuba will "
+"warn you that people might not be able to view the post the link points to"
+msgstr ""
+"Om du kopierer lenkja til eit innlegg som ikkje er fritt tilgjengeleg, "
+"åtvarar Tuba deg om at det kan hende at folk ikkje kan sjå innlegget som "
+"lenkja er for"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:180
+msgid "Spellchecker"
+msgstr "Stavesjekk"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:182
+msgid ""
+"The last state of the spellchecker in the composer, can be toggled by right "
+"clicking"
+msgstr ""
+"Den førre stoda av stavesjekkaren i innleggsskrivaren, kan vekslast ved å "
+"høgreklikka"
+
+# imperativ av mørkja
+#: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:14
+msgid "Darken Images on Dark Mode"
+msgstr "Mørk bilete i mørk drakt"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:188
+msgid ""
+"Images will be darker when dark mode is enabled and gain their full "
+"brightness when hovered"
+msgstr ""
+"Bilete kjem til å vera mørkare når appen er i mørk drakt og får att "
+"ljosstyrken sin når muspeikaren sit ovanfor dei"
+
+#. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
+#: data/dev.geopjr.Tuba.gschema.xml:192 data/ui/dialogs/preferences.ui:20
+msgid "Dim Trivial Notifications"
+msgstr "Mørk uviktige varsel"
+
+#: data/dev.geopjr.Tuba.gschema.xml:193 data/ui/dialogs/preferences.ui:21
+msgid "Notifications like favorites and boosts will be less visible"
+msgstr "Varsel som favorittmerke og delingar kjem til å vera mindre synlege"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:198
+msgid "The last volume value used in the media viewer for videos and audio"
+msgstr "Den siste voluminnstillinga nøytt i mediumssynaren for videoar og ljod"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:203
+msgid "Monitor Network Changes"
+msgstr "Overvak netverksendringar"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:205
+msgid ""
+"When the network disconnects and reconnects Tuba will detect it and "
+"gracefully recover"
+msgstr ""
+"Når netverket koplar frå og attende til, skal Tuba kjenne det att og koma "
+"seg att"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:210
+msgid "Proxy URL"
+msgstr "Mellomtenars-URL"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:212
+msgid ""
+"Leaving it empty will use the default connection which might be proxied "
+"based on the system settings"
+msgstr ""
+"Å lata feltet tomt skal nøyta standardtilkoplinga som kan ha mellomtenar i "
+"samhøve med systeminnstillingane"
+
+#: data/dev.geopjr.Tuba.gschema.xml:216 data/ui/dialogs/preferences.ui:189
+msgid "Send Preference Analytics"
+msgstr "Send innstillingsanalyse"
+
+# Is this every other week or two times a week?
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:218
+msgid ""
+"Send your preferences to Tuba's developers for popularity research biweekly. "
+"You can preview exactly what's being sent in-app, they are opt-in and the "
+"server is open source."
+msgstr ""
+"Send innstillingane dine til utviklarane til Tuba annakvar veke for å hjelpe "
+"til med utvikling. Du kan førehandsvisa akkurat det som vert sendt i appen "
+"og tenaren har open kjeldekode."
+
+#. translators: supporters = tuba contributors and sponsors
+#: data/dev.geopjr.Tuba.gschema.xml:222 data/ui/dialogs/preferences.ui:213
+msgid "Update Supporters Periodically"
+msgstr "Oppdater støttespelarar stundom"
+
+#. translators: supporters = tuba contributors and sponsors
+#: data/dev.geopjr.Tuba.gschema.xml:223 data/ui/dialogs/preferences.ui:215
+msgid "Fetch the list of Tuba's supporters biweekly"
+msgstr "Hent lista over Tuba sine støttespelarar annakvar veke"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:228
+msgid "Date of the last analytics update"
+msgstr "Dato på førre analyseoppdatering"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:230 data/dev.geopjr.Tuba.gschema.xml:237
+msgid "Used for keeping track if 2 weeks have passed since the last update"
+msgstr "Nøytt for å syrgje for at 2 veker har gått sidan førre oppdatering"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:235
+msgid "Date of the last contributors update"
+msgstr "Dato på førre støttespelaroppdatering"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:242
+msgid "Tuba contributors"
+msgstr "Bidragsytarane til Tuba"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:244
+msgid ""
+"A list of hashed handles that belong to Tuba contributors so they can be "
+"used in-app"
+msgstr ""
+"Ei liste over hasja brukarnamn som høyrer til Tubas bidragsytarar slik at "
+"dei kan verta nøytte i appen"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:249
+msgid "Post aria label verbosity"
+msgstr "Verbositet på innleggs-ARIA-merke"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:251
+msgid "0 to 5 verbosity level, 0 being no aria label and 5 being very detailed"
+msgstr "0 til 5; 0 tyder inkje merke og 5 tyder svært detaljert"
+
+#. translators: in-app as in a browser inside Tuba
+#: data/dev.geopjr.Tuba.gschema.xml:255 data/ui/dialogs/preferences.ui:94
+msgid "Open Links In-App"
+msgstr "Opna lenkjer i appen"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:257
+msgid "Open links in a nested web browser instead of the host one"
+msgstr "Opna lenkjer i ein innebygd netlesar i staden for den vanlege"
+
+#: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
+msgid "Collapse Long Posts"
+msgstr "Slå saman lange innlegg"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:263
+msgid ""
+"Whether to automatically collapse posts to a set height when they exceed it"
+msgstr ""
+"Om lange innlegg skal slåast saman til ei viss høgd om dei overskrid henne"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:268
+msgid "Auto-detect instance features"
+msgstr "Oppdag tenarfunksjonar sjølvverkande"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:270
+msgid ""
+"Used to detect what features an instance supports like quote-posts on "
+"account activation"
+msgstr ""
+"Nøytt for å oppdaga kva funksjonar ein tenar stør, som hermeinnlegg, når ein "
+"konto vert lagd til"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:275
+msgid "Replies, Favorites and Boosts Counters"
+msgstr "Svar, favorittmerke og delingar"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:280
+msgid "Automatically extract alt text from file metadata"
+msgstr "Ekstraher all tekst frå filmetadata sjølvverkande"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:286
+msgid "Window Width"
+msgstr "Vindaugsbreidd"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:291
+msgid "Window Height"
+msgstr "Vindaugshøgd"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:296
+msgid "Window Maximized State"
+msgstr "Vindaugsmaksimering"
+
+#: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
+#: data/ui/dialogs/preferences.ui:8
+msgid "General"
+msgstr "Ålment"
+
+#: data/gtk/help-overlay.ui:14
+msgid "Show Preferences"
+msgstr "Syn innstillingar"
+
+#: data/gtk/help-overlay.ui:20
+msgid "Compose New Post"
+msgstr "Skriv nytt innlegg"
+
+#: data/gtk/help-overlay.ui:26 data/ui/widgets/votebox.ui:42
+#: src/Views/Browser.vala:161 src/Views/Sidebar.vala:71
+msgid "Refresh"
+msgstr "Last inn på nytt"
+
+#: data/gtk/help-overlay.ui:32 data/ui/dialogs/advanced_search.ui:28
+#: src/Services/Accounts/Mastodon/Account.vala:92
+#: src/Views/Admin/Pages/Accounts.vala:25 src/Views/Main.vala:67
+#: src/Views/Search.vala:91 src/Views/Search.vala:93
+msgid "Search"
+msgstr "Søk"
+
+#: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:52
+#: src/Views/Drive.vala:718
+msgid "Go Back"
+msgstr "Attende"
+
+#: data/gtk/help-overlay.ui:44
+msgid "Show Keyboard Shortcuts"
+msgstr "Syn tastatursnarvegar"
+
+#: data/gtk/help-overlay.ui:50
+msgid "Close Window"
+msgstr "Lat att vindauga"
+
+#: data/gtk/help-overlay.ui:56 src/Views/Sidebar.vala:97
+msgid "Quit"
+msgstr "Avslutt"
+
+#: data/gtk/help-overlay.ui:62
+msgid "About"
+msgstr "Om"
+
+#: data/gtk/help-overlay.ui:68
+msgid "Scroll Up"
+msgstr "Skroll oppover"
+
+#: data/gtk/help-overlay.ui:74
+msgid "Scroll Down"
+msgstr "Skroll nedover"
+
+#: data/gtk/help-overlay.ui:82
+msgid "Composer"
+msgstr "Skriv innlegg"
+
+#: data/gtk/help-overlay.ui:85
+msgid "Commit"
+msgstr "Send innlegg"
+
+#: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:43
+msgid "Media Viewer"
+msgstr "Mediumssynar"
+
+#: data/gtk/help-overlay.ui:96
+msgid "Fullscreen"
+msgstr "Fullskjerm"
+
+#: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:172
+msgid "Zoom In"
+msgstr "Forstørr"
+
+#: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:160
+msgid "Zoom Out"
+msgstr "Mink"
+
+#: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
+msgid "Previous Attachment"
+msgstr "Førre vedlegg"
+
+#: data/gtk/help-overlay.ui:120 data/ui/views/media_viewer.ui:106
+msgid "Next Attachment"
+msgstr "Neste vedlegg"
+
+#: data/gtk/help-overlay.ui:126
+msgctxt "shortcut window"
+msgid "Zoom In"
+msgstr "Forstørr"
+
+#: data/gtk/help-overlay.ui:132
+msgctxt "shortcut window"
+msgid "Zoom Out"
+msgstr "Mink"
+
+#: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
+msgctxt "shortcut window"
+msgid "Previous Attachment"
+msgstr "Førre vedlegg"
+
+#: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
+msgctxt "shortcut window"
+msgid "Next Attachment"
+msgstr "Neste vedlegg"
+
+#: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:87
+msgid "Admin Dashboard"
+msgstr "Kontrollpanel"
+
+#. translators: window title
+#: data/ui/dialogs/advanced_search.ui:11 src/Views/Search.vala:31
+msgid "Advanced Search"
+msgstr "Avansert søk"
+
+#: data/ui/dialogs/advanced_search.ui:22 data/ui/dialogs/filter_edit.ui:16
+#: data/ui/dialogs/new_account.ui:26 data/ui/dialogs/profile_edit.ui:21
+#: src/API/Relationship.vala:142 src/API/Relationship.vala:187
+#: src/Application.vala:722 src/Dialogs/Admin/AddFederationBlock.vala:37
+#: src/Dialogs/Admin/AddIPBlock.vala:76 src/Dialogs/Admin/Report.vala:22
+#: src/Dialogs/Admin/TakeAction.vala:22 src/Dialogs/Admin/TakeAction.vala:147
+#: src/Dialogs/Composer/Dialog.vala:872 src/Dialogs/Composer/Dialog.vala:1164
+#: src/Dialogs/NewAccount.vala:336 src/Dialogs/NotificationSettings.vala:135
+#: src/Dialogs/Preferences.vala:84 src/Dialogs/Report.vala:86
+#: src/Dialogs/Report.vala:353 src/Dialogs/Report.vala:444
+#: src/Views/Admin/Pages/Accounts.vala:256
+#: src/Views/Admin/Pages/Accounts.vala:426
+#: src/Views/Admin/Pages/Accounts.vala:487
+#: src/Views/Admin/Pages/Accounts.vala:520
+#: src/Views/Admin/Pages/BlockedEmails.vala:68
+#: src/Views/Admin/Pages/FederationAllowlist.vala:61
+#: src/Views/Admin/Timelines/BlockedIPs.vala:30
+#: src/Views/Admin/Timelines/DomainAllow.vala:32
+#: src/Views/Admin/Timelines/DomainBlock.vala:30
+#: src/Views/Admin/Timelines/EmailDomain.vala:30 src/Views/Drive.vala:710
+#: src/Views/Drive.vala:1227 src/Views/Drive.vala:1314 src/Views/Lists.vala:124
+#: src/Views/Profile.vala:503 src/Views/Sidebar.vala:352
+#: src/Widgets/ScheduledStatus.vala:204 src/Widgets/Status/ActionsRow.vala:284
+#: src/Widgets/Status.vala:521
+msgid "Cancel"
+msgstr "Avbryt"
+
+#. translators: Label in the advanced search window. Leave `-is:reply` as is. 'instances' as in fediverse servers
+#: data/ui/dialogs/advanced_search.ui:59
+msgid ""
+"Advanced Search might not work in all instances. You can invert an option by "
+"prefixing it with -. For example, -is:reply to filter out all replies."
+msgstr ""
+"Det kan hende at Avanasert søk ikkje funkar på alle tenarar. Du kan venda om "
+"eit val ved å leggje - før det. «-is:reply» utelèt alle svar, til dømes."
+
+#. translators: Search query
+#: data/ui/dialogs/advanced_search.ui:76
+msgid "Query"
+msgstr "Søk"
+
+#. translators: Entry title that accepts a user tag, searches for posts published by the user
+#: data/ui/dialogs/advanced_search.ui:83
+msgid "From User"
+msgstr "Frå konto"
+
+#. translators: tooltip text for a button in the 'advanced search' window. When clicked it automatically fills the entry with the first found user based on the query.
+#: data/ui/dialogs/advanced_search.ui:91
+msgid "Auto-Fill User"
+msgstr "Fullfør brukar sjølvverkande"
+
+#. translators: advanced search window switch title
+#: data/ui/dialogs/advanced_search.ui:104
+msgid "Only Replies"
+msgstr "Berre svar"
+
+#. translators: advanced search window switch title
+#: data/ui/dialogs/advanced_search.ui:110
+msgid "Only Posts with Content Warnings"
+msgstr "Berre innlegg med innhaldsåtvaringar"
+
+#. translators: Advanced search window, option group
+#. This is the title and the option are
+#. 'media', 'poll'...
+#: data/ui/dialogs/advanced_search.ui:120
+msgid "Containing"
+msgstr "Inneheld"
+
+#: data/ui/dialogs/advanced_search.ui:123
+#: src/Widgets/ProfileFilterGroup.vala:68
+msgid "Media"
+msgstr "Medium"
+
+#: data/ui/dialogs/advanced_search.ui:128
+msgid "Poll"
+msgstr "Avrøystingar"
+
+#. translators: advanced search window switch title
+#: data/ui/dialogs/advanced_search.ui:134
+msgid "Embed"
+msgstr "Innebyggingar"
+
+#: data/ui/dialogs/advanced_search.ui:141 data/ui/dialogs/preferences.ui:165
+msgid "Timelines"
+msgstr "Tidslinjer"
+
+#: data/ui/dialogs/advanced_search.ui:144
+msgid "Everywhere"
+msgstr "Overalt"
+
+#. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
+#: data/ui/dialogs/advanced_search.ui:159
+msgid "Library"
+msgstr "Samling"
+
+#. translators: Advanced search window, radio button subtitle for the 'library' option
+#: data/ui/dialogs/advanced_search.ui:161
+msgid "Favorites, Bookmarks, Own Posts"
+msgstr "Favorittmerke, bokmerke, eigne innlegg"
+
+#. translators: post visibility label
+#: data/ui/dialogs/advanced_search.ui:176 src/API/Status.vala:320
+msgid "Public"
+msgstr "Offentleg"
+
+#. translators: Advanced search window, option group
+#: data/ui/dialogs/advanced_search.ui:194
+msgid "Dates"
+msgstr "Datoar"
+
+#. translators: Advanced Search window, option title, opens a calendar, so it's a date.
+#. The user is searching for posts posted *before* this date
+#: data/ui/dialogs/advanced_search.ui:200
+msgid "Before"
+msgstr "Før"
+
+#. translators: Advanced Search window, option title, opens a calendar, so it's a date.
+#. The user is searching for posts posted *during* this date
+#: data/ui/dialogs/advanced_search.ui:223
+msgid "During"
+msgstr "I løpet av"
+
+#. translators: Advanced Search window, option title, opens a calendar, so it's a date.
+#. The user is searching for posts posted *after* this date
+#: data/ui/dialogs/advanced_search.ui:246
+msgid "After"
+msgstr "Etter"
+
+#. translators: composer title
+#: data/ui/dialogs/composer.ui:18 src/Dialogs/Composer/Dialog.vala:496
+#: src/Dialogs/Composer/Editor.vala:248 src/Views/Sidebar.vala:69
+msgid "New Post"
+msgstr "Nytt innlegg"
+
+#. translators: composer overlay shown when dragging files above it
+#: data/ui/dialogs/composer.ui:22
+msgid "Drop media to attach them"
+msgstr "Slepp medium for å leggje det til"
+
+#: data/ui/dialogs/composer.ui:44
+msgid "Write your content warning here"
+msgstr "Skriv innhaldsåtvaringa di her"
+
+#: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
+msgid "Emoji Picker"
+msgstr "Kjensleteiknveljar"
+
+#: data/ui/dialogs/composer.ui:78 data/ui/dialogs/profile_edit.ui:140
+#: src/Widgets/Status/ReactionsRow.vala:57
+msgid "Custom Emoji Picker"
+msgstr "Veljar for eigendefinert kjensleteikn"
+
+#: data/ui/dialogs/composer.ui:88
+msgid "Add Media"
+msgstr "Legg ved medium"
+
+#: data/ui/dialogs/composer.ui:97
+msgid "Create Poll"
+msgstr "Lag avrøysting"
+
+#: data/ui/dialogs/composer.ui:106
+msgid "Content Warning"
+msgstr "Innhaldsåtvaring"
+
+#: data/ui/dialogs/composer.ui:116
+msgid "Mark media as sensitive"
+msgstr "Gøym medium"
+
+#: data/ui/dialogs/filter_edit.ui:6
+msgid "Edit Filter"
+msgstr "Brigd filter"
+
+#: data/ui/dialogs/filter_edit.ui:24 data/ui/dialogs/profile_edit.ui:28
+#: src/Views/Drive.vala:426
+msgid "Save"
+msgstr "Lagra"
+
+#: data/ui/dialogs/filter_edit.ui:58
+msgid "Title"
+msgstr "Tittel"
+
+#: data/ui/dialogs/filter_edit.ui:64
+msgid "Expires In"
+msgstr "Lauper ut om"
+
+#: data/ui/dialogs/filter_edit.ui:69
+msgid "Hide Completely"
+msgstr "Gøym fullstendig"
+
+#: data/ui/dialogs/filter_edit.ui:70
+msgid "Otherwise a warning will be used"
+msgstr "Elles vert ei åtvaring nøytt"
+
+#: data/ui/dialogs/filter_edit.ui:77
+msgid "Contexts"
+msgstr "Samanheng"
+
+#: data/ui/dialogs/filter_edit.ui:78
+msgid "One or multiple contexts where the filter should apply"
+msgstr "Ein eller fleire samanhengar der filteret skal gjelda"
+
+#: data/ui/dialogs/filter_edit.ui:83
+msgid "Keywords or Phrases"
+msgstr "Lykelord eller -frasar"
+
+#: data/ui/dialogs/filter_edit.ui:91
+msgid "Add Keyword"
+msgstr "Legg til lykelord"
+
+#: data/ui/dialogs/list_edit.ui:7 data/ui/dialogs/list_edit.ui:10
+msgid "Members"
+msgstr "Medlemer"
+
+#: data/ui/dialogs/list_edit.ui:27
+msgid "List Name"
+msgstr "Listenamn"
+
+#: data/ui/dialogs/list_edit.ui:32
+msgid "Hide Posts From Home"
+msgstr "Gøym innlegg frå heimtidslinja"
+
+#: data/ui/dialogs/list_edit.ui:39
+msgid "Replies Policy"
+msgstr "Svar"
+
+#: data/ui/dialogs/list_edit.ui:40
+msgid "Show member replies to"
+msgstr "Syn medlemssvar til"
+
+#: data/ui/dialogs/list_edit.ui:43 src/Widgets/Admin/AssignedRow.vala:49
+#: src/Widgets/Admin/Report.vala:20 src/Widgets/Admin/Report.vala:24
+msgid "Nobody"
+msgstr "Ingen"
+
+#: data/ui/dialogs/list_edit.ui:54
+msgid "Other members of the list"
+msgstr "Andre medlemer av lista"
+
+#: data/ui/dialogs/list_edit.ui:66
+msgid "Any followed user"
+msgstr "Nokon som helst fylgd konto"
+
+#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:321
+#: src/Views/Sidebar.vala:325
+msgid "Add Account"
+msgstr "Legg til konto"
+
+#: data/ui/dialogs/new_account.ui:33 data/ui/dialogs/new_account.ui:126
+#: src/Dialogs/Report.vala:88 src/Dialogs/Report.vala:452
+#: src/Widgets/AccountSuggestions.vala:89
+msgid "Next"
+msgstr "Neste"
+
+#: data/ui/dialogs/new_account.ui:47
+msgid "What is your Server?"
+msgstr "Kva er tenaren din?"
+
+#. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
+#: data/ui/dialogs/new_account.ui:49
+msgid ""
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
+"servers\">choose a server and register one</a>."
+msgstr ""
+"Om du ikkje enno har ein konto, <a href=\"https://joinmastodon.org/"
+"servers\">finn ein tenar og opprett ein</a>."
+
+#: data/ui/dialogs/new_account.ui:70
+msgid "Server URL"
+msgstr "Tenar-URL"
+
+#. translators: tooltip text for a button in the 'new account' window
+#: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:332
+msgid "Settings"
+msgstr "Innstillingar"
+
+#: data/ui/dialogs/new_account.ui:141
+msgid "Confirm Authorization"
+msgstr "Stadfest godkjenning"
+
+#. translators: Do not translate "manual_auth"
+#: data/ui/dialogs/new_account.ui:161
+msgid ""
+"If something went wrong, <a href=\"manual_auth\">try manual authorization</"
+"a>."
+msgstr ""
+"Om noko gjekk gale, <a href=\"manual_auth\">prøv manuell godkjenning</a>."
+
+#: data/ui/dialogs/new_account.ui:171
+msgid "Authorization Code"
+msgstr "Godkjenningskode"
+
+#: data/ui/dialogs/new_account.ui:218
+msgid "Your account is connected and ready to use!"
+msgstr "Kontoen din er tilkopla og klar for å nøyta!"
+
+#: data/ui/dialogs/new_account.ui:223
+msgid "Done"
+msgstr "Ferdig"
+
+#: data/ui/dialogs/notification_settings.ui:6 src/Views/Main.vala:74
+msgid "Filter"
+msgstr "Filtrer"
+
+#: data/ui/dialogs/notification_settings.ui:16
+msgid "Clear All Notifications"
+msgstr "Slett alle varsel"
+
+#: data/ui/dialogs/notification_settings.ui:34
+#: data/ui/dialogs/preferences.ui:225 src/API/Filters/Filter.vala:45
+#: src/Services/Accounts/Mastodon/Account.vala:34
+#: src/Views/Notifications.vala:38
+msgid "Notifications"
+msgstr "Varsel"
+
+#: data/ui/dialogs/notification_settings.ui:37
+msgid "Included Notifications"
+msgstr "Varsel hatt med"
+
+#. translators: Preferences group title
+#: data/ui/dialogs/notification_settings.ui:44
+msgid "Filter Notifications Out"
+msgstr "Filtrer bort varsel"
+
+#. translators: Preferences group description
+#: data/ui/dialogs/notification_settings.ui:46
+msgid "Filter out notifications from people you may not know"
+msgstr "Filtrer bort varsel frå folk som du kanskje ikkje kjenner"
+
+#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:50
+msgid "People you don't follow"
+msgstr "Folk som du ikkje fylgjer"
+
+#. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:52
+msgid "Until you manually approve them"
+msgstr "Til du godkjenner dei for hand"
+
+#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:58
+msgid "People not following you"
+msgstr "Folk som ikkje fylgjer deg"
+
+#. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:60
+msgid "Including people who have been following you fewer than 3 days"
+msgstr "Inkludert folk som har fylgt deg i mindre enn tre døger"
+
+#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:66
+msgid "New accounts"
+msgstr "Nye kontoar"
+
+#. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:68
+msgid "Created within the past 30 days"
+msgstr "Oppretta innan dei førre 30 dagane"
+
+#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:74
+msgid "Unsolicited private mentions"
+msgstr "Uynskte private nemningar"
+
+#. translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:76
+msgid ""
+"Filtered unless it's in reply to your own mention or if you follow the sender"
+msgstr ""
+"Filtrert med mindre det er svar på di eiga nemning eller om du fylgjer "
+"sendaren"
+
+#: data/ui/dialogs/preferences.ui:11
+msgid "Appearance"
+msgstr "Utsjånad"
+
+#: data/ui/dialogs/preferences.ui:44
+msgid "Slightly increases the size of custom emojis when you hover over them"
+msgstr ""
+"Aukar storleiken på eigendefinerte kjensleteikn når muspeikaren sit ovanfor "
+"dei"
+
+#. translators: noun, plural
+#: data/ui/dialogs/preferences.ui:51 src/Views/Explore.vala:6
+#: src/Views/Search.vala:115 src/Widgets/ProfileFilterGroup.vala:56
+msgid "Posts"
+msgstr "Innlegg"
+
+#: data/ui/dialogs/preferences.ui:84
+msgid "Behavior"
+msgstr "Oppførsle"
+
+#. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
+#: data/ui/dialogs/preferences.ui:124 src/Dialogs/NewAccount.vala:363
+msgid "Proxy"
+msgstr "Mellomtenar"
+
+#: data/ui/dialogs/preferences.ui:132
+msgid "Posting"
+msgstr "Innlegg"
+
+#: data/ui/dialogs/preferences.ui:144
+msgid "Default Post Language"
+msgstr "Standard innleggsmål"
+
+#. translators: setting row subtitle, by high traffic we mean the federated and local timelines
+#: data/ui/dialogs/preferences.ui:177
+msgid "This will increase memory usage when browsing high traffic timelines"
+msgstr "Dette aukar minnebruk når du bler gjennom tidslinjer med høg aktivitet"
+
+#: data/ui/dialogs/preferences.ui:184
+msgid "Online Services"
+msgstr "Tenester på nett"
+
+#. translators: leave api.tuba.geopjr.dev as is
+#: data/ui/dialogs/preferences.ui:186
+msgid "Configure features that connect to api.tuba.geopjr.dev"
+msgstr "Tilpass funksjonar som koplar til api.tuba.geopjr.dev"
+
+#: data/ui/dialogs/preferences.ui:190
+msgid ""
+"Send your preferences to Tuba's developers for popularity research biweekly"
+msgstr ""
+"Send innstillingane dine til utviklarane til Tuba annakvar veke for å hjelpe "
+"til med utvikling"
+
+#: data/ui/dialogs/preferences.ui:196
+msgid "Preview Analytics"
+msgstr "Førehandsvis analyse"
+
+#. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
+#: data/ui/dialogs/preferences.ui:229
+msgid "Push Notifications"
+msgstr "Skrivebordsvarsel"
+
+#. translators: #FediWrapped, title of the 'amount of new followers' card
+#: data/ui/dialogs/preferences.ui:232 src/Dialogs/AnnualReport.vala:388
+msgid "New Followers"
+msgstr "Nye fylgjarar"
+
+#: data/ui/dialogs/preferences.ui:238
+msgid "New Follower Requests"
+msgstr "Nye fylgjeførespurnader"
+
+#: data/ui/dialogs/preferences.ui:244 src/Dialogs/NotificationSettings.vala:50
+#: src/Services/Accounts/Mastodon/Account.vala:74 src/Views/Favorites.vala:4
+msgid "Favorites"
+msgstr "Favorittmerke"
+
+#: data/ui/dialogs/preferences.ui:250 src/Dialogs/NotificationSettings.vala:49
+msgid "Mentions"
+msgstr "Nemningar"
+
+#: data/ui/dialogs/preferences.ui:256 src/Dialogs/NotificationSettings.vala:51
+msgid "Boosts"
+msgstr "Delingar"
+
+#: data/ui/dialogs/preferences.ui:262
+msgid "Poll Results"
+msgstr "Avrøystingsresultat"
+
+#: data/ui/dialogs/preferences.ui:268
+msgid "Edits"
+msgstr "Brigdingar"
+
+#: data/ui/dialogs/preferences.ui:274
+msgid "Group"
+msgstr "Gruppe"
+
+#: data/ui/dialogs/preferences.ui:287
+msgid "Filters"
+msgstr "Filter"
+
+#: data/ui/dialogs/preferences.ui:291
+msgid "Keywords"
+msgstr "Lykelord"
+
+#: data/ui/dialogs/preferences.ui:299
+msgid "Add Filter…"
+msgstr "Legg til filter…"
+
+#: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:364
+msgid "Edit Profile"
+msgstr "Brigd profil"
+
+#: data/ui/dialogs/profile_edit.ui:68
+msgid "Edit Profile Picture"
+msgstr "Brigd profilbilete"
+
+#. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
+#: data/ui/dialogs/profile_edit.ui:97
+msgid "Edit Header Picture"
+msgstr "Brigd fanebilete"
+
+#: data/ui/dialogs/profile_edit.ui:122 src/Views/Admin/Pages/Accounts.vala:135
+msgid "Display Name"
+msgstr "Namn"
+
+#. translators: profile bio or description
+#: data/ui/dialogs/profile_edit.ui:130
+msgid "Bio"
+msgstr "Biografi"
+
+#. translators: Alternative Text refers to text that describes
+#. an attachment when using screen readers or the
+#. image hasn't loaded. Also known as 'alt text'
+#: data/ui/dialogs/profile_edit.ui:164 src/Views/Drive.vala:178
+#: src/Views/Drive.vala:424 src/Widgets/Attachment/Item.vala:159
+msgid "Alternative Text"
+msgstr "Alternativ tekst"
+
+#. translators: row in the profile editor dialog for setting alt text for the user profile picture
+#: data/ui/dialogs/profile_edit.ui:169
+msgid "Profile Picture Description"
+msgstr "Skildring for profilbilete"
+
+#. translators: row in the profile editor dialog for setting alt text for the user profile header/cover
+#: data/ui/dialogs/profile_edit.ui:176
+msgid "Header Picture Description"
+msgstr "Skildring for fanebilete"
+
+#. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
+#: data/ui/dialogs/profile_edit.ui:184
+msgid "Fields"
+msgstr "Felt"
+
+#. translators: window title
+#: data/ui/dialogs/schedule.ui:25
+msgid "Schedule Post"
+msgstr "Planlegg innlegg"
+
+#. translators: verb
+#: data/ui/dialogs/schedule.ui:36
+msgid "Schedule"
+msgstr "Planlegg"
+
+#. translators: Title used for calendar date picking
+#: data/ui/dialogs/schedule.ui:67
+msgid "Date"
+msgstr "Dato"
+
+#. translators: Title used for time picking
+#: data/ui/dialogs/schedule.ui:92
+msgid "Time"
+msgstr "Tid"
+
+#. translators: Label on an hour picker
+#: data/ui/dialogs/schedule.ui:107
+msgid "Hour"
+msgstr "Time"
+
+#. translators: Label on an minute picker
+#: data/ui/dialogs/schedule.ui:128
+msgid "Minute"
+msgstr "Minutt"
+
+#. translators: Label on an minute picker
+#: data/ui/dialogs/schedule.ui:149
+msgid "Second"
+msgstr "Sekund"
+
+#: data/ui/dialogs/schedule.ui:164
+msgid "Timezone"
+msgstr "Tidssone"
+
+#: data/ui/menus.ui:10
+msgid "Mention"
+msgstr "Nemning"
+
+#: data/ui/menus.ui:16
+msgid "Direct Message"
+msgstr "Direkte melding"
+
+#: data/ui/menus.ui:22
+msgid "Copy Handle"
+msgstr "Kopier brukarnamn"
+
+#: data/ui/menus.ui:29 data/ui/views/media_viewer.ui:6
+#: src/Views/Browser.vala:174 src/Widgets/Attachment/Item.vala:175
+#: src/Widgets/Status.vala:326
+msgid "Open in Browser"
+msgstr "Opna i netlesar"
+
+#: data/ui/menus.ui:33
+msgid "Receive Post Notifications"
+msgstr "Mottak innleggsvarsel"
+
+#. translators: used in profile actions for endorsing a user
+#. translators: label on headerbar button on hashtag views that 'features'
+#. the hashtag on the user's profile
+#: data/ui/menus.ui:39 src/Views/Hashtag.vala:47
+msgid "Feature on Profile"
+msgstr "Fest på profil"
+
+#. translators: admin panel, accounts tab, filter dropdown tooltip text
+#: data/ui/menus.ui:45 src/Views/Admin/Pages/Accounts.vala:118
+msgid "Moderation"
+msgstr "Moderering"
+
+#: data/ui/menus.ui:47
+msgid "Hide Boosts"
+msgstr "Gøym delingar"
+
+#: data/ui/menus.ui:52 src/API/Relationship.vala:187
+#: src/Widgets/Status.vala:338
+msgid "Mute"
+msgstr "Demp"
+
+#: data/ui/menus.ui:57 src/API/Relationship.vala:142
+#: src/Views/Admin/Pages/BlockedEmails.vala:24
+#: src/Views/Admin/Pages/BlockedEmails.vala:71 src/Views/Profile.vala:503
+msgid "Block"
+msgstr "Blokker"
+
+#: data/ui/menus.ui:61
+msgid "Block Domain"
+msgstr "Blokker domene"
+
+#: data/ui/menus.ui:66 src/Dialogs/Admin/Report.vala:8
+#: src/Widgets/Status.vala:388
+msgid "Report"
+msgstr "Rapporter"
+
+#: data/ui/menus.ui:73
+msgid "Timeline"
+msgstr "Tidslinje"
+
+#: data/ui/menus.ui:89 src/Services/Accounts/Mastodon/Account.vala:83
+#: src/Views/Lists.vala:209 src/Views/Profile.vala:613
+msgid "Lists"
+msgstr "Lister"
+
+#: data/ui/views/media_viewer.ui:10 src/Views/Browser.vala:175
+#: src/Widgets/Attachment/Item.vala:176 src/Widgets/Status.vala:327
+msgid "Copy URL"
+msgstr "Kopier URL"
+
+#: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:177
+msgid "Save Media…"
+msgstr "Lagra medium…"
+
+#: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:179
+msgid "Copy Media"
+msgstr "Kopier medium"
+
+#: data/ui/views/media_viewer.ui:60 data/ui/views/sidebar/view.ui:56
+#: data/ui/widgets/status.ui:180 src/Views/Browser.vala:185
+msgid "Menu"
+msgstr "Meny"
+
+#: data/ui/views/media_viewer.ui:67 data/ui/views/media_viewer.ui:132
+msgid "Toggle Fullscreen"
+msgstr "Fullskjermsmodus"
+
+#. translators: Tooltip on icon indicating that the user is a bot/automated account
+#: data/ui/views/profile_header.ui:37 data/ui/widgets/profile.ui:25
+msgid "Bot"
+msgstr "Gogn"
+
+#. translators: Tooltip text shown on an icon that indicates
+#. that the user is either a financial supporter
+#. or contributor to Tuba
+#: data/ui/views/profile_header.ui:64
+msgid "Tuba Supporter"
+msgstr "Tuba-støttespelar"
+
+#. translators: tooltip text on profile covers.
+#. You can replace 'Cover' with 'Background' if needed.
+#: data/ui/views/profile_header.ui:85
+msgid "View Cover"
+msgstr "Syn fanebilete"
+
+#. translators: tooltip text on profile avatars.
+#. You can replace 'Avatar' with 'Profile Picture' if needed.
+#: data/ui/views/profile_header.ui:99
+msgid "View Avatar"
+msgstr "Syn profilbilete"
+
+#: data/ui/views/profile_header.ui:161 src/Views/Sidebar.vala:70
+msgid "Open Profile"
+msgstr "Opna profil"
+
+#. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
+#: data/ui/views/profile_header.ui:181
+msgid "View All Followers You Know"
+msgstr "Syn alle fylgjarar du kjenner"
+
+#: data/ui/views/profile_header.ui:211
+msgid "Note"
+msgstr "Notat"
+
+#. translators: Forget as in 'Remove Account'
+#: data/ui/views/sidebar/account.ui:53
+msgid "Forget Account"
+msgstr "Gløym konto"
+
+#: data/ui/views/sidebar/view.ui:38
+msgid "Switch Account"
+msgstr "Byt konto"
+
+#. translators: banner shown when the internet connection is lost
+#: data/ui/views/sidebar/view.ui:71
+msgid "Offline"
+msgstr "Fråkopla"
+
+#. translators: Button on a banner
+#: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
+#: src/Views/Notifications.vala:63
+msgid "View"
+msgstr "Syn"
+
+#: data/ui/widgets/announcement.ui:81
+msgid "Unread"
+msgstr "Ulesen"
+
+#: data/ui/widgets/announcement.ui:92 data/ui/widgets/status.ui:150
+msgid "Edited"
+msgstr "Brigda"
+
+#. translators: Media play bar play button tooltip
+#: data/ui/widgets/audiocontrols.ui:33 src/Widgets/AudioPlayer/Controls.vala:26
+msgctxt "media controls tooltip"
+msgid "Play"
+msgstr "Spel"
+
+#: data/ui/widgets/audiocontrols.ui:56
+msgctxt "media controls"
+msgid "Position"
+msgstr "Plassering"
+
+#: data/ui/widgets/audiocontrols.ui:74
+msgctxt "media controls"
+msgid "Volume"
+msgstr "Volum"
+
+#: data/ui/widgets/status.ui:139
+msgid "Pinned"
+msgstr "Feste"
+
+#. translators: Tooltip that closes content warning
+#: data/ui/widgets/status.ui:209
+msgid "Show Less"
+msgstr "Syn mindre"
+
+#. translators: Tooltip that opens content warning
+#. translators: as in 'Expand collapsed post'. It's a button label.
+#: data/ui/widgets/status.ui:242 data/ui/widgets/status.ui:287
+#: src/Widgets/Status.vala:658
+msgid "Show More"
+msgstr "Syn meir"
+
+#. translators: Tooltip that opens filter
+#: data/ui/widgets/status.ui:332
+msgid "Show Anyway"
+msgstr "Syn likevel"
+
+#: data/ui/widgets/votebox.ui:35
+msgid "Vote"
+msgstr "Røyst"
+
+#. translators: Admin Dashboard, Federation Block severity
+#: src/API/Admin/DomainBlock.vala:10 src/Views/Admin/Pages/Accounts.vala:297
+#: src/Views/Admin/Pages/Accounts.vala:303
+#: src/Views/Admin/Pages/Accounts.vala:336
+#: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
+msgid "None"
+msgstr "Ingen"
+
+#. translators: Admin Dashboard, Federation Block severity
+#: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
+msgid "Limit"
+msgstr "Avgrensa"
+
+#. translators: Admin Dashboard, Federation Block severity
+#: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
+msgid "Suspend"
+msgstr "Suspendert"
+
+#. translators: Admin Dashboard, IP Block severity
+#: src/API/Admin/IPBlock.vala:10
+msgid "Blocked"
+msgstr "Blokkert"
+
+#. translators: Admin Dashboard, IP Block severity
+#: src/API/Admin/IPBlock.vala:12
+msgid "Blocked Sign-ups"
+msgstr "Påmelding blokkert"
+
+#. translators: Admin Dashboard, IP Block severity
+#: src/API/Admin/IPBlock.vala:14
+msgid "Limited Sign-ups"
+msgstr "Påmelding avgrensa"
+
+#. translators: Admin Dashboard, IP Block severity title
+#: src/API/Admin/IPBlock.vala:22
+msgid "Block Access"
+msgstr "Blokker tilgang"
+
+#. translators: Admin Dashboard, IP Block severity title
+#: src/API/Admin/IPBlock.vala:24
+msgid "Block Sign-ups"
+msgstr "Blokker påmelding"
+
+#. translators: Admin Dashboard, IP Block severity title
+#: src/API/Admin/IPBlock.vala:26
+msgid "Limit Sign-ups"
+msgstr "Avgrens påmelding"
+
+#. translators: Admin Dashboard, IP Block severity description
+#: src/API/Admin/IPBlock.vala:34
+msgid "Block access to all resources"
+msgstr "Blokker tilgang til alle ressursar"
+
+#. translators: Admin Dashboard, IP Block severity description
+#: src/API/Admin/IPBlock.vala:36
+msgid "New sign-ups will not be possible"
+msgstr "Nye påmeldingar kjem ikkje til å vera moglege"
+
+#. translators: Admin Dashboard, IP Block severity description
+#: src/API/Admin/IPBlock.vala:38
+msgid "New sign-ups will require your approval"
+msgstr "Nye påmeldingar skal trenga godkjenninga di"
+
+#: src/API/Admin/Report.vala:19
+msgid "Spam"
+msgstr "Spam"
+
+#: src/API/Admin/Report.vala:20
+msgid "Rule Violation"
+msgstr "Regeloverskriding"
+
+#: src/API/Admin/Report.vala:21
+msgid "Legal"
+msgstr "Rettsleg"
+
+#: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
+#: src/Widgets/CustomEmojiChooser.vala:209
+#: src/Widgets/CustomEmojiChooser.vala:211
+#: src/Widgets/CustomEmojiChooser.vala:214
+#: src/Widgets/CustomEmojiChooser.vala:218
+msgid "Other"
+msgstr "Anna"
+
+#. translators: the variable is a string report comment
+#: src/API/Admin/Report.vala:72
+msgid "With the comment"
+msgstr "Med kommentaret"
+
+#. translators: report notification, "Reason: <reason>"
+#: src/API/Admin/Report.vala:74
+msgid "Reason"
+msgstr "Årsak"
+
+#. translators: report notification
+#: src/API/Admin/Report.vala:78
+msgid "You've received a report"
+msgstr "Du har motteke ei rapportering"
+
+#. translators: report notification with date, "You've received a report on: <date>"
+#: src/API/Admin/Report.vala:81
+msgid "You've received a report on"
+msgstr "Du har motteke ei rapportering på"
+
+#: src/API/Announcement.vala:55 src/Application.vala:435
+#: src/Dialogs/ProfileEdit.vala:143
+#: src/Services/Accounts/Mastodon/Account.vala:266
+#: src/Services/Accounts/SecretAccountStore.vala:127
+#: src/Services/Accounts/SecretAccountStore.vala:257
+#: src/Views/MediaViewer.vala:1064 src/Views/Sidebar.vala:361
+#: src/Widgets/Attachment/Image.vala:118 src/Widgets/Attachment/Item.vala:203
+#: src/Widgets/Status/ReactionsRow.vala:152
+#: src/Widgets/Status/ReactionsRow.vala:176 src/Widgets/VoteBox.vala:64
+msgid "Error"
+msgstr "Feil"
+
+#. translators: the variable is a comma separated list of account handles,
+#. this is a state - not an action
+#: src/API/Conversation.vala:31
+#, c-format
+msgid "Empty Conversation with %s"
+msgstr "Tom samtale med %s"
+
+#. translators: Used in profile stats.
+#. The variable is a shortened number of the amount of posts a user has made.
+#: src/API/FeaturedTag.vala:25 src/Widgets/Account.vala:224
+#: src/Widgets/ProfileCover.vala:330 src/Widgets/ProfileCover.vala:614
+#, c-format
+msgid "%s Post"
+msgid_plural "%s Posts"
+msgstr[0] "%s innlegg"
+msgstr[1] "%s innlegg"
+
+#. translators: tooltip on featured hashtags on profiles on a number that
+#. shows the amount of posts that use said hashtag
+#: src/API/FeaturedTag.vala:32
+msgid "Posts Including this Hashtag"
+msgstr "Innlegg med denne emneknaggen"
+
+#. translators: subtitle on featured hashtags on profiles. The variable is a string date.
+#. E.g. Last post on 2025-06-29
+#: src/API/FeaturedTag.vala:39
+#, c-format
+msgid "Last post on %s"
+msgstr "Førre innlegg på %s"
+
+#. translators: Leave &amp; as is, it gets converted to &
+#: src/API/Filters/Filter.vala:43
+msgid "Home &amp; Lists"
+msgstr "Heim &amp; lister"
+
+#: src/API/Filters/Filter.vala:46
+msgid "Public Timelines"
+msgstr "Offentlege tidslinjer"
+
+#: src/API/Filters/Filter.vala:47
+#: src/Services/Accounts/Mastodon/Account.vala:45
+#: src/Views/Conversations.vala:4
+msgid "Conversations"
+msgstr "Samtaler"
+
+#: src/API/Filters/Filter.vala:48
+msgid "Profiles"
+msgstr "Profilar"
+
+#: src/API/Iceshrimp/Folder.vala:3
+msgid "Folder"
+msgstr "Mappe"
+
+#. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
+#: src/API/Notification.vala:14
+#, c-format
+msgid ""
+"You have blocked %s, removing %s of your followers and %s account you follow."
+msgid_plural ""
+"You have blocked %s, removing %s of your followers and %s accounts you "
+"follow."
+msgstr[0] ""
+"Du har blokkert %s, og dimed teke bort %s av fylgjarane dine og %s konto du "
+"fylgjer."
+msgstr[1] ""
+"Du har blokkert %s, og dimed teke bort %s av fylgjarane dine og %s kontoar "
+"du fylgjer."
+
+#. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
+#: src/API/Notification.vala:24
+#, c-format
+msgid ""
+"An admin has blocked %s, including %s of your followers and %s account you "
+"follow."
+msgid_plural ""
+"An admin has blocked %s, including %s of your followers and %s accounts you "
+"follow."
+msgstr[0] ""
+"Ein administrator har blokkert %s, og dimed %s av fylgjarane dine og %s "
+"konto du fylgjer."
+msgstr[1] ""
+"Ein administrator har blokkert %s, og dimed %s av fylgjarane dine og %s "
+"kontoar du fylgjer."
+
+#. translators: the first variable is a user handle so 'them' refers to that user
+#: src/API/Notification.vala:33
+#, c-format
+msgid ""
+"An admin has suspended %s, which means you can no longer receive updates "
+"from them or interact with them."
+msgstr ""
+"Ein administrator har suspendert %s, som tyder at du ikkje lenger kan "
+"mottaka oppdateringar frå dei eller samhandla med dei."
+
+#. translators: as in just registered in the instance,
+#. this is a notification type only visible
+#. to admins
+#: src/API/Notification.vala:122
+msgid "Signed Up"
+msgstr "Melde seg på"
+
+#. translators: this is used for notifications,
+#. when you receive a warning from
+#. your server's admins
+#: src/API/Notification.vala:128 src/Services/Accounts/InstanceAccount.vala:417
+msgid "Your account has received a moderation warning"
+msgstr "Kontoen din har motteke ei modereringsåtvaring"
+
+#. translators: this is used for notifications,
+#. when an annual report is available.
+#. it's similar to spotify wrapped, it
+#. shows profile stats / it's a recap
+#. of the year. The variable is the
+#. current year e.g. 2024. Please don't
+#. translate the hashtag.
+#: src/API/Notification.vala:136 src/Services/Accounts/InstanceAccount.vala:407
+#, c-format
+msgid "Your %s #FediWrapped is ready!"
+msgstr "Din #FediWrapped for %s er klar!"
+
+#. translators: used in the #FediWrapped notifications, refer to the other #FediWrapped strings for more info
+#: src/API/Notification.vala:138
+msgid "Review your year's highlights and memorable moments on the Fediverse!"
+msgstr ""
+"Gjennomgå høgdepunkta av året ditt og minneverdige augneblinkar på allheimen!"
+
+#. translators: <user> (& <amount> others) <actions>
+#. for example: GeopJr (& 10 others) mentioned you
+#: src/API/Notification.vala:181 src/Widgets/GroupedNotification.vala:71
+#, c-format
+msgid "%s (& %d others)"
+msgstr "%s (og %d andre)"
+
+#: src/API/Notification.vala:227
+msgid "Reply…"
+msgstr "Svar…"
+
+#: src/API/Notification.vala:235
+msgid "Remove from Followers"
+msgstr "Tak bort frå fylgjarar"
+
+#: src/API/Notification.vala:240
+msgid "Follow Back"
+msgstr "Fylg attende"
+
+#: src/API/Notification.vala:247 src/Widgets/Status/FollowRequestRow.vala:8
+msgid "Decline"
+msgstr "Avslå"
+
+#: src/API/Notification.vala:252 src/Views/NotificationRequestsList.vala:33
+#: src/Widgets/NotificationRequest.vala:65
+#: src/Widgets/Status/FollowRequestRow.vala:14
+msgid "Accept"
+msgstr "Godtak"
+
+#: src/API/Relationship.vala:24
+msgid "Sent follow request"
+msgstr "Sende fylgjeførespurnad"
+
+#: src/API/Relationship.vala:26
+msgid "Mutuals"
+msgstr "Innbyrdes ven"
+
+#: src/API/Relationship.vala:28
+msgid "Follows you"
+msgstr "Fylgjer deg"
+
+#. translators: as in, you've been blocked by them
+#: src/API/Relationship.vala:31
+msgid "Blocks you"
+msgstr "Blokkerer deg"
+
+#. translators: the variable is a user handle
+#: src/API/Relationship.vala:136
+#, c-format
+msgid "Block \"%s\"?"
+msgstr "Blokker «%s»?"
+
+#: src/API/Relationship.vala:136
+#, c-format
+msgid "Unblock \"%s\"?"
+msgstr "Avblokker «%s»?"
+
+#: src/API/Relationship.vala:142 src/Views/Admin/Timelines/BlockedIPs.vala:33
+#: src/Views/Admin/Timelines/DomainBlock.vala:33
+#: src/Views/Admin/Timelines/EmailDomain.vala:33 src/Views/Profile.vala:503
+#: src/Widgets/RelationshipButton.vala:43
+msgid "Unblock"
+msgstr "Avblokker"
+
+#. translators: switch label when muting someone,
+#. turning it on will also hide notifications
+#. from this user, e.g. when they reply to you
+#: src/API/Relationship.vala:156
+msgid "Hide from Notifications"
+msgstr "Gøym frå varsel"
+
+#. translators: Dropdown title for picking when a mute should expire
+#: src/API/Relationship.vala:171
+msgid "Expire In"
+msgstr "Lauper ut om"
+
+#. translators: the variable is a user handle
+#: src/API/Relationship.vala:184
+#, c-format
+msgid "Mute \"%s\"?"
+msgstr "Demp «%s»?"
+
+#: src/API/Relationship.vala:224 src/Dialogs/FilterEdit.vala:29
+msgid "Never"
+msgstr "Aldri"
+
+#. translators: the variable is a number
+#: src/API/Relationship.vala:225 src/API/Relationship.vala:226
+#: src/Dialogs/Composer/Polls.vala:384 src/Dialogs/Composer/Polls.vala:387
+#: src/Dialogs/Composer/Polls.vala:389 src/Dialogs/FilterEdit.vala:31
+#: src/Dialogs/FilterEdit.vala:32 src/Dialogs/FilterEdit.vala:33
+#, c-format
+msgid "%d Hour"
+msgid_plural "%d Hours"
+msgstr[0] "%d time"
+msgstr[1] "%d timar"
+
+#. translators: the variable is a number
+#: src/API/Relationship.vala:227 src/API/Relationship.vala:228
+#: src/Dialogs/Admin/AddIPBlock.vala:27 src/Dialogs/Composer/Polls.vala:392
+#: src/Dialogs/Composer/Polls.vala:395 src/Dialogs/Composer/Polls.vala:397
+#: src/Dialogs/FilterEdit.vala:34
+#, c-format
+msgid "%d Day"
+msgid_plural "%d Days"
+msgstr[0] "%d dag"
+msgstr[1] "%d dagar"
+
+#: src/API/SearchResults.vala:32
+msgid "Search returned no results"
+msgstr "Søket gav ingen resultat"
+
+#. translators: the variable is a url
+#: src/API/Status/PreviewCard.vala:51
+#, c-format
+msgid "If you proceed, \"%s\" will open in your browser."
+msgstr "Om du held fram, skal «%s» opnast i netlesaren din."
+
+#. translators: the first variable is the app name (Tuba),
+#. the second one is a url
+#: src/API/Status/PreviewCard.vala:55
+#, c-format
+msgid "If you proceed, %s will connect to \"%s\"."
+msgstr "Om du held fram, skal %s kopla til «%s»."
+
+#. translators: Probably follow Mastodon's translation
+#. post visibility label
+#: src/API/Status.vala:324
+msgid "Unlisted"
+msgstr "Usynleg"
+
+#. translators: post visibility label
+#: src/API/Status.vala:327
+msgid "Followers Only"
+msgstr "Berre for fylgjarar"
+
+#. translators: post visibility label
+#: src/API/Status.vala:330
+msgid "Direct"
+msgstr "Direkte"
+
+#. translators: post visibility label
+#. local = will be displayed in this instance only
+#: src/API/Status.vala:334 src/Services/Accounts/Mastodon/Account.vala:111
+#: src/Views/Admin/Pages/Accounts.vala:69 src/Views/Local.vala:3
+msgid "Local"
+msgstr "Lokal"
+
+#. translators: the variable is the amount of times a hashtag was used in a week
+#. in the composer auto-complete popup (so keep it short)
+#: src/API/Tag.vala:47
+#, c-format
+msgid "%d per week"
+msgid_plural "%d per week"
+msgstr[0] "%d om veka"
+msgstr[1] "%d om veka"
+
+#. var total_uses = int.parse (last_history_entry.uses);
+#. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
+#: src/API/Tag.vala:62
+#, c-format
+msgid "%d person yesterday"
+msgid_plural "%d people yesterday"
+msgstr[0] "%d person i går"
+msgstr[1] "%d personar i går"
+
+#. total_uses += int.parse (last_history_entry.uses);
+#. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
+#: src/API/Tag.vala:70
+#, c-format
+msgid "%d person in the past 2 days"
+msgid_plural "%d people in the past 2 days"
+msgstr[0] "%d person i går og i føregår"
+msgstr[1] "%d personar i går og i føregår"
+
+#. translators: Toast that pops up when
+#. an invalid proxy url has
+#. been provided in settings
+#: src/Application.vala:351 src/Dialogs/Preferences.vala:378
+msgid "Invalid Proxy URL"
+msgstr "Ugyldig mellomtenar-URL"
+
+#. translators: the variable is a uri scheme like 'https'
+#: src/Application.vala:415
+#, c-format
+msgid "'%s://' may only be used when adding a new account"
+msgstr "«%s://» kan berre verta nøytt når ein ny konto vert lagd til"
+
+#. translators: the variable is a uri scheme like 'https'
+#: src/Application.vala:423
+#, c-format
+msgid "'%s://' may not be used when adding a new account"
+msgstr "«%s://» kan ikkje verta nøytt når ein ny konto vert lagd til"
+
+#. translators: the first variable is the app name ('Tuba'),
+#. the second one is a uri scheme like 'https'
+#: src/Application.vala:430
+#, c-format
+msgid "%s does not accept '%s://'"
+msgstr "%s godtek ikkje «%s://»"
+
+#. translators: Name <email@domain.com> or Name https://website.example
+#: src/Application.vala:633
+msgid "translator-credits"
+msgstr "Sunniva Løvstad <tuba@turtle.garden>"
+
+#. translators: Wiki pages / Guides
+#: src/Application.vala:637
+msgid "Wiki"
+msgstr "Dokumentering"
+
+#: src/Application.vala:639 src/Widgets/Status.vala:375
+msgid "Translate"
+msgstr "Omset"
+
+#: src/Application.vala:640
+msgid "Donate"
+msgstr "Doner"
+
+#. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
+#: src/Application.vala:643
+msgid "Archives"
+msgstr "Archives"
+
+#: src/Application.vala:643
+msgid "Create and view web archives"
+msgstr ""
+
+#. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
+#: src/Application.vala:645
+msgid "Calligraphy"
+msgstr "Calligraphy"
+
+#: src/Application.vala:645
+msgid "Turn text into ASCII banners"
+msgstr ""
+
+#. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
+#: src/Application.vala:647
+msgid "Collision"
+msgstr "Collision"
+
+#: src/Application.vala:647
+msgid "Check hashes for your files"
+msgstr ""
+
+#. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
+#: src/Application.vala:649
+msgid "Turntable"
+msgstr "Turntable"
+
+#: src/Application.vala:649
+msgid "Scrobble your music"
+msgstr ""
+
+#: src/Application.vala:671
+msgid "OK"
+msgstr "Greitt"
+
+#: src/Application.vala:721
+msgid "Yes"
+msgstr "Ja"
+
+#: src/Dialogs/Admin/AddFederationBlock.vala:29
+#: src/Views/Admin/Pages/FederationBlocklist.vala:9
+msgid "Add Federation Block"
+msgstr "Legg til fødereringsblokkering"
+
+#: src/Dialogs/Admin/AddFederationBlock.vala:40
+#: src/Dialogs/Admin/AddIPBlock.vala:79
+msgid "Add"
+msgstr "Legg til"
+
+#. translators: Admin dashboard, federation block dialog,
+#. e.g. 'gnome.org'
+#: src/Dialogs/Admin/AddFederationBlock.vala:52
+msgid "Domain"
+msgstr "Domene"
+
+#. translators: Admin dashboard, federation block dialog severity row title
+#: src/Dialogs/Admin/AddFederationBlock.vala:72
+msgid "Severity"
+msgstr "Alvor"
+
+#. translators: Admin dashboard, federation blocklist, checkbox option title.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddFederationBlock.vala:92
+#: src/Widgets/Admin/DomainBlock.vala:30
+msgid "Reject Media Files"
+msgstr "Avslå medium"
+
+#. translators: Admin dashboard, federation blocklist, checkbox option description.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddFederationBlock.vala:95
+msgid ""
+"Removes locally stored media files and refuses to download any in the future"
+msgstr "Tek bort lokalt lagra medium og avslår alle framtidige medium"
+
+#. translators: Admin dashboard, federation blocklist, checkbox option title.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddFederationBlock.vala:103
+#: src/Widgets/Admin/DomainBlock.vala:31
+msgid "Reject Reports"
+msgstr "Avslå rapporteringar"
+
+#. translators: Admin dashboard, federation blocklist, checkbox option description.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddFederationBlock.vala:106
+msgid "Ignore all reports coming from this domain"
+msgstr "Ignorer alle rapporteringar frå dette domenet"
+
+#. translators: Admin dashboard, federation blocklist, checkbox option title.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddFederationBlock.vala:114
+#: src/Widgets/Admin/DomainBlock.vala:32
+msgid "Obfuscate Domain Name"
+msgstr "Gøym domenenamn"
+
+#. translators: Admin dashboard, federation blocklist, checkbox option description.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddFederationBlock.vala:117
+msgid ""
+"Partially obfuscate the domain name in the list if advertising the list of "
+"domain limitations is enabled"
+msgstr ""
+"Gøym ein lut av domenenamnet om domeneblokkeringar på tenaren er synlege for "
+"alle"
+
+#. translators: Admin dashboard, federation block dialog
+#: src/Dialogs/Admin/AddFederationBlock.vala:124
+#: src/Widgets/Admin/DomainBlock.vala:17
+msgid "Private Comment"
+msgstr "Privat kommentar"
+
+#. translators: Admin dashboard, federation block dialog
+#: src/Dialogs/Admin/AddFederationBlock.vala:131
+#: src/Widgets/Admin/DomainBlock.vala:24
+msgid "Public Comment"
+msgstr "Offentleg kommentar"
+
+#: src/Dialogs/Admin/AddIPBlock.vala:17 src/Dialogs/Admin/AddIPBlock.vala:19
+#, c-format
+msgid "%d Year"
+msgid_plural "%d Years"
+msgstr[0] "%d år"
+msgstr[1] "%d år"
+
+#: src/Dialogs/Admin/AddIPBlock.vala:21 src/Dialogs/Admin/AddIPBlock.vala:23
+#, c-format
+msgid "%d Month"
+msgid_plural "%d Months"
+msgstr[0] "%d månad"
+msgstr[1] "%d månader"
+
+#: src/Dialogs/Admin/AddIPBlock.vala:25 src/Dialogs/FilterEdit.vala:35
+#, c-format
+msgid "%d Week"
+msgid_plural "%d Weeks"
+msgstr[0] "%d veke"
+msgstr[1] "%d veker"
+
+#: src/Dialogs/Admin/AddIPBlock.vala:68
+#: src/Views/Admin/Pages/BlockedIPs.vala:10
+msgid "Add IP Block"
+msgstr "Legg til IP-blokkering"
+
+#. translators: Admin dashboard ip block comment entry title
+#: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
+msgid "Comment"
+msgstr "Kommentar"
+
+#. translators: Admin dashboard ip block expiration date row title.
+#: src/Dialogs/Admin/AddIPBlock.vala:123 src/Dialogs/Composer/Polls.vala:424
+msgid "Expiration"
+msgstr "Utlaupsdato"
+
+#. translators: Admin dashboard ip block rule (e.g. no access)
+#: src/Dialogs/Admin/AddIPBlock.vala:131
+msgid "Rule"
+msgstr "Regel"
+
+#. translators: Admin dashboard ip block rule descriptions.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddIPBlock.vala:134
+msgid "Choose what will happen with requests from this IP"
+msgstr "Vel kva som skjer førespurnader frå denne IP-adressa"
+
+#. translators: Question dialog when an admin is about to
+#. mark a report as resolved
+#: src/Dialogs/Admin/Report.vala:50
+msgid "Mark this Report as Resolved?"
+msgstr "Merk denne rapporteringa som løyst?"
+
+#: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:101
+msgid "Resolve"
+msgstr "Merk som løyst"
+
+#. translators: Question dialog when an admin is about to
+#. reopen a report
+#: src/Dialogs/Admin/Report.vala:61
+msgid "Reopen this Report?"
+msgstr "Opna att denne rapporteringa?"
+
+#: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:101
+msgid "Reopen"
+msgstr "Opna att"
+
+#. translators: Admin dashboard, take action against user headerbar button
+#: src/Dialogs/Admin/Report.vala:95 src/Dialogs/Admin/TakeAction.vala:18
+#: src/Dialogs/Admin/TakeAction.vala:150
+#: src/Views/Admin/Pages/Accounts.vala:250
+msgid "Take Action"
+msgstr "Handla"
+
+#. translators: as in created an account; this is used in Profiles in a row
+#. which has as value the date the profile was created on
+#: src/Dialogs/Admin/Report.vala:125 src/Views/Admin/Pages/Accounts.vala:289
+#: src/Widgets/ProfileCover.vala:575
+msgid "Joined"
+msgstr "Vart med den"
+
+#. translators: this is a "long" date format shown in places like expanded posts or
+#. the profile "Joined" field. You can find all the available specifiers
+#. on https://valadoc.org/glib-2.0/GLib.DateTime.format.html
+#. Please do not stray far from the original and only include day, month
+#. and year.
+#. If unsure, either leave it as-is or set it to %x.
+#: src/Dialogs/Admin/Report.vala:126 src/Views/Admin/Pages/Accounts.vala:290
+#: src/Widgets/ProfileCover.vala:559 src/Widgets/ScheduledStatus.vala:135
+#: src/Widgets/Status.vala:682
+msgid "%B %e, %Y"
+msgstr "%-e. %B %Y"
+
+#: src/Dialogs/Admin/Report.vala:132
+msgid "Reported on"
+msgstr "Rapportert den"
+
+#. translators: 'Reported by: <account>'
+#: src/Dialogs/Admin/Report.vala:138 src/Widgets/Admin/Report.vala:31
+msgid "Reported by"
+msgstr "Rapportert av"
+
+#: src/Dialogs/Admin/Report.vala:144
+msgid "Status"
+msgstr "Stode"
+
+#: src/Dialogs/Admin/Report.vala:145
+msgid "Resolved"
+msgstr "Løyst"
+
+#: src/Dialogs/Admin/Report.vala:145
+msgid "Unresolved"
+msgstr "Uløyst"
+
+#. translators: admin dashboard, whether a report was 'forwarded' from another server
+#: src/Dialogs/Admin/Report.vala:152
+msgid "Forwarded"
+msgstr "Framettersend"
+
+#. translators: Report 'Action Taken by: <account>'
+#: src/Dialogs/Admin/Report.vala:158 src/Widgets/Admin/Report.vala:22
+msgid "Action Taken by"
+msgstr "Handling utført av"
+
+#: src/Dialogs/Admin/Report.vala:170
+msgid "Category"
+msgstr "Emne"
+
+#. translators: Admin dashboard report category description.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/Report.vala:173
+msgid ""
+"The reason this account and/or content was reported will be cited in "
+"communication with the reported account"
+msgstr ""
+"Årsaka til at denne kontoen og/eller dette innhaldet vart rapportert, skal "
+"hermast i samhøve med den rapporterte kontoen"
+
+#: src/Dialogs/Admin/Report.vala:235
+msgid "Violated Rules"
+msgstr "Overskridne reglar"
+
+#. translators: 'Reported Posts: <amount>'
+#: src/Dialogs/Admin/Report.vala:266 src/Widgets/Admin/Report.vala:34
+msgid "Reported Posts"
+msgstr "Rapporterte innlegg"
+
+#: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:353
+#: src/Dialogs/Report.vala:450
+msgid "Submit"
+msgstr "Send inn"
+
+#: src/Dialogs/Admin/TakeAction.vala:59
+msgid "Warning"
+msgstr "Åtvaring"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:61
+msgid ""
+"Use this to send a warning to the user, without triggering any other action"
+msgstr ""
+"Nøyt dette for å senda ein brukar ei åtvaring utan å utløysa noka anna "
+"handling"
+
+#: src/Dialogs/Admin/TakeAction.vala:68
+msgid "Freeze"
+msgstr "Frys"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:70
+msgid ""
+"Prevent the user from using their account, but do not delete or hide their "
+"contents"
+msgstr ""
+"Stogg brukaren i å nøyta kontoen hens, men ikkje slett eller gøym innhaldet "
+"hans"
+
+#: src/Dialogs/Admin/TakeAction.vala:77 src/Views/Drive.vala:196
+#: src/Widgets/Status.vala:669
+msgid "Sensitive"
+msgstr "Gøym medium"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:79
+msgid "Force all this user's media attachments to be flagged as sensitive"
+msgstr "Tving alle vedlegg til denne brukaren til å verta gøymde"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:88
+msgid ""
+"Prevent the user from being able to post with public visibility, hide their "
+"posts and notifications from people not following them. Closes all reports "
+"against this account"
+msgstr ""
+"Stogg brukaren i å kunna leggja ut innlegg med offentleg synlegdom, gøym "
+"innlega hens og varsel frå folk som ikkje fylgjer hen. Merkjer alle "
+"rapporteringar mot denne kontoen som løyste"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:97
+msgid ""
+"Prevent any interaction from or to this account and delete its contents. "
+"Revertible within 30 days. Closes all reports against this account"
+msgstr ""
+"Stogg all samhandling med denne kontoen og slett innhaldet hans. Kan angrast "
+"innan 30 dagar. Merkjer alle rapporteringar mot denne kontoen som løyste"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:114
+msgid "Notify the user per e-mail"
+msgstr "Varsla brukaren etter e-post"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:116
+msgid ""
+"The user will receive an explanation of what happened with their account"
+msgstr "Brukaren får ein e-post med opplysingar om kva som hende kontoen hens"
+
+#. translators: Question dialog when an admin is about to
+#. take action against an account
+#. The variable is a user handle
+#: src/Dialogs/Admin/TakeAction.vala:143
+#, c-format
+msgid "Take Action Against %s?"
+msgstr "Handla mot %s?"
+
+#: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
+msgid "Dashboard"
+msgstr "Kontrollpanel"
+
+#. translators: Admin Dialog page title
+#: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
+msgid "Reports"
+msgstr "Rapporteringar"
+
+#: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
+#: src/Views/Search.vala:114
+msgid "Accounts"
+msgstr "Konto"
+
+#. translators: Admin Dialog page title,
+#. this is about blocking
+#. e-mail providers like
+#. gmail.com
+#: src/Dialogs/Admin.vala:48 src/Views/Admin/Pages/BlockedEmails.vala:10
+msgid "Blocked E-mail Domains"
+msgstr "Blokkerte e-postdomene"
+
+#. translators: Admin Dialog page title,
+#. this is about blocking
+#. IP Addresses
+#: src/Dialogs/Admin.vala:58 src/Views/Admin/Pages/BlockedIPs.vala:7
+msgid "IP Rules"
+msgstr "IP-reglar"
+
+#. translators: Admin Dialog page title
+#: src/Dialogs/Admin.vala:68 src/Views/Admin/Pages/FederationAllowlist.vala:7
+msgid "Federation Allowlist"
+msgstr "Fødereringsløyveliste"
+
+#. translators: Admin Dialog page title,
+#. this is about federation blocking
+#: src/Dialogs/Admin.vala:78 src/Views/Admin/Pages/FederationBlocklist.vala:6
+msgid "Federation Blocklist"
+msgstr "Fødereringsblokkeringsliste"
+
+#: src/Dialogs/AnnualReport.vala:60
+msgid "Default"
+msgstr "Standard"
+
+#. translators: Accent color
+#: src/Dialogs/AnnualReport.vala:62
+msgid "Accent"
+msgstr "Primær let"
+
+#: src/Dialogs/AnnualReport.vala:100
+msgid "Share"
+msgstr "Del"
+
+#: src/Dialogs/AnnualReport.vala:108
+msgid "Save As…"
+msgstr "Lagra som…"
+
+#. translators: dropdown label for picking a window style
+#: src/Dialogs/AnnualReport.vala:115
+msgid "Style"
+msgstr "Stil"
+
+#. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
+#. which will be used as the attachment alt text when posted on fedi.
+#. The first variable is the annual report year (e.g. 2024), the second
+#. variable is the app name (Tuba)
+#: src/Dialogs/AnnualReport.vala:164
+#, c-format
+msgid "Screenshot of my %s Wrapped annual report using %s."
+msgstr "Skjermbilete av min årlege «%s Wrapped»-rapportering med %s."
+
+#. translators: The variable is the year (e.g. 2024). Wrapped as in
+#. Spotify wrapped / recap of the year. You can leave it
+#. as is as it's more of an annual event that it's known
+#. as 'wrapped'
+#: src/Dialogs/AnnualReport.vala:170
+#, c-format
+msgid "%s Wrapped"
+msgstr "%s Wrapped"
+
+#. translators: #FediWrapped, title of the 'amount of new posts' card
+#: src/Dialogs/AnnualReport.vala:200
+msgid "New Posts"
+msgstr "nye innlegg"
+
+#. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
+#. which will be used as the attachment alt text when posted on fedi.
+#. The variable is the amount of posts made (e.g. 1k)
+#: src/Dialogs/AnnualReport.vala:228
+#, c-format
+msgid "I made %s posts."
+msgstr "Eg la ut %s innlegg."
+
+#. translators: #FediWrapped, title of a card
+#: src/Dialogs/AnnualReport.vala:238
+msgid "Most Used Hashtag"
+msgstr "Mest nøytt emneknagg"
+
+#. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
+#. which will be used as the attachment alt text when posted on fedi.
+#. The variable is the most used hashtag
+#: src/Dialogs/AnnualReport.vala:267
+#, c-format
+msgid "My most used hashtag was #%s."
+msgstr "Min mest nøytte emneknagg var #%s."
+
+#. translators: #FediWrapped, title of the 'which app was used to make most posts' card
+#: src/Dialogs/AnnualReport.vala:277
+msgid "Most Used App"
+msgstr "Mest nøytt klient"
+
+#. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
+#. which will be used as the attachment alt text when posted on fedi.
+#. The variable is the name of the most used client (e.g. Tuba)
+#: src/Dialogs/AnnualReport.vala:308
+#, c-format
+msgid "My most used app was %s."
+msgstr "Min mest nøytte klient var %s."
+
+#. translators: #FediWrapped, title of the card that shows you
+#. the users you interacted with the most
+#: src/Dialogs/AnnualReport.vala:319
+msgid "Most Interactions"
+msgstr "Flest samhandlingar"
+
+#. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
+#. which will be used as the attachment alt text when posted on fedi.
+#. The variable is a list of user names (e.g. GeopJr, Tuba, Vala).
+#. The amount of users could be just one and some languages might
+#. require pronouns or prefixes, if so, feel free to translate it as
+#. 'I had the most interactions with the following people: %s.'
+#: src/Dialogs/AnnualReport.vala:356
+#, c-format
+msgid "I had the most interactions with %s."
+msgstr "Eg hadde flest samhandlingar med %s."
+
+#. translators: #FediWrapped, title of the section about how many
+#. new followers you got and new people you followed
+#: src/Dialogs/AnnualReport.vala:366
+msgid "Follow Stats"
+msgstr "Fylgjestatistikk"
+
+#. translators: #FediWrapped, title of the 'amount of new people you followed' card
+#: src/Dialogs/AnnualReport.vala:413
+msgid "New Follows"
+msgstr "Nye fylgjarar"
+
+#. translators: #FediWrapped, title of the section that shows you
+#. which one of your posts had the most favorites
+#: src/Dialogs/AnnualReport.vala:438
+msgid "Most Favorited Post"
+msgstr "Innlegg med fleste favorittmerke"
+
+#. translators: #FediWrapped, title of the section that shows you
+#. which one of your posts had the most boosts
+#: src/Dialogs/AnnualReport.vala:460
+msgid "Most Boosted Post"
+msgstr "Innlegg med fleste delingar"
+
+#. translators: #FediWrapped, title of the section that shows you
+#. which one of your posts had the most replies
+#: src/Dialogs/AnnualReport.vala:482
+msgid "Most Replied Post"
+msgstr "Innlegg med fleste svar"
+
+#. translators: save dialog title, refer to the other #FediWrapped strings for more info
+#: src/Dialogs/AnnualReport.vala:552
+msgid "Save #FediWrapped"
+msgstr "Lagra #FediWrapped"
+
+#. translators: the variable is a year, e.g. 2024
+#: src/Dialogs/AnnualReport.vala:567
+#, c-format
+msgid "Saved %s Wrapped"
+msgstr "Lagra «%s Wrapped»"
+
+#. translators: title on the composer alt text editor dialog
+#: src/Dialogs/Composer/AttachmentsBin.vala:88
+msgid "Attachment Editor"
+msgstr "Vedleggsbrigdar"
+
+#. translators: placeholder shown in the composer alt text editor text area
+#: src/Dialogs/Composer/AttachmentsBin.vala:115
+#: src/Dialogs/Composer/AttachmentsBin.vala:126
+msgid "Describe the media…"
+msgstr "Skildra mediet…"
+
+#. translators: tooltip text on the remaining characters counter in the
+#. composer alt text editor
+#: src/Dialogs/Composer/AttachmentsBin.vala:148
+msgid "Remaining Characters"
+msgstr "Attståande teikn"
+
+#. translators: toast shown when saving alt text and focus position in the composer
+#: src/Dialogs/Composer/AttachmentsBin.vala:186
+#: src/Dialogs/Composer/AttachmentsBin.vala:209
+msgid "Saved Media Metadata"
+msgstr "Lagra mediumsmetadata"
+
+#. translators: shown in file picker filter dropdown
+#: src/Dialogs/Composer/AttachmentsBin.vala:291 src/Dialogs/ProfileEdit.vala:81
+msgid "All Supported Files"
+msgstr "Alle stødde filer"
+
+#. translators: toast shown when uploading a file bigger than what the instance allows.
+#. The variable is a string filename
+#: src/Dialogs/Composer/AttachmentsBin.vala:429
+#, c-format
+msgid "File \"%s\" is bigger than the instance limit"
+msgstr "Fil «%s» er større enn filstorleiksgrensa på tenaren"
+
+#. translators: the variable is the total amount of attachments allowed (a number)
+#: src/Dialogs/Composer/AttachmentsBin.vala:457
+#, c-format
+msgid "Attachment limit reached (%lld)"
+msgstr "Vedleggsgrensa nådd (%lld)"
+
+#. translators: Open file
+#: src/Dialogs/Composer/AttachmentsBin.vala:491
+#: src/Dialogs/ProfileEdit.vala:246 src/Views/Drive.vala:240
+#: src/Widgets/EmojiReactionAccounts.vala:39
+msgid "Open"
+msgstr "Opna"
+
+#. translators: composer media attachment button that removes it
+#: src/Dialogs/Composer/Attachment.vala:233
+msgid "Remove Attachment"
+msgstr "Tak bort vedlegg"
+
+#. translators: composer media attachment button that edits its
+#. alt text and focus point. If metadata is difficult
+#. to translate, leave it as just "Edit"
+#: src/Dialogs/Composer/Attachment.vala:247
+msgid "Edit Metadata"
+msgstr "Brigd metadata"
+
+#. translators: aria label on composer media attachments
+#: src/Dialogs/Composer/Attachment.vala:307
+#: src/Dialogs/Composer/Attachment.vala:672
+msgid "Media Attachment"
+msgstr "Medievedlegg"
+
+#. translators: screen reader announcement when the user
+#. deletes attachments in the composer
+#: src/Dialogs/Composer/Attachment.vala:325
+msgid "Deleted Attachment"
+msgstr "Tok bort vedlegg"
+
+#. translators: screen reader announcement when the composer
+#. successfully uploads an attachment
+#: src/Dialogs/Composer/Attachment.vala:490
+msgid "Finished Uploading Attachment"
+msgstr "Fullførte opplasting av vedlegg"
+
+#. translators: aria label on composer media attachments. The variable is a string file name.
+#: src/Dialogs/Composer/Attachment.vala:666
+#, c-format
+msgid "Media Attachment (%s)"
+msgstr "Medievedlegg (%s)"
+
+#. translators: 'Draft' is a verb; entry in composer post menu
+#: src/Dialogs/Composer/Dialog.vala:49
+msgid "Draft Post"
+msgstr "Kladd innlegg"
+
+#. translators: 'Schedule' is a verb; entry in composer post menu
+#: src/Dialogs/Composer/Dialog.vala:52
+msgid "Schedule Post…"
+msgstr "Planlegg innlegg…"
+
+#. translators: screen reader announcement when the composer
+#. passed the character limit. The variable is
+#. the amount of characters the user exceeded
+#. the limit by.
+#: src/Dialogs/Composer/Dialog.vala:169
+#, c-format
+msgid "Exceeded character limit by %lld"
+msgstr "Overskreid teikngrensa med %lld"
+
+#. translators: composer dropdown tooltip text
+#: src/Dialogs/Composer/Dialog.vala:240
+msgid "Post Privacy"
+msgstr "Innleggssynlegdom"
+
+#. translators: post compositor post button label when the visibility is 'mentioned only'
+#: src/Dialogs/Composer/Dialog.vala:265
+msgid "Send"
+msgstr "Send"
+
+#. translators: composer dropdown tooltip text
+#: src/Dialogs/Composer/Dialog.vala:276
+msgid "Post Language"
+msgstr "Innleggsmål"
+
+#. translators: tooltip button on composer dialog headerbar button
+#. that makes the post visible only on the current
+#. instance. You might be able to find it on
+#. https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
+#: src/Dialogs/Composer/Dialog.vala:384 src/Widgets/Status.vala:1137
+msgid "Local Only"
+msgstr "Einast lokalt"
+
+#. translators: composer dropdown tooltip text
+#: src/Dialogs/Composer/Dialog.vala:414
+msgid "Post Content Type"
+msgstr "Innleggsinnhaldstype"
+
+#. translators: composer post button label
+#: src/Dialogs/Composer/Dialog.vala:458 src/Dialogs/Composer/Dialog.vala:469
+#: src/Dialogs/Composer/Dialog.vala:692
+msgid "Post"
+msgstr "Send"
+
+#. translators: composer post button label
+#. translators: verb
+#: src/Dialogs/Composer/Dialog.vala:536 src/Widgets/Status/ActionsRow.vala:90
+#: src/Widgets/Status/ActionsRow.vala:177
+msgid "Reply"
+msgstr "Svar"
+
+#. translators: composer embedded replying-to post, aria label
+#: src/Dialogs/Composer/Dialog.vala:563
+msgid "The post you are replying to."
+msgstr "Innlegget du svarar på."
+
+#. translators: composer title. The variable is a string username
+#: src/Dialogs/Composer/Dialog.vala:571
+#, c-format
+msgid "Reply to @%s"
+msgstr "Svar på @%s"
+
+#. translators: composer post button label, verb
+#: src/Dialogs/Composer/Dialog.vala:604 src/Widgets/Status/ActionsRow.vala:129
+#: src/Widgets/Status/ActionsRow.vala:285
+msgid "Quote"
+msgstr "Herm"
+
+#. translators: composer embedded quoting post, aria label
+#: src/Dialogs/Composer/Dialog.vala:634
+msgid "The post you are quoting."
+msgstr "Innlegget du hermer."
+
+#. translators: composer title. The variable is a string username
+#: src/Dialogs/Composer/Dialog.vala:642
+#, c-format
+msgid "Quoting @%s"
+msgstr "Hermer etter @%s"
+
+#. translators: composer post button label
+#. translators: button on the delete post dialog that
+#. deletes the post and fills the composer
+#. with it so you can edit it
+#: src/Dialogs/Composer/Dialog.vala:661 src/Widgets/Status.vala:525
+msgid "Redraft"
+msgstr "Skriv om"
+
+#: src/Dialogs/Composer/Dialog.vala:661 src/Dialogs/Composer/Dialog.vala:692
+#: src/Dialogs/Preferences.vala:32 src/Views/Lists.vala:16
+#: src/Views/List.vala:25 src/Widgets/ScheduledStatus.vala:44
+#: src/Widgets/Status.vala:353
+msgid "Edit"
+msgstr "Brigd"
+
+#. translators: composer title
+#: src/Dialogs/Composer/Dialog.vala:669 src/Dialogs/Composer/Dialog.vala:699
+msgid "Edit Post"
+msgstr "Brigd innlegg"
+
+#. translators: media as in picture or files
+#: src/Dialogs/Composer/Dialog.vala:866
+msgid "Paste Media from Clipboard?"
+msgstr "Lim inn medium frå utklippstavla?"
+
+#. translators: they = media / files from clipboard, instance = server
+#: src/Dialogs/Composer/Dialog.vala:869
+msgid "They will be uploaded to your instance"
+msgstr "Dei skal lastast opp på tenaren din"
+
+#. translators: dialog button label when pasting from clipboard, verb
+#: src/Dialogs/Composer/Dialog.vala:872
+msgid "Paste"
+msgstr "Lim inn"
+
+#. translators: Dialog title when closing the composer
+#: src/Dialogs/Composer/Dialog.vala:1154
+msgid "Discard Post?"
+msgstr "Lat att innlegg?"
+
+#. translators: Dialog body when closing the composer.
+#. 'progress' of using the composer (e.g.
+#. it shows up if the user typed something
+#. and pressed esc / the composer is not
+#. empty)
+#: src/Dialogs/Composer/Dialog.vala:1161
+msgid "Your progress will be lost."
+msgstr "Framgangen din skal verta tapt."
+
+#. translators: dialog button action, verb
+#: src/Dialogs/Composer/Dialog.vala:1164
+msgid "Discard"
+msgstr "Lat att"
+
+#. translators: composer placeholder
+#: src/Dialogs/Composer/Editor.vala:265 src/Dialogs/Composer/Editor.vala:277
+msgid "What's on your mind?"
+msgstr "Kva har du på hjarta?"
+
+#. translators: "Stripped" is a past tense verb in this context, not an adjective.
+#: src/Dialogs/Composer/Editor.vala:420
+msgid "Stripped tracking parameters"
+msgstr "Tok bort sporingsleder"
+
+#: src/Dialogs/Composer/Editor.vala:423 src/Views/Admin/Pages/Accounts.vala:409
+#: src/Views/Admin/Pages/Accounts.vala:429
+msgid "Undo"
+msgstr "Angra"
+
+#: src/Dialogs/Composer/Polls.vala:50 src/Dialogs/ListEdit.vala:109
+#: src/Views/Admin/Timelines/DomainAllow.vala:35 src/Views/Search.vala:176
+msgid "Remove"
+msgstr "Tak bort"
+
+#. translators: screen reader announcements on buttons that change label
+#. when clicked in the composer. The variable is a string of
+#. the new state.
+#: src/Dialogs/Composer/Polls.vala:138
+#, c-format
+msgid "Changed state to \"%s\""
+msgstr "Endra stode til «%s»"
+
+#. translators: multiple choice as in allow the user to pick multiple poll options
+#: src/Dialogs/Composer/Polls.vala:231
+msgid "Multiple Choice"
+msgstr "Fleirvalsavrøysting"
+
+#: src/Dialogs/Composer/Polls.vala:231
+msgid "Single Choice"
+msgstr "Eittvalsavrøysting"
+
+#. translators: tooltip text on composer polls that toggles
+#. whether the poll is single or multiple choice
+#: src/Dialogs/Composer/Polls.vala:239
+msgid "Toggle Choice Type"
+msgstr "Valtype"
+
+#. translators: tooltip of poll button that shows the current vote results
+#: src/Dialogs/Composer/Polls.vala:244 src/Widgets/VoteBox.vala:235
+msgid "Show Results"
+msgstr "Syn resultat"
+
+#. translators: tooltip of poll button that hides the current vote results
+#: src/Dialogs/Composer/Polls.vala:244 src/Widgets/VoteBox.vala:231
+msgid "Hide Results"
+msgstr "Gøym resultat"
+
+#. translators: tooltip text on composer polls that toggles
+#. whether the poll results should be visible
+#: src/Dialogs/Composer/Polls.vala:253
+msgid "Toggle Results Visibility"
+msgstr "Syn/gøym resultat"
+
+#. translators: poll entry title; the variable is a number
+#: src/Dialogs/Composer/Polls.vala:307 src/Dialogs/Composer/Polls.vala:354
+#, c-format
+msgid "Choice %d"
+msgstr "Val %d"
+
+#. translators: the variable is a number
+#: src/Dialogs/Composer/Polls.vala:378 src/Dialogs/Composer/Polls.vala:381
+#: src/Dialogs/FilterEdit.vala:30
+#, c-format
+msgid "%d Minute"
+msgid_plural "%d Minutes"
+msgstr[0] "%d minutt"
+msgstr[1] "%d minutt"
+
+#. translators: the variable is a number, short form for minutes
+#: src/Dialogs/Composer/Polls.vala:380 src/Dialogs/Composer/Polls.vala:382
+#, c-format
+msgid "%dmin"
+msgstr "%dmin"
+
+#. translators: the variable is a number, short form for hours
+#: src/Dialogs/Composer/Polls.vala:386 src/Dialogs/Composer/Polls.vala:388
+#: src/Dialogs/Composer/Polls.vala:390
+#, c-format
+msgid "%dh"
+msgstr "%dt"
+
+#. translators: the variable is a number, short form for days
+#: src/Dialogs/Composer/Polls.vala:394 src/Dialogs/Composer/Polls.vala:396
+#: src/Dialogs/Composer/Polls.vala:398
+#, c-format
+msgid "%dd"
+msgstr "%dd"
+
+#: src/Dialogs/FilterEdit.vala:125
+msgid "New Filter"
+msgstr "Nytt filter"
+
+#: src/Dialogs/FilterEdit.vala:189
+msgid "Keyword"
+msgstr "Lykelord"
+
+#: src/Dialogs/FilterEdit.vala:192
+msgid "Match Whole Word"
+msgstr "Samsvar med heile ord"
+
+#: src/Dialogs/FilterEdit.vala:199 src/Dialogs/Preferences.vala:24
+#: src/Dialogs/Preferences.vala:84 src/Views/Drive.vala:260
+#: src/Views/Drive.vala:1227 src/Views/Drive.vala:1314 src/Views/Lists.vala:24
+#: src/Views/Lists.vala:124 src/Widgets/Admin/DomainAllow.vala:15
+#: src/Widgets/Admin/DomainBlock.vala:40
+#: src/Widgets/Admin/EmailDomainBlock.vala:28 src/Widgets/Admin/IPBlock.vala:19
+#: src/Widgets/ScheduledStatus.vala:59 src/Widgets/ScheduledStatus.vala:204
+#: src/Widgets/Status.vala:354 src/Widgets/Status.vala:527
+msgid "Delete"
+msgstr "Tak bort"
+
+#: src/Dialogs/FilterEdit.vala:325
+#, c-format
+msgid "Couldn't edit filter: %s"
+msgstr "Klarte ikkje å brigda filter: %s"
+
+#: src/Dialogs/MainWindow.vala:72
+#: src/Services/Accounts/Mastodon/Account.vala:20 src/Views/Home.vala:12
+msgid "Home"
+msgstr "Heim"
+
+#: src/Dialogs/NewAccount.vala:3
+msgid "Allow access to your account in the browser."
+msgstr "Tillat tilgang til kontoen din frå netlesaren."
+
+#: src/Dialogs/NewAccount.vala:4
+msgid "Copy the authorization code from the browser and paste it below."
+msgstr "Kopier godkjenningskoden frå netlesaren og lim han inn nedanfor."
+
+#: src/Dialogs/NewAccount.vala:174
+msgid "Please enter a valid instance URL"
+msgstr "Venlegast skriv inn ein gyldig allheimstenar-URL"
+
+#: src/Dialogs/NewAccount.vala:220
+msgid "Please enter a valid authorization code"
+msgstr "Venlegast skriv inn ein gyldig godkjenningskode"
+
+#: src/Dialogs/NewAccount.vala:237
+msgid "Instance failed to authorize the access token"
+msgstr "Tenaren mislukkast i å godkjenne godkjenningslykelen"
+
+#: src/Dialogs/NewAccount.vala:247
+#, c-format
+msgid "Hello, %s!"
+msgstr "Hei, %s!"
+
+#: src/Dialogs/NewAccount.vala:302
+msgid "Server returned an error"
+msgstr "Tenar gav ein feil"
+
+#: src/Dialogs/NewAccount.vala:339
+msgid "Apply"
+msgstr "Nøyt"
+
+#. translators: Switch title in the new account window
+#: src/Dialogs/NewAccount.vala:372
+msgid "Admin Mode"
+msgstr "Administratormodus"
+
+#. translators: Switch description in the new account window
+#: src/Dialogs/NewAccount.vala:374
+msgid ""
+"Enables the Admin Dashboard and requests the needed permissions to use the "
+"Admin API"
+msgstr ""
+"Slår på administratorkontrollpanelen og spør etter dei trongne løyva for å "
+"nøyta administrator-API-en"
+
+#: src/Dialogs/NotificationSettings.vala:52
+msgid "Polls"
+msgstr "Avrøystingar"
+
+#: src/Dialogs/NotificationSettings.vala:53
+msgid "Post Edits"
+msgstr "Innleggsbrigdingar"
+
+#: src/Dialogs/NotificationSettings.vala:54
+msgid "Follows"
+msgstr "Fylgingar"
+
+#: src/Dialogs/NotificationSettings.vala:131
+msgid "Clear All Notifications?"
+msgstr "Slett alle varsel?"
+
+#: src/Dialogs/NotificationSettings.vala:138
+msgid "Clear"
+msgstr "Slett"
+
+#: src/Dialogs/Preferences.vala:44
+#, c-format
+msgid "%d keyword"
+msgid_plural "%d keywords"
+msgstr[0] "%d lykelord"
+msgstr[1] "%d lykelord"
+
+#. translators: the variable is a filter name
+#: src/Dialogs/Preferences.vala:81
+#, c-format
+msgid "Delete %s?"
+msgstr "Tak bort %s?"
+
+#. translators: the variable is an error message
+#: src/Dialogs/Preferences.vala:96
+#, c-format
+msgid "Couldn't delete filter: %s"
+msgstr "Klarte ikkje å taka bort filter: %s"
+
+#: src/Dialogs/Preferences.vala:392
+msgid "Analytics Preview"
+msgstr "Analyseførehandsvisning"
+
+#. tanslators: profile field label or title
+#: src/Dialogs/ProfileEdit.vala:45
+msgid "Label"
+msgstr "Feltsetikett"
+
+#. translators: profile field content
+#: src/Dialogs/ProfileEdit.vala:53
+msgid "Content"
+msgstr "Feltsinnhald"
+
+#. translators: profile field, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
+#: src/Dialogs/ProfileEdit.vala:209
+msgid "Add Field"
+msgstr "Legg til felt"
+
+#. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
+#: src/Dialogs/ProfileEdit.vala:228
+#, c-format
+msgid "Field %d"
+msgstr "Felt %d"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:24
+msgid "It's spam"
+msgstr "Det er spam"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:27
+msgid "It violates server rules"
+msgstr "Det overskrid tenarreglar"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:30
+msgid "It's something else"
+msgstr "Det er noko anna"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:39
+msgid "Malicious links, fake engagement, or repetitive replies"
+msgstr "Usæle lenkjer, falsk samhandling eller gjentakande svar"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:42
+msgid "You are aware that it breaks specific rules"
+msgstr "Du er viss på at det bryt med reglar"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:45
+msgid "The issue does not fit into other categories"
+msgstr "Problemet høver ikkje til andre kategoriar"
+
+#. translators: the variable is an account handle
+#: src/Dialogs/Report.vala:116
+#, c-format
+msgid "Reporting %s"
+msgstr "Rapporterer %s"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is meant for reporting users
+#: src/Dialogs/Report.vala:142
+msgid "Tell us what's going on with this account"
+msgstr "Fortel oss kva som hender med denne kontoen"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is meant for reporting posts
+#: src/Dialogs/Report.vala:146
+msgid "Tell us what's going on with this post"
+msgstr "Fortel oss kva som hender med dette innlegget"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is shown above a list of radio-button options where the user can only choose one
+#: src/Dialogs/Report.vala:151
+msgid "Choose the best match"
+msgstr "Vel det som skildrar best det som hender"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Report.vala:190
+msgid "Which rules are being violated?"
+msgstr "Kva reglar vert overskridne?"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this shown above a list of checkbox options where the user can select multiple
+#: src/Dialogs/Report.vala:195 src/Dialogs/Report.vala:259
+msgid "Select all that apply"
+msgstr "Vel alle som gjeld"
+
+#. translators: 'fetch' as in get
+#: src/Dialogs/Report.vala:227
+msgid "Couldn't fetch all user's posts"
+msgstr "Klarte ikkje å henta alle innlegg åt brukaren"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is shown above a list of posts. The user is meant to choose any that should be included in the report
+#: src/Dialogs/Report.vala:250
+msgid "Are there any posts that back up this report?"
+msgstr "Er det nokon innlegg som stadfester denne rapporteringa?"
+
+#. translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
+#. that's why it asks about choosing 'other' posts
+#: src/Dialogs/Report.vala:254
+msgid "Are there any other posts that back up this report?"
+msgstr "Er det nokon andre innlegg som stadfester denne rapporteringa?"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is shown at the top of the last page of the report dialog
+#: src/Dialogs/Report.vala:273
+msgid "Is there anything else you think we should know?"
+msgstr "Er det noko anna som du tykkjer at vi burde vita?"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. additional comments to be included in the report
+#: src/Dialogs/Report.vala:279
+msgid "Additional Comments"
+msgstr "Tilleggskommentar"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. the variable is an instance name e.g. 'Forward to mastodon.social'
+#: src/Dialogs/Report.vala:310
+#, c-format
+msgid "Forward to %s"
+msgstr "Send frametter til %s"
+
+#. translators: submit the report
+#: src/Dialogs/Report.vala:350
+msgid "Submit Report?"
+msgstr "Send inn rapportering?"
+
+#: src/Dialogs/Report.vala:421
+msgid "Submitted Report Successfully"
+msgstr "Sende inn rapportering"
+
+#. translators: the variable is an error
+#: src/Dialogs/Report.vala:427
+#, c-format
+msgid "Couldn't submit report: %s"
+msgstr "Klarte ikkje å sende inn rapportering: %s"
+
+#: src/Dialogs/Report.vala:446 src/Views/Browser.vala:157
+#: src/Widgets/AccountSuggestions.vala:79
+msgid "Back"
+msgstr "Attende"
+
+#. translators: the variable is an error
+#: src/Dialogs/Report.vala:523 src/Dialogs/Report.vala:534
+#, c-format
+msgid "%s. You can continue with the report however."
+msgstr "%s. Du kan derimot halda fram med rapporteringa."
+
+#: src/Dialogs/Report.vala:523
+msgid "No posts found"
+msgstr "Ingen innlegg funne"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:294
+#, c-format
+msgid "%s mentioned you"
+msgstr "%s nemnde deg"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:303
+#, c-format
+msgid "%s boosted your post"
+msgstr "%s delte innlegget ditt"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:312
+#, c-format
+msgid "%s boosted"
+msgstr "%s delte"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:321
+#, c-format
+msgid "%s favorited your post"
+msgstr "%s favorittmerkte innlegget ditt"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:330
+#, c-format
+msgid "%s now follows you"
+msgstr "%s fylgjer deg no"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:339
+#, c-format
+msgid "%s wants to follow you"
+msgstr "%s vil fylgja deg"
+
+#. translators: this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:347
+msgid "Poll results"
+msgstr "Avrøystingsresultat"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:356
+#, c-format
+msgid "%s edited a post"
+msgstr "%s brigda eit innlegg"
+
+#. translators: post header, on posts that are replies
+#: src/Services/Accounts/InstanceAccount.vala:364
+msgid "In Reply"
+msgstr "Svar"
+
+#. translators: the variable is a string user handle,
+#. post header, on posts that are replies
+#: src/Services/Accounts/InstanceAccount.vala:368
+#, c-format
+msgid "In Reply to %s"
+msgstr "Svar på %s"
+
+#. translators: the variable is a string user name,
+#. this is used for admin notifications
+#: src/Services/Accounts/InstanceAccount.vala:382
+#, c-format
+msgid "%s signed up"
+msgstr "%s melde seg på"
+
+#. translators: this is used for notifications,
+#. when you lost followers or following
+#. due to admin instance or user suspension
+#. or personal domain blocking
+#: src/Services/Accounts/InstanceAccount.vala:393
+msgid "Some of your relationships got severed"
+msgstr "Nokre av tilhøva dine vart brotne"
+
+#. translators: this is used for admin notifications
+#: src/Services/Accounts/InstanceAccount.vala:425
+msgid "Received a new report"
+msgstr "Mottok ei ny rapportering"
+
+#. translators: the variable is a string user name,
+#. this is used for per-account notifications
+#: src/Services/Accounts/InstanceAccount.vala:434
+#, c-format
+msgid "%s just posted"
+msgstr "%s la nyst ut eit innlegg"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:444
+#, c-format
+msgid "%s reacted to your post"
+msgstr "%s reagerte på innlegget ditt"
+
+#. translators: the first variable is a string user name,
+#. the second variable is an emoji,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:449
+#, c-format
+msgid "%s reacted to your post with %s"
+msgstr "%s reagerte på innlegget ditt med %s"
+
+#. translators: this is a content type
+#: src/Services/Accounts/InstanceAccount.vala:493
+msgid "Plain Text"
+msgstr "Vanleg tekst"
+
+#: src/Services/Accounts/Mastodon/Account.vala:65 src/Views/Bookmarks.vala:4
+msgid "Bookmarks"
+msgstr "Bokmerke"
+
+#: src/Services/Accounts/Mastodon/Account.vala:101 src/Views/Explore.vala:3
+msgid "Explore"
+msgstr "Oppdag"
+
+#: src/Services/Accounts/Mastodon/Account.vala:130 src/Views/Federated.vala:4
+msgid "Federated"
+msgstr "Føderert"
+
+#: src/Services/Accounts/Mastodon/Account.vala:139 src/Views/Explore.vala:7
+#: src/Views/Hashtags.vala:4 src/Views/Search.vala:116
+msgid "Hashtags"
+msgstr "Emneknaggar"
+
+#. translators: Drive as in 'Google Drive'
+#: src/Services/Accounts/Mastodon/Account.vala:149 src/Views/Drive.vala:849
+#: src/Views/Drive.vala:988
+msgid "Drive"
+msgstr "Disk"
+
+#. translators: visibility dropdown subtitle
+#: src/Services/Accounts/Mastodon/Account.vala:218
+msgid "Post to public timelines"
+msgstr "Legg ut på offentlege tidslinjer"
+
+#. translators: visibility dropdown subtitle
+#: src/Services/Accounts/Mastodon/Account.vala:226
+msgid "Don't post to public timelines"
+msgstr "Ikkje legg ut på offentlege tidslinjer"
+
+#. translators: visibility dropdown subtitle
+#: src/Services/Accounts/Mastodon/Account.vala:234
+msgid "Post to followers only"
+msgstr "Legg ut berre for fylgjarar"
+
+#. translators: visibility dropdown subtitle
+#: src/Services/Accounts/Mastodon/Account.vala:242
+msgid "Post to mentioned users only"
+msgstr "Legg ut berre for nemnde brukarar"
+
+#. translators: this error shows up when the user clicks a button
+#. in a desktop notification that was pushed for a
+#. different account
+#: src/Services/Accounts/Mastodon/Account.vala:270
+msgid "Notification was pushed for a different account"
+msgstr "Skrivebordsvarselet vart sendt for ein annan konto"
+
+#. translators: The variable is "Fediverse" or a backend like "Mastodon"
+#: src/Services/Accounts/SecretAccountStore.vala:237
+#, c-format
+msgid "%s Account"
+msgstr "%s-konto"
+
+#. translators: Follow System's dark mode preference
+#: src/Services/Settings.vala:298
+msgid "Follow System"
+msgstr "Fylg system"
+
+#. translators: Light mode theme
+#: src/Services/Settings.vala:301
+msgid "Light"
+msgstr "Ljos"
+
+#. translators: Dark mode theme
+#: src/Services/Settings.vala:304
+msgid "Dark"
+msgstr "Mørk"
+
+#: src/Utils/DateTime.vala:12
+msgid "expires soon"
+msgstr "lauper ut snart"
+
+#. tranlators: the variable is a number, `m` as in minutes in short form
+#: src/Utils/DateTime.vala:16
+#, c-format
+msgid "%sm left"
+msgstr "%sm att"
+
+#. tranlators: the variable is a number, `h` as in hours in short form
+#: src/Utils/DateTime.vala:20
+#, c-format
+msgid "%sh left"
+msgstr "%st att"
+
+#. tranlators: the variable is a number, `d` as in days in short form
+#: src/Utils/DateTime.vala:24
+#, c-format
+msgid "%sd left"
+msgstr "%sd att"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#. %Y is the year (with century)
+#: src/Utils/DateTime.vala:29
+msgid "expires on %b %-e, %Y"
+msgstr "lauper ut den %-e. %b %Y"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#. %Y is the year (with century)
+#. %H is the hours (24h format)
+#. %M is the minutes
+#: src/Utils/DateTime.vala:43
+msgid "expires on %b %-e, %Y %H:%M"
+msgstr "lauper ut den %-e. %b %Y, kl. %H:%M"
+
+#: src/Utils/DateTime.vala:45
+msgid "expired on just now"
+msgstr "laupte nyst ut"
+
+#. tranlators: the variable is a number, `m` as in minutes in short form
+#: src/Utils/DateTime.vala:49
+#, c-format
+msgid "expired %sm ago"
+msgstr "laupte ut %sm sidan"
+
+#. tranlators: the variable is a number, `h` as in hours in short form
+#: src/Utils/DateTime.vala:54
+#, c-format
+msgid "expired %sh ago"
+msgstr "laupte ut %st sidan"
+
+#: src/Utils/DateTime.vala:57
+msgid "expired yesterday"
+msgstr "laupte ut i går"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#: src/Utils/DateTime.vala:62
+#, c-format
+msgid "expired on %b %-e"
+msgstr "laupte ut den %-e. %b"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#. %Y is the year (with century)
+#: src/Utils/DateTime.vala:68
+msgid "expired on %b %-e, %Y"
+msgstr "laupte ut den %-e. %b %Y"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#. %Y is the year (with century)
+#. %H is the hours (24h format)
+#. %M is the minutes
+#: src/Utils/DateTime.vala:82 src/Utils/DateTime.vala:121
+msgid "%b %-e, %Y %H:%M"
+msgstr "%-e. %b %Y, kl. %H:%M"
+
+#: src/Utils/DateTime.vala:84
+msgid "Just now"
+msgstr "Nyst"
+
+#. tranlators: the variable is a number, `m` as in minutes in short form
+#: src/Utils/DateTime.vala:88
+#, c-format
+msgid "%sm"
+msgstr "%sm"
+
+#. tranlators: the variable is a number, `h` as in hours in short form
+#: src/Utils/DateTime.vala:93
+#, c-format
+msgid "%sh"
+msgstr "%st"
+
+#: src/Utils/DateTime.vala:96
+msgid "Yesterday"
+msgstr "I går"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#: src/Utils/DateTime.vala:101 src/Utils/DateTime.vala:140
+#, c-format
+msgid "%b %-e"
+msgstr "%-e. %b"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#. %Y is the year (with century)
+#: src/Utils/DateTime.vala:107 src/Utils/DateTime.vala:146
+#: src/Utils/DateTime.vala:155
+msgid "%b %-e, %Y"
+msgstr "%-e. %b %Y"
+
+#: src/Utils/DateTime.vala:123
+msgid "just now"
+msgstr "nyst"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:127
+#, c-format
+msgid "%s minutes ago"
+msgstr "%s minutt sidan"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:132
+#, c-format
+msgid "%s hours ago"
+msgstr "%s timar sidan"
+
+#: src/Utils/DateTime.vala:135
+msgid "yesterday"
+msgstr "i går"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:169
+#, c-format
+msgid "less than a minute old"
+msgid_plural "%s minutes old"
+msgstr[0] "mindre enn eit minutt sidan"
+msgstr[1] "%s minutt sidan"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:174
+#, c-format
+msgid "an hour old"
+msgid_plural "%s hours old"
+msgstr[0] "ein time sidan"
+msgstr[1] "%s timar sidan"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:190 src/Utils/DateTime.vala:205
+#, c-format
+msgid "a month old"
+msgid_plural "%d months old"
+msgstr[0] "ein månad sidan"
+msgstr[1] "%d månader sidan"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:196
+#, c-format
+msgid "a day old"
+msgid_plural "%d days old"
+msgstr[0] "ein dag sidan"
+msgstr[1] "%d dagar sidan"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:201
+#, c-format
+msgid "a year old"
+msgid_plural "%d years old"
+msgstr[0] "eit år sidan"
+msgstr[1] "%d år sidan"
+
+#. translators: short unit suffix for thousands
+#. 3000 => 3k
+#: src/Utils/Units.vala:13
+msgid "k"
+msgstr "t."
+
+#. translators: short unit suffix for millions
+#. 3000000 => 3M
+#: src/Utils/Units.vala:17
+msgid "M"
+msgstr "m."
+
+#. translators: short unit suffix for billions
+#. 3000000000 => 3G
+#: src/Utils/Units.vala:21
+msgid "G"
+msgstr "mrd."
+
+#. translators: as in All search results
+#: src/Views/Admin/Pages/Accounts.vala:68
+#: src/Views/Admin/Pages/Accounts.vala:91 src/Views/Search.vala:113
+msgid "All"
+msgstr "Alle"
+
+#. translators: Dropdown entry, remote as in from a different instance.
+#. It's for the admin dashboard, so it's better if it stays
+#. close to the original word.
+#: src/Views/Admin/Pages/Accounts.vala:73
+msgid "Remote"
+msgstr "Fjerre"
+
+#. translators: admin panel, accounts tab, filter dropdown tooltip text
+#: src/Views/Admin/Pages/Accounts.vala:78
+msgid "Location"
+msgstr "Plassering"
+
+#. translators: Dropdown entry, account status.
+#. It's for the admin dashboard, so it's better if it stays
+#. close to the original word.
+#: src/Views/Admin/Pages/Accounts.vala:95
+msgid "Active"
+msgstr "Aktiv"
+
+#. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
+#. translators: Dropdown entry, account status.
+#. It's for the admin dashboard, so it's better if it stays
+#. close to the original word.
+#: src/Views/Admin/Pages/Accounts.vala:101
+#: src/Views/Admin/Pages/Accounts.vala:381 src/Widgets/Admin/AccountRow.vala:31
+#: src/Widgets/Admin/Report.vala:52
+msgid "Limited"
+msgstr "Avgrensa"
+
+#. translators: Dropdown entry, account status.
+#. It's for the admin dashboard, so it's better if it stays
+#. close to the original word.
+#: src/Views/Admin/Pages/Accounts.vala:105
+#: src/Views/Admin/Pages/Accounts.vala:388 src/Widgets/Admin/AccountRow.vala:33
+#: src/Widgets/Admin/Report.vala:54
+msgid "Disabled"
+msgstr "Avslegen"
+
+#. translators: Dropdown entry, account status.
+#. It's for the admin dashboard, so it's better if it stays
+#. close to the original word.
+#: src/Views/Admin/Pages/Accounts.vala:109
+#: src/Views/Admin/Pages/Accounts.vala:374 src/Widgets/Admin/AccountRow.vala:29
+#: src/Widgets/Admin/Report.vala:50
+msgid "Suspended"
+msgstr "Suspendert"
+
+#. translators: Dropdown entry, account status.
+#. It's for the admin dashboard, so it's better if it stays
+#. close to the original word.
+#: src/Views/Admin/Pages/Accounts.vala:113
+msgid "Pending"
+msgstr "Ventande"
+
+#: src/Views/Admin/Pages/Accounts.vala:128
+msgid "Username"
+msgstr "Brukarnamn"
+
+#: src/Views/Admin/Pages/Accounts.vala:142
+#: src/Views/Admin/Pages/Accounts.vala:302
+msgid "E-mail"
+msgstr "E-post"
+
+#: src/Views/Admin/Pages/Accounts.vala:296
+msgid "Role"
+msgstr "Rolle"
+
+#. translators: admin dashboard, account view
+#. e-mail has been confirmed
+#: src/Views/Admin/Pages/Accounts.vala:313
+msgid "Confirmed"
+msgstr "Godkjend"
+
+#. translators: admin dashboard, account view
+#. e-mail has NOT been confirmed
+#: src/Views/Admin/Pages/Accounts.vala:321
+msgid "Not Confirmed"
+msgstr "Ikkje godkjend"
+
+#. translators: admin panel, account waiting to be approved, placeholder when they didn't include a reason
+#: src/Views/Admin/Pages/Accounts.vala:345
+msgid "No Reason Given"
+msgstr "Inga årsak gjeven"
+
+#. translators: admin panel, account waiting to be approved
+#: src/Views/Admin/Pages/Accounts.vala:349
+msgid "Awaiting Approval"
+msgstr "Ventar på godkjenning"
+
+#: src/Views/Admin/Pages/Accounts.vala:356
+#: src/Views/Admin/Pages/Accounts.vala:490
+msgid "Approve"
+msgstr "Godkjenn"
+
+#: src/Views/Admin/Pages/Accounts.vala:363
+#: src/Views/Admin/Pages/Accounts.vala:523
+msgid "Reject"
+msgstr "Avslå"
+
+#. translators: Question dialog when an admin is about to
+#. undo an action, like a suspension
+#: src/Views/Admin/Pages/Accounts.vala:422
+msgid "Undo this Action?"
+msgstr "Angra denne handlinga?"
+
+#. translators: Question dialog when an admin is about to
+#. approve an account. The variable is an
+#. account handle
+#: src/Views/Admin/Pages/Accounts.vala:483
+#, c-format
+msgid "Approve %s?"
+msgstr "Godkjenn %s?"
+
+#. translators: Question dialog when an admin is about to
+#. reject an account. The variable is an
+#. account handle
+#: src/Views/Admin/Pages/Accounts.vala:516
+#, c-format
+msgid "Reject %s?"
+msgstr "Avslå %s?"
+
+#. translators: Admin Dialog entry placeholder text,
+#. this is about blocking e-mail providers like
+#. gmail.com
+#: src/Views/Admin/Pages/BlockedEmails.vala:21
+msgid "Block a new e-mail domain"
+msgstr "Blokker eit nytt e-postdomene"
+
+#. translators: Question dialog when an admin is about to
+#. block an e-mail domain. The variable is a
+#. string.
+#: src/Views/Admin/Pages/BlockedEmails.vala:60
+#, c-format
+msgid "Block %s?"
+msgstr "Blokker %s?"
+
+#. translators: Question dialog description when an admin is about to
+#. block an e-mail domain. The variable is a string.
+#. you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Views/Admin/Pages/BlockedEmails.vala:65
+msgid ""
+"This can be the domain name that shows up in the e-mail address or the MX "
+"record it uses. They will be checked upon sign-up."
+msgstr ""
+"Dette kan vera domenenamnet som dukkar opp i e-postadressa eller MX-rekorden "
+"det nøyter. Dei skal sjekkast ved påmelding."
+
+#. translators: title in admin dashboard stats
+#: src/Views/Admin/Pages/Dashboard.vala:14
+msgid "New Users"
+msgstr "Nye brukarar"
+
+#: src/Views/Admin/Pages/Dashboard.vala:14
+msgid "Active Users"
+msgstr "Aktive brukarar"
+
+#: src/Views/Admin/Pages/Dashboard.vala:14
+msgid "Interactions"
+msgstr "Samhandlingar"
+
+#: src/Views/Admin/Pages/Dashboard.vala:14
+msgid "Reports Opened"
+msgstr "Rapporteringar opna"
+
+#: src/Views/Admin/Pages/Dashboard.vala:14
+msgid "Reports Resolved"
+msgstr "Rapporteringar merkte som løyste"
+
+#. translators: group title in admin dashboard window
+#: src/Views/Admin/Pages/Dashboard.vala:18
+msgid "Sign-up Sources"
+msgstr "Påmeldingskjelder"
+
+#. translators: group title in admin dashboard window
+#: src/Views/Admin/Pages/Dashboard.vala:20
+msgid "Top Active Languages"
+msgstr "Mest aktive mål"
+
+#. translators: group title in admin dashboard window
+#: src/Views/Admin/Pages/Dashboard.vala:22
+msgid "Top Active Servers"
+msgstr "Mest aktive tenarar"
+
+#. translators: group title in admin dashboard window
+#: src/Views/Admin/Pages/Dashboard.vala:24
+msgid "Software"
+msgstr "Klientar"
+
+#. translators: group title in admin dashboard window
+#: src/Views/Admin/Pages/Dashboard.vala:26
+msgid "Space Usage"
+msgstr "Lagringsbruk"
+
+#: src/Views/Admin/Pages/Dashboard.vala:53
+msgid "Stats"
+msgstr "Statistikk"
+
+#. translators: Admin Dialog entry placeholder text,
+#. this is about allowing federation
+#. with other instances
+#: src/Views/Admin/Pages/FederationAllowlist.vala:18
+msgid "Allow federation with an instance"
+msgstr "Tillat føderering med ein tenar"
+
+#: src/Views/Admin/Pages/FederationAllowlist.vala:21
+#: src/Views/Admin/Pages/FederationAllowlist.vala:64
+msgid "Allow"
+msgstr "Tillat"
+
+#. translators: Question dialog when an admin is about to
+#. allow federation with an instance. The variable is a
+#. string.
+#: src/Views/Admin/Pages/FederationAllowlist.vala:57
+#, c-format
+msgid "Allow Federation with %s?"
+msgstr "Tillat føderering med %s?"
+
+#. translators: admin dashboard, reports timeline, headerbar button tooltip text
+#: src/Views/Admin/Pages/Reports.vala:10
+msgid "Show Resolved Reports"
+msgstr "Syn løyste rapporteringar"
+
+#. translators: Question dialog when an admin is about to
+#. unblock an IP address. The variable
+#. is a string IP address
+#. translators: Question dialog when an admin is about to
+#. delete a federation block. The variable is
+#. a string domain name
+#. translators: Question dialog when an admin is about to
+#. unblock an e-mail address block. The variable
+#. is a string e-mail address
+#: src/Views/Admin/Timelines/BlockedIPs.vala:26
+#: src/Views/Admin/Timelines/DomainBlock.vala:26
+#: src/Views/Admin/Timelines/EmailDomain.vala:26
+#, c-format
+msgid "Unblock %s?"
+msgstr "Avblokker %s?"
+
+#. translators: Question dialog when an admin is about to
+#. delete a domain from the federation allowlist.
+#. You can replace 'federation' with 'communication' if
+#. it's hard to translate.
+#. The variable is a string domain name
+#: src/Views/Admin/Timelines/DomainAllow.vala:28
+#, c-format
+msgid "Remove Federation with %s?"
+msgstr "Stogg føderering med %s?"
+
+#: src/Views/Admin/Timelines/PaginationTimeline.vala:57
+msgid "Previous Page"
+msgstr "Førre side"
+
+#: src/Views/Admin/Timelines/PaginationTimeline.vala:66
+msgid "Next Page"
+msgstr "Neste side"
+
+#: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:75
+msgid "Announcements"
+msgstr "Kunngjeringar"
+
+#: src/Views/Announcements.vala:8
+msgid "No Announcements"
+msgstr "Ingen kunngjeringar"
+
+# Framlegg: «Her var det berre fesk!», men det er ikkje veldig formelt det X)
+#. translators: Fallback shown when there are 0 results
+#: src/Views/Base.vala:4
+msgid "Nothing to see here"
+msgstr "Ingenting å sjå her"
+
+#: src/Views/Base.vala:142
+msgid "Reload"
+msgstr "Last inn att"
+
+#: src/Views/Base.vala:221
+msgid "An Error Occurred"
+msgstr "Ein feil oppstod"
+
+#: src/Views/Bookmarks.vala:6
+msgid "No Bookmarks"
+msgstr "Ingen bokmerke"
+
+#. translators: in-app web browser, tooltip on SSL icon
+#: src/Views/Browser.vala:43
+msgid "Secure"
+msgstr "Trygg"
+
+#. translators: in-app web browser, tooltip on SSL icon
+#: src/Views/Browser.vala:48
+msgid "Insecure"
+msgstr "Utrygg"
+
+#. translators: in-app web browser, move forward in history action
+#: src/Views/Browser.vala:166
+msgid "Forward"
+msgstr "Framover"
+
+#. translators: toast shown when copying a url with the action in the in-app web browser
+#: src/Views/Browser.vala:200
+msgid "Copied url to clipboard"
+msgstr "Kopierte URL til utklippstavla"
+
+#: src/Views/Conversations.vala:8
+msgid "No Conversations"
+msgstr "Ingen samtaler"
+
+#. translators: as in posts that are saved but not posted yet
+#: src/Views/DraftStatuses.vala:4 src/Views/Sidebar.vala:78
+msgid "Draft Posts"
+msgstr "Kladd"
+
+#. translators: as in posts that are saved but not posted yet
+#: src/Views/DraftStatuses.vala:7
+msgid "No Draft Posts"
+msgstr "Ingen kladdar"
+
+#. translators: Error reason when trying to delete a non-empty folder
+#: src/Views/Drive.vala:24
+msgid "Folder is not empty"
+msgstr "Mappa er ikkje tom"
+
+#. translators: Error reason when trying to delete an actively used file
+#: src/Views/Drive.vala:29
+msgid "File is used as an avatar"
+msgstr "Fil er nøytt som profilbilete"
+
+#: src/Views/Drive.vala:29
+msgid "File is used as a banner"
+msgstr "Fil er nøytt som fanebilete"
+
+#. translators: tooltip text on an icon that indicates that a file is used
+#. by a user profile (like an avatar)
+#: src/Views/Drive.vala:188
+msgid "Used by a Profile"
+msgstr "Nøytt av ein profil"
+
+#: src/Views/Drive.vala:242
+msgid "Copy Link"
+msgstr "Kopier lenkje"
+
+#: src/Views/Drive.vala:248
+msgid "Mark as Sensitive"
+msgstr "Gøym"
+
+#. translators: alternative text context menu item in drive
+#: src/Views/Drive.vala:253
+msgid "Edit Alt Text"
+msgstr "Brigd skildring"
+
+#: src/Views/Drive.vala:259 src/Views/Drive.vala:409
+msgid "Rename"
+msgstr "Omdøyp"
+
+#. translators: the first variable is a filename,
+#. the second is an error message
+#: src/Views/Drive.vala:380
+#, c-format
+msgid "Couldn't mark '%s' as sensitive: %s"
+msgstr "Klarte ikkje å gøyma «%s»: %s"
+
+#: src/Views/Drive.vala:407
+msgid "Rename Folder"
+msgstr "Omdøyp mappe"
+
+#: src/Views/Drive.vala:407
+msgid "Rename File"
+msgstr "Omdøyp fil"
+
+#. translators: the first variable is a filename,
+#. the second is an error message
+#: src/Views/Drive.vala:464
+#, c-format
+msgid "Couldn't change alt text for '%s': %s"
+msgstr "Klarte ikkje å brigda skildringa på «%s»: %s"
+
+#. translators: the first variable is a filename,
+#. the second is an error message
+#: src/Views/Drive.vala:511
+#, c-format
+msgid "Couldn't rename '%s': %s"
+msgstr "Klarte ikkje å omdøypa «%s»: %s"
+
+#. translators: title on an entry
+#: src/Views/Drive.vala:730
+msgid "New Folder"
+msgstr "Ny mappe"
+
+#. translators: placeholder on an entry
+#: src/Views/Drive.vala:732
+msgid "Folder Name"
+msgstr "Mappenamn"
+
+#. translators: button label, verb
+#: src/Views/Drive.vala:734
+msgid "Create"
+msgstr "Opprett"
+
+#: src/Views/Drive.vala:740
+msgid "Create Folder"
+msgstr "Opprett mappe"
+
+#: src/Views/Drive.vala:748
+msgid "Upload File"
+msgstr "Last opp fil"
+
+#. translators: error that shows up as a toast when creating folders
+#. in iceshrimp drive
+#: src/Views/Drive.vala:818
+#, c-format
+msgid "Couldn't create folder: %s"
+msgstr "Klarte ikkje å oppretta mappe: %s"
+
+#: src/Views/Drive.vala:874
+msgid "Drop files to upload them"
+msgstr "Slepp filer for å lasta dei opp"
+
+#: src/Views/Drive.vala:1199
+#, c-format
+msgid "Couldn't move '%s': %s"
+msgstr "Klarte ikkje å flytta «%s»: %s"
+
+#. translators: Error when trying to delete a file that cannot be deleted.
+#. The first variable is a string file name, the second is an error.
+#: src/Views/Drive.vala:1216 src/Views/Drive.vala:1273
+#, c-format
+msgid "'%s' cannot be deleted: %s"
+msgstr "«%s» kan ikkje takast bort: %s"
+
+#. translators: the variable is a folder/file name
+#: src/Views/Drive.vala:1224
+#, c-format
+msgid "Delete '%s'?"
+msgstr "Tak bort «%s»?"
+
+#: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
+msgid "This is irreversible."
+msgstr "Dette kan ikkje angrast."
+
+#. translators: the first variable is a filename,
+#. the second is an error message
+#: src/Views/Drive.vala:1249 src/Views/Drive.vala:1361
+#, c-format
+msgid "Couldn't delete '%s': %s"
+msgstr "Klarte ikkje å sletta «%s»: %s"
+
+#. translators: Error when trying to delete files/folders
+#. that cannot be deleted.
+#: src/Views/Drive.vala:1305
+msgid "No Deletable Files in Selection"
+msgstr "Ingen borttakelege filer i utvalet"
+
+#. translators: confirmation dialog in a file-browser-like page
+#: src/Views/Drive.vala:1311
+msgid "Delete Selection?"
+msgstr "Tak bort utvalet?"
+
+#: src/Views/Drive.vala:1372
+msgid "Upload Files"
+msgstr "Last opp filer"
+
+#. translators: toast popping up when a user uploads a file that already exists in drive
+#. The variable is a string filename.
+#: src/Views/Drive.vala:1423
+#, c-format
+msgid "'%s' already exists"
+msgstr "«%s» finst alt"
+
+#. translators: screen reader announcement when the
+#. drive successfully uploads a file
+#. The variable is a string filename
+#: src/Views/Drive.vala:1510
+#, c-format
+msgid "Finished Uploading '%s'"
+msgstr "Fullførte opplastinga av «%s»"
+
+#: src/Views/EditHistory.vala:5
+msgid "Edit History"
+msgstr "Brigdingshistorikk"
+
+#: src/Views/EditHistory.vala:7
+msgid "No Edit History"
+msgstr "Ingen brigdingshistorikk"
+
+#: src/Views/Explore.vala:7 src/Views/Hashtags.vala:7
+msgid "No Hashtags"
+msgstr "Ingen emneknaggar"
+
+#: src/Views/Explore.vala:8
+msgid "News"
+msgstr "Nyhende"
+
+#: src/Views/Explore.vala:8
+msgid "No News"
+msgstr "Ingen nyhende"
+
+#: src/Views/Explore.vala:9
+msgid "For You"
+msgstr "For deg"
+
+#: src/Views/Explore.vala:9
+msgid "No Suggestions"
+msgstr "Ingen framlegg"
+
+#: src/Views/Favorites.vala:5 src/Views/StatusStats.vala:17
+msgid "No Favorites"
+msgstr "Ingen favorittmerke"
+
+#: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:76
+msgid "Follow Requests"
+msgstr "Fylgjeførespurnader"
+
+#: src/Views/FollowRequests.vala:7
+msgid "No Follow Requests"
+msgstr "Ingen fylgjeførespurnader"
+
+#: src/Views/Hashtags.vala:21 src/Views/Lists.vala:45
+#: src/Widgets/Status/ActionsRow.vala:142
+msgid "Favorite"
+msgstr "Favorittmerk"
+
+#: src/Views/Hashtag.vala:85 src/Views/Hashtag.vala:98
+#: src/Widgets/RelationshipButton.vala:33
+#: src/Widgets/RelationshipButton.vala:70
+msgid "Follow"
+msgstr "Fylg"
+
+#: src/Views/Hashtag.vala:94 src/Widgets/RelationshipButton.vala:62
+msgid "Unfollow"
+msgstr "Avfylg"
+
+#: src/Views/Home.vala:23
+msgid "Compose"
+msgstr "Skriv"
+
+#: src/Views/Lists.vala:121
+#, c-format
+msgid "Delete \"%s\"?"
+msgstr "Tak bort «%s»?"
+
+#: src/Views/Lists.vala:122
+msgid "This action cannot be reverted."
+msgstr "Dette kan ikkje angrast."
+
+#: src/Views/Lists.vala:212
+msgid "No Lists"
+msgstr "Ingen lister"
+
+#: src/Views/Lists.vala:216
+msgid "New list title"
+msgstr "Ny listetittel"
+
+#: src/Views/Lists.vala:225
+msgid "Add list"
+msgstr "Legg til liste"
+
+#: src/Views/Main.vala:81
+msgid "Open Sidebar"
+msgstr "Opna sidefelt"
+
+#: src/Views/MediaViewer.vala:827
+msgid "Copied media url to clipboard"
+msgstr "Kopierte mediums-URL til utklippstavla"
+
+#: src/Views/MediaViewer.vala:1308 src/Widgets/Attachment/Image.vala:116
+msgid "Copied image to clipboard"
+msgstr "Kopierte bilete til utklippstavla"
+
+#: src/Views/MutesBlocks.vala:6 src/Views/Sidebar.vala:77
+msgid "Mutes & Blocks"
+msgstr "Dempingar og blokkeringar"
+
+#: src/Views/MutesBlocks.vala:11
+msgid "Mutes"
+msgstr "Dempingar"
+
+#: src/Views/MutesBlocks.vala:15
+msgid "No Muted Accounts"
+msgstr "Ingen dempa kontoar"
+
+#: src/Views/MutesBlocks.vala:19
+msgid "Blocks"
+msgstr "Blokkeringar"
+
+#: src/Views/MutesBlocks.vala:23
+msgid "No Blocked Accounts"
+msgstr "Ingen blokkerte kontoar"
+
+#. translators: the variable is a user handle
+#: src/Views/NotificationRequestsList.vala:8
+#, c-format
+msgid "Notifications by %s"
+msgstr "Varsel frå %s"
+
+#. translators: the variable is a user handle
+#: src/Views/NotificationRequestsList.vala:11
+#, c-format
+msgid "No Notifications by %s"
+msgstr "Ingen varsel frå %s"
+
+#: src/Views/NotificationRequestsList.vala:26
+#: src/Widgets/NotificationRequest.vala:56
+msgid "Dismiss"
+msgstr "Avvis"
+
+#: src/Views/NotificationRequests.vala:4
+msgid "Filtered Notifications"
+msgstr "Filtrerte varsel"
+
+#: src/Views/NotificationRequests.vala:7
+msgid "No Filtered Notifications"
+msgstr "Ingen filtrerte varsel"
+
+#: src/Views/Notifications.vala:14
+#, c-format
+msgid "%d Filtered Notification"
+msgid_plural "%d Filtered Notifications"
+msgstr[0] "%d filtrert varsel"
+msgstr[1] "%d filtrerte varsel"
+
+#: src/Views/Notifications.vala:43
+msgid "No Notifications"
+msgstr "Ingen varsel"
+
+#: src/Views/Profile.vala:118
+msgid "Profile"
+msgstr "Profil"
+
+#. translators: posts tab on profiles, shown when empty.
+#: src/Views/Profile.vala:270 src/Views/Timeline.vala:73
+msgid "No Posts"
+msgstr "Ingen innlegg"
+
+#. translators: followers tab on profiles, shown when empty.
+#: src/Views/Profile.vala:275
+msgid "No Followers"
+msgstr "Ingen fylgjarar"
+
+#. translators: following tab on profiles, shown when empty.
+#: src/Views/Profile.vala:280
+msgid "This user doesn't follow anyone yet"
+msgstr "Denne brukaren fylgjer ikkje nokon enno"
+
+#. translators: featured tab on profiles, shown when empty.
+#: src/Views/Profile.vala:285
+msgid "This user doesn't have any featured hashtags or accounts."
+msgstr "Denne brukaren har ikkje enno framheva emneknaggar eller kontoar."
+
+#: src/Views/Profile.vala:441
+msgid "Copied handle to clipboard"
+msgstr "Kopierte brukarnamn til utklippstavla"
+
+#: src/Views/Profile.vala:497
+#, c-format
+msgid "Block Entire \"%s\"?"
+msgstr "Blokker heile «%s»?"
+
+#: src/Views/Profile.vala:497
+#, c-format
+msgid "Unblock Entire \"%s\"?"
+msgstr "Avblokker heile «%s»?"
+
+#: src/Views/Profile.vala:500
+msgid ""
+"Blocking a domain will:\n"
+"\n"
+"• Remove its public posts and notifications from your timelines\n"
+"• Remove its followers from your account\n"
+"• Prevent you from following its users"
+msgstr ""
+"Å blokkera eit domene kjem til å:\n"
+"\n"
+"• Taka bort dei offentlege innlegga og varsla dess frå tidslinjene tine\n"
+"• Taka bort fylgjarane dess frå kontoen din\n"
+"• Stogga deg frå å fylgja brukarane dess"
+
+#. translators: the variable is an account handle
+#: src/Views/Profile.vala:605
+#, c-format
+msgid "Add or remove \"%s\" to or from a list"
+msgstr "Legg til eller taka bort «%s» i eller frå ei liste"
+
+#. translators: the variable is an account handle
+#: src/Views/Profile.vala:615
+#, c-format
+msgid "Select the list to add or remove \"%s\" to or from:"
+msgstr "Vel lista for å leggja til eller taka bort «%s» i eller frå:"
+
+#: src/Views/Profile.vala:621
+msgid "You don't have any lists"
+msgstr "Du har ikkje nokon lister"
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:651 src/Views/Profile.vala:723
+#, c-format
+msgid "Remove \"%s\" from \"%s\""
+msgstr "Tak bort «%s» frå «%s»"
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:652 src/Views/Profile.vala:717
+#, c-format
+msgid "Add \"%s\" to \"%s\""
+msgstr "Legg til «%s» i «%s»"
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:714
+#, c-format
+msgid "User \"%s\" got removed from \"%s\""
+msgstr "Brukar «%s» vart teken bort frå «%s»"
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:720
+#, c-format
+msgid "User \"%s\" got added to \"%s\""
+msgstr "Brukar «%s» vart lagd til i «%s»"
+
+#. translators: as in posts set to be posted sometime in the future
+#: src/Views/ScheduledStatuses.vala:5 src/Views/Sidebar.vala:79
+msgid "Scheduled Posts"
+msgstr "Planlagde innlegg"
+
+#. translators: as in posts set to be posted sometime in the future
+#: src/Views/ScheduledStatuses.vala:8
+msgid "No Scheduled Posts"
+msgstr "Ingen planlagde innlegg"
+
+#: src/Views/Search.vala:24
+msgid "Search Posts and Accounts"
+msgstr "Søk gjennom innlegg og kontoar"
+
+#: src/Views/Search.vala:38
+msgid "Clear Entry"
+msgstr "Reins inndata"
+
+#. translators: Used when there are 0 results in the custom emoji picker
+#: src/Views/Search.vala:113 src/Views/Search.vala:114
+#: src/Views/Search.vala:115 src/Views/Search.vala:116
+#: src/Widgets/CustomEmojiChooser.vala:173
+msgid "No Results"
+msgstr "Ingen resultat"
+
+#: src/Views/Search.vala:341
+msgid "Language"
+msgstr "Mål"
+
+#. translators: warning toast in advanced search dialog when auto-filling a user fails.
+#. Auto-fill refers to automatically filling the entry with the first
+#. found user based on the query.
+#: src/Views/Search.vala:502
+#, c-format
+msgid "Couldn't auto-fill user: %s"
+msgstr "Klarte ikkje å fullføra brukar: %s"
+
+#. tanslators: used in a banner, the variable is the number of unread announcements
+#: src/Views/Sidebar.vala:28
+#, c-format
+msgid "%d Announcement"
+msgid_plural "%d Announcements"
+msgstr[0] "%d kunngjering"
+msgstr[1] "%d kunngjeringar"
+
+#. tanslators: used in a banner, the variable is the number of unreviewed follow requests
+#: src/Views/Sidebar.vala:40
+#, c-format
+msgid "%d Follow Request"
+msgid_plural "%d Follow Requests"
+msgstr[0] "%d førespurnad"
+msgstr[1] "%d førespurnader"
+
+#. translators: main menu entry, please don't translate it unless you have to.
+#. Refer to other #FediWrapped strings for more info
+#: src/Views/Sidebar.vala:83
+msgid "#FediWrapped"
+msgstr "#FediWrapped"
+
+#: src/Views/Sidebar.vala:94
+msgid "Preferences"
+msgstr "Innstillingar"
+
+#: src/Views/Sidebar.vala:95
+msgid "Keyboard Shortcuts"
+msgstr "Tastatursnarvegar"
+
+#: src/Views/Sidebar.vala:96
+#, c-format
+msgid "About %s"
+msgstr "Om %s"
+
+#. translators: the variable is an account handle
+#: src/Views/Sidebar.vala:349
+#, c-format
+msgid "Forget %s?"
+msgstr "Gløym %s?"
+
+#: src/Views/Sidebar.vala:350
+msgid "This account will be removed from the application."
+msgstr "Denne kontoen skal takast bort frå applikasjonen."
+
+#: src/Views/Sidebar.vala:352
+msgid "Forget"
+msgstr "Gløym"
+
+#: src/Views/StatusStats.vala:7
+msgid "Post Stats"
+msgstr "Innleggsstatistikk"
+
+#. translators: title for a list of people that favorited a post
+#: src/Views/StatusStats.vala:13
+msgid "Favorited By"
+msgstr "Favorittmerkt av"
+
+#. translators: title for a list of people that boosted a post
+#: src/Views/StatusStats.vala:23
+msgid "Boosted By"
+msgstr "Delt av"
+
+#: src/Views/StatusStats.vala:27
+msgid "No Boosts"
+msgstr "Ingen delingar"
+
+#. translators: title for a list of people that have reacted to a post.
+#. A reaction is not the same as a favorite or a boost,
+#. see https://github.com/glitch-soc/mastodon/pull/2462
+#: src/Views/StatusStats.vala:36
+msgid "Reactions"
+msgstr "Reaksjonar"
+
+#. translators: Reactions page empty state.
+#. A reaction is not the same as a favorite or a boost,
+#. see https://github.com/glitch-soc/mastodon/pull/2462
+#: src/Views/StatusStats.vala:43
+msgid "No Reactions"
+msgstr "Ingen reaksjonar"
+
+#: src/Views/Thread.vala:32
+msgid "Conversation"
+msgstr "Samtale"
+
+#: src/Views/Thread.vala:127 src/Views/Thread.vala:141
+msgid "Reveal Spoilers"
+msgstr "Vid ut innlegg"
+
+#: src/Views/Thread.vala:141
+msgid "Hide Spoilers"
+msgstr "Gøym innlegg"
+
+#: src/Views/Timeline.vala:233 src/Widgets/Status/ActionsRow.vala:391
+msgid "Network Error"
+msgstr "Netverksfeil"
+
+#. translators: Tooltip text for avatars in posts.
+#. The variable is a string user handle.
+#: src/Widgets/AccountSuggestions.vala:15 src/Widgets/Status.vala:1147
+#, c-format
+msgid "Open %s's Profile"
+msgstr "Opna profilen til %s"
+
+#. translators: title of a list of suggested people to follow.
+#. Basically 'Who to follow'
+#: src/Widgets/AccountSuggestions.vala:100
+msgid "Follow Suggestions"
+msgstr "Fylgjeframlegg"
+
+#: src/Widgets/AccountSuggestions.vala:113
+#: src/Widgets/Status/ActionsRow.vala:177 src/Widgets/Status.vala:416
+msgid "Don't remind me again"
+msgstr "Ikkje minn meg att"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The first variable is the author's name and the
+#. second one is the author's handle.
+#: src/Widgets/Account.vala:145 src/Widgets/ProfileCover.vala:192
+#, c-format
+msgid "%s (%s)'s profile."
+msgstr "Profilen til %s (%s)"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is a string representation of the
+#. relationship (e.g. Mutuals, Follows You...)
+#: src/Widgets/Account.vala:157 src/Widgets/ProfileCover.vala:204
+#, c-format
+msgid "Relationship: %s."
+msgstr "Tilhøve: %s."
+
+#. translators: Used in profile stats.
+#. The variable is a shortened number of the amount of followers a user has.
+#: src/Widgets/Account.vala:235 src/Widgets/ProfileCover.vala:341
+#: src/Widgets/ProfileCover.vala:628
+#, c-format
+msgid "%s Follower"
+msgid_plural "%s Followers"
+msgstr[0] "%s fylgjar"
+msgstr[1] "%s fylgjarar"
+
+#. translators: Used in profile stats.
+#. The variable is a shortened number of the amount of people a user follows.
+#: src/Widgets/Account.vala:245 src/Widgets/ProfileCover.vala:351
+#: src/Widgets/ProfileCover.vala:622
+#, c-format
+msgid "%s Following"
+msgstr "Fylgjer %s"
+
+#. translators: Admin dashboard, report status
+#: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
+msgid "No Limits"
+msgstr "Ingen avgrensingar"
+
+#. translators: admin panel, account waiting to be approved
+#: src/Widgets/Admin/AccountRow.vala:36
+msgid "Waiting Approval"
+msgstr "Ventar på godkjenning"
+
+#. translators: Report 'Assigned to: <account>'
+#: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
+msgid "Assigned to"
+msgstr "Tildelt til"
+
+#: src/Widgets/Admin/AssignedRow.vala:38
+msgid "Unassign"
+msgstr "Trekk tildeling"
+
+#: src/Widgets/Admin/AssignedRow.vala:42
+msgid "Assign"
+msgstr "Tildel"
+
+#. translators: subtitle on email domain blocks.
+#. The variable is the number of sing up
+#. attempts using said email domain.
+#: src/Widgets/Admin/EmailDomainBlock.vala:24
+#, c-format
+msgid "%d Sign-up Attempts"
+msgstr "%d forsøk på påmelding"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The first variable is the instance's name and the
+#. second one is the instance's domain.
+#: src/Widgets/Announcement.vala:20
+#, c-format
+msgid "Announcement by %s (%s)."
+msgstr "Kunngjering av %s (%s)."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is a string date.
+#: src/Widgets/Announcement.vala:31 src/Widgets/Status.vala:886
+#, c-format
+msgid "Edited: %s."
+msgstr "Brigda: %s."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is a string date.
+#: src/Widgets/Announcement.vala:36 src/Widgets/Status.vala:891
+#, c-format
+msgid "Published: %s."
+msgstr "Lagt ut: %s."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is the amount of reactions the post
+#. has.
+#: src/Widgets/Announcement.vala:46 src/Widgets/Status.vala:968
+#, c-format
+msgid "Contains %d reaction."
+msgid_plural "Contains %d reactions."
+msgstr[0] "Inneheld %d reaksjon."
+msgstr[1] "Inneheld %d reaksjonar."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. This is used to indicate that the announcement
+#. hasn't been read yet.
+#: src/Widgets/Announcement.vala:56
+msgid "Unread."
+msgstr "Ulesen."
+
+#. translators: Tooltip on a button that hides / blurs media marked as sensitive
+#: src/Widgets/Attachment/Box.vala:73
+msgid "Hide Media"
+msgstr "Gøym medium"
+
+#. translators: Label shown in front of blurred / sensitive media
+#: src/Widgets/Attachment/Box.vala:84
+msgid "Show Sensitive Content"
+msgstr "Syn innhald"
+
+#: src/Widgets/Attachment/Item.vala:21
+msgid "Copied attachment url to clipboard"
+msgstr "Kopierte vedleggs-URL til utklippstavla"
+
+#: src/Widgets/Attachment/Item.vala:34
+msgid "Save Attachment"
+msgstr "Lagra vedlegg"
+
+#: src/Widgets/Attachment/Item.vala:44
+msgid "Saved Media"
+msgstr "Lagra medium"
+
+#: src/Widgets/Attachment/Item.vala:44
+msgid "Couldn't Save Media"
+msgstr "Klarte ikkje å lagra medium"
+
+#: src/Widgets/Attachment/Item.vala:109
+msgid "View Alt Text"
+msgstr "Syn skildring"
+
+#. translators: Media play bar play button tooltip
+#: src/Widgets/AudioPlayer/Controls.vala:22
+msgctxt "media controls tooltip"
+msgid "Stop"
+msgstr "Pause"
+
+#. translators: the variable is the date the book was published
+#: src/Widgets/BookWyrmPage.vala:79
+#, c-format
+msgid "Published: %s"
+msgstr "Lagt ut: %s"
+
+#. translators: the variable is a comma separated
+#. list of the book authors
+#: src/Widgets/BookWyrmPage.vala:98
+#, c-format
+msgid "by %s"
+msgstr "av %s"
+
+#. translators: Used when there are results in the custom emoji picker
+#: src/Widgets/CustomEmojiChooser.vala:67
+#: src/Widgets/CustomEmojiChooser.vala:169
+msgid "Results"
+msgstr "Resultat"
+
+#: src/Widgets/CustomEmojiChooser.vala:73
+msgid "Recently Used"
+msgstr "Nyleg nøytte"
+
+#: src/Widgets/CustomEmojiChooser.vala:212
+msgid "Custom Emojis"
+msgstr "Eigendefinerte kjensleteikn"
+
+#. translators: the variable is the amount of emoji reactions, e.g. '4 Reactions'.
+#. A reaction is not the same as a favorite or a boost,
+#. see https://github.com/glitch-soc/mastodon/pull/2462
+#: src/Widgets/EmojiReactionAccounts.vala:65
+#, c-format
+msgid "%d Reaction"
+msgid_plural "%d Reactions"
+msgstr[0] "%d reaksjon"
+msgstr[1] "%d reaksjonar"
+
+#. translators: focus picking knob(?)/target(?) tooltip in the focus picker
+#: src/Widgets/FocusPicker.vala:49
+msgid "Focus Picker"
+msgstr "Fokusveljar"
+
+#. translators: the variable is a number. This is used in a button that shows
+#. all post hashtags when clicked.
+#: src/Widgets/HashtagBar.vala:50
+#, c-format
+msgid "Show %d More"
+msgstr "Syn %d fleire"
+
+#. translators: the variables are numbers
+#: src/Widgets/PreviewCardExplore.vala:75
+#, c-format
+msgid "Discussed %d times by %d people yesterday"
+msgstr "Diskutert %d gonger av %d folk i går"
+
+#. translators: the variables are numbers
+#: src/Widgets/PreviewCardExplore.vala:83
+#, c-format
+msgid "Discussed %d times by %d people in the past 2 days"
+msgstr "Diskutert %d gonger av %d folk i føregår og i går"
+
+#. translators: tooltip text on 'explore' tab button to
+#. see posts where the selected article is
+#. being discussed.
+#: src/Widgets/PreviewCardExplore.vala:101
+msgid "See Discussions"
+msgstr "Syn diskuteringar"
+
+#. translators: the variable is a user name. This is shown on
+#. preview cards of articles from 'verified' fedi authors.
+#. By <user>
+#. (As in, 'written by <user>')
+#: src/Widgets/PreviewCard.vala:103 src/Widgets/PreviewCard.vala:111
+#, c-format
+msgid "By %s"
+msgstr "Av %s"
+
+#. translators: the variable is a number. This is shown on
+#. preview cards of articles from 'verified' fedi authors,
+#. when there's more than 1.
+#. See all <amount> authors
+#: src/Widgets/PreviewCard.vala:135
+#, c-format
+msgid "See %d author"
+msgid_plural "See all %d authors"
+msgstr[0] "Sjå %d forfattar"
+msgstr[1] "Sjå alle %d forfattarar"
+
+#. translators: button on profiles that when clicked shows a list of familiar followers.
+#. The first variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
+#. If your language requires pronouns you may add a : after 'by' so it's clear it's a
+#. list of names. The second variable is the amount of other familiar followers, not
+#. displayed in the list. The singular version will not be used.
+#: src/Widgets/ProfileCover.vala:73
+#, c-format
+msgid "Followed by %s & %s Other"
+msgid_plural "Followed by %s & %s Others"
+msgstr[0] "Fylgd av %s og %s annan"
+msgstr[1] "Fylgd av %s og %s andre"
+
+#. translators: button on profiles that when clicked shows a list of familiar followers.
+#. The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
+#. If your language requires pronouns you may add a : after 'by' so it's clear it's a
+#. list of names. This is the version of the string that has 0 'others'.
+#: src/Widgets/ProfileCover.vala:92
+#, c-format
+msgid "Followed by %s"
+msgstr "Fylgd av %s"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is the amount of fields the profile
+#. has.
+#: src/Widgets/ProfileCover.vala:215
+#, c-format
+msgid "Contains %d field."
+msgid_plural "Contains %d fields."
+msgstr[0] "Inneheld %d felt."
+msgstr[1] "Inneheld %d felt."
+
+#. translators: Button label shown when a user has moved to another instance.
+#. The first variable is this account's handle while the second
+#. is the moved-to account's handle
+#: src/Widgets/ProfileCover.vala:496
+#, c-format
+msgid "%s has moved to %s"
+msgstr "%s har flytta til %s"
+
+#. translators: shown when the user has hidden their followers/following counts
+#: src/Widgets/ProfileCover.vala:664
+msgid "Hidden"
+msgstr "Gøymt"
+
+#: src/Widgets/ProfileCover.vala:731
+msgid "Error: Note is over 2000 characters long"
+msgstr "Feil: Notat overskrid 2 000 teikn"
+
+#. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Widgets/ProfileFilterGroup.vala:48
+msgid "Featured"
+msgstr "Framheva"
+
+#. translators: noun, plural, shown on profiles
+#: src/Widgets/ProfileFilterGroup.vala:63
+msgid "Replies"
+msgstr "Svar"
+
+#. translators: the variable is the emoji or its name if it's custom.
+#. A reaction is not the same as a favorite or a boost,
+#. see https://github.com/glitch-soc/mastodon/pull/2462
+#: src/Widgets/ReactButton.vala:37
+#, c-format
+msgid "React with %s"
+msgstr "Reager med %s"
+
+#: src/Widgets/RelationshipButton.vala:55 src/Widgets/Status.vala:341
+msgid "Unmute"
+msgstr "Avdemp"
+
+#. translators: not a verb, as in a post that is saved but not posted yet
+#: src/Widgets/ScheduledStatus.vala:13
+msgid "Draft"
+msgstr "Kladd"
+
+#: src/Widgets/ScheduledStatus.vala:51 src/Widgets/ScheduledStatus.vala:151
+msgid "Reschedule"
+msgstr "Planlegg på nytt"
+
+#. translators: Scheduled Post title, 'scheduled for <date>'
+#: src/Widgets/ScheduledStatus.vala:137
+#, c-format
+msgid "Scheduled for %s"
+msgstr "Planlagt for %s"
+
+#: src/Widgets/ScheduledStatus.vala:155
+msgid "Reschedule Post"
+msgstr "Planlegg innlegg på nytt"
+
+#. translators: the variable is an error
+#: src/Widgets/ScheduledStatus.vala:187
+#, c-format
+msgid "Couldn't reschedule: %s"
+msgstr "Klarte ikkje å planleggja på nytt: %s"
+
+#. translators: as in a post set to be posted sometime in the future
+#: src/Widgets/ScheduledStatus.vala:195
+msgid "Delete Scheduled Post?"
+msgstr "Tak bort planlagt innlegg?"
+
+#. translators: 'Draft' is not a verb here.
+#. It's equal to 'saved but not posted'
+#: src/Widgets/ScheduledStatus.vala:198
+msgid "Delete Draft Post?"
+msgstr "Tak bort kladd?"
+
+#: src/Widgets/Status/ActionsRow.vala:57 src/Widgets/Status/ActionsRow.vala:109
+#: src/Widgets/Status/ActionsRow.vala:286
+msgid "Boost"
+msgstr "Del"
+
+#: src/Widgets/Status/ActionsRow.vala:60
+msgid "This post can't be boosted"
+msgstr "Dette innlegget kan ikkje delast"
+
+#: src/Widgets/Status/ActionsRow.vala:161
+msgid "Bookmark"
+msgstr "Bokmerk"
+
+#. translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
+#. The "old" suffix is translated on the datetime strings, not here
+#: src/Widgets/Status/ActionsRow.vala:172
+#, c-format
+msgid "This post is %s"
+msgstr "Dette innlegget vart lagt ut %s"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
+#. in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
+#: src/Widgets/Status/ActionsRow.vala:175
+msgid "You can still reply, but it may no longer be relevant."
+msgstr ""
+"Du kan framleis svara, men det kan hende at det ikkje lenger er aktuelt"
+
+#: src/Widgets/Status/ActionsRow.vala:278
+msgid "Boost with Visibility"
+msgstr "Del med synlegdom"
+
+#. translators: as in post stats (who liked and boosted)
+#: src/Widgets/Status.vala:330
+msgid "View Stats"
+msgstr "Syn statistikk"
+
+#: src/Widgets/Status.vala:334
+msgid "View Edit History"
+msgstr "Syn brigdingshistorikk"
+
+#. translators: Pin post on profile
+#: src/Widgets/Status.vala:345 src/Widgets/Status.vala:847
+msgid "Pin"
+msgstr "Fest"
+
+#. translators: Post menu items to revert a translation
+#: src/Widgets/Status.vala:379
+msgid "Show Original"
+msgstr "Syn opphavleg"
+
+#. translators: dialog subtitle visibility warning when copying a link to a
+#. post that is private or mentioned-only
+#: src/Widgets/Status.vala:400
+msgid "Only mentioned people will be able to view it."
+msgstr "Berre nemnde folk skal kunna sjå det."
+
+#. translators: dialog subtitle visibility warning when copying a link to a
+#. post that is private or mentioned-only
+#: src/Widgets/Status.vala:404
+msgid "Only mentioned people and your followers will be able to view it."
+msgstr "Berre nemnde folk og fylgjarane dine skal kunna sjå det."
+
+#. translators: dialog subtitle visibility warning when copying a link to a post
+#. that is private or mentioned-only, the variable is a handle
+#: src/Widgets/Status.vala:408
+#, c-format
+msgid ""
+"Only mentioned people and people that follow %s will be able to view it."
+msgstr "Berre nemnde folk og fylgjarane til %s skal kunna sjå det."
+
+# kleint fordi vi undangår Tilfeldige Store Bokstavar i ei setning
+#. translators: the variable is the post visibility e.g. Public, Unlisted...
+#: src/Widgets/Status.vala:413
+#, c-format
+msgid "Copy %s Post Link?"
+msgstr "Kopier lenkje til innlegg som er %s?"
+
+#: src/Widgets/Status.vala:416
+msgid "Copy"
+msgstr "Kopier"
+
+#: src/Widgets/Status.vala:425 src/Widgets/Status.vala:430
+msgid "Copied post url to clipboard"
+msgstr "Kopierte innleggslenkje til utklippstavla"
+
+#: src/Widgets/Status.vala:513
+msgid "Delete Post?"
+msgstr "Tak bort innlegg?"
+
+#. translators: toast shown when muting a post
+#: src/Widgets/Status.vala:570
+#, c-format
+msgid "Couldn't Mute Conversation: %s"
+msgstr "Klarte ikkje å dempa samtale: %s"
+
+#. translators: toast shown when unmuting a post
+#: src/Widgets/Status.vala:572
+#, c-format
+msgid "Couldn't Unmute Conversation: %s"
+msgstr "Klarte ikkje å avdempa samtale: %s"
+
+#: src/Widgets/Status.vala:628 src/Widgets/Status.vala:649
+#, c-format
+msgid "Couldn't translate: %s"
+msgstr "Klarte ikkje å omsetja: %s"
+
+#. translators: Tooltip text for avatars in posts.
+#. The variable is a string user handle.
+#: src/Widgets/Status.vala:793
+#, c-format
+msgid "Open %s's Mini Profile"
+msgstr "Opna miniprofilen til %s"
+
+#. translators: Unpin post from profile
+#: src/Widgets/Status.vala:845
+msgid "Unpin"
+msgstr "Løys"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#: src/Widgets/Status.vala:858
+msgid "Filtered post"
+msgstr "Filtrert innlegg"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The first variable is the post's visibility (e.g. public).
+#. The second one is the author's name and the third
+#. one is the author's handle.
+#: src/Widgets/Status.vala:874
+#, c-format
+msgid "%s post by %s (%s)."
+msgstr "%s innlegg av %s (%s)."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#: src/Widgets/Status.vala:898
+msgid "The post is pinned."
+msgstr "Innlegget er fest."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#: src/Widgets/Status.vala:906
+msgid "Contains a quoted post."
+msgstr "Inneheld eit hermt innlegg."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is the number of attachments the post has.
+#: src/Widgets/Status.vala:916
+#, c-format
+msgid "Contains %d attachment."
+msgid_plural "Contains %d attachments."
+msgstr[0] "Inneheld %d vedlegg."
+msgstr[1] "Inneheld %d vedlegg."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#: src/Widgets/Status.vala:927
+msgid "Contains an expired poll."
+msgstr "Inneheld ei utlaupt avrøysting."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#: src/Widgets/Status.vala:931
+msgid "Contains a poll."
+msgstr "Inneheld ei avrøysting."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#: src/Widgets/Status.vala:940
+msgid "The post has a spoiler."
+msgstr "Innlegget har ei innhaldsåtvaring."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is the spoiler title.
+#: src/Widgets/Status.vala:946
+#, c-format
+msgid "The post has the following spoiler: %s."
+msgstr "Innlegget har den fylgjande innhaldsåtvaringa: %s."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is the name of the app the post was
+#. made with (e.g. Tuba).
+#: src/Widgets/Status.vala:957
+#, c-format
+msgid "Posted using %s."
+msgstr "Lagt ut med %s."
+
+#: src/Widgets/Status.vala:982
+#, c-format
+msgid "%s reply"
+msgid_plural "%s replies"
+msgstr[0] "%s svar"
+msgstr[1] "%s svar"
+
+#: src/Widgets/Status.vala:987
+#, c-format
+msgid "%s boost"
+msgid_plural "%s boosts"
+msgstr[0] "%s deling"
+msgstr[1] "%s delingar"
+
+#: src/Widgets/Status.vala:992
+#, c-format
+msgid "%s favorite"
+msgid_plural "%s favorites"
+msgstr[0] "%s favorittmerke"
+msgstr[1] "%s favorittmerke"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. This is used to announce the quoted post
+#: src/Widgets/Status.vala:1028
+msgid "Quoted Post"
+msgstr "Hermt innlegg"
+
+#: src/Widgets/Status.vala:1050
+#, c-format
+msgid "Filtered: %s"
+msgstr "Filtrert: %s"
+
+#: src/Widgets/Status.vala:1052
+msgid "Filtered"
+msgstr "Filtrert"
+
+#. translatiors: the first variable is a language name,
+#. the second variable is a service name e.g. DeepL
+#: src/Widgets/Status.vala:1202
+#, c-format
+msgid "Translated from %s using %s"
+msgstr "Omsett frå %s med %s"
+
+#. translatiors: the variable is a service name e.g. DeepL
+#: src/Widgets/Status.vala:1205
+#, c-format
+msgid "Translated using %s"
+msgstr "Omsett med %s"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is the amount of poll options
+#: src/Widgets/VoteBox.vala:136
+#, c-format
+msgid "Poll with %d option."
+msgid_plural "Poll with %d options."
+msgstr[0] "Avrøysting med %d val."
+msgstr[1] "Avrøysting med %d val."
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. Describes whether the user has voted on the poll.
+#: src/Widgets/VoteBox.vala:145
+msgid "You have voted."
+msgstr "Du har røysta."
+
+#. translators: the variable is the amount of people that voted
+#: src/Widgets/VoteBox.vala:293
+#, c-format
+msgid "%s voted"
+msgid_plural "%s voted"
+msgstr[0] "%s røysta"
+msgstr[1] "%s røysta"
