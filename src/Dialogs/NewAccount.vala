@@ -32,9 +32,13 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	[GtkChild] unowned Gtk.Label code_entry_error;
 
 	[GtkChild] unowned Adw.StatusPage auth_page;
-	[GtkChild] unowned Adw.StatusPage done_page;
+	[GtkChild] unowned Widgets.EmojiLabel done_page_emoji_label;
 
 	[GtkChild] unowned Gtk.Label manual_auth_label;
+
+	static construct {
+		typeof (Widgets.EmojiLabel).ensure ();
+	}
 
 	public string get_full_scopes () {
 		string scopes = SCOPES;
@@ -244,7 +248,8 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		debug ("Saving account");
 		accounts.add (account);
 
-		done_page.title = _("Hello, %s!").printf (account.display_name);
+		done_page_emoji_label.instance_emojis = account.emojis_map;
+		done_page_emoji_label.content = _("Hello, %s!").printf (account.display_name);
 		deck.push (done_step);
 
 		debug ("Switching to account");
