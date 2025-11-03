@@ -364,9 +364,9 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 	public bool ellipsize {
 		get { return _ellipsize; }
 		set {
-			if (value != this.ellipsize) {
+			if (value != _ellipsize) {
 				label.ellipsize = value ? Pango.EllipsizeMode.END : Pango.EllipsizeMode.NONE;
-				_ellipsize = true;
+				_ellipsize = value;
 			}
 		}
 	}

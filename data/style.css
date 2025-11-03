@@ -1056,6 +1056,24 @@ splitbutton.pill:dir(ltr) > menubutton > button {
 }
 
 /*
+	New Account Dialog
+*/
+.statusbox {
+	margin: 36px 12px;
+	border-spacing: 12px;
+}
+
+.statusbox > image {
+	color: color-mix(in srgb, currentColor var(--dim-opacity), transparent);
+	-gtk-icon-size: 128px;
+	margin-bottom: 24px;
+}
+
+.statusbox > :last-child {
+	margin-top: 24px;
+}
+
+/*
 	Celebrate
 */
 .theme-disability.about .app-version{background:linear-gradient(45deg,#59595955 0,#59595955 37.5%,#cf728055 37.5%,#cf728055 42.5%,#eede7755 42.5%,#eede7755 47.5%,#e8e8e855 47.5%,#e8e8e855 52.5%,#7bc2e055 52.5%,#7bc2e055 57.5%,#3bb07d55 57.5%,#3bb07d55 62.5%,#59595955 62.5%,#59595955 100%);}

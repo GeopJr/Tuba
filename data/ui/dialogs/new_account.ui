@@ -211,25 +211,68 @@
                   </object>
                 </child>
                 <property name="content">
-                  <object class="AdwStatusPage" id="done_page">
-                    <property name="vexpand">1</property>
-                    <property name="icon_name">tuba-check-round-outline-symbolic</property>
-                    <property name="title">Hello!</property>
-                    <property name="description" translatable="yes">Your account is connected and ready to use!</property>
+				  <object class="GtkScrolledWindow">
+					<property name="propagate-natural-height">1</property>
 					<child>
-						<object class="GtkButton">
-						  <property name="halign">center</property>
-						  <property name="receives_default">1</property>
-						  <property name="label" translatable="yes">Done</property>
-						  <property name="sensitive" bind-source="TubaDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
-						  <signal name="clicked" handler="on_done_clicked" swapped="no"/>
-						  <style>
-							<class name="suggested-action"/>
-							<class name="pill"/>
-						  </style>
+						<object class="AdwClamp">
+							<property name="maximum-size">600</property>
+							<property name="tightening-threshold">400</property>
+							<child>
+								<object class="GtkBox">
+									<property name="orientation">vertical</property>
+									<property name="valign">center</property>
+									<style>
+										<class name="statusbox" />
+									</style>
+									<child>
+										<object class="GtkImage">
+											<property name="halign">center</property>
+											<property name="icon_name">tuba-check-round-outline-symbolic</property>
+											<style>
+												<class name="icon" />
+											</style>
+										</object>
+									</child>
+									<child>
+										<object class="TubaWidgetsEmojiLabel" id="done_page_emoji_label">
+											<property name="justify">center</property>
+											<property name="xalign">0.5</property>
+											<property name="large-emojis">1</property>
+											<style>
+												<class name="title-1" />
+											</style>
+										</object>
+									</child>
+									<child>
+										<object class="GtkLabel">
+											<property name="justify">center</property>
+											<property name="wrap">1</property>
+											<property name="wrap-mode">word-char</property>
+											<property name="label" translatable="yes">Your account is connected and ready to use!</property>
+											<style>
+												<class name="description" />
+												<class name="body" />
+											</style>
+										</object>
+									</child>
+									<child>
+										<object class="GtkButton">
+										  <property name="halign">center</property>
+										  <property name="receives_default">1</property>
+										  <property name="label" translatable="yes">Done</property>
+										  <property name="sensitive" bind-source="TubaDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
+										  <signal name="clicked" handler="on_done_clicked" swapped="no"/>
+										  <style>
+											<class name="suggested-action"/>
+											<class name="pill"/>
+										  </style>
+										</object>
+									</child>
+								</object>
+							</child>
 						</object>
 					</child>
-                  </object>
+				  </object>
                 </property>
               </object>
             </property>
