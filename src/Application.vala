@@ -50,7 +50,8 @@ namespace Tuba {
 		public signal void refresh_featured ();
 		public signal void relationship_invalidated (API.Relationship new_relationship);
 		public signal void remove_user_id (string user_id);
-		public signal void toast (string title, uint timeout = 5);
+		// TODO: maybe just pass Adw.Toasts at this point
+		public signal void toast (string title, uint timeout = 5, string? action_name = null, GLib.Variant? action_target = null, string? action_label = null);
 
 		#if DEV_MODE
 			public signal void dev_new_post (Json.Node node);
@@ -94,7 +95,8 @@ namespace Tuba {
 			{ "open-scheduled-posts", open_scheduled_posts },
 			{ "open-draft-posts", open_draft_posts },
 			{ "open-admin-dashboard", open_admin_dashboard },
-			{ "open-last-fediwrapped", open_last_fediwrapped }
+			{ "open-last-fediwrapped", open_last_fediwrapped },
+			{ "open-containing-folder", open_containing_folder, "s" }
 		};
 
 		#if DEV_MODE
@@ -545,6 +547,11 @@ namespace Tuba {
 
 		public void open_last_fediwrapped () {
 			accounts.active.open_latest_wrapped ();
+		}
+
+		public void open_containing_folder (GLib.SimpleAction action, GLib.Variant? value) {
+			if (value == null) return;
+			Utils.Host.open_containing_folder.begin (value.get_string ());
 		}
 
 		private void close_sidebar () {

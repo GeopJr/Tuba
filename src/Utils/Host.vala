@@ -49,6 +49,16 @@ public class Tuba.Utils.Host {
 		return true;
 	}
 
+	public static async void open_containing_folder (string path) {
+		debug (@"Opening containing folder for $path");
+
+		try {
+			yield (new Gtk.FileLauncher (File.new_for_path (path))).open_containing_folder (app.active_window, null);
+		} catch (Error e) {
+			warning (@"Error opening containing folder for \"$path\": $(e.message)");
+		}
+	}
+
 	public static void copy (string str) {
 		Gdk.Display display = Gdk.Display.get_default ();
 		if (display == null) return;

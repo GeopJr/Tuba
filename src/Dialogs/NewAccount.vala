@@ -73,9 +73,12 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		instance_entry.grab_focus ();
 	}
 
-	private void add_toast (string content, uint timeout = 0) {
+	private void add_toast (string content, uint timeout = 0, string? action_name = null, GLib.Variant? action_target = null, string? action_label = null) {
 		toast_overlay.add_toast (new Adw.Toast (content) {
-			timeout = timeout
+			timeout = timeout,
+			action_name = action_name,
+			action_target = action_target,
+			button_label = action_label
 		});
 	}
 
