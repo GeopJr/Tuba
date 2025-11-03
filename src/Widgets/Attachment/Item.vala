@@ -41,7 +41,17 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 			if (file != null) {
 				debug (@"Downloading file: $(url)…");
 				bool success = yield download (url, file);
-				app.toast (success ? _("Saved Media") : _("Couldn't Save Media"));
+
+				if (success) {
+					app.toast (
+						_("Saved Media"), 5, "app.open-containing-folder",
+						new GLib.Variant.string (file.get_path ()),
+						// translators: label on toast shown when downloading an attachment that opens the folder containing the file
+						_("Open Folder")
+					);
+				} else {
+					app.toast (_("Couldn't Save Media"));
+				}
 			}
 		} catch (Error e) {
 			// User dismissing the dialog also ends here so don't make it sound like
