@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Santiago Rom i Bel <santiagoviola@gmail.com>, 2024.
 # fadelkon <fadelkon@posteo.net>, 2025.
+# Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-31 12:02+0000\n"
-"Last-Translator: fadelkon <fadelkon@posteo.net>\n"
+"PO-Revision-Date: 2025-11-06 06:51+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/tuba/tuba/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -32,7 +33,7 @@ msgstr "Client per al Fedivers"
 
 #: data/dev.geopjr.Tuba.desktop.in:10
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
+msgstr "toot;mastodon;fedivers;gotosocial;pleroma;akkoma;"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
@@ -75,7 +76,7 @@ msgstr "Tipus de notificacions push silenciades"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:26
 msgid "Recently Used Custom Emojis"
-msgstr ""
+msgstr "Emojis personalitzats usats recentment"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:31
@@ -99,7 +100,7 @@ msgstr "Etiquetes mostrades a la barra lateral"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
 msgid "Account Suggestions"
-msgstr ""
+msgstr "Suggeriments de comptes"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:52
@@ -111,17 +112,17 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
 msgid "Active Account"
-msgstr ""
+msgstr "Compte actiu"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:62
 msgid "The UUID of the active account"
-msgstr ""
+msgstr "L’UUID del compte actiu"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:67
 msgid "The default color scheme"
-msgstr ""
+msgstr "La combinació de colors per defecte"
 
 #: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
 msgid "Run in Background"
@@ -241,7 +242,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:141 data/ui/dialogs/preferences.ui:26
 msgid "Large Custom Emojis"
-msgstr ""
+msgstr "Emojis personalitzats grans"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; leave this as is unless you want to transliterate. BlurHash is a recognizable product name.
 #: data/dev.geopjr.Tuba.gschema.xml:146
@@ -301,7 +302,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
 msgid "Spellchecker"
-msgstr ""
+msgstr "Revisió ortogràfica"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:182
@@ -350,7 +351,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:210
 msgid "Proxy URL"
-msgstr ""
+msgstr "URL del servidor intermediari"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:212
@@ -399,7 +400,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:242
 msgid "Tuba contributors"
-msgstr ""
+msgstr "Contribuïdors del Tuba"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:244
@@ -463,17 +464,17 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:286
 msgid "Window Width"
-msgstr ""
+msgstr "Amplada de la finestra"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:291
 msgid "Window Height"
-msgstr ""
+msgstr "Alçada de la finestra"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:296
 msgid "Window Maximized State"
-msgstr ""
+msgstr "Estat maximitzat de la finestra"
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:8
@@ -675,7 +676,7 @@ msgstr "Encasta"
 
 #: data/ui/dialogs/advanced_search.ui:141 data/ui/dialogs/preferences.ui:165
 msgid "Timelines"
-msgstr "Línies de temps"
+msgstr "Cronologies"
 
 #: data/ui/dialogs/advanced_search.ui:144
 msgid "Everywhere"
@@ -723,7 +724,7 @@ msgstr "Després"
 #: data/ui/dialogs/composer.ui:18 src/Dialogs/Composer/Dialog.vala:496
 #: src/Dialogs/Composer/Editor.vala:248 src/Views/Sidebar.vala:69
 msgid "New Post"
-msgstr ""
+msgstr "Publicació nova"
 
 #. translators: composer overlay shown when dragging files above it
 #: data/ui/dialogs/composer.ui:22
@@ -736,12 +737,12 @@ msgstr ""
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
-msgstr ""
+msgstr "Selector d’emojis"
 
 #: data/ui/dialogs/composer.ui:78 data/ui/dialogs/profile_edit.ui:140
 #: src/Widgets/Status/ReactionsRow.vala:57
 msgid "Custom Emoji Picker"
-msgstr ""
+msgstr "Selector d’emojis personalitzats"
 
 #: data/ui/dialogs/composer.ui:88
 msgid "Add Media"
@@ -753,7 +754,7 @@ msgstr ""
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
-msgstr ""
+msgstr "Avís de contingut"
 
 #: data/ui/dialogs/composer.ui:116
 msgid "Mark media as sensitive"
@@ -802,11 +803,11 @@ msgstr ""
 
 #: data/ui/dialogs/list_edit.ui:7 data/ui/dialogs/list_edit.ui:10
 msgid "Members"
-msgstr ""
+msgstr "Membres"
 
 #: data/ui/dialogs/list_edit.ui:27
 msgid "List Name"
-msgstr ""
+msgstr "Nom de la llista"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
@@ -823,7 +824,7 @@ msgstr ""
 #: data/ui/dialogs/list_edit.ui:43 src/Widgets/Admin/AssignedRow.vala:49
 #: src/Widgets/Admin/Report.vala:20 src/Widgets/Admin/Report.vala:24
 msgid "Nobody"
-msgstr ""
+msgstr "Ningú"
 
 #: data/ui/dialogs/list_edit.ui:54
 msgid "Other members of the list"
@@ -836,17 +837,17 @@ msgstr ""
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:321
 #: src/Views/Sidebar.vala:325
 msgid "Add Account"
-msgstr ""
+msgstr "Afegeix un compte"
 
 #: data/ui/dialogs/new_account.ui:33 data/ui/dialogs/new_account.ui:126
 #: src/Dialogs/Report.vala:88 src/Dialogs/Report.vala:452
 #: src/Widgets/AccountSuggestions.vala:89
 msgid "Next"
-msgstr ""
+msgstr "Següent"
 
 #: data/ui/dialogs/new_account.ui:47
 msgid "What is your Server?"
-msgstr ""
+msgstr "Quin és el vostre servidor?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:49
@@ -857,7 +858,7 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"
-msgstr ""
+msgstr "URL del servidor"
 
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:332
@@ -940,7 +941,7 @@ msgstr ""
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:66
 msgid "New accounts"
-msgstr ""
+msgstr "Comptes nous"
 
 #. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:68
@@ -960,7 +961,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:11
 msgid "Appearance"
-msgstr ""
+msgstr "Aspecte"
 
 #: data/ui/dialogs/preferences.ui:44
 msgid "Slightly increases the size of custom emojis when you hover over them"
@@ -979,7 +980,7 @@ msgstr ""
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:124 src/Dialogs/NewAccount.vala:363
 msgid "Proxy"
-msgstr ""
+msgstr "Servidor intermediari"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Posting"
@@ -996,7 +997,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:184
 msgid "Online Services"
-msgstr ""
+msgstr "Serveis en línia"
 
 #. translators: leave api.tuba.geopjr.dev as is
 #: data/ui/dialogs/preferences.ui:186
@@ -1020,7 +1021,7 @@ msgstr ""
 #. translators: #FediWrapped, title of the 'amount of new followers' card
 #: data/ui/dialogs/preferences.ui:232 src/Dialogs/AnnualReport.vala:388
 msgid "New Followers"
-msgstr ""
+msgstr "Seguidors nous"
 
 #: data/ui/dialogs/preferences.ui:238
 msgid "New Follower Requests"
@@ -1033,7 +1034,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:250 src/Dialogs/NotificationSettings.vala:49
 msgid "Mentions"
-msgstr ""
+msgstr "Mencions"
 
 #: data/ui/dialogs/preferences.ui:256 src/Dialogs/NotificationSettings.vala:51
 msgid "Boosts"
@@ -1041,11 +1042,11 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:262
 msgid "Poll Results"
-msgstr ""
+msgstr "Resultats de l’enquesta"
 
 #: data/ui/dialogs/preferences.ui:268
 msgid "Edits"
-msgstr ""
+msgstr "Edicions"
 
 #: data/ui/dialogs/preferences.ui:274
 msgid "Group"
@@ -1053,7 +1054,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:287
 msgid "Filters"
-msgstr ""
+msgstr "Filtres"
 
 #: data/ui/dialogs/preferences.ui:291
 msgid "Keywords"
@@ -1061,7 +1062,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:299
 msgid "Add Filter…"
-msgstr ""
+msgstr "Afegeix un filtre…"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:364
 msgid "Edit Profile"
@@ -1083,7 +1084,7 @@ msgstr ""
 #. translators: profile bio or description
 #: data/ui/dialogs/profile_edit.ui:130
 msgid "Bio"
-msgstr ""
+msgstr "Biografia"
 
 #. translators: Alternative Text refers to text that describes
 #. an attachment when using screen readers or the
@@ -1106,7 +1107,7 @@ msgstr ""
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:184
 msgid "Fields"
-msgstr ""
+msgstr "Camps"
 
 #. translators: window title
 #: data/ui/dialogs/schedule.ui:25
@@ -1379,7 +1380,7 @@ msgstr ""
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:22
 msgid "Block Access"
-msgstr ""
+msgstr "Bloca l’accés"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:24
@@ -1408,7 +1409,7 @@ msgstr ""
 
 #: src/API/Admin/Report.vala:19
 msgid "Spam"
-msgstr ""
+msgstr "Brossa"
 
 #: src/API/Admin/Report.vala:20
 msgid "Rule Violation"
@@ -1434,7 +1435,7 @@ msgstr ""
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "Raó"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
@@ -1456,7 +1457,7 @@ msgstr ""
 #: src/Widgets/Status/ReactionsRow.vala:152
 #: src/Widgets/Status/ReactionsRow.vala:176 src/Widgets/VoteBox.vala:64
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
@@ -1501,15 +1502,15 @@ msgstr ""
 #: src/Services/Accounts/Mastodon/Account.vala:45
 #: src/Views/Conversations.vala:4
 msgid "Conversations"
-msgstr ""
+msgstr "Converses"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "Perfils"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "Carpeta"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1578,11 +1579,11 @@ msgstr ""
 #: src/API/Notification.vala:181 src/Widgets/GroupedNotification.vala:71
 #, c-format
 msgid "%s (& %d others)"
-msgstr ""
+msgstr "%s (i %d més)"
 
 #: src/API/Notification.vala:227
 msgid "Reply…"
-msgstr ""
+msgstr "Respon…"
 
 #: src/API/Notification.vala:235
 msgid "Remove from Followers"
@@ -1594,13 +1595,13 @@ msgstr ""
 
 #: src/API/Notification.vala:247 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
-msgstr ""
+msgstr "Rebutja"
 
 #: src/API/Notification.vala:252 src/Views/NotificationRequestsList.vala:33
 #: src/Widgets/NotificationRequest.vala:65
 #: src/Widgets/Status/FollowRequestRow.vala:14
 msgid "Accept"
-msgstr ""
+msgstr "Accepta"
 
 #: src/API/Relationship.vala:24
 msgid "Sent follow request"
@@ -1612,37 +1613,37 @@ msgstr ""
 
 #: src/API/Relationship.vala:28
 msgid "Follows you"
-msgstr ""
+msgstr "Us segueix"
 
 #. translators: as in, you've been blocked by them
 #: src/API/Relationship.vala:31
 msgid "Blocks you"
-msgstr ""
+msgstr "Us bloca"
 
 #. translators: the variable is a user handle
 #: src/API/Relationship.vala:136
 #, c-format
 msgid "Block \"%s\"?"
-msgstr ""
+msgstr "Voleu blocar «%s»?"
 
 #: src/API/Relationship.vala:136
 #, c-format
 msgid "Unblock \"%s\"?"
-msgstr ""
+msgstr "Voleu desblocar «%s»?"
 
 #: src/API/Relationship.vala:142 src/Views/Admin/Timelines/BlockedIPs.vala:33
 #: src/Views/Admin/Timelines/DomainBlock.vala:33
 #: src/Views/Admin/Timelines/EmailDomain.vala:33 src/Views/Profile.vala:503
 #: src/Widgets/RelationshipButton.vala:43
 msgid "Unblock"
-msgstr ""
+msgstr "Desbloca"
 
 #. translators: switch label when muting someone,
 #. turning it on will also hide notifications
 #. from this user, e.g. when they reply to you
 #: src/API/Relationship.vala:156
 msgid "Hide from Notifications"
-msgstr ""
+msgstr "Amaga de les notificacions"
 
 #. translators: Dropdown title for picking when a mute should expire
 #: src/API/Relationship.vala:171
@@ -1653,11 +1654,11 @@ msgstr ""
 #: src/API/Relationship.vala:184
 #, c-format
 msgid "Mute \"%s\"?"
-msgstr ""
+msgstr "Voleu silenciar «%s»?"
 
 #: src/API/Relationship.vala:224 src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "Mai"
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:225 src/API/Relationship.vala:226
@@ -1667,8 +1668,8 @@ msgstr ""
 #, c-format
 msgid "%d Hour"
 msgid_plural "%d Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d hora"
+msgstr[1] "%d hores"
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:227 src/API/Relationship.vala:228
@@ -1678,12 +1679,12 @@ msgstr[1] ""
 #, c-format
 msgid "%d Day"
 msgid_plural "%d Days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d dia"
+msgstr[1] "%d dies"
 
 #: src/API/SearchResults.vala:32
 msgid "Search returned no results"
-msgstr ""
+msgstr "La cerca no ha retornat cap resultat"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:51
@@ -1702,7 +1703,7 @@ msgstr ""
 #. post visibility label
 #: src/API/Status.vala:324
 msgid "Unlisted"
-msgstr ""
+msgstr "Descatalogats"
 
 #. translators: post visibility label
 #: src/API/Status.vala:327
@@ -1727,8 +1728,8 @@ msgstr ""
 #, c-format
 msgid "%d per week"
 msgid_plural "%d per week"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d per setmana"
+msgstr[1] "%d per setmana"
 
 #. var total_uses = int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1772,21 +1773,21 @@ msgstr ""
 #: src/Application.vala:430
 #, c-format
 msgid "%s does not accept '%s://'"
-msgstr ""
+msgstr "El %s no accepta «%s://»"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:633
 msgid "translator-credits"
-msgstr ""
+msgstr "Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2025"
 
 #. translators: Wiki pages / Guides
 #: src/Application.vala:637
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: src/Application.vala:639 src/Widgets/Status.vala:375
 msgid "Translate"
-msgstr ""
+msgstr "Traducció"
 
 #: src/Application.vala:640
 msgid "Donate"
@@ -1795,7 +1796,7 @@ msgstr ""
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
 msgid "Archives"
-msgstr ""
+msgstr "Arxius"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
@@ -1830,11 +1831,11 @@ msgstr ""
 
 #: src/Application.vala:671
 msgid "OK"
-msgstr ""
+msgstr "D’acord"
 
 #: src/Application.vala:721
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: src/Dialogs/Admin/AddFederationBlock.vala:29
 #: src/Views/Admin/Pages/FederationBlocklist.vala:9
@@ -1844,13 +1845,13 @@ msgstr ""
 #: src/Dialogs/Admin/AddFederationBlock.vala:40
 #: src/Dialogs/Admin/AddIPBlock.vala:79
 msgid "Add"
-msgstr ""
+msgstr "Afegeix"
 
 #. translators: Admin dashboard, federation block dialog,
 #. e.g. 'gnome.org'
 #: src/Dialogs/Admin/AddFederationBlock.vala:52
 msgid "Domain"
-msgstr ""
+msgstr "Domini"
 
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
@@ -1903,34 +1904,34 @@ msgstr ""
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
 #: src/Widgets/Admin/DomainBlock.vala:17
 msgid "Private Comment"
-msgstr ""
+msgstr "Comentari privat"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:131
 #: src/Widgets/Admin/DomainBlock.vala:24
 msgid "Public Comment"
-msgstr ""
+msgstr "Comentari públic"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:17 src/Dialogs/Admin/AddIPBlock.vala:19
 #, c-format
 msgid "%d Year"
 msgid_plural "%d Years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d any"
+msgstr[1] "%d anys"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:21 src/Dialogs/Admin/AddIPBlock.vala:23
 #, c-format
 msgid "%d Month"
 msgid_plural "%d Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d mes"
+msgstr[1] "%d mesos"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:25 src/Dialogs/FilterEdit.vala:35
 #, c-format
 msgid "%d Week"
 msgid_plural "%d Weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d setmana"
+msgstr[1] "%d setmanes"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:68
 #: src/Views/Admin/Pages/BlockedIPs.vala:10
@@ -1940,7 +1941,7 @@ msgstr ""
 #. translators: Admin dashboard ip block comment entry title
 #: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
 msgid "Comment"
-msgstr ""
+msgstr "Comentari"
 
 #. translators: Admin dashboard ip block expiration date row title.
 #: src/Dialogs/Admin/AddIPBlock.vala:123 src/Dialogs/Composer/Polls.vala:424
@@ -2015,7 +2016,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:144
 msgid "Status"
-msgstr ""
+msgstr "Estat"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Resolved"
@@ -2037,7 +2038,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:170
 msgid "Category"
-msgstr ""
+msgstr "Categoria"
 
 #. translators: Admin dashboard report category description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -2138,7 +2139,7 @@ msgstr ""
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:114
 msgid "Accounts"
-msgstr ""
+msgstr "Comptes"
 
 #. translators: Admin Dialog page title,
 #. this is about blocking
@@ -2168,7 +2169,7 @@ msgstr ""
 
 #: src/Dialogs/AnnualReport.vala:60
 msgid "Default"
-msgstr ""
+msgstr "Per defecte"
 
 #. translators: Accent color
 #: src/Dialogs/AnnualReport.vala:62
@@ -2177,7 +2178,7 @@ msgstr ""
 
 #: src/Dialogs/AnnualReport.vala:100
 msgid "Share"
-msgstr ""
+msgstr "Comparteix"
 
 #: src/Dialogs/AnnualReport.vala:108
 msgid "Save As…"
@@ -2186,7 +2187,7 @@ msgstr ""
 #. translators: dropdown label for picking a window style
 #: src/Dialogs/AnnualReport.vala:115
 msgid "Style"
-msgstr ""
+msgstr "Estil"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -2328,7 +2329,7 @@ msgstr ""
 #. translators: shown in file picker filter dropdown
 #: src/Dialogs/Composer/AttachmentsBin.vala:291 src/Dialogs/ProfileEdit.vala:81
 msgid "All Supported Files"
-msgstr ""
+msgstr "Tots els fitxers admesos"
 
 #. translators: toast shown when uploading a file bigger than what the instance allows.
 #. The variable is a string filename
@@ -2348,7 +2349,7 @@ msgstr ""
 #: src/Dialogs/ProfileEdit.vala:246 src/Views/Drive.vala:240
 #: src/Widgets/EmojiReactionAccounts.vala:39
 msgid "Open"
-msgstr ""
+msgstr "Obre"
 
 #. translators: composer media attachment button that removes it
 #: src/Dialogs/Composer/Attachment.vala:233
@@ -2360,7 +2361,7 @@ msgstr ""
 #. to translate, leave it as just "Edit"
 #: src/Dialogs/Composer/Attachment.vala:247
 msgid "Edit Metadata"
-msgstr ""
+msgstr "Edita les metadades"
 
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:307
@@ -2418,7 +2419,7 @@ msgstr ""
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:276
 msgid "Post Language"
-msgstr ""
+msgstr "Llengua de la publicació"
 
 #. translators: tooltip button on composer dialog headerbar button
 #. that makes the post visible only on the current
@@ -2444,7 +2445,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:536 src/Widgets/Status/ActionsRow.vala:90
 #: src/Widgets/Status/ActionsRow.vala:177
 msgid "Reply"
-msgstr ""
+msgstr "Respon"
 
 #. translators: composer embedded replying-to post, aria label
 #: src/Dialogs/Composer/Dialog.vala:563
@@ -2461,7 +2462,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:604 src/Widgets/Status/ActionsRow.vala:129
 #: src/Widgets/Status/ActionsRow.vala:285
 msgid "Quote"
-msgstr ""
+msgstr "Cita"
 
 #. translators: composer embedded quoting post, aria label
 #: src/Dialogs/Composer/Dialog.vala:634
@@ -2487,7 +2488,7 @@ msgstr ""
 #: src/Views/List.vala:25 src/Widgets/ScheduledStatus.vala:44
 #: src/Widgets/Status.vala:353
 msgid "Edit"
-msgstr ""
+msgstr "Edita"
 
 #. translators: composer title
 #: src/Dialogs/Composer/Dialog.vala:669 src/Dialogs/Composer/Dialog.vala:699
@@ -2507,7 +2508,7 @@ msgstr ""
 #. translators: dialog button label when pasting from clipboard, verb
 #: src/Dialogs/Composer/Dialog.vala:872
 msgid "Paste"
-msgstr ""
+msgstr "Enganxa"
 
 #. translators: Dialog title when closing the composer
 #: src/Dialogs/Composer/Dialog.vala:1154
@@ -2541,7 +2542,7 @@ msgstr ""
 #: src/Dialogs/Composer/Editor.vala:423 src/Views/Admin/Pages/Accounts.vala:409
 #: src/Views/Admin/Pages/Accounts.vala:429
 msgid "Undo"
-msgstr ""
+msgstr "Desfés"
 
 #: src/Dialogs/Composer/Polls.vala:50 src/Dialogs/ListEdit.vala:109
 #: src/Views/Admin/Timelines/DomainAllow.vala:35 src/Views/Search.vala:176
@@ -2606,21 +2607,21 @@ msgstr[1] ""
 #: src/Dialogs/Composer/Polls.vala:380 src/Dialogs/Composer/Polls.vala:382
 #, c-format
 msgid "%dmin"
-msgstr ""
+msgstr "%d min"
 
 #. translators: the variable is a number, short form for hours
 #: src/Dialogs/Composer/Polls.vala:386 src/Dialogs/Composer/Polls.vala:388
 #: src/Dialogs/Composer/Polls.vala:390
 #, c-format
 msgid "%dh"
-msgstr ""
+msgstr "%d h"
 
 #. translators: the variable is a number, short form for days
 #: src/Dialogs/Composer/Polls.vala:394 src/Dialogs/Composer/Polls.vala:396
 #: src/Dialogs/Composer/Polls.vala:398
 #, c-format
 msgid "%dd"
-msgstr ""
+msgstr "%d d"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
@@ -2643,7 +2644,7 @@ msgstr ""
 #: src/Widgets/ScheduledStatus.vala:59 src/Widgets/ScheduledStatus.vala:204
 #: src/Widgets/Status.vala:354 src/Widgets/Status.vala:527
 msgid "Delete"
-msgstr ""
+msgstr "Suprimeix"
 
 #: src/Dialogs/FilterEdit.vala:325
 #, c-format
@@ -2653,7 +2654,7 @@ msgstr ""
 #: src/Dialogs/MainWindow.vala:72
 #: src/Services/Accounts/Mastodon/Account.vala:20 src/Views/Home.vala:12
 msgid "Home"
-msgstr ""
+msgstr "Inici"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
@@ -2686,7 +2687,7 @@ msgstr ""
 
 #: src/Dialogs/NewAccount.vala:339
 msgid "Apply"
-msgstr ""
+msgstr "Aplica"
 
 #. translators: Switch title in the new account window
 #: src/Dialogs/NewAccount.vala:372
@@ -2702,7 +2703,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:52
 msgid "Polls"
-msgstr ""
+msgstr "Enquestes"
 
 #: src/Dialogs/NotificationSettings.vala:53
 msgid "Post Edits"
@@ -2718,7 +2719,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:138
 msgid "Clear"
-msgstr ""
+msgstr "Neteja"
 
 #: src/Dialogs/Preferences.vala:44
 #, c-format
@@ -2746,12 +2747,12 @@ msgstr ""
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
 msgid "Label"
-msgstr ""
+msgstr "Etiqueta"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:53
 msgid "Content"
-msgstr ""
+msgstr "Contingut"
 
 #. translators: profile field, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:209
@@ -2889,7 +2890,7 @@ msgstr ""
 #: src/Dialogs/Report.vala:446 src/Views/Browser.vala:157
 #: src/Widgets/AccountSuggestions.vala:79
 msgid "Back"
-msgstr ""
+msgstr "Enrere"
 
 #. translators: the variable is an error
 #: src/Dialogs/Report.vala:523 src/Dialogs/Report.vala:534
@@ -2906,7 +2907,7 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:294
 #, c-format
 msgid "%s mentioned you"
-msgstr ""
+msgstr "%s us ha esmentat"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -3020,7 +3021,7 @@ msgstr ""
 
 #: src/Services/Accounts/Mastodon/Account.vala:101 src/Views/Explore.vala:3
 msgid "Explore"
-msgstr ""
+msgstr "Explora"
 
 #: src/Services/Accounts/Mastodon/Account.vala:130 src/Views/Federated.vala:4
 msgid "Federated"
@@ -3029,7 +3030,7 @@ msgstr ""
 #: src/Services/Accounts/Mastodon/Account.vala:139 src/Views/Explore.vala:7
 #: src/Views/Hashtags.vala:4 src/Views/Search.vala:116
 msgid "Hashtags"
-msgstr ""
+msgstr "Etiquetes"
 
 #. translators: Drive as in 'Google Drive'
 #: src/Services/Accounts/Mastodon/Account.vala:149 src/Views/Drive.vala:849
@@ -3068,7 +3069,7 @@ msgstr ""
 #: src/Services/Accounts/SecretAccountStore.vala:237
 #, c-format
 msgid "%s Account"
-msgstr ""
+msgstr "Compte %s"
 
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:298
@@ -3078,12 +3079,12 @@ msgstr ""
 #. translators: Light mode theme
 #: src/Services/Settings.vala:301
 msgid "Light"
-msgstr ""
+msgstr "Clar"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:304
 msgid "Dark"
-msgstr ""
+msgstr "Fosc"
 
 #: src/Utils/DateTime.vala:12
 msgid "expires soon"
@@ -3168,7 +3169,7 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:84
 msgid "Just now"
-msgstr ""
+msgstr "Ara mateix"
 
 #. tranlators: the variable is a number, `m` as in minutes in short form
 #: src/Utils/DateTime.vala:88
@@ -3184,7 +3185,7 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:96
 msgid "Yesterday"
-msgstr ""
+msgstr "Ahir"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -3203,7 +3204,7 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:123
 msgid "just now"
-msgstr ""
+msgstr "ara mateix"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:127
@@ -3219,7 +3220,7 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
-msgstr ""
+msgstr "ahir"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:169
@@ -3283,7 +3284,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:68
 #: src/Views/Admin/Pages/Accounts.vala:91 src/Views/Search.vala:113
 msgid "All"
-msgstr ""
+msgstr "Tot"
 
 #. translators: Dropdown entry, remote as in from a different instance.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3295,7 +3296,7 @@ msgstr ""
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: src/Views/Admin/Pages/Accounts.vala:78
 msgid "Location"
-msgstr ""
+msgstr "Ubicació"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3341,12 +3342,12 @@ msgstr ""
 
 #: src/Views/Admin/Pages/Accounts.vala:128
 msgid "Username"
-msgstr ""
+msgstr "Nom d’usuari"
 
 #: src/Views/Admin/Pages/Accounts.vala:142
 #: src/Views/Admin/Pages/Accounts.vala:302
 msgid "E-mail"
-msgstr ""
+msgstr "Adreça electrònica"
 
 #: src/Views/Admin/Pages/Accounts.vala:296
 msgid "Role"
@@ -3382,13 +3383,13 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:363
 #: src/Views/Admin/Pages/Accounts.vala:523
 msgid "Reject"
-msgstr ""
+msgstr "Rebutja"
 
 #. translators: Question dialog when an admin is about to
 #. undo an action, like a suspension
 #: src/Views/Admin/Pages/Accounts.vala:422
 msgid "Undo this Action?"
-msgstr ""
+msgstr "Voleu desfer aquesta acció?"
 
 #. translators: Question dialog when an admin is about to
 #. approve an account. The variable is an
@@ -3433,15 +3434,15 @@ msgstr ""
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "New Users"
-msgstr ""
+msgstr "Usuaris nous"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Active Users"
-msgstr ""
+msgstr "Usuaris actius"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Interactions"
-msgstr ""
+msgstr "Interaccions"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Opened"
@@ -3469,16 +3470,16 @@ msgstr ""
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
 msgid "Software"
-msgstr ""
+msgstr "Programari"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:26
 msgid "Space Usage"
-msgstr ""
+msgstr "Ús de l’espai"
 
 #: src/Views/Admin/Pages/Dashboard.vala:53
 msgid "Stats"
-msgstr ""
+msgstr "Estadístiques"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about allowing federation
@@ -3490,7 +3491,7 @@ msgstr ""
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
 msgid "Allow"
-msgstr ""
+msgstr "Permet"
 
 #. translators: Question dialog when an admin is about to
 #. allow federation with an instance. The variable is a
@@ -3519,7 +3520,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/EmailDomain.vala:26
 #, c-format
 msgid "Unblock %s?"
-msgstr ""
+msgstr "Voleu desblocar %s?"
 
 #. translators: Question dialog when an admin is about to
 #. delete a domain from the federation allowlist.
@@ -3533,11 +3534,11 @@ msgstr ""
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:57
 msgid "Previous Page"
-msgstr ""
+msgstr "Pàgina anterior"
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:66
 msgid "Next Page"
-msgstr ""
+msgstr "Pàgina següent"
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:75
 msgid "Announcements"
@@ -3554,11 +3555,11 @@ msgstr ""
 
 #: src/Views/Base.vala:142
 msgid "Reload"
-msgstr ""
+msgstr "Torna a carregar"
 
 #: src/Views/Base.vala:221
 msgid "An Error Occurred"
-msgstr ""
+msgstr "S’ha produït un error"
 
 #: src/Views/Bookmarks.vala:6
 msgid "No Bookmarks"
@@ -3582,11 +3583,11 @@ msgstr ""
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
 msgid "Copied url to clipboard"
-msgstr ""
+msgstr "S’ha copiat l’URL al porta-retalls"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
-msgstr ""
+msgstr "No hi ha cap conversa"
 
 #. translators: as in posts that are saved but not posted yet
 #: src/Views/DraftStatuses.vala:4 src/Views/Sidebar.vala:78
@@ -3610,7 +3611,7 @@ msgstr ""
 
 #: src/Views/Drive.vala:29
 msgid "File is used as a banner"
-msgstr ""
+msgstr "El fitxer s’usa com a bàner"
 
 #. translators: tooltip text on an icon that indicates that a file is used
 #. by a user profile (like an avatar)
@@ -3620,7 +3621,7 @@ msgstr ""
 
 #: src/Views/Drive.vala:242
 msgid "Copy Link"
-msgstr ""
+msgstr "Copia l’enllaç"
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
@@ -3629,7 +3630,7 @@ msgstr ""
 #. translators: alternative text context menu item in drive
 #: src/Views/Drive.vala:253
 msgid "Edit Alt Text"
-msgstr ""
+msgstr "Edita el text alternatiu"
 
 #: src/Views/Drive.vala:259 src/Views/Drive.vala:409
 msgid "Rename"
@@ -3655,7 +3656,7 @@ msgstr ""
 #: src/Views/Drive.vala:464
 #, c-format
 msgid "Couldn't change alt text for '%s': %s"
-msgstr ""
+msgstr "No s’ha pogut canviar el text alternatiu del fitxer «%s»: %s"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
@@ -3667,32 +3668,32 @@ msgstr ""
 #. translators: title on an entry
 #: src/Views/Drive.vala:730
 msgid "New Folder"
-msgstr ""
+msgstr "Carpeta nova"
 
 #. translators: placeholder on an entry
 #: src/Views/Drive.vala:732
 msgid "Folder Name"
-msgstr ""
+msgstr "Nom de la carpeta"
 
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
 msgid "Create"
-msgstr ""
+msgstr "Crea"
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
-msgstr ""
+msgstr "Crea una carpeta"
 
 #: src/Views/Drive.vala:748
 msgid "Upload File"
-msgstr ""
+msgstr "Puja un fitxer"
 
 #. translators: error that shows up as a toast when creating folders
 #. in iceshrimp drive
 #: src/Views/Drive.vala:818
 #, c-format
 msgid "Couldn't create folder: %s"
-msgstr ""
+msgstr "No s’ha pogut crear la carpeta: %s"
 
 #: src/Views/Drive.vala:874
 msgid "Drop files to upload them"
@@ -3701,53 +3702,53 @@ msgstr ""
 #: src/Views/Drive.vala:1199
 #, c-format
 msgid "Couldn't move '%s': %s"
-msgstr ""
+msgstr "No s’ha pogut moure «%s»: %s"
 
 #. translators: Error when trying to delete a file that cannot be deleted.
 #. The first variable is a string file name, the second is an error.
 #: src/Views/Drive.vala:1216 src/Views/Drive.vala:1273
 #, c-format
 msgid "'%s' cannot be deleted: %s"
-msgstr ""
+msgstr "No es pot suprimir «%s»: %s"
 
 #. translators: the variable is a folder/file name
 #: src/Views/Drive.vala:1224
 #, c-format
 msgid "Delete '%s'?"
-msgstr ""
+msgstr "Voleu suprimir «%s»?"
 
 #: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
 msgid "This is irreversible."
-msgstr ""
+msgstr "Aquesta acció és irreversible."
 
 #. translators: the first variable is a filename,
 #. the second is an error message
 #: src/Views/Drive.vala:1249 src/Views/Drive.vala:1361
 #, c-format
 msgid "Couldn't delete '%s': %s"
-msgstr ""
+msgstr "No s’ha pogut suprimir «%s»: %s"
 
 #. translators: Error when trying to delete files/folders
 #. that cannot be deleted.
 #: src/Views/Drive.vala:1305
 msgid "No Deletable Files in Selection"
-msgstr ""
+msgstr "No hi ha cap fitxer suprimible a la selecció"
 
 #. translators: confirmation dialog in a file-browser-like page
 #: src/Views/Drive.vala:1311
 msgid "Delete Selection?"
-msgstr ""
+msgstr "Voleu suprimir la selecció?"
 
 #: src/Views/Drive.vala:1372
 msgid "Upload Files"
-msgstr ""
+msgstr "Puja fitxers"
 
 #. translators: toast popping up when a user uploads a file that already exists in drive
 #. The variable is a string filename.
 #: src/Views/Drive.vala:1423
 #, c-format
 msgid "'%s' already exists"
-msgstr ""
+msgstr "«%s» ja existeix"
 
 #. translators: screen reader announcement when the
 #. drive successfully uploads a file
@@ -3755,7 +3756,7 @@ msgstr ""
 #: src/Views/Drive.vala:1510
 #, c-format
 msgid "Finished Uploading '%s'"
-msgstr ""
+msgstr "Ha finalitzat la pujada del fitxer «%s»"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -3771,23 +3772,23 @@ msgstr ""
 
 #: src/Views/Explore.vala:8
 msgid "News"
-msgstr ""
+msgstr "Notícies"
 
 #: src/Views/Explore.vala:8
 msgid "No News"
-msgstr ""
+msgstr "No hi ha cap notícia"
 
 #: src/Views/Explore.vala:9
 msgid "For You"
-msgstr ""
+msgstr "Per a vós"
 
 #: src/Views/Explore.vala:9
 msgid "No Suggestions"
-msgstr ""
+msgstr "No hi ha cap suggeriment"
 
 #: src/Views/Favorites.vala:5 src/Views/StatusStats.vala:17
 msgid "No Favorites"
-msgstr ""
+msgstr "No hi ha cap preferit"
 
 #: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:76
 msgid "Follow Requests"
@@ -3806,7 +3807,7 @@ msgstr ""
 #: src/Widgets/RelationshipButton.vala:33
 #: src/Widgets/RelationshipButton.vala:70
 msgid "Follow"
-msgstr ""
+msgstr "Segueix"
 
 #: src/Views/Hashtag.vala:94 src/Widgets/RelationshipButton.vala:62
 msgid "Unfollow"
@@ -3819,23 +3820,23 @@ msgstr ""
 #: src/Views/Lists.vala:121
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr ""
+msgstr "Voleu suprimir «%s»?"
 
 #: src/Views/Lists.vala:122
 msgid "This action cannot be reverted."
-msgstr ""
+msgstr "Això no es podrà revertir."
 
 #: src/Views/Lists.vala:212
 msgid "No Lists"
-msgstr ""
+msgstr "No hi ha cap llista"
 
 #: src/Views/Lists.vala:216
 msgid "New list title"
-msgstr ""
+msgstr "Títol de la llista nova"
 
 #: src/Views/Lists.vala:225
 msgid "Add list"
-msgstr ""
+msgstr "Afegeix una llista"
 
 #: src/Views/Main.vala:81
 msgid "Open Sidebar"
@@ -3907,7 +3908,7 @@ msgstr ""
 
 #: src/Views/Profile.vala:118
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
 #. translators: posts tab on profiles, shown when empty.
 #: src/Views/Profile.vala:270 src/Views/Timeline.vala:73
@@ -4019,7 +4020,7 @@ msgstr ""
 
 #: src/Views/Search.vala:341
 msgid "Language"
-msgstr ""
+msgstr "Llengua"
 
 #. translators: warning toast in advanced search dialog when auto-filling a user fails.
 #. Auto-fill refers to automatically filling the entry with the first
@@ -4053,7 +4054,7 @@ msgstr ""
 
 #: src/Views/Sidebar.vala:94
 msgid "Preferences"
-msgstr ""
+msgstr "Preferències"
 
 #: src/Views/Sidebar.vala:95
 msgid "Keyboard Shortcuts"
@@ -4076,7 +4077,7 @@ msgstr ""
 
 #: src/Views/Sidebar.vala:352
 msgid "Forget"
-msgstr ""
+msgstr "Oblida"
 
 #: src/Views/StatusStats.vala:7
 msgid "Post Stats"
@@ -4101,7 +4102,7 @@ msgstr ""
 #. see https://github.com/glitch-soc/mastodon/pull/2462
 #: src/Views/StatusStats.vala:36
 msgid "Reactions"
-msgstr ""
+msgstr "Reaccions"
 
 #. translators: Reactions page empty state.
 #. A reaction is not the same as a favorite or a boost,
@@ -4112,7 +4113,7 @@ msgstr ""
 
 #: src/Views/Thread.vala:32
 msgid "Conversation"
-msgstr ""
+msgstr "Conversa"
 
 #: src/Views/Thread.vala:127 src/Views/Thread.vala:141
 msgid "Reveal Spoilers"
@@ -4315,7 +4316,7 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:67
 #: src/Widgets/CustomEmojiChooser.vala:169
 msgid "Results"
-msgstr ""
+msgstr "Resultats"
 
 #: src/Widgets/CustomEmojiChooser.vala:73
 msgid "Recently Used"
@@ -4430,11 +4431,11 @@ msgstr ""
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "Amagat"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
-msgstr ""
+msgstr "Error: la nota té més de 2000 caràcters"
 
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
@@ -4444,7 +4445,7 @@ msgstr ""
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63
 msgid "Replies"
-msgstr ""
+msgstr "Respostes"
 
 #. translators: the variable is the emoji or its name if it's custom.
 #. A reaction is not the same as a favorite or a boost,
@@ -4461,7 +4462,7 @@ msgstr ""
 #. translators: not a verb, as in a post that is saved but not posted yet
 #: src/Widgets/ScheduledStatus.vala:13
 msgid "Draft"
-msgstr ""
+msgstr "Esborrany"
 
 #: src/Widgets/ScheduledStatus.vala:51 src/Widgets/ScheduledStatus.vala:151
 msgid "Reschedule"
@@ -4571,7 +4572,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:416
 msgid "Copy"
-msgstr ""
+msgstr "Copia"
 
 #: src/Widgets/Status.vala:425 src/Widgets/Status.vala:430
 msgid "Copied post url to clipboard"
