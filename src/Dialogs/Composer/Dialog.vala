@@ -669,7 +669,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			{
 				source == null ? Utils.Htmlx.remove_tags (t_status.content) : source.text,
 				source == null ? t_status.spoiler_text : source.spoiler_text,
-				null, null, null,
+				null, null, redraft ? t_status.in_reply_to_id : null,
 				t_status.poll,
 				t_status.media_attachments,
 				t_status.sensitive,
