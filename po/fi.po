@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-09-15 13:01+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"PO-Revision-Date: 2025-11-04 15:58+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tuba/tuba/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -71,7 +71,7 @@ msgstr "Viestien oletussisältötyyppi"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:21
 msgid "Muted Push Notification Types"
-msgstr ""
+msgstr "Mykistettyjen työntöilmoitusten tyypit"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:26
@@ -86,12 +86,12 @@ msgstr "Viimeisimmät hakukyselyt"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:36
 msgid "Filtered-out Notification Types"
-msgstr ""
+msgstr "Poissuodatetut ilmoitustyypit"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:41
 msgid "IDs of Lists shown on the sidebar"
-msgstr ""
+msgstr "Sivupalkissa näkyvien listojen tunnukset"
 
 #: data/dev.geopjr.Tuba.gschema.xml:45
 msgid "Hashtags shown on the sidebar"
@@ -108,6 +108,8 @@ msgid ""
 "Whether account suggestions should be shown in the Home tab when the user "
 "doesn't follow enough people"
 msgstr ""
+"Näytetäänkö tiliehdotuksia Koti-välilehdellä, kun käyttäjä ei seuraa "
+"tarpeeksi ihmisiä"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
@@ -142,7 +144,7 @@ msgstr "Viestejä per latauskerta"
 msgid ""
 "The amount of posts that should be displayed on every scroll on timelines "
 "(10-40)"
-msgstr ""
+msgstr "Aikajanan vierityskerralla näytettävien julkaisujen määrä (10–40)"
 
 #: data/dev.geopjr.Tuba.gschema.xml:83 data/ui/dialogs/preferences.ui:168
 msgid "Stream Timelines"
@@ -161,6 +163,8 @@ msgstr "Suoratoista julkiset aikajanat"
 msgid ""
 "Public means the local and federated ones that usually have a lot of traffic"
 msgstr ""
+"Julkinen tarkoittaa paikallisia ja liittovaltion tasoisia verkostoja, joilla "
+"on yleensä paljon liikennettä"
 
 #: data/dev.geopjr.Tuba.gschema.xml:94 data/ui/dialogs/preferences.ui:72
 msgid "Reveal Spoilers by Default"
@@ -193,11 +197,13 @@ msgstr "Skaalaa mukautettuja emojeja hiiren ollessa päällä"
 #: data/dev.geopjr.Tuba.gschema.xml:113
 msgid "lightly increases the size of custom emojis when you hover over them"
 msgstr ""
+"suurentaa mukautettujen emojien kokoa hieman, kun viet hiiren osoittimen "
+"niiden yli"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:118
 msgid "Aggressive User Resolving"
-msgstr ""
+msgstr "Aggressiivinen käyttäjäratkaisu"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:120
@@ -206,6 +212,9 @@ msgid ""
 "it leads to a user or a post regardless if it matches the typical post and "
 "user URLs"
 msgstr ""
+"Kun linkkiä napsautetaan, Tuba pyytää instanssiasi ratkaisemaan sen ja "
+"katsomaan, johtaako se käyttäjään vai viestiin riippumatta siitä, vastaako "
+"se tyypillisiä viestin ja käyttäjän URL-osoitteita"
 
 #: data/dev.geopjr.Tuba.gschema.xml:124 data/ui/dialogs/preferences.ui:99
 msgid "Strip Tracking Parameters From Links"
@@ -288,6 +297,8 @@ msgid ""
 "Before replying to a post that was made at least 3 months ago, Tuba will "
 "warn you that the conversation might be over"
 msgstr ""
+"Ennen kuin vastaat vähintään kolme kuukautta sitten lähetettyyn viestiin, "
+"Tuba varoittaa sinua, että keskustelu saattaa olla ohi"
 
 #: data/dev.geopjr.Tuba.gschema.xml:173 data/ui/dialogs/preferences.ui:111
 msgid "Warn before copying a link to a private post"
@@ -299,6 +310,9 @@ msgid ""
 "If you copy the link to a post that is not publicly accessible, Tuba will "
 "warn you that people might not be able to view the post the link points to"
 msgstr ""
+"Jos kopioit linkin viestiin, joka ei ole julkisesti saatavilla, Tuba "
+"varoittaa sinua, että ihmiset eivät välttämättä voi nähdä viestiä, johon "
+"linkki osoittaa"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
@@ -311,6 +325,8 @@ msgid ""
 "The last state of the spellchecker in the composer, can be toggled by right "
 "clicking"
 msgstr ""
+"Oikeinkirjoituksen tarkistimen viimeinen tila tekstinluontityökalussa "
+"voidaan vaihtaa napsauttamalla hiiren kakkospainikkeella"
 
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:14
 msgid "Darken Images on Dark Mode"
@@ -322,6 +338,8 @@ msgid ""
 "Images will be darker when dark mode is enabled and gain their full "
 "brightness when hovered"
 msgstr ""
+"Kuvat ovat tummempia, kun tumma tila on käytössä, ja ne saavat täyden "
+"kirkkautensa, kun hiiren osoitin on sen yli"
 
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/dev.geopjr.Tuba.gschema.xml:192 data/ui/dialogs/preferences.ui:20
@@ -336,6 +354,8 @@ msgstr "Ilmoitukset, kuten suosikit ja tehostukset, ovat vähemmän näkyviä"
 #: data/dev.geopjr.Tuba.gschema.xml:198
 msgid "The last volume value used in the media viewer for videos and audio"
 msgstr ""
+"Mediankatseluohjelmassa videoille ja äänelle viimeksi käytetty "
+"äänenvoimakkuuden arvo"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:203
@@ -348,6 +368,8 @@ msgid ""
 "When the network disconnects and reconnects Tuba will detect it and "
 "gracefully recover"
 msgstr ""
+"Kun verkkoyhteys katkeaa ja yhdistyy uudelleen, Tuba havaitsee sen ja "
+"palautuu sujuvasti"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:210
@@ -360,6 +382,8 @@ msgid ""
 "Leaving it empty will use the default connection which might be proxied "
 "based on the system settings"
 msgstr ""
+"Jos jätät sen tyhjäksi, käytetään oletusyhteyttä, joka saattaa olla "
+"välityspalvelimen palvelin järjestelmäasetusten mukaan"
 
 #: data/dev.geopjr.Tuba.gschema.xml:216 data/ui/dialogs/preferences.ui:189
 msgid "Send Preference Analytics"
@@ -372,6 +396,9 @@ msgid ""
 "You can preview exactly what's being sent in-app, they are opt-in and the "
 "server is open source."
 msgstr ""
+"Lähetä mieltymyksesi Tuban kehittäjille kahden viikon välein "
+"suosiotutkimusta varten. Voit esikatsella sovelluksessa lähetettävää "
+"sisältöä tarkasti, ne ovat valinnaisia ja palvelin on avoimen lähdekoodin."
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/dev.geopjr.Tuba.gschema.xml:222 data/ui/dialogs/preferences.ui:213
@@ -386,17 +413,19 @@ msgstr "Nouda Tuban tukijalista kahden viikon välein"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:228
 msgid "Date of the last analytics update"
-msgstr ""
+msgstr "Viimeisimmän analytiikkapäivityksen päivämäärä"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:230 data/dev.geopjr.Tuba.gschema.xml:237
 msgid "Used for keeping track if 2 weeks have passed since the last update"
 msgstr ""
+"Käytetään seurantaan jos viimeisimmästä päivityksestä on kulunut kaksi "
+"viikkoa"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:235
 msgid "Date of the last contributors update"
-msgstr ""
+msgstr "Viimeisimmän osallistujan päivityksen päivämäärä"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:242
@@ -409,16 +438,20 @@ msgid ""
 "A list of hashed handles that belong to Tuba contributors so they can be "
 "used in-app"
 msgstr ""
+"Luettelo Tuban avustajille kuuluvista tiivistetyistä kahvoista, jotta niitä "
+"voidaan käyttää sovelluksen sisällä"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:249
 msgid "Post aria label verbosity"
-msgstr ""
+msgstr "Lähetä aria-nimiön monisanaisuus"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:251
 msgid "0 to 5 verbosity level, 0 being no aria label and 5 being very detailed"
 msgstr ""
+"0–5 -monisanaisuustaso, jossa 0 ei ole aria-nimiötä ja 5 on erittäin "
+"yksityiskohtainen"
 
 #. translators: in-app as in a browser inside Tuba
 #: data/dev.geopjr.Tuba.gschema.xml:255 data/ui/dialogs/preferences.ui:94
@@ -428,7 +461,7 @@ msgstr "Avaa linkit sovelluksen sisällä"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:257
 msgid "Open links in a nested web browser instead of the host one"
-msgstr ""
+msgstr "Avaa linkit sisäkkäisessä verkkoselaimessa isäntäselaimen sijaan"
 
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
 msgid "Collapse Long Posts"
@@ -439,6 +472,8 @@ msgstr "Supista pitkät viestit"
 msgid ""
 "Whether to automatically collapse posts to a set height when they exceed it"
 msgstr ""
+"Kutistetaanko viestit automaattisesti asetettuun korkeuteen, kun ne "
+"ylittävät sen"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:268
@@ -451,16 +486,18 @@ msgid ""
 "Used to detect what features an instance supports like quote-posts on "
 "account activation"
 msgstr ""
+"Käytetään havaitsemaan, mitä ominaisuuksia instanssi tukee, kuten "
+"tarjouspyyntöjä tilin aktivoinnin yhteydessä"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:275
 msgid "Replies, Favorites and Boosts Counters"
-msgstr ""
+msgstr "Vastausten, suosikkien ja tehostusten laskurit"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:280
 msgid "Automatically extract alt text from file metadata"
-msgstr ""
+msgstr "Poimi vaihtoehtoinen teksti automaattisesti tiedoston metatiedoista"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:286
@@ -475,7 +512,7 @@ msgstr "Ikkunan korkeus"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:296
 msgid "Window Maximized State"
-msgstr ""
+msgstr "Ikkunan maksimoitu tila"
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:8
@@ -1185,7 +1222,7 @@ msgstr "Vastaanota viesti-ilmoitukset"
 #. the hashtag on the user's profile
 #: data/ui/menus.ui:39 src/Views/Hashtag.vala:47
 msgid "Feature on Profile"
-msgstr ""
+msgstr "Profiilin ominaisuus"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:45 src/Views/Admin/Pages/Accounts.vala:118
@@ -1489,14 +1526,14 @@ msgstr[1] "%s viestiä"
 #. shows the amount of posts that use said hashtag
 #: src/API/FeaturedTag.vala:32
 msgid "Posts Including this Hashtag"
-msgstr ""
+msgstr "Tämän hashtagin sisältävät julkaisut"
 
 #. translators: subtitle on featured hashtags on profiles. The variable is a string date.
 #. E.g. Last post on 2025-06-29
 #: src/API/FeaturedTag.vala:39
 #, c-format
 msgid "Last post on %s"
-msgstr ""
+msgstr "Viimeisin viesti %s"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
@@ -1523,24 +1560,18 @@ msgstr "Kansio"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
-#, fuzzy, c-format
-#| msgid ""
-#| "You have blocked %s, removing %s of your followers and %s account you "
-#| "follow."
+#, c-format
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
 msgid_plural ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
-msgstr[0] "Olet estänyt %s poistaen %s seuraajaasi ja %s seuraamasi tilin."
-msgstr[1] "Olet estänyt %s poistaen %s seuraajaasi ja %s seuraamasi tilin."
+msgstr[0] "Olet estänyt %s, poistanut %s seuraajistasi ja %s seuraamasi tilin."
+msgstr[1] "Olet estänyt %s, poistanut %s seuraajistasi ja %s seuraamasi tilin."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24
-#, fuzzy, c-format
-#| msgid ""
-#| "An admin has blocked %s, including %s of your followers and %s account "
-#| "you follow."
+#, c-format
 msgid ""
 "An admin has blocked %s, including %s of your followers and %s account you "
 "follow."
@@ -1548,9 +1579,11 @@ msgid_plural ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
-"Ylläpitäjä on estänyt %s mukaan lukien %s seuraajaasi ja %s seuraamasi tilin."
+"Ylläpitäjä on estänyt %s, mukaan lukien %s seuraajistasi ja %s seuraamasi "
+"tilin."
 msgstr[1] ""
-"Ylläpitäjä on estänyt %s mukaan lukien %s seuraajaasi ja %s seuraamasi tilin."
+"Ylläpitäjä on estänyt %s, mukaan lukien %s seuraajistasi ja %s seuraamasi "
+"tilin."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:33
@@ -1815,20 +1848,20 @@ msgstr "Lahjoita"
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
 msgid "Archives"
-msgstr ""
+msgstr "Arkistot"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
-msgstr ""
+msgstr "Luo ja tarkastele verkkoarkistoja"
 
 #. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 #: src/Application.vala:645
 msgid "Calligraphy"
-msgstr ""
+msgstr "Kalligrafia"
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
-msgstr ""
+msgstr "Muunna teksti ASCII-bannereiksi"
 
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
@@ -1846,11 +1879,11 @@ msgstr ""
 
 #: src/Application.vala:649
 msgid "Scrobble your music"
-msgstr ""
+msgstr "Scrobble musiikkisi"
 
 #: src/Application.vala:671
 msgid "OK"
-msgstr "OK"
+msgstr "Hyvä on"
 
 #: src/Application.vala:721
 msgid "Yes"
@@ -1875,7 +1908,7 @@ msgstr "Verkkotunnus"
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
 msgid "Severity"
-msgstr ""
+msgstr "Vakavuus"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1911,7 +1944,7 @@ msgstr "Jätä huomiotta kaikki tästä verkkotunnuksesta lähetetyt raportit"
 #: src/Dialogs/Admin/AddFederationBlock.vala:114
 #: src/Widgets/Admin/DomainBlock.vala:32
 msgid "Obfuscate Domain Name"
-msgstr ""
+msgstr "Hämärretty verkkotunnusnimi"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1920,6 +1953,8 @@ msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
+"Saa osittain luettelon verkkotunnusnimen hämärretyksi, jos "
+"verkkotunnusrajoitusten luettelon mainostaminen on käytössä"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
@@ -2055,7 +2090,7 @@ msgstr "Edelleenlähetetty"
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:158 src/Widgets/Admin/Report.vala:22
 msgid "Action Taken by"
-msgstr ""
+msgstr "Toimenpide, jonka on tehnyt"
 
 #: src/Dialogs/Admin/Report.vala:170
 msgid "Category"
@@ -2068,10 +2103,12 @@ msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
 msgstr ""
+"Syy, miksi tästä tilistä ja/tai sisällöstä tehtiin ilmoitus, mainitaan "
+"ilmoitetun tilin kanssa käydyssä viestinnässä"
 
 #: src/Dialogs/Admin/Report.vala:235
 msgid "Violated Rules"
-msgstr ""
+msgstr "Rikkotut säännöt"
 
 #. translators: 'Reported Posts: <amount>'
 #: src/Dialogs/Admin/Report.vala:266 src/Widgets/Admin/Report.vala:34
@@ -2116,7 +2153,7 @@ msgstr "Arkaluonteinen"
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
 msgid "Force all this user's media attachments to be flagged as sensitive"
-msgstr ""
+msgstr "Pakota kaikki tämän käyttäjän medialiitteet merkityksi arkaluonteisiksi"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:88
@@ -2125,6 +2162,9 @@ msgid ""
 "posts and notifications from people not following them. Closes all reports "
 "against this account"
 msgstr ""
+"Estää käyttäjältä julkisen näkyvyyden omaavan julkaisun, piilottaa hänen "
+"julkaisunsa ja ilmoituksensa ihmisiltä, jotka eivät seuraa häntä. Sulkee "
+"kaikki tätä tiliä koskevat raportit"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:97
@@ -2132,6 +2172,9 @@ msgid ""
 "Prevent any interaction from or to this account and delete its contents. "
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
+"Estä mikä tahansa vuorovaikutus tältä tililtä tai tälle tilille ja poista "
+"sen sisältö. Peruutettavissa 30 päivän kuluessa. Sulkee kaikki tätä tiliä "
+"koskevat raportit"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
@@ -2142,7 +2185,7 @@ msgstr "Ilmoita käyttäjälle sähköpostitse"
 #: src/Dialogs/Admin/TakeAction.vala:116
 msgid ""
 "The user will receive an explanation of what happened with their account"
-msgstr ""
+msgstr "Käyttäjä saa selityksen siitä, mitä hänen tililleen tapahtui"
 
 #. translators: Question dialog when an admin is about to
 #. take action against an account
@@ -2231,7 +2274,7 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:170
 #, c-format
 msgid "%s Wrapped"
-msgstr ""
+msgstr "%s kääritty"
 
 #. translators: #FediWrapped, title of the 'amount of new posts' card
 #: src/Dialogs/AnnualReport.vala:200
@@ -2581,7 +2624,7 @@ msgstr "Poista"
 #: src/Dialogs/Composer/Polls.vala:138
 #, c-format
 msgid "Changed state to \"%s\""
-msgstr ""
+msgstr "Muuttunut tilan \"%s\":ksi"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/Polls.vala:231
@@ -2726,6 +2769,8 @@ msgid ""
 "Enables the Admin Dashboard and requests the needed permissions to use the "
 "Admin API"
 msgstr ""
+"Ottaa Järjestelmänvalvojan kojelaudan käyttöön ja pyytää tarvittavia "
+"käyttöoikeuksia järjestelmänvalvojan API:n käyttöön"
 
 #: src/Dialogs/NotificationSettings.vala:52
 msgid "Polls"
@@ -2733,11 +2778,11 @@ msgstr "Äänestykset"
 
 #: src/Dialogs/NotificationSettings.vala:53
 msgid "Post Edits"
-msgstr ""
+msgstr "Viestin muokkaukset"
 
 #: src/Dialogs/NotificationSettings.vala:54
 msgid "Follows"
-msgstr ""
+msgstr "Seuraa"
 
 #: src/Dialogs/NotificationSettings.vala:131
 msgid "Clear All Notifications?"
@@ -3008,12 +3053,12 @@ msgstr "%s rekisteröityi"
 #. or personal domain blocking
 #: src/Services/Accounts/InstanceAccount.vala:393
 msgid "Some of your relationships got severed"
-msgstr ""
+msgstr "Jotkut ihmissuhteistasi katkesivat"
 
 #. translators: this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:425
 msgid "Received a new report"
-msgstr ""
+msgstr "Vastaanottanut uuden raportin"
 
 #. translators: the variable is a string user name,
 #. this is used for per-account notifications
@@ -3318,7 +3363,7 @@ msgstr "Kaikki"
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:73
 msgid "Remote"
-msgstr ""
+msgstr "Etänä"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: src/Views/Admin/Pages/Accounts.vala:78
@@ -3340,7 +3385,7 @@ msgstr "Aktiivinen"
 #: src/Views/Admin/Pages/Accounts.vala:381 src/Widgets/Admin/AccountRow.vala:31
 #: src/Widgets/Admin/Report.vala:52
 msgid "Limited"
-msgstr ""
+msgstr "Rajoitettu"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3349,7 +3394,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:388 src/Widgets/Admin/AccountRow.vala:33
 #: src/Widgets/Admin/Report.vala:54
 msgid "Disabled"
-msgstr ""
+msgstr "Poissa käytöstä"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3358,7 +3403,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:374 src/Widgets/Admin/AccountRow.vala:29
 #: src/Widgets/Admin/Report.vala:50
 msgid "Suspended"
-msgstr ""
+msgstr "Jäädytetty"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3457,6 +3502,8 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
+"Tämä voi olla sähköpostiosoitteessa näkyvä verkkotunnus tai sen käyttämä MX-"
+"tietue. Ne tarkistetaan rekisteröitymisen yhteydessä."
 
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
@@ -3547,7 +3594,7 @@ msgstr "Näytä ratkaistut raportit"
 #: src/Views/Admin/Timelines/EmailDomain.vala:26
 #, c-format
 msgid "Unblock %s?"
-msgstr ""
+msgstr "Poistetaanko esto %s:lta?"
 
 #. translators: Question dialog when an admin is about to
 #. delete a domain from the federation allowlist.
@@ -3557,7 +3604,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/DomainAllow.vala:28
 #, c-format
 msgid "Remove Federation with %s?"
-msgstr ""
+msgstr "Poistetaanko liittoutuminen %s:n kanssa?"
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:57
 msgid "Previous Page"
@@ -3638,7 +3685,7 @@ msgstr "Tiedostoa käytetään profiilikuvana"
 
 #: src/Views/Drive.vala:29
 msgid "File is used as a banner"
-msgstr ""
+msgstr "Tiedostoa käytetään bannerina"
 
 #. translators: tooltip text on an icon that indicates that a file is used
 #. by a user profile (like an avatar)
@@ -3955,7 +4002,7 @@ msgstr "Tämä käyttäjä ei seuraa muita"
 #. translators: featured tab on profiles, shown when empty.
 #: src/Views/Profile.vala:285
 msgid "This user doesn't have any featured hashtags or accounts."
-msgstr ""
+msgstr "Tällä käyttäjällä ei ole esillä olevia hashtageja tai tilejä."
 
 #: src/Views/Profile.vala:441
 msgid "Copied handle to clipboard"
@@ -3995,7 +4042,7 @@ msgstr "Lisää tai poista \"%s\" listaan tai listalta"
 #: src/Views/Profile.vala:615
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
-msgstr ""
+msgstr "Valitse lista, johon haluat lisätä tai josta poistaa \"%s\":n:"
 
 #: src/Views/Profile.vala:621
 msgid "You don't have any lists"
@@ -4041,7 +4088,7 @@ msgstr "Hae viestejä ja tilejä"
 
 #: src/Views/Search.vala:38
 msgid "Clear Entry"
-msgstr ""
+msgstr "Tyhjennä tietue"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Views/Search.vala:113 src/Views/Search.vala:114
@@ -4060,7 +4107,7 @@ msgstr "Kieli"
 #: src/Views/Search.vala:502
 #, c-format
 msgid "Couldn't auto-fill user: %s"
-msgstr ""
+msgstr "Käyttäjää ei voitu täyttää automaattisesti: %s"
 
 #. tanslators: used in a banner, the variable is the number of unread announcements
 #: src/Views/Sidebar.vala:28
@@ -4195,7 +4242,7 @@ msgstr "Käyttäjän %s (%s) profiili."
 #: src/Widgets/Account.vala:157 src/Widgets/ProfileCover.vala:204
 #, c-format
 msgid "Relationship: %s."
-msgstr ""
+msgstr "Suhde: %s."
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of followers a user has.
@@ -4218,7 +4265,7 @@ msgstr "%s seurattua"
 #. translators: Admin dashboard, report status
 #: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
 msgid "No Limits"
-msgstr ""
+msgstr "Ei rajoja"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Widgets/Admin/AccountRow.vala:36
@@ -4228,15 +4275,15 @@ msgstr "Odottaa hyväksyntää"
 #. translators: Report 'Assigned to: <account>'
 #: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
 msgid "Assigned to"
-msgstr ""
+msgstr "Tälle määrätty"
 
 #: src/Widgets/Admin/AssignedRow.vala:38
 msgid "Unassign"
-msgstr ""
+msgstr "Poista määritys"
 
 #: src/Widgets/Admin/AssignedRow.vala:42
 msgid "Assign"
-msgstr ""
+msgstr "Määritä"
 
 #. translators: subtitle on email domain blocks.
 #. The variable is the number of sing up
@@ -4254,7 +4301,7 @@ msgstr "%d rekisteröitymisyritystä"
 #: src/Widgets/Announcement.vala:20
 #, c-format
 msgid "Announcement by %s (%s)."
-msgstr ""
+msgstr "Ilmoitus %s (%s):lta."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4293,7 +4340,7 @@ msgstr[1] "Sisältää %d reaktiota."
 #. hasn't been read yet.
 #: src/Widgets/Announcement.vala:56
 msgid "Unread."
-msgstr ""
+msgstr "Lukematon."
 
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:73
@@ -4342,7 +4389,7 @@ msgstr "Julkaistu: %s"
 #: src/Widgets/BookWyrmPage.vala:98
 #, c-format
 msgid "by %s"
-msgstr ""
+msgstr "kirjoittanut %s"
 
 #. translators: Used when there are results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:67
@@ -4417,8 +4464,8 @@ msgstr "Tekijä %s"
 #, c-format
 msgid "See %d author"
 msgid_plural "See all %d authors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Näytä %d kirjoittaja"
+msgstr[1] "Näytä kaikki %d kirjoittajaa"
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The first variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -4429,8 +4476,8 @@ msgstr[1] ""
 #, c-format
 msgid "Followed by %s & %s Other"
 msgid_plural "Followed by %s & %s Others"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s ja %s muu seuraa"
+msgstr[1] "%s ja %s muuta seuraa"
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -4468,7 +4515,7 @@ msgstr "Piilotettu"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
-msgstr ""
+msgstr "Virhe: Muistiinpano on yli 2000 merkkiä pitkä"
 
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
@@ -4601,7 +4648,7 @@ msgstr "Vain mainitut henkilöt ja käyttäjää %s seuraavat voivat nähdä sen
 #: src/Widgets/Status.vala:413
 #, c-format
 msgid "Copy %s Post Link?"
-msgstr ""
+msgstr "Kopioidaanko %s viestin linkki?"
 
 #: src/Widgets/Status.vala:416
 msgid "Copy"
@@ -4619,13 +4666,13 @@ msgstr "Poistetaanko viesti?"
 #: src/Widgets/Status.vala:570
 #, c-format
 msgid "Couldn't Mute Conversation: %s"
-msgstr ""
+msgstr "Keskustelua ei voitu mykistää: %s"
 
 #. translators: toast shown when unmuting a post
 #: src/Widgets/Status.vala:572
 #, c-format
 msgid "Couldn't Unmute Conversation: %s"
-msgstr ""
+msgstr "Keskustelun mykistystä ei voitu kumota: %s"
 
 #: src/Widgets/Status.vala:628 src/Widgets/Status.vala:649
 #, c-format
@@ -4660,7 +4707,7 @@ msgstr "Suodatettu viesti"
 #: src/Widgets/Status.vala:874
 #, c-format
 msgid "%s post by %s (%s)."
-msgstr ""
+msgstr "%s viesti %s (%s):lta."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
