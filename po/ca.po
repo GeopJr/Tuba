@@ -4,20 +4,21 @@
 # Santiago Rom i Bel <santiagoviola@gmail.com>, 2024.
 # fadelkon <fadelkon@posteo.net>, 2025.
 # Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2025.
+# Àlex Bravo <alexbravobosch@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-11-06 06:51+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2025-12-25 14:00+0000\n"
+"Last-Translator: Àlex Bravo <alexbravobosch@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/tuba/tuba/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -146,7 +147,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:83 data/ui/dialogs/preferences.ui:168
 msgid "Stream Timelines"
-msgstr "Cronologies en directe"
+msgstr "Línies de temps en directe"
 
 #: data/dev.geopjr.Tuba.gschema.xml:84 data/ui/dialogs/preferences.ui:169
 msgid "Receive new posts and notifications in real-time"
@@ -154,7 +155,7 @@ msgstr "Rep noves publicacions i notificacions en temps real"
 
 #: data/dev.geopjr.Tuba.gschema.xml:88 data/ui/dialogs/preferences.ui:175
 msgid "Stream Public Timelines"
-msgstr "Cronologies públiques en directe"
+msgstr "Línies de temps públiques en directe"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:90
@@ -164,7 +165,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:94 data/ui/dialogs/preferences.ui:72
 msgid "Reveal Spoilers by Default"
-msgstr "Per defecte, revela els continguts amb avís"
+msgstr "Revela els continguts amb avís per defecte"
 
 #: data/dev.geopjr.Tuba.gschema.xml:98 data/ui/dialogs/preferences.ui:77
 msgid "Show Link Preview Cards"
@@ -184,7 +185,7 @@ msgstr "Alçada de línia més alta"
 
 #: data/dev.geopjr.Tuba.gschema.xml:108 data/ui/dialogs/preferences.ui:38
 msgid "Increase the line height in posts"
-msgstr "Augmenta l'alçada de línia en les publiacions"
+msgstr "Augmenta l'alçada de la línia a les publicacions"
 
 #: data/dev.geopjr.Tuba.gschema.xml:112 data/ui/dialogs/preferences.ui:43
 msgid "Scale Custom Emojis on Hover"
@@ -221,7 +222,7 @@ msgstr "Quan aquesta opció està activa, pot portar a enllaços incorrectes"
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/dev.geopjr.Tuba.gschema.xml:129 data/ui/dialogs/preferences.ui:60
 msgid "Letterbox Media"
-msgstr ""
+msgstr "Mantenir proporcions en mostrar mitjans"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/dev.geopjr.Tuba.gschema.xml:130 data/ui/dialogs/preferences.ui:62
@@ -256,7 +257,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr ""
+msgstr "Mostra els continguts sensibles per defecte"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
@@ -290,7 +291,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:173 data/ui/dialogs/preferences.ui:111
 msgid "Warn before copying a link to a private post"
-msgstr ""
+msgstr "Avisa abans de copiar un enllaç a una publicació privada"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:175
@@ -313,7 +314,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:14
 msgid "Darken Images on Dark Mode"
-msgstr ""
+msgstr "Enfosquir les imatges en mode fosc"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:188
@@ -329,7 +330,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:193 data/ui/dialogs/preferences.ui:21
 msgid "Notifications like favorites and boosts will be less visible"
-msgstr ""
+msgstr "Les notificacions com ara preferits i impulsos seran menys visibles"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:198
@@ -362,7 +363,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:216 data/ui/dialogs/preferences.ui:189
 msgid "Send Preference Analytics"
-msgstr ""
+msgstr "Enviar anàlisi de preferències"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:218
@@ -422,22 +423,26 @@ msgstr ""
 #. translators: in-app as in a browser inside Tuba
 #: data/dev.geopjr.Tuba.gschema.xml:255 data/ui/dialogs/preferences.ui:94
 msgid "Open Links In-App"
-msgstr ""
+msgstr "Obre els enllaços a l'aplicació"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:257
 msgid "Open links in a nested web browser instead of the host one"
 msgstr ""
+"Obre els enllaços en un navegador integrat en comptes del navegador del "
+"sistema"
 
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
 msgid "Collapse Long Posts"
-msgstr ""
+msgstr "Replega les publicacions llargues"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:263
 msgid ""
 "Whether to automatically collapse posts to a set height when they exceed it"
 msgstr ""
+"Si s'han de replegar automàticament les publicacions a una alçada "
+"determinada quan la superen"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:268
@@ -676,7 +681,7 @@ msgstr "Encasta"
 
 #: data/ui/dialogs/advanced_search.ui:141 data/ui/dialogs/preferences.ui:165
 msgid "Timelines"
-msgstr "Cronologies"
+msgstr "Línies de temps"
 
 #: data/ui/dialogs/advanced_search.ui:144
 msgid "Everywhere"
@@ -733,7 +738,7 @@ msgstr ""
 
 #: data/ui/dialogs/composer.ui:44
 msgid "Write your content warning here"
-msgstr ""
+msgstr "Escriu aquí l'advertència sobre el contingut"
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
@@ -746,11 +751,11 @@ msgstr "Selector d’emojis personalitzats"
 
 #: data/ui/dialogs/composer.ui:88
 msgid "Add Media"
-msgstr ""
+msgstr "Afegir mitjans"
 
 #: data/ui/dialogs/composer.ui:97
 msgid "Create Poll"
-msgstr ""
+msgstr "Crear una enquesta"
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
@@ -758,7 +763,7 @@ msgstr "Avís de contingut"
 
 #: data/ui/dialogs/composer.ui:116
 msgid "Mark media as sensitive"
-msgstr ""
+msgstr "Marcar el mitjà com a sensible"
 
 #: data/ui/dialogs/filter_edit.ui:6
 msgid "Edit Filter"
@@ -791,15 +796,15 @@ msgstr "Contextos"
 
 #: data/ui/dialogs/filter_edit.ui:78
 msgid "One or multiple contexts where the filter should apply"
-msgstr ""
+msgstr "Un o diversos contextos on s'hauria d'aplicar el filtre"
 
 #: data/ui/dialogs/filter_edit.ui:83
 msgid "Keywords or Phrases"
-msgstr ""
+msgstr "Paraules clau o frases"
 
 #: data/ui/dialogs/filter_edit.ui:91
 msgid "Add Keyword"
-msgstr ""
+msgstr "Afegir una paraula clau"
 
 #: data/ui/dialogs/list_edit.ui:7 data/ui/dialogs/list_edit.ui:10
 msgid "Members"
@@ -811,7 +816,7 @@ msgstr "Nom de la llista"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr ""
+msgstr "Amaga les publicacions de l'inici"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
@@ -832,7 +837,7 @@ msgstr ""
 
 #: data/ui/dialogs/list_edit.ui:66
 msgid "Any followed user"
-msgstr ""
+msgstr "Qualsevol usuari seguit"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:321
 #: src/Views/Sidebar.vala:325
@@ -855,6 +860,8 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
+"Si encara no tens un compte, <a href=\"https://joinmastodon.org/ca/servers\">"
+"tria un servidor i crea'n un</a>."
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"
@@ -883,7 +890,7 @@ msgstr "Codi d'autorització"
 
 #: data/ui/dialogs/new_account.ui:218
 msgid "Your account is connected and ready to use!"
-msgstr ""
+msgstr "El teu compte està connectat i llest per utilitzar!"
 
 #: data/ui/dialogs/new_account.ui:223
 msgid "Done"
@@ -906,37 +913,37 @@ msgstr "Notificacions"
 
 #: data/ui/dialogs/notification_settings.ui:37
 msgid "Included Notifications"
-msgstr ""
+msgstr "Notificacions incloses"
 
 #. translators: Preferences group title
 #: data/ui/dialogs/notification_settings.ui:44
 msgid "Filter Notifications Out"
-msgstr ""
+msgstr "Filtrar notificacions"
 
 #. translators: Preferences group description
 #: data/ui/dialogs/notification_settings.ui:46
 msgid "Filter out notifications from people you may not know"
-msgstr ""
+msgstr "Filtra les notificacions de persones que potser no coneixes"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:50
 msgid "People you don't follow"
-msgstr ""
+msgstr "Persones que no segueixes"
 
 #. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:52
 msgid "Until you manually approve them"
-msgstr ""
+msgstr "Fins que els aprovis manualment"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:58
 msgid "People not following you"
-msgstr ""
+msgstr "Persones que no et segueixen"
 
 #. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:60
 msgid "Including people who have been following you fewer than 3 days"
-msgstr ""
+msgstr "Incloent-hi les persones que et segueixen des de fa menys de 3 dies"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:66
@@ -946,18 +953,20 @@ msgstr "Comptes nous"
 #. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:68
 msgid "Created within the past 30 days"
-msgstr ""
+msgstr "Creades en els darrers 30 dies"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:74
 msgid "Unsolicited private mentions"
-msgstr ""
+msgstr "Mencions privades no sol·licitades"
 
 #. translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:76
 msgid ""
 "Filtered unless it's in reply to your own mention or if you follow the sender"
 msgstr ""
+"Filtrat tret que sigui en resposta a la teva pròpia menció o si segueixes el "
+"remitent"
 
 #: data/ui/dialogs/preferences.ui:11
 msgid "Appearance"
@@ -966,16 +975,18 @@ msgstr "Aspecte"
 #: data/ui/dialogs/preferences.ui:44
 msgid "Slightly increases the size of custom emojis when you hover over them"
 msgstr ""
+"Augmenta lleugerament la mida dels emojis personalitzats quan hi passes per "
+"sobre"
 
 #. translators: noun, plural
 #: data/ui/dialogs/preferences.ui:51 src/Views/Explore.vala:6
 #: src/Views/Search.vala:115 src/Widgets/ProfileFilterGroup.vala:56
 msgid "Posts"
-msgstr ""
+msgstr "Publicacions"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Behavior"
-msgstr ""
+msgstr "Comportament"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:124 src/Dialogs/NewAccount.vala:363
@@ -984,16 +995,18 @@ msgstr "Servidor intermediari"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Posting"
-msgstr ""
+msgstr "Publicació"
 
 #: data/ui/dialogs/preferences.ui:144
 msgid "Default Post Language"
-msgstr ""
+msgstr "Idioma de publicació predeterminat"
 
 #. translators: setting row subtitle, by high traffic we mean the federated and local timelines
 #: data/ui/dialogs/preferences.ui:177
 msgid "This will increase memory usage when browsing high traffic timelines"
 msgstr ""
+"Això augmentarà l'ús de memòria en navegar per línies de temps amb molt de "
+"trànsit"
 
 #: data/ui/dialogs/preferences.ui:184
 msgid "Online Services"
@@ -1002,12 +1015,14 @@ msgstr "Serveis en línia"
 #. translators: leave api.tuba.geopjr.dev as is
 #: data/ui/dialogs/preferences.ui:186
 msgid "Configure features that connect to api.tuba.geopjr.dev"
-msgstr ""
+msgstr "Configura les funcions que es connecten a api.tuba.geopjr.dev"
 
 #: data/ui/dialogs/preferences.ui:190
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly"
 msgstr ""
+"Envia les teves preferències als desenvolupadors de Tuba per a la "
+"investigació de popularitat quinzenal"
 
 #: data/ui/dialogs/preferences.ui:196
 msgid "Preview Analytics"
@@ -1025,12 +1040,12 @@ msgstr "Seguidors nous"
 
 #: data/ui/dialogs/preferences.ui:238
 msgid "New Follower Requests"
-msgstr ""
+msgstr "Sol·licituds de nous seguidors"
 
 #: data/ui/dialogs/preferences.ui:244 src/Dialogs/NotificationSettings.vala:50
 #: src/Services/Accounts/Mastodon/Account.vala:74 src/Views/Favorites.vala:4
 msgid "Favorites"
-msgstr ""
+msgstr "Favorits"
 
 #: data/ui/dialogs/preferences.ui:250 src/Dialogs/NotificationSettings.vala:49
 msgid "Mentions"
@@ -1038,7 +1053,7 @@ msgstr "Mencions"
 
 #: data/ui/dialogs/preferences.ui:256 src/Dialogs/NotificationSettings.vala:51
 msgid "Boosts"
-msgstr ""
+msgstr "Impulsos"
 
 #: data/ui/dialogs/preferences.ui:262
 msgid "Poll Results"
@@ -1050,7 +1065,7 @@ msgstr "Edicions"
 
 #: data/ui/dialogs/preferences.ui:274
 msgid "Group"
-msgstr ""
+msgstr "Grup"
 
 #: data/ui/dialogs/preferences.ui:287
 msgid "Filters"
@@ -1058,7 +1073,7 @@ msgstr "Filtres"
 
 #: data/ui/dialogs/preferences.ui:291
 msgid "Keywords"
-msgstr ""
+msgstr "Paraules clau"
 
 #: data/ui/dialogs/preferences.ui:299
 msgid "Add Filter…"
@@ -1070,12 +1085,12 @@ msgstr "Edita el perfil"
 
 #: data/ui/dialogs/profile_edit.ui:68
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "Editar la imatge de perfil"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:97
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "Editar la imatge de capçalera"
 
 #: data/ui/dialogs/profile_edit.ui:122 src/Views/Admin/Pages/Accounts.vala:135
 msgid "Display Name"
@@ -1092,17 +1107,17 @@ msgstr "Biografia"
 #: data/ui/dialogs/profile_edit.ui:164 src/Views/Drive.vala:178
 #: src/Views/Drive.vala:424 src/Widgets/Attachment/Item.vala:159
 msgid "Alternative Text"
-msgstr ""
+msgstr "Text alternatiu"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile picture
 #: data/ui/dialogs/profile_edit.ui:169
 msgid "Profile Picture Description"
-msgstr ""
+msgstr "Descripció de la imatge de perfil"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile header/cover
 #: data/ui/dialogs/profile_edit.ui:176
 msgid "Header Picture Description"
-msgstr ""
+msgstr "Descripció de la imatge de capçalera"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:184
@@ -1167,16 +1182,15 @@ msgid "Open in Browser"
 msgstr "Obre al navegador"
 
 #: data/ui/menus.ui:33
-#, fuzzy
 msgid "Receive Post Notifications"
-msgstr "Carrega notificaicons"
+msgstr "Rebre notificacions de publicacions"
 
 #. translators: used in profile actions for endorsing a user
 #. translators: label on headerbar button on hashtag views that 'features'
 #. the hashtag on the user's profile
 #: data/ui/menus.ui:39 src/Views/Hashtag.vala:47
 msgid "Feature on Profile"
-msgstr ""
+msgstr "Destacar al perfil"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:45 src/Views/Admin/Pages/Accounts.vala:118
@@ -1269,7 +1283,7 @@ msgstr "Obre el perfil"
 #. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
 #: data/ui/views/profile_header.ui:181
 msgid "View All Followers You Know"
-msgstr ""
+msgstr "Veure tots els seguidors que coneixes"
 
 #: data/ui/views/profile_header.ui:211
 msgid "Note"
@@ -1417,7 +1431,7 @@ msgstr ""
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
-msgstr ""
+msgstr "Legal"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:209
@@ -1464,7 +1478,7 @@ msgstr "Error"
 #: src/API/Conversation.vala:31
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Conversa buida amb %s"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of posts a user has made.
@@ -1473,14 +1487,14 @@ msgstr ""
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s publicació"
+msgstr[1] "%s publicacions"
 
 #. translators: tooltip on featured hashtags on profiles on a number that
 #. shows the amount of posts that use said hashtag
 #: src/API/FeaturedTag.vala:32
 msgid "Posts Including this Hashtag"
-msgstr ""
+msgstr "Publicacions que inclouen aquesta etiqueta"
 
 #. translators: subtitle on featured hashtags on profiles. The variable is a string date.
 #. E.g. Last post on 2025-06-29
@@ -1492,11 +1506,11 @@ msgstr ""
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
 msgid "Home &amp; Lists"
-msgstr ""
+msgstr "Inici i llistes"
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
-msgstr ""
+msgstr "Línies de temps públiques"
 
 #: src/API/Filters/Filter.vala:47
 #: src/Services/Accounts/Mastodon/Account.vala:45
@@ -1542,6 +1556,8 @@ msgid ""
 "An admin has suspended %s, which means you can no longer receive updates "
 "from them or interact with them."
 msgstr ""
+"Un administrador ha suspès %s, cosa que significa que ja no pots rebre "
+"actualitzacions seves ni interactuar-hi."
 
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
@@ -1587,7 +1603,7 @@ msgstr "Respon…"
 
 #: src/API/Notification.vala:235
 msgid "Remove from Followers"
-msgstr ""
+msgstr "Eliminar dels seguidors"
 
 #: src/API/Notification.vala:240
 msgid "Follow Back"
@@ -1605,11 +1621,11 @@ msgstr "Accepta"
 
 #: src/API/Relationship.vala:24
 msgid "Sent follow request"
-msgstr ""
+msgstr "Sol·licitud de seguiment enviada"
 
 #: src/API/Relationship.vala:26
 msgid "Mutuals"
-msgstr ""
+msgstr "Mutus"
 
 #: src/API/Relationship.vala:28
 msgid "Follows you"
@@ -1708,7 +1724,7 @@ msgstr "Descatalogats"
 #. translators: post visibility label
 #: src/API/Status.vala:327
 msgid "Followers Only"
-msgstr ""
+msgstr "Només seguidors"
 
 #. translators: post visibility label
 #: src/API/Status.vala:330
@@ -1720,7 +1736,7 @@ msgstr ""
 #: src/API/Status.vala:334 src/Services/Accounts/Mastodon/Account.vala:111
 #: src/Views/Admin/Pages/Accounts.vala:69 src/Views/Local.vala:3
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #. translators: the variable is the amount of times a hashtag was used in a week
 #. in the composer auto-complete popup (so keep it short)
@@ -1737,8 +1753,8 @@ msgstr[1] "%d per setmana"
 #, c-format
 msgid "%d person yesterday"
 msgid_plural "%d people yesterday"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d persona ahir"
+msgstr[1] "%d persones ahir"
 
 #. total_uses += int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1746,8 +1762,8 @@ msgstr[1] ""
 #, c-format
 msgid "%d person in the past 2 days"
 msgid_plural "%d people in the past 2 days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d persona en els darrers 2 dies"
+msgstr[1] "%d persones en els darrers 2 dies"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
@@ -1791,7 +1807,7 @@ msgstr "Traducció"
 
 #: src/Application.vala:640
 msgid "Donate"
-msgstr ""
+msgstr "Fer una donació"
 
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
@@ -1809,7 +1825,7 @@ msgstr ""
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
-msgstr ""
+msgstr "Convertir el text en bàners ASCII"
 
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
@@ -1967,7 +1983,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:101
 msgid "Resolve"
-msgstr ""
+msgstr "Resoldre"
 
 #. translators: Question dialog when an admin is about to
 #. reopen a report
@@ -1977,7 +1993,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:101
 msgid "Reopen"
-msgstr ""
+msgstr "Reobrir"
 
 #. translators: Admin dashboard, take action against user headerbar button
 #: src/Dialogs/Admin/Report.vala:95 src/Dialogs/Admin/TakeAction.vala:18
@@ -2020,11 +2036,11 @@ msgstr "Estat"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Resolved"
-msgstr ""
+msgstr "Resolt"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Unresolved"
-msgstr ""
+msgstr "No resolt"
 
 #. translators: admin dashboard, whether a report was 'forwarded' from another server
 #: src/Dialogs/Admin/Report.vala:152
@@ -2064,7 +2080,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
-msgstr ""
+msgstr "Avís"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:61
@@ -2284,7 +2300,7 @@ msgstr ""
 #. which one of your posts had the most boosts
 #: src/Dialogs/AnnualReport.vala:460
 msgid "Most Boosted Post"
-msgstr ""
+msgstr "Publicació més impulsada"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most replies
@@ -2914,14 +2930,14 @@ msgstr "%s us ha esmentat"
 #: src/Services/Accounts/InstanceAccount.vala:303
 #, c-format
 msgid "%s boosted your post"
-msgstr ""
+msgstr "%s ha impulsat la teva publicació"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:312
 #, c-format
 msgid "%s boosted"
-msgstr ""
+msgstr "%s l'ha impulsat"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -4091,11 +4107,11 @@ msgstr ""
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:23
 msgid "Boosted By"
-msgstr ""
+msgstr "Impulsat per"
 
 #: src/Views/StatusStats.vala:27
 msgid "No Boosts"
-msgstr ""
+msgstr "Cap impuls"
 
 #. translators: title for a list of people that have reacted to a post.
 #. A reaction is not the same as a favorite or a boost,
@@ -4498,11 +4514,11 @@ msgstr ""
 #: src/Widgets/Status/ActionsRow.vala:57 src/Widgets/Status/ActionsRow.vala:109
 #: src/Widgets/Status/ActionsRow.vala:286
 msgid "Boost"
-msgstr ""
+msgstr "Impulsar"
 
 #: src/Widgets/Status/ActionsRow.vala:60
 msgid "This post can't be boosted"
-msgstr ""
+msgstr "Aquesta publicació no es pot impulsar"
 
 #: src/Widgets/Status/ActionsRow.vala:161
 msgid "Bookmark"
@@ -4523,7 +4539,7 @@ msgstr ""
 
 #: src/Widgets/Status/ActionsRow.vala:278
 msgid "Boost with Visibility"
-msgstr ""
+msgstr "Impuls amb visibilitat"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:330
@@ -4705,8 +4721,8 @@ msgstr[1] ""
 #, c-format
 msgid "%s boost"
 msgid_plural "%s boosts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s impuls"
+msgstr[1] "%s impulsos"
 
 #: src/Widgets/Status.vala:992
 #, c-format
@@ -4762,12 +4778,12 @@ msgstr[1] ""
 #. Describes whether the user has voted on the poll.
 #: src/Widgets/VoteBox.vala:145
 msgid "You have voted."
-msgstr ""
+msgstr "Has votat."
 
 #. translators: the variable is the amount of people that voted
 #: src/Widgets/VoteBox.vala:293
 #, c-format
 msgid "%s voted"
 msgid_plural "%s voted"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s ha votat"
+msgstr[1] "%s han votat"
