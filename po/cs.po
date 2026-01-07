@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Jakub Janeček <janecekjakub@tutanota.com>, 2023, 2024.
+# Jakub Janeček <janecekjakub@tutanota.com>, 2023, 2024, 2026.
 # foo expert <deferred_water346@simplelogin.com>, 2023.
 # anotheranonymoususer <walter.klosse@protonmail.com>, 2024, 2025.
 msgid ""
@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-03-31 04:45+0000\n"
-"Last-Translator: anotheranonymoususer <walter.klosse@protonmail.com>\n"
+"PO-Revision-Date: 2026-01-08 09:01+0000\n"
+"Last-Translator: Jakub Janeček <janecekjakub@tutanota.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tuba/tuba/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -93,12 +93,12 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:45
 msgid "Hashtags shown on the sidebar"
-msgstr ""
+msgstr "Hashtagy zobrazené v postranní liště"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
 msgid "Account Suggestions"
-msgstr ""
+msgstr "Doporučené Účty"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:52
@@ -190,7 +190,7 @@ msgstr "Zvětšit Vlastní Smajlíky po Najetí"
 
 #: data/dev.geopjr.Tuba.gschema.xml:113
 msgid "lightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "lehce zvětší velikost vlastních emoji, když na ně ukážeš"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:118
@@ -254,7 +254,7 @@ msgstr "Ukázat rozmazanou verzi médií, než se plně načtou"
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr ""
+msgstr "Ve Výchozím Stavu Ukazovat Citlivá Média"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
@@ -430,7 +430,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
 msgid "Collapse Long Posts"
-msgstr ""
+msgstr "Sbalit Dlouhé Příspěvky"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:263
@@ -732,7 +732,7 @@ msgstr ""
 
 #: data/ui/dialogs/composer.ui:44
 msgid "Write your content warning here"
-msgstr ""
+msgstr "Sem napiš své varování o obsahu"
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
@@ -749,7 +749,7 @@ msgstr "Přidat médium"
 
 #: data/ui/dialogs/composer.ui:97
 msgid "Create Poll"
-msgstr ""
+msgstr "Vytvořit Anketu"
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
@@ -1477,9 +1477,9 @@ msgstr "Vyčistit konverzaci s %s"
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s Příspěvek"
+msgstr[1] "%s Příspěvky"
+msgstr[2] "%s Příspěvků"
 
 #. translators: tooltip on featured hashtags on profiles on a number that
 #. shows the amount of posts that use said hashtag
@@ -1515,14 +1515,11 @@ msgstr "Profily"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "Složka"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
-#, fuzzy, c-format
-#| msgid ""
-#| "You have blocked %s, removing %s of your followers and %s account you "
-#| "follow."
+#, c-format
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
 msgid_plural ""
@@ -1532,11 +1529,10 @@ msgstr[0] ""
 "Zablokovali jste %s, odebrali jste tak %s vašeho sledujícího a %s sledovaný "
 "účet."
 msgstr[1] ""
-"Zablokovali jste %s, odebrali jste tak %s vašeho sledujícího a %s sledovaný "
-"účet."
+"Zablokovali jste %s, odebrali jste tak %s vaše sledující a %s sledované účty."
 msgstr[2] ""
-"Zablokovali jste %s, odebrali jste tak %s vašeho sledujícího a %s sledovaný "
-"účet."
+"Zablokovali jste %s, odebrali jste tak %s vašich sledujících a %s "
+"sledovaných účtů."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24
@@ -1690,12 +1686,11 @@ msgstr "Nikdy"
 #: src/Dialogs/Composer/Polls.vala:384 src/Dialogs/Composer/Polls.vala:387
 #: src/Dialogs/Composer/Polls.vala:389 src/Dialogs/FilterEdit.vala:31
 #: src/Dialogs/FilterEdit.vala:32 src/Dialogs/FilterEdit.vala:33
-#, fuzzy, c-format
-#| msgid "%d Hour"
+#, c-format
 msgid "%d Hour"
 msgid_plural "%d Hours"
-msgstr[0] "%d hodin"
-msgstr[1] "%d hodin"
+msgstr[0] "%d hodina"
+msgstr[1] "%d hodiny"
 msgstr[2] "%d hodin"
 
 #. translators: the variable is a number
@@ -1703,12 +1698,11 @@ msgstr[2] "%d hodin"
 #: src/Dialogs/Admin/AddIPBlock.vala:27 src/Dialogs/Composer/Polls.vala:392
 #: src/Dialogs/Composer/Polls.vala:395 src/Dialogs/Composer/Polls.vala:397
 #: src/Dialogs/FilterEdit.vala:34
-#, fuzzy, c-format
-#| msgid "%d Day"
+#, c-format
 msgid "%d Day"
 msgid_plural "%d Days"
-msgstr[0] "%d dní"
-msgstr[1] "%d dní"
+msgstr[0] "%d den"
+msgstr[1] "%d dny"
 msgstr[2] "%d dní"
 
 #: src/API/SearchResults.vala:32
@@ -1754,8 +1748,7 @@ msgstr "Lokální"
 #. translators: the variable is the amount of times a hashtag was used in a week
 #. in the composer auto-complete popup (so keep it short)
 #: src/API/Tag.vala:47
-#, fuzzy, c-format
-#| msgid "%d per week"
+#, c-format
 msgid "%d per week"
 msgid_plural "%d per week"
 msgstr[0] "%d za týden"
@@ -1768,9 +1761,9 @@ msgstr[2] "%d za týden"
 #, c-format
 msgid "%d person yesterday"
 msgid_plural "%d people yesterday"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d člověk včera"
+msgstr[1] "%d lidé včera"
+msgstr[2] "%d lidí včera"
 
 #. total_uses += int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1778,9 +1771,9 @@ msgstr[2] ""
 #, c-format
 msgid "%d person in the past 2 days"
 msgid_plural "%d people in the past 2 days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d osoba za poslední 2 dny"
+msgstr[1] "%d osoby za poslední 2 dny"
+msgstr[2] "%d osob za poslední 2 dny"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
@@ -1829,11 +1822,11 @@ msgstr "Darovat"
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
 msgid "Archives"
-msgstr ""
+msgstr "Archivy"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
-msgstr ""
+msgstr "Vytvoř a prohlížej webové archivy"
 
 #. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 #: src/Application.vala:645
@@ -1842,7 +1835,7 @@ msgstr ""
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
-msgstr ""
+msgstr "Vytvoř ASCII bannery z textu"
 
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
@@ -1851,7 +1844,7 @@ msgstr ""
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
-msgstr ""
+msgstr "Zkontroluj hashe u svých souborů"
 
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 #: src/Application.vala:649
