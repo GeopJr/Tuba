@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2026-01-05 18:02+0000\n"
+"PO-Revision-Date: 2026-01-10 13:01+0000\n"
 "Last-Translator: Flynn <cirilla@tuta.io>\n"
 "Language-Team: Cornish <https://hosted.weblate.org/projects/tuba/tuba/kw/>\n"
 "Language: kw\n"
@@ -58,7 +58,7 @@ msgid ""
 "media platforms."
 msgstr ""
 "An Fediverse yw unn rosweyth socyal ankresennys konsystya a bynkyow ha "
-"kemenethow liesek rosweythys, alowa usyoryon rag keskomunya ha kevrenna "
+"kemenethow liesek rosweythys, owth alowa usyoryon rag keskomunya ha kevrenna "
 "dalgh a-dreus rosweythyow ha servellow dyffrans. Y avonsya privetter usyer "
 "ha perghenogeth data, hag offra unn ken dewis dhe bynkyow socyal kresennys."
 
@@ -210,9 +210,9 @@ msgid ""
 "it leads to a user or a post regardless if it matches the typical post and "
 "user URLs"
 msgstr ""
-"Pan klyckya war unn gorgevren, Tuba a wra peji dha servell rag ervirans dhe "
-"determya mars y a led dhe unn usyer po post, heb govis mars y omdhesedha an "
-"gorgevrennow tipek rag postow hag usyoryon"
+"Pan ow klyckya war unn gorgevren, Tuba a wra peji dha servell rag ervirans "
+"dhe determya mars y a led dhe unn usyer po post, heb govis mars y omdhesedha "
+"an gorgevrennow tipek rag postow hag usyoryon"
 
 #: data/dev.geopjr.Tuba.gschema.xml:124 data/ui/dialogs/preferences.ui:99
 msgid "Strip Tracking Parameters From Links"
@@ -235,7 +235,7 @@ msgid ""
 "stretching and cropping them"
 msgstr ""
 "Lehe ha gorra media yn unn kist lytherow rag lenwel an lestrynnow avenyow yn-"
-"dar tenna ha desedha y's"
+"dar ow tenna hag ow desedha y's"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; expand as in enlarge
 #: data/dev.geopjr.Tuba.gschema.xml:135
@@ -282,11 +282,11 @@ msgstr "Fenester Kennertha Avonsys"
 
 #: data/dev.geopjr.Tuba.gschema.xml:163 data/ui/dialogs/preferences.ui:88
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr "Chanjya gweladewder, devynna, ha konfirmya kennertha"
+msgstr "Chanjya gweladewder, devynna, ha konfirmya ow kennertha"
 
 #: data/dev.geopjr.Tuba.gschema.xml:167 data/ui/dialogs/preferences.ui:106
 msgid "Warn before replying to an old post"
-msgstr "Gwarnya dherag gorthebi dhe unn post koth"
+msgstr "Gwarnya dherag ow gorthebi dhe unn post koth"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:169
@@ -294,12 +294,12 @@ msgid ""
 "Before replying to a post that was made at least 3 months ago, Tuba will "
 "warn you that the conversation might be over"
 msgstr ""
-"A-dherag gorthebi dhe unn post may yw dhe'n lyha tri mis y oos, Tuba a wri "
-"gwarnya tyhenn an keskows yw deu martesen"
+"A-dherag ow gorthebi dhe unn post may yw dhe'n lyha tri mis y oos, Tuba a "
+"wri gwarnya tyhenn an keskows yw deu martesen"
 
 #: data/dev.geopjr.Tuba.gschema.xml:173 data/ui/dialogs/preferences.ui:111
 msgid "Warn before copying a link to a private post"
-msgstr "Gwarnya dherag kopia unn gorgevren dhe unn post privedh"
+msgstr "Gwarnya dherag ow kopia unn gorgevren dhe unn post privedh"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:175
@@ -415,7 +415,7 @@ msgstr "Dedhyas a an nowedhyans diwettha"
 #: data/dev.geopjr.Tuba.gschema.xml:230 data/dev.geopjr.Tuba.gschema.xml:237
 msgid "Used for keeping track if 2 weeks have passed since the last update"
 msgstr ""
-"Devnydhys rag determya mar diw seythennyow yw passys a-ban an nowedhyans "
+"Devnydhys rag ow determya mar diw seythennyow yw passys a-ban an nowedhyans "
 "diwettha"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
@@ -657,8 +657,8 @@ msgid ""
 "prefixing it with -. For example, -is:reply to filter out all replies."
 msgstr ""
 "Hwitrans Avonsys gallos ma oberi yn oll gweythyow. Ty gallos gorthtreylya "
-"unn dewis gans ragelvenya a'n gans -. Rag ensampel, -is:reply rag sidhla oll "
-"gorthebow."
+"unn dewis gans ow ragelvenya a'n gans -. Rag ensampel, -is:reply rag sidhla "
+"oll gorthebow."
 
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:76
@@ -690,7 +690,7 @@ msgstr "Postow Hepken gans Gwarnyansow Dalgh"
 #. 'media', 'poll'...
 #: data/ui/dialogs/advanced_search.ui:120
 msgid "Containing"
-msgstr "Kontaynya"
+msgstr "Ow Kontaynya"
 
 #: data/ui/dialogs/advanced_search.ui:123
 #: src/Widgets/ProfileFilterGroup.vala:68
@@ -965,12 +965,12 @@ msgstr "Bys dhe tykomendya a's dre dhorn"
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:58
 msgid "People not following you"
-msgstr "Tus na holya ty"
+msgstr "Tus na ow holya ty"
 
 #. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:60
 msgid "Including people who have been following you fewer than 3 days"
-msgstr "Komprehendya tus neb a holya ty le ages tri dedhyow"
+msgstr "Ow komprehendya tus neb a ow holya ty le ages tri dedhyow"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:66
@@ -1018,7 +1018,7 @@ msgstr "Proxy"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Posting"
-msgstr "Postya"
+msgstr "Ow postya"
 
 #: data/ui/dialogs/preferences.ui:144
 msgid "Default Post Language"
@@ -1028,7 +1028,7 @@ msgstr "Yeth Post Defowt"
 #: data/ui/dialogs/preferences.ui:177
 msgid "This will increase memory usage when browsing high traffic timelines"
 msgstr ""
-"Ma a wri kressya usadow kov pan peuri linennow dermyn gans traffik ughel"
+"Ma a wri kressya usadow kov pan ow peuri linennow dermyn gans traffik ughel"
 
 #: data/ui/dialogs/preferences.ui:184
 msgid "Online Services"
@@ -1520,7 +1520,7 @@ msgstr[5] "%s Postow"
 #. shows the amount of posts that use said hashtag
 #: src/API/FeaturedTag.vala:32
 msgid "Posts Including this Hashtag"
-msgstr "Postow Komprehendya an Hashtagg ma"
+msgstr "Postow ow Komprehendya an Hashtagg ma"
 
 #. translators: subtitle on featured hashtags on profiles. The variable is a string date.
 #. E.g. Last post on 2025-06-29
@@ -1560,12 +1560,12 @@ msgid ""
 msgid_plural ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
-msgstr[0] "Ty yw stoppys %s, remova %s a dha holyoryon ha %s akontys ty holya."
-msgstr[1] "Ty yw stoppys %s, remova %s a dha holyoryon ha %s akont ty holya."
-msgstr[2] "Ty yw stoppys %s, remova %s a dha holyoryon ha %s akontys ty holya."
-msgstr[3] "Ty yw stoppys %s, remova %s a dha holyoryon ha %s akontys ty holya."
-msgstr[4] "Ty yw stoppys %s, remova %s a dha holyoryon ha %s akontys ty holya."
-msgstr[5] "Ty yw stoppys %s, remova %s a dha holyoryon ha %s akontys ty holya."
+msgstr[0] "Ty yw stoppys %s, ow remova %s a dha holyoryon ha %s akontys ty holya."
+msgstr[1] "Ty yw stoppys %s, ow remova %s a dha holyoryon ha %s akont ty holya."
+msgstr[2] "Ty yw stoppys %s, ow remova %s a dha holyoryon ha %s akontys ty holya."
+msgstr[3] "Ty yw stoppys %s, ow remova %s a dha holyoryon ha %s akontys ty holya."
+msgstr[4] "Ty yw stoppys %s, ow remova %s a dha holyoryon ha %s akontys ty holya."
+msgstr[5] "Ty yw stoppys %s, ow remova %s a dha holyoryon ha %s akontys ty holya."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24
@@ -1577,22 +1577,22 @@ msgid_plural ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
-"Unn breusydh re stoppys %s, komprehendya %s a dha holyoryon %s akontys ty "
+"Unn breusydh re stoppys %s, ow komprehendya %s a dha holyoryon %s akontys ty "
 "holya."
 msgstr[1] ""
-"Unn breusydh re stoppys %s, komprehendya %s a dha holyoryon %s akont ty "
+"Unn breusydh re stoppys %s, ow komprehendya %s a dha holyoryon %s akont ty "
 "holya."
 msgstr[2] ""
-"Unn breusydh re stoppys %s, komprehendya %s a dha holyoryon %s akontys ty "
+"Unn breusydh re stoppys %s, ow komprehendya %s a dha holyoryon %s akontys ty "
 "holya."
 msgstr[3] ""
-"Unn breusydh re stoppys %s, komprehendya %s a dha holyoryon %s akontys ty "
+"Unn breusydh re stoppys %s, ow komprehendya %s a dha holyoryon %s akontys ty "
 "holya."
 msgstr[4] ""
-"Unn breusydh re stoppys %s, komprehendya %s a dha holyoryon %s akontys ty "
+"Unn breusydh re stoppys %s, ow komprehendya %s a dha holyoryon %s akontys ty "
 "holya."
 msgstr[5] ""
-"Unn breusydh re stoppys %s, komprehendya %s a dha holyoryon %s akontys ty "
+"Unn breusydh re stoppys %s, ow komprehendya %s a dha holyoryon %s akontys ty "
 "holya."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
@@ -1842,13 +1842,13 @@ msgstr "URL Proxy Anewn"
 #: src/Application.vala:415
 #, c-format
 msgid "'%s://' may only be used when adding a new account"
-msgstr "'%s://' re devnydhya hepken dres addya unn akont nowydh"
+msgstr "'%s://' re devnydhya hepken dres owth addya unn akont nowydh"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:423
 #, c-format
 msgid "'%s://' may not be used when adding a new account"
-msgstr "'%s://' na gallos devnydhya dres addya unn akont nowydh"
+msgstr "'%s://' na gallos devnydhya dres owth addya unn akont nowydh"
 
 #. translators: the first variable is the app name ('Tuba'),
 #. the second one is a uri scheme like 'https'
@@ -1965,7 +1965,7 @@ msgstr "Denagha Derivasow"
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:106
 msgid "Ignore all reports coming from this domain"
-msgstr "Sevel orth aswon oll derivasow dos dhyworth an servell ma"
+msgstr "Sevel orth aswon oll derivasow ow dos dhyworth an servell ma"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1981,8 +1981,8 @@ msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
-"Tollwiska yn rann an hanow servell yn an rol a argemynna an rol a finwethow "
-"servell yw gallosegys"
+"Tollwiska yn rann an hanow servell yn an rol a owth argemynna an rol a "
+"finwethow servell yw gallosegys"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
@@ -2169,8 +2169,8 @@ msgstr "Gwarnyans"
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
 msgstr ""
-"Devnydhya ma rag danvon unn gwarnyans dhe an usyer, neb kemeres neb gwrians "
-"aral"
+"Devnydhya ma rag danvon unn gwarnyans dhe an usyer, neb ow kemeres neb "
+"gwrians aral"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
@@ -2182,7 +2182,8 @@ msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
 msgstr ""
-"Lettya an usyer dhe devnydhya aga akont i, mes na dilea po keles aga dalgh i"
+"Lettya an usyer dhe ow devnydhya aga akont i, mes na dilea po keles aga "
+"dalgh i"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Views/Drive.vala:196
 #: src/Widgets/Status.vala:669
@@ -2201,8 +2202,8 @@ msgid ""
 "posts and notifications from people not following them. Closes all reports "
 "against this account"
 msgstr ""
-"Lettya an usyer dhe postya gans gweladewder poblek, keles aga postow ha "
-"gwarnyans i dhyworth tus na holya i. Degea oll derivasow orth an akont ma"
+"Lettya an usyer dhe ow postya gans gweladewder poblek, keles aga postow ha "
+"gwarnyans i dhyworth tus na ow holya i. Degea oll derivasow orth an akont ma"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:97
@@ -2484,7 +2485,7 @@ msgstr "Dileys Stagell"
 #. successfully uploads an attachment
 #: src/Dialogs/Composer/Attachment.vala:490
 msgid "Finished Uploading Attachment"
-msgstr "Ughkarga Stagell Deu"
+msgstr "Owth Ughkarga Stagell Deu"
 
 #. translators: aria label on composer media attachments. The variable is a string file name.
 #: src/Dialogs/Composer/Attachment.vala:666
@@ -2555,7 +2556,7 @@ msgstr "Gorthebi"
 #. translators: composer embedded replying-to post, aria label
 #: src/Dialogs/Composer/Dialog.vala:563
 msgid "The post you are replying to."
-msgstr "An post ty gorthebi dhe."
+msgstr "An post ty ow gorthebi dhe."
 
 #. translators: composer title. The variable is a string username
 #: src/Dialogs/Composer/Dialog.vala:571
@@ -2572,13 +2573,13 @@ msgstr "Devynna"
 #. translators: composer embedded quoting post, aria label
 #: src/Dialogs/Composer/Dialog.vala:634
 msgid "The post you are quoting."
-msgstr "An post ty devynna."
+msgstr "An post ty ow devynna."
 
 #. translators: composer title. The variable is a string username
 #: src/Dialogs/Composer/Dialog.vala:642
 #, c-format
 msgid "Quoting @%s"
-msgstr "Devynna @%s"
+msgstr "Ow devynna @%s"
 
 #. translators: composer post button label
 #. translators: button on the delete post dialog that
@@ -2920,7 +2921,7 @@ msgstr "An kudyn na desedha yn klassys aral"
 #: src/Dialogs/Report.vala:116
 #, c-format
 msgid "Reporting %s"
-msgstr "Derivas %s"
+msgstr "Ow derivas %s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
@@ -3473,7 +3474,7 @@ msgstr "Difenys"
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:113
 msgid "Pending"
-msgstr "Gortos"
+msgstr "Ow Gortos"
 
 #: src/Views/Admin/Pages/Accounts.vala:128
 msgid "Username"
@@ -3508,7 +3509,7 @@ msgstr "Na Reson Res"
 #. translators: admin panel, account waiting to be approved
 #: src/Views/Admin/Pages/Accounts.vala:349
 msgid "Awaiting Approval"
-msgstr "Gortos Komendyans"
+msgstr "Ow Gortos Komendyans"
 
 #: src/Views/Admin/Pages/Accounts.vala:356
 #: src/Views/Admin/Pages/Accounts.vala:490
@@ -3893,7 +3894,7 @@ msgstr "'%s' eksistya seulabrys"
 #: src/Views/Drive.vala:1510
 #, c-format
 msgid "Finished Uploading '%s'"
-msgstr "Ughkarga '%s' Deu"
+msgstr "Owth Ughkarga '%s' Deu"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -4093,11 +4094,11 @@ msgid ""
 "• Remove its followers from your account\n"
 "• Prevent you from following its users"
 msgstr ""
-"Stoppya unn servell a wra:\n"
+"Ow stoppya unn servell a wra:\n"
 "\n"
 "• Remova y postow ha gwarnyansow poblek dhyworth dha linennow dermyn\n"
 "• Remova y holyoryon dhyworth dha akont\n"
-"• Lettya ty dhyworth holya y usyoryon"
+"• Lettya ty dhyworth ow holya y usyoryon"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:605
@@ -4339,7 +4340,7 @@ msgstr[5] "%s Holyoryon"
 #: src/Widgets/ProfileCover.vala:622
 #, c-format
 msgid "%s Following"
-msgstr "%s Holys"
+msgstr "%s Ow Holya"
 
 #. translators: Admin dashboard, report status
 #: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
@@ -4349,7 +4350,7 @@ msgstr "Finwethow Vyth"
 #. translators: admin panel, account waiting to be approved
 #: src/Widgets/Admin/AccountRow.vala:36
 msgid "Waiting Approval"
-msgstr "Gortos Komendyans"
+msgstr "Ow Gortos Komendyans"
 
 #. translators: Report 'Assigned to: <account>'
 #: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
