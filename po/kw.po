@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2026-01-10 13:01+0000\n"
+"PO-Revision-Date: 2026-01-23 20:01+0000\n"
 "Last-Translator: Flynn <cirilla@tuta.io>\n"
 "Language-Team: Cornish <https://hosted.weblate.org/projects/tuba/tuba/kw/>\n"
 "Language: kw\n"
@@ -21,7 +21,7 @@ msgstr ""
 "1000000 == 100000) ? 2 : ((n % 100 == 3 || n % 100 == 23 || n % 100 == 43 || "
 "n % 100 == 63 || n % 100 == 83) ? 3 : ((n != 1 && (n % 100 == 1 || n % 100 "
 "== 21 || n % 100 == 41 || n % 100 == 61 || n % 100 == 81)) ? 4 : 5))));\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -110,8 +110,8 @@ msgid ""
 "Whether account suggestions should be shown in the Home tab when the user "
 "doesn't follow enough people"
 msgstr ""
-"Mar kussulyow akont kodh diskwedhys yn an tabb Tre when an usyer na holya "
-"lowr tus"
+"Mar kussulyow akont kodh diskwedhys y'n tabb Tre when an usyer na holya lowr "
+"tus"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
@@ -321,8 +321,8 @@ msgid ""
 "The last state of the spellchecker in the composer, can be toggled by right "
 "clicking"
 msgstr ""
-"An studh diwettha a an checker lytherennans yn an komposydh, gallos bos "
-"dewisys gans klyckyans dyghow"
+"An studh diwettha an checker lytherennans y'n komposydh, gallos bos dewisys "
+"gans klyckyans dyghow"
 
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:14
 msgid "Darken Images on Dark Mode"
@@ -350,7 +350,7 @@ msgstr "Gwarnyansow kepar ha sterennow ha kennerthow a vydh gweladow le"
 #: data/dev.geopjr.Tuba.gschema.xml:198
 msgid "The last volume value used in the media viewer for videos and audio"
 msgstr ""
-"An niver diwethha ughelder devnydhys rag gwydhyowyow ha son yn an gwelyell "
+"An niver diwethha ughelder devnydhys rag gwydhyowyow ha son y'n gwelyell "
 "media"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
@@ -1981,7 +1981,7 @@ msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
-"Tollwiska yn rann an hanow servell yn an rol a owth argemynna an rol a "
+"Tollwiska yn rann an hanow servell y'n rol a owth argemynna an rol a "
 "finwethow servell yw gallosegys"
 
 #. translators: Admin dashboard, federation block dialog
@@ -2768,7 +2768,7 @@ msgstr "Tre"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
-msgstr "Alowa hedhas dhe dha akont yn an peurell."
+msgstr "Alowa hedhas dhe dha akont y'n peurell."
 
 #: src/Dialogs/NewAccount.vala:4
 msgid "Copy the authorization code from the browser and paste it below."
@@ -3566,8 +3566,8 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
-"Ma gallos bos an hanow servell may diskwedhes yn an trigva ebost po an "
-"kovadh MX y devnydhya. I a wra checkys dres omrolyans."
+"Ma gallos bos an hanow servell may diskwedhes y'n trigva ebost po an kovadh "
+"MX y devnydhya. I a wra checkys dres omrolyans."
 
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
@@ -4525,7 +4525,7 @@ msgstr "Dadhla %d gweyth gans %d tus de"
 #: src/Widgets/PreviewCardExplore.vala:83
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
-msgstr "Dadhla %d gweyth gans %d tus yn an 2 dedhyow dres"
+msgstr "Dadhla %d gweyth gans %d tus y'n 2 dedhyow dres"
 
 #. translators: tooltip text on 'explore' tab button to
 #. see posts where the selected article is
