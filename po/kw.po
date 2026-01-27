@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2026-01-23 20:01+0000\n"
+"PO-Revision-Date: 2026-01-28 11:38+0000\n"
 "Last-Translator: Flynn <cirilla@tuta.io>\n"
 "Language-Team: Cornish <https://hosted.weblate.org/projects/tuba/tuba/kw/>\n"
 "Language: kw\n"
@@ -93,11 +93,11 @@ msgstr "Eghennow Gwarnyansow Sidhlys"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:41
 msgid "IDs of Lists shown on the sidebar"
-msgstr "IDys a Rolyow diskwedhys war an bord lestri"
+msgstr "IDs a Rolyow diskwedhys war'n bord lestri"
 
 #: data/dev.geopjr.Tuba.gschema.xml:45
 msgid "Hashtags shown on the sidebar"
-msgstr "Hashtaggys diskwedhys war an bord lestri"
+msgstr "Hashtaggys diskwedhys war'n bord lestri"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
@@ -121,7 +121,7 @@ msgstr "Akont Byw"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:62
 msgid "The UUID of the active account"
-msgstr "An UUID a an akont byw"
+msgstr "An UUID a'n akont byw"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:67
@@ -259,7 +259,7 @@ msgstr "BlurHash"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:148
 msgid "Show a blurred version of the media until they fully load"
-msgstr "Diskwedhes unn versyon medhelhes a an media bys dhe i karga yn leun"
+msgstr "Diskwedhes unn versyon medhelhes a'n media bys dhe i karga yn leun"
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
@@ -274,7 +274,7 @@ msgstr "Gorra yn Bagas Gwarnyansow Havael"
 #: data/dev.geopjr.Tuba.gschema.xml:158 data/ui/dialogs/preferences.ui:276
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
-msgstr "Kesunya gwarnyansow a-dhiwedhes a an eghen keth ha post yn unn"
+msgstr "Kesunya gwarnyansow a-dhiwedhes a'n eghen keth ha post yn unn"
 
 #: data/dev.geopjr.Tuba.gschema.xml:162 data/ui/dialogs/preferences.ui:87
 msgid "Advanced Boost Dialog"
@@ -379,7 +379,7 @@ msgid ""
 "based on the system settings"
 msgstr ""
 "A y yw gwag, Tuba a wra devnydhya an junyans defowt, y re bos proxys kregi "
-"war an settyansow system"
+"war'n settyansow system"
 
 #: data/dev.geopjr.Tuba.gschema.xml:216 data/ui/dialogs/preferences.ui:189
 msgid "Send Preference Analytics"
@@ -392,9 +392,9 @@ msgid ""
 "You can preview exactly what's being sent in-app, they are opt-in and the "
 "server is open source."
 msgstr ""
-"Danvon dha settyansyow dhe an awtours Tuba rag hwithrans gwerinegeth pub "
-"nessa seythen. Ty gallos gweles pandra harlych yw danvenys yn an app, yns "
-"dre dhewis, marow yn defowt, hag an servell yw kod rydh."
+"Danvon dha settyansyow dhe'n awtours Tuba rag hwithrans gwerinegeth pub "
+"nessa seythen. Ty gallos gweles pandra harlych yw danvenys y'n app, yns dre "
+"dhewis, marow yn defowt, hag an servell yw kod rydh."
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/dev.geopjr.Tuba.gschema.xml:222 data/ui/dialogs/preferences.ui:213
@@ -409,7 +409,7 @@ msgstr "Kerghes an rol a skodhyoryon Tuba pub nessa seythen"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:228
 msgid "Date of the last analytics update"
-msgstr "Dedhyas a an nowedhyans diwettha"
+msgstr "Dedhyas a'n nowedhyans diwettha"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:230 data/dev.geopjr.Tuba.gschema.xml:237
@@ -421,7 +421,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:235
 msgid "Date of the last contributors update"
-msgstr "Dedhyas a an nowedhyans kevriysi diwettha"
+msgstr "Dedhyas a'n nowedhyans kevriysi diwettha"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:242
@@ -860,7 +860,7 @@ msgstr "Den Vyth"
 
 #: data/ui/dialogs/list_edit.ui:54
 msgid "Other members of the list"
-msgstr "Eseli ken a an rol"
+msgstr "Eseli ken a;n rol"
 
 #: data/ui/dialogs/list_edit.ui:66
 msgid "Any followed user"
@@ -1043,7 +1043,7 @@ msgstr "Selya nasyow may junya dhe api.tuba.geopjr.dev"
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly"
 msgstr ""
-"Danvon dha settyansow dhe an awtours Tuba rag hwithans gwerinegeth pub nessa "
+"Danvon dha settyansow dhe'n awtours Tuba rag hwithans gwerinegeth pub nessa "
 "seythen"
 
 #: data/ui/dialogs/preferences.ui:196
@@ -1634,7 +1634,7 @@ msgstr "Dha %s #FediWrapped yw parys!"
 #. translators: used in the #FediWrapped notifications, refer to the other #FediWrapped strings for more info
 #: src/API/Notification.vala:138
 msgid "Review your year's highlights and memorable moments on the Fediverse!"
-msgstr "Dashwithra an ardhow ha teckennow hegov war an Fediverse!"
+msgstr "Dashwithra an ardhow ha teckennow hegov war'n Fediverse!"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -1900,7 +1900,7 @@ msgstr "Kesskwat"
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
-msgstr "Checkya hashys rag agas restrennow"
+msgstr "Checkya hashys rag dha restrennow"
 
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 #: src/Application.vala:649
@@ -2169,7 +2169,7 @@ msgstr "Gwarnyans"
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
 msgstr ""
-"Devnydhya ma rag danvon unn gwarnyans dhe an usyer, neb ow kemeres neb "
+"Devnydhya ma rag danvon unn gwarnyans dhe'n usyer, heb ow kemeres neb "
 "gwrians aral"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
@@ -2211,7 +2211,7 @@ msgid ""
 "Prevent any interaction from or to this account and delete its contents. "
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
-"Lettya neb keskomunyans dhyworth ha dhe an akont ma ha dilea an dalgh. "
+"Lettya neb keskomunyans dhyworth ha dhe'n akont ma ha dilea an dalgh. "
 "Kildreyladow kyns penn 30 deghyow. Degea oll derivasow orth an akont ma"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
