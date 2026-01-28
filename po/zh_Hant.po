@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2026-01-25 06:43+0000\n"
+"PO-Revision-Date: 2026-01-28 11:38+0000\n"
 "Last-Translator: hugoalh <hugoalh@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/tuba/tuba/zh_Hant/>\n"
@@ -155,7 +155,7 @@ msgstr "串流公共時間軸"
 #: data/dev.geopjr.Tuba.gschema.xml:90
 msgid ""
 "Public means the local and federated ones that usually have a lot of traffic"
-msgstr ""
+msgstr "公開是指本地和聯邦網路，通常流量很大"
 
 #: data/dev.geopjr.Tuba.gschema.xml:94 data/ui/dialogs/preferences.ui:72
 msgid "Reveal Spoilers by Default"
@@ -187,7 +187,7 @@ msgstr "懸停時放大自訂表情符號"
 
 #: data/dev.geopjr.Tuba.gschema.xml:113
 msgid "lightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "當你將指標懸停在自訂表情符號上時，它們會略微放大"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:118
@@ -201,15 +201,17 @@ msgid ""
 "it leads to a user or a post regardless if it matches the typical post and "
 "user URLs"
 msgstr ""
+"點擊連結時，Tuba 會請求你的實例解析該連結以確定其指向的是使用者還是帖文，而不"
+"管它是否與典型的帖文和使用者網址匹配"
 
 #: data/dev.geopjr.Tuba.gschema.xml:124 data/ui/dialogs/preferences.ui:99
 msgid "Strip Tracking Parameters From Links"
-msgstr ""
+msgstr "去除連結中的追蹤參數"
 
 #. translators: Broken as in incorrect
 #: data/dev.geopjr.Tuba.gschema.xml:125 data/ui/dialogs/preferences.ui:101
 msgid "This option can lead to broken links when enabled"
-msgstr ""
+msgstr "啟用此選項可能會導致連結失效"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/dev.geopjr.Tuba.gschema.xml:129 data/ui/dialogs/preferences.ui:60
@@ -226,16 +228,16 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; expand as in enlarge
 #: data/dev.geopjr.Tuba.gschema.xml:135
 msgid "Expand Pictures in Media Viewer"
-msgstr ""
+msgstr "在媒體檢視器中展開圖片"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; expand as in enlarge
 #: data/dev.geopjr.Tuba.gschema.xml:137
 msgid "Expand pictures to fill the media viewer by default"
-msgstr ""
+msgstr "預設情況下，圖片會展開至充滿整個媒體檢視器"
 
 #: data/dev.geopjr.Tuba.gschema.xml:141 data/ui/dialogs/preferences.ui:26
 msgid "Large Custom Emojis"
-msgstr ""
+msgstr "大型自訂表情符號"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; leave this as is unless you want to transliterate. BlurHash is a recognizable product name.
 #: data/dev.geopjr.Tuba.gschema.xml:146
@@ -245,16 +247,16 @@ msgstr "BlurHash"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:148
 msgid "Show a blurred version of the media until they fully load"
-msgstr ""
+msgstr "在媒體完全載入之前顯示其模糊版本"
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr ""
+msgstr "預設揭示敏感媒體"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
 msgid "Group Similar Push Notifications"
-msgstr ""
+msgstr "分組相似的推播通知"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/dev.geopjr.Tuba.gschema.xml:158 data/ui/dialogs/preferences.ui:276
@@ -272,14 +274,14 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:167 data/ui/dialogs/preferences.ui:106
 msgid "Warn before replying to an old post"
-msgstr ""
+msgstr "回覆舊帖文前顯示警告"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:169
 msgid ""
 "Before replying to a post that was made at least 3 months ago, Tuba will "
 "warn you that the conversation might be over"
-msgstr ""
+msgstr "在回覆至少 3 個月前發佈的帖文前， Tuba 會警告你其對話可能已經結束"
 
 #: data/dev.geopjr.Tuba.gschema.xml:173 data/ui/dialogs/preferences.ui:111
 msgid "Warn before copying a link to a private post"
