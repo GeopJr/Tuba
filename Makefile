@@ -49,7 +49,11 @@ endif
 	./rcedit-x64.exe $(PREFIX)/bin/dev.geopjr.Tuba.exe --set-icon ./builddir/dev.geopjr.Tuba.ico
 
 __windows_copy_deps:
-	ldd $(PREFIX)/bin/dev.geopjr.Tuba.exe | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
+	if command -v ntldd >/dev/null 2>&1; then \
+		ntldd -R $(PREFIX)/bin/dev.geopjr.Tuba.exe | grep -i '\/$(msys_sys).*\.dll' | awk '{print $$3}' | sort -u | xargs -I{} cp "{}" $(PREFIX)/bin; \
+	else \
+		ldd $(PREFIX)/bin/dev.geopjr.Tuba.exe | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin; \
+	fi
 	cp -f /$(msys_sys)/bin/gdbus.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gdbus.exe | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	cp -f /$(msys_sys)/bin/gspawn-win64-helper.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gspawn-win64-helper.exe | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	cp -f /$(msys_sys)/bin/libwebp-7.dll /$(msys_sys)/bin/librsvg-2-2.dll /$(msys_sys)/bin/libgnutls-30.dll /$(msys_sys)/bin/libgthread-2.0-0.dll /$(msys_sys)/bin/libgmp-10.dll /$(msys_sys)/bin/libproxy-1.dll ${PREFIX}/bin
