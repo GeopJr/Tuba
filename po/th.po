@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Amy/Atius <www.dappertransformer@proton.me>, 2023.
-# Atirut Wattanamongkol <artjang301@gmail.com>, 2024, 2025.
+# Atirut Wattanamongkol <artjang301@gmail.com>, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-01-09 07:01+0000\n"
+"PO-Revision-Date: 2026-03-03 16:09+0000\n"
 "Last-Translator: Atirut Wattanamongkol <artjang301@gmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/tuba/tuba/th/>\n"
 "Language: th\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
-msgstr ""
+msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:7
 #, fuzzy
@@ -33,7 +33,7 @@ msgstr "ไคลเอนต์ Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:10
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr ""
+msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
@@ -694,7 +694,7 @@ msgstr ""
 #. translators: post visibility label
 #: data/ui/dialogs/advanced_search.ui:176 src/API/Status.vala:320
 msgid "Public"
-msgstr ""
+msgstr "สาธารณะ"
 
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:194
@@ -723,7 +723,7 @@ msgstr ""
 #: data/ui/dialogs/composer.ui:18 src/Dialogs/Composer/Dialog.vala:496
 #: src/Dialogs/Composer/Editor.vala:248 src/Views/Sidebar.vala:69
 msgid "New Post"
-msgstr ""
+msgstr "โพสต์ใหม่"
 
 #. translators: composer overlay shown when dragging files above it
 #: data/ui/dialogs/composer.ui:22
@@ -736,7 +736,7 @@ msgstr ""
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
-msgstr ""
+msgstr "ตัวเลือกอีโมจิ"
 
 #: data/ui/dialogs/composer.ui:78 data/ui/dialogs/profile_edit.ui:140
 #: src/Widgets/Status/ReactionsRow.vala:57
@@ -1706,7 +1706,7 @@ msgstr ""
 #. translators: post visibility label
 #: src/API/Status.vala:327
 msgid "Followers Only"
-msgstr ""
+msgstr "ผู้ติดตามเท่านั้น"
 
 #. translators: post visibility label
 #: src/API/Status.vala:330
@@ -2527,7 +2527,7 @@ msgstr ""
 #. translators: composer placeholder
 #: src/Dialogs/Composer/Editor.vala:265 src/Dialogs/Composer/Editor.vala:277
 msgid "What's on your mind?"
-msgstr ""
+msgstr "คิดเรื่องอะไรอยู่?"
 
 #. translators: "Stripped" is a past tense verb in this context, not an adjective.
 #: src/Dialogs/Composer/Editor.vala:420
