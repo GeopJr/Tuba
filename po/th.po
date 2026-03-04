@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2026-03-03 16:09+0000\n"
+"PO-Revision-Date: 2026-03-05 10:09+0000\n"
 "Last-Translator: Atirut Wattanamongkol <artjang301@gmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/tuba/tuba/th/>\n"
 "Language: th\n"
@@ -745,19 +745,21 @@ msgstr ""
 
 #: data/ui/dialogs/composer.ui:88
 msgid "Add Media"
-msgstr ""
+msgstr "เพิ่มสื่อ"
 
 #: data/ui/dialogs/composer.ui:97
+#, fuzzy
 msgid "Create Poll"
-msgstr ""
+msgstr "สร้างโพล"
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
-msgstr ""
+msgstr "คำเตือนเนื้อหา"
 
 #: data/ui/dialogs/composer.ui:116
+#, fuzzy
 msgid "Mark media as sensitive"
-msgstr ""
+msgstr "ทำเครื่องหมายสื่อเป็นอ่อนไหว"
 
 #: data/ui/dialogs/filter_edit.ui:6
 msgid "Edit Filter"
@@ -2648,8 +2650,9 @@ msgstr ""
 
 #: src/Dialogs/MainWindow.vala:72
 #: src/Services/Accounts/Mastodon/Account.vala:20 src/Views/Home.vala:12
+#, fuzzy
 msgid "Home"
-msgstr ""
+msgstr "หน้าหลัก"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
