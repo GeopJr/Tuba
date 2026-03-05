@@ -7,20 +7,21 @@
 # gallegonovato <fran-carro@hotmail.es>, 2023, 2024.
 # Óscar Fernández Díaz <42654671+oscfdezdz@users.noreply.github.com>, 2025.
 # Tarcísio Surdi <tarcisio.surdi@pm.me>, 2025.
+# Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-28 23:36+0000\n"
-"Last-Translator: Tarcísio Surdi <tarcisio.surdi@pm.me>\n"
+"PO-Revision-Date: 2025-11-06 06:51+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -28,15 +29,15 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Explore el Fediverso"
+msgstr "Explore el fediverso"
 
 #: data/dev.geopjr.Tuba.desktop.in:5
 msgid "Fediverse Client"
-msgstr "Cliente para Fediverso"
+msgstr "Cliente para el fediverso"
 
 #: data/dev.geopjr.Tuba.desktop.in:10
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
+msgstr "toot;mastodon;fediverso;gotosocial;pleroma;akkoma;"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
@@ -271,7 +272,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr "Revelar contenido sensible por defecto"
+msgstr "Revelar contenido delicado de forma predeterminada"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
@@ -520,11 +521,11 @@ msgstr "Estado de ventana maximizada"
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:8
 msgid "General"
-msgstr "General"
+msgstr "Generales"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr "Mostrar Preferencias"
+msgstr "Mostrar preferencias"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
@@ -533,7 +534,7 @@ msgstr "Redactar una publicación nueva"
 #: data/gtk/help-overlay.ui:26 data/ui/widgets/votebox.ui:42
 #: src/Views/Browser.vala:161 src/Views/Sidebar.vala:71
 msgid "Refresh"
-msgstr "Refrescar"
+msgstr "Actualizar"
 
 #: data/gtk/help-overlay.ui:32 data/ui/dialogs/advanced_search.ui:28
 #: src/Services/Accounts/Mastodon/Account.vala:92
@@ -549,7 +550,7 @@ msgstr "Volver"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr "Mostrar Atajos del teclado"
+msgstr "Mostrar atajos del teclado"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
@@ -799,7 +800,7 @@ msgstr "Advertencia de contenido"
 
 #: data/ui/dialogs/composer.ui:116
 msgid "Mark media as sensitive"
-msgstr "Marcar multimedia como sensible"
+msgstr "Marcar multimedia como delicada"
 
 #: data/ui/dialogs/filter_edit.ui:6
 msgid "Edit Filter"
@@ -1685,12 +1686,12 @@ msgstr "Le bloquea"
 #: src/API/Relationship.vala:136
 #, c-format
 msgid "Block \"%s\"?"
-msgstr "¿Bloquear «%s»?"
+msgstr "¿Quiere bloquear a «%s»?"
 
 #: src/API/Relationship.vala:136
 #, c-format
 msgid "Unblock \"%s\"?"
-msgstr "¿Desbloquear «%s»?"
+msgstr "¿Quiere desbloquear a «%s»?"
 
 #: src/API/Relationship.vala:142 src/Views/Admin/Timelines/BlockedIPs.vala:33
 #: src/Views/Admin/Timelines/DomainBlock.vala:33
@@ -1715,7 +1716,7 @@ msgstr "Expirar en"
 #: src/API/Relationship.vala:184
 #, c-format
 msgid "Mute \"%s\"?"
-msgstr "¿Silenciar a «%s»?"
+msgstr "¿Quiere silenciar a «%s»?"
 
 #: src/API/Relationship.vala:224 src/Dialogs/FilterEdit.vala:29
 msgid "Never"
@@ -1821,20 +1822,20 @@ msgstr "URL de proxy no válida"
 #: src/Application.vala:415
 #, c-format
 msgid "'%s://' may only be used when adding a new account"
-msgstr "'%s://' solo puede usarse al añadir una cuenta nueva"
+msgstr "«%s://» solo puede usarse al añadir una cuenta nueva"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:423
 #, c-format
 msgid "'%s://' may not be used when adding a new account"
-msgstr "No se puede usar'%s://' al añadir una cuenta nueva"
+msgstr "No se puede usar «%s://» al añadir una cuenta nueva"
 
 #. translators: the first variable is the app name ('Tuba'),
 #. the second one is a uri scheme like 'https'
 #: src/Application.vala:430
 #, c-format
 msgid "%s does not accept '%s://'"
-msgstr "%s no acepta '%s://'"
+msgstr "%s no acepta «%s://»"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:633
@@ -2028,7 +2029,7 @@ msgstr "Elija lo que sucederá con las solicitudes de esta IP"
 #. mark a report as resolved
 #: src/Dialogs/Admin/Report.vala:50
 msgid "Mark this Report as Resolved?"
-msgstr "¿Marcar este informe como resuelto?"
+msgstr "¿Quiere marcar este informe como resuelto?"
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:101
 msgid "Resolve"
@@ -2038,7 +2039,7 @@ msgstr "Resolver"
 #. reopen a report
 #: src/Dialogs/Admin/Report.vala:61
 msgid "Reopen this Report?"
-msgstr "¿Reabrir este informe?"
+msgstr "¿Quiere reabrir este informe?"
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:101
 msgid "Reopen"
@@ -2157,14 +2158,13 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Views/Drive.vala:196
 #: src/Widgets/Status.vala:669
 msgid "Sensitive"
-msgstr "Sensible"
+msgstr "Delicado"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
 msgid "Force all this user's media attachments to be flagged as sensitive"
 msgstr ""
-"Forzar que todos los multimedias adjuntos de este usuario sean marcados como "
-"sensibles"
+"Forzar que toda la multimedia adjunta de este usuario se marque como delicada"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:88
@@ -2204,7 +2204,7 @@ msgstr "El usuario recibirá una explicación de lo ocurrido con su cuenta"
 #: src/Dialogs/Admin/TakeAction.vala:143
 #, c-format
 msgid "Take Action Against %s?"
-msgstr "¿Tomar medidas contra %s?"
+msgstr "¿Quiere tomar medidas contra %s?"
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
@@ -2577,7 +2577,7 @@ msgstr "Editar publicación"
 #. translators: media as in picture or files
 #: src/Dialogs/Composer/Dialog.vala:866
 msgid "Paste Media from Clipboard?"
-msgstr "¿Pegar medios desde el portapapeles?"
+msgstr "¿Quiere pegar multimedia desde el portapapeles?"
 
 #. translators: they = media / files from clipboard, instance = server
 #: src/Dialogs/Composer/Dialog.vala:869
@@ -2592,7 +2592,7 @@ msgstr "Pegar"
 #. translators: Dialog title when closing the composer
 #: src/Dialogs/Composer/Dialog.vala:1154
 msgid "Discard Post?"
-msgstr "¿Descartar publicación?"
+msgstr "¿Quiere descartar la publicación?"
 
 #. translators: Dialog body when closing the composer.
 #. 'progress' of using the composer (e.g.
@@ -2797,7 +2797,7 @@ msgstr "Seguimientos"
 
 #: src/Dialogs/NotificationSettings.vala:131
 msgid "Clear All Notifications?"
-msgstr "¿Limpiar todas las notificaciones?"
+msgstr "¿Quiere vaciar las notificaciones?"
 
 #: src/Dialogs/NotificationSettings.vala:138
 msgid "Clear"
@@ -2814,7 +2814,7 @@ msgstr[1] "%d palabras clave"
 #: src/Dialogs/Preferences.vala:81
 #, c-format
 msgid "Delete %s?"
-msgstr "¿Eliminar %s?"
+msgstr "¿Quiere eliminar %s?"
 
 #. translators: the variable is an error message
 #: src/Dialogs/Preferences.vala:96
@@ -2957,7 +2957,7 @@ msgstr "Reenviar a %s"
 #. translators: submit the report
 #: src/Dialogs/Report.vala:350
 msgid "Submit Report?"
-msgstr "¿Enviar informe?"
+msgstr "¿Quiere enviar el informe?"
 
 #: src/Dialogs/Report.vala:421
 msgid "Submitted Report Successfully"
@@ -3471,7 +3471,7 @@ msgstr "Rechazar"
 #. undo an action, like a suspension
 #: src/Views/Admin/Pages/Accounts.vala:422
 msgid "Undo this Action?"
-msgstr "¿Deshacer esta acción?"
+msgstr "¿Quiere deshacer esta acción?"
 
 #. translators: Question dialog when an admin is about to
 #. approve an account. The variable is an
@@ -3479,7 +3479,7 @@ msgstr "¿Deshacer esta acción?"
 #: src/Views/Admin/Pages/Accounts.vala:483
 #, c-format
 msgid "Approve %s?"
-msgstr "¿Aprobar %s?"
+msgstr "¿Quiere aprobar a %s?"
 
 #. translators: Question dialog when an admin is about to
 #. reject an account. The variable is an
@@ -3487,7 +3487,7 @@ msgstr "¿Aprobar %s?"
 #: src/Views/Admin/Pages/Accounts.vala:516
 #, c-format
 msgid "Reject %s?"
-msgstr "¿Rechazar %s?"
+msgstr "¿Quiere rechazar a %s?"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about blocking e-mail providers like
@@ -3502,7 +3502,7 @@ msgstr "Bloquear un dominio de correo electrónico nuevo"
 #: src/Views/Admin/Pages/BlockedEmails.vala:60
 #, c-format
 msgid "Block %s?"
-msgstr "¿Bloquear %s?"
+msgstr "¿Quiere bloquear a %s?"
 
 #. translators: Question dialog description when an admin is about to
 #. block an e-mail domain. The variable is a string.
@@ -3583,7 +3583,7 @@ msgstr "Permitir"
 #: src/Views/Admin/Pages/FederationAllowlist.vala:57
 #, c-format
 msgid "Allow Federation with %s?"
-msgstr "¿Permitir federación con %s?"
+msgstr "¿Quiere permitir la federación con %s?"
 
 #. translators: admin dashboard, reports timeline, headerbar button tooltip text
 #: src/Views/Admin/Pages/Reports.vala:10
@@ -3604,7 +3604,7 @@ msgstr "Mostrar informes resueltos"
 #: src/Views/Admin/Timelines/EmailDomain.vala:26
 #, c-format
 msgid "Unblock %s?"
-msgstr "¿Desbloquear %s?"
+msgstr "¿Quiere desbloquear a %s?"
 
 #. translators: Question dialog when an admin is about to
 #. delete a domain from the federation allowlist.
@@ -3614,7 +3614,7 @@ msgstr "¿Desbloquear %s?"
 #: src/Views/Admin/Timelines/DomainAllow.vala:28
 #, c-format
 msgid "Remove Federation with %s?"
-msgstr "¿Eliminar federación con %s?"
+msgstr "¿Quiere quitar la federación con %s?"
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:57
 msgid "Previous Page"
@@ -3709,7 +3709,7 @@ msgstr "Copiar enlace"
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
-msgstr "Marcar como sensible"
+msgstr "Marcar como delicado"
 
 #. translators: alternative text context menu item in drive
 #: src/Views/Drive.vala:253
@@ -3725,7 +3725,7 @@ msgstr "Renombrar"
 #: src/Views/Drive.vala:380
 #, c-format
 msgid "Couldn't mark '%s' as sensitive: %s"
-msgstr "No se ha podido marcar «%s» como sensible: %s"
+msgstr "No se ha podido marcar «%s» como delicado: %s"
 
 #: src/Views/Drive.vala:407
 msgid "Rename Folder"
@@ -3793,13 +3793,13 @@ msgstr "No se ha podido mover «%s»: %s"
 #: src/Views/Drive.vala:1216 src/Views/Drive.vala:1273
 #, c-format
 msgid "'%s' cannot be deleted: %s"
-msgstr "«%s» no se puede borrar: %s"
+msgstr "«%s» no se puede eliminar: %s"
 
 #. translators: the variable is a folder/file name
 #: src/Views/Drive.vala:1224
 #, c-format
 msgid "Delete '%s'?"
-msgstr "¿Borrar «%s»?"
+msgstr "¿Quiere eliminar «%s»?"
 
 #: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
 msgid "This is irreversible."
@@ -3810,7 +3810,7 @@ msgstr "Esto es irreversible."
 #: src/Views/Drive.vala:1249 src/Views/Drive.vala:1361
 #, c-format
 msgid "Couldn't delete '%s': %s"
-msgstr "No se ha podido borrar «%s»: %s"
+msgstr "No se ha podido eliminar «%s»: %s"
 
 #. translators: Error when trying to delete files/folders
 #. that cannot be deleted.
@@ -3821,7 +3821,7 @@ msgstr "No hay archivos eliminables en la selección"
 #. translators: confirmation dialog in a file-browser-like page
 #: src/Views/Drive.vala:1311
 msgid "Delete Selection?"
-msgstr "¿Borrar selección?"
+msgstr "¿Quiere eliminar la selección?"
 
 #: src/Views/Drive.vala:1372
 msgid "Upload Files"
@@ -3864,7 +3864,7 @@ msgstr "No hay noticias"
 
 #: src/Views/Explore.vala:9
 msgid "For You"
-msgstr "Para ti"
+msgstr "Para usted"
 
 #: src/Views/Explore.vala:9
 msgid "No Suggestions"
@@ -3904,7 +3904,7 @@ msgstr "Redactar"
 #: src/Views/Lists.vala:121
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr "¿Eliminar «%s»?"
+msgstr "¿Quiere eliminar «%s»?"
 
 #: src/Views/Lists.vala:122
 msgid "This action cannot be reverted."
@@ -4021,12 +4021,12 @@ msgstr "Copiar enlace al portapapeles"
 #: src/Views/Profile.vala:497
 #, c-format
 msgid "Block Entire \"%s\"?"
-msgstr "¿Bloquear por completo «%s»?"
+msgstr "¿Quiere bloquear por completo «%s»?"
 
 #: src/Views/Profile.vala:497
 #, c-format
 msgid "Unblock Entire \"%s\"?"
-msgstr "¿Desbloquear por completo «%s»?"
+msgstr "¿Quiere desbloquear por completo «%s»?"
 
 #: src/Views/Profile.vala:500
 msgid ""
@@ -4158,7 +4158,7 @@ msgstr "Acerca de %s"
 #: src/Views/Sidebar.vala:349
 #, c-format
 msgid "Forget %s?"
-msgstr "¿Olvidar %s?"
+msgstr "¿Quiere olvidar a %s?"
 
 #: src/Views/Sidebar.vala:350
 msgid "This account will be removed from the application."
@@ -4360,7 +4360,7 @@ msgstr "Ocultar multimedia"
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:84
 msgid "Show Sensitive Content"
-msgstr "Mostrar contenido sensible"
+msgstr "Mostrar contenido delicado"
 
 #: src/Widgets/Attachment/Item.vala:21
 msgid "Copied attachment url to clipboard"
@@ -4524,7 +4524,7 @@ msgstr "Oculto"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
-msgstr "Error: La nota tiene más de 2000 caracteres"
+msgstr "Error: la nota supera los 2000 caracteres"
 
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
@@ -4576,13 +4576,13 @@ msgstr "No se ha podido reprogramar: %s"
 #. translators: as in a post set to be posted sometime in the future
 #: src/Widgets/ScheduledStatus.vala:195
 msgid "Delete Scheduled Post?"
-msgstr "¿Eliminar entrada programada?"
+msgstr "¿Quiere eliminar la entrada programada?"
 
 #. translators: 'Draft' is not a verb here.
 #. It's equal to 'saved but not posted'
 #: src/Widgets/ScheduledStatus.vala:198
 msgid "Delete Draft Post?"
-msgstr "¿Eliminar el borrador de publicación?"
+msgstr "¿Quiere eliminar el borrador de publicación?"
 
 #: src/Widgets/Status/ActionsRow.vala:57 src/Widgets/Status/ActionsRow.vala:109
 #: src/Widgets/Status/ActionsRow.vala:286
@@ -4657,7 +4657,7 @@ msgstr "Solo las personas mencionadas y las que siguen a %s podrán verlo."
 #: src/Widgets/Status.vala:413
 #, c-format
 msgid "Copy %s Post Link?"
-msgstr "¿Copiar enlace de la publicación %s?"
+msgstr "¿Quiere copiar el enlace de la publicación %s?"
 
 #: src/Widgets/Status.vala:416
 msgid "Copy"
@@ -4669,7 +4669,7 @@ msgstr "Copiada url de la publicación al portapapeles"
 
 #: src/Widgets/Status.vala:513
 msgid "Delete Post?"
-msgstr "¿Eliminar publicación?"
+msgstr "¿Quiere eliminar la publicación?"
 
 #. translators: toast shown when muting a post
 #: src/Widgets/Status.vala:570
