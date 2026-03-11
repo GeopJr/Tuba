@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2026-01-28 11:38+0000\n"
+"PO-Revision-Date: 2026-03-12 20:09+0000\n"
 "Last-Translator: Flynn <cirilla@tuta.io>\n"
 "Language-Team: Cornish <https://hosted.weblate.org/projects/tuba/tuba/kw/>\n"
 "Language: kw\n"
@@ -21,7 +21,7 @@ msgstr ""
 "1000000 == 100000) ? 2 : ((n % 100 == 3 || n % 100 == 23 || n % 100 == 43 || "
 "n % 100 == 63 || n % 100 == 83) ? 3 : ((n != 1 && (n % 100 == 1 || n % 100 "
 "== 21 || n % 100 == 41 || n % 100 == 61 || n % 100 == 81)) ? 4 : 5))));\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -1667,7 +1667,7 @@ msgstr "Degemeres"
 
 #: src/API/Relationship.vala:24
 msgid "Sent follow request"
-msgstr "Danvonys govyn holya"
+msgstr "Danvenys govyn holya"
 
 #: src/API/Relationship.vala:26
 msgid "Mutuals"
@@ -2125,7 +2125,7 @@ msgstr "Anervirys"
 #. translators: admin dashboard, whether a report was 'forwarded' from another server
 #: src/Dialogs/Admin/Report.vala:152
 msgid "Forwarded"
-msgstr "Danvonys dhyworth Servell Aral"
+msgstr "Danvenys dhyworth Servell Aral"
 
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:158 src/Widgets/Admin/Report.vala:22
@@ -2995,7 +2995,7 @@ msgstr "Danvon Derivas?"
 
 #: src/Dialogs/Report.vala:421
 msgid "Submitted Report Successfully"
-msgstr "Danvonys Derivas yn Sewen"
+msgstr "Danvenys Derivas yn Sewen"
 
 #. translators: the variable is an error
 #: src/Dialogs/Report.vala:427
@@ -3179,7 +3179,7 @@ msgstr "Postya dhe usyoryon kamollys hepken"
 #. different account
 #: src/Services/Accounts/Mastodon/Account.vala:270
 msgid "Notification was pushed for a different account"
-msgstr "Gwarnyans danvonys rag unn akont ken"
+msgstr "Gwarnyans danvenys rag unn akont ken"
 
 #. translators: The variable is "Fediverse" or a backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:237
