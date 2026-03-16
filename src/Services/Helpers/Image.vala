@@ -15,6 +15,7 @@ public class Tuba.Helper.Image {
 
 	private static Soup.Session session;
 	private static Soup.Cache cache;
+	private static Cache.Abstract abstract_cache;
 
 	public static void clear_cache () {
 		new Helper.Image ();
@@ -28,6 +29,7 @@ public class Tuba.Helper.Image {
 	}
 
 	static construct {
+		abstract_cache = new Cache.Abstract ();
 		cache = new Soup.Cache (
 			GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "soup", "media"),
 			Soup.CacheType.SINGLE_USER
@@ -75,6 +77,14 @@ public class Tuba.Helper.Image {
 		if (url == null || url == "") return;
 		new Helper.Image ();
 		bool has_loaded = false;
+
+		var key = abstract_cache.get_key (url);
+		if (abstract_cache.contains (key)) {
+			has_loaded = true;
+			cb (abstract_cache.lookup (key) as Gdk.Paintable);
+			return;
+		}
+
 		cb (null);
 
 		if (blurhash != null && settings.use_blurhash) {
@@ -89,6 +99,10 @@ public class Tuba.Helper.Image {
 		fetch_paintable.begin (url, disable_cache, (obj, res) => {
 			var result = fetch_paintable.end (res);
 			has_loaded = true;
+
+			if (result != null)
+				abstract_cache.insert (url, result);
+
 			cb (result);
 		});
 	}
