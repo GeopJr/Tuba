@@ -4,20 +4,21 @@
 # Jakub Janeček <janecekjakub@tutanota.com>, 2023, 2024, 2026.
 # foo expert <deferred_water346@simplelogin.com>, 2023.
 # anotheranonymoususer <walter.klosse@protonmail.com>, 2024, 2025.
+# Pavel Borecki <pavel.borecki@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2026-01-08 09:01+0000\n"
-"Last-Translator: Jakub Janeček <janecekjakub@tutanota.com>\n"
+"PO-Revision-Date: 2026-03-19 08:09+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tuba/tuba/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -301,7 +302,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
 msgid "Spellchecker"
-msgstr ""
+msgstr "Kontrola překlepů"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:182
@@ -1831,7 +1832,7 @@ msgstr "Vytvoř a prohlížej webové archivy"
 #. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 #: src/Application.vala:645
 msgid "Calligraphy"
-msgstr ""
+msgstr "Kaligrafie"
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
@@ -1840,7 +1841,7 @@ msgstr "Vytvoř ASCII bannery z textu"
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
 msgid "Collision"
-msgstr ""
+msgstr "Kolize"
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
@@ -2192,7 +2193,7 @@ msgstr ""
 #. IP Addresses
 #: src/Dialogs/Admin.vala:58 src/Views/Admin/Pages/BlockedIPs.vala:7
 msgid "IP Rules"
-msgstr ""
+msgstr "IP pravidla"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:68 src/Views/Admin/Pages/FederationAllowlist.vala:7
@@ -2207,16 +2208,16 @@ msgstr ""
 
 #: src/Dialogs/AnnualReport.vala:60
 msgid "Default"
-msgstr ""
+msgstr "Výchozí"
 
 #. translators: Accent color
 #: src/Dialogs/AnnualReport.vala:62
 msgid "Accent"
-msgstr ""
+msgstr "Zvýraznění"
 
 #: src/Dialogs/AnnualReport.vala:100
 msgid "Share"
-msgstr ""
+msgstr "Sdílení"
 
 #: src/Dialogs/AnnualReport.vala:108
 msgid "Save As…"
@@ -2333,7 +2334,7 @@ msgstr ""
 #. translators: save dialog title, refer to the other #FediWrapped strings for more info
 #: src/Dialogs/AnnualReport.vala:552
 msgid "Save #FediWrapped"
-msgstr ""
+msgstr "Uložit #FediWrapped"
 
 #. translators: the variable is a year, e.g. 2024
 #: src/Dialogs/AnnualReport.vala:567
@@ -2452,7 +2453,7 @@ msgstr "Soukromí příspěvku"
 #. translators: post compositor post button label when the visibility is 'mentioned only'
 #: src/Dialogs/Composer/Dialog.vala:265
 msgid "Send"
-msgstr ""
+msgstr "odeslat"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:276
@@ -2494,7 +2495,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:571
 #, c-format
 msgid "Reply to @%s"
-msgstr ""
+msgstr "Odpovědět @%s"
 
 #. translators: composer post button label, verb
 #: src/Dialogs/Composer/Dialog.vala:604 src/Widgets/Status/ActionsRow.vala:129
@@ -2585,7 +2586,7 @@ msgstr "Vzít Zpět"
 #: src/Dialogs/Composer/Polls.vala:50 src/Dialogs/ListEdit.vala:109
 #: src/Views/Admin/Timelines/DomainAllow.vala:35 src/Views/Search.vala:176
 msgid "Remove"
-msgstr ""
+msgstr "Odebrat"
 
 #. translators: screen reader announcements on buttons that change label
 #. when clicked in the composer. The variable is a string of
@@ -2624,7 +2625,7 @@ msgstr ""
 #. whether the poll results should be visible
 #: src/Dialogs/Composer/Polls.vala:253
 msgid "Toggle Results Visibility"
-msgstr ""
+msgstr "(Ne)zobrazovat viditelnost výsledků"
 
 #. translators: poll entry title; the variable is a number
 #: src/Dialogs/Composer/Polls.vala:307 src/Dialogs/Composer/Polls.vala:354
@@ -2638,15 +2639,15 @@ msgstr "Volba %d"
 #, c-format
 msgid "%d Minute"
 msgid_plural "%d Minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d minuta"
+msgstr[1] "%d minuty"
+msgstr[2] "%d minut"
 
 #. translators: the variable is a number, short form for minutes
 #: src/Dialogs/Composer/Polls.vala:380 src/Dialogs/Composer/Polls.vala:382
 #, c-format
 msgid "%dmin"
-msgstr ""
+msgstr "%dmin"
 
 #. translators: the variable is a number, short form for hours
 #: src/Dialogs/Composer/Polls.vala:386 src/Dialogs/Composer/Polls.vala:388
@@ -2726,12 +2727,12 @@ msgstr "Server vrátil chybu"
 
 #: src/Dialogs/NewAccount.vala:339
 msgid "Apply"
-msgstr ""
+msgstr "Uplatnit"
 
 #. translators: Switch title in the new account window
 #: src/Dialogs/NewAccount.vala:372
 msgid "Admin Mode"
-msgstr ""
+msgstr "Režim správy"
 
 #. translators: Switch description in the new account window
 #: src/Dialogs/NewAccount.vala:374
@@ -2750,7 +2751,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:54
 msgid "Follows"
-msgstr ""
+msgstr "Sleduje"
 
 #: src/Dialogs/NotificationSettings.vala:131
 msgid "Clear All Notifications?"
@@ -2758,7 +2759,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:138
 msgid "Clear"
-msgstr ""
+msgstr "Vyčistit"
 
 #: src/Dialogs/Preferences.vala:44
 #, c-format
@@ -2772,7 +2773,7 @@ msgstr[2] "%d klíčových slov"
 #: src/Dialogs/Preferences.vala:81
 #, c-format
 msgid "Delete %s?"
-msgstr ""
+msgstr "Smazat %s?"
 
 #. translators: the variable is an error message
 #: src/Dialogs/Preferences.vala:96
@@ -2782,7 +2783,7 @@ msgstr "Nešlo odstranit filtr: %s"
 
 #: src/Dialogs/Preferences.vala:392
 msgid "Analytics Preview"
-msgstr ""
+msgstr "Náhled analytik"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
@@ -2915,7 +2916,7 @@ msgstr "Předat %s"
 #. translators: submit the report
 #: src/Dialogs/Report.vala:350
 msgid "Submit Report?"
-msgstr ""
+msgstr "Odeslat hlášení?"
 
 #: src/Dialogs/Report.vala:421
 msgid "Submitted Report Successfully"
@@ -2999,14 +3000,14 @@ msgstr "%s upravil příspěvek"
 #. translators: post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:364
 msgid "In Reply"
-msgstr ""
+msgstr "V odpověď"
 
 #. translators: the variable is a string user handle,
 #. post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:368
 #, c-format
 msgid "In Reply to %s"
-msgstr ""
+msgstr "V odpověď %s"
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
@@ -3026,7 +3027,7 @@ msgstr ""
 #. translators: this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:425
 msgid "Received a new report"
-msgstr ""
+msgstr "Obdrženo nové hlášení"
 
 #. translators: the variable is a string user name,
 #. this is used for per-account notifications
@@ -3244,7 +3245,7 @@ msgstr "%-e. %b, %Y"
 
 #: src/Utils/DateTime.vala:123
 msgid "just now"
-msgstr ""
+msgstr "právě nyní"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:127
@@ -3260,7 +3261,7 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
-msgstr ""
+msgstr "včera"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:169
@@ -3336,19 +3337,19 @@ msgstr "Vše"
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:73
 msgid "Remote"
-msgstr ""
+msgstr "Vzdálené"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: src/Views/Admin/Pages/Accounts.vala:78
 msgid "Location"
-msgstr ""
+msgstr "Umístění"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:95
 msgid "Active"
-msgstr ""
+msgstr "Aktivní"
 
 #. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
 #. translators: Dropdown entry, account status.
@@ -3358,7 +3359,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:381 src/Widgets/Admin/AccountRow.vala:31
 #: src/Widgets/Admin/Report.vala:52
 msgid "Limited"
-msgstr ""
+msgstr "Omezené"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3376,39 +3377,39 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:374 src/Widgets/Admin/AccountRow.vala:29
 #: src/Widgets/Admin/Report.vala:50
 msgid "Suspended"
-msgstr ""
+msgstr "Uspáno"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:113
 msgid "Pending"
-msgstr ""
+msgstr "Čekající"
 
 #: src/Views/Admin/Pages/Accounts.vala:128
 msgid "Username"
-msgstr ""
+msgstr "Uživatelské jméno"
 
 #: src/Views/Admin/Pages/Accounts.vala:142
 #: src/Views/Admin/Pages/Accounts.vala:302
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: src/Views/Admin/Pages/Accounts.vala:296
 msgid "Role"
-msgstr ""
+msgstr "Role"
 
 #. translators: admin dashboard, account view
 #. e-mail has been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:313
 msgid "Confirmed"
-msgstr ""
+msgstr "Potvrzeno"
 
 #. translators: admin dashboard, account view
 #. e-mail has NOT been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:321
 msgid "Not Confirmed"
-msgstr ""
+msgstr "Nepotvrzeno"
 
 #. translators: admin panel, account waiting to be approved, placeholder when they didn't include a reason
 #: src/Views/Admin/Pages/Accounts.vala:345
@@ -3418,17 +3419,17 @@ msgstr ""
 #. translators: admin panel, account waiting to be approved
 #: src/Views/Admin/Pages/Accounts.vala:349
 msgid "Awaiting Approval"
-msgstr ""
+msgstr "Čeká na schválení"
 
 #: src/Views/Admin/Pages/Accounts.vala:356
 #: src/Views/Admin/Pages/Accounts.vala:490
 msgid "Approve"
-msgstr ""
+msgstr "Schválit"
 
 #: src/Views/Admin/Pages/Accounts.vala:363
 #: src/Views/Admin/Pages/Accounts.vala:523
 msgid "Reject"
-msgstr ""
+msgstr "Odmítnout"
 
 #. translators: Question dialog when an admin is about to
 #. undo an action, like a suspension
@@ -3442,7 +3443,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:483
 #, c-format
 msgid "Approve %s?"
-msgstr ""
+msgstr "Schválit %s?"
 
 #. translators: Question dialog when an admin is about to
 #. reject an account. The variable is an
@@ -3450,7 +3451,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:516
 #, c-format
 msgid "Reject %s?"
-msgstr ""
+msgstr "Odmítnout %s?"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about blocking e-mail providers like
@@ -3465,7 +3466,7 @@ msgstr ""
 #: src/Views/Admin/Pages/BlockedEmails.vala:60
 #, c-format
 msgid "Block %s?"
-msgstr ""
+msgstr "Blokovat %s?"
 
 #. translators: Question dialog description when an admin is about to
 #. block an e-mail domain. The variable is a string.
@@ -3479,15 +3480,15 @@ msgstr ""
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "New Users"
-msgstr ""
+msgstr "Noví uživatelé"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Active Users"
-msgstr ""
+msgstr "Aktivní uživatelé"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Interactions"
-msgstr ""
+msgstr "Interakce"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Opened"
@@ -3515,16 +3516,16 @@ msgstr ""
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
 msgid "Software"
-msgstr ""
+msgstr "Software"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:26
 msgid "Space Usage"
-msgstr ""
+msgstr "Využití prostoru"
 
 #: src/Views/Admin/Pages/Dashboard.vala:53
 msgid "Stats"
-msgstr ""
+msgstr "Statistiky"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about allowing federation
@@ -3536,7 +3537,7 @@ msgstr ""
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
 msgid "Allow"
-msgstr ""
+msgstr "Umožnit"
 
 #. translators: Question dialog when an admin is about to
 #. allow federation with an instance. The variable is a
@@ -3565,7 +3566,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/EmailDomain.vala:26
 #, c-format
 msgid "Unblock %s?"
-msgstr ""
+msgstr "Zrušit blokování %s?"
 
 #. translators: Question dialog when an admin is about to
 #. delete a domain from the federation allowlist.
@@ -3579,11 +3580,11 @@ msgstr ""
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:57
 msgid "Previous Page"
-msgstr ""
+msgstr "Předcházející stránka"
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:66
 msgid "Next Page"
-msgstr ""
+msgstr "Následující stránka"
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:75
 msgid "Announcements"
@@ -3613,17 +3614,17 @@ msgstr "Žádné Záložky"
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:43
 msgid "Secure"
-msgstr ""
+msgstr "Zabezpečené"
 
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:48
 msgid "Insecure"
-msgstr ""
+msgstr "Nezabezpečené"
 
 #. translators: in-app web browser, move forward in history action
 #: src/Views/Browser.vala:166
 msgid "Forward"
-msgstr ""
+msgstr "Vpřed"
 
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
@@ -3670,7 +3671,7 @@ msgstr ""
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
-msgstr ""
+msgstr "Označit jako citlivé"
 
 #. translators: alternative text context menu item in drive
 #: src/Views/Drive.vala:253
@@ -3679,7 +3680,7 @@ msgstr "Upravit alternativní text"
 
 #: src/Views/Drive.vala:259 src/Views/Drive.vala:409
 msgid "Rename"
-msgstr ""
+msgstr "Přejmenovat"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
@@ -3723,7 +3724,7 @@ msgstr ""
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
 msgid "Create"
-msgstr ""
+msgstr "Vytvořit"
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
@@ -3764,7 +3765,7 @@ msgstr ""
 
 #: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
 msgid "This is irreversible."
-msgstr ""
+msgstr "Toto nelze vzít zpět."
 
 #. translators: the first variable is a filename,
 #. the second is an error message
@@ -3793,7 +3794,7 @@ msgstr ""
 #: src/Views/Drive.vala:1423
 #, c-format
 msgid "'%s' already exists"
-msgstr ""
+msgstr "„%s“ už existuje"
 
 #. translators: screen reader announcement when the
 #. drive successfully uploads a file
@@ -3801,7 +3802,7 @@ msgstr ""
 #: src/Views/Drive.vala:1510
 #, c-format
 msgid "Finished Uploading '%s'"
-msgstr ""
+msgstr "Dokončeno nahrávání „%s“"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -3925,16 +3926,16 @@ msgstr ""
 #: src/Views/NotificationRequestsList.vala:11
 #, c-format
 msgid "No Notifications by %s"
-msgstr ""
+msgstr "Žádné notifikace od %s"
 
 #: src/Views/NotificationRequestsList.vala:26
 #: src/Widgets/NotificationRequest.vala:56
 msgid "Dismiss"
-msgstr ""
+msgstr "Zahodit"
 
 #: src/Views/NotificationRequests.vala:4
 msgid "Filtered Notifications"
-msgstr ""
+msgstr "Filtrované notifikace"
 
 #: src/Views/NotificationRequests.vala:7
 msgid "No Filtered Notifications"
@@ -4060,7 +4061,7 @@ msgstr ""
 
 #: src/Views/Search.vala:38
 msgid "Clear Entry"
-msgstr ""
+msgstr "Vyčistit položku"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Views/Search.vala:113 src/Views/Search.vala:114
@@ -4071,7 +4072,7 @@ msgstr "Žádné výsledky"
 
 #: src/Views/Search.vala:341
 msgid "Language"
-msgstr ""
+msgstr "Jazyk"
 
 #. translators: warning toast in advanced search dialog when auto-filling a user fails.
 #. Auto-fill refers to automatically filling the entry with the first
@@ -4155,14 +4156,14 @@ msgstr "Žádné Boosty"
 #. see https://github.com/glitch-soc/mastodon/pull/2462
 #: src/Views/StatusStats.vala:36
 msgid "Reactions"
-msgstr ""
+msgstr "Reakce"
 
 #. translators: Reactions page empty state.
 #. A reaction is not the same as a favorite or a boost,
 #. see https://github.com/glitch-soc/mastodon/pull/2462
 #: src/Views/StatusStats.vala:43
 msgid "No Reactions"
-msgstr ""
+msgstr "Žádné reakce"
 
 #: src/Views/Thread.vala:32
 msgid "Conversation"
@@ -4216,7 +4217,7 @@ msgstr ""
 #: src/Widgets/Account.vala:157 src/Widgets/ProfileCover.vala:204
 #, c-format
 msgid "Relationship: %s."
-msgstr ""
+msgstr "Vztah: %s."
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of followers a user has.
@@ -4240,12 +4241,12 @@ msgstr "%s Sledovaných"
 #. translators: Admin dashboard, report status
 #: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
 msgid "No Limits"
-msgstr ""
+msgstr "Žádné limity"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Widgets/Admin/AccountRow.vala:36
 msgid "Waiting Approval"
-msgstr ""
+msgstr "Čeká na schválení"
 
 #. translators: Report 'Assigned to: <account>'
 #: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
@@ -4254,11 +4255,11 @@ msgstr ""
 
 #: src/Widgets/Admin/AssignedRow.vala:38
 msgid "Unassign"
-msgstr ""
+msgstr "Zrušit přiřazení"
 
 #: src/Widgets/Admin/AssignedRow.vala:42
 msgid "Assign"
-msgstr ""
+msgstr "Přiřadit"
 
 #. translators: subtitle on email domain blocks.
 #. The variable is the number of sing up
@@ -4285,7 +4286,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:31 src/Widgets/Status.vala:886
 #, c-format
 msgid "Edited: %s."
-msgstr ""
+msgstr "Upraveno: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4294,7 +4295,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:36 src/Widgets/Status.vala:891
 #, c-format
 msgid "Published: %s."
-msgstr ""
+msgstr "Zveřejněno: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4316,7 +4317,7 @@ msgstr[2] ""
 #. hasn't been read yet.
 #: src/Widgets/Announcement.vala:56
 msgid "Unread."
-msgstr ""
+msgstr "Nepřečteno."
 
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:73
@@ -4352,7 +4353,7 @@ msgstr "Zobrazit celý text"
 #: src/Widgets/AudioPlayer/Controls.vala:22
 msgctxt "media controls tooltip"
 msgid "Stop"
-msgstr ""
+msgstr "Zastavit"
 
 #. translators: the variable is the date the book was published
 #: src/Widgets/BookWyrmPage.vala:79
@@ -4421,7 +4422,7 @@ msgstr "V posledních dvou dnech diskutováno %d krát %d lidmi"
 #. being discussed.
 #: src/Widgets/PreviewCardExplore.vala:101
 msgid "See Discussions"
-msgstr ""
+msgstr "Zobrazit diskuze"
 
 #. translators: the variable is a user name. This is shown on
 #. preview cards of articles from 'verified' fedi authors.
@@ -4430,7 +4431,7 @@ msgstr ""
 #: src/Widgets/PreviewCard.vala:103 src/Widgets/PreviewCard.vala:111
 #, c-format
 msgid "By %s"
-msgstr ""
+msgstr "Od %s"
 
 #. translators: the variable is a number. This is shown on
 #. preview cards of articles from 'verified' fedi authors,
@@ -4490,7 +4491,7 @@ msgstr ""
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "Skryté"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
@@ -4504,7 +4505,7 @@ msgstr ""
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63
 msgid "Replies"
-msgstr ""
+msgstr "Odpovědi"
 
 #. translators: the variable is the emoji or its name if it's custom.
 #. A reaction is not the same as a favorite or a boost,
@@ -4521,11 +4522,11 @@ msgstr "Zrušit Ztišení"
 #. translators: not a verb, as in a post that is saved but not posted yet
 #: src/Widgets/ScheduledStatus.vala:13
 msgid "Draft"
-msgstr ""
+msgstr "Koncept"
 
 #: src/Widgets/ScheduledStatus.vala:51 src/Widgets/ScheduledStatus.vala:151
 msgid "Reschedule"
-msgstr ""
+msgstr "Přeplánovat"
 
 #. translators: Scheduled Post title, 'scheduled for <date>'
 #: src/Widgets/ScheduledStatus.vala:137
@@ -4601,7 +4602,7 @@ msgstr "Připnout"
 #. translators: Post menu items to revert a translation
 #: src/Widgets/Status.vala:379
 msgid "Show Original"
-msgstr ""
+msgstr "Zobrazit originál"
 
 #. translators: dialog subtitle visibility warning when copying a link to a
 #. post that is private or mentioned-only
@@ -4631,7 +4632,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:416
 msgid "Copy"
-msgstr ""
+msgstr "Zkopírovat"
 
 #: src/Widgets/Status.vala:425 src/Widgets/Status.vala:430
 msgid "Copied post url to clipboard"
@@ -4639,7 +4640,7 @@ msgstr "Odkaz na příspěvek zkopírován do schránky"
 
 #: src/Widgets/Status.vala:513
 msgid "Delete Post?"
-msgstr ""
+msgstr "Smazat příspěvek?"
 
 #. translators: toast shown when muting a post
 #: src/Widgets/Status.vala:570
