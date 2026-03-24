@@ -212,31 +212,44 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual bool request () {
-		append_params (new Request.GET (get_req_url ()))
-			.with_account (account)
-			.with_ctx (this)
-			.with_extra_data (Tuba.Network.ExtraData.RESPONSE_HEADERS)
-			.then ((in_stream, headers) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
+		var req = new RequestV2 (get_req_url ()) {
+			account = account,
+			ctx = this
+		};
 
-				Object[] to_add = {};
-				Network.parse_array (parser, node => {
-					var e = Tuba.Helper.Entity.from_json (node, accepts);
-					if (!(should_hide (e))) to_add += e;
-				});
-				model.splice (model.get_n_items (), 0, to_add);
+		if (page_next == null)
+			req.add_parameter ("limit", settings.timeline_page_size.clamp (this.batch_size_min, 40).to_string ());
 
-				if (headers != null)
-					get_pages (headers.get_one ("Link"));
-
-				if (to_add.length == 0)
-					on_content_changed ();
-				on_request_finish ();
-			})
-			.on_error (on_error)
-			.exec ();
-
+		request_async.begin (req);
 		return GLib.Source.REMOVE;
+	}
+
+	private async void request_async (RequestV2 req) {
+		GLib.InputStream in_stream;
+		Soup.MessageHeaders response_headers;
+
+		try {
+			in_stream = yield req.exec (out response_headers);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+
+			Object[] to_add = {};
+			Network.parse_array (parser, node => {
+				var e = Helper.Entity.from_json (node, accepts);
+				if (!(should_hide (e))) to_add += e;
+			});
+			model.splice (model.get_n_items (), 0, to_add);
+
+			if (response_headers != null)
+				get_pages (response_headers.get_one ("Link"));
+
+			if (to_add.length == 0)
+				on_content_changed ();
+			on_request_finish ();
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (GLib.Error e) {
+			on_error (e.code, e.message);
+		}
 	}
 
 	public override void on_error (int32 code, string reason) {
