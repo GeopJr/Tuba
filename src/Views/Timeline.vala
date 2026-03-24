@@ -220,41 +220,38 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		if (page_next == null)
 			req.add_parameter ("limit", settings.timeline_page_size.clamp (this.batch_size_min, 40).to_string ());
 
-		request_async.begin (req, (obj, res) => {
-			try {
-				request_async.end (res);
-			} catch (GLib.Error e) {
-				if (e is GLib.IOError.CANCELLED) {
-					debug ("Message is cancelled.");
-					return;
-				}
-
-				on_error (e.code, e.message);
-			}
-		});
-
+		request_async.begin (req);
 		return GLib.Source.REMOVE;
 	}
 
-	private async void request_async (RequestV2 req) throws Error, Oopsie {
+	private async void request_async (RequestV2 req) {
 		GLib.InputStream in_stream;
 		Soup.MessageHeaders response_headers;
-		yield req.exec (out in_stream, out response_headers);
 
-		var parser = yield Network.get_parser_from_inputstream_async (in_stream);
-		Object[] to_add = {};
-		Network.parse_array (parser, node => {
-			var e = Helper.Entity.from_json (node, accepts);
-			if (!(should_hide (e))) to_add += e;
-		});
-		model.splice (model.get_n_items (), 0, to_add);
+		try {
+			yield req.exec (out in_stream, out response_headers);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 
-		if (response_headers != null)
-			get_pages (response_headers.get_one ("Link"));
+			Object[] to_add = {};
+			Network.parse_array (parser, node => {
+				var e = Helper.Entity.from_json (node, accepts);
+				if (!(should_hide (e))) to_add += e;
+			});
+			model.splice (model.get_n_items (), 0, to_add);
 
-		if (to_add.length == 0)
-			on_content_changed ();
-		on_request_finish ();
+			if (response_headers != null)
+				get_pages (response_headers.get_one ("Link"));
+
+			if (to_add.length == 0)
+				on_content_changed ();
+			on_request_finish ();
+		} catch (GLib.Error e) {
+			if (e is GLib.IOError.CANCELLED) {
+				debug ("Message is cancelled.");
+			} else {
+				on_error (e.code, e.message);
+			}
+		}
 	}
 
 	public override void on_error (int32 code, string reason) {
