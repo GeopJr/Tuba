@@ -72,7 +72,7 @@ public class Tuba.RequestV2 : GLib.Object {
 
 		string final_key = key;
 		if (!final_key.has_suffix ("[]")) final_key = @"$key[]";
-		foreach (string value in values) {
+		foreach (unowned string value in values) {
 			add_parameter (final_key, value);
 		}
 	}
