@@ -245,12 +245,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			if (to_add.length == 0)
 				on_content_changed ();
 			on_request_finish ();
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
 		} catch (GLib.Error e) {
-			if (e is GLib.IOError.CANCELLED) {
-				debug ("Message is cancelled.");
-			} else {
-				on_error (e.code, e.message);
-			}
+			on_error (e.code, e.message);
 		}
 	}
 
