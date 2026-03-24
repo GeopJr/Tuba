@@ -229,7 +229,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		Soup.MessageHeaders response_headers;
 
 		try {
-			yield req.exec (out in_stream, out response_headers);
+			in_stream = yield req.exec (out response_headers);
 			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 
 			Object[] to_add = {};

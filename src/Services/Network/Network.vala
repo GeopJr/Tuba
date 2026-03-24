@@ -105,19 +105,19 @@ public class Tuba.Network : GLib.Object {
 		});
 	}
 
-	public async void queue_v2 (
+	public async GLib.InputStream queue_v2 (
 		owned Soup.Message msg,
 		GLib.Cancellable? cancellable,
-		out GLib.InputStream in_stream,
 		out Soup.MessageHeaders response_headers
 	) throws GLib.Error, Oopsie {
 		requests_processing++;
 
-		in_stream = yield session.send_async (msg, 0, cancellable);
+		GLib.InputStream in_stream = yield session.send_async (msg, 0, cancellable);
 		var status = msg.status_code;
 		response_headers = msg.response_headers;
 
-		if (status >= 200 && status < 300) return;
+		if (status >= 200 && status < 300)
+			return in_stream;
 
 		unowned string error_msg = msg.reason_phrase;
 		try {
