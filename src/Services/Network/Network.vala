@@ -1,5 +1,4 @@
 public class Tuba.Network : GLib.Object {
-
 	public signal void started ();
 	public signal void finished ();
 
@@ -106,6 +105,42 @@ public class Tuba.Network : GLib.Object {
 		});
 	}
 
+	public async bool queue_v2 (
+		owned Soup.Message msg,
+		GLib.Cancellable? cancellable,
+		out GLib.InputStream in_stream,
+		out Soup.MessageHeaders response_headers
+	) throws GLib.Error, Oopsie {
+		requests_processing++;
+
+		in_stream = yield session.send_async (msg, 0, cancellable);
+		var status = msg.status_code;
+		response_headers = msg.response_headers;
+
+		if (status >= 200 && status < 300) {
+			return true;
+		} else if (status == GLib.IOError.CANCELLED) {
+			debug ("Message is cancelled.");
+		} else {
+			string error_msg = msg.reason_phrase;
+
+			try {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var root = network.parse (parser);
+				if (root != null) {
+					error_msg = root.has_member ("message")
+					? root.get_string_member_with_default ("message", msg.reason_phrase)
+					: root.get_string_member_with_default ("error", msg.reason_phrase);
+				}
+			} catch {}
+
+			critical (@"Request \"$(msg.uri.to_string ())\" failed: $status $(msg.reason_phrase) $error_msg");
+			throw new Oopsie.INSTANCE (error_msg);
+		}
+
+		return false;
+	}
+
 	public void on_error (int32 code, string message) {
 		warning (message);
 		app.toast (message, 0);
@@ -125,6 +160,12 @@ public class Tuba.Network : GLib.Object {
 	public static Json.Parser get_parser_from_inputstream (InputStream in_stream) throws Error {
 		var parser = new Json.Parser ();
 		parser.load_from_stream (in_stream);
+		return parser;
+	}
+
+	public static async Json.Parser get_parser_from_inputstream_async (InputStream in_stream) throws Error {
+		var parser = new Json.Parser ();
+		yield parser.load_from_stream_async (in_stream);
 		return parser;
 	}
 
