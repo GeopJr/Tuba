@@ -100,7 +100,7 @@ public class Tuba.RequestV2 : GLib.Object {
 		set_body ("application/json", new Bytes.take (generator.to_data (null).data));
 	}
 
-	public async bool exec (out GLib.InputStream in_stream, out Soup.MessageHeaders response_headers) throws GLib.Error, Oopsie {
+	public async void exec (out GLib.InputStream in_stream, out Soup.MessageHeaders response_headers) throws GLib.Error, Oopsie {
 		if (this.cancellable != null && !this.cancellable.is_cancelled ()) this.cancellable.cancel ();
 		this.cancellable = new GLib.Cancellable ();
 
@@ -131,7 +131,7 @@ public class Tuba.RequestV2 : GLib.Object {
 		if (this.content_type != null && this.body_bytes != null)
 			message.set_request_body_from_bytes (this.content_type, this.body_bytes);
 
-		return yield network.queue_v2 (message, this.cancellable, out in_stream, out response_headers);
+		yield network.queue_v2 (message, this.cancellable, out in_stream, out response_headers);
 		// TODO: ensure body_bytes = ctx = null...
 	}
 

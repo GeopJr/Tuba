@@ -105,7 +105,7 @@ public class Tuba.Network : GLib.Object {
 		});
 	}
 
-	public async bool queue_v2 (
+	public async void queue_v2 (
 		owned Soup.Message msg,
 		GLib.Cancellable? cancellable,
 		out GLib.InputStream in_stream,
@@ -117,28 +117,21 @@ public class Tuba.Network : GLib.Object {
 		var status = msg.status_code;
 		response_headers = msg.response_headers;
 
-		if (status >= 200 && status < 300) {
-			return true;
-		} else if (status == GLib.IOError.CANCELLED) {
-			debug ("Message is cancelled.");
-		} else {
-			string error_msg = msg.reason_phrase;
+		if (status >= 200 && status < 300) return;
 
-			try {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var root = network.parse (parser);
-				if (root != null) {
-					error_msg = root.has_member ("message")
-					? root.get_string_member_with_default ("message", msg.reason_phrase)
-					: root.get_string_member_with_default ("error", msg.reason_phrase);
-				}
-			} catch {}
+		unowned string error_msg = msg.reason_phrase;
+		try {
+			var parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var root = network.parse (parser);
+			if (root != null) {
+				error_msg = root.has_member ("message")
+				? root.get_string_member_with_default ("message", msg.reason_phrase)
+				: root.get_string_member_with_default ("error", msg.reason_phrase);
+			}
+		} catch {}
 
-			critical (@"Request \"$(msg.uri.to_string ())\" failed: $status $(msg.reason_phrase) $error_msg");
-			throw new Oopsie.INSTANCE (error_msg);
-		}
-
-		return false;
+		critical (@"Request \"$(msg.uri.to_string ())\" failed: $status $(msg.reason_phrase) $error_msg");
+		throw new Oopsie.INSTANCE (error_msg);
 	}
 
 	public void on_error (int32 code, string message) {

@@ -224,6 +224,11 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			try {
 				request_async.end (res);
 			} catch (GLib.Error e) {
+				if (e is GLib.IOError.CANCELLED) {
+					debug ("Message is cancelled.");
+					return;
+				}
+
 				on_error (e.code, e.message);
 			}
 		});
@@ -234,7 +239,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	private async void request_async (RequestV2 req) throws Error, Oopsie {
 		GLib.InputStream in_stream;
 		Soup.MessageHeaders response_headers;
-		if (!(yield req.exec (out in_stream, out response_headers))) return;
+		yield req.exec (out in_stream, out response_headers);
 
 		var parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		Object[] to_add = {};
