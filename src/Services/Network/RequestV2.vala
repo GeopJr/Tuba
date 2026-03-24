@@ -101,7 +101,7 @@ public class Tuba.RequestV2 : GLib.Object {
 	}
 
 	public async void exec (out GLib.InputStream in_stream, out Soup.MessageHeaders response_headers) throws GLib.Error, Oopsie {
-		if (this.cancellable != null && !this.cancellable.is_cancelled ()) this.cancellable.cancel ();
+		if (this.cancellable != null) this.cancellable.cancel ();
 		this.cancellable = new GLib.Cancellable ();
 
 		string final_url = build_final_url ();
