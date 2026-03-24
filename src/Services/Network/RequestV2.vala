@@ -59,10 +59,11 @@ public class Tuba.RequestV2 : GLib.Object {
 	}
 
 	public bool remove_parameter (string key) {
-		if (!this.parameters.contains (key)) return false;
+		string final_key = GLib.Uri.escape_string (key, "[]");
+		if (!this.parameters.contains (final_key)) return false;
 
 		return parameters.foreach_remove ((p_key, p_val) => {
-			return p_key == key || p_key == @"$key[]";
+			return p_key == final_key || p_key == @"$final_key[]";
 		}) > 0;
 	}
 
