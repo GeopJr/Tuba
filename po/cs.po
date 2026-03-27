@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
 "PO-Revision-Date: 2026-03-28 13:09+0000\n"
-"Last-Translator: Jakub Janeček <janecekjakub@tutanota.com>\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tuba/tuba/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -1854,7 +1854,7 @@ msgstr ""
 
 #: src/Application.vala:649
 msgid "Scrobble your music"
-msgstr "Sdílej svou hudbu"
+msgstr "Sdílejte svou hudbu"
 
 #: src/Application.vala:671
 msgid "OK"
