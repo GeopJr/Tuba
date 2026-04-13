@@ -7,22 +7,23 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-04-14 14:09+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <https://hosted.weblate.org/projects/tuba/tuba/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
-msgstr ""
+msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr ""
+msgstr "Fediverse-ის დათვალიერება"
 
 #: data/dev.geopjr.Tuba.desktop.in:5
 msgid "Fediverse Client"
@@ -114,7 +115,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
 msgid "Run in Background"
-msgstr ""
+msgstr "ფონურად გაშვება"
 
 #: data/dev.geopjr.Tuba.gschema.xml:72 data/ui/dialogs/preferences.ui:117
 msgid "Fetch notifications while the app is closed"
@@ -160,7 +161,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:102 data/ui/dialogs/preferences.ui:31
 msgid "Large Text"
-msgstr ""
+msgstr "დიდი ტექსტი"
 
 #: data/dev.geopjr.Tuba.gschema.xml:103 data/ui/dialogs/preferences.ui:32
 msgid "Increase the size of text in posts"
@@ -288,7 +289,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
 msgid "Spellchecker"
-msgstr ""
+msgstr "სინტაქსის შემოწმება"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:182
@@ -337,7 +338,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:210
 msgid "Proxy URL"
-msgstr ""
+msgstr "პროქსის URL"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:212
@@ -465,11 +466,11 @@ msgstr ""
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:8
 msgid "General"
-msgstr ""
+msgstr "ზოგადი"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "პარამეტრების ჩვენება"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
@@ -478,51 +479,51 @@ msgstr ""
 #: data/gtk/help-overlay.ui:26 data/ui/widgets/votebox.ui:42
 #: src/Views/Browser.vala:161 src/Views/Sidebar.vala:71
 msgid "Refresh"
-msgstr ""
+msgstr "განახლება"
 
 #: data/gtk/help-overlay.ui:32 data/ui/dialogs/advanced_search.ui:28
 #: src/Services/Accounts/Mastodon/Account.vala:92
 #: src/Views/Admin/Pages/Accounts.vala:25 src/Views/Main.vala:67
 #: src/Views/Search.vala:91 src/Views/Search.vala:93
 msgid "Search"
-msgstr ""
+msgstr "ძებნა"
 
 #: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:52
 #: src/Views/Drive.vala:718
 msgid "Go Back"
-msgstr ""
+msgstr "უკან დაბრუნება"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "კლავიატურის მალსახმობების ჩვენება"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
-msgstr ""
+msgstr "ფანჯრის დახურვა"
 
 #: data/gtk/help-overlay.ui:56 src/Views/Sidebar.vala:97
 msgid "Quit"
-msgstr ""
+msgstr "გასვლა"
 
 #: data/gtk/help-overlay.ui:62
 msgid "About"
-msgstr ""
+msgstr "შესახებ"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Up"
-msgstr ""
+msgstr "მაღლა აქაჩვა"
 
 #: data/gtk/help-overlay.ui:74
 msgid "Scroll Down"
-msgstr ""
+msgstr "ქვემოთ ჩამოწევა"
 
 #: data/gtk/help-overlay.ui:82
 msgid "Composer"
-msgstr ""
+msgstr "კომპოზიტორი"
 
 #: data/gtk/help-overlay.ui:85
 msgid "Commit"
-msgstr ""
+msgstr "კომიტი"
 
 #: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:43
 msgid "Media Viewer"
@@ -530,15 +531,15 @@ msgstr ""
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "სრულ ეკრანზე"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:172
 msgid "Zoom In"
-msgstr ""
+msgstr "გადიდება"
 
 #: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:160
 msgid "Zoom Out"
-msgstr ""
+msgstr "დაპატარავება"
 
 #: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
 msgid "Previous Attachment"
@@ -551,12 +552,12 @@ msgstr ""
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "გადიდება"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "დაპატარავება"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
@@ -575,7 +576,7 @@ msgstr ""
 #. translators: window title
 #: data/ui/dialogs/advanced_search.ui:11 src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "გაფართოებული ძებნა"
 
 #: data/ui/dialogs/advanced_search.ui:22 data/ui/dialogs/filter_edit.ui:16
 #: data/ui/dialogs/new_account.ui:26 data/ui/dialogs/profile_edit.ui:21
@@ -602,7 +603,7 @@ msgstr ""
 #: src/Widgets/ScheduledStatus.vala:204 src/Widgets/Status/ActionsRow.vala:284
 #: src/Widgets/Status.vala:521
 msgid "Cancel"
-msgstr ""
+msgstr "გაუქმება"
 
 #. translators: Label in the advanced search window. Leave `-is:reply` as is. 'instances' as in fediverse servers
 #: data/ui/dialogs/advanced_search.ui:59
@@ -614,7 +615,7 @@ msgstr ""
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:76
 msgid "Query"
-msgstr ""
+msgstr "მოთხოვნა"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:83
@@ -646,29 +647,29 @@ msgstr ""
 #: data/ui/dialogs/advanced_search.ui:123
 #: src/Widgets/ProfileFilterGroup.vala:68
 msgid "Media"
-msgstr ""
+msgstr "მედია"
 
 #: data/ui/dialogs/advanced_search.ui:128
 msgid "Poll"
-msgstr ""
+msgstr "პოლი"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:134
 msgid "Embed"
-msgstr ""
+msgstr "ჩაშენება"
 
 #: data/ui/dialogs/advanced_search.ui:141 data/ui/dialogs/preferences.ui:165
 msgid "Timelines"
-msgstr ""
+msgstr "დროის ხაზები"
 
 #: data/ui/dialogs/advanced_search.ui:144
 msgid "Everywhere"
-msgstr ""
+msgstr "ყველგან"
 
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:159
 msgid "Library"
-msgstr ""
+msgstr "ბიბლიოთეკა"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:161
@@ -678,18 +679,18 @@ msgstr ""
 #. translators: post visibility label
 #: data/ui/dialogs/advanced_search.ui:176 src/API/Status.vala:320
 msgid "Public"
-msgstr ""
+msgstr "საჯარო"
 
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:194
 msgid "Dates"
-msgstr ""
+msgstr "თარიღები"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:200
 msgid "Before"
-msgstr ""
+msgstr "სანამდე"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
@@ -701,7 +702,7 @@ msgstr ""
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:246
 msgid "After"
-msgstr ""
+msgstr "შემდეგ"
 
 #. translators: composer title
 #: data/ui/dialogs/composer.ui:18 src/Dialogs/Composer/Dialog.vala:496
@@ -720,7 +721,7 @@ msgstr ""
 
 #: data/ui/dialogs/composer.ui:69 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
-msgstr ""
+msgstr "ემოჯის არჩევა"
 
 #: data/ui/dialogs/composer.ui:78 data/ui/dialogs/profile_edit.ui:140
 #: src/Widgets/Status/ReactionsRow.vala:57
@@ -733,11 +734,11 @@ msgstr ""
 
 #: data/ui/dialogs/composer.ui:97
 msgid "Create Poll"
-msgstr ""
+msgstr "გამოკითხვის შექმნა"
 
 #: data/ui/dialogs/composer.ui:106
 msgid "Content Warning"
-msgstr ""
+msgstr "შემცველობის გაფრთხილება"
 
 #: data/ui/dialogs/composer.ui:116
 msgid "Mark media as sensitive"
@@ -745,20 +746,20 @@ msgstr ""
 
 #: data/ui/dialogs/filter_edit.ui:6
 msgid "Edit Filter"
-msgstr ""
+msgstr "ფილტრის ჩასწორება"
 
 #: data/ui/dialogs/filter_edit.ui:24 data/ui/dialogs/profile_edit.ui:28
 #: src/Views/Drive.vala:426
 msgid "Save"
-msgstr ""
+msgstr "შენახვა"
 
 #: data/ui/dialogs/filter_edit.ui:58
 msgid "Title"
-msgstr ""
+msgstr "სათაური"
 
 #: data/ui/dialogs/filter_edit.ui:64
 msgid "Expires In"
-msgstr ""
+msgstr "ვადა"
 
 #: data/ui/dialogs/filter_edit.ui:69
 msgid "Hide Completely"
@@ -770,7 +771,7 @@ msgstr ""
 
 #: data/ui/dialogs/filter_edit.ui:77
 msgid "Contexts"
-msgstr ""
+msgstr "კონტექსტები"
 
 #: data/ui/dialogs/filter_edit.ui:78
 msgid "One or multiple contexts where the filter should apply"
@@ -786,11 +787,11 @@ msgstr ""
 
 #: data/ui/dialogs/list_edit.ui:7 data/ui/dialogs/list_edit.ui:10
 msgid "Members"
-msgstr ""
+msgstr "წევრი"
 
 #: data/ui/dialogs/list_edit.ui:27
 msgid "List Name"
-msgstr ""
+msgstr "სიის სახელი"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
@@ -807,7 +808,7 @@ msgstr ""
 #: data/ui/dialogs/list_edit.ui:43 src/Widgets/Admin/AssignedRow.vala:49
 #: src/Widgets/Admin/Report.vala:20 src/Widgets/Admin/Report.vala:24
 msgid "Nobody"
-msgstr ""
+msgstr "არავინ"
 
 #: data/ui/dialogs/list_edit.ui:54
 msgid "Other members of the list"
@@ -820,13 +821,13 @@ msgstr ""
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:321
 #: src/Views/Sidebar.vala:325
 msgid "Add Account"
-msgstr ""
+msgstr "ანგარიშის დამატება"
 
 #: data/ui/dialogs/new_account.ui:33 data/ui/dialogs/new_account.ui:126
 #: src/Dialogs/Report.vala:88 src/Dialogs/Report.vala:452
 #: src/Widgets/AccountSuggestions.vala:89
 msgid "Next"
-msgstr ""
+msgstr "შემდეგი"
 
 #: data/ui/dialogs/new_account.ui:47
 msgid "What is your Server?"
@@ -841,12 +842,12 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"
-msgstr ""
+msgstr "სერვერის URL"
 
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:332
 msgid "Settings"
-msgstr ""
+msgstr "მორგება"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
@@ -869,22 +870,22 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:223
 msgid "Done"
-msgstr ""
+msgstr "მზადაა"
 
 #: data/ui/dialogs/notification_settings.ui:6 src/Views/Main.vala:74
 msgid "Filter"
-msgstr ""
+msgstr "ფილტრი"
 
 #: data/ui/dialogs/notification_settings.ui:16
 msgid "Clear All Notifications"
-msgstr ""
+msgstr "ყველა გაფრთხილების გასუფთავება"
 
 #: data/ui/dialogs/notification_settings.ui:34
 #: data/ui/dialogs/preferences.ui:225 src/API/Filters/Filter.vala:45
 #: src/Services/Accounts/Mastodon/Account.vala:34
 #: src/Views/Notifications.vala:38
 msgid "Notifications"
-msgstr ""
+msgstr "გაფრთხილებები"
 
 #: data/ui/dialogs/notification_settings.ui:37
 msgid "Included Notifications"
@@ -903,7 +904,7 @@ msgstr ""
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:50
 msgid "People you don't follow"
-msgstr ""
+msgstr "ხალხი, რომლებსაც არ მიჰყვებით"
 
 #. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:52
@@ -943,7 +944,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:11
 msgid "Appearance"
-msgstr ""
+msgstr "გარეგნობა"
 
 #: data/ui/dialogs/preferences.ui:44
 msgid "Slightly increases the size of custom emojis when you hover over them"
@@ -953,16 +954,16 @@ msgstr ""
 #: data/ui/dialogs/preferences.ui:51 src/Views/Explore.vala:6
 #: src/Views/Search.vala:115 src/Widgets/ProfileFilterGroup.vala:56
 msgid "Posts"
-msgstr ""
+msgstr "პოსტები"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Behavior"
-msgstr ""
+msgstr "ქცევა"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:124 src/Dialogs/NewAccount.vala:363
 msgid "Proxy"
-msgstr ""
+msgstr "პროქსი"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Posting"
@@ -979,7 +980,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:184
 msgid "Online Services"
-msgstr ""
+msgstr "ონლაინ სერვისები"
 
 #. translators: leave api.tuba.geopjr.dev as is
 #: data/ui/dialogs/preferences.ui:186
@@ -998,7 +999,7 @@ msgstr ""
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:229
 msgid "Push Notifications"
-msgstr ""
+msgstr "პუშ გაფრთხილებები"
 
 #. translators: #FediWrapped, title of the 'amount of new followers' card
 #: data/ui/dialogs/preferences.ui:232 src/Dialogs/AnnualReport.vala:388
@@ -1012,35 +1013,35 @@ msgstr ""
 #: data/ui/dialogs/preferences.ui:244 src/Dialogs/NotificationSettings.vala:50
 #: src/Services/Accounts/Mastodon/Account.vala:74 src/Views/Favorites.vala:4
 msgid "Favorites"
-msgstr ""
+msgstr "რჩეულები"
 
 #: data/ui/dialogs/preferences.ui:250 src/Dialogs/NotificationSettings.vala:49
 msgid "Mentions"
-msgstr ""
+msgstr "მოხსენებები"
 
 #: data/ui/dialogs/preferences.ui:256 src/Dialogs/NotificationSettings.vala:51
 msgid "Boosts"
-msgstr ""
+msgstr "აწევა"
 
 #: data/ui/dialogs/preferences.ui:262
 msgid "Poll Results"
-msgstr ""
+msgstr "არჩევნის შედეგები"
 
 #: data/ui/dialogs/preferences.ui:268
 msgid "Edits"
-msgstr ""
+msgstr "ჩასწორებები"
 
 #: data/ui/dialogs/preferences.ui:274
 msgid "Group"
-msgstr ""
+msgstr "ჯგუფები"
 
 #: data/ui/dialogs/preferences.ui:287
 msgid "Filters"
-msgstr ""
+msgstr "ფილტრები"
 
 #: data/ui/dialogs/preferences.ui:291
 msgid "Keywords"
-msgstr ""
+msgstr "საკვანძო სიტყვები"
 
 #: data/ui/dialogs/preferences.ui:299
 msgid "Add Filter…"
@@ -1048,7 +1049,7 @@ msgstr ""
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:364
 msgid "Edit Profile"
-msgstr ""
+msgstr "პროფილის ჩასწორება"
 
 #: data/ui/dialogs/profile_edit.ui:68
 msgid "Edit Profile Picture"
@@ -1061,12 +1062,12 @@ msgstr ""
 
 #: data/ui/dialogs/profile_edit.ui:122 src/Views/Admin/Pages/Accounts.vala:135
 msgid "Display Name"
-msgstr ""
+msgstr "საჩვენებელი სახელი"
 
 #. translators: profile bio or description
 #: data/ui/dialogs/profile_edit.ui:130
 msgid "Bio"
-msgstr ""
+msgstr "ბიო"
 
 #. translators: Alternative Text refers to text that describes
 #. an attachment when using screen readers or the
@@ -1089,54 +1090,54 @@ msgstr ""
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:184
 msgid "Fields"
-msgstr ""
+msgstr "ველები"
 
 #. translators: window title
 #: data/ui/dialogs/schedule.ui:25
 msgid "Schedule Post"
-msgstr ""
+msgstr "პოსტის დაგეგმვა"
 
 #. translators: verb
 #: data/ui/dialogs/schedule.ui:36
 msgid "Schedule"
-msgstr ""
+msgstr "განრიგი"
 
 #. translators: Title used for calendar date picking
 #: data/ui/dialogs/schedule.ui:67
 msgid "Date"
-msgstr ""
+msgstr "თარიღი"
 
 #. translators: Title used for time picking
 #: data/ui/dialogs/schedule.ui:92
 msgid "Time"
-msgstr ""
+msgstr "დრო"
 
 #. translators: Label on an hour picker
 #: data/ui/dialogs/schedule.ui:107
 msgid "Hour"
-msgstr ""
+msgstr "საათი"
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:128
 msgid "Minute"
-msgstr ""
+msgstr "წუთი"
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:149
 msgid "Second"
-msgstr ""
+msgstr "წამი"
 
 #: data/ui/dialogs/schedule.ui:164
 msgid "Timezone"
-msgstr ""
+msgstr "დროის სარტყელი"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr ""
+msgstr "ხსენება"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr ""
+msgstr "პირადი შეტყობინება"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
@@ -1146,7 +1147,7 @@ msgstr ""
 #: src/Views/Browser.vala:174 src/Widgets/Attachment/Item.vala:175
 #: src/Widgets/Status.vala:326
 msgid "Open in Browser"
-msgstr ""
+msgstr "ბრაუზერში გახსნა"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
@@ -1157,12 +1158,12 @@ msgstr ""
 #. the hashtag on the user's profile
 #: data/ui/menus.ui:39 src/Views/Hashtag.vala:47
 msgid "Feature on Profile"
-msgstr ""
+msgstr "პროფილზე ჩვენება"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:45 src/Views/Admin/Pages/Accounts.vala:118
 msgid "Moderation"
-msgstr ""
+msgstr "მოდერაცია"
 
 #: data/ui/menus.ui:47
 msgid "Hide Boosts"
@@ -1171,13 +1172,13 @@ msgstr ""
 #: data/ui/menus.ui:52 src/API/Relationship.vala:187
 #: src/Widgets/Status.vala:338
 msgid "Mute"
-msgstr ""
+msgstr "დადუმება"
 
 #: data/ui/menus.ui:57 src/API/Relationship.vala:142
 #: src/Views/Admin/Pages/BlockedEmails.vala:24
 #: src/Views/Admin/Pages/BlockedEmails.vala:71 src/Views/Profile.vala:503
 msgid "Block"
-msgstr ""
+msgstr "ბლოკი"
 
 #: data/ui/menus.ui:61
 msgid "Block Domain"
@@ -1186,21 +1187,21 @@ msgstr ""
 #: data/ui/menus.ui:66 src/Dialogs/Admin/Report.vala:8
 #: src/Widgets/Status.vala:388
 msgid "Report"
-msgstr ""
+msgstr "ანგარიში"
 
 #: data/ui/menus.ui:73
 msgid "Timeline"
-msgstr ""
+msgstr "დროის ხაზი"
 
 #: data/ui/menus.ui:89 src/Services/Accounts/Mastodon/Account.vala:83
 #: src/Views/Lists.vala:209 src/Views/Profile.vala:613
 msgid "Lists"
-msgstr ""
+msgstr "სიები"
 
 #: data/ui/views/media_viewer.ui:10 src/Views/Browser.vala:175
 #: src/Widgets/Attachment/Item.vala:176 src/Widgets/Status.vala:327
 msgid "Copy URL"
-msgstr ""
+msgstr "URL-ის კოპირება"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:177
 msgid "Save Media…"
@@ -1213,16 +1214,16 @@ msgstr ""
 #: data/ui/views/media_viewer.ui:60 data/ui/views/sidebar/view.ui:56
 #: data/ui/widgets/status.ui:180 src/Views/Browser.vala:185
 msgid "Menu"
-msgstr ""
+msgstr "მენიუ"
 
 #: data/ui/views/media_viewer.ui:67 data/ui/views/media_viewer.ui:132
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "სრული ეკრანის გადართვა"
 
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:37 data/ui/widgets/profile.ui:25
 msgid "Bot"
-msgstr ""
+msgstr "ბოტი"
 
 #. translators: Tooltip text shown on an icon that indicates
 #. that the user is either a financial supporter
@@ -1254,7 +1255,7 @@ msgstr ""
 
 #: data/ui/views/profile_header.ui:211
 msgid "Note"
-msgstr ""
+msgstr "შენიშვნა"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:53
@@ -1263,67 +1264,67 @@ msgstr ""
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
-msgstr ""
+msgstr "ანგარიშის გადართვა"
 
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr ""
+msgstr "ინტერნეტგარეშე"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
 #: src/Views/Notifications.vala:63
 msgid "View"
-msgstr ""
+msgstr "ხედი"
 
 #: data/ui/widgets/announcement.ui:81
 msgid "Unread"
-msgstr ""
+msgstr "წაუკითხავი"
 
 #: data/ui/widgets/announcement.ui:92 data/ui/widgets/status.ui:150
 msgid "Edited"
-msgstr ""
+msgstr "ჩასწორებულია"
 
 #. translators: Media play bar play button tooltip
 #: data/ui/widgets/audiocontrols.ui:33 src/Widgets/AudioPlayer/Controls.vala:26
 msgctxt "media controls tooltip"
 msgid "Play"
-msgstr ""
+msgstr "დაკვრა"
 
 #: data/ui/widgets/audiocontrols.ui:56
 msgctxt "media controls"
 msgid "Position"
-msgstr ""
+msgstr "პოზიცია"
 
 #: data/ui/widgets/audiocontrols.ui:74
 msgctxt "media controls"
 msgid "Volume"
-msgstr ""
+msgstr "ხმის სიმაღლე"
 
 #: data/ui/widgets/status.ui:139
 msgid "Pinned"
-msgstr ""
+msgstr "მიმაგრებულია"
 
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:209
 msgid "Show Less"
-msgstr ""
+msgstr "ნაკლების ჩვენება"
 
 #. translators: Tooltip that opens content warning
 #. translators: as in 'Expand collapsed post'. It's a button label.
 #: data/ui/widgets/status.ui:242 data/ui/widgets/status.ui:287
 #: src/Widgets/Status.vala:658
 msgid "Show More"
-msgstr ""
+msgstr "მეტის ჩვენება"
 
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:332
 msgid "Show Anyway"
-msgstr ""
+msgstr "მაინც ჩვენება"
 
 #: data/ui/widgets/votebox.ui:35
 msgid "Vote"
-msgstr ""
+msgstr "ხმის მიცემა"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:10 src/Views/Admin/Pages/Accounts.vala:297
@@ -1331,22 +1332,22 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:336
 #: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
 msgid "None"
-msgstr ""
+msgstr "არცერთი"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
 msgid "Limit"
-msgstr ""
+msgstr "ლიმიტი"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
 msgid "Suspend"
-msgstr ""
+msgstr "ძილი"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:10
 msgid "Blocked"
-msgstr ""
+msgstr "დაბლოკილია"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:12
@@ -1376,21 +1377,21 @@ msgstr ""
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:34
 msgid "Block access to all resources"
-msgstr ""
+msgstr "ყველა რესურსთან წვდომის დაბლოკვა"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:36
 msgid "New sign-ups will not be possible"
-msgstr ""
+msgstr "ახალი რეგისტრაცია შეუძლებელი იქნება"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:38
 msgid "New sign-ups will require your approval"
-msgstr ""
+msgstr "ახალ რეგისტრაციებს თქვენი დადასტურება დასჭირებათ"
 
 #: src/API/Admin/Report.vala:19
 msgid "Spam"
-msgstr ""
+msgstr "სპამი"
 
 #: src/API/Admin/Report.vala:20
 msgid "Rule Violation"
@@ -1398,7 +1399,7 @@ msgstr ""
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
-msgstr ""
+msgstr "იურიდიული ინფორმაცია"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:209
@@ -1406,7 +1407,7 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:214
 #: src/Widgets/CustomEmojiChooser.vala:218
 msgid "Other"
-msgstr ""
+msgstr "სხვა"
 
 #. translators: the variable is a string report comment
 #: src/API/Admin/Report.vala:72
@@ -1416,7 +1417,7 @@ msgstr ""
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "მიზეზი"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
@@ -1438,7 +1439,7 @@ msgstr ""
 #: src/Widgets/Status/ReactionsRow.vala:152
 #: src/Widgets/Status/ReactionsRow.vala:176 src/Widgets/VoteBox.vala:64
 msgid "Error"
-msgstr ""
+msgstr "შეცდომა"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
@@ -1477,21 +1478,21 @@ msgstr ""
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
-msgstr ""
+msgstr "გლობალური დროის ხაზები"
 
 #: src/API/Filters/Filter.vala:47
 #: src/Services/Accounts/Mastodon/Account.vala:45
 #: src/Views/Conversations.vala:4
 msgid "Conversations"
-msgstr ""
+msgstr "საუბრები"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "პროფილები"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "საქაღალდე"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1564,7 +1565,7 @@ msgstr ""
 
 #: src/API/Notification.vala:227
 msgid "Reply…"
-msgstr ""
+msgstr "პასუხი…"
 
 #: src/API/Notification.vala:235
 msgid "Remove from Followers"
@@ -1576,13 +1577,13 @@ msgstr ""
 
 #: src/API/Notification.vala:247 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
-msgstr ""
+msgstr "უარყოფა"
 
 #: src/API/Notification.vala:252 src/Views/NotificationRequestsList.vala:33
 #: src/Widgets/NotificationRequest.vala:65
 #: src/Widgets/Status/FollowRequestRow.vala:14
 msgid "Accept"
-msgstr ""
+msgstr "დასტური"
 
 #: src/API/Relationship.vala:24
 msgid "Sent follow request"
@@ -1594,7 +1595,7 @@ msgstr ""
 
 #: src/API/Relationship.vala:28
 msgid "Follows you"
-msgstr ""
+msgstr "მოგყვებათ"
 
 #. translators: as in, you've been blocked by them
 #: src/API/Relationship.vala:31
@@ -1617,7 +1618,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/EmailDomain.vala:33 src/Views/Profile.vala:503
 #: src/Widgets/RelationshipButton.vala:43
 msgid "Unblock"
-msgstr ""
+msgstr "განბლოკვა"
 
 #. translators: switch label when muting someone,
 #. turning it on will also hide notifications
@@ -1639,7 +1640,7 @@ msgstr ""
 
 #: src/API/Relationship.vala:224 src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "არასდროს"
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:225 src/API/Relationship.vala:226
@@ -1649,8 +1650,8 @@ msgstr ""
 #, c-format
 msgid "%d Hour"
 msgid_plural "%d Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d საათი"
+msgstr[1] "%d საათი"
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:227 src/API/Relationship.vala:228
@@ -1684,7 +1685,7 @@ msgstr ""
 #. post visibility label
 #: src/API/Status.vala:324
 msgid "Unlisted"
-msgstr ""
+msgstr "სიაში არაა"
 
 #. translators: post visibility label
 #: src/API/Status.vala:327
@@ -1694,14 +1695,14 @@ msgstr ""
 #. translators: post visibility label
 #: src/API/Status.vala:330
 msgid "Direct"
-msgstr ""
+msgstr "პირდაპირი"
 
 #. translators: post visibility label
 #. local = will be displayed in this instance only
 #: src/API/Status.vala:334 src/Services/Accounts/Mastodon/Account.vala:111
 #: src/Views/Admin/Pages/Accounts.vala:69 src/Views/Local.vala:3
 msgid "Local"
-msgstr ""
+msgstr "ლოკალური"
 
 #. translators: the variable is the amount of times a hashtag was used in a week
 #. in the composer auto-complete popup (so keep it short)
@@ -1759,25 +1760,25 @@ msgstr ""
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:633
 msgid "translator-credits"
-msgstr ""
+msgstr "ეკატერინე პაპავა"
 
 #. translators: Wiki pages / Guides
 #: src/Application.vala:637
 msgid "Wiki"
-msgstr ""
+msgstr "ვიკი"
 
 #: src/Application.vala:639 src/Widgets/Status.vala:375
 msgid "Translate"
-msgstr ""
+msgstr "ბრუნვითი გადატანა"
 
 #: src/Application.vala:640
 msgid "Donate"
-msgstr ""
+msgstr "შემოწირულობა"
 
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
 msgid "Archives"
-msgstr ""
+msgstr "არქივები"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
@@ -1786,7 +1787,7 @@ msgstr ""
 #. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 #: src/Application.vala:645
 msgid "Calligraphy"
-msgstr ""
+msgstr "კალიგრაფია"
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
@@ -1795,11 +1796,11 @@ msgstr ""
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
 msgid "Collision"
-msgstr ""
+msgstr "შეჯახება"
 
 #: src/Application.vala:647
 msgid "Check hashes for your files"
-msgstr ""
+msgstr "თქვენი ფაილის ჰეშების შემოწმება"
 
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 #: src/Application.vala:649
@@ -1812,11 +1813,11 @@ msgstr ""
 
 #: src/Application.vala:671
 msgid "OK"
-msgstr ""
+msgstr "დიახ"
 
 #: src/Application.vala:721
 msgid "Yes"
-msgstr ""
+msgstr "დიახ"
 
 #: src/Dialogs/Admin/AddFederationBlock.vala:29
 #: src/Views/Admin/Pages/FederationBlocklist.vala:9
@@ -1826,18 +1827,18 @@ msgstr ""
 #: src/Dialogs/Admin/AddFederationBlock.vala:40
 #: src/Dialogs/Admin/AddIPBlock.vala:79
 msgid "Add"
-msgstr ""
+msgstr "დამატება"
 
 #. translators: Admin dashboard, federation block dialog,
 #. e.g. 'gnome.org'
 #: src/Dialogs/Admin/AddFederationBlock.vala:52
 msgid "Domain"
-msgstr ""
+msgstr "დომენი"
 
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
 msgid "Severity"
-msgstr ""
+msgstr "სიმძიმე"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1880,12 +1881,14 @@ msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
+"დომენის სახელის ნაწილობრივი დამახინჯება, თუ დომენის შეზღუდვების სიის "
+"გამოქვეყნება ჩართულია"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
 #: src/Widgets/Admin/DomainBlock.vala:17
 msgid "Private Comment"
-msgstr ""
+msgstr "პირადი კომენტარი"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:131
@@ -1922,23 +1925,23 @@ msgstr ""
 #. translators: Admin dashboard ip block comment entry title
 #: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
 msgid "Comment"
-msgstr ""
+msgstr "კომენტარი"
 
 #. translators: Admin dashboard ip block expiration date row title.
 #: src/Dialogs/Admin/AddIPBlock.vala:123 src/Dialogs/Composer/Polls.vala:424
 msgid "Expiration"
-msgstr ""
+msgstr "ვადა"
 
 #. translators: Admin dashboard ip block rule (e.g. no access)
 #: src/Dialogs/Admin/AddIPBlock.vala:131
 msgid "Rule"
-msgstr ""
+msgstr "წესი"
 
 #. translators: Admin dashboard ip block rule descriptions.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddIPBlock.vala:134
 msgid "Choose what will happen with requests from this IP"
-msgstr ""
+msgstr "აირჩიეთ, რა მოუვა ამ IP-დან მიღებულ მოთხოვნებს"
 
 #. translators: Question dialog when an admin is about to
 #. mark a report as resolved
@@ -1948,7 +1951,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:101
 msgid "Resolve"
-msgstr ""
+msgstr "გადაჭრა"
 
 #. translators: Question dialog when an admin is about to
 #. reopen a report
@@ -1958,7 +1961,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:101
 msgid "Reopen"
-msgstr ""
+msgstr "თავიდან გახნა"
 
 #. translators: Admin dashboard, take action against user headerbar button
 #: src/Dialogs/Admin/Report.vala:95 src/Dialogs/Admin/TakeAction.vala:18
@@ -1972,7 +1975,7 @@ msgstr ""
 #: src/Dialogs/Admin/Report.vala:125 src/Views/Admin/Pages/Accounts.vala:289
 #: src/Widgets/ProfileCover.vala:575
 msgid "Joined"
-msgstr ""
+msgstr "შესულია"
 
 #. translators: this is a "long" date format shown in places like expanded posts or
 #. the profile "Joined" field. You can find all the available specifiers
@@ -1984,7 +1987,7 @@ msgstr ""
 #: src/Widgets/ProfileCover.vala:559 src/Widgets/ScheduledStatus.vala:135
 #: src/Widgets/Status.vala:682
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%B %e, %Y"
 
 #: src/Dialogs/Admin/Report.vala:132
 msgid "Reported on"
@@ -1997,20 +2000,20 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:144
 msgid "Status"
-msgstr ""
+msgstr "სტატუსი"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Resolved"
-msgstr ""
+msgstr "ამოხსნილია"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Unresolved"
-msgstr ""
+msgstr "მოუგვარებელი"
 
 #. translators: admin dashboard, whether a report was 'forwarded' from another server
 #: src/Dialogs/Admin/Report.vala:152
 msgid "Forwarded"
-msgstr ""
+msgstr "გადაგზავნილია"
 
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:158 src/Widgets/Admin/Report.vala:22
@@ -2019,7 +2022,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:170
 msgid "Category"
-msgstr ""
+msgstr "კატეგორია"
 
 #. translators: Admin dashboard report category description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -2028,6 +2031,8 @@ msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
 msgstr ""
+"მიზეზი, რატომ მოხდა ამ ანგარიშის და/ან შემცველობის დარეპორტება, მოხსენიებული "
+"იქნება დარეპორტებული ანგარიშის კომუნიკაციაში"
 
 #: src/Dialogs/Admin/Report.vala:235
 msgid "Violated Rules"
@@ -2041,11 +2046,11 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:353
 #: src/Dialogs/Report.vala:450
 msgid "Submit"
-msgstr ""
+msgstr "გაგზავნა"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
-msgstr ""
+msgstr "გაფრთხილება"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:61
@@ -2055,7 +2060,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
-msgstr ""
+msgstr "გაყინვა"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:70
@@ -2067,7 +2072,7 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Views/Drive.vala:196
 #: src/Widgets/Status.vala:669
 msgid "Sensitive"
-msgstr ""
+msgstr "მგრძნობიარე"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
@@ -2110,17 +2115,17 @@ msgstr ""
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
-msgstr ""
+msgstr "სამუშაო დაფა"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
 msgid "Reports"
-msgstr ""
+msgstr "ანგარიშები"
 
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:114
 msgid "Accounts"
-msgstr ""
+msgstr "ანგარიშები"
 
 #. translators: Admin Dialog page title,
 #. this is about blocking
@@ -2150,25 +2155,25 @@ msgstr ""
 
 #: src/Dialogs/AnnualReport.vala:60
 msgid "Default"
-msgstr ""
+msgstr "ნაგულისხმევი"
 
 #. translators: Accent color
 #: src/Dialogs/AnnualReport.vala:62
 msgid "Accent"
-msgstr ""
+msgstr "აქცენტი"
 
 #: src/Dialogs/AnnualReport.vala:100
 msgid "Share"
-msgstr ""
+msgstr "გაზიარება"
 
 #: src/Dialogs/AnnualReport.vala:108
 msgid "Save As…"
-msgstr ""
+msgstr "შენახვა, როგორც…"
 
 #. translators: dropdown label for picking a window style
 #: src/Dialogs/AnnualReport.vala:115
 msgid "Style"
-msgstr ""
+msgstr "სტილი"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -2310,7 +2315,7 @@ msgstr ""
 #. translators: shown in file picker filter dropdown
 #: src/Dialogs/Composer/AttachmentsBin.vala:291 src/Dialogs/ProfileEdit.vala:81
 msgid "All Supported Files"
-msgstr ""
+msgstr "ყველა მხარდაჭერილი ფორმატი"
 
 #. translators: toast shown when uploading a file bigger than what the instance allows.
 #. The variable is a string filename
@@ -2330,19 +2335,19 @@ msgstr ""
 #: src/Dialogs/ProfileEdit.vala:246 src/Views/Drive.vala:240
 #: src/Widgets/EmojiReactionAccounts.vala:39
 msgid "Open"
-msgstr ""
+msgstr "გახსნა"
 
 #. translators: composer media attachment button that removes it
 #: src/Dialogs/Composer/Attachment.vala:233
 msgid "Remove Attachment"
-msgstr ""
+msgstr "მიმაგრებულის წაშლა"
 
 #. translators: composer media attachment button that edits its
 #. alt text and focus point. If metadata is difficult
 #. to translate, leave it as just "Edit"
 #: src/Dialogs/Composer/Attachment.vala:247
 msgid "Edit Metadata"
-msgstr ""
+msgstr "მეტამონაცემების ჩასწორება"
 
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:307
@@ -2395,12 +2400,12 @@ msgstr ""
 #. translators: post compositor post button label when the visibility is 'mentioned only'
 #: src/Dialogs/Composer/Dialog.vala:265
 msgid "Send"
-msgstr ""
+msgstr "გაგზავნა"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:276
 msgid "Post Language"
-msgstr ""
+msgstr "პოსტის ენა"
 
 #. translators: tooltip button on composer dialog headerbar button
 #. that makes the post visible only on the current
@@ -2408,7 +2413,7 @@ msgstr ""
 #. https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
 #: src/Dialogs/Composer/Dialog.vala:384 src/Widgets/Status.vala:1137
 msgid "Local Only"
-msgstr ""
+msgstr "მხოლოდ ლოკალური"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:414
@@ -2419,14 +2424,14 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:458 src/Dialogs/Composer/Dialog.vala:469
 #: src/Dialogs/Composer/Dialog.vala:692
 msgid "Post"
-msgstr ""
+msgstr "პოსტი"
 
 #. translators: composer post button label
 #. translators: verb
 #: src/Dialogs/Composer/Dialog.vala:536 src/Widgets/Status/ActionsRow.vala:90
 #: src/Widgets/Status/ActionsRow.vala:177
 msgid "Reply"
-msgstr ""
+msgstr "პასუხი"
 
 #. translators: composer embedded replying-to post, aria label
 #: src/Dialogs/Composer/Dialog.vala:563
@@ -2443,7 +2448,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:604 src/Widgets/Status/ActionsRow.vala:129
 #: src/Widgets/Status/ActionsRow.vala:285
 msgid "Quote"
-msgstr ""
+msgstr "ციტატა"
 
 #. translators: composer embedded quoting post, aria label
 #: src/Dialogs/Composer/Dialog.vala:634
@@ -2469,7 +2474,7 @@ msgstr ""
 #: src/Views/List.vala:25 src/Widgets/ScheduledStatus.vala:44
 #: src/Widgets/Status.vala:353
 msgid "Edit"
-msgstr ""
+msgstr "ჩასწორება"
 
 #. translators: composer title
 #: src/Dialogs/Composer/Dialog.vala:669 src/Dialogs/Composer/Dialog.vala:699
@@ -2489,7 +2494,7 @@ msgstr ""
 #. translators: dialog button label when pasting from clipboard, verb
 #: src/Dialogs/Composer/Dialog.vala:872
 msgid "Paste"
-msgstr ""
+msgstr "ჩასმა"
 
 #. translators: Dialog title when closing the composer
 #: src/Dialogs/Composer/Dialog.vala:1154
@@ -2508,7 +2513,7 @@ msgstr ""
 #. translators: dialog button action, verb
 #: src/Dialogs/Composer/Dialog.vala:1164
 msgid "Discard"
-msgstr ""
+msgstr "მოცილება"
 
 #. translators: composer placeholder
 #: src/Dialogs/Composer/Editor.vala:265 src/Dialogs/Composer/Editor.vala:277
@@ -2523,12 +2528,12 @@ msgstr ""
 #: src/Dialogs/Composer/Editor.vala:423 src/Views/Admin/Pages/Accounts.vala:409
 #: src/Views/Admin/Pages/Accounts.vala:429
 msgid "Undo"
-msgstr ""
+msgstr "გაუქმება"
 
 #: src/Dialogs/Composer/Polls.vala:50 src/Dialogs/ListEdit.vala:109
 #: src/Views/Admin/Timelines/DomainAllow.vala:35 src/Views/Search.vala:176
 msgid "Remove"
-msgstr ""
+msgstr "წაშლა"
 
 #. translators: screen reader announcements on buttons that change label
 #. when clicked in the composer. The variable is a string of
@@ -2541,7 +2546,7 @@ msgstr ""
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/Polls.vala:231
 msgid "Multiple Choice"
-msgstr ""
+msgstr "დიდი არჩევანი"
 
 #: src/Dialogs/Composer/Polls.vala:231
 msgid "Single Choice"
@@ -2556,12 +2561,12 @@ msgstr ""
 #. translators: tooltip of poll button that shows the current vote results
 #: src/Dialogs/Composer/Polls.vala:244 src/Widgets/VoteBox.vala:235
 msgid "Show Results"
-msgstr ""
+msgstr "შედეგების ჩვენება"
 
 #. translators: tooltip of poll button that hides the current vote results
 #: src/Dialogs/Composer/Polls.vala:244 src/Widgets/VoteBox.vala:231
 msgid "Hide Results"
-msgstr ""
+msgstr "შედეგების დამალვა"
 
 #. translators: tooltip text on composer polls that toggles
 #. whether the poll results should be visible
@@ -2581,36 +2586,36 @@ msgstr ""
 #, c-format
 msgid "%d Minute"
 msgid_plural "%d Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d წუთი"
+msgstr[1] "%d წუთი"
 
 #. translators: the variable is a number, short form for minutes
 #: src/Dialogs/Composer/Polls.vala:380 src/Dialogs/Composer/Polls.vala:382
 #, c-format
 msgid "%dmin"
-msgstr ""
+msgstr "%dწთ"
 
 #. translators: the variable is a number, short form for hours
 #: src/Dialogs/Composer/Polls.vala:386 src/Dialogs/Composer/Polls.vala:388
 #: src/Dialogs/Composer/Polls.vala:390
 #, c-format
 msgid "%dh"
-msgstr ""
+msgstr "%dსთ"
 
 #. translators: the variable is a number, short form for days
 #: src/Dialogs/Composer/Polls.vala:394 src/Dialogs/Composer/Polls.vala:396
 #: src/Dialogs/Composer/Polls.vala:398
 #, c-format
 msgid "%dd"
-msgstr ""
+msgstr "%dდღე"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
-msgstr ""
+msgstr "ახალი ფილტრი"
 
 #: src/Dialogs/FilterEdit.vala:189
 msgid "Keyword"
-msgstr ""
+msgstr "საკვანძო სიტყვა"
 
 #: src/Dialogs/FilterEdit.vala:192
 msgid "Match Whole Word"
@@ -2625,7 +2630,7 @@ msgstr ""
 #: src/Widgets/ScheduledStatus.vala:59 src/Widgets/ScheduledStatus.vala:204
 #: src/Widgets/Status.vala:354 src/Widgets/Status.vala:527
 msgid "Delete"
-msgstr ""
+msgstr "წაშლა"
 
 #: src/Dialogs/FilterEdit.vala:325
 #, c-format
@@ -2635,7 +2640,7 @@ msgstr ""
 #: src/Dialogs/MainWindow.vala:72
 #: src/Services/Accounts/Mastodon/Account.vala:20 src/Views/Home.vala:12
 msgid "Home"
-msgstr ""
+msgstr "საწყისი"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
@@ -2668,12 +2673,12 @@ msgstr ""
 
 #: src/Dialogs/NewAccount.vala:339
 msgid "Apply"
-msgstr ""
+msgstr "გადატარება"
 
 #. translators: Switch title in the new account window
 #: src/Dialogs/NewAccount.vala:372
 msgid "Admin Mode"
-msgstr ""
+msgstr "ადმინისტრატორის რეჟიმი"
 
 #. translators: Switch description in the new account window
 #: src/Dialogs/NewAccount.vala:374
@@ -2692,7 +2697,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:54
 msgid "Follows"
-msgstr ""
+msgstr "მიყვება"
 
 #: src/Dialogs/NotificationSettings.vala:131
 msgid "Clear All Notifications?"
@@ -2700,7 +2705,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:138
 msgid "Clear"
-msgstr ""
+msgstr "გასუფთავება"
 
 #: src/Dialogs/Preferences.vala:44
 #, c-format
@@ -2713,7 +2718,7 @@ msgstr[1] ""
 #: src/Dialogs/Preferences.vala:81
 #, c-format
 msgid "Delete %s?"
-msgstr ""
+msgstr "წავშალო \"%s\"?"
 
 #. translators: the variable is an error message
 #: src/Dialogs/Preferences.vala:96
@@ -2728,17 +2733,17 @@ msgstr ""
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
 msgid "Label"
-msgstr ""
+msgstr "ჭდე"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:53
 msgid "Content"
-msgstr ""
+msgstr "შემცველობა"
 
 #. translators: profile field, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:209
 msgid "Add Field"
-msgstr ""
+msgstr "ველის დამატება"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:228
@@ -2851,7 +2856,7 @@ msgstr ""
 #: src/Dialogs/Report.vala:310
 #, c-format
 msgid "Forward to %s"
-msgstr ""
+msgstr "%s-სთან გადაგზავნა"
 
 #. translators: submit the report
 #: src/Dialogs/Report.vala:350
@@ -2871,7 +2876,7 @@ msgstr ""
 #: src/Dialogs/Report.vala:446 src/Views/Browser.vala:157
 #: src/Widgets/AccountSuggestions.vala:79
 msgid "Back"
-msgstr ""
+msgstr "უკან"
 
 #. translators: the variable is an error
 #: src/Dialogs/Report.vala:523 src/Dialogs/Report.vala:534
@@ -2928,7 +2933,7 @@ msgstr ""
 #. translators: this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:347
 msgid "Poll results"
-msgstr ""
+msgstr "შედეგები"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -2994,30 +2999,30 @@ msgstr ""
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:493
 msgid "Plain Text"
-msgstr ""
+msgstr "უბრალო ტექსტი"
 
 #: src/Services/Accounts/Mastodon/Account.vala:65 src/Views/Bookmarks.vala:4
 msgid "Bookmarks"
-msgstr ""
+msgstr "სანიშნეები"
 
 #: src/Services/Accounts/Mastodon/Account.vala:101 src/Views/Explore.vala:3
 msgid "Explore"
-msgstr ""
+msgstr "დათვალიერება"
 
 #: src/Services/Accounts/Mastodon/Account.vala:130 src/Views/Federated.vala:4
 msgid "Federated"
-msgstr ""
+msgstr "გარე"
 
 #: src/Services/Accounts/Mastodon/Account.vala:139 src/Views/Explore.vala:7
 #: src/Views/Hashtags.vala:4 src/Views/Search.vala:116
 msgid "Hashtags"
-msgstr ""
+msgstr "ჰეშტეგები"
 
 #. translators: Drive as in 'Google Drive'
 #: src/Services/Accounts/Mastodon/Account.vala:149 src/Views/Drive.vala:849
 #: src/Views/Drive.vala:988
 msgid "Drive"
-msgstr ""
+msgstr "დისკი"
 
 #. translators: visibility dropdown subtitle
 #: src/Services/Accounts/Mastodon/Account.vala:218
@@ -3050,22 +3055,22 @@ msgstr ""
 #: src/Services/Accounts/SecretAccountStore.vala:237
 #, c-format
 msgid "%s Account"
-msgstr ""
+msgstr "%s ანგარიში"
 
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:298
 msgid "Follow System"
-msgstr ""
+msgstr "სისტემის მიყოლა"
 
 #. translators: Light mode theme
 #: src/Services/Settings.vala:301
 msgid "Light"
-msgstr ""
+msgstr "ღია"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:304
 msgid "Dark"
-msgstr ""
+msgstr "მუქი"
 
 #: src/Utils/DateTime.vala:12
 msgid "expires soon"
@@ -3150,7 +3155,7 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:84
 msgid "Just now"
-msgstr ""
+msgstr "ახლა"
 
 #. tranlators: the variable is a number, `m` as in minutes in short form
 #: src/Utils/DateTime.vala:88
@@ -3162,11 +3167,11 @@ msgstr ""
 #: src/Utils/DateTime.vala:93
 #, c-format
 msgid "%sh"
-msgstr ""
+msgstr "%sსთ"
 
 #: src/Utils/DateTime.vala:96
 msgid "Yesterday"
-msgstr ""
+msgstr "გუშინ"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -3185,13 +3190,13 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:123
 msgid "just now"
-msgstr ""
+msgstr "ახლახან"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:127
 #, c-format
 msgid "%s minutes ago"
-msgstr ""
+msgstr "%s წუთის წინ"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:132
@@ -3201,7 +3206,7 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
-msgstr ""
+msgstr "გუშინ"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:169
@@ -3247,44 +3252,44 @@ msgstr[1] ""
 #. 3000 => 3k
 #: src/Utils/Units.vala:13
 msgid "k"
-msgstr ""
+msgstr "კ"
 
 #. translators: short unit suffix for millions
 #. 3000000 => 3M
 #: src/Utils/Units.vala:17
 msgid "M"
-msgstr ""
+msgstr "ორშ"
 
 #. translators: short unit suffix for billions
 #. 3000000000 => 3G
 #: src/Utils/Units.vala:21
 msgid "G"
-msgstr ""
+msgstr "სოლ"
 
 #. translators: as in All search results
 #: src/Views/Admin/Pages/Accounts.vala:68
 #: src/Views/Admin/Pages/Accounts.vala:91 src/Views/Search.vala:113
 msgid "All"
-msgstr ""
+msgstr "ყველა"
 
 #. translators: Dropdown entry, remote as in from a different instance.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:73
 msgid "Remote"
-msgstr ""
+msgstr "დაშორებული"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: src/Views/Admin/Pages/Accounts.vala:78
 msgid "Location"
-msgstr ""
+msgstr "მდებარეობა"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:95
 msgid "Active"
-msgstr ""
+msgstr "აქტიური"
 
 #. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
 #. translators: Dropdown entry, account status.
@@ -3294,7 +3299,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:381 src/Widgets/Admin/AccountRow.vala:31
 #: src/Widgets/Admin/Report.vala:52
 msgid "Limited"
-msgstr ""
+msgstr "შეზღუდული"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3303,7 +3308,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:388 src/Widgets/Admin/AccountRow.vala:33
 #: src/Widgets/Admin/Report.vala:54
 msgid "Disabled"
-msgstr ""
+msgstr "გამორთულია"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3312,33 +3317,33 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:374 src/Widgets/Admin/AccountRow.vala:29
 #: src/Widgets/Admin/Report.vala:50
 msgid "Suspended"
-msgstr ""
+msgstr "გაჩერებულია"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:113
 msgid "Pending"
-msgstr ""
+msgstr "დარჩენილი"
 
 #: src/Views/Admin/Pages/Accounts.vala:128
 msgid "Username"
-msgstr ""
+msgstr "მომხმარებლის სახელი"
 
 #: src/Views/Admin/Pages/Accounts.vala:142
 #: src/Views/Admin/Pages/Accounts.vala:302
 msgid "E-mail"
-msgstr ""
+msgstr "ელფოსტა"
 
 #: src/Views/Admin/Pages/Accounts.vala:296
 msgid "Role"
-msgstr ""
+msgstr "როლი"
 
 #. translators: admin dashboard, account view
 #. e-mail has been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:313
 msgid "Confirmed"
-msgstr ""
+msgstr "დადასტურდა"
 
 #. translators: admin dashboard, account view
 #. e-mail has NOT been confirmed
@@ -3359,12 +3364,12 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:356
 #: src/Views/Admin/Pages/Accounts.vala:490
 msgid "Approve"
-msgstr ""
+msgstr "დასტური"
 
 #: src/Views/Admin/Pages/Accounts.vala:363
 #: src/Views/Admin/Pages/Accounts.vala:523
 msgid "Reject"
-msgstr ""
+msgstr "უარყოფა"
 
 #. translators: Question dialog when an admin is about to
 #. undo an action, like a suspension
@@ -3401,7 +3406,7 @@ msgstr ""
 #: src/Views/Admin/Pages/BlockedEmails.vala:60
 #, c-format
 msgid "Block %s?"
-msgstr ""
+msgstr "დავბლოკო %s?"
 
 #. translators: Question dialog description when an admin is about to
 #. block an e-mail domain. The variable is a string.
@@ -3411,6 +3416,8 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
+"ეს შეიძლება იყოს დონების სახელი, რომელიც ელფოსტის მისამართში ან MX "
+"ჩანაწერში, რომელსაც ის იყენებს, ჩანს. ისინი რეგისტრაციისას შემოწმდება."
 
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
@@ -3451,7 +3458,7 @@ msgstr ""
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
 msgid "Software"
-msgstr ""
+msgstr "პროგრამები"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:26
@@ -3460,7 +3467,7 @@ msgstr ""
 
 #: src/Views/Admin/Pages/Dashboard.vala:53
 msgid "Stats"
-msgstr ""
+msgstr "სტატისტიკა"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about allowing federation
@@ -3472,7 +3479,7 @@ msgstr ""
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
 msgid "Allow"
-msgstr ""
+msgstr "დაშვება"
 
 #. translators: Question dialog when an admin is about to
 #. allow federation with an instance. The variable is a
@@ -3515,51 +3522,51 @@ msgstr ""
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:57
 msgid "Previous Page"
-msgstr ""
+msgstr "წინა გვერდი"
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:66
 msgid "Next Page"
-msgstr ""
+msgstr "შემდეგი გვერდი"
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:75
 msgid "Announcements"
-msgstr ""
+msgstr "გამოცხადებები"
 
 #: src/Views/Announcements.vala:8
 msgid "No Announcements"
-msgstr ""
+msgstr "გამოცხადებების გარეშე"
 
 #. translators: Fallback shown when there are 0 results
 #: src/Views/Base.vala:4
 msgid "Nothing to see here"
-msgstr ""
+msgstr "აქ სანახავი არაფერია"
 
 #: src/Views/Base.vala:142
 msgid "Reload"
-msgstr ""
+msgstr "თავიდან ჩატვირთვა"
 
 #: src/Views/Base.vala:221
 msgid "An Error Occurred"
-msgstr ""
+msgstr "შეცდომა"
 
 #: src/Views/Bookmarks.vala:6
 msgid "No Bookmarks"
-msgstr ""
+msgstr "სანიშნეების გარეშე"
 
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:43
 msgid "Secure"
-msgstr ""
+msgstr "დაცული"
 
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:48
 msgid "Insecure"
-msgstr ""
+msgstr "დაუცველი"
 
 #. translators: in-app web browser, move forward in history action
 #: src/Views/Browser.vala:166
 msgid "Forward"
-msgstr ""
+msgstr "წინ"
 
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
@@ -3568,12 +3575,12 @@ msgstr ""
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
-msgstr ""
+msgstr "საუბრების გარეშე"
 
 #. translators: as in posts that are saved but not posted yet
 #: src/Views/DraftStatuses.vala:4 src/Views/Sidebar.vala:78
 msgid "Draft Posts"
-msgstr ""
+msgstr "პოსტის მონახაზები"
 
 #. translators: as in posts that are saved but not posted yet
 #: src/Views/DraftStatuses.vala:7
@@ -3602,7 +3609,7 @@ msgstr ""
 
 #: src/Views/Drive.vala:242
 msgid "Copy Link"
-msgstr ""
+msgstr "ბმულის კოპირება"
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
@@ -3615,7 +3622,7 @@ msgstr ""
 
 #: src/Views/Drive.vala:259 src/Views/Drive.vala:409
 msgid "Rename"
-msgstr ""
+msgstr "სახელის გადარქმევა"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
@@ -3626,11 +3633,11 @@ msgstr ""
 
 #: src/Views/Drive.vala:407
 msgid "Rename Folder"
-msgstr ""
+msgstr "საქაღალდის სახელის შეცვლა"
 
 #: src/Views/Drive.vala:407
 msgid "Rename File"
-msgstr ""
+msgstr "ფაილის სახელის გადარქმევა"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
@@ -3649,25 +3656,25 @@ msgstr ""
 #. translators: title on an entry
 #: src/Views/Drive.vala:730
 msgid "New Folder"
-msgstr ""
+msgstr "ახალი საქაღალდე"
 
 #. translators: placeholder on an entry
 #: src/Views/Drive.vala:732
 msgid "Folder Name"
-msgstr ""
+msgstr "საქაღალდის სახელი"
 
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
 msgid "Create"
-msgstr ""
+msgstr "შექმნა"
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
-msgstr ""
+msgstr "საქაღალდის შექმნა"
 
 #: src/Views/Drive.vala:748
 msgid "Upload File"
-msgstr ""
+msgstr "ფაილის ატვირთვა"
 
 #. translators: error that shows up as a toast when creating folders
 #. in iceshrimp drive
@@ -3696,7 +3703,7 @@ msgstr ""
 #: src/Views/Drive.vala:1224
 #, c-format
 msgid "Delete '%s'?"
-msgstr ""
+msgstr "წავშალო \"%s\"?"
 
 #: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
 msgid "This is irreversible."
@@ -3741,7 +3748,7 @@ msgstr ""
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
-msgstr ""
+msgstr "ისტორიის ჩასწორება"
 
 #: src/Views/EditHistory.vala:7
 msgid "No Edit History"
@@ -3753,11 +3760,11 @@ msgstr ""
 
 #: src/Views/Explore.vala:8
 msgid "News"
-msgstr ""
+msgstr "ახალი ამბები"
 
 #: src/Views/Explore.vala:8
 msgid "No News"
-msgstr ""
+msgstr "სიახლეების გარეშე"
 
 #: src/Views/Explore.vala:9
 msgid "For You"
@@ -3769,39 +3776,39 @@ msgstr ""
 
 #: src/Views/Favorites.vala:5 src/Views/StatusStats.vala:17
 msgid "No Favorites"
-msgstr ""
+msgstr "რჩეულების გარეშე"
 
 #: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:76
 msgid "Follow Requests"
-msgstr ""
+msgstr "მიყოლის მოთხოვნები"
 
 #: src/Views/FollowRequests.vala:7
 msgid "No Follow Requests"
-msgstr ""
+msgstr "მიყოლის მოთხოვნების გარეშე"
 
 #: src/Views/Hashtags.vala:21 src/Views/Lists.vala:45
 #: src/Widgets/Status/ActionsRow.vala:142
 msgid "Favorite"
-msgstr ""
+msgstr "რჩეული"
 
 #: src/Views/Hashtag.vala:85 src/Views/Hashtag.vala:98
 #: src/Widgets/RelationshipButton.vala:33
 #: src/Widgets/RelationshipButton.vala:70
 msgid "Follow"
-msgstr ""
+msgstr "გამოწერა"
 
 #: src/Views/Hashtag.vala:94 src/Widgets/RelationshipButton.vala:62
 msgid "Unfollow"
-msgstr ""
+msgstr "გამოწერის გაუქმება"
 
 #: src/Views/Home.vala:23
 msgid "Compose"
-msgstr ""
+msgstr "შედგენა"
 
 #: src/Views/Lists.vala:121
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr ""
+msgstr "წავშალო '%s' ?"
 
 #: src/Views/Lists.vala:122
 msgid "This action cannot be reverted."
@@ -3809,7 +3816,7 @@ msgstr ""
 
 #: src/Views/Lists.vala:212
 msgid "No Lists"
-msgstr ""
+msgstr "სიების გარეშე"
 
 #: src/Views/Lists.vala:216
 msgid "New list title"
@@ -3817,11 +3824,11 @@ msgstr ""
 
 #: src/Views/Lists.vala:225
 msgid "Add list"
-msgstr ""
+msgstr "სიის დამატება"
 
 #: src/Views/Main.vala:81
 msgid "Open Sidebar"
-msgstr ""
+msgstr "გვერდითი ზოლის გახსნა"
 
 #: src/Views/MediaViewer.vala:827
 msgid "Copied media url to clipboard"
@@ -3845,7 +3852,7 @@ msgstr ""
 
 #: src/Views/MutesBlocks.vala:19
 msgid "Blocks"
-msgstr ""
+msgstr "ბლოკები"
 
 #: src/Views/MutesBlocks.vala:23
 msgid "No Blocked Accounts"
@@ -3866,7 +3873,7 @@ msgstr ""
 #: src/Views/NotificationRequestsList.vala:26
 #: src/Widgets/NotificationRequest.vala:56
 msgid "Dismiss"
-msgstr ""
+msgstr "მოცილება"
 
 #: src/Views/NotificationRequests.vala:4
 msgid "Filtered Notifications"
@@ -3885,21 +3892,21 @@ msgstr[1] ""
 
 #: src/Views/Notifications.vala:43
 msgid "No Notifications"
-msgstr ""
+msgstr "გაფრთხილებების გარეშე"
 
 #: src/Views/Profile.vala:118
 msgid "Profile"
-msgstr ""
+msgstr "პროფილი"
 
 #. translators: posts tab on profiles, shown when empty.
 #: src/Views/Profile.vala:270 src/Views/Timeline.vala:73
 msgid "No Posts"
-msgstr ""
+msgstr "პოსტების გარეშე"
 
 #. translators: followers tab on profiles, shown when empty.
 #: src/Views/Profile.vala:275
 msgid "No Followers"
-msgstr ""
+msgstr "მიმდევრების გარეშე"
 
 #. translators: following tab on profiles, shown when empty.
 #: src/Views/Profile.vala:280
@@ -3982,7 +3989,7 @@ msgstr ""
 #. translators: as in posts set to be posted sometime in the future
 #: src/Views/ScheduledStatuses.vala:8
 msgid "No Scheduled Posts"
-msgstr ""
+msgstr "დაგეგმილი პოსტების გარეშე"
 
 #: src/Views/Search.vala:24
 msgid "Search Posts and Accounts"
@@ -3990,18 +3997,18 @@ msgstr ""
 
 #: src/Views/Search.vala:38
 msgid "Clear Entry"
-msgstr ""
+msgstr "ჩანაწერის გასუფთავება"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Views/Search.vala:113 src/Views/Search.vala:114
 #: src/Views/Search.vala:115 src/Views/Search.vala:116
 #: src/Widgets/CustomEmojiChooser.vala:173
 msgid "No Results"
-msgstr ""
+msgstr "შედეგების გარეშე"
 
 #: src/Views/Search.vala:341
 msgid "Language"
-msgstr ""
+msgstr "ენა"
 
 #. translators: warning toast in advanced search dialog when auto-filling a user fails.
 #. Auto-fill refers to automatically filling the entry with the first
@@ -4035,16 +4042,16 @@ msgstr ""
 
 #: src/Views/Sidebar.vala:94
 msgid "Preferences"
-msgstr ""
+msgstr "მორგება"
 
 #: src/Views/Sidebar.vala:95
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "კლავიატურის მალსახმობები"
 
 #: src/Views/Sidebar.vala:96
 #, c-format
 msgid "About %s"
-msgstr ""
+msgstr "%s-ის შესახებ"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:349
@@ -4058,7 +4065,7 @@ msgstr ""
 
 #: src/Views/Sidebar.vala:352
 msgid "Forget"
-msgstr ""
+msgstr "დავიწყება"
 
 #: src/Views/StatusStats.vala:7
 msgid "Post Stats"
@@ -4083,7 +4090,7 @@ msgstr ""
 #. see https://github.com/glitch-soc/mastodon/pull/2462
 #: src/Views/StatusStats.vala:36
 msgid "Reactions"
-msgstr ""
+msgstr "მოხსენებები"
 
 #. translators: Reactions page empty state.
 #. A reaction is not the same as a favorite or a boost,
@@ -4094,7 +4101,7 @@ msgstr ""
 
 #: src/Views/Thread.vala:32
 msgid "Conversation"
-msgstr ""
+msgstr "საუბარი"
 
 #: src/Views/Thread.vala:127 src/Views/Thread.vala:141
 msgid "Reveal Spoilers"
@@ -4106,7 +4113,7 @@ msgstr ""
 
 #: src/Views/Timeline.vala:233 src/Widgets/Status/ActionsRow.vala:391
 msgid "Network Error"
-msgstr ""
+msgstr "ქსელის შეცდომა"
 
 #. translators: Tooltip text for avatars in posts.
 #. The variable is a string user handle.
@@ -4181,11 +4188,11 @@ msgstr ""
 
 #: src/Widgets/Admin/AssignedRow.vala:38
 msgid "Unassign"
-msgstr ""
+msgstr "მინიჭების მოხსნა"
 
 #: src/Widgets/Admin/AssignedRow.vala:42
 msgid "Assign"
-msgstr ""
+msgstr "მინიჭება"
 
 #. translators: subtitle on email domain blocks.
 #. The variable is the number of sing up
@@ -4247,7 +4254,7 @@ msgstr ""
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:73
 msgid "Hide Media"
-msgstr ""
+msgstr "მედიის დამალვა"
 
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:84
@@ -4260,7 +4267,7 @@ msgstr ""
 
 #: src/Widgets/Attachment/Item.vala:34
 msgid "Save Attachment"
-msgstr ""
+msgstr "მიმაგრებული ფაილის შენახვა"
 
 #: src/Widgets/Attachment/Item.vala:44
 msgid "Saved Media"
@@ -4278,7 +4285,7 @@ msgstr ""
 #: src/Widgets/AudioPlayer/Controls.vala:22
 msgctxt "media controls tooltip"
 msgid "Stop"
-msgstr ""
+msgstr "გაჩერება"
 
 #. translators: the variable is the date the book was published
 #: src/Widgets/BookWyrmPage.vala:79
@@ -4291,21 +4298,21 @@ msgstr ""
 #: src/Widgets/BookWyrmPage.vala:98
 #, c-format
 msgid "by %s"
-msgstr ""
+msgstr "%s-სგან"
 
 #. translators: Used when there are results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:67
 #: src/Widgets/CustomEmojiChooser.vala:169
 msgid "Results"
-msgstr ""
+msgstr "შედეგები"
 
 #: src/Widgets/CustomEmojiChooser.vala:73
 msgid "Recently Used"
-msgstr ""
+msgstr "ახლახანს _გამოყენებული"
 
 #: src/Widgets/CustomEmojiChooser.vala:212
 msgid "Custom Emojis"
-msgstr ""
+msgstr "მორგებული ემოჯიები"
 
 #. translators: the variable is the amount of emoji reactions, e.g. '4 Reactions'.
 #. A reaction is not the same as a favorite or a boost,
@@ -4412,7 +4419,7 @@ msgstr ""
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "დამალული"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
@@ -4421,7 +4428,7 @@ msgstr ""
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
 msgid "Featured"
-msgstr ""
+msgstr "პოპულარული"
 
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63
@@ -4438,16 +4445,16 @@ msgstr ""
 
 #: src/Widgets/RelationshipButton.vala:55 src/Widgets/Status.vala:341
 msgid "Unmute"
-msgstr ""
+msgstr "დადუმების გამორთვა"
 
 #. translators: not a verb, as in a post that is saved but not posted yet
 #: src/Widgets/ScheduledStatus.vala:13
 msgid "Draft"
-msgstr ""
+msgstr "მონახაზი"
 
 #: src/Widgets/ScheduledStatus.vala:51 src/Widgets/ScheduledStatus.vala:151
 msgid "Reschedule"
-msgstr ""
+msgstr "განრიგში თავიდან ჩამატება"
 
 #. translators: Scheduled Post title, 'scheduled for <date>'
 #: src/Widgets/ScheduledStatus.vala:137
@@ -4479,7 +4486,7 @@ msgstr ""
 #: src/Widgets/Status/ActionsRow.vala:57 src/Widgets/Status/ActionsRow.vala:109
 #: src/Widgets/Status/ActionsRow.vala:286
 msgid "Boost"
-msgstr ""
+msgstr "აწევა"
 
 #: src/Widgets/Status/ActionsRow.vala:60
 msgid "This post can't be boosted"
@@ -4487,7 +4494,7 @@ msgstr ""
 
 #: src/Widgets/Status/ActionsRow.vala:161
 msgid "Bookmark"
-msgstr ""
+msgstr "სანიშნე"
 
 #. translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
 #. The "old" suffix is translated on the datetime strings, not here
@@ -4518,12 +4525,12 @@ msgstr ""
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:345 src/Widgets/Status.vala:847
 msgid "Pin"
-msgstr ""
+msgstr "მიმაგრება"
 
 #. translators: Post menu items to revert a translation
 #: src/Widgets/Status.vala:379
 msgid "Show Original"
-msgstr ""
+msgstr "ორიგინალის ჩვენება"
 
 #. translators: dialog subtitle visibility warning when copying a link to a
 #. post that is private or mentioned-only
@@ -4553,7 +4560,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:416
 msgid "Copy"
-msgstr ""
+msgstr "კოპირება"
 
 #: src/Widgets/Status.vala:425 src/Widgets/Status.vala:430
 msgid "Copied post url to clipboard"
@@ -4590,7 +4597,7 @@ msgstr ""
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:845
 msgid "Unpin"
-msgstr ""
+msgstr "მოხსნა"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4711,7 +4718,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:1052
 msgid "Filtered"
-msgstr ""
+msgstr "გაფილტრული"
 
 #. translatiors: the first variable is a language name,
 #. the second variable is a service name e.g. DeepL
