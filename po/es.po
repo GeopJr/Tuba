@@ -8,20 +8,21 @@
 # Óscar Fernández Díaz <42654671+oscfdezdz@users.noreply.github.com>, 2025.
 # Tarcísio Surdi <tarcisio.surdi@pm.me>, 2025.
 # Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2025.
+# Alfredo Caraza Gómez <redes85-nubes@yahoo.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-11-06 06:51+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2026-04-17 14:09+0000\n"
+"Last-Translator: Alfredo Caraza Gómez <redes85-nubes@yahoo.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -3667,7 +3668,7 @@ msgstr "Adelante"
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
 msgid "Copied url to clipboard"
-msgstr "URL copiada al portapapeles"
+msgstr "Enlace copiado al portapapeles"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
