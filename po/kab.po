@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # R_SACI <rgebbid@gmail.com>, 2023.
-# ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2024, 2025.
+# ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2024, 2025, 2026.
 # Moonshadow <moonshadow@users.noreply.hosted.weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-08-27 14:01+0000\n"
+"PO-Revision-Date: 2026-03-26 16:09+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/tuba/tuba/kab/>\n"
 "Language: kab\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -1124,12 +1124,12 @@ msgstr "Asrag"
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:128
 msgid "Minute"
-msgstr ""
+msgstr "Tasdidt"
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:149
 msgid "Second"
-msgstr ""
+msgstr "Tasint"
 
 #: data/ui/dialogs/schedule.ui:164
 msgid "Timezone"
@@ -1492,11 +1492,11 @@ msgstr "Idiwenniyen"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr "Imaɣnuyen"
+msgstr "Imaɣnuten"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "Akaram"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1711,8 +1711,7 @@ msgstr "Adigan"
 #. translators: the variable is the amount of times a hashtag was used in a week
 #. in the composer auto-complete popup (so keep it short)
 #: src/API/Tag.vala:47
-#, fuzzy, c-format
-#| msgid "%d per week"
+#, c-format
 msgid "%d per week"
 msgid_plural "%d per week"
 msgstr[0] "%d deg ddurt"
@@ -1783,7 +1782,7 @@ msgstr "Mudd tawsa"
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
 msgid "Archives"
-msgstr ""
+msgstr "Iɣbaren"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
@@ -1903,15 +1902,15 @@ msgstr ""
 #, c-format
 msgid "%d Year"
 msgid_plural "%d Years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d n useggas"
+msgstr[1] "%d n iseggasen"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:21 src/Dialogs/Admin/AddIPBlock.vala:23
 #, c-format
 msgid "%d Month"
 msgid_plural "%d Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d n wayyur"
+msgstr[1] "%d n wayyuren"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:25 src/Dialogs/FilterEdit.vala:35
 #, c-format
@@ -2443,7 +2442,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:571
 #, c-format
 msgid "Reply to @%s"
-msgstr ""
+msgstr "Efk-d tiririt i %s"
 
 #. translators: composer post button label, verb
 #: src/Dialogs/Composer/Dialog.vala:604 src/Widgets/Status/ActionsRow.vala:129
@@ -2562,12 +2561,12 @@ msgstr ""
 #. translators: tooltip of poll button that shows the current vote results
 #: src/Dialogs/Composer/Polls.vala:244 src/Widgets/VoteBox.vala:235
 msgid "Show Results"
-msgstr ""
+msgstr "Sken-d igmaḍ"
 
 #. translators: tooltip of poll button that hides the current vote results
 #: src/Dialogs/Composer/Polls.vala:244 src/Widgets/VoteBox.vala:231
 msgid "Hide Results"
-msgstr ""
+msgstr "Ffer igmaḍ"
 
 #. translators: tooltip text on composer polls that toggles
 #. whether the poll results should be visible
@@ -2953,7 +2952,7 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:368
 #, c-format
 msgid "In Reply to %s"
-msgstr ""
+msgstr "Deg tririt i %s"
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
@@ -3152,7 +3151,7 @@ msgstr ""
 #. %M is the minutes
 #: src/Utils/DateTime.vala:82 src/Utils/DateTime.vala:121
 msgid "%b %-e, %Y %H:%M"
-msgstr ""
+msgstr "%-e %b, %Y %H:%M"
 
 #: src/Utils/DateTime.vala:84
 msgid "Just now"
@@ -3555,12 +3554,12 @@ msgstr "Ulac ticraḍ"
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:43
 msgid "Secure"
-msgstr ""
+msgstr "D aɣelsan"
 
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:48
 msgid "Insecure"
-msgstr ""
+msgstr "D araɣelsan"
 
 #. translators: in-app web browser, move forward in history action
 #: src/Views/Browser.vala:166
@@ -3589,7 +3588,7 @@ msgstr ""
 #. translators: Error reason when trying to delete a non-empty folder
 #: src/Views/Drive.vala:24
 msgid "Folder is not empty"
-msgstr ""
+msgstr "Akaram-nni mačči d ilem"
 
 #. translators: Error reason when trying to delete an actively used file
 #: src/Views/Drive.vala:29
@@ -3655,12 +3654,12 @@ msgstr ""
 #. translators: title on an entry
 #: src/Views/Drive.vala:730
 msgid "New Folder"
-msgstr ""
+msgstr "Akaram amaynut"
 
 #. translators: placeholder on an entry
 #: src/Views/Drive.vala:732
 msgid "Folder Name"
-msgstr ""
+msgstr "Isem n ukaram"
 
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
@@ -3669,11 +3668,11 @@ msgstr ""
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
-msgstr ""
+msgstr "Snulfu-d akaram"
 
 #: src/Views/Drive.vala:748
 msgid "Upload File"
-msgstr ""
+msgstr "Sali afaylu"
 
 #. translators: error that shows up as a toast when creating folders
 #. in iceshrimp drive
@@ -3702,7 +3701,7 @@ msgstr ""
 #: src/Views/Drive.vala:1224
 #, c-format
 msgid "Delete '%s'?"
-msgstr ""
+msgstr "Kkes '%s'?"
 
 #: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
 msgid "This is irreversible."
@@ -3724,11 +3723,11 @@ msgstr ""
 #. translators: confirmation dialog in a file-browser-like page
 #: src/Views/Drive.vala:1311
 msgid "Delete Selection?"
-msgstr ""
+msgstr "Kkes tafrayt?"
 
 #: src/Views/Drive.vala:1372
 msgid "Upload Files"
-msgstr ""
+msgstr "Sali-d ifuyla"
 
 #. translators: toast popping up when a user uploads a file that already exists in drive
 #. The variable is a string filename.
@@ -3827,7 +3826,7 @@ msgstr "Rnu tabdart"
 
 #: src/Views/Main.vala:81
 msgid "Open Sidebar"
-msgstr ""
+msgstr "Ldi agalis adisan"
 
 #: src/Views/MediaViewer.vala:827
 msgid "Copied media url to clipboard"
@@ -4361,7 +4360,7 @@ msgstr ""
 #: src/Widgets/PreviewCard.vala:103 src/Widgets/PreviewCard.vala:111
 #, c-format
 msgid "By %s"
-msgstr ""
+msgstr "Sɣur %s"
 
 #. translators: the variable is a number. This is shown on
 #. preview cards of articles from 'verified' fedi authors,
@@ -4371,8 +4370,8 @@ msgstr ""
 #, c-format
 msgid "See %d author"
 msgid_plural "See all %d authors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Wali %d n umeskar"
+msgstr[1] "Wali %d n imeskaren"
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The first variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -4685,15 +4684,15 @@ msgstr ""
 #, c-format
 msgid "%s reply"
 msgid_plural "%s replies"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s n tririt"
+msgstr[1] "%s n tririyin"
 
 #: src/Widgets/Status.vala:987
 #, c-format
 msgid "%s boost"
 msgid_plural "%s boosts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s n uzuzer"
+msgstr[1] "%s n yizuzar"
 
 #: src/Widgets/Status.vala:992
 #, c-format
@@ -4730,7 +4729,7 @@ msgstr ""
 #: src/Widgets/Status.vala:1205
 #, c-format
 msgid "Translated using %s"
-msgstr ""
+msgstr "Tettwasuqel s %s"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
