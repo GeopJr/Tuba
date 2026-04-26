@@ -642,11 +642,11 @@ namespace Tuba {
 			dialog.add_link (_("Translate"), Build.TRANSLATE_WEBSITE);
 			dialog.add_link (_("Donate"), Build.DONATE_WEBSITE);
 
-			// translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
+			// translators: Application metainfo for the app "Archives". <https://codeberg.org/GeopJr/Archives/>
 			dialog.add_other_app ("dev.geopjr.Archives", _("Archives"), _("Create and view web archives"));
-			// translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
+			// translators: Application metainfo for the app "Calligraphy". <https://codeberg.org/GeopJr/Calligraphy>
 			dialog.add_other_app ("dev.geopjr.Calligraphy", _("Calligraphy"), _("Turn text into ASCII banners"));
-			// translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
+			// translators: Application metainfo for the app "Collision". <https://codeberg.org/GeopJr/Collision>
 			dialog.add_other_app ("dev.geopjr.Collision", _("Collision"), _("Check hashes for your files"));
 			// translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 			dialog.add_other_app ("dev.geopjr.Turntable", _("Turntable"), _("Scrobble your music"));

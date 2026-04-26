@@ -145,6 +145,7 @@ class Tuba::GitHubSupporters
     GRAPHQL
   end
 
+  # TODO: Forgejo API
   def gather_contributors : Array(String)
     res = [] of String
 

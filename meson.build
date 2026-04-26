@@ -31,10 +31,10 @@ config.set('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/')
 config.set('VERSION', meson.project_version())
 config.set('PREFIX', get_option('prefix'))
 config.set('NAME', 'Tuba')
-config.set('WEBSITE', 'https://github.com/GeopJr/Tuba')
+config.set('WEBSITE', 'https://codeberg.org/GeopJr/Tuba')
 config.set('DONATE_WEBSITE', 'https://geopjr.dev/donate')
-config.set('TRANSLATE_WEBSITE', 'https://hosted.weblate.org/engage/tuba/')
-config.set('WIKI_WEBSITE', 'https://github.com/GeopJr/Tuba/wiki')
+config.set('TRANSLATE_WEBSITE', 'https://translate.codeberg.org/engage/tuba/')
+config.set('WIKI_WEBSITE', 'https://codeberg.org/GeopJr/Tuba/wiki')
 config.set('PROFILE', devel ? 'development' : 'production')
 
 if devel

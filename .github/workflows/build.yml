@@ -1,7 +1,7 @@
 on:
   push:
-    branches: [main]
-  pull_request:
+  #   branches: [main]
+  # pull_request:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -11,6 +11,10 @@ jobs:
     name: "Vala Lint"
     runs-on: ubuntu-latest
     steps:
+    - uses: anttikivi/forgejo-status@5b8059a71fcbacde735bf92eb05b30ee24458bfc
+      continue-on-error: true
+      with:
+        token: ${{ secrets.CODEBERG_TOKEN }}
     - uses: actions/checkout@v4
     - uses: elementary/actions/vala-lint@master
       with:
@@ -19,7 +23,7 @@ jobs:
     name: "Flatpak Builder"
     needs: [ lint ]
     container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-49
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-50
       options: --privileged
     strategy:
       matrix:
@@ -32,6 +36,11 @@ jobs:
       fail-fast: false
     runs-on: ${{ matrix.variant.runner }}
     steps:
+    - uses: anttikivi/forgejo-status@5b8059a71fcbacde735bf92eb05b30ee24458bfc
+      continue-on-error: true
+      with:
+        token: ${{ secrets.CODEBERG_TOKEN }}
+        context: ${{ github.workflow }} / ${{ github.job }} / ${{ matrix.variant.arch }}
     - uses: actions/checkout@v4
     - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
       with:
