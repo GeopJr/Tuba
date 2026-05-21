@@ -52,128 +52,61 @@
 	],
 	"modules": [
 		{
-			"name": "libpeas",
+			"name": "libsass",
 			"buildsystem": "meson",
-			"config-opts": [
-				"--wrap-mode=nodownload",
-				"-Dgjs=false",
-				"-Dlua51=false",
-				"-Dintrospection=false"
+			"cleanup": [
+				"*"
 			],
 			"sources": [
 				{
-					"type": "archive",
-					"url": "https://download.gnome.org/sources/libpeas/2.0/libpeas-2.0.5.tar.xz",
-					"sha256": "376f2f73d731b54e13ddbab1d91b6382cf6a980524def44df62add15489de6dd",
-					"x-checker-data": {
-						"type": "gnome",
-						"name": "libpeas"
-					}
+					"type": "git",
+					"url": "https://github.com/lazka/libsass.git",
+					"branch": "meson"
 				}
 			]
 		},
 		{
-			"name": "clapper",
+			"name": "sassc",
+			"buildsystem": "meson",
+			"cleanup": [
+				"*"
+			],
+			"sources": [
+				{
+					"type": "git",
+					"url": "https://github.com/lazka/sassc.git",
+					"branch": "meson"
+				}
+			]
+		},
+		{
+			"name": "gtk",
 			"buildsystem": "meson",
 			"config-opts": [
-				"-Dclapper=enabled",
-				"-Dclapper-gtk=enabled",
-				"-Dclapper-app=disabled",
+				"-Dbuildtype=debugoptimized",
+				"-Dprofile=devel",
 				"-Dintrospection=enabled",
-				"-Dvapi=enabled"
-			],
-			"build-options": {
-				"arch": {
-					"aarch64": {
-						"append-path": "/usr/lib/sdk/llvm21/bin",
-						"prepend-ld-library-path": "/usr/lib/sdk/llvm21/lib",
-						"env": {
-							"CC": "clang"
-						}
-					}
-				}
-			},
-			"sources": [
-				{
-					"type": "git",
-					"url": "https://github.com/Rafostar/clapper.git",
-					"tag": "0.8.0"
-				}
-			]
-		},
-		{
-			"name": "libspelling",
-			"buildsystem": "meson",
-			"config-opts": [
-				"-Ddocs=false"
-			],
-			"build-options": {
-				"arch": {
-					"aarch64": {
-						"append-path": "/usr/lib/sdk/llvm21/bin",
-						"prepend-ld-library-path": "/usr/lib/sdk/llvm21/lib",
-						"env": {
-							"CC": "clang"
-						}
-					}
-				}
-			},
-			"sources": [
-				{
-					"type": "git",
-					"url": "https://gitlab.gnome.org/GNOME/libspelling.git",
-					"tag": "0.4.5"
-				}
-			]
-		},
-		{
-			"name": "exiv2",
-			"sources": [
-				{
-					"type": "archive",
-					"url": "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.5.tar.gz",
-					"sha256": "e1671f744e379a87ba0c984617406fdf8c0ad0c594e5122f525b2fb7c28d394d",
-					"x-checker-data": {
-						"type": "anitya",
-						"project-id": 769,
-						"stable-only": true,
-						"url-template": "https://github.com/Exiv2/exiv2/archive/refs/tags/v$version.tar.gz"
-					}
-				}
+				"-Dprint-cups=disabled",
+				"-Dbuild-demos=false",
+				"-Dbuild-testsuite=false",
+				"-Dbuild-examples=false",
+				"-Dbuild-tests=false"
 			],
 			"cleanup": [
-				"/bin"
+				"/bin/gtk*"
 			],
-			"buildsystem": "cmake-ninja",
-			"config-opts": [
-				"-DEXIV2_BUILD_EXIV2_COMMAND=OFF",
-				"-DEXIV2_ENABLE_INIH=OFF",
-				"-DEXIV2_ENABLE_VIDEO=OFF",
-				"-DEXIV2_BUILD_SAMPLES=OFF",
-				"-DEXIV2_BUILD_UNIT_TESTS=OFF",
-				"-DEXIV2_BUILD_DOC=OFF",
-				"-DEXIV2_ENABLE_LENSDATA=OFF",
-				"-DEXIV2_ENABLE_XMP=ON",
-				"-DEXIV2_ENABLE_EXTERNAL_XMP=OFF",
-				"-DCMAKE_BUILD_TYPE=MinSizeRel"
-			]
-		},
-		{
-			"name": "gexiv2",
-			"buildsystem": "meson",
-			"config-opts": [
-				"-Dpython3=false",
-				"-Dtools=false"
-			],
+			"build-options": {
+				"append-path": "/usr/lib/sdk/llvm21/bin",
+				"prepend-ld-library-path": "/usr/lib/sdk/llvm21/lib",
+				"env": {
+					"CC": "clang"
+				}
+			},
 			"sources": [
 				{
-					"type": "archive",
-					"url": "https://download.gnome.org/sources/gexiv2/0.15/gexiv2-0.15.0.tar.xz",
-					"sha256": "045ec4584d32963719e0722929f40f1d19566d4582e1eee4604be97e8c3eb740",
-					"x-checker-data": {
-						"type": "gnome",
-						"name": "gexiv2"
-					}
+					"type": "git",
+					"url": "https://gitlab.gnome.org/GNOME/gtk.git",
+					"branch": "scrollable-box"
 				}
 			]
 		},
@@ -183,11 +116,11 @@
 			"buildsystem": "meson",
 			"config-opts": [
 				"-Ddevel=true",
-				"-Dclapper=enabled",
-				"-Dspelling=enabled",
-				"-Dgstreamer=enabled",
-				"-Din-app-browser=enabled",
-				"-Dgexiv2=enabled"
+				"-Dclapper=disabled",
+				"-Dspelling=disabled",
+				"-Dgstreamer=disabled",
+				"-Din-app-browser=disabled",
+				"-Dgexiv2=disabled"
 			],
 			"build-options": {
 				"arch": {

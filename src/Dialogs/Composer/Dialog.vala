@@ -21,6 +21,10 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	[GtkChild] private unowned Adw.HeaderBar headerbar;
 	[GtkChild] private unowned Gtk.Revealer cw_revealer;
 
+	[GtkChild] private unowned Gtk.ScrollableBox scrollablebox;
+	[GtkChild] private unowned Gtk.Box status_box;
+	[GtkChild] private unowned Gtk.Label status_title;
+
 	[GtkChild] private unowned Gtk.MenuButton native_emojis_button;
 	[GtkChild] private unowned Gtk.MenuButton custom_emojis_button;
 	[GtkChild] private unowned Gtk.ToggleButton cw_button;
@@ -201,7 +205,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		};
 
 		scroller.overflow = HIDDEN;
-		scroller.child = editor;
+		scrollablebox.append (editor);
 
 		editor.edit_mode = this.edit_mode;
 		editor.toast.connect (on_toast);
@@ -515,7 +519,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				poll_button.active = true;
 			} else if (precompose.media_attachments != null && precompose.media_attachments.size > 0) {
 				create_attachmentsbin (precompose.media_attachments);
-				editor.add_bottom_child (attachmentsbin_component);
+				add_bottom_child (attachmentsbin_component);
 				sensitive_media_button.active = precompose.sensitive_media;
 			}
 		}
@@ -727,7 +731,30 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	private inline void set_editor_title (string new_title, Gtk.Widget? widget_status) {
 		this.title = new_title;
 		nav_page.title = new_title;
-		editor.set_title (new_title, widget_status);
+		status_title.label = new_title;
+
+		GLib.Timeout.add_once (1000, () => {
+			var w = status_box.get_first_child ();
+			while (w != null) {
+				if (w != status_title) status_box.remove (w);
+				w = w.get_next_sibling ();
+			}
+			if (widget_status != null) status_box.append (widget_status);
+		});
+	}
+
+	private void add_bottom_child (Gtk.Widget? child) {
+		var last_child = scrollablebox.get_last_child ();
+		if (child == last_child) return;
+
+		if (last_child != editor) scrollablebox.remove (last_child);
+		if (child != null) scrollablebox.append (child);
+
+		// TODO: animated scroll from sandwitchsourceview
+	}
+
+	public bool is_bottom_child (Gtk.Widget? child) {
+		return child == scrollablebox.get_last_child () && child != status_box;
 	}
 
 	private void scroller_mapped () {
@@ -742,7 +769,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				polls_animation.reverse = true;
 				polls_animation.play ();
 			} else {
-				editor.add_bottom_child (null);
+				add_bottom_child (null);
 			}
 			return;
 		}
@@ -751,7 +778,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			init_polls_component ();
 		} else if (polls_animation.state == PLAYING) polls_animation.skip ();
 
-		editor.add_bottom_child (polls_component);
+		add_bottom_child (polls_component);
 		polls_animation.reverse = false;
 		polls_animation.play ();
 	}
@@ -772,7 +799,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	private void on_add_media_clicked () {
 		create_attachmentsbin ();
 		attachmentsbin_component.show_file_selector ();
-		editor.add_bottom_child (attachmentsbin_component);
+		add_bottom_child (attachmentsbin_component);
 	}
 
 	private void update_attachmentsbin_meta () {
@@ -781,7 +808,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		bool is_used = attachmentsbin_component.working || !attachmentsbin_component.is_empty;
 		sensitive_media_button.visible = !attachmentsbin_component.is_empty;
 		poll_button.sensitive = !is_used;
-		if (!is_used) editor.add_bottom_child (null);
+		if (!is_used) add_bottom_child (null);
 		validate_post_button ();
 		update_attachmentsbin_sensitivity ();
 	}
@@ -804,7 +831,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		create_attachmentsbin ();
 		attachmentsbin_component.upload_files.begin (files_to_upload);
-		editor.add_bottom_child (attachmentsbin_component);
+		add_bottom_child (attachmentsbin_component);
 
 		return true;
 	}
@@ -897,7 +924,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				if (app.question.end (res).truthy ()) {
 					create_attachmentsbin ();
 					on_clipboard_paste_async.begin (clipboard);
-					editor.add_bottom_child (attachmentsbin_component);
+					add_bottom_child (attachmentsbin_component);
 				}
 			}
 		);
@@ -924,8 +951,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	}
 
 	private void on_component_animation_end (Adw.Animation animation) {
-		if (animation.value == 0) editor.add_bottom_child (null);
-		else if (polls_component != null && editor.is_bottom_child (polls_component)) polls_component.grab_first_row_focus ();
+		if (animation.value == 0) add_bottom_child (null);
+		else if (polls_component != null && is_bottom_child (polls_component)) polls_component.grab_first_row_focus ();
 		validate_post_button ();
 	}
 
@@ -951,9 +978,9 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	private void validate_post_button () {
 		bool sensitive = remaining_chars >= 0;
 		if (sensitive) {
-			if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component)) {
+			if (attachmentsbin_component != null && is_bottom_child (attachmentsbin_component)) {
 				sensitive = !attachmentsbin_component.is_empty && !attachmentsbin_component.working;
-			} else if (polls_component != null && editor.is_bottom_child (polls_component)) {
+			} else if (polls_component != null && is_bottom_child (polls_component)) {
 				sensitive = polls_component.is_valid && remaining_chars < char_limit;
 			} else {
 				sensitive = remaining_chars < char_limit;
@@ -1022,7 +1049,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		builder.set_member_name ("spoiler_text");
 		builder.add_string_value (cw_button.active ? cw_entry.text : "");
 
-		if (polls_component != null && editor.is_bottom_child (polls_component) && polls_component.is_valid && polls_component.has_rows) {
+		if (polls_component != null && is_bottom_child (polls_component) && polls_component.is_valid && polls_component.has_rows) {
 			builder.set_member_name ("poll");
 			builder.begin_object ();
 				builder.set_member_name ("multiple");
@@ -1041,7 +1068,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 					}
 				builder.end_array ();
 			builder.end_object ();
-		} else if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
+		} else if (attachmentsbin_component != null && is_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
 			builder.set_member_name ("media_ids");
 			builder.begin_array ();
 				foreach (var m_id in attachmentsbin_component.get_all_media_ids ()) {
@@ -1146,7 +1173,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		builder.append (cw_button.active.to_string ());
 		builder.append (cw_entry.text);
 
-		if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
+		if (attachmentsbin_component != null && is_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
 			builder.append (string.joinv ("", attachmentsbin_component.get_all_media_ids ()));
 
 			foreach (var meta in attachmentsbin_component.get_all_metadata ()) {
@@ -1158,7 +1185,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			builder.append ("none");
 		}
 
-		if (polls_component != null && editor.is_bottom_child (polls_component) && polls_component.is_valid && polls_component.has_rows) {
+		if (polls_component != null && is_bottom_child (polls_component) && polls_component.is_valid && polls_component.has_rows) {
 			builder.append (string.joinv ("", polls_component.get_all_options ()));
 			builder.append (polls_component.multiple_choice.to_string ());
 			builder.append (polls_component.hide_totals.to_string ());

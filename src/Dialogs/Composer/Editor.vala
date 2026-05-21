@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceView, Composer.Components.Attachable {
+public class Tuba.Dialogs.Composer.Components.Editor : GtkSource.View, Composer.Components.Attachable {
 	public bool edit_mode { get; set; default = false; }
 	public signal void ctrl_return_pressed ();
 
@@ -31,9 +31,9 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		}
 	}
 
-	static construct {
-		set_accessible_role (Gtk.AccessibleRole.GROUP);
-	}
+	//  static construct {
+	//  	set_accessible_role (Gtk.AccessibleRole.GROUP);
+	//  }
 
 	// TextView's overlay children have weird
 	// measuring that messes with our clamp.
@@ -122,7 +122,7 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		}
 	#endif
 
-	protected Gtk.Label status_title;
+	//  protected Gtk.Label status_title;
 	protected PlaceholderHack placeholder;
 	private void count_chars () {
 		string replaced_urls = Utils.Tracking.cleanup_content_with_uris (
@@ -142,12 +142,12 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		placeholder.visible = char_count == 0;
 	}
 
-	public override void add_bottom_child (Gtk.Widget? new_bottom_child) {
-		if (is_bottom_child (new_bottom_child)) return;
+	//  public override void add_bottom_child (Gtk.Widget? new_bottom_child) {
+	//  	if (is_bottom_child (new_bottom_child)) return;
 
-		base.add_bottom_child (new_bottom_child);
-		if (new_bottom_child != null) scroll_to_widget (true);
-	}
+	//  	base.add_bottom_child (new_bottom_child);
+	//  	if (new_bottom_child != null) scroll_to_widget (true);
+	//  }
 
 	private void connect_child_attachable (Composer.Components.Attachable attachable) {
 		attachable.scroll.connect (scroll_request);
@@ -164,19 +164,19 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		attachable.pop_subpage.disconnect (pop_request);
 	}
 
-	protected override void clear_child_widget (Gtk.Widget widget) {
-		if (widget is Composer.Components.Attachable) disconnect_child_attachable (widget as Composer.Components.Attachable);
-		base.clear_child_widget (widget);
-	}
+	//  protected override void clear_child_widget (Gtk.Widget widget) {
+	//  	if (widget is Composer.Components.Attachable) disconnect_child_attachable (widget as Composer.Components.Attachable);
+	//  	base.clear_child_widget (widget);
+	//  }
 
-	protected override void setup_child_widget (Gtk.Widget widget) {
-		if (widget is Composer.Components.Attachable) {
-			connect_child_attachable (widget as Composer.Components.Attachable);
-			widget.add_css_class ("editor-component");
-			widget.margin_top = 28;
-		}
-		base.setup_child_widget (widget);
-	}
+	//  protected override void setup_child_widget (Gtk.Widget widget) {
+	//  	if (widget is Composer.Components.Attachable) {
+	//  		connect_child_attachable (widget as Composer.Components.Attachable);
+	//  		widget.add_css_class ("editor-component");
+	//  		widget.margin_top = 28;
+	//  	}
+	//  	base.setup_child_widget (widget);
+	//  }
 
 	#if LIBSPELLING
 		protected Spelling.TextBufferAdapter adapter;
@@ -189,7 +189,7 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 	#endif
 
 	GtkSource.LanguageManager lang_manager;
-	Gtk.Box status_box;
+	//  Gtk.Box status_box;
 	construct {
 		lang_manager = new GtkSource.LanguageManager ();
 
@@ -241,28 +241,28 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		this.buffer.paste_done.connect (on_paste);
 		this.buffer.changed.connect (on_content_changed);
 
-		status_box = new Gtk.Box (VERTICAL, 30) {
-			valign = START,
-			vexpand = true,
-			margin_bottom = 28,
-			css_classes = { "background-none" }
-		};
+		//  status_box = new Gtk.Box (VERTICAL, 30) {
+		//  	valign = START,
+		//  	vexpand = true,
+		//  	margin_bottom = 28,
+		//  	css_classes = { "background-none" }
+		//  };
 
-		status_title = new Gtk.Label (_("New Post")) {
-			wrap = true,
-			wrap_mode = Pango.WrapMode.WORD_CHAR,
-			css_classes = {"title-2"},
-			justify = CENTER,
-			ellipsize = END,
-			lines = 3,
-			// this label is synced with the dialog title,
-			// screen readers end up reading it twice,
-			// let's hide this
-			accessible_role = PRESENTATION
-		};
+		//  status_title = new Gtk.Label (_("New Post")) {
+		//  	wrap = true,
+		//  	wrap_mode = Pango.WrapMode.WORD_CHAR,
+		//  	css_classes = {"title-2"},
+		//  	justify = CENTER,
+		//  	ellipsize = END,
+		//  	lines = 3,
+		//  	// this label is synced with the dialog title,
+		//  	// screen readers end up reading it twice,
+		//  	// let's hide this
+		//  	accessible_role = PRESENTATION
+		//  };
 
-		status_box.append (status_title);
-		this.add_top_child (status_box);
+		//  status_box.append (status_title);
+		//  this.add_top_child (status_box);
 
 		// translators: composer placeholder
 		placeholder = new PlaceholderHack (new Gtk.Label (_("What's on your mind?")) {
@@ -284,10 +284,10 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		if (view_child != null) view_child.can_target = view_child.can_focus = false;
 	}
 
-	public void set_title (string label, Gtk.Widget? sub_widget = null) {
-		if (status_title.label != label) status_title.label = label;
-		if (sub_widget != null) status_box.append (sub_widget);
-	}
+	//  public void set_title (string label, Gtk.Widget? sub_widget = null) {
+	//  	if (status_title.label != label) status_title.label = label;
+	//  	if (sub_widget != null) status_box.append (sub_widget);
+	//  }
 
 	private bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType modifier) {
 		modifier &= Gdk.MODIFIER_MASK;
@@ -346,7 +346,7 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 	}
 
 	public void scroll_request (bool bottom = false) {
-		this.scroll_animated (bottom);
+		//  this.scroll_animated (bottom);
 	}
 
 	public void toast_request (Adw.Toast toast_obj) {

@@ -33,6 +33,36 @@
 														<property name="vexpand">1</property>
 														<property name="propagate-natural-height">1</property>
 														<property name="propagate-natural-width">1</property>
+														<property name="child">
+															<object class="GtkScrollableBox" id="scrollablebox">
+																<child>
+																	<object class="GtkBox" id="status_box">
+																		<property name="orientation">vertical</property>
+																		<property name="spacing">30</property>
+																		<property name="margin-bottom">28</property>
+																		<property name="vexpand">1</property>
+																		<property name="valign">start</property>
+																		<style>
+																			<class name="background-none" />
+																		</style>
+																		<child>
+																			<object class="GtkLabel" id="status_title">
+																				<property name="wrap">1</property>
+																				<property name="wrap-mode">word-char</property>
+																				<property name="justify">center</property>
+																				<property name="ellipsize">end</property>
+																				<property name="lines">3</property>
+																				<property name="accessible-role">presentation</property>
+																				<property name="label" translatable="yes">New Post</property>
+																				<style>
+																					<class name="title-2" />
+																				</style>
+																			</object>
+																		</child>
+																	</object>
+																</child>
+															</object>
+														</property>
 													</object>
 												</property>
 												<child type="bottom">
