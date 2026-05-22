@@ -22,7 +22,6 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	[GtkChild] private unowned Gtk.Revealer cw_revealer;
 
 	[GtkChild] private unowned Gtk.ScrollableBox scrollablebox;
-	[GtkChild] private unowned Gtk.Box status_box;
 	[GtkChild] private unowned Gtk.Label status_title;
 
 	[GtkChild] private unowned Gtk.MenuButton native_emojis_button;
@@ -733,14 +732,17 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		nav_page.title = new_title;
 		status_title.label = new_title;
 
-		GLib.Timeout.add_once (1000, () => {
-			var w = status_box.get_first_child ();
-			while (w != null) {
-				if (w != status_title) status_box.remove (w);
-				w = w.get_next_sibling ();
-			}
-			if (widget_status != null) status_box.append (widget_status);
-		});
+		var w = status_title.get_next_sibling ();
+		if (w != null && w != editor) scrollablebox.remove (w);
+
+		if (widget_status != null) {
+			status_title.margin_bottom = 30;
+			widget_status.margin_bottom = 28;
+			widget_status.valign = Gtk.Align.START;
+			scrollablebox.insert_child_after (widget_status, status_title);
+		} else {
+			status_title.margin_bottom = 28;
+		}
 	}
 
 	private void add_bottom_child (Gtk.Widget? child) {
@@ -754,7 +756,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	}
 
 	public bool is_bottom_child (Gtk.Widget? child) {
-		return child == scrollablebox.get_last_child () && child != status_box;
+		return child == scrollablebox.get_last_child () && child != editor;
 	}
 
 	private void scroller_mapped () {

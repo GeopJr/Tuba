@@ -7963,6 +7963,7 @@ namespace Gtk {
 	public class ScrollableBox : Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable {
 		public void append (Gtk.Widget child);
 		public void remove (Gtk.Widget child);
+		public void insert_child_after (Gtk.Widget child, Gtk.Widget? sibling);
 	}
 	[CCode (cheader_filename = "gtk/gtk.h", type_id = "gtk_box_get_type ()")]
 	public class Box : Gtk.Widget, Gtk.Accessible, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Orientable {
