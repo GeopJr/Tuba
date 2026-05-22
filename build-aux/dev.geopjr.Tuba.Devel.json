@@ -106,7 +106,8 @@
 				{
 					"type": "git",
 					"url": "https://gitlab.gnome.org/GNOME/gtk.git",
-					"branch": "scrollable-box"
+					"branch": "scrollable-box",
+					"commit": "2287bcc52de01a22c8b420658aca898048780c6b"
 				}
 			]
 		},
