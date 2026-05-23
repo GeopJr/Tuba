@@ -1,4 +1,4 @@
-/* TEST */ .sourceview { background-color: tomato; }
+/* TEST */ .sourceview.reset { background-color: tomato; }
 
 /*
 	Utility Classes
@@ -151,7 +151,7 @@ list.uniform-border-color row {
 }
 
 .sourceview.reset {
-	background: transparent;
+	/* background: transparent; TODO: uncomment */
 	color: currentColor;
 }
 

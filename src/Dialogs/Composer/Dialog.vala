@@ -212,6 +212,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		editor.pop_subpage.connect (on_pop_subpage);
 		editor.paste_clipboard.connect (on_paste);
 		editor.ctrl_return_pressed.connect (on_commit);
+		editor.scroll_request.connect (scroll_request);
 		editor.notify["char-count"].connect (update_remaining_chars);
 		this.focus_widget = editor;
 	}
@@ -745,14 +746,37 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		}
 	}
 
+	// TODO: copy comments over from sandwichsourceview
+	Adw.TimedAnimation scroll_animation;
+	private void on_map () {
+		if (scroll_animation != null && scroll_animation.state == PLAYING) scroll_animation.skip ();
+		scroll_animation = new Adw.TimedAnimation (this, 0, 1, 500, new Adw.PropertyAnimationTarget (scroller.vadjustment, "value")) {
+			easing = Adw.Easing.EASE_IN_OUT_QUART
+		};
+	}
+
+	protected void scroll_animated (bool end = false) {
+		if (scroll_animation == null) return;
+		if (scroll_animation.state == PLAYING) scroll_animation.pause ();
+		scroll_animation.value_from = scroller.vadjustment.value;
+		scroll_animation.value_to = end ? scroller.vadjustment.upper : 0;
+		scroll_animation.play ();
+	}
+
+	public void scroll_request (bool bottom = false) {
+		this.scroll_animated (bottom);
+	}
+
 	private void add_bottom_child (Gtk.Widget? child) {
 		var last_child = scrollablebox.get_last_child ();
 		if (child == last_child) return;
 
 		if (last_child != editor) scrollablebox.remove (last_child);
-		if (child != null) scrollablebox.append (child);
-
-		// TODO: animated scroll from sandwitchsourceview
+		if (child != null) {
+			scrollablebox.append (child);
+			//  TODO; scroll_to_widget (true);
+			scroll_request (true);
+		}
 	}
 
 	public bool is_bottom_child (Gtk.Widget? child) {

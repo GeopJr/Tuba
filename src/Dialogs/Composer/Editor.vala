@@ -1,6 +1,7 @@
 public class Tuba.Dialogs.Composer.Components.Editor : GtkSource.View, Composer.Components.Attachable {
 	public bool edit_mode { get; set; default = false; }
 	public signal void ctrl_return_pressed ();
+	public signal void scroll_request (bool bottom = false);
 
 	~Editor () {
 		debug ("Destroying Composer Editor");
@@ -150,7 +151,7 @@ public class Tuba.Dialogs.Composer.Components.Editor : GtkSource.View, Composer.
 	//  }
 
 	private void connect_child_attachable (Composer.Components.Attachable attachable) {
-		attachable.scroll.connect (scroll_request);
+		attachable.scroll.connect (on_scroll_request);
 		attachable.toast.connect (toast_request);
 		attachable.push_subpage.connect (push_subpage_request);
 		attachable.pop_subpage.connect (pop_request);
@@ -158,7 +159,7 @@ public class Tuba.Dialogs.Composer.Components.Editor : GtkSource.View, Composer.
 	}
 
 	private void disconnect_child_attachable (Composer.Components.Attachable attachable) {
-		attachable.scroll.disconnect (scroll_request);
+		attachable.scroll.disconnect (on_scroll_request);
 		attachable.toast.disconnect (toast_request);
 		attachable.push_subpage.disconnect (push_subpage_request);
 		attachable.pop_subpage.disconnect (pop_request);
@@ -345,8 +346,8 @@ public class Tuba.Dialogs.Composer.Components.Editor : GtkSource.View, Composer.
 		((GtkSource.Buffer) this.buffer).set_language (lang_manager.get_language (this.content_type));
 	}
 
-	public void scroll_request (bool bottom = false) {
-		//  this.scroll_animated (bottom);
+	public void on_scroll_request (bool bottom = false) {
+		scroll_request (bottom);
 	}
 
 	public void toast_request (Adw.Toast toast_obj) {
