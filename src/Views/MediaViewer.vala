@@ -547,6 +547,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			Gtk.ShortcutTrigger.parse_string ("KP_Right"),
 			new Gtk.NamedAction ("mediaviewer.scroll-next")
 		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>S"),
+			new Gtk.NamedAction ("mediaviewer.save-as")
+		));
 		add_controller (shortcutscontroller);
 
 		var drag = new Gtk.GestureDrag ();
