@@ -1,7 +1,7 @@
 .PHONY: all install uninstall build test potfiles
 PREFIX ?= /usr
 
-msys_sys ?= mingw64
+msys_sys ?= ucrt64
 # Remove the devel headerbar style:
 # make release=1
 release ?=
@@ -31,7 +31,7 @@ potfiles:
 	find ./ -not -path '*/.*' -type f -name "*.vala" -exec grep -l "_(\"\|ngettext" {} \; | sort >> po/POTFILES
 
 xgettext:
-	xgettext --files-from=po/POTFILES --output=po/dev.geopjr.Tuba.pot --from-code=UTF-8 --add-comments --keyword=_ --keyword=C_:1c,2
+	xgettext --files-from=po/POTFILES --output=po/dev.geopjr.Tuba.pot --from-code=UTF-8 --add-comments --keyword=_ --keyword=C_:1c,2 --xml
 
 windows: PREFIX = $(PWD)/tuba_windows_portable
 windows: __windows_pre build install __windows_set_icon __windows_copy_deps __windows_schemas __windows_copy_icons __windows_cleanup __windows_package

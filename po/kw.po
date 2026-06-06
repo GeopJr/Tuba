@@ -47,7 +47,7 @@ msgid ""
 msgstr ""
 "Tirhwithra an gwi socyal keffrysek gans Tuba rag GNOME. Triga rosweythys dhe "
 "dha kemenethow drudh, eseli teylu, ha kothmans gans skoodhyans rag bynkyow "
-"Fediverse gerys-da kepar ha Mastodon, GoToSocial, Akkoma & moy!"
+"Fediverse gerys-da kepar ha Mastodon, GoToSocial, Akkoma &amp; moy!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""

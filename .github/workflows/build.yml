@@ -15,7 +15,7 @@ jobs:
       continue-on-error: true
       with:
         token: ${{ secrets.CODEBERG_TOKEN }}
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - uses: elementary/actions/vala-lint@master
       with:
         conf: vala-lint.conf
@@ -41,7 +41,7 @@ jobs:
       with:
         token: ${{ secrets.CODEBERG_TOKEN }}
         context: ${{ github.workflow }} / ${{ github.job }} / ${{ matrix.variant.arch }}
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
       with:
         bundle: "dev.geopjr.Tuba.Devel.flatpak"
