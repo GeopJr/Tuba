@@ -78,7 +78,7 @@ configure_file(
     ),
 )
 
-if host_machine.system() != 'windows' and host_machine.system() != 'darwin'
+if host_machine.system() != 'windows' and host_machine.system() != 'darwin' and host_machine.system() != 'haiku'
     appstream_file = i18n.merge_file(
         input: meson.project_name() + '.metainfo.xml.in',
         output: meson.project_name() + '.metainfo.xml',

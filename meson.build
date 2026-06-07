@@ -56,6 +56,8 @@ if host_machine.system() == 'windows'
   add_project_arguments(['--define=WINDOWS'], language: 'vala')
 elif host_machine.system() == 'darwin'
   add_project_arguments(['--define=DARWIN'], language: 'vala')
+elif host_machine.system() == 'haiku'
+  add_project_arguments(['--define=HAIKU'], language: 'vala')
 endif
 
 add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
