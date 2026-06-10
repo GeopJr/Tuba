@@ -226,10 +226,19 @@ namespace Tuba {
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
 			GLib.Environment.unset_variable ("GTK_THEME");
-			#if WINDOWS || DARWIN || HAIKU
+			#if WINDOWS || DARWIN || HAIKU || ANDROID
 				GLib.Environment.set_variable ("SECRET_BACKEND", "file", false);
 				if (GLib.Environment.get_variable ("SECRET_BACKEND") == "file")
 					GLib.Environment.set_variable ("SECRET_FILE_TEST_PASSWORD", @"$(GLib.Environment.get_user_name ())$(Build.DOMAIN)", false);
+			#endif
+			#if ANDROID
+				#if ANDROID_x86_64
+					string arch = "x86_64";
+				#else
+					string arch = "aarch64";
+				#endif
+				GLib.Environment.set_variable ("GIO_EXTRA_MODULES", @"/data/data/dev.geopjr.tuba/files/lib/$(arch)/gio/modules", true);
+				GLib.IOModule.scan_all_in_directory (@"/data/data/dev.geopjr.tuba/files/lib/$(arch)/gio/modules");
 			#endif
 
 			if (GLib.Environment.get_variable ("GSK_RENDERER") == "gl") {

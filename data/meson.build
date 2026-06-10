@@ -26,6 +26,7 @@ install_data(
         'glib-2.0',
         'schemas',
     ),
+    install_tag: 'runtime',
 )
 
 gresource_files = ''
@@ -78,7 +79,7 @@ configure_file(
     ),
 )
 
-if host_machine.system() != 'windows' and host_machine.system() != 'darwin' and host_machine.system() != 'haiku'
+if target_machine.system() != 'windows' and target_machine.system() != 'darwin' and target_machine.system() != 'haiku'
     appstream_file = i18n.merge_file(
         input: meson.project_name() + '.metainfo.xml.in',
         output: meson.project_name() + '.metainfo.xml',

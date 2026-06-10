@@ -52,12 +52,37 @@ if devmode
   add_project_arguments(['--define=DEV_MODE'], language: 'vala')
 endif
 
-if host_machine.system() == 'windows'
+if target_machine.system() == 'windows'
   add_project_arguments(['--define=WINDOWS'], language: 'vala')
-elif host_machine.system() == 'darwin'
+elif target_machine.system() == 'darwin'
   add_project_arguments(['--define=DARWIN'], language: 'vala')
-elif host_machine.system() == 'haiku'
+elif target_machine.system() == 'haiku'
   add_project_arguments(['--define=HAIKU'], language: 'vala')
+elif target_machine.system() == 'android'
+  add_project_arguments(['--define=ANDROID'], language: 'vala')
+
+  if target_machine.cpu_family() == 'x86_64'
+    add_project_arguments(['--define=ANDROID_x86_64'], language: 'vala')
+  endif
+
+  add_project_arguments([
+    # '--pkg=gexiv2-0.16',
+    # '--pkg=webkitgtk-6.0',
+    # '--pkg=gstreamer-1.0',
+    '--pkg=libadwaita-1',
+    '--pkg=gtk4',
+    '--pkg=gtksourceview-5',
+    # '--pkg=libspelling-1',
+    '--pkg=icu-uc',
+    '--pkg=libsecret-1',
+    '--pkg=libxml-2.0',
+    '--pkg=json-glib-1.0',
+    '--pkg=libsoup-3.0',
+    ## '--pkg=gee-0.8', # libgee has vapi
+    '--pkg=glib-2.0'
+  ], language: 'vala')
+
+  subproject('glib-networking')
 endif
 
 add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
@@ -161,7 +186,8 @@ executable(
     sources,
     dependencies: final_deps,
     install: true,
-    win_subsystem: 'windows'
+    win_subsystem: 'windows',
+    android_exe_type: 'application'
 )
 
 subdir('tests')
@@ -174,7 +200,7 @@ if not distro
   if meson.version().version_compare('>=0.59.0')
     gnome.post_install(
       glib_compile_schemas: true,
-      gtk_update_icon_cache: true,
+#      gtk_update_icon_cache: true,
       update_desktop_database: true,
     )
   else
@@ -182,7 +208,7 @@ if not distro
   endif
 endif
 
-if host_machine.system() == 'windows'
+if target_machine.system() == 'windows'
   configure_file(
       input : 'build-aux/dev.geopjr.Tuba.nsi.in',
       output : 'dev.geopjr.Tuba.nsi',

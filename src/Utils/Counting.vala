@@ -10,23 +10,27 @@ public class Tuba.Utils.Counting {
 
 	public static int chars (string content, string language = "en") {
 		int res = 0;
-		var icu_err = Icu.ErrorCode.ZERO_ERROR;
-		var icu_text = Icu.Text.open_utf8 (null, content.data, ref icu_err);
-		var word_breaker = Icu.BreakIterator.open (
-			CHARACTER, language, null, -1, ref icu_err
-		);
-		word_breaker.set_utext (icu_text, ref icu_err);
+		#if !ANDROID
+			var icu_err = Icu.ErrorCode.ZERO_ERROR;
+			var icu_text = Icu.Text.open_utf8 (null, content.data, ref icu_err);
+			var word_breaker = Icu.BreakIterator.open (
+				CHARACTER, language, null, -1, ref icu_err
+			);
+			word_breaker.set_utext (icu_text, ref icu_err);
 
-		if (icu_err.is_success ()) {
-			while (word_breaker.next () != Icu.BreakIterator.DONE) {
-				res += 1;
+			if (icu_err.is_success ()) {
+				while (word_breaker.next () != Icu.BreakIterator.DONE) {
+					res += 1;
+				}
+			} else {
+				// If the language is not "en" and it fails,
+				// try again on "en".
+				if (language != "en") return chars (content);
+				res += content.length;
 			}
-		} else {
-			// If the language is not "en" and it fails,
-			// try again on "en".
-			if (language != "en") return chars (content);
-			res += content.length;
-		}
+		#else
+			res += content.char_count ();
+		#endif
 
 		return res;
 	}
