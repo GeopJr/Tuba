@@ -178,6 +178,10 @@
 		pin_indicator.update_property (Gtk.AccessibleProperty.LABEL, pin_indicator.tooltip_text, -1);
 		edited_indicator.update_property (Gtk.AccessibleProperty.LABEL, edited_indicator.tooltip_text, -1);
 
+		#if ANDROID
+			menu_button.icon_name = "open-menu-symbolic"; // TODO: bundle the one it uses
+		#endif
+
 		name_label.use_markup = false;
 		avatar_overlay.set_size_request (avatar.size, avatar.size);
 		open.connect (on_open);

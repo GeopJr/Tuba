@@ -1,3 +1,8 @@
+/* ANDROID, FIXME FONT */
+window.android *:not(.title-2):not(.title-1) {
+	font-weight: 700;
+}
+
 /*
 	Utility Classes
 */

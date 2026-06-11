@@ -234,7 +234,13 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 		};
 		delete_button.clicked.connect (on_delete);
 
-		alt_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+		#if ANDROID
+			string icon_name = "tuba-plus-large-symbolic"; // TODO: just bundle document-edit-symbolic
+		#else
+			string icon_name = "document-edit-symbolic";
+		#endif
+
+		alt_button = new Gtk.Button.from_icon_name (icon_name) {
 			halign = END,
 			valign = END,
 			margin_bottom = 6,

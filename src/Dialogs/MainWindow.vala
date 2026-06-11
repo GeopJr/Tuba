@@ -80,6 +80,13 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 				this.add_css_class ("devel");
 			}
 		#endif
+
+		//  FIX: hack for the broken font
+		#if ANDROID
+			if (!settings.enlarge_custom_emojis) {
+				this.add_css_class ("android");
+			}
+		#endif
 	}
 
 	public bool is_media_viewer_visible {

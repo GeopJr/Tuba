@@ -106,6 +106,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Calligraphy.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Collision.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Turntable.svg</file>
+        <file preprocess="xml-stripblanks" alias="icons/scalable/apps/dev.geopjr.Tuba.svg">icons/color.svg</file>
 
         <file preprocess="xml-stripblanks" alias="shortcuts-dialog.ui">gtk/shortcuts-dialog.ui</file>
         <file preprocess="xml-stripblanks">gtk/dropdown/content_type_title.ui</file>

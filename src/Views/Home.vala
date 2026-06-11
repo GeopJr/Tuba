@@ -18,7 +18,13 @@ public class Tuba.Views.Home : Views.Timeline {
 		scroll_to_top_rev.margin_bottom = 24;
 		scroll_to_top_rev.add_css_class ("scroll-to-top-btn");
 
-		compose_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+		#if ANDROID
+			string icon_name = "tuba-plus-large-symbolic"; // TODO: just bundle document-edit-symbolic
+		#else
+			string icon_name = "document-edit-symbolic";
+		#endif
+
+		compose_button = new Gtk.Button.from_icon_name (icon_name) {
 			action_name = "app.compose",
 			tooltip_text = _("Compose"),
 			css_classes = { "circular", "compose-button", "suggested-action" }
