@@ -18,6 +18,7 @@
   <dependencies>
     <glib>
       <patch>hack</patch>
+      <patch>pthread-restrictions</patch>
     </glib>
     <harfbuzz>
       <!-- <patch>icu_fallback</patch> -->
