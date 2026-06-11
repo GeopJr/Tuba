@@ -82,7 +82,7 @@ elif target_machine.system() == 'android'
     '--pkg=glib-2.0'
   ], language: 'vala')
 
-  subproject('glib-networking')
+  subproject('glib-networking', default_options: ['default_library=static'])
   subproject('adwaita-fonts')
 endif
 
@@ -160,7 +160,7 @@ final_deps = [
   dependency('json-glib-1.0', version: '>=1.4.4'),
   dependency('libxml-2.0'),
   dependency('libsecret-1', required: true),
-  dependency('icu-uc', required: target_machine.system() != 'android'),
+  dependency('gioopenssl', required: host_machine.system() == 'android'),
   libspelling,
   gtksourceview_dep,
   gtk_dep,

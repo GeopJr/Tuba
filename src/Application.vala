@@ -29,6 +29,11 @@ namespace Tuba {
 
 	public static string default_locale;
 
+	#if ANDROID
+		[CCode (cname = "g_io_openssl_load")]
+		extern void g_io_openssl_load (GLib.IOModule? module);
+	#endif
+
 	public class Application : Adw.Application {
 
 		public GLib.ProxyResolver? proxy { get; set; default=null; }
@@ -238,10 +243,11 @@ namespace Tuba {
 					string arch = "arm64-v8a";
 				#endif
 				string assets_dir = "/data/data/dev.geopjr.tuba/files";
-				string g_modules_dir = @"$assets_dir/lib/$(arch)/gio/modules";
+				//  string g_modules_dir = @"$assets_dir/lib/$(arch)/gio/modules";
 
-				GLib.Environment.set_variable ("GIO_EXTRA_MODULES", g_modules_dir, true);
-				GLib.IOModule.scan_all_in_directory (g_modules_dir);
+				//  GLib.Environment.set_variable ("GIO_EXTRA_MODULES", g_modules_dir, true);
+				//  GLib.IOModule.scan_all_in_directory (g_modules_dir);
+				g_io_openssl_load (null);
 
 				GLib.Environment.set_variable ("FONTCONFIG_FILE", @"$assets_dir/etc/fonts/fonts.conf", true);
 			#endif
