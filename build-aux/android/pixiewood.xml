@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <app xmlns="https://sp1rit.arpa/pixiewood/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <metainfo vercalc="sem121010">
-    <xi:include href="build://x86_64/data/dev.geopjr.Tuba.metainfo.xml" parse="xml" />
-    <!-- <xi:include href="build://aarch64/data/dev.geopjr.Tuba.metainfo.xml" parse="xml" /> -->
+    <!-- <xi:include href="build://x86_64/data/dev.geopjr.Tuba.metainfo.xml" parse="xml" /> -->
+    <xi:include href="build://aarch64/data/dev.geopjr.Tuba.metainfo.xml" parse="xml" />
   </metainfo>
   <style>
     <!-- Currently available themes are "gtk" & "adw" -->
@@ -29,8 +29,8 @@
   </dependencies>
   <build target="dev.geopjr.Tuba">
     <architectures>
-      <arch>aarch64</arch>
       <arch>x86_64</arch>
+      <arch>aarch64</arch>
     </architectures>
     <configure-options>
       <option>-Dgtk:media-gstreamer=disabled</option>
@@ -84,7 +84,7 @@
       <option>-Dglib-networking:gnutls=disabled</option>
       <option>-Dglib-networking:openssl=enabled</option>
       <option>-Dglib-networking:libproxy=disabled</option>
-      <!-- <option>-Dglib-networking:default_library=static</option> -->
+      <option>-Dglib-networking:default_library=static</option>
       <!-- <option>-Dglib-networking:tests=false</option> -->
 
       <!-- <option>-Dopenssl:default_library=static</option> -->
