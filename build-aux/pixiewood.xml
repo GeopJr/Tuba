@@ -83,6 +83,7 @@
       <option>-Dglib-networking:environment_proxy=disabled</option>
       <option>-Dglib-networking:gnutls=disabled</option>
       <option>-Dglib-networking:openssl=enabled</option>
+      <option>-Dglib-networking:libproxy=disabled</option>
       <!-- <option>-Dglib-networking:default_library=static</option> -->
       <!-- <option>-Dglib-networking:tests=false</option> -->
 
