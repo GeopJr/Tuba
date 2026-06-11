@@ -73,7 +73,7 @@ elif target_machine.system() == 'android'
     '--pkg=gtk4',
     '--pkg=gtksourceview-5',
     # '--pkg=libspelling-1',
-    '--pkg=icu-uc',
+    # '--pkg=icu-uc', # remove for now
     '--pkg=libsecret-1',
     '--pkg=libxml-2.0',
     '--pkg=json-glib-1.0',
@@ -83,6 +83,7 @@ elif target_machine.system() == 'android'
   ], language: 'vala')
 
   subproject('glib-networking')
+  subproject('adwaita-fonts')
 endif
 
 add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
@@ -159,7 +160,7 @@ final_deps = [
   dependency('json-glib-1.0', version: '>=1.4.4'),
   dependency('libxml-2.0'),
   dependency('libsecret-1', required: true),
-  dependency('icu-uc'),
+  dependency('icu-uc', required: target_machine.system() != 'android'),
   libspelling,
   gtksourceview_dep,
   gtk_dep,

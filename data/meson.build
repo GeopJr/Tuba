@@ -47,10 +47,23 @@ foreach color : syntax_colors
   gresource_files += '<file preprocess="xml-stripblanks" alias="fedi-@0@.xml">@1@/fedi-@0@.xml</file>\n<file preprocess="xml-stripblanks" alias="fedi-@0@-dark.xml">@1@/fedi-@0@-dark.xml</file>\n'.format(color, meson.current_build_dir())
 endforeach
 
+gresource_android_icons_files = ''
+if target_machine.system() == 'android'
+  android_icons = ['contact-new', 'document-edit', 'go-top', 'view-more-horizontal']
+  gresource_files += '<file preprocess="xml-stripblanks" alias="icons/scalable/apps/dev.geopjr.Tuba.svg">icons/color.svg</file>\n'
+
+  foreach icon_name : android_icons
+    gresource_files += '<file preprocess="xml-stripblanks">icons/scalable/actions/@0@-symbolic.svg</file>\n'.format(icon_name)
+  endforeach
+endif
+
 gresource_file = configure_file(
     input : 'gresource.xml.in',
     output : 'gresource.xml',
-    configuration : {'GRESOURCE_SOURCEVIEW_STYLES_FILES': gresource_files}
+    configuration : {
+      'GRESOURCE_SOURCEVIEW_STYLES_FILES': gresource_files,
+      'GRESOURCE_ANDROID_ICONS_FILES': gresource_android_icons_files
+    }
 )
 
 desktop_file = i18n.merge_file(
