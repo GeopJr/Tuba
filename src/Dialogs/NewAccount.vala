@@ -55,6 +55,13 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		app.add_account_window = this;
 		app.add_window (this);
 
+		//  FIX: hack for the broken font
+		#if ANDROID
+			if (!settings.enlarge_custom_emojis) {
+				this.add_css_class ("android");
+			}
+		#endif
+
 		bind_property ("use-auto-auth", auth_page, "description", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_string (src.get_boolean () ? AUTO_AUTH_DESCRIPTION : CODE_AUTH_DESCRIPTION);
 			return true;

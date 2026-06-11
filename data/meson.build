@@ -50,10 +50,10 @@ endforeach
 gresource_android_icons_files = ''
 if host_machine.system() == 'android'
   android_icons = ['contact-new', 'document-edit', 'go-top', 'view-more-horizontal']
-  gresource_files += '<file preprocess="xml-stripblanks" alias="icons/scalable/apps/dev.geopjr.Tuba.svg">icons/color.svg</file>\n'
+  gresource_android_icons_files += '<file preprocess="xml-stripblanks" alias="icons/scalable/apps/dev.geopjr.Tuba.svg">icons/color.svg</file>\n'
 
   foreach icon_name : android_icons
-    gresource_files += '<file preprocess="xml-stripblanks">icons/scalable/actions/@0@-symbolic.svg</file>\n'.format(icon_name)
+    gresource_android_icons_files += '<file preprocess="xml-stripblanks">icons/scalable/actions/@0@-symbolic.svg</file>\n'.format(icon_name)
   endforeach
 endif
 
