@@ -200,7 +200,7 @@ if not distro
   if meson.version().version_compare('>=0.59.0')
     gnome.post_install(
       glib_compile_schemas: true,
-#      gtk_update_icon_cache: true,
+      gtk_update_icon_cache: target_machine.system() != 'android',
       update_desktop_database: true,
     )
   else
