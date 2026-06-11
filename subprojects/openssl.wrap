@@ -8,6 +8,7 @@ patch_url = https://wrapdb.mesonbuild.com/v2/openssl_3.0.8-3/get_patch
 patch_hash = 300da189e106942347d61a4a4295aa2edbcf06184f8d13b4cee0bed9fb936963
 source_fallback_url = https://github.com/mesonbuild/wrapdb/releases/download/openssl_3.0.8-3/openssl-3.0.8.tar.gz
 wrapdb_version = 3.0.8-3
+diff_files = openssl-3.0.8-android.patch
 
 [provide]
 libcrypto = libcrypto_dep
