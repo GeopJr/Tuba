@@ -6,6 +6,9 @@ msys_sys ?= ucrt64
 # make release=1
 release ?=
 
+android_sdk ?=
+android_studio ?=
+
 all: build
 
 build:
@@ -96,3 +99,21 @@ windows_nsis:
 	rsvg-convert ./data/icons/color$(if $(release),,-nightly).svg -o nsis/dev.geopjr.Tuba-header.png -h 57 -w 57
 	magick nsis/dev.geopjr.Tuba-header.png -background white -alpha remove -alpha off -type truecolor -define bmp:format=bmp3 nsis/dev.geopjr.Tuba-header.bmp
 	cd nsis && makensis dev.geopjr.Tuba.nsi
+
+android:
+	rm -rf subprojects/
+	cp -r build-aux/android/subprojects/ .
+	rm -rf .pixiewood
+	pixiewood prepare $(if $(release),--release,) --android-studio=$(android_studio) --sdk=$(android_sdk) ./build-aux/android/pixiewood.xml
+	pixiewood generate
+	pixiewood build
+
+android_sign:
+	mkdir -p apks/
+	@for apk in .pixiewood/android/app/build/outputs/apk/release/*.apk; do \
+		apksigner sign \
+			--ks "#{ANDROID_KEYSTORE_LOCATION}" \
+			--ks-pass "env:ANDROID_KEYSTORE_KEY" \
+			--in "$$apk" \
+			--out "apks/$$(basename "$$apk" | sed 's/unsigned/signed/g')"; \
+	done
