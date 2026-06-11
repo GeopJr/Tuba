@@ -48,7 +48,7 @@ foreach color : syntax_colors
 endforeach
 
 gresource_android_icons_files = ''
-if target_machine.system() == 'android'
+if host_machine.system() == 'android'
   android_icons = ['contact-new', 'document-edit', 'go-top', 'view-more-horizontal']
   gresource_files += '<file preprocess="xml-stripblanks" alias="icons/scalable/apps/dev.geopjr.Tuba.svg">icons/color.svg</file>\n'
 
@@ -92,7 +92,7 @@ configure_file(
     ),
 )
 
-if target_machine.system() != 'windows' and target_machine.system() != 'darwin' and target_machine.system() != 'haiku'
+if host_machine.system() != 'windows' and host_machine.system() != 'darwin' and host_machine.system() != 'haiku'
     appstream_file = i18n.merge_file(
         input: meson.project_name() + '.metainfo.xml.in',
         output: meson.project_name() + '.metainfo.xml',

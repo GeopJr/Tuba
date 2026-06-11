@@ -52,16 +52,16 @@ if devmode
   add_project_arguments(['--define=DEV_MODE'], language: 'vala')
 endif
 
-if target_machine.system() == 'windows'
+if host_machine.system() == 'windows'
   add_project_arguments(['--define=WINDOWS'], language: 'vala')
-elif target_machine.system() == 'darwin'
+elif host_machine.system() == 'darwin'
   add_project_arguments(['--define=DARWIN'], language: 'vala')
-elif target_machine.system() == 'haiku'
+elif host_machine.system() == 'haiku'
   add_project_arguments(['--define=HAIKU'], language: 'vala')
-elif target_machine.system() == 'android'
+elif host_machine.system() == 'android'
   add_project_arguments(['--define=ANDROID'], language: 'vala')
 
-  if target_machine.cpu_family() == 'x86_64'
+  if host_machine.cpu_family() == 'x86_64'
     add_project_arguments(['--define=ANDROID_x86_64'], language: 'vala')
   endif
 
@@ -160,6 +160,7 @@ final_deps = [
   dependency('json-glib-1.0', version: '>=1.4.4'),
   dependency('libxml-2.0'),
   dependency('libsecret-1', required: true),
+  dependency('icu-uc', required: host_machine.system() != 'android'),
   dependency('gioopenssl', required: host_machine.system() == 'android'),
   libspelling,
   gtksourceview_dep,
@@ -201,7 +202,7 @@ if not distro
   if meson.version().version_compare('>=0.59.0')
     gnome.post_install(
       glib_compile_schemas: true,
-      gtk_update_icon_cache: target_machine.system() != 'android',
+      gtk_update_icon_cache: host_machine.system() != 'android',
       update_desktop_database: true,
     )
   else
@@ -209,7 +210,7 @@ if not distro
   endif
 endif
 
-if target_machine.system() == 'windows'
+if host_machine.system() == 'windows'
   configure_file(
       input : 'build-aux/dev.geopjr.Tuba.nsi.in',
       output : 'dev.geopjr.Tuba.nsi',
