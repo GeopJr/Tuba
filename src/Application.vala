@@ -242,6 +242,8 @@ namespace Tuba {
 
 				GLib.Environment.set_variable ("GIO_EXTRA_MODULES", g_modules_dir, true);
 				GLib.IOModule.scan_all_in_directory (g_modules_dir);
+
+				GLib.Environment.set_variable ("FONTCONFIG_FILE", @"$assets_dir/etc/fonts/fonts.conf", true);
 			#endif
 
 			if (GLib.Environment.get_variable ("GSK_RENDERER") == "gl") {
