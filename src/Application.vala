@@ -235,10 +235,13 @@ namespace Tuba {
 				#if ANDROID_x86_64
 					string arch = "x86_64";
 				#else
-					string arch = "aarch64";
+					string arch = "arm64-v8a";
 				#endif
-				GLib.Environment.set_variable ("GIO_EXTRA_MODULES", @"/data/data/dev.geopjr.tuba/files/lib/$(arch)/gio/modules", true);
-				GLib.IOModule.scan_all_in_directory (@"/data/data/dev.geopjr.tuba/files/lib/$(arch)/gio/modules");
+				string assets_dir = "/data/data/dev.geopjr.tuba/files";
+				string g_modules_dir = @"$assets_dir/lib/$(arch)/gio/modules";
+
+				GLib.Environment.set_variable ("GIO_EXTRA_MODULES", g_modules_dir, true);
+				GLib.IOModule.scan_all_in_directory (g_modules_dir);
 			#endif
 
 			if (GLib.Environment.get_variable ("GSK_RENDERER") == "gl") {
