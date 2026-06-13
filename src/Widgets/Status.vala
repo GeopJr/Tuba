@@ -163,13 +163,6 @@
 		Tuba.toggle_css (this, settings.scale_emoji_hover, "lww-scale-emoji-hover");
 	}
 
-	static construct {
-		typeof (Widgets.Avatar).ensure ();
-		typeof (Widgets.RichLabel).ensure ();
-		typeof (Widgets.MarkupView).ensure ();
-		typeof (Widgets.FadeBin).ensure ();
-	}
-
 	private void update_collapse () {
 		fade_bin.reveal = !settings.collapse_long_posts || expanded || enable_thread_lines;
 	}
