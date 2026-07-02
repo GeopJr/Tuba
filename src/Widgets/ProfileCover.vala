@@ -383,7 +383,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 		new Request.GET ("/api/v1/accounts/familiar_followers")
 			.with_account (accounts.active)
-			.with_param ("id", profile_id)
+			.with_param ("id[]", profile_id)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);

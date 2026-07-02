@@ -212,7 +212,7 @@ public class Tuba.Widgets.Collection : Gtk.Box {
 		try {
 			var req = new Request.GET ("/api/v1/accounts/relationships")
 				.with_account (accounts.active)
-				.with_param ("id", collection.account_id);
+				.with_param ("id[]", collection.account_id);
 			yield req.await ();
 
 			var parser = Network.get_parser_from_inputstream (req.response_body);
