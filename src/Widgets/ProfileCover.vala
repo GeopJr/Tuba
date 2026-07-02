@@ -510,11 +510,13 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
 			total_fields = profile.fields.size;
 
+			var profile_emoji_map = profile.emojis_map;
 			foreach (API.AccountField f in profile.fields) {
 				var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
 					css_classes = {"ttl-profile-field"}
 				};
-				var val = new Widgets.RichLabel (Utils.Htmlx.simplify (f.val)) {
+
+				var val = new Widgets.RichLabel.with_emojis (Utils.Htmlx.simplify (f.val), profile_emoji_map) {
 					use_markup = true,
 					xalign = 0,
 					selectable = true
@@ -524,7 +526,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 					use_markup = false,
 					css_classes = {"dim-label"}
 				};
-				title_label.instance_emojis = profile.emojis_map;
+				title_label.instance_emojis = profile_emoji_map;
 				title_label.content = f.name;
 
 				fields_box.append (row);
