@@ -96,6 +96,7 @@ namespace Tuba {
 			{ "open-draft-posts", open_draft_posts },
 			{ "open-admin-dashboard", open_admin_dashboard },
 			{ "open-last-fediwrapped", open_last_fediwrapped },
+			{ "open-collections", open_collections },
 			{ "open-containing-folder", open_containing_folder, "s" }
 		};
 
@@ -547,6 +548,11 @@ namespace Tuba {
 
 		public void open_last_fediwrapped () {
 			accounts.active.open_latest_wrapped ();
+		}
+
+		public void open_collections () {
+			main_window.open_view (new Views.Collections ());
+			close_sidebar ();
 		}
 
 		public void open_containing_folder (GLib.SimpleAction action, GLib.Variant? value) {

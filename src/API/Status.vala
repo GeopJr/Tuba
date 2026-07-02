@@ -43,6 +43,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	public Gee.ArrayList<API.Filters.FilterResult>? filtered { get; set; default = null; }
 	public QuoteApproval? quote_approval { get; set; default = null; }
 	//  public bool tuba_had_quote { get; set; default = false; } // TODO: preparation for 2-level nesting
+	public Gee.ArrayList<API.Collection>? tagged_collections { get; set; default = null; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
@@ -57,6 +58,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 				return typeof (API.Emoji);
 			case "filtered":
 				return typeof (API.Filters.FilterResult);
+			case "tagged-collections":
+				return typeof (API.Collection);
 		}
 
 		return base.deserialize_array_type (prop);

@@ -428,7 +428,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		if (mutual_accounts == null || mutuals_listbox == null) return;
 
 		foreach (var acc in mutual_accounts) {
-			mutuals_listbox.append (new Widgets.EmojiReactionAccounts.AccountRow (acc));
+			mutuals_listbox.append (new Widgets.AccountRow (acc));
 		}
 
 		mutual_accounts = null;

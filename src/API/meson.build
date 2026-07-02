@@ -6,6 +6,7 @@ sources += files(
     # 'Akkoma.vala', # uneeded for now
     'Attachment.vala',
     'BookWyrm.vala',
+    'Collection.vala',
     'Conversation.vala',
     'Emoji.vala',
     'EmojiReaction.vala',

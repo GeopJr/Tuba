@@ -437,6 +437,13 @@ public class Tuba.Views.Profile : Views.Accounts {
 		});
 		actions.add_action (mention_action);
 
+		var collection_action = new SimpleAction ("collections", null);
+		collection_action.activate.connect (v => {
+			app.main_window.open_view (new Views.CollectionList (profile.account.id));
+		});
+		actions.add_action (collection_action);
+		collection_action.set_enabled (accounts.active.tuba_api_versions.mastodon >= 10 && !profile.account.hide_collections);
+
 		var copy_handle_action = new SimpleAction ("copy_handle", null);
 		copy_handle_action.activate.connect (v => {
 			Utils.Host.copy (profile.account.full_handle);

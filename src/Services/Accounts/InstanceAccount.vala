@@ -26,6 +26,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_MODERATION_WARNING = "moderation_warning";
 	public const string KIND_QUOTE = "quote";
 	public const string KIND_QUOTE_UPDATE = "quoted_update";
+	public const string KIND_COLLECTION_ADDED = "added_to_collection";
+	public const string KIND_COLLECTION_EDITED = "collection_update";
 
 	// Not exactly sure where I'm going with this.
 	// I don't want *all* features listed here, just
@@ -503,6 +505,24 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					// translators: the variable is a string user name,
 					//				this is used for notifications
 					_("%s edited a post you have quoted").printf (actor_name),
+					callback_url
+				};
+				break;
+			case KIND_COLLECTION_ADDED:
+				result = {
+					"tuba-shapes-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
+					_("%s added you to a collection").printf (actor_name),
+					callback_url
+				};
+				break;
+			case KIND_COLLECTION_EDITED:
+				result = {
+					"tuba-shapes-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
+					_("%s edited a collection you are in").printf (actor_name),
 					callback_url
 				};
 				break;

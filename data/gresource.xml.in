@@ -90,6 +90,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-network-server-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-user-home-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-person-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-shapes-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file preprocess="xml-stripblanks">icons/folders/blue.svg</file>

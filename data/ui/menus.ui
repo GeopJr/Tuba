@@ -40,6 +40,11 @@
 			<attribute name="action">view.endorsed</attribute>
 			<attribute name="hidden-when">action-disabled</attribute>
 		</item>
+		<item>
+			<attribute name="label" translatable="yes">Collections</attribute>
+			<attribute name="action">view.collections</attribute>
+			<attribute name="hidden-when">action-disabled</attribute>
+		</item>
 
 		<section>
 			<attribute name="label" translatable="yes">Moderation</attribute>

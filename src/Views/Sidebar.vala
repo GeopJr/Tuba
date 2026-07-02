@@ -78,6 +78,11 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		misc_submenu_model.append (_("Draft Posts"), "app.open-draft-posts");
 		misc_submenu_model.append (_("Scheduled Posts"), "app.open-scheduled-posts");
 
+		// translators: 'Collections' is a Mastodon feature; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+		var collections_menu_item = new MenuItem (_("Collections"), "app.open-collections");
+		collections_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+		misc_submenu_model.append_item (collections_menu_item);
+
 		// translators: main menu entry, please don't translate it unless you have to.
 		//				Refer to other #FediWrapped strings for more info
 		var wrapped_menu_item = new MenuItem (_("#FediWrapped"), "app.open-last-fediwrapped");

@@ -1182,6 +1182,25 @@ splitbutton.pill:dir(ltr) > menubutton > button {
 	}
 }
 
+/*
+	Collections
+*/
+.collection {
+	padding: 6px;
+}
+
+.collection-button {
+	font-weight: initial;
+}
+
+.collection-button .collection {
+	padding : 0;
+}
+
+.collection-sensitive {
+	filter: blur(4px);
+}
+
 @media (prefers-contrast: more) {
 	.ttl-profile-cover.thanks {
 		--alpha-multiplier: 0.08;

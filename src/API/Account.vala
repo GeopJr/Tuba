@@ -1,4 +1,26 @@
 public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
+	public class FeatureApproval : Entity {
+		public string current_user { get; set; }
+		//  public Gee.ArrayList<string> automatic { get; set; }
+		//  public Gee.ArrayList<string> manual { get; set; }
+
+		//  public override Type deserialize_array_type (string prop) {
+		//  	switch (prop) {
+		//  		case "automatic":
+		//  		case "manual":
+		//  			return Type.STRING;
+		//  	}
+
+		//  	return base.deserialize_array_type (prop);
+		//  }
+
+		public bool tuba_can_invite {
+			get {
+				return this.current_user == "automatic" || this.current_user == "manual";
+			}
+		}
+	}
+
 	public API.Relationship? tuba_rs { get; set; default=null; }
 	public GLib.Regex? tuba_search_query_regex { get; set; default = null; }
 
@@ -32,11 +54,14 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 	public int64 followers_count { get; set; }
 	public int64 following_count { get; set; }
 	public int64 statuses_count { get; set; }
+	public string? last_status_at { get; set; default=null; }
 	public Gee.ArrayList<API.AccountRole>? roles { get; set; default = null; }
 	public Gee.ArrayList<API.AccountField>? fields { get; set; default = null; }
 	public AccountSource? source { get; set; default = null; }
 	public API.AccountRole? role { get; set; default = null; }
 	public API.Account? moved { get; set; default = null; }
+	public bool hide_collections { get; set; default = false; }
+	public FeatureApproval? feature_approval { get; set; default = null; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
