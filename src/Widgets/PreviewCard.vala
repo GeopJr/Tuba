@@ -4,10 +4,6 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 		debug ("Destroying PreviewCard");
 	}
 
-	static construct {
-		typeof (Widgets.PreviewCardInternal).ensure ();
-	}
-
 	[GtkChild] public unowned Gtk.Button button;
 	[GtkChild] unowned Widgets.PreviewCardInternal box;
 
