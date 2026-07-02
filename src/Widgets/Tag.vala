@@ -1,5 +1,5 @@
 public class Tuba.Widgets.Tag : Adw.ActionRow {
-	public string name { get; set; }
+	public new string name { get; set; }
 	public Tag (API.Tag tag) {
 		this.name =
 		this.title = @"#$(tag.name)";

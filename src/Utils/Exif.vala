@@ -33,8 +33,13 @@ public class Tuba.Utils.Exif {
 		string? result = null;
 
 		foreach (string tag in ALT_KEYS) {
-			if (metadata.try_has_tag (tag)) {
-				string? alt = metadata.try_get_tag_interpreted_string (tag);
+			#if GEXIV2_0_16
+				if (metadata.has_tag (tag)) {
+					string? alt = metadata.get_tag_interpreted_string (tag);
+			#else
+				if (metadata.try_has_tag (tag)) {
+					string? alt = metadata.try_get_tag_interpreted_string (tag);
+			#endif
 				if (alt != null && alt.length > 0) {
 					result = alt;
 

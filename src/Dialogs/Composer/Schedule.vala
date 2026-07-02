@@ -45,9 +45,13 @@ public class Tuba.Dialogs.Schedule : Adw.NavigationPage, Composer.PreferredSizea
 			minutes_spin_button.value = (double) iso8601_datetime.get_minute ();
 			seconds_spin_button.value = (double) iso8601_datetime.get_second ();
 
-			calendar.year = iso8601_datetime.get_year ();
-			calendar.month = iso8601_datetime.get_month () - 1;
-			calendar.day = iso8601_datetime.get_day_of_month ();
+			#if GTK_4_20
+				calendar.date = iso8601_datetime;
+			#else
+				calendar.year = iso8601_datetime.get_year ();
+				calendar.month = iso8601_datetime.get_month () - 1;
+				calendar.day = iso8601_datetime.get_day_of_month ();
+			#endif
 		}
 
 		if (button_label != null) schedule_button.label = button_label;
@@ -69,18 +73,18 @@ public class Tuba.Dialogs.Schedule : Adw.NavigationPage, Composer.PreferredSizea
 		GLib.DateTime now = new GLib.DateTime.now_utc ();
 		if (timezone_combo_row.selected != Gtk.INVALID_LIST_POSITION && ((Gtk.StringObject) timezone_combo_row.selected_item).string == "UTC") {
 			result_dt = new GLib.DateTime.utc (
-				calendar.year,
-				calendar.month + 1,
-				calendar.day,
+				calendar.get_year (),
+				calendar.get_month () + 1,
+				calendar.get_day (),
 				(int) hours_spin_button.value,
 				(int) minutes_spin_button.value,
 				seconds_spin_button.value
 			);
 		} else {
 			result_dt = new GLib.DateTime.local (
-				calendar.year,
-				calendar.month + 1,
-				calendar.day,
+				calendar.get_year (),
+				calendar.get_month () + 1,
+				calendar.get_day (),
 				(int) hours_spin_button.value,
 				(int) minutes_spin_button.value,
 				seconds_spin_button.value

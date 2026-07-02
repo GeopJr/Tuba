@@ -429,9 +429,9 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 									if (year > 0 && month > 0 && day > 0) {
 										before_expander_row.expanded = true;
-										before_calendar.year = year;
-										before_calendar.month = month;
-										before_calendar.day = day;
+										before_calendar.set_year (year);
+										before_calendar.set_month (month);
+										before_calendar.set_day (day);
 									}
 								}
 							} else if (down_word.has_prefix ("during:")) {
@@ -444,9 +444,9 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 									if (year > 0 && month > 0 && day > 0) {
 										during_expander_row.expanded = true;
-										during_calendar.year = year;
-										during_calendar.month = month;
-										during_calendar.day = day;
+										during_calendar.set_year (year);
+										during_calendar.set_month (month);
+										during_calendar.set_day (day);
 									}
 								}
 							} else if (down_word.has_prefix ("after:")) {
@@ -459,9 +459,9 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 									if (year > 0 && month > 0 && day > 0) {
 										after_expander_row.expanded = true;
-										after_calendar.year = year;
-										after_calendar.month = month;
-										after_calendar.day = day;
+										after_calendar.set_year (year);
+										after_calendar.set_month (month);
+										after_calendar.set_day (day);
 									}
 								}
 							} else {

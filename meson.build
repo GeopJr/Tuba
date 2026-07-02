@@ -94,6 +94,10 @@ if libspelling.found ()
   add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
 endif
 
+if gtk_dep.version().version_compare('>=4.20')
+  add_project_arguments(['--define=GTK_4_20'], language: 'vala')
+endif
+
 if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif
@@ -105,6 +109,9 @@ endif
 
 if gexiv2_dep.found ()
   add_project_arguments(['--define=GEXIV2'], language: 'vala')
+  if gexiv2_dep.version().version_compare('>=0.16')
+    add_project_arguments(['--define=GEXIV2_0_16'], language: 'vala')
+  endif
   gexiv2 = true
 endif
 

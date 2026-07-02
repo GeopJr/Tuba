@@ -178,7 +178,7 @@ public class Tuba.Widgets.Collection : Gtk.Box {
 			null,
 			false,
 			(obj, res) => {
-				if (app.question.end (res).truthy ()) block_author ();
+				if (app.question.end (res).truthy ()) block_author.begin ();
 			}
 		);
 	}
