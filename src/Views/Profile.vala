@@ -273,13 +273,18 @@ public class Tuba.Views.Profile : Views.Accounts {
 				break;
 			case "followers":
 				accepts = typeof (API.Account);
+				empty_state_title = profile.account.followers_count > 0
+				// translators: profile tab, when information (followers/following lists) is hidden.
+				? _("This user has chosen to not make this information available")
 				// translators: followers tab on profiles, shown when empty.
-				empty_state_title = _("No Followers");
+				: _("No Followers");
 				break;
 			case "following":
 				accepts = typeof (API.Account);
-				// translators: following tab on profiles, shown when empty.
-				empty_state_title = _("This user doesn't follow anyone yet");
+				empty_state_title = profile.account.following_count > 0
+				? _("This user has chosen to not make this information available")
+				// translators: following tab on profiles, shown when empty or hidden.
+				: _("This user doesn't follow anyone yet");
 				break;
 			case "endorsements":
 				accepts = typeof (API.Account);
