@@ -217,8 +217,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				valign = Gtk.Align.CENTER,
 				vexpand = true,
 				hexpand = true,
-				width_request = 35, // 32 + 3
-				height_request = 35,
+				width_request = 36,
+				height_request = 36,
 				css_classes = { "osd", "circular-spinner" }
 			};
 
