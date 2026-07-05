@@ -357,7 +357,7 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 	}
 
 	private void on_close_attempt () {
-		if (this.edit_mode || name_row.text.strip () == "") {
+		if (this.edit_mode || (name_row.text.strip () == "" && members.size == 0)) {
 			this.force_close ();
 			return;
 		}
