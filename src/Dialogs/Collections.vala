@@ -498,10 +498,12 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 				warning (@"Error while searching users: $(e.code) $(e.message)");
 			}
 			search_timeout_id = 0;
+			last_search_req = null;
 		});
 		return GLib.Source.REMOVE;
 	}
 
+	Request? last_search_req = null;
 	private async void update_search_results_real (string query) throws Error {
 		if (search_timeout_id == 0) return;
 
@@ -510,11 +512,16 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 		}
 		search_results = {};
 
-		var req = API.Account.search (query.strip ());
-		yield req.await ();
-		if (search_results.length > 0) return;
+		if (last_search_req != null) {
+			last_search_req.cancellable.cancel ();
+			last_search_req = null;
+		}
 
-		var parser = Network.get_parser_from_inputstream (req.response_body);
+		last_search_req = API.Account.search (query.strip ());
+		yield last_search_req.await ();
+		if (search_results.length > 0 || last_search_req == null || last_search_req.cancellable.is_cancelled ()) return;
+
+		var parser = Network.get_parser_from_inputstream (last_search_req.response_body);
 		Network.parse_array (parser, node => {
 			var entity = Tuba.Helper.Entity.from_json (node, typeof (API.Account));
 			if (entity is API.Account) {
@@ -557,10 +564,12 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 				warning (@"Error while searching tags: $(e.code) $(e.message)");
 			}
 			tag_timeout_id = 0;
+			last_tag_req = null;
 		});
 		return GLib.Source.REMOVE;
 	}
 
+	Request? last_tag_req = null;
 	private async void update_tag_search_results_real (string query) throws Error {
 		if (tag_timeout_id == 0) return;
 
@@ -569,11 +578,16 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 		}
 		tag_results = {};
 
-		var req = API.Tag.search (query.strip ());
-		yield req.await ();
-		if (tag_results.length > 0) return;
+		if (last_tag_req != null) {
+			last_tag_req.cancellable.cancel ();
+			last_tag_req = null;
+		}
 
-		var parser = Network.get_parser_from_inputstream (req.response_body);
+		last_tag_req = API.Tag.search (query.strip ());
+		yield last_tag_req.await ();
+		if (tag_results.length > 0 || last_tag_req == null || last_tag_req.cancellable.is_cancelled ()) return;
+
+		var parser = Network.get_parser_from_inputstream (last_tag_req.response_body);
 		var results = API.SearchResults.from (network.parse_node (parser));
 		if (results != null) {
 			results.hashtags.foreach (tag => {
