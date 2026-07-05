@@ -4,6 +4,7 @@ sources += files(
     'Collection.vala',
     'Collections.vala',
     'FilterEdit.vala',
+    'HashtagList.vala',
     'ListEdit.vala',
     'MainWindow.vala',
     'NewAccount.vala',

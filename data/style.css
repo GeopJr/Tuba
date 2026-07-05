@@ -78,6 +78,10 @@
 	margin: 0px;
 }
 
+.border-radius-6 {
+	border-radius: 6px;
+}
+
 /*
 	Overrides
 */

@@ -58,7 +58,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	}
 
 	#if !USE_LISTVIEW
-		protected void on_activated () {
+		protected virtual void on_activated () {
 			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url), this.featuring));
 		}
 	#endif
