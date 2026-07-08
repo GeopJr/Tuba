@@ -166,7 +166,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			scroller.vadjustment.value = scroller.vadjustment.value - y + last_y;
 		}
 
-		public void zoom (double zoom_level, int? old_width = null, int? old_height = null) {
+		Adw.TimedAnimation zoom_animation_width;
+		Adw.TimedAnimation zoom_animation_height;
+		public void zoom (double zoom_level, int? old_width = null, int? old_height = null, bool animate = true) {
 			// Don't zoom on video
 			if (is_video || is_audio) return;
 			if ((zoom_level > 1.0 && !can_zoom_in) || (zoom_level < 1.0 && !can_zoom_out && settings.media_viewer_expand_pictures) || zoom_level == 1.0) return;
@@ -182,15 +184,56 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				if (new_height < 0) new_height = -1;
 			}
 
-			child_widget.set_size_request ((int) new_width, (int) new_height);
+			if (
+				!animate || new_width <= 0 || new_height <= 0
+				|| scroller.vadjustment.upper < 0 || scroller.vadjustment.value < 0
+				|| scroller.hadjustment.upper < 0 || scroller.hadjustment.value < 0
+			) {
+				do_zoom_internal (new_width, new_height);
+			} else {
+				zoom_animation_width = new Adw.TimedAnimation (this, scroller.hadjustment.upper, new_width, 200, new Adw.PropertyAnimationTarget (this, "zoom-animation-width-hack"));
+				zoom_animation_height = new Adw.TimedAnimation (this, scroller.vadjustment.upper, new_height, 200, new Adw.PropertyAnimationTarget (this, "zoom-animation-height-hack"));
+				zoom_animation_width.play ();
+				zoom_animation_height.play ();
+			}
+		}
 
+		private void do_zoom_internal (double new_width, double new_height) {
+			child_widget.set_size_request ((int) new_width, (int) new_height);
+			do_zoom_width_internal (new_width);
+			do_zoom_height_internal (new_height);
+			emit_zoom_changed ();
+		}
+
+		private void do_zoom_height_internal (double new_height) {
 			// Center the viewport
 			scroller.vadjustment.upper = new_height;
 			scroller.vadjustment.value = (new_height - scroller.vadjustment.page_size) / 2;
+		}
 
+		private void do_zoom_width_internal (double new_width) {
+			// Center the viewport
 			scroller.hadjustment.upper = new_width;
 			scroller.hadjustment.value = (new_width - scroller.hadjustment.page_size) / 2;
-			emit_zoom_changed ();
+		}
+
+		public double zoom_animation_width_hack {
+			get { return zoom_animation_width.value; }
+			set {
+				child_widget.width_request = (int) value;
+				do_zoom_width_internal (value);
+				if (zoom_animation_width.value == zoom_animation_width.value_to) {
+					emit_zoom_changed ();
+				}
+			}
+		}
+
+		public double zoom_animation_height_hack {
+			get { return zoom_animation_height.value; }
+			set {
+				child_widget.height_request = (int) value;
+				do_zoom_height_internal (value);
+			}
 		}
 
 		// Stepped zoom
@@ -414,6 +457,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	[GtkChild] unowned Gtk.Revealer zoom_buttons_revealer;
 	[GtkChild] unowned Gtk.Button zoom_out_btn;
 	[GtkChild] unowned Gtk.Button zoom_in_btn;
+	[GtkChild] unowned Gtk.ToggleButton toggle_zoom_btn;
 
 	[GtkChild] unowned Tuba.Widgets.ScaleRevealer scale_revealer;
 	[GtkChild] unowned Adw.Carousel carousel;
@@ -784,13 +828,15 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		toggle_fs_revealer.set_reveal_child (true);
 
 		if (revealer_timeout > 0) GLib.Source.remove (revealer_timeout);
-		revealer_timeout = Timeout.add (3 * 1000, on_hide_media_buttons, Priority.LOW);
+		revealer_timeout = Timeout.add (5 * 1000, on_hide_media_buttons, Priority.LOW);
 	}
 
 	protected bool on_hide_media_buttons () {
-		page_buttons_revealer.set_reveal_child (false);
-		zoom_buttons_revealer.set_reveal_child (false);
-		toggle_fs_revealer.set_reveal_child (false);
+		if (!zoom_in_btn.has_focus && !zoom_out_btn.has_focus && !prev_btn.has_focus && !next_btn.has_focus) {
+			page_buttons_revealer.set_reveal_child (false);
+			zoom_buttons_revealer.set_reveal_child (false);
+			toggle_fs_revealer.set_reveal_child (false);
+		}
 		revealer_timeout = 0;
 
 		return GLib.Source.REMOVE;
@@ -1217,17 +1263,28 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	[GtkCallback]
 	private void on_zoom_out_clicked () {
 		Item? page = safe_get ((int) carousel.position);
-			if (page == null) return;
+		if (page == null) return;
 
-			page.zoom_out ();
+		page.zoom_out ();
 	}
 
 	[GtkCallback]
 	private void on_zoom_in_clicked () {
 		Item? page = safe_get ((int) carousel.position);
-			if (page == null) return;
+		if (page == null) return;
 
-			page.zoom_in ();
+		page.zoom_in ();
+	}
+
+	[GtkCallback]
+	private void on_zoom_btn_clicked () {
+		if (toggle_zoom_btn.active) {
+			on_zoom_in_clicked ();
+		} else {
+			Item? page = safe_get ((int) carousel.position);
+			if (page == null) return;
+			page.zoom (0);
+		}
 	}
 
 	private uint old_pos = 500;
