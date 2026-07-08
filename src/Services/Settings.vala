@@ -200,6 +200,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool collapse_long_posts { get; set; }
 	public bool show_interaction_counters { get; set; }
 	public bool extract_alt_from_metadata { get; set; }
+	public double status_font_size { get; set; }
 
 	private const string[] KEYS_TO_INIT = {
 		"active-account",
@@ -234,7 +235,8 @@ public class Tuba.Settings : GLib.Settings {
 		"use-in-app-browser-if-available",
 		"collapse-long-posts",
 		"show-interaction-counters",
-		"extract-alt-from-metadata"
+		"extract-alt-from-metadata",
+		"status-font-size"
 	};
 
 	public Settings () {

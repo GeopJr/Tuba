@@ -285,6 +285,11 @@
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<summary>Automatically extract alt text from file metadata</summary>
 		</key>
+    <key name="status-font-size" type="d">
+			<default>1.0</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>The multiplier of the font size used in posts (0.8-2.0)</summary>
+		</key>
 
 		<key name="window-w" type="i">
 			<default>600</default>

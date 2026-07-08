@@ -2,6 +2,10 @@
 public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	~Preferences () {
 		debug ("Destroying Preferences");
+		if (font_timeout > 0) {
+			GLib.Source.remove (font_timeout);
+			font_timeout = 0;
+		}
 	}
 
 	class FilterRow : Adw.ExpanderRow {
@@ -118,7 +122,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow public_live_updates;
 	[GtkChild] unowned Adw.SwitchRow show_spoilers;
 	[GtkChild] unowned Adw.SwitchRow show_preview_cards;
-	[GtkChild] unowned Adw.SwitchRow larger_font_size;
+	[GtkChild] unowned Gtk.Adjustment font_adjustment;
 	[GtkChild] unowned Adw.SwitchRow larger_line_height;
 	[GtkChild] unowned Adw.SwitchRow scale_emoji_hover;
 	[GtkChild] unowned Adw.SwitchRow strip_tracking;
@@ -177,6 +181,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	construct {
 		proxy_entry.text = settings.proxy;
 		post_visibility_combo_row.model = accounts.active.visibility_list;
+		font_adjustment.value = settings.status_font_size;
 
 		#if !WEBKIT
 			in_app_browser_switch.visible = false;
@@ -249,7 +254,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("public-live-updates", public_live_updates, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("show-spoilers", show_spoilers, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("show-preview-cards", show_preview_cards, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("larger-font-size", larger_font_size, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("larger-line-height", larger_line_height, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("scale-emoji-hover", scale_emoji_hover, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("strip-tracking", strip_tracking, "active", SettingsBindFlags.DEFAULT);
@@ -269,6 +273,21 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
+	}
+
+	uint font_timeout = 0;
+	[GtkCallback] void on_font_adjustment_value_changed (Gtk.Adjustment adj) {
+		if (font_timeout > 0) {
+			GLib.Source.remove (font_timeout);
+			font_timeout = 0;
+		}
+		font_timeout = GLib.Timeout.add (300, update_font_size);
+	}
+
+	private bool update_font_size () {
+		settings.status_font_size = font_adjustment.value;
+		font_timeout = 0;
+		return GLib.Source.REMOVE;
 	}
 
 	private void dlcr_cb () {

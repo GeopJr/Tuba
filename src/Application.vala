@@ -332,6 +332,13 @@ namespace Tuba {
 
 			if (settings.analytics) app.update_analytics.begin ();
 			app.update_contributors.begin ();
+
+			// TODO: remove me next release
+			// this handles the old setting and sets the new one
+			if (settings.larger_font_size) {
+				settings.larger_font_size = false;
+				settings.status_font_size = 1.2;
+			}
 		}
 
 		private void on_proxy_change (bool recover = false) {
