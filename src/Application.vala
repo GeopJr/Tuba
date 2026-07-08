@@ -97,7 +97,10 @@ namespace Tuba {
 			{ "open-admin-dashboard", open_admin_dashboard },
 			{ "open-last-fediwrapped", open_last_fediwrapped },
 			{ "open-collections", open_collections },
-			{ "open-containing-folder", open_containing_folder, "s" }
+			{ "open-containing-folder", open_containing_folder, "s" },
+			{ "increase-font-size", increase_font_size },
+			{ "decrease-font-size", decrease_font_size },
+			{ "reset-font-size", reset_font_size }
 		};
 
 		#if DEV_MODE
@@ -565,6 +568,18 @@ namespace Tuba {
 		public void open_containing_folder (GLib.SimpleAction action, GLib.Variant? value) {
 			if (value == null) return;
 			Utils.Host.open_containing_folder.begin (value.get_string ());
+		}
+
+		private void increase_font_size () {
+			if (settings.status_font_size < 2.0) settings.status_font_size += 0.1;
+		}
+
+		private void decrease_font_size () {
+			if (settings.status_font_size > 0.8) settings.status_font_size -= 0.1;
+		}
+
+		private void reset_font_size () {
+			settings.status_font_size = 1.0;
 		}
 
 		private void close_sidebar () {

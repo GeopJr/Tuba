@@ -119,6 +119,66 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		drag.drag_update.connect (on_drag_update);
 		drag.drag_end.connect (on_drag_end);
 		this.add_controller (drag);
+
+		var shortcutscontroller = new Gtk.ShortcutController ();
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>0"),
+			new Gtk.NamedAction ("app.reset-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>KP_0"),
+			new Gtk.NamedAction ("app.reset-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>plus"),
+			new Gtk.NamedAction ("app.increase-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>plus"),
+			new Gtk.NamedAction ("app.increase-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>equal"),
+			new Gtk.NamedAction ("app.increase-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>equal"),
+			new Gtk.NamedAction ("app.increase-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>KP_Add"),
+			new Gtk.NamedAction ("app.increase-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>KP_Add"),
+			new Gtk.NamedAction ("app.increase-font-size")
+		));
+
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>minus"),
+			new Gtk.NamedAction ("app.decrease-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>minus"),
+			new Gtk.NamedAction ("app.decrease-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>underscore"),
+			new Gtk.NamedAction ("app.decrease-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>underscore"),
+			new Gtk.NamedAction ("app.decrease-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>KP_Subtract"),
+			new Gtk.NamedAction ("app.decrease-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>KP_Subtract"),
+			new Gtk.NamedAction ("app.decrease-font-size")
+		));
+		this.add_controller (shortcutscontroller);
 	}
 	~Timeline () {
 		debug (@"Destroying Timeline $label");
