@@ -232,10 +232,54 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		mastodon_action (status_btn, req, action, "favourites-count");
 	}
 
+	private bool is_any_missing_alt () {
+		if (!status.formal.has_media) return false;
+		bool res = false;
+
+		status.formal.media_attachments.foreach (e => {
+			if (e.description == null || e.description == "") {
+				res = true;
+				return false;
+			}
+
+			return true;
+		});
+
+		return res;
+	}
+
 	private void on_boost_button_clicked (Gtk.Button btn) {
 		var status_btn = btn as Widgets.StatusActionButton;
 		if (status_btn.working) return;
 
+		if (!status_btn.active && settings.boost_alt_text_reminder && is_any_missing_alt ()) {
+			var checkbutton = new Gtk.CheckButton () {
+				label = _("Don't remind me again"),
+				halign = Gtk.Align.CENTER
+			};
+			app.question.begin (
+				// translators: title of dialog shown when trying to boost a post that has attachments without alt text
+				{_("This post includes attachments without alt text"), false},
+				// translators: subtitle of dialog shown when trying to boost a post that has attachments without alt text;
+				//				"it" refers to "this post" (mentioned in the dialog title); "parse" as in read/grasp/understand it
+				{_("Some of your followers might not be able to parse it."), false},
+				app.main_window,
+				{ { _("Boost"), Adw.ResponseAppearance.SUGGESTED }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				checkbutton,
+				false,
+				(obj, res) => {
+					if (app.question.end (res).truthy ()) {
+						boost_button_clicked_real (status_btn);
+					}
+					if (checkbutton.active) settings.boost_alt_text_reminder = false;
+				}
+			);
+		} else {
+			boost_button_clicked_real (status_btn);
+		}
+	}
+
+	private void boost_button_clicked_real (Widgets.StatusActionButton status_btn) {
 		status_btn.block_clicked ();
 
 		if (!status_btn.active && settings.advanced_boost_dialog) {

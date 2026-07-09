@@ -127,6 +127,11 @@
 							</object>
 						</child>
 						<child>
+							<object class="AdwSwitchRow" id="boost_alt_text_reminder">
+								<property name="title" translatable="yes">Warn before boosting a post that includes attachments without alt text</property>
+							</object>
+						</child>
+						<child>
 							<object class="AdwSwitchRow" id="work_in_background">
 								<property name="title" translatable="yes">Run in Background</property>
 								<property name="subtitle" translatable="yes">Fetch notifications while the app is closed</property>
