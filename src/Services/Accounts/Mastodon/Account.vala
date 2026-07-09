@@ -173,6 +173,11 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	protected override void bump_sidebar_items () {
 		PLACE_BUBBLE.visible = (this.instance_info != null && this.instance_info.supports_bubble) || BUBBLE in this.tuba_instance_features || ICESHRIMP in this.tuba_instance_features;
 		PLACE_DRIVE.visible = ICESHRIMP in this.tuba_instance_features;
+
+		var collections_action = app.lookup_action ("open-collections") as SimpleAction;
+		if (collections_action != null) {
+			collections_action.set_enabled (this.tuba_api_versions.mastodon >= 10);
+		}
 	}
 
 	public override void register_known_places (GLib.ListStore places) {

@@ -3,36 +3,38 @@
 # This file is distributed under the same license as the PACKAGE package.
 # JS Ahn <freirepublik@gmail.com>, 2023.
 # honnip <me@honnip.page>, 2024.
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2024-03-31 13:02+0000\n"
-"Last-Translator: honnip <me@honnip.page>\n"
+"PO-Revision-Date: 2026-02-25 17:09+0000\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/tuba/tuba/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
-msgstr "Tuba"
+msgstr "튜바"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "연합우주 둘러보기"
+msgstr "페디버스를 둘러봅니다"
 
 #: data/dev.geopjr.Tuba.desktop.in:5
 msgid "Fediverse Client"
-msgstr "연합우주 클라이언트"
+msgstr "페디버스 클라이언트"
 
 #: data/dev.geopjr.Tuba.desktop.in:10
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr "툿;마스토돈;연합우주;gotosocial;pleroma;akkoma;"
+msgstr ""
+"toot;툿;mastodon;마스토돈;fediverse;연합우주;gotosocial;고투소셜;pleroma;플레로마;akkoma;아코마;"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
@@ -52,14 +54,18 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
+"페디버스는 다중 상호연결 기반과 커뮤니티로 구성한 분산형 소셜 네트워크이며, "
+"사용자 서로가 제각기 다른 네트워크와 서버간에 의사소통을 하고 컨텐트를 "
+"공유할 수 있게 합니다. 개인 사생활과 소유 데이터를 공개 홍보하며, 집중형 "
+"소셜 미디어 기반의 대안 체계를 제공합니다."
 
 #: data/dev.geopjr.Tuba.gschema.xml:12 data/ui/dialogs/preferences.ui:135
 msgid "Default Post Visibility"
-msgstr ""
+msgstr "기본 게시글 공개"
 
 #: data/dev.geopjr.Tuba.gschema.xml:16 data/ui/dialogs/preferences.ui:154
 msgid "Default Post Content Type"
-msgstr ""
+msgstr "기본 게시글 내용 형식"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:21
@@ -69,12 +75,12 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:26
 msgid "Recently Used Custom Emojis"
-msgstr ""
+msgstr "최근 사용한 개별 에모지"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:31
 msgid "Recent Search Queries"
-msgstr ""
+msgstr "최근 검색어"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:36
@@ -84,16 +90,16 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:41
 msgid "IDs of Lists shown on the sidebar"
-msgstr ""
+msgstr "가장자리 창에 나타낼 목록 ID"
 
 #: data/dev.geopjr.Tuba.gschema.xml:45
 msgid "Hashtags shown on the sidebar"
-msgstr ""
+msgstr "가장자리 창에 나타나는 해시태그"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
 msgid "Account Suggestions"
-msgstr ""
+msgstr "계정 제안"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:52
@@ -101,6 +107,8 @@ msgid ""
 "Whether account suggestions should be shown in the Home tab when the user "
 "doesn't follow enough people"
 msgstr ""
+"사용자가 충분한 사람 수를 팔로잉 하지 않을 경우 홈 탭에 계정 추천을 나타내야 "
+"하는 지 여부입니다"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
@@ -110,50 +118,52 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:62
 msgid "The UUID of the active account"
-msgstr ""
+msgstr "활성 계정 UUID"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:67
 msgid "The default color scheme"
-msgstr ""
+msgstr "기본 색상 구성"
 
 #: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
 msgid "Run in Background"
-msgstr ""
+msgstr "백그라운드에서 실행"
 
 #: data/dev.geopjr.Tuba.gschema.xml:72 data/ui/dialogs/preferences.ui:117
 msgid "Fetch notifications while the app is closed"
-msgstr ""
+msgstr "앱을 닫은 동안에도 알림을 가져옵니다"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:77
 msgid "Posts per Load Batch"
-msgstr ""
+msgstr "한번에 불러올 게시글 수"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:79
 msgid ""
 "The amount of posts that should be displayed on every scroll on timelines "
 "(10-40)"
-msgstr ""
+msgstr "타임라인을 스크롤할 때마다 나타낼 게시글의 양 (10-40) 입니다"
 
 #: data/dev.geopjr.Tuba.gschema.xml:83 data/ui/dialogs/preferences.ui:168
 msgid "Stream Timelines"
-msgstr ""
+msgstr "스트림 타임라인"
 
 #: data/dev.geopjr.Tuba.gschema.xml:84 data/ui/dialogs/preferences.ui:169
 msgid "Receive new posts and notifications in real-time"
-msgstr ""
+msgstr "실시간으로 새 게시글과 함께 알림을 받습니다"
 
 #: data/dev.geopjr.Tuba.gschema.xml:88 data/ui/dialogs/preferences.ui:175
 msgid "Stream Public Timelines"
-msgstr ""
+msgstr "스트림 공개 타임라인"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:90
 msgid ""
 "Public means the local and federated ones that usually have a lot of traffic"
 msgstr ""
+"공개라 함은 보통 더 많은 트래픽을 취하는 로컬 및 연합 소셜 네트워크를 "
+"의미합니다"
 
 #: data/dev.geopjr.Tuba.gschema.xml:94 data/ui/dialogs/preferences.ui:72
 msgid "Reveal Spoilers by Default"
@@ -161,23 +171,23 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:98 data/ui/dialogs/preferences.ui:77
 msgid "Show Link Preview Cards"
-msgstr ""
+msgstr "링크 미리보기 카드 보이기"
 
 #: data/dev.geopjr.Tuba.gschema.xml:102 data/ui/dialogs/preferences.ui:31
 msgid "Large Text"
-msgstr ""
+msgstr "큰 텍스트"
 
 #: data/dev.geopjr.Tuba.gschema.xml:103 data/ui/dialogs/preferences.ui:32
 msgid "Increase the size of text in posts"
-msgstr ""
+msgstr "게시글의 텍스트 크기 올리기"
 
 #: data/dev.geopjr.Tuba.gschema.xml:107 data/ui/dialogs/preferences.ui:37
 msgid "Large Line Height"
-msgstr ""
+msgstr "행간 크게"
 
 #: data/dev.geopjr.Tuba.gschema.xml:108 data/ui/dialogs/preferences.ui:38
 msgid "Increase the line height in posts"
-msgstr ""
+msgstr "게시글의 행간을 늘입니다"
 
 #: data/dev.geopjr.Tuba.gschema.xml:112 data/ui/dialogs/preferences.ui:43
 msgid "Scale Custom Emojis on Hover"
@@ -212,7 +222,7 @@ msgstr ""
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/dev.geopjr.Tuba.gschema.xml:129 data/ui/dialogs/preferences.ui:60
 msgid "Letterbox Media"
-msgstr ""
+msgstr "레터박스 미디어"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/dev.geopjr.Tuba.gschema.xml:130 data/ui/dialogs/preferences.ui:62
@@ -233,12 +243,12 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:141 data/ui/dialogs/preferences.ui:26
 msgid "Large Custom Emojis"
-msgstr ""
+msgstr "큰 개별 에모지"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; leave this as is unless you want to transliterate. BlurHash is a recognizable product name.
 #: data/dev.geopjr.Tuba.gschema.xml:146
 msgid "BlurHash"
-msgstr ""
+msgstr "블러해시"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:148
@@ -262,11 +272,11 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:162 data/ui/dialogs/preferences.ui:87
 msgid "Advanced Boost Dialog"
-msgstr ""
+msgstr "고급 부스팅 대화상자"
 
 #: data/dev.geopjr.Tuba.gschema.xml:163 data/ui/dialogs/preferences.ui:88
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr ""
+msgstr "부스팅 가시성, 인용 설정을 바꾸고 부스팅 설정 상태를 확인합니다"
 
 #: data/dev.geopjr.Tuba.gschema.xml:167 data/ui/dialogs/preferences.ui:106
 msgid "Warn before replying to an old post"
@@ -293,7 +303,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
 msgid "Spellchecker"
-msgstr ""
+msgstr "철자검사기"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:182
@@ -301,10 +311,12 @@ msgid ""
 "The last state of the spellchecker in the composer, can be toggled by right "
 "clicking"
 msgstr ""
+"마우스 오른쪽 단추를 누르면 작성 창의 철자검사기 마지막 상태를 전환할 수 "
+"있습니다"
 
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:14
 msgid "Darken Images on Dark Mode"
-msgstr ""
+msgstr "어두움 모드에서 그림 어둡게"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:188
@@ -312,6 +324,8 @@ msgid ""
 "Images will be darker when dark mode is enabled and gain their full "
 "brightness when hovered"
 msgstr ""
+"어두움 모드를 켜면 그림이 어두워지며 마우스 커서를 가져다 올려두면 최대 "
+"밝기로 볼 수 있습니다"
 
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/dev.geopjr.Tuba.gschema.xml:192 data/ui/dialogs/preferences.ui:20
@@ -4348,7 +4362,7 @@ msgstr ""
 #, c-format
 msgid "See %d author"
 msgid_plural "See all %d authors"
-msgstr[0] ""
+msgstr[0] "작성자 %d명 보기"
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The first variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -4379,7 +4393,7 @@ msgstr ""
 #, c-format
 msgid "Contains %d field."
 msgid_plural "Contains %d fields."
-msgstr[0] ""
+msgstr[0] "필드 %d개가 들어있습니다."
 
 #. translators: Button label shown when a user has moved to another instance.
 #. The first variable is this account's handle while the second
@@ -4392,11 +4406,11 @@ msgstr ""
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "숨김"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
-msgstr ""
+msgstr "오류: 기록이 2000글자를 넘었습니다"
 
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
@@ -4406,7 +4420,7 @@ msgstr ""
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63
 msgid "Replies"
-msgstr ""
+msgstr "댓글"
 
 #. translators: the variable is the emoji or its name if it's custom.
 #. A reaction is not the same as a favorite or a boost,
@@ -4414,7 +4428,7 @@ msgstr ""
 #: src/Widgets/ReactButton.vala:37
 #, c-format
 msgid "React with %s"
-msgstr ""
+msgstr "%s(으)로 반응했습니다"
 
 #: src/Widgets/RelationshipButton.vala:55 src/Widgets/Status.vala:341
 msgid "Unmute"
@@ -4423,38 +4437,38 @@ msgstr ""
 #. translators: not a verb, as in a post that is saved but not posted yet
 #: src/Widgets/ScheduledStatus.vala:13
 msgid "Draft"
-msgstr ""
+msgstr "초안"
 
 #: src/Widgets/ScheduledStatus.vala:51 src/Widgets/ScheduledStatus.vala:151
 msgid "Reschedule"
-msgstr ""
+msgstr "재예약"
 
 #. translators: Scheduled Post title, 'scheduled for <date>'
 #: src/Widgets/ScheduledStatus.vala:137
 #, c-format
 msgid "Scheduled for %s"
-msgstr ""
+msgstr "%s에 게시 예약함"
 
 #: src/Widgets/ScheduledStatus.vala:155
 msgid "Reschedule Post"
-msgstr ""
+msgstr "게시 재예약"
 
 #. translators: the variable is an error
 #: src/Widgets/ScheduledStatus.vala:187
 #, c-format
 msgid "Couldn't reschedule: %s"
-msgstr ""
+msgstr "재예약할 수 없음: %s"
 
 #. translators: as in a post set to be posted sometime in the future
 #: src/Widgets/ScheduledStatus.vala:195
 msgid "Delete Scheduled Post?"
-msgstr ""
+msgstr "예약 게시글을 삭제할까요?"
 
 #. translators: 'Draft' is not a verb here.
 #. It's equal to 'saved but not posted'
 #: src/Widgets/ScheduledStatus.vala:198
 msgid "Delete Draft Post?"
-msgstr ""
+msgstr "게시글 초안을 삭제할까요?"
 
 #: src/Widgets/Status/ActionsRow.vala:57 src/Widgets/Status/ActionsRow.vala:109
 #: src/Widgets/Status/ActionsRow.vala:286
@@ -4463,7 +4477,7 @@ msgstr "부스트"
 
 #: src/Widgets/Status/ActionsRow.vala:60
 msgid "This post can't be boosted"
-msgstr ""
+msgstr "이 게시글을 부스팅할 수 없습니다"
 
 #: src/Widgets/Status/ActionsRow.vala:161
 msgid "Bookmark"
@@ -4489,11 +4503,11 @@ msgstr ""
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:330
 msgid "View Stats"
-msgstr ""
+msgstr "통계 보기"
 
 #: src/Widgets/Status.vala:334
 msgid "View Edit History"
-msgstr ""
+msgstr "편집 이력 보기"
 
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:345 src/Widgets/Status.vala:847
@@ -4503,7 +4517,7 @@ msgstr "고정"
 #. translators: Post menu items to revert a translation
 #: src/Widgets/Status.vala:379
 msgid "Show Original"
-msgstr ""
+msgstr "원글 보기"
 
 #. translators: dialog subtitle visibility warning when copying a link to a
 #. post that is private or mentioned-only
@@ -4529,7 +4543,7 @@ msgstr ""
 #: src/Widgets/Status.vala:413
 #, c-format
 msgid "Copy %s Post Link?"
-msgstr ""
+msgstr "%s 게시글 링크를 복사할까요?"
 
 #: src/Widgets/Status.vala:416
 msgid "Copy"
@@ -4541,7 +4555,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:513
 msgid "Delete Post?"
-msgstr ""
+msgstr "게시글을 삭제할까요?"
 
 #. translators: toast shown when muting a post
 #: src/Widgets/Status.vala:570
@@ -4558,14 +4572,14 @@ msgstr ""
 #: src/Widgets/Status.vala:628 src/Widgets/Status.vala:649
 #, c-format
 msgid "Couldn't translate: %s"
-msgstr ""
+msgstr "번역할 수 없음: %s"
 
 #. translators: Tooltip text for avatars in posts.
 #. The variable is a string user handle.
 #: src/Widgets/Status.vala:793
 #, c-format
 msgid "Open %s's Mini Profile"
-msgstr ""
+msgstr "%s님의 미니 프로파일"
 
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:845
@@ -4595,14 +4609,14 @@ msgstr ""
 #. please be mindful.
 #: src/Widgets/Status.vala:898
 msgid "The post is pinned."
-msgstr ""
+msgstr "고정 게시글입니다."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:906
 msgid "Contains a quoted post."
-msgstr ""
+msgstr "인용 게시글이 들어있습니다."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4612,21 +4626,21 @@ msgstr ""
 #, c-format
 msgid "Contains %d attachment."
 msgid_plural "Contains %d attachments."
-msgstr[0] ""
+msgstr[0] "첨부 %d건이 들어있습니다."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:927
 msgid "Contains an expired poll."
-msgstr ""
+msgstr "기한이 지난 설문 조사가 들어있습니다."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:931
 msgid "Contains a poll."
-msgstr ""
+msgstr "설문 조사가 들어있습니다."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4678,7 +4692,7 @@ msgstr[0] ""
 #. This is used to announce the quoted post
 #: src/Widgets/Status.vala:1028
 msgid "Quoted Post"
-msgstr ""
+msgstr "인용 게시글"
 
 #: src/Widgets/Status.vala:1050
 #, c-format

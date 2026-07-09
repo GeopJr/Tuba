@@ -46,7 +46,7 @@ public class Tuba.API.Relationship : Entity {
 	public void request () {
 		new Request.GET ("/api/v1/accounts/relationships")
 			.with_account (accounts.active)
-			.with_param ("id", id)
+			.with_param ("id[]", id)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				Network.parse_array (parser, node => {

@@ -31,10 +31,10 @@ config.set('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/')
 config.set('VERSION', meson.project_version())
 config.set('PREFIX', get_option('prefix'))
 config.set('NAME', 'Tuba')
-config.set('WEBSITE', 'https://github.com/GeopJr/Tuba')
+config.set('WEBSITE', 'https://codeberg.org/GeopJr/Tuba')
 config.set('DONATE_WEBSITE', 'https://geopjr.dev/donate')
-config.set('TRANSLATE_WEBSITE', 'https://hosted.weblate.org/engage/tuba/')
-config.set('WIKI_WEBSITE', 'https://github.com/GeopJr/Tuba/wiki')
+config.set('TRANSLATE_WEBSITE', 'https://translate.codeberg.org/engage/tuba/')
+config.set('WIKI_WEBSITE', 'https://codeberg.org/GeopJr/Tuba/wiki')
 config.set('PROFILE', devel ? 'development' : 'production')
 
 if devel
@@ -56,6 +56,8 @@ if host_machine.system() == 'windows'
   add_project_arguments(['--define=WINDOWS'], language: 'vala')
 elif host_machine.system() == 'darwin'
   add_project_arguments(['--define=DARWIN'], language: 'vala')
+elif host_machine.system() == 'haiku'
+  add_project_arguments(['--define=HAIKU'], language: 'vala')
 endif
 
 add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
@@ -92,6 +94,10 @@ if libspelling.found ()
   add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
 endif
 
+if gtk_dep.version().version_compare('>=4.20')
+  add_project_arguments(['--define=GTK_4_20'], language: 'vala')
+endif
+
 if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif
@@ -103,6 +109,9 @@ endif
 
 if gexiv2_dep.found ()
   add_project_arguments(['--define=GEXIV2'], language: 'vala')
+  if gexiv2_dep.version().version_compare('>=0.16')
+    add_project_arguments(['--define=GEXIV2_0_16'], language: 'vala')
+  endif
   gexiv2 = true
 endif
 

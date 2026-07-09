@@ -78,6 +78,10 @@
 	margin: 0px;
 }
 
+.border-radius-6 {
+	border-radius: 6px;
+}
+
 /*
 	Overrides
 */
@@ -663,10 +667,6 @@ drive-item:drop(active) image {
 	font-weight: initial;
 }
 
-.ttl-status-font-large {
-	font-size: larger;
-}
-
 .ttl-status-font-large > .ttl-large-body {
 	font-size: larger;
 }
@@ -984,6 +984,12 @@ popover.mini-profile row  {
 	background-image: none;
 }
 
+.osd-box {
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.65);
+  padding: 6px;
+}
+
 /*
 	Media Player Video/Audio controls
 */
@@ -1182,6 +1188,25 @@ splitbutton.pill:dir(ltr) > menubutton > button {
 	}
 }
 
+/*
+	Collections
+*/
+.collection {
+	padding: 6px;
+}
+
+.collection-button {
+	font-weight: initial;
+}
+
+.collection-button .collection {
+	padding : 0;
+}
+
+.collection-sensitive {
+	filter: blur(4px);
+}
+
 @media (prefers-contrast: more) {
 	.ttl-profile-cover.thanks {
 		--alpha-multiplier: 0.08;
@@ -1211,4 +1236,59 @@ splitbutton.pill:dir(ltr) > menubutton > button {
 	.audio-controls {
 		--alpha: 1;
 	}
+}
+
+/*
+	Hard-coded font size steps
+	?: toggling css is faster than creating css
+	?: providers for every status
+	?: changing dpi or font size applies to the
+	?: whole app, not just statuses
+*/
+.ttl-status-font-large-80 {
+	font-size: 80%;
+}
+
+.ttl-status-font-large-90 {
+	font-size: 90%;
+}
+
+.ttl-status-font-large-110 {
+	font-size: 110%;
+}
+
+.ttl-status-font-large-120 {
+	font-size: 120%;
+}
+
+.ttl-status-font-large-130 {
+	font-size: 130%;
+}
+
+.ttl-status-font-large-140 {
+	font-size: 140%;
+}
+
+.ttl-status-font-large-150 {
+	font-size: 150%;
+}
+
+.ttl-status-font-large-160 {
+	font-size: 160%;
+}
+
+.ttl-status-font-large-170 {
+	font-size: 170%;
+}
+
+.ttl-status-font-large-180 {
+	font-size: 180%;
+}
+
+.ttl-status-font-large-190 {
+	font-size: 190%;
+}
+
+.ttl-status-font-large-200 {
+	font-size: 200%;
 }

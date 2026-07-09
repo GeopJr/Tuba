@@ -8,16 +8,6 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 	}
 
 	public StatusStats (string status_id, bool has_reactors = false) {
-		favorited = add_timeline_tab (
-			// translators: title for a list of people that favorited a post
-			_("Favorited By"),
-			"tuba-starred-symbolic",
-			@"/api/v1/statuses/$(status_id)/favourited_by",
-			typeof (API.Account),
-			_("No Favorites"),
-			"tuba-heart-broken-symbolic"
-		);
-
 		boosted = add_timeline_tab (
 			// translators: title for a list of people that boosted a post
 			_("Boosted By"),
@@ -25,6 +15,16 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 			@"/api/v1/statuses/$(status_id)/reblogged_by",
 			typeof (API.Account),
 			_("No Boosts"),
+			"tuba-heart-broken-symbolic"
+		);
+
+		favorited = add_timeline_tab (
+			// translators: title for a list of people that favorited a post
+			_("Favorited By"),
+			"tuba-starred-symbolic",
+			@"/api/v1/statuses/$(status_id)/favourited_by",
+			typeof (API.Account),
+			_("No Favorites"),
 			"tuba-heart-broken-symbolic"
 		);
 

@@ -10,6 +10,7 @@ public class Tuba.Settings : GLib.Settings {
 		public string[] notification_filters { get; set; default = {}; }
 		public string[] favorite_lists_ids { get; set; default = {}; }
 		public string[] favorite_tags_ids { get; set; default = {}; }
+		public string[] hashtag_lists { get; set; default = {}; }
 
 		private const string[] KEYS_TO_INIT = {
 			"default-post-visibility",
@@ -20,7 +21,8 @@ public class Tuba.Settings : GLib.Settings {
 			"notification-filters",
 			"account-suggestions",
 			"favorite-lists-ids",
-			"favorite-tags-ids"
+			"favorite-tags-ids",
+			"hashtag-lists"
 		};
 
 		public Account (string id) {
@@ -151,6 +153,16 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
+	public string[] hashtag_lists {
+		get {
+			return active_account_settings.hashtag_lists;
+		}
+
+		set {
+			active_account_settings.hashtag_lists = value;
+		}
+	}
+
 	public ColorScheme color_scheme { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
@@ -171,6 +183,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool group_push_notifications { get; set; }
 	public bool advanced_boost_dialog { get; set; }
 	public bool reply_to_old_post_reminder { get; set; }
+	public bool boost_alt_text_reminder { get; set; }
 	public bool copy_private_link_reminder { get; set; }
 	public bool spellchecker_enabled { get; set; }
 	public bool darken_images_on_dark_mode { get; set; }
@@ -188,6 +201,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool collapse_long_posts { get; set; }
 	public bool show_interaction_counters { get; set; }
 	public bool extract_alt_from_metadata { get; set; }
+	public double status_font_size { get; set; }
 
 	private const string[] KEYS_TO_INIT = {
 		"active-account",
@@ -210,6 +224,7 @@ public class Tuba.Settings : GLib.Settings {
 		"group-push-notifications",
 		"advanced-boost-dialog",
 		"reply-to-old-post-reminder",
+		"boost-alt-text-reminder",
 		"copy-private-link-reminder",
 		"spellchecker-enabled",
 		"darken-images-on-dark-mode",
@@ -222,7 +237,8 @@ public class Tuba.Settings : GLib.Settings {
 		"use-in-app-browser-if-available",
 		"collapse-long-posts",
 		"show-interaction-counters",
-		"extract-alt-from-metadata"
+		"extract-alt-from-metadata",
+		"status-font-size"
 	};
 
 	public Settings () {

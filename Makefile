@@ -1,7 +1,7 @@
 .PHONY: all install uninstall build test potfiles
 PREFIX ?= /usr
 
-msys_sys ?= mingw64
+msys_sys ?= ucrt64
 # Remove the devel headerbar style:
 # make release=1
 release ?=
@@ -31,7 +31,7 @@ potfiles:
 	find ./ -not -path '*/.*' -type f -name "*.vala" -exec grep -l "_(\"\|ngettext" {} \; | sort >> po/POTFILES
 
 xgettext:
-	xgettext --files-from=po/POTFILES --output=po/dev.geopjr.Tuba.pot --from-code=UTF-8 --add-comments --keyword=_ --keyword=C_:1c,2
+	xgettext --files-from=po/POTFILES --output=po/dev.geopjr.Tuba.pot --from-code=UTF-8 --add-comments --keyword=_ --keyword=C_:1c,2 --xml
 
 windows: PREFIX = $(PWD)/tuba_windows_portable
 windows: __windows_pre build install __windows_set_icon __windows_copy_deps __windows_schemas __windows_copy_icons __windows_cleanup __windows_package
@@ -49,17 +49,15 @@ endif
 	./rcedit-x64.exe $(PREFIX)/bin/dev.geopjr.Tuba.exe --set-icon ./builddir/dev.geopjr.Tuba.ico
 
 __windows_copy_deps:
-	if command -v ntldd >/dev/null 2>&1; then \
-		ntldd -R $(PREFIX)/bin/dev.geopjr.Tuba.exe | grep -i '\/$(msys_sys).*\.dll' | awk '{print $$3}' | sort -u | xargs -I{} cp "{}" $(PREFIX)/bin; \
-	else \
-		ldd $(PREFIX)/bin/dev.geopjr.Tuba.exe | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin; \
-	fi
+	ldd $(PREFIX)/bin/dev.geopjr.Tuba.exe | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin; \
 	cp -f /$(msys_sys)/bin/gdbus.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gdbus.exe | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	cp -f /$(msys_sys)/bin/gspawn-win64-helper.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gspawn-win64-helper.exe | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	cp -f /$(msys_sys)/bin/libwebp-7.dll /$(msys_sys)/bin/librsvg-2-2.dll /$(msys_sys)/bin/libgnutls-30.dll /$(msys_sys)/bin/libgthread-2.0-0.dll /$(msys_sys)/bin/libgmp-10.dll /$(msys_sys)/bin/libproxy-1.dll ${PREFIX}/bin
 	cp -r /$(msys_sys)/lib/gio/ $(PREFIX)/lib
 	cp -r /$(msys_sys)/lib/gdk-pixbuf-2.0 $(PREFIX)/lib/gdk-pixbuf-2.0
 	cp -r /$(msys_sys)/lib/gstreamer-1.0 $(PREFIX)/lib/gstreamer-1.0
+
+	cp -r /$(msys_sys)/share/gtksourceview-5/ ${PREFIX}/share/gtksourceview-5/
 
 	ldd $(PREFIX)/lib/gio/*/*.dll | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	ldd $(PREFIX)/lib/gstreamer-1.0/*.dll | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin

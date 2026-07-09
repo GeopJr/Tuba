@@ -51,6 +51,9 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
 			_use_markup = value;
 			label.use_markup = _use_markup;
+			_label_text = label.get_text ();
+			update_accessible_label ();
+			invalidate_child_widgets ();
 		}
 	}
 

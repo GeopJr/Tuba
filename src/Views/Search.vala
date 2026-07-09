@@ -84,6 +84,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	Views.ContentBase accounts_tab;
 	Views.ContentBase statuses_tab;
 	Views.ContentBase hashtags_tab;
+	Views.ContentBase? collections_tab = null;
 
 	construct {
 		this.uid = 1;
@@ -114,6 +115,10 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		accounts_tab = add_list_tab (_("Accounts"), "tuba-people-symbolic", _("No Results"));
 		statuses_tab = add_list_tab (_("Posts"), "tuba-chat-symbolic", _("No Results"));
 		hashtags_tab = add_list_tab (_("Hashtags"), "tuba-hashtag-symbolic", _("No Results"));
+
+		if (accounts.active.tuba_api_versions.mastodon >= 10) {
+			collections_tab = add_list_tab (_("Collections"), "tuba-shapes-symbolic", _("No Results"));
+		}
 
 		uint timeout = 0;
 		timeout = Timeout.add (200, () => {
@@ -228,6 +233,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 				append_results (results.accounts, accounts_tab);
 				if (!hashtag) append_results (results.hashtags, hashtags_tab);
 				append_results (results.statuses, statuses_tab);
+				if (collections_tab != null && results.collections != null) append_results (results.collections, collections_tab);
 
 				update_recents (query);
 				base_status = new StatusMessage ();
@@ -423,9 +429,9 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 									if (year > 0 && month > 0 && day > 0) {
 										before_expander_row.expanded = true;
-										before_calendar.year = year;
-										before_calendar.month = month;
-										before_calendar.day = day;
+										before_calendar.set_year (year);
+										before_calendar.set_month (month);
+										before_calendar.set_day (day);
 									}
 								}
 							} else if (down_word.has_prefix ("during:")) {
@@ -438,9 +444,9 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 									if (year > 0 && month > 0 && day > 0) {
 										during_expander_row.expanded = true;
-										during_calendar.year = year;
-										during_calendar.month = month;
-										during_calendar.day = day;
+										during_calendar.set_year (year);
+										during_calendar.set_month (month);
+										during_calendar.set_day (day);
 									}
 								}
 							} else if (down_word.has_prefix ("after:")) {
@@ -453,9 +459,9 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 									if (year > 0 && month > 0 && day > 0) {
 										after_expander_row.expanded = true;
-										after_calendar.year = year;
-										after_calendar.month = month;
-										after_calendar.day = day;
+										after_calendar.set_year (year);
+										after_calendar.set_month (month);
+										after_calendar.set_day (day);
 									}
 								}
 							} else {

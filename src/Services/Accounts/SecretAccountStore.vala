@@ -37,13 +37,13 @@ public class Tuba.SecretAccountStore : AccountStore {
 				null
 			);
 		} catch (GLib.Error e) {
-			string wiki_page = "https://github.com/GeopJr/Tuba/wiki/keyring-issues";
+			string wiki_page = "https://codeberg.org/GeopJr/Tuba/wiki/keyring-issues";
 
 			// Let's leave this untranslated for now
 			string help_msg = "If you didn’t manually cancel it, try creating a password keyring named \"login\" using Passwords and Keys (seahorse) or KWalletManager"; // vala-lint=line-length
 
 			if (e.message == "org.freedesktop.DBus.Error.ServiceUnknown") {
-				wiki_page = "https://github.com/GeopJr/Tuba/wiki/libsecret-issues";
+				wiki_page = "https://codeberg.org/GeopJr/Tuba/wiki/libsecret-issues";
 				help_msg = @"$(e.message), $(Build.NAME) might be missing some permissions";
 			}
 

@@ -273,13 +273,18 @@ public class Tuba.Views.Profile : Views.Accounts {
 				break;
 			case "followers":
 				accepts = typeof (API.Account);
+				empty_state_title = profile.account.followers_count > 0
+				// translators: profile tab, when information (followers/following lists) is hidden.
+				? _("This user has chosen to not make this information available")
 				// translators: followers tab on profiles, shown when empty.
-				empty_state_title = _("No Followers");
+				: _("No Followers");
 				break;
 			case "following":
 				accepts = typeof (API.Account);
-				// translators: following tab on profiles, shown when empty.
-				empty_state_title = _("This user doesn't follow anyone yet");
+				empty_state_title = profile.account.following_count > 0
+				? _("This user has chosen to not make this information available")
+				// translators: following tab on profiles, shown when empty or hidden.
+				: _("This user doesn't follow anyone yet");
 				break;
 			case "endorsements":
 				accepts = typeof (API.Account);
@@ -436,6 +441,13 @@ public class Tuba.Views.Profile : Views.Accounts {
 			new Dialogs.Composer.Dialog ({@"$(profile.account.handle) ", null, null, null, null, null, null, false, false}, v.get_string ());
 		});
 		actions.add_action (mention_action);
+
+		var collection_action = new SimpleAction ("collections", null);
+		collection_action.activate.connect (v => {
+			app.main_window.open_view (new Views.CollectionList (profile.account.id));
+		});
+		actions.add_action (collection_action);
+		collection_action.set_enabled (accounts.active.tuba_api_versions.mastodon >= 10 && !profile.account.hide_collections);
 
 		var copy_handle_action = new SimpleAction ("copy_handle", null);
 		copy_handle_action.activate.connect (v => {

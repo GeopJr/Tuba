@@ -23,40 +23,40 @@
     <name translate="no">Evangelos "GeopJr" Paterakis</name>
   </developer>
   <url type="homepage">https://tuba.geopjr.dev/</url>
-  <url type="bugtracker">https://github.com/GeopJr/Tuba/issues</url>
-  <url type="translate">https://hosted.weblate.org/engage/tuba/</url>
+  <url type="bugtracker">https://codeberg.org/GeopJr/Tuba/issues</url>
+  <url type="translate">https://translate.codeberg.org/engage/tuba/</url>
   <url type="donation">https://geopjr.dev/donate</url>
   <url type="contact">https://matrix.to/#/#tuba:gnome.org</url>
   <url type="help">https://matrix.to/#/#tuba:gnome.org</url>
-  <url type="vcs-browser">https://github.com/GeopJr/Tuba/</url>
-  <url type="contribute">https://github.com/GeopJr/Tuba#contributing</url>
+  <url type="vcs-browser">https://codeberg.org/GeopJr/Tuba/</url>
+  <url type="contribute">https://codeberg.org/GeopJr/Tuba#contributing</url>
   <screenshots>
     <screenshot type="default">
-      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-1.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-1.png</image>
       <caption>Home Timeline</caption>
     </screenshot>
     <screenshot>
-      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-2.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-2.png</image>
       <caption>Composer</caption>
     </screenshot>
     <screenshot>
-      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-3.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-3.png</image>
       <caption>Profile View</caption>
     </screenshot>
     <screenshot>
-      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-4.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-4.png</image>
       <caption>Home Timeline</caption>
     </screenshot>
     <screenshot>
-      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-5.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-5.png</image>
       <caption>Schedule Post Dialog</caption>
     </screenshot>
     <screenshot>
-      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-6.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-6.png</image>
       <caption>Scheduled Posts</caption>
     </screenshot>
     <screenshot>
-      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-7.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-7.png</image>
       <caption>Search View</caption>
     </screenshot>
   </screenshots>

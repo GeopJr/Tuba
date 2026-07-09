@@ -166,7 +166,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			scroller.vadjustment.value = scroller.vadjustment.value - y + last_y;
 		}
 
-		public void zoom (double zoom_level, int? old_width = null, int? old_height = null) {
+		Adw.TimedAnimation zoom_animation_width;
+		Adw.TimedAnimation zoom_animation_height;
+		double? zoom_focus_x = null;
+		double? zoom_focus_y = null;
+		public void zoom (double zoom_level, int? old_width = null, int? old_height = null, double? focus_x = null, double? focus_y = null, bool animate = true) {
 			// Don't zoom on video
 			if (is_video || is_audio) return;
 			if ((zoom_level > 1.0 && !can_zoom_in) || (zoom_level < 1.0 && !can_zoom_out && settings.media_viewer_expand_pictures) || zoom_level == 1.0) return;
@@ -182,15 +186,64 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				if (new_height < 0) new_height = -1;
 			}
 
-			child_widget.set_size_request ((int) new_width, (int) new_height);
+			if (
+				!animate || new_width <= 0 || new_height <= 0
+				|| scroller.vadjustment.upper < 0 || scroller.vadjustment.value < 0
+				|| scroller.hadjustment.upper < 0 || scroller.hadjustment.value < 0
+			) {
+				do_zoom_internal (new_width, new_height, focus_x, focus_y);
+			} else {
+				zoom_focus_x = focus_x;
+				zoom_focus_y = focus_y;
 
-			// Center the viewport
-			scroller.vadjustment.upper = new_height;
-			scroller.vadjustment.value = (new_height - scroller.vadjustment.page_size) / 2;
+				zoom_animation_width = new Adw.TimedAnimation (this, scroller.hadjustment.upper, new_width, 200, new Adw.PropertyAnimationTarget (this, "zoom-animation-width-hack"));
+				zoom_animation_height = new Adw.TimedAnimation (this, scroller.vadjustment.upper, new_height, 200, new Adw.PropertyAnimationTarget (this, "zoom-animation-height-hack"));
+				zoom_animation_width.play ();
+				zoom_animation_height.play ();
+			}
+		}
 
-			scroller.hadjustment.upper = new_width;
-			scroller.hadjustment.value = (new_width - scroller.hadjustment.page_size) / 2;
+		private void do_zoom_internal (double new_width, double new_height, double? focus_x = null, double? focus_y = null) {
+			do_zoom_width_internal (new_width, focus_x);
+			do_zoom_height_internal (new_height, focus_y);
 			emit_zoom_changed ();
+		}
+
+		private void do_zoom_height_internal (double new_height, double? focus_y = null) {
+			double new_v = focus_y == null ? -1 : (scroller.vadjustment.value + focus_y) * (new_height / scroller.vadjustment.upper) - focus_y;
+
+			child_widget.height_request = (int) new_height;
+			scroller.vadjustment.upper = new_height;
+			scroller.vadjustment.value = new_v == -1
+				? (new_height - scroller.vadjustment.page_size) / 2 // Center the viewport
+				: new_v.clamp (scroller.vadjustment.lower, new_height - scroller.vadjustment.page_size);
+		}
+
+		private void do_zoom_width_internal (double new_width, double? focus_x = null) {
+			double new_h = focus_x == null ? -1 : (scroller.hadjustment.value + focus_x) * (new_width / scroller.hadjustment.upper) - focus_x;
+
+			child_widget.width_request = (int) new_width;
+			scroller.hadjustment.upper = new_width;
+			scroller.hadjustment.value = new_h == -1
+				? (new_width - scroller.hadjustment.page_size) / 2 // Center the viewport
+				: new_h.clamp (scroller.hadjustment.lower, new_width - scroller.hadjustment.page_size);
+		}
+
+		public double zoom_animation_width_hack {
+			get { return zoom_animation_width.value; }
+			set {
+				do_zoom_width_internal (value, zoom_focus_x);
+				if (zoom_animation_width.value == zoom_animation_width.value_to) {
+					emit_zoom_changed ();
+				}
+			}
+		}
+
+		public double zoom_animation_height_hack {
+			get { return zoom_animation_height.value; }
+			set {
+				do_zoom_height_internal (value, zoom_focus_y);
+			}
 		}
 
 		// Stepped zoom
@@ -217,8 +270,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				valign = Gtk.Align.CENTER,
 				vexpand = true,
 				hexpand = true,
-				width_request = 35, // 32 + 3
-				height_request = 35,
+				width_request = 36,
+				height_request = 36,
 				css_classes = { "osd", "circular-spinner" }
 			};
 
@@ -360,8 +413,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			return scroller;
 		}
 
-		public void on_double_click () {
-			zoom (can_zoom_out ? -2.5 : 2.5);
+		public void on_double_click (double? click_x = null, double? click_y = null) {
+			zoom (can_zoom_out ? -2.5 : 2.5, null, null, click_x, click_y);
 		}
 
 		private void emit_zoom_changed () {
@@ -414,6 +467,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	[GtkChild] unowned Gtk.Revealer zoom_buttons_revealer;
 	[GtkChild] unowned Gtk.Button zoom_out_btn;
 	[GtkChild] unowned Gtk.Button zoom_in_btn;
+	[GtkChild] unowned Gtk.ToggleButton toggle_zoom_btn;
 
 	[GtkChild] unowned Tuba.Widgets.ScaleRevealer scale_revealer;
 	[GtkChild] unowned Adw.Carousel carousel;
@@ -547,6 +601,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			Gtk.ShortcutTrigger.parse_string ("KP_Right"),
 			new Gtk.NamedAction ("mediaviewer.scroll-next")
 		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>S"),
+			new Gtk.NamedAction ("mediaviewer.save-as")
+		));
 		add_controller (shortcutscontroller);
 
 		var drag = new Gtk.GestureDrag ();
@@ -628,7 +686,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			animation.play ();
 		} else {
 			clear ();
-			this.swipe_children_opacity = 1.0;
 		}
 	}
 
@@ -721,6 +778,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	private void on_scale_revealer_transition_end () {
+		this.swipe_children_opacity = 1.0;
+
 		if (!scale_revealer.reveal_child) {
 			this.visible = false;
 			swipe_progress = 0.0;
@@ -748,13 +807,16 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 	int? old_height;
 	int? old_width;
-	protected void on_scale_changed (double scale) {
+	protected void on_scale_changed (Gtk.GestureZoom gesture, double scale) {
 		var t_item = safe_get ((int) carousel.position);
 		if (t_item != null) {
 			if (old_height == null) old_height = t_item.child_height;
 			if (old_width == null) old_width = t_item.child_width;
 
-			t_item.zoom (scale, old_width, old_height);
+			double x, y;
+			gesture.get_bounding_box_center (out x, out y);
+
+			t_item.zoom (scale, old_width, old_height, x, y, false); // don't animate pinch
 		}
 	}
 
@@ -780,13 +842,15 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		toggle_fs_revealer.set_reveal_child (true);
 
 		if (revealer_timeout > 0) GLib.Source.remove (revealer_timeout);
-		revealer_timeout = Timeout.add (3 * 1000, on_hide_media_buttons, Priority.LOW);
+		revealer_timeout = Timeout.add (5 * 1000, on_hide_media_buttons, Priority.LOW);
 	}
 
 	protected bool on_hide_media_buttons () {
-		page_buttons_revealer.set_reveal_child (false);
-		zoom_buttons_revealer.set_reveal_child (false);
-		toggle_fs_revealer.set_reveal_child (false);
+		if (!zoom_in_btn.has_focus && !zoom_out_btn.has_focus && !prev_btn.has_focus && !next_btn.has_focus) {
+			page_buttons_revealer.set_reveal_child (false);
+			zoom_buttons_revealer.set_reveal_child (false);
+			toggle_fs_revealer.set_reveal_child (false);
+		}
 		revealer_timeout = 0;
 
 		return GLib.Source.REMOVE;
@@ -929,7 +993,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				Item? page = safe_get ((int) carousel.position);
 				if (page == null) break;
 
-				page.on_double_click ();
+				page.on_double_click (x, y);
 				break;
 		}
 	}
@@ -1213,17 +1277,28 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	[GtkCallback]
 	private void on_zoom_out_clicked () {
 		Item? page = safe_get ((int) carousel.position);
-			if (page == null) return;
+		if (page == null) return;
 
-			page.zoom_out ();
+		page.zoom_out ();
 	}
 
 	[GtkCallback]
 	private void on_zoom_in_clicked () {
 		Item? page = safe_get ((int) carousel.position);
-			if (page == null) return;
+		if (page == null) return;
 
-			page.zoom_in ();
+		page.zoom_in ();
+	}
+
+	[GtkCallback]
+	private void on_zoom_btn_clicked () {
+		if (toggle_zoom_btn.active) {
+			on_zoom_in_clicked ();
+		} else {
+			Item? page = safe_get ((int) carousel.position);
+			if (page == null) return;
+			page.zoom (0);
+		}
 	}
 
 	private uint old_pos = 500;

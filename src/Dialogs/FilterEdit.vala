@@ -6,6 +6,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 	[GtkChild] unowned Adw.PreferencesGroup keywords_group;
 	[GtkChild] unowned Gtk.Button save_btn;
 	[GtkChild] unowned Adw.SwitchRow hide_row;
+	Adw.ButtonRow filter_row;
 
 	public signal void saved (API.Filters.Filter filter);
 	public signal void toast (string toast_content, int dismiss_time);
@@ -100,6 +101,13 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 
 	string? filter_id = null;
 	public FilterEdit (API.Filters.Filter? filter = null) {
+		filter_row = new Adw.ButtonRow () {
+			title = _("Add Keyword"),
+			start_icon_name = "tuba-plus-large-symbolic"
+		};
+		filter_row.activated.connect (add_keyword_row);
+		keywords_group.add (filter_row);
+
 		populate_exp_row ();
 
 		if (filter != null) {
@@ -219,6 +227,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 
 	KeywordRow[] keyword_rows = {};
 	private void populate_keywords_group (Gee.ArrayList<API.Filters.FilterKeyword> keywords) {
+		keywords_group.remove (filter_row);
 		keywords.@foreach (e => {
 			var row = new KeywordRow (e);
 			keyword_rows += row;
@@ -227,13 +236,15 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 
 			return true;
 		});
+		keywords_group.add (filter_row);
 	}
 
-	[GtkCallback]
 	private void add_keyword_row () {
 		var row = new KeywordRow ();
 		keyword_rows += row;
+		keywords_group.remove (filter_row);
 		keywords_group.add (row);
+		keywords_group.add (filter_row);
 	}
 
 	[GtkCallback]

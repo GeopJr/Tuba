@@ -96,7 +96,11 @@ namespace Tuba {
 			{ "open-draft-posts", open_draft_posts },
 			{ "open-admin-dashboard", open_admin_dashboard },
 			{ "open-last-fediwrapped", open_last_fediwrapped },
-			{ "open-containing-folder", open_containing_folder, "s" }
+			{ "open-collections", open_collections },
+			{ "open-containing-folder", open_containing_folder, "s" },
+			{ "increase-font-size", increase_font_size },
+			{ "decrease-font-size", decrease_font_size },
+			{ "reset-font-size", reset_font_size }
 		};
 
 		#if DEV_MODE
@@ -226,7 +230,7 @@ namespace Tuba {
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
 			GLib.Environment.unset_variable ("GTK_THEME");
-			#if WINDOWS || DARWIN
+			#if WINDOWS || DARWIN || HAIKU
 				GLib.Environment.set_variable ("SECRET_BACKEND", "file", false);
 				if (GLib.Environment.get_variable ("SECRET_BACKEND") == "file")
 					GLib.Environment.set_variable ("SECRET_FILE_TEST_PASSWORD", @"$(GLib.Environment.get_user_name ())$(Build.DOMAIN)", false);
@@ -331,6 +335,13 @@ namespace Tuba {
 
 			if (settings.analytics) app.update_analytics.begin ();
 			app.update_contributors.begin ();
+
+			// TODO: remove me next release
+			// this handles the old setting and sets the new one
+			if (settings.larger_font_size) {
+				settings.larger_font_size = false;
+				settings.status_font_size = 1.2;
+			}
 		}
 
 		private void on_proxy_change (bool recover = false) {
@@ -549,9 +560,26 @@ namespace Tuba {
 			accounts.active.open_latest_wrapped ();
 		}
 
+		public void open_collections () {
+			main_window.open_view (new Views.Collections ());
+			close_sidebar ();
+		}
+
 		public void open_containing_folder (GLib.SimpleAction action, GLib.Variant? value) {
 			if (value == null) return;
 			Utils.Host.open_containing_folder.begin (value.get_string ());
+		}
+
+		private void increase_font_size () {
+			if (settings.status_font_size < 2.0) settings.status_font_size += 0.1;
+		}
+
+		private void decrease_font_size () {
+			if (settings.status_font_size > 0.8) settings.status_font_size -= 0.1;
+		}
+
+		private void reset_font_size () {
+			settings.status_font_size = 1.0;
 		}
 
 		private void close_sidebar () {
@@ -642,11 +670,11 @@ namespace Tuba {
 			dialog.add_link (_("Translate"), Build.TRANSLATE_WEBSITE);
 			dialog.add_link (_("Donate"), Build.DONATE_WEBSITE);
 
-			// translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
+			// translators: Application metainfo for the app "Archives". <https://codeberg.org/GeopJr/Archives/>
 			dialog.add_other_app ("dev.geopjr.Archives", _("Archives"), _("Create and view web archives"));
-			// translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
+			// translators: Application metainfo for the app "Calligraphy". <https://codeberg.org/GeopJr/Calligraphy>
 			dialog.add_other_app ("dev.geopjr.Calligraphy", _("Calligraphy"), _("Turn text into ASCII banners"));
-			// translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
+			// translators: Application metainfo for the app "Collision". <https://codeberg.org/GeopJr/Collision>
 			dialog.add_other_app ("dev.geopjr.Collision", _("Collision"), _("Check hashes for your files"));
 			// translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
 			dialog.add_other_app ("dev.geopjr.Turntable", _("Turntable"), _("Scrobble your music"));

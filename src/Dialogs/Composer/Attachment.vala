@@ -515,7 +515,11 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 			try {
 				switch (kind) {
 					case IMAGE:
-						done (Gdk.Texture.from_file (this.file));
+						if (file_uri.has_prefix ("file://")) {
+							done (Gdk.Texture.for_pixbuf ((new Gdk.Pixbuf.from_file (this.file.get_path ())).apply_embedded_orientation ()));
+						} else {
+							done (Gdk.Texture.from_file (this.file));
+						}
 						break;
 					case VIDEO:
 					case GIFV:

@@ -383,7 +383,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 		new Request.GET ("/api/v1/accounts/familiar_followers")
 			.with_account (accounts.active)
-			.with_param ("id", profile_id)
+			.with_param ("id[]", profile_id)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
@@ -428,7 +428,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		if (mutual_accounts == null || mutuals_listbox == null) return;
 
 		foreach (var acc in mutual_accounts) {
-			mutuals_listbox.append (new Widgets.EmojiReactionAccounts.AccountRow (acc));
+			mutuals_listbox.append (new Widgets.AccountRow (acc));
 		}
 
 		mutual_accounts = null;
@@ -510,11 +510,13 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
 			total_fields = profile.fields.size;
 
+			var profile_emoji_map = profile.emojis_map;
 			foreach (API.AccountField f in profile.fields) {
 				var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
 					css_classes = {"ttl-profile-field"}
 				};
-				var val = new Widgets.RichLabel (Utils.Htmlx.simplify (f.val)) {
+
+				var val = new Widgets.RichLabel.with_emojis (Utils.Htmlx.simplify (f.val), profile_emoji_map) {
 					use_markup = true,
 					xalign = 0,
 					selectable = true
@@ -524,7 +526,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 					use_markup = false,
 					css_classes = {"dim-label"}
 				};
-				title_label.instance_emojis = profile.emojis_map;
+				title_label.instance_emojis = profile_emoji_map;
 				title_label.content = f.name;
 
 				fields_box.append (row);

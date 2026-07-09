@@ -66,6 +66,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 	Category[] categories = {Category.SPAM};
 	string account_id = "";
 	string? status_id = null;
+	string? collection_id = null;
 	bool has_rules = false;
 	string account_domain = "";
 	construct {
@@ -110,19 +111,21 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		this.close_attempt.connect (on_back);
 	}
 
-	public Report (API.Account account, string? status_id = null, Gee.ArrayList<API.Mention>? mentions = null) {
+	public Report (API.Account account, string? status_id = null, Gee.ArrayList<API.Mention>? mentions = null, API.Collection? collection = null) {
 		account_domain = account.domain;
 		// translators: the variable is an account handle
-		this.title = _("Reporting %s").printf (@"$(account.username)@$(account_domain)");
+		this.title = _("Reporting %s").printf (collection == null ? @"$(account.username)@$(account_domain)" : collection.name);
 		this.status_id = status_id;
-		populate_posts (account.id, status_id);
+		if (collection != null)
+			this.collection_id = collection.id;
+		else populate_posts (account.id, status_id);
 		account_id = account.id;
 
 		install_page_1 ();
 		if (has_rules) {
 			install_page_2 ();
 		}
-		install_page_3 ();
+		if (collection == null) install_page_3 ();
 		install_page_4 (mentions);
 
 		this.present (app.main_window);
@@ -136,7 +139,11 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		};
 		var group_1 = new Adw.PreferencesGroup ();
 
-		if (status_id == null) {
+		if (collection_id != null) {
+			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+			//				this is meant for reporting collections
+			group_1.title = _("Tell us what's going on with this collection");
+		} else if (status_id == null) {
 			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 			//				this is meant for reporting users
 			group_1.title = _("Tell us what's going on with this account");
@@ -415,6 +422,8 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 			}
 			return true;
 		});
+
+		if (collection_id != null) msg.with_form_data ("collection_ids[]", collection_id);
 
 		msg
 			.then (() => {

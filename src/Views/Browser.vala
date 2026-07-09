@@ -183,8 +183,8 @@ public class Tuba.Views.Browser : Adw.Dialog {
 			refresh_item.set_attribute_value ("hidden-when", "action-disabled");
 			sub_menu_model.append_item (refresh_item);
 
-			// TODO: rename to "Stop" next string unfreeze
-			var stop_item = new GLib.MenuItem (_("Cancel"), "browser.stop-loading");
+			// translators: in-app browser menu item, stops the current loading process
+			var stop_item = new GLib.MenuItem (_("Stop"), "browser.stop-loading");
 			stop_item.set_attribute_value ("verb-icon", "tuba-cross-large-symbolic");
 			stop_item.set_attribute_value ("hidden-when", "action-disabled");
 			sub_menu_model.append_item (stop_item);

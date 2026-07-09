@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Priit Jõerüüt <hwlate@joeruut.com>, 2025.
 # Henri Aunin <contact@hen.ee>, 2025.
-# Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>, 2025.
+# Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-07-30 11:06+0000\n"
+"PO-Revision-Date: 2026-04-22 20:12+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -888,7 +888,7 @@ msgid ""
 "servers\">choose a server and register one</a>."
 msgstr ""
 "Kui sul veel pole kasutajakontot, siis <a href=\"https://joinmastodon.org/"
-"servers\"> vali server ja loo endale konto</a>."
+"servers\">vali server ja loo endale konto</a>."
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"

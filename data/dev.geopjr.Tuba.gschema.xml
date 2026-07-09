@@ -42,7 +42,13 @@
 		</key>
 		<key name="favorite-tags-ids" type="as">
 			<default>[]</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<summary>Hashtags shown on the sidebar</summary>
+		</key>
+    <key name="hashtag-lists" type="as">
+			<default>[]</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>User-created hashtag lists</summary>
 		</key>
 		<key name="account-suggestions" type="b">
 			<default>true</default>
@@ -168,6 +174,12 @@
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<description>Before replying to a post that was made at least 3 months ago, Tuba will warn you that the conversation might be over</description>
 		</key>
+    <key name="boost-alt-text-reminder" type="b">
+			<default>true</default>
+			<summary>Warn before boosting a post that includes attachments without alt text</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Before boosting a post that has attachments without alt text, Tuba will warn you</description>
+		</key>
 		<key name="copy-private-link-reminder" type="b">
 			<default>true</default>
 			<summary>Warn before copying a link to a private post</summary>
@@ -278,6 +290,11 @@
 			<default>true</default>
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<summary>Automatically extract alt text from file metadata</summary>
+		</key>
+    <key name="status-font-size" type="d">
+			<default>1.0</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>The multiplier of the font size used in posts (0.8-2.0)</summary>
 		</key>
 
 		<key name="window-w" type="i">

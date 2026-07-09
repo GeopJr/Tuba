@@ -1,7 +1,10 @@
 sources += files(
     'Admin.vala',
     'AnnualReport.vala',
+    'Collection.vala',
+    'Collections.vala',
     'FilterEdit.vala',
+    'HashtagList.vala',
     'ListEdit.vala',
     'MainWindow.vala',
     'NewAccount.vala',

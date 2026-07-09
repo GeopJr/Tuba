@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+	<object class="GtkAdjustment" id="font_adjustment">
+		<property name="lower">0.8</property>
+		<property name="upper">2.0</property>
+		<property name="value">1.0</property>
+		<property name="step_increment">0.1</property>
+		<property name="page_increment">1</property>
+		<signal name="value-changed" handler="on_font_adjustment_value_changed" />
+	</object>
 	<template class="TubaDialogsPreferences" parent="AdwPreferencesDialog">
 		<property name="search-enabled">True</property>
 		<child>
@@ -27,9 +35,9 @@
 							</object>
 						</child>
 						<child>
-							<object class="AdwSwitchRow" id="larger_font_size">
-								<property name="title" translatable="yes">Large Text</property>
-								<property name="subtitle" translatable="yes">Increase the size of text in posts</property>
+							<object class="AdwSwitchRow" id="scale_emoji_hover">
+								<property name="title" translatable="yes">Scale Custom Emojis on Hover</property>
+								<property name="subtitle" translatable="yes">Slightly increases the size of custom emojis when you hover over them</property>
 							</object>
 						</child>
 						<child>
@@ -39,9 +47,16 @@
 							</object>
 						</child>
 						<child>
-							<object class="AdwSwitchRow" id="scale_emoji_hover">
-								<property name="title" translatable="yes">Scale Custom Emojis on Hover</property>
-								<property name="subtitle" translatable="yes">Slightly increases the size of custom emojis when you hover over them</property>
+							<object class="AdwActionRow">
+								<property name="title" translatable="yes">Font Size</property>
+								<property name="subtitle" translatable="yes">Set the text size used in posts</property>
+								<child type="suffix">
+									<object class="GtkScale">
+										<property name="draw-value">1</property>
+										<property name="hexpand">1</property>
+										<property name="adjustment">font_adjustment</property>
+									</object>
+								</child>
 							</object>
 						</child>
 					</object>
@@ -109,6 +124,11 @@
 						<child>
 							<object class="AdwSwitchRow" id="copy_private_link_reminder">
 								<property name="title" translatable="yes">Warn before copying a link to a private post</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="boost_alt_text_reminder">
+								<property name="title" translatable="yes">Warn before boosting a post that includes attachments without alt text</property>
 							</object>
 						</child>
 						<child>
@@ -289,21 +309,6 @@
 				<child>
 					<object class="AdwPreferencesGroup" id="keywords_group">
 						<property name="title" translatable="yes">Keywords</property>
-						<child type="header-suffix">
-							<object class="GtkButton">
-								<property name="valign">center</property>
-								<signal name="clicked" handler="add_keyword_row" swapped="no" />
-								<child>
-									<object class="AdwButtonContent">
-										<property name="icon-name">tuba-plus-large-symbolic</property>
-										<property name="label" translatable="yes">Add Filter…</property>
-									</object>
-								</child>
-								<style>
-									<class name="flat" />
-								</style>
-							</object>
-						</child>
 					</object>
 				</child>
 			</object>

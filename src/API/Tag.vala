@@ -48,30 +48,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	}
 
 	public override Gtk.Widget to_widget () {
-		var w = new Adw.ActionRow () {
-			title = @"#$name",
-			activatable = true,
-			use_markup = false
-		};
-
-		if (history != null && history.size > 0) {
-			var last_history_entry = history.get (0);
-			//  var total_uses = int.parse (last_history_entry.uses);
-			var total_accounts = int.parse (last_history_entry.accounts);
-			// translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
-			var subtitle = GLib.ngettext ("%d person yesterday", "%d people yesterday", (ulong) total_accounts).printf (total_accounts);
-
-			if (history.size > 1) {
-				last_history_entry = history.get (1);
-				//  total_uses += int.parse (last_history_entry.uses);
-				total_accounts += int.parse (last_history_entry.accounts);
-
-				// translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
-				subtitle = GLib.ngettext ("%d person in the past 2 days", "%d people in the past 2 days", (ulong) total_accounts).printf (total_accounts);
-			}
-
-			w.subtitle = subtitle;
-		}
+		var w = new Widgets.Tag (this);
 
 		#if !USE_LISTVIEW
 			w.activated.connect (on_activated);
@@ -81,7 +58,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	}
 
 	#if !USE_LISTVIEW
-		protected void on_activated () {
+		protected virtual void on_activated () {
 			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url), this.featuring));
 		}
 	#endif

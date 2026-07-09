@@ -68,9 +68,19 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 	}
 
 	void settings_updated () {
-		Tuba.toggle_css (this, settings.larger_font_size, "ttl-status-font-large");
 		Tuba.toggle_css (this, settings.larger_line_height, "ttl-status-line-height-large");
 		Tuba.toggle_css (this, settings.scale_emoji_hover, "lww-scale-emoji-hover");
+	}
+
+
+	void font_size_updated () {
+		foreach (string style in this.css_classes) {
+			if (style.has_prefix ("ttl-status-font-large")) {
+				this.remove_css_class (style);
+				break;
+			}
+		}
+		this.add_css_class (@"ttl-status-font-large-$((int) (settings.status_font_size * 100))");
 	}
 
 	static construct {
@@ -81,8 +91,8 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 	construct {
 		edited_indicator.update_property (Gtk.AccessibleProperty.LABEL, edited_indicator.tooltip_text, -1);
 
-		if (settings.larger_font_size)
-			add_css_class ("ttl-status-font-large");
+		if (settings.status_font_size != 1.0)
+			this.add_css_class (@"ttl-status-font-large-$((int) (settings.status_font_size * 100))");
 
 		if (settings.larger_line_height)
 			add_css_class ("ttl-status-line-height-large");
@@ -90,7 +100,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		if (settings.scale_emoji_hover)
 			add_css_class ("lww-scale-emoji-hover");
 
-		settings.notify["larger-font-size"].connect (settings_updated);
+		settings.notify["status-font-size"].connect (font_size_updated);
 		settings.notify["larger-line-height"].connect (settings_updated);
 		settings.notify["scale-emoji-hover"].connect (settings_updated);
 	}

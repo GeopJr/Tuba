@@ -4,13 +4,14 @@
 # gnu-ewm <gnu.ewm@protonmail.com>, 2023.
 # Łukasz Horodecki <dakilla@gmail.com>, 2023, 2024, 2025.
 # Karol Lademan <karol@lademan.dev>, 2023.
+# Łukasz Horodecki <lukasz@horodecki.net>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-08-05 04:01+0000\n"
-"Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
+"PO-Revision-Date: 2026-03-12 20:09+0000\n"
+"Last-Translator: Łukasz Horodecki <lukasz@horodecki.net>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -26,11 +27,11 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Przeglądaj fediwersum"
+msgstr "Przeglądaj Fediwersum"
 
 #: data/dev.geopjr.Tuba.desktop.in:5
 msgid "Fediverse Client"
-msgstr "Klient fediwersum"
+msgstr "Klient Fediwersum"
 
 #: data/dev.geopjr.Tuba.desktop.in:10
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -42,10 +43,10 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma & more!"
 msgstr ""
-"Odkrywaj sfederowaną sieć społeczną z Tubą dla GNOME. Bądź w kontakcie ze "
-"swoimi ulubionymi społecznościami, rodziną i przyjaciółmi dzięki wsparciu "
+"Odkrywaj sfederowaną sieć społeczną z Tubą dla GNOME. Bądź w kontakcie ze "
+"swoimi ulubionymi społecznościami, rodziną i przyjaciółmi dzięki wsparciu "
 "dla popularnych platform fediwersum, takich jak Mastodon, GoToSocial, Akkoma "
-"i innych!"
+"i innych!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
@@ -56,10 +57,10 @@ msgid ""
 "media platforms."
 msgstr ""
 "Fediwersum (ang. Fediverse) to zdecentralizowana sieć społeczna, która "
-"składa się z mnóstwa połączonych ze sobą platform i społeczności, pozwalając "
-"użytkownikom na komunikowanie się i dzielenie treściami pomiędzy różnymi "
-"sieciami i serwerami. Promuje prywatność użytkowników oraz ich kontrolę nad "
-"swoimi danymi i stanowi alternatywę dla scentralizowanych platform mediów "
+"składa się z wielu połączonych ze sobą platform i społeczności, pozwalając "
+"użytkownikom na komunikowanie się i dzielenie treściami pomiędzy różnymi "
+"sieciami i serwerami. Promuje prywatność użytkowników oraz ich kontrolę nad "
+"swoimi danymi i stanowi alternatywę dla scentralizowanych platform mediów "
 "społecznościowych."
 
 #: data/dev.geopjr.Tuba.gschema.xml:12 data/ui/dialogs/preferences.ui:135
@@ -110,8 +111,8 @@ msgid ""
 "Whether account suggestions should be shown in the Home tab when the user "
 "doesn't follow enough people"
 msgstr ""
-"Czy sugestie kont mają być pokazywane na głównej zakładce, w przypadku "
-"obserwowania zbyt małej liczy osób"
+"Czy sugestie kont mają być pokazywane na głównej zakładce, w przypadku "
+"obserwowania zbyt małej liczby osób"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
@@ -130,11 +131,11 @@ msgstr "Domyślny schemat kolorów"
 
 #: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
 msgid "Run in Background"
-msgstr "Praca w tle"
+msgstr "Praca w tle"
 
 #: data/dev.geopjr.Tuba.gschema.xml:72 data/ui/dialogs/preferences.ui:117
 msgid "Fetch notifications while the app is closed"
-msgstr "Pobieraj powiadomienia, gdy aplikacja jest zamknięta"
+msgstr "Pobieranie powiadomień, gdy aplikacja jest zamknięta"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:77
@@ -156,7 +157,7 @@ msgstr "Odświeżanie osi czasu"
 
 #: data/dev.geopjr.Tuba.gschema.xml:84 data/ui/dialogs/preferences.ui:169
 msgid "Receive new posts and notifications in real-time"
-msgstr "Otrzymuj na żywo nowe wpisy i powiadomienia"
+msgstr "Otrzymywanie nowych wpisów i powiadomień w czasie rzeczywistym"
 
 #: data/dev.geopjr.Tuba.gschema.xml:88 data/ui/dialogs/preferences.ui:175
 msgid "Stream Public Timelines"
@@ -167,7 +168,7 @@ msgstr "Odświeżanie publicznych osi czasu"
 msgid ""
 "Public means the local and federated ones that usually have a lot of traffic"
 msgstr ""
-"Publiczne oznaczają lokalną i sfederowane, które zazwyczaj mają dużą "
+"Publiczne oznaczają oś lokalną i sfederowane, które zazwyczaj mają dużą "
 "aktywność"
 
 #: data/dev.geopjr.Tuba.gschema.xml:94 data/ui/dialogs/preferences.ui:72
@@ -188,11 +189,11 @@ msgstr "Zwiększa czcionkę wpisów"
 
 #: data/dev.geopjr.Tuba.gschema.xml:107 data/ui/dialogs/preferences.ui:37
 msgid "Large Line Height"
-msgstr "Większa wysokość linii"
+msgstr "Większa wysokość wiersza"
 
 #: data/dev.geopjr.Tuba.gschema.xml:108 data/ui/dialogs/preferences.ui:38
 msgid "Increase the line height in posts"
-msgstr "Zwiększa wysokość linii wpisów"
+msgstr "Zwiększa wysokość wiersza wpisów"
 
 #: data/dev.geopjr.Tuba.gschema.xml:112 data/ui/dialogs/preferences.ui:43
 msgid "Scale Custom Emojis on Hover"
@@ -225,7 +226,7 @@ msgstr "Usuwanie parametrów śledzenia z odnośników"
 #. translators: Broken as in incorrect
 #: data/dev.geopjr.Tuba.gschema.xml:125 data/ui/dialogs/preferences.ui:101
 msgid "This option can lead to broken links when enabled"
-msgstr "Gdy włączone, może psuć niektóre odnośniki"
+msgstr "Jeżeli opcja jest włączona, może psuć niektóre odnośniki"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/dev.geopjr.Tuba.gschema.xml:129 data/ui/dialogs/preferences.ui:60
@@ -238,13 +239,13 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
-"Pomniejsza media i dodaje pasy po bokach, by wypełnić ramkę, zamiast "
-"rozciągać je i docinać"
+"Pomniejsza media i dodaje pasy po bokach, by wypełnić ramkę, zamiast "
+"rozciągać je i docinać"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; expand as in enlarge
 #: data/dev.geopjr.Tuba.gschema.xml:135
 msgid "Expand Pictures in Media Viewer"
-msgstr "Powiększanie obrazów w przeglądarce mediów"
+msgstr "Powiększanie obrazów w przeglądarce mediów"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; expand as in enlarge
 #: data/dev.geopjr.Tuba.gschema.xml:137
@@ -263,22 +264,22 @@ msgstr "BlurHash"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:148
 msgid "Show a blurred version of the media until they fully load"
-msgstr "Pokazuje rozmazaną wersję obrazów zanim się całkowicie załadują"
+msgstr "Pokazuje rozmazaną wersję obrazów, zanim się całkowicie załadują"
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
-msgstr "Domyślnie odsłaniaj drażliwe media"
+msgstr "Domyślne odsłanianie drażliwych mediów"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:157
 msgid "Group Similar Push Notifications"
-msgstr "Grupuj podobne powiadomienia push"
+msgstr "Grupowanie podobnych powiadomień push"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/dev.geopjr.Tuba.gschema.xml:158 data/ui/dialogs/preferences.ui:276
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
-msgstr "Grupuj niedawne powiadomienia tego samego typu w jedno"
+msgstr "Grupuje niedawne powiadomienia tego samego typu w jedno"
 
 #: data/dev.geopjr.Tuba.gschema.xml:162 data/ui/dialogs/preferences.ui:87
 msgid "Advanced Boost Dialog"
@@ -286,11 +287,11 @@ msgstr "Rozbudowany dialog podbicia"
 
 #: data/dev.geopjr.Tuba.gschema.xml:163 data/ui/dialogs/preferences.ui:88
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr "Zmień widoczność podbić, cytuj i potwierdź podbicie"
+msgstr "Pozwala na zmianę widoczności, cytowanie i potwierdzenie podbicia"
 
 #: data/dev.geopjr.Tuba.gschema.xml:167 data/ui/dialogs/preferences.ui:106
 msgid "Warn before replying to an old post"
-msgstr "Ostrzegaj przy odpowiadaniu na starszy wpis"
+msgstr "Ostrzeganie przy odpowiadaniu na starszy wpis"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:169
@@ -303,7 +304,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:173 data/ui/dialogs/preferences.ui:111
 msgid "Warn before copying a link to a private post"
-msgstr "Ostrzegaj przy kopiowaniu odnośnika do prywatnego wpisu"
+msgstr "Ostrzeganie przy kopiowaniu odnośnika do prywatnego wpisu"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:175
@@ -312,7 +313,7 @@ msgid ""
 "warn you that people might not be able to view the post the link points to"
 msgstr ""
 "Jeżeli skopujesz odnośnik do wpisu, który nie jest publicznie dostępny, Tuba "
-"ostrzeże, że inne osoby mogą nie być w stanie zobaczyć tego wpisu"
+"ostrzeże, że inne osoby mogą nie być w stanie zobaczyć tego wpisu"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
@@ -330,7 +331,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:14
 msgid "Darken Images on Dark Mode"
-msgstr "Przyciemnianie obrazów przy używaniu ciemnego stylu"
+msgstr "Przyciemnianie obrazów podczas używania ciemnego stylu"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:188
@@ -338,22 +339,22 @@ msgid ""
 "Images will be darker when dark mode is enabled and gain their full "
 "brightness when hovered"
 msgstr ""
-"Obrazy będą ciemniejsze przy włączonym ciemnym trybie i po najechaniu "
+"Obrazy będą ciemniejsze przy włączonym ciemnym trybie i po najechaniu "
 "zyskają pełną jasność"
 
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/dev.geopjr.Tuba.gschema.xml:192 data/ui/dialogs/preferences.ui:20
 msgid "Dim Trivial Notifications"
-msgstr "Przyciemnij nieistotne powiadomienia"
+msgstr "Przyciemnianie nieistotnych powiadomień"
 
 #: data/dev.geopjr.Tuba.gschema.xml:193 data/ui/dialogs/preferences.ui:21
 msgid "Notifications like favorites and boosts will be less visible"
-msgstr "Powiadomienia takie jak polubienia i podbicia będą słabiej widoczne"
+msgstr "Powiadomienia takie jak polubienia i podbicia będą słabiej widoczne"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:198
 msgid "The last volume value used in the media viewer for videos and audio"
-msgstr "Ostatni poziom głośności przy odtwarzaniu wideo i audio"
+msgstr "Ostatni poziom głośności przy odtwarzaniu wideo i audio"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:203
@@ -366,13 +367,13 @@ msgid ""
 "When the network disconnects and reconnects Tuba will detect it and "
 "gracefully recover"
 msgstr ""
-"Gdy sieć się rozłączy i połączy ponownie, Tuba to wykryje i płynnie odzyska "
+"Gdy sieć się rozłączy i połączy ponownie, Tuba to wykryje i płynnie odzyska "
 "połączenie"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:210
 msgid "Proxy URL"
-msgstr "URL Proxy"
+msgstr "Adres URL pośrednika"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:212
@@ -385,7 +386,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:216 data/ui/dialogs/preferences.ui:189
 msgid "Send Preference Analytics"
-msgstr "Wysyłaj dane dotyczące preferencji"
+msgstr "Wysyłanie dane dotyczących preferencji"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:218
@@ -394,19 +395,19 @@ msgid ""
 "You can preview exactly what's being sent in-app, they are opt-in and the "
 "server is open source."
 msgstr ""
-"Wysyłaj co dwa tygodnie swoje preferencje do twórców Tuby w celu padania ich "
+"Co dwa tygodnie wysyła preferencje do twórców Tuby w celu badania ich "
 "popularności. To, co jest wysyłane, możesz sprawdzić w aplikacji, jest to "
-"opt-in a serwer jest open source."
+"opt-in, a serwer jest open source."
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/dev.geopjr.Tuba.gschema.xml:222 data/ui/dialogs/preferences.ui:213
 msgid "Update Supporters Periodically"
-msgstr "Okresowo aktualizuj wspierających"
+msgstr "Okresowe aktualizowanie osób wspierających"
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/dev.geopjr.Tuba.gschema.xml:223 data/ui/dialogs/preferences.ui:215
 msgid "Fetch the list of Tuba's supporters biweekly"
-msgstr "Co dwa tygodnie pobieraj listę osób wspierających Tubę"
+msgstr "Co dwa tygodnie pobiera listę osób wspierających Tubę"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:228
@@ -436,7 +437,7 @@ msgid ""
 "used in-app"
 msgstr ""
 "Lista hashy kont należących do osób współtworzących Tubę, by można było użyć "
-"ich w aplikacji"
+"ich w aplikacji"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:249
@@ -447,22 +448,22 @@ msgstr "Szczegółowość etykiet aria wpisu"
 #: data/dev.geopjr.Tuba.gschema.xml:251
 msgid "0 to 5 verbosity level, 0 being no aria label and 5 being very detailed"
 msgstr ""
-"Poziom szczegółowości od 0 do 5, gdzie 0 to brak etykiety aria, a 5 to "
+"Poziom szczegółowości od 0 do 5, gdzie 0 to brak etykiety aria, a 5 to "
 "bardzo szczegółowa"
 
 #. translators: in-app as in a browser inside Tuba
 #: data/dev.geopjr.Tuba.gschema.xml:255 data/ui/dialogs/preferences.ui:94
 msgid "Open Links In-App"
-msgstr "Otwieraj odnośniki w aplikacji"
+msgstr "Otwieranie odnośników w aplikacji"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:257
 msgid "Open links in a nested web browser instead of the host one"
-msgstr "Otwieraj odnośniki w zagnieżdżonej przeglądarce, zamiast w systemowej"
+msgstr "Otwiera odnośniki w osadzonej przeglądarce, zamiast w systemowej"
 
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:54
 msgid "Collapse Long Posts"
-msgstr "Zwijaj długie wpisy"
+msgstr "Zwijanie długich wpisów"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:263
@@ -475,7 +476,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:268
 msgid "Auto-detect instance features"
-msgstr "Automatycznie wykrywaj możliwości serwera"
+msgstr "Automatyczne wykrywanie możliwości serwera"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:270
@@ -489,12 +490,12 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:275
 msgid "Replies, Favorites and Boosts Counters"
-msgstr "Liczniki odpowiedzi, polubień i podbić"
+msgstr "Liczniki odpowiedzi, polubień i podbić"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:280
 msgid "Automatically extract alt text from file metadata"
-msgstr "Automatyczne pobieranie alt tekstu z metadanych pliku"
+msgstr "Automatyczne pobieranie alt tekstu z metadanych pliku"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:286
@@ -522,12 +523,12 @@ msgstr "Wyświetlenie preferencji"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr "Utwórz wpis"
+msgstr "Utworzenie nowego wpisu"
 
 #: data/gtk/help-overlay.ui:26 data/ui/widgets/votebox.ui:42
 #: src/Views/Browser.vala:161 src/Views/Sidebar.vala:71
 msgid "Refresh"
-msgstr "Odśwież"
+msgstr "Odświeżenie"
 
 #: data/gtk/help-overlay.ui:32 data/ui/dialogs/advanced_search.ui:28
 #: src/Services/Accounts/Mastodon/Account.vala:92
@@ -539,11 +540,11 @@ msgstr "Wyszukiwanie"
 #: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:52
 #: src/Views/Drive.vala:718
 msgid "Go Back"
-msgstr "Wróć"
+msgstr "Powrót"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr "Wyświetlenie skrótów"
+msgstr "Wyświetlenie skrótów klawiszowych"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"

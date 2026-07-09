@@ -53,6 +53,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 	public API.Admin.Report? report { get; set; default = null; }
 	public ModerationWarning? moderation_warning { get; set; default = null; }
 	public string? group_key { get; set; default = null; }
+	public API.Collection? collection { get; set; default = null; }
 
 	// the docs claim that 'relationship_severance_event'
 	// is the one used but that is not true
@@ -97,6 +98,14 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 					})
 					.exec ();
 				break;
+			case InstanceAccount.KIND_COLLECTION_ADDED:
+			case InstanceAccount.KIND_COLLECTION_EDITED:
+				if (collection != null) {
+					(new Dialogs.Collection (this.collection)).present (app.main_window);
+				} else {
+					app.main_window.open_view (new Views.Collections ());
+				}
+				break;
 			default:
 				if (status != null) {
 					status.open ();
@@ -138,12 +147,38 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 						_("Review your year's highlights and memorable moments on the Fediverse!")
 					)
 				);
+			case InstanceAccount.KIND_COLLECTION_ADDED:
+				Widgets.CollectionRow? widget = null;
+				if (collection != null) {
+					widget = (Widgets.CollectionRow) collection.to_widget ();
+					widget.activatable = false;
+				}
+
+				return create_basic_card (
+					"tuba-shapes-symbolic",
+					// translators: notification title of a Mastodon Collections related event
+					_("You were added to a collection"),
+					widget
+				);
+			case InstanceAccount.KIND_COLLECTION_EDITED:
+				Widgets.CollectionRow? widget = null;
+				if (collection != null) {
+					widget = (Widgets.CollectionRow) collection.to_widget ();
+					widget.activatable = false;
+				}
+
+				return create_basic_card (
+					"tuba-shapes-symbolic",
+					// translators: notification title of a Mastodon Collections related event
+					_("A collection you are a part of was edited"),
+					widget
+				);
 			default:
 				return new Widgets.Notification (this);
 		}
 	}
 
-	private Gtk.Widget create_basic_card (string icon_name, string label) {
+	private Gtk.Widget create_basic_card (string icon_name, string label, Gtk.Widget? extra_widget = null) {
 		var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 16) {
 			margin_top = 8,
 			margin_bottom = 8,
@@ -163,9 +198,18 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			hexpand = true
 		});
 
-		var row = new Widgets.ListBoxRowWrapper () {
-			child = box,
-		};
+		var row = new Widgets.ListBoxRowWrapper ();
+
+		if (extra_widget != null) {
+			var wrapper_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+			wrapper_box.append (box);
+			wrapper_box.append (extra_widget);
+			row.child = wrapper_box;
+			extra_widget.margin_start = extra_widget.margin_end = 12;
+		} else {
+			row.child = box;
+		}
+
 		row.open.connect (open);
 		return row;
 	}
@@ -206,6 +250,10 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 					break;
 				case InstanceAccount.KIND_FOLLOW_REQUEST:
 					toast.set_default_action ("app.open-follow-requests");
+					break;
+				case InstanceAccount.KIND_COLLECTION_ADDED:
+				case InstanceAccount.KIND_COLLECTION_EDITED:
+					toast.set_default_action ("app.open-collections");
 					break;
 				default:
 					string var_string = account.url;

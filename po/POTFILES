@@ -2,12 +2,13 @@
 ./data/dev.geopjr.Tuba.1.in
 ./data/dev.geopjr.Tuba.desktop.in
 ./data/dev.geopjr.Tuba.metainfo.xml.in
+./data/dev.geopjr.Tuba.service.in
 ./data/gresource.xml.in
 ./data/langs/fedi.xml.in
 ./src/Build.vala.in
 ./data/dev.geopjr.Tuba.gschema.xml
 
-./data/gtk/help-overlay.ui
+./data/gtk/shortcuts-dialog.ui
 ./data/ui/dialogs/admin_dashboard.ui
 ./data/ui/dialogs/advanced_search.ui
 ./data/ui/dialogs/composer.ui

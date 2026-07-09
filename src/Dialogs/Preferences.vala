@@ -2,6 +2,10 @@
 public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	~Preferences () {
 		debug ("Destroying Preferences");
+		if (font_timeout > 0) {
+			GLib.Source.remove (font_timeout);
+			font_timeout = 0;
+		}
 	}
 
 	class FilterRow : Adw.ExpanderRow {
@@ -118,7 +122,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow public_live_updates;
 	[GtkChild] unowned Adw.SwitchRow show_spoilers;
 	[GtkChild] unowned Adw.SwitchRow show_preview_cards;
-	[GtkChild] unowned Adw.SwitchRow larger_font_size;
+	[GtkChild] unowned Gtk.Adjustment font_adjustment;
 	[GtkChild] unowned Adw.SwitchRow larger_line_height;
 	[GtkChild] unowned Adw.SwitchRow scale_emoji_hover;
 	[GtkChild] unowned Adw.SwitchRow strip_tracking;
@@ -129,6 +133,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow advanced_boost_dialog;
 	[GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
 	[GtkChild] unowned Adw.SwitchRow reply_to_old_post_reminder;
+	[GtkChild] unowned Adw.SwitchRow boost_alt_text_reminder;
 	[GtkChild] unowned Adw.SwitchRow copy_private_link_reminder;
 	[GtkChild] unowned Adw.EntryRow proxy_entry;
 	[GtkChild] unowned Adw.SwitchRow dim_trivial_notifications;
@@ -148,6 +153,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	//  [GtkChild] unowned Adw.PreferencesPage filters_page;
 	[GtkChild] unowned Adw.PreferencesGroup keywords_group;
+	Adw.ButtonRow filter_row;
 
 	NotificationTypeMute[] notification_type_mutes;
 
@@ -177,6 +183,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	construct {
 		proxy_entry.text = settings.proxy;
 		post_visibility_combo_row.model = accounts.active.visibility_list;
+		font_adjustment.value = settings.status_font_size;
 
 		#if !WEBKIT
 			in_app_browser_switch.visible = false;
@@ -209,16 +216,25 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	}
 
 	void setup_filters () {
+		filter_row = new Adw.ButtonRow () {
+			title = _("Add Filter…"),
+			start_icon_name = "tuba-plus-large-symbolic"
+		};
+		filter_row.activated.connect (add_keyword_row);
+		keywords_group.add (filter_row);
+
 		// Only support v2 filters
 		new Request.GET ("/api/v2/filters")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
+				keywords_group.remove (filter_row);
 				Network.parse_array (parser, node => {
 					var row = new FilterRow (API.Filters.Filter.from (node), this);
 					row.filter_deleted.connect (on_filter_delete);
 					keywords_group.add (row);
 				});
+				keywords_group.add (filter_row);
 			})
 			.exec ();
 	}
@@ -249,7 +265,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("public-live-updates", public_live_updates, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("show-spoilers", show_spoilers, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("show-preview-cards", show_preview_cards, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("larger-font-size", larger_font_size, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("larger-line-height", larger_line_height, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("scale-emoji-hover", scale_emoji_hover, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("strip-tracking", strip_tracking, "active", SettingsBindFlags.DEFAULT);
@@ -260,6 +275,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("advanced-boost-dialog", advanced_boost_dialog, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("reply-to-old-post-reminder", reply_to_old_post_reminder, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("boost-alt-text-reminder", boost_alt_text_reminder, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("copy-private-link-reminder", copy_private_link_reminder, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("dim-trivial-notifications", dim_trivial_notifications, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("analytics", analytics_switch, "active", SettingsBindFlags.DEFAULT);
@@ -271,12 +287,26 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
 	}
 
+	uint font_timeout = 0;
+	[GtkCallback] void on_font_adjustment_value_changed (Gtk.Adjustment adj) {
+		if (font_timeout > 0) {
+			GLib.Source.remove (font_timeout);
+			font_timeout = 0;
+		}
+		font_timeout = GLib.Timeout.add (300, update_font_size);
+	}
+
+	private bool update_font_size () {
+		settings.status_font_size = font_adjustment.value;
+		font_timeout = 0;
+		return GLib.Source.REMOVE;
+	}
+
 	private void dlcr_cb () {
 		lang_changed = true;
 		default_language_combo_row.disconnect (dlcr_id);
 	}
 
-	[GtkCallback]
 	private void add_keyword_row () {
 		var dlg = new Dialogs.FilterEdit ();
 		dlg.saved.connect (on_filter_save);
@@ -293,7 +323,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	private void on_filter_save (API.Filters.Filter filter) {
 		var row = new FilterRow (filter, this);
 		row.filter_deleted.connect (on_filter_delete);
+		keywords_group.remove (filter_row);
 		keywords_group.add (row);
+		keywords_group.add (filter_row);
 	}
 
 	private void on_post_visibility_changed () {
