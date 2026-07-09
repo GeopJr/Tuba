@@ -686,7 +686,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			animation.play ();
 		} else {
 			clear ();
-			this.swipe_children_opacity = 1.0;
 		}
 	}
 
@@ -779,6 +778,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	private void on_scale_revealer_transition_end () {
+		this.swipe_children_opacity = 1.0;
+
 		if (!scale_revealer.reveal_child) {
 			this.visible = false;
 			swipe_progress = 0.0;
