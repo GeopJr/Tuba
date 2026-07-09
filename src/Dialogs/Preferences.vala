@@ -152,6 +152,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	//  [GtkChild] unowned Adw.PreferencesPage filters_page;
 	[GtkChild] unowned Adw.PreferencesGroup keywords_group;
+	Adw.ButtonRow filter_row;
 
 	NotificationTypeMute[] notification_type_mutes;
 
@@ -214,16 +215,25 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	}
 
 	void setup_filters () {
+		filter_row = new Adw.ButtonRow () {
+			title = _("Add Filter…"),
+			start_icon_name = "tuba-plus-large-symbolic"
+		};
+		filter_row.activated.connect (add_keyword_row);
+		keywords_group.add (filter_row);
+
 		// Only support v2 filters
 		new Request.GET ("/api/v2/filters")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
+				keywords_group.remove (filter_row);
 				Network.parse_array (parser, node => {
 					var row = new FilterRow (API.Filters.Filter.from (node), this);
 					row.filter_deleted.connect (on_filter_delete);
 					keywords_group.add (row);
 				});
+				keywords_group.add (filter_row);
 			})
 			.exec ();
 	}
@@ -295,7 +305,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		default_language_combo_row.disconnect (dlcr_id);
 	}
 
-	[GtkCallback]
 	private void add_keyword_row () {
 		var dlg = new Dialogs.FilterEdit ();
 		dlg.saved.connect (on_filter_save);
@@ -312,7 +321,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	private void on_filter_save (API.Filters.Filter filter) {
 		var row = new FilterRow (filter, this);
 		row.filter_deleted.connect (on_filter_delete);
+		keywords_group.remove (filter_row);
 		keywords_group.add (row);
+		keywords_group.add (filter_row);
 	}
 
 	private void on_post_visibility_changed () {
