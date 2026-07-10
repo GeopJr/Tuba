@@ -276,28 +276,27 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 
 	public signal void saved ();
 	async void save () throws Error {
-		var req = new Request.PATCH ("/api/v1/accounts/update_credentials")
-					.with_account (accounts.active);
+		var req = new RequestV2 ("/api/v1/accounts/update_credentials", PATCH) { account = accounts.active };
 
 		if (!has_error (name_row) && profile.display_name != name_row.text)
-			req.with_form_data ("display_name", name_row.text);
+			req.add_form_data ("display_name", name_row.text);
 
 		if (!has_error (bio_row) && profile.source != null && profile.source.note != bio_text_view.buffer.text)
-			req.with_form_data ("note", bio_text_view.buffer.text);
+			req.add_form_data ("note", bio_text_view.buffer.text);
 
 		if (alt_text_group.visible) {
 			if (profile.avatar_description != avi_alt_text_row.text)
-				req.with_form_data ("avatar_description", avi_alt_text_row.text);
+				req.add_form_data ("avatar_description", avi_alt_text_row.text);
 
 			if (profile.header_description != header_alt_text_row.text)
-				req.with_form_data ("header_description", header_alt_text_row.text);
+				req.add_form_data ("header_description", header_alt_text_row.text);
 		}
 
 
 		var i = 0;
 		foreach (var field in fields) {
-			req.with_form_data (@"fields_attributes[$i][name]", field.valid ? field.key : "");
-			req.with_form_data (@"fields_attributes[$i][value]", field.valid ? field.value : "");
+			req.add_form_data (@"fields_attributes[$i][name]", field.valid ? field.key : "");
+			req.add_form_data (@"fields_attributes[$i][value]", field.valid ? field.value : "");
 			i++;
 		}
 
@@ -306,7 +305,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 			Bytes buffer;
 			image_data (new_avi, out mime, out buffer);
 
-			req.with_form_data_file ("avatar", mime, buffer);
+			req.add_form_data_file ("avatar", mime, buffer);
 		}
 
 		if (new_header != null) {
@@ -314,12 +313,11 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 			Bytes buffer;
 			image_data (new_header, out mime, out buffer);
 
-			req.with_form_data_file ("header", mime, buffer);
+			req.add_form_data_file ("header", mime, buffer);
 		}
 
-		yield req.await ();
-
-		accounts.active.update_object (req.response_body);
+		var in_stream = yield req.exec (null);
+		yield accounts.active.update_object (in_stream);
 		saved ();
 	}
 

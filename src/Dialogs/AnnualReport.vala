@@ -533,10 +533,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		builder.add_string_value (report_alt_text);
 		builder.end_object ();
 
-		var req = new Request.PUT (@"/api/v1/media/$(attachment.id)")
-			.with_account (accounts.active)
-			.body_json (builder);
-		yield req.await ();
+		var req = new RequestV2 (@"/api/v1/media/$(attachment.id)", PUT) {account = accounts.active};
+		req.set_body_from_json (builder);
+		yield req.exec (null);
 
 		attachment.description = report_alt_text;
 		new Dialogs.Composer.Dialog ({"#Wrapstodon #FediWrapped", null, null, null, null, null, new Gee.ArrayList<API.Attachment>.wrap ({attachment}), false, false});

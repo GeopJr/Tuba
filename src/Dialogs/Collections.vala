@@ -55,11 +55,9 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 	private async bool patch_collection (string key, string value) throws Error {
 		if (!edit_mode) return false;
 
-		var req = new Request.PATCH (@"/api/v1/collections/$(this.collection_id)")
-					.with_account (accounts.active)
-					.with_form_data (key, value);
-
-		yield req.await ();
+		var req = new RequestV2 (@"/api/v1/collections/$(this.collection_id)", PATCH) { account = accounts.active };
+		req.add_form_data (key, value);
+		yield req.exec (null);
 		return true;
 	}
 
@@ -332,27 +330,36 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 
 		if (edit_mode && collection.items != null && collection.items.size > 0) {
 			members_page.sensitive = false;
+			fetch_accounts_real.begin (members_page, collection);
+		}
+	}
 
-			string[] accounts_arr = {};
-			GLib.HashTable<string, string> states = new GLib.HashTable<string, string> (str_hash, str_equal);
-			collection.items.foreach (e => {
-				accounts_arr += @"id[]=$(e.account_id)";
-				members_collection_items.set (e.account_id, e.id);
-				states.insert (e.account_id, e.state);
-				return true;
+	private async void fetch_accounts_real (Gtk.Widget members_page, API.Collection collection) {
+		string[] accounts_arr = {};
+		GLib.HashTable<string, string> states = new GLib.HashTable<string, string> (str_hash, str_equal);
+		collection.items.foreach (e => {
+			accounts_arr += @"id[]=$(e.account_id)";
+			members_collection_items.set (e.account_id, e.id);
+			states.insert (e.account_id, e.state);
+			return true;
+		});
+		var req = new RequestV2 (@"/api/v1/accounts?$(string.joinv ("&", accounts_arr))") { account = accounts.active };
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			Network.parse_array (parser, node => {
+				var acc = API.Account.from (node);
+				add_account (acc, states.get (acc.id) == "pending");
 			});
-
-			new Request.GET (@"/api/v1/accounts?$(string.joinv ("&", accounts_arr))")
-				.with_account (accounts.active)
-				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
-					Network.parse_array (parser, node => {
-						var acc = API.Account.from (node);
-						add_account (acc, states.get (acc.id) == "pending");
-					});
-					members_page.sensitive = true;
-				})
-				.exec ();
+			members_page.sensitive = true;
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (Error e) {
+			warning (@"Error while fetching accounts: $(e.code) $(e.message)");
+			this.add_toast (new Adw.Toast ("%s: %s".printf (_("Error"), e.message)) {
+				timeout = 10
+			});
 		}
 	}
 
@@ -446,22 +453,24 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 
 		builder.end_object ();
 
-		new Request.POST ("/api/v1/collections")
-			.with_account (accounts.active)
-			.body_json (builder)
-			.then ((in_stream) => {
-				this.sensitive = true;
-				refresh ();
-				this.force_close ();
-			})
-			.on_error ((code, message) => {
-				this.add_toast (new Adw.Toast (message) {
-					timeout = 5
-				});
-				warning (@"Error while creating collection: $code $message");
-				this.sensitive = true;
-			})
-			.exec ();
+		var req = new RequestV2 ("/api/v1/collections", POST) { account = accounts.active };
+		req.set_body_from_json (builder);
+		create_collection_real.begin (req);
+	}
+
+	private async void create_collection_real (RequestV2 req) {
+		try {
+			yield req.exec (null);
+			this.sensitive = true;
+			refresh ();
+			this.force_close ();
+		} catch (Error e) {
+			warning (@"Error while creating collection: $(e.code) $(e.message)");
+			this.add_toast (new Adw.Toast (e.message) {
+				timeout = 5
+			});
+			this.sensitive = true;
+		}
 	}
 
 	private void update_member_metadata () {
@@ -491,6 +500,8 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 		update_search_results_real.begin (search_row.text, (obj, res) => {
 			try {
 				update_search_results_real.end (res);
+			} catch (GLib.IOError.CANCELLED e) {
+				debug ("Message is cancelled.");
 			} catch (Error e) {
 				this.add_toast (new Adw.Toast (e.message) {
 					timeout = 5
@@ -503,7 +514,7 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 		return GLib.Source.REMOVE;
 	}
 
-	Request? last_search_req = null;
+	RequestV2? last_search_req = null;
 	private async void update_search_results_real (string query) throws Error {
 		if (search_timeout_id == 0) return;
 
@@ -518,10 +529,10 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 		}
 
 		last_search_req = API.Account.search (query.strip ());
-		yield last_search_req.await ();
+		var in_stream = yield last_search_req.exec (null);
 		if (search_results.length > 0 || last_search_req == null || last_search_req.cancellable.is_cancelled ()) return;
 
-		var parser = Network.get_parser_from_inputstream (last_search_req.response_body);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		Network.parse_array (parser, node => {
 			var entity = Tuba.Helper.Entity.from_json (node, typeof (API.Account));
 			if (entity is API.Account) {
@@ -557,6 +568,8 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 		update_tag_search_results_real.begin (topic_row.text.replace ("#", ""), (obj, res) => {
 			try {
 				update_tag_search_results_real.end (res);
+			} catch (GLib.IOError.CANCELLED e) {
+				debug ("Message is cancelled.");
 			} catch (Error e) {
 				this.add_toast (new Adw.Toast (e.message) {
 					timeout = 5
@@ -569,7 +582,7 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 		return GLib.Source.REMOVE;
 	}
 
-	Request? last_tag_req = null;
+	RequestV2? last_tag_req = null;
 	private async void update_tag_search_results_real (string query) throws Error {
 		if (tag_timeout_id == 0) return;
 
@@ -584,10 +597,10 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 		}
 
 		last_tag_req = API.Tag.search (query.strip ());
-		yield last_tag_req.await ();
+		var in_stream = yield last_tag_req.exec (null);
 		if (tag_results.length > 0 || last_tag_req == null || last_tag_req.cancellable.is_cancelled ()) return;
 
-		var parser = Network.get_parser_from_inputstream (last_tag_req.response_body);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		var results = API.SearchResults.from (network.parse_node (parser));
 		if (results != null) {
 			results.hashtags.foreach (tag => {
@@ -622,48 +635,17 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 				builder.add_string_value (member_row.account.id);
 
 				builder.end_object ();
-				member_row.sensitive = false;
-				new Request.POST (@"/api/v1/collections/$collection_id/items")
-					.with_account (accounts.active)
-					.body_json (builder)
-					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						API.WrappedCollectionItem ci = (API.WrappedCollectionItem) Helper.Entity.from_json (node, typeof (API.WrappedCollectionItem));
 
-						add_account (member_row.account, ci.collection_item.state == "pending");
-						members_collection_items.set (member_row.account.id, ci.collection_item.id);
-						member_row.sensitive = true;
-					})
-					.on_error ((code, message) => {
-						this.add_toast (new Adw.Toast (message) {
-							timeout = 5
-						});
-						warning (@"Error while adding collection member: $(code) $(message)");
-						member_row.sensitive = true;
-						member_row.checkbox_toggled.disconnect (on_account_toggled);
-						member_row.checkbox_active = false;
-						member_row.checkbox_toggled.connect (on_account_toggled);
-					})
-					.exec ();
+				member_row.sensitive = false;
+				var req = new RequestV2 (@"/api/v1/collections/$collection_id/items", POST) { account = accounts.active };
+				req.set_body_from_json (builder);
+				post_account_real.begin (req, member_row);
 			} else {
 				member_row.sensitive = false;
-				new Request.DELETE (@"/api/v1/collections/$collection_id/items/$(members_collection_items.get (member_row.account.id))")
-					.with_account (accounts.active)
-					.then (() => {
-						remove_account (member_row.account.id);
-					})
-					.on_error ((code, message) => {
-						this.add_toast (new Adw.Toast (message) {
-							timeout = 5
-						});
-						warning (@"Error while removing collection member: $(code) $(message)");
-						member_row.sensitive = true;
-						member_row.checkbox_toggled.disconnect (on_account_toggled);
-						member_row.checkbox_active = true;
-						member_row.checkbox_toggled.connect (on_account_toggled);
-					})
-					.exec ();
+				var req = new RequestV2 (@"/api/v1/collections/$collection_id/items/$(members_collection_items.get (member_row.account.id))", DELETE) {
+					 account = accounts.active
+				};
+				delete_account_real.begin (req, member_row);
 			}
 		} else {
 			if (new_state) {
@@ -671,6 +653,44 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 			} else {
 				remove_account (member_row.account.id);
 			}
+		}
+	}
+
+	private async void post_account_real (RequestV2 req, Widgets.AccountRow member_row) {
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			API.WrappedCollectionItem ci = (API.WrappedCollectionItem) Helper.Entity.from_json (node, typeof (API.WrappedCollectionItem));
+
+			add_account (member_row.account, ci.collection_item.state == "pending");
+			members_collection_items.set (member_row.account.id, ci.collection_item.id);
+			member_row.sensitive = true;
+		} catch (Error e) {
+			this.add_toast (new Adw.Toast (e.message) {
+				timeout = 5
+			});
+			warning (@"Error while adding collection member: $(e.code) $(e.message)");
+			member_row.sensitive = true;
+			member_row.checkbox_toggled.disconnect (on_account_toggled);
+			member_row.checkbox_active = false;
+			member_row.checkbox_toggled.connect (on_account_toggled);
+		}
+	}
+
+	private async void delete_account_real (RequestV2 req, Widgets.AccountRow member_row) {
+		try {
+			yield req.exec (null);
+			remove_account (member_row.account.id);
+		} catch (Error e) {
+			this.add_toast (new Adw.Toast (e.message) {
+				timeout = 5
+			});
+			warning (@"Error while removing collection member: $(e.code) $(e.message)");
+			member_row.sensitive = true;
+			member_row.checkbox_toggled.disconnect (on_account_toggled);
+			member_row.checkbox_active = true;
+			member_row.checkbox_toggled.connect (on_account_toggled);
 		}
 	}
 

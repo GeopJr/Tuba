@@ -10,11 +10,11 @@ public class Tuba.Views.Profile : Views.Accounts {
 		}
 
 		public async bool update_profile () {
-			Request req = new Request.GET (@"/api/v1/accounts/$(account.id)").with_account (accounts.active);
+			RequestV2 req = new RequestV2 (@"/api/v1/accounts/$(account.id)") { account = accounts.active };
 
 			try {
-				yield req.await ();
-				var parser = Network.get_parser_from_inputstream (req.response_body);
+				var in_stream = yield req.exec (null);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 				var node = network.parse_node (parser);
 				var updated = API.Account.from (node);
 
@@ -232,11 +232,6 @@ public class Tuba.Views.Profile : Views.Accounts {
 		base.on_refresh ();
 		GLib.Idle.add (append_pinned);
 		GLib.Idle.add (append_featured_tags);
-	}
-
-	public override bool request () {
-		base.request ();
-		return GLib.Source.REMOVE;
 	}
 
 	public override void on_manual_refresh () {
@@ -589,6 +584,27 @@ public class Tuba.Views.Profile : Views.Accounts {
 			}
 		}
 		return base.append_params (req);
+	}
+
+	public override void append_params_v2 (RequestV2 req) {
+		if (page_next == null && source == "statuses") {
+			switch (this.filter) {
+				case Widgets.ProfileFilterGroup.Filter.POSTS:
+					req.add_parameter ("exclude_replies", "true");
+					break;
+				case Widgets.ProfileFilterGroup.Filter.REPLIES:
+					req.add_parameter ("exclude_replies", "false");
+					req.add_parameter ("exclude_reblogs", "true");
+					break;
+				case Widgets.ProfileFilterGroup.Filter.MEDIA:
+					req.add_parameter ("only_media", "true");
+					break;
+				case Widgets.ProfileFilterGroup.Filter.FEATURED: break;
+				default:
+					assert_not_reached ();
+			}
+		}
+		base.append_params_v2 (req);
 	}
 
 	public class RowButton : Gtk.Button {

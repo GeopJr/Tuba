@@ -160,11 +160,10 @@ public abstract class Tuba.AccountStore : GLib.Object {
 
 	public async void guess_backend (InstanceAccount account) throws GLib.Error {
 		account.backend = "Fediverse";
-		var req = new Request.GET ("/.well-known/nodeinfo")
-			.with_account (account);
-		yield req.await ();
+		var req = new RequestV2 ("/.well-known/nodeinfo") { account = account };
+		var in_stream = yield req.exec (null);
 
-		var parser = Network.get_parser_from_inputstream (req.response_body);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		var node = network.parse_node (parser);
 		API.Nodeinfo known_nodeinfo = (API.Nodeinfo) Helper.Entity.from_json (node, typeof (API.Nodeinfo));
 
@@ -177,10 +176,10 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			supports = true;
 
 			if (link.rel.has_suffix ("://nodeinfo.diaspora.software/ns/schema/2.0") && link.href != null && link.href != "") {
-				req = new Request.GET (link.href);
+				req = new RequestV2 (link.href);
 				try {
-					yield req.await ();
-					parser = Network.get_parser_from_inputstream (req.response_body);
+					in_stream = yield req.exec (null);
+					parser = yield Network.get_parser_from_inputstream_async (in_stream);
 					node = network.parse_node (parser);
 					API.Nodeinfo.V20 nodeinfo2 = (API.Nodeinfo.V20) Helper.Entity.from_json (node, typeof (API.Nodeinfo.V20));
 					if (nodeinfo2.software != null && nodeinfo2.software.name != null) {

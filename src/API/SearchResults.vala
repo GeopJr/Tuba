@@ -38,13 +38,12 @@ public class Tuba.API.SearchResults : Entity {
 	}
 
 	public static async SearchResults request (string q, InstanceAccount account) throws Error {
-		var req = new Request.GET ("/api/v2/search")
-			.with_account (account)
-			.with_param ("resolve", "true")
-			.with_param ("q", q);
-		yield req.await ();
+		var req = new RequestV2 ("/api/v2/search") { account = account };
+		req.add_parameter ("resolve", "true");
+		req.add_parameter ("q", q);
 
-		var parser = Network.get_parser_from_inputstream (req.response_body);
+		var in_stream = yield req.exec (null);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		return from (network.parse_node (parser));
 	}
 }

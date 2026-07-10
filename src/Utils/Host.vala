@@ -87,10 +87,10 @@ public class Tuba.Utils.Host {
 		if (!file.query_exists ()) {
 			// Disable libsoup's cache on these
 			// it's better if we handle it so it doesn't affect its limits and loading
-			var msg = yield new Request.GET (url).disable_cache ()
-				.await ();
+			var msg = new RequestV2 (url) { cache = false };
+			var in_stream = yield msg.exec (null);
 
-			var data = msg.response_body;
+			var data = in_stream;
 			FileOutputStream stream = yield file.create_async (FileCreateFlags.PRIVATE);
 			yield stream.splice_async (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
 

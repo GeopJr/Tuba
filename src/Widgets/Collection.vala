@@ -73,11 +73,10 @@ public class Tuba.Widgets.Collection : Gtk.Box {
 					accounts_arr += @"id[]=$(acc_id)";
 				}
 
-				var req = new Request.GET (@"/api/v1/accounts?$(string.joinv ("&", accounts_arr))")
-					.with_account (accounts.active);
-				yield req.await ();
+				var req = new RequestV2 (@"/api/v1/accounts?$(string.joinv ("&", accounts_arr))") { account = accounts.active };
+				var in_stream = yield req.exec (null);
 
-				var parser = Network.get_parser_from_inputstream (req.response_body);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 				int i = 0;
 				Network.parse_array (parser, node => {
 					var acc = API.Account.from (node);
@@ -210,12 +209,11 @@ public class Tuba.Widgets.Collection : Gtk.Box {
 
 	private async void block_author () {
 		try {
-			var req = new Request.GET ("/api/v1/accounts/relationships")
-				.with_account (accounts.active)
-				.with_param ("id[]", collection.account_id);
-			yield req.await ();
+			var req = new RequestV2 ("/api/v1/accounts/relationships") { account = accounts.active };
+			req.add_parameter ("id[]", collection.account_id);
+			var in_stream = yield req.exec (null);
 
-			var parser = Network.get_parser_from_inputstream (req.response_body);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 			Network.parse_array (parser, node => {
 				var rs = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
 				if (rs != null) {

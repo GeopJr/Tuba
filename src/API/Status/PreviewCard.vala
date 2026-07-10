@@ -210,36 +210,40 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 				return;
 		}
 
-		new Request.GET (api_url)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
+		open_special_card_real.begin (api_url, host);
+	}
 
-				switch (this.special_card) {
-					case API.PreviewCard.CardSpecialType.FUNKWHALE:
-						var funkwhale_obj = API.Funkwhale.from (node);
-						string res_url;
+	private async void open_special_card_real (string api_url, string host) {
+		var req = new RequestV2 ("/api/v1/accounts/relationships");
 
-						if (funkwhale_obj.get_track (host, out res_url)) {
-							app.main_window.show_media_viewer (res_url, Tuba.Attachment.MediaType.AUDIO, null, null, false, null, this.url, null, true);
-						}
-						break;
-					case API.PreviewCard.CardSpecialType.BOOKWYRM:
-						API.BookWyrm bookwyrm_obj = API.BookWyrm.from (node);
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
 
-						if (bookwyrm_obj.title != null && bookwyrm_obj.title != "") {
-							app.main_window.show_book (bookwyrm_obj);
-						}
-						break;
-					default:
-						open_url.begin ();
-						break;
-				}
-			})
-			.on_error (() => {
-				open_url.begin ();
-			})
-			.exec ();
+			switch (this.special_card) {
+				case API.PreviewCard.CardSpecialType.FUNKWHALE:
+					var funkwhale_obj = API.Funkwhale.from (node);
+					string res_url;
+
+					if (funkwhale_obj.get_track (host, out res_url)) {
+						app.main_window.show_media_viewer (res_url, Tuba.Attachment.MediaType.AUDIO, null, null, false, null, this.url, null, true);
+					}
+					break;
+				case API.PreviewCard.CardSpecialType.BOOKWYRM:
+					API.BookWyrm bookwyrm_obj = API.BookWyrm.from (node);
+
+					if (bookwyrm_obj.title != null && bookwyrm_obj.title != "") {
+						app.main_window.show_book (bookwyrm_obj);
+					}
+					break;
+				default:
+					yield open_url ();
+					break;
+			}
+		} catch (Error e) {
+			yield open_url ();
+		}
 	}
 
 	private async void open_url () {
