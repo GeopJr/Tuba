@@ -39,7 +39,7 @@ public class Tuba.Views.Admin.Timeline.BlockedIPs : Views.Admin.Timeline.Paginat
 					.with_account (accounts.active)
 					.then (() => {
 						widget.sensitive = true;
-						request_idle ();
+						request.begin ();
 					})
 					.on_error ((code, message) => {
 						widget.sensitive = true;

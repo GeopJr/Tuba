@@ -36,7 +36,7 @@ public class Tuba.Views.Admin.Page.FederationAllowList : Views.Admin.Page.Base {
 		pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
 		this.page = pagination_timeline;
 
-		pagination_timeline.request_idle ();
+		pagination_timeline.request.begin ();
 	}
 
 	void new_item_cb () {
@@ -69,7 +69,7 @@ public class Tuba.Views.Admin.Page.FederationAllowList : Views.Admin.Page.Base {
 						.with_account (accounts.active)
 						.with_form_data ("domain", domain)
 						.then (() => {
-							pagination_timeline.request_idle ();
+							pagination_timeline.request.begin ();
 						})
 						.on_error ((code, message) => {
 							warning (@"Error trying to allow federation with $domain: $message $code");

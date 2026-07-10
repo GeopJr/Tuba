@@ -1,11 +1,16 @@
 public class Tuba.Views.FollowRequests : Views.Timeline {
+	public FollowRequests () {
+		Object (
+			url: "/api/v1/follow_requests",
+			label: _("Follow Requests"),
+			icon: "address-book-new-symbolic",
+			empty_state_title: _("No Follow Requests"),
+			batch_size_min: 20
+		);
+	}
+
 	construct {
-		url = "/api/v1/follow_requests";
-		label = _("Follow Requests");
-		icon = "address-book-new-symbolic";
 		accepts = typeof (API.Account);
-		empty_state_title = _("No Follow Requests");
-		batch_size_min = 20;
 	}
 
 	public override Gtk.Widget on_create_model_widget (Object obj) {

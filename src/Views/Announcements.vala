@@ -1,11 +1,16 @@
 public class Tuba.Views.Announcements : Views.Timeline {
+	public Announcements () {
+		Object (
+			url: "/api/v1/announcements?with_dismissed=true",
+			label: _("Announcements"),
+			icon: "tuba-lightbulb-symbolic",
+			empty_state_title: _("No Announcements")
+		);
+	}
+
 	public bool dismiss_all_announcements { get; set; default=false; }
 	construct {
-		url = "/api/v1/announcements?with_dismissed=true";
-		label = _("Announcements");
-		icon = "tuba-lightbulb-symbolic";
 		accepts = typeof (API.Announcement);
-		empty_state_title = _("No Announcements");
 	}
 
 	public void dismiss_all () {

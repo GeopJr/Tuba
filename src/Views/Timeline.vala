@@ -265,26 +265,24 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			return req;
 	}
 
+	public virtual void append_params_v2 (RequestV2 req) {
+		if (page_next == null)
+			req.add_parameter ("limit", settings.timeline_page_size.clamp (this.batch_size_min, 40).to_string ());
+	}
+
 	protected bool has_finished_request { get; private set; default = false; }
 	public virtual void on_request_finish () {
 		has_finished_request = true;
 		base.on_bottom_reached ();
 	}
 
-	public virtual bool request () {
+	public async virtual void request () {
 		var req = new RequestV2 (get_req_url ()) {
 			account = account,
 			ctx = this
 		};
+		append_params_v2 (req);
 
-		if (page_next == null)
-			req.add_parameter ("limit", settings.timeline_page_size.clamp (this.batch_size_min, 40).to_string ());
-
-		request_async.begin (req);
-		return GLib.Source.REMOVE;
-	}
-
-	private async void request_async (RequestV2 req) {
 		GLib.InputStream in_stream;
 		Soup.MessageHeaders response_headers;
 
@@ -332,7 +330,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		clear ();
 		base_status = new StatusMessage () { loading = true };
 		has_finished_request = false;
-		GLib.Idle.add (request);
+		request.begin ();
 	}
 
 	public virtual void on_manual_refresh () {
@@ -350,7 +348,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			debug ("Last page reached");
 			return;
 		}
-		request ();
+		request.begin ();
 	}
 
 

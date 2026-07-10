@@ -10,6 +10,11 @@ public class Tuba.Views.Local : Views.Federated {
 		return req;
 	}
 
+	public override void append_params_v2 (RequestV2 req) {
+		base.append_params_v2 (req);
+		req.add_parameter ("local", "true");
+	}
+
 	public override string? get_stream_url () {
 		return account != null
 			? @"$(account.tuba_streaming_url)/api/v1/streaming?stream=public:local&access_token=$(account.access_token)"

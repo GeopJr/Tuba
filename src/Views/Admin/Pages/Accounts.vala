@@ -201,7 +201,7 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 	}
 
 	private void refresh () {
-		pagination_timeline.request_idle ();
+		pagination_timeline.request.begin ();
 	}
 
 	private void dropdown_signal (GLib.Object item) {

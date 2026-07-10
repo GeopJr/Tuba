@@ -51,7 +51,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		status_button.sensitive = false;
 		clear ();
 		base_status = new StatusMessage () { loading = true };
-		GLib.Idle.add (request);
+		request ();
 	}
 
 	private void update_root_status (string status_id = root_status.id) {
@@ -80,7 +80,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 	public override void on_account_changed (InstanceAccount? acc) {
 		if (account != null) return;
 		account = acc;
-		GLib.Idle.add (request);
+		request ();
 	}
 
 	void connect_threads () {

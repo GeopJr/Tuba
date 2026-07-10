@@ -1,4 +1,13 @@
 public class Tuba.Views.Lists : Views.Timeline {
+	public Lists () {
+		Object (
+			url: "/api/v1/lists",
+			label: _("Lists"),
+			icon: "tuba-list-compact-symbolic",
+			empty_state_title: _("No Lists"),
+			batch_size_min: 20
+		);
+	}
 
 	public class Row : Adw.ActionRow {
 		public API.List? list;
@@ -205,12 +214,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 	Gtk.Entry child_entry;
 	Gtk.Button add_button;
 	construct {
-		url = "/api/v1/lists";
-		label = _("Lists");
-		icon = "tuba-list-compact-symbolic";
 		accepts = typeof (API.List);
-		empty_state_title = _("No Lists");
-		batch_size_min = 20;
 
 		child_entry = new Gtk.Entry () {
 			input_purpose = Gtk.InputPurpose.FREE_FORM,
