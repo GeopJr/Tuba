@@ -214,7 +214,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 	}
 
 	private async void open_special_card_real (string api_url, string host) {
-		var req = new RequestV2 ("/api/v1/accounts/relationships");
+		var req = new RequestV2 (api_url);
 
 		try {
 			var in_stream = yield req.exec (null);
