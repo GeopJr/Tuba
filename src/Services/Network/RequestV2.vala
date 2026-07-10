@@ -139,7 +139,7 @@ public class Tuba.RequestV2 : GLib.Object {
 		string final_url = this.account != null && this.url.has_prefix ("/")
 			? @"$(this.account.instance)$(this.url)"
 			: this.url;
-		final_url += @"$("?" in this.url ? "&" : "?")$(parameters_to_string ())";
+		if (this.parameters.length > 0) final_url += @"$("?" in this.url ? "&" : "?")$(parameters_to_string ())";
 		return final_url;
 	}
 

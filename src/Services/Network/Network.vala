@@ -112,6 +112,7 @@ public class Tuba.Network : GLib.Object {
 	) throws GLib.Error, Oopsie {
 		requests_processing++;
 
+		debug (@"$(msg.method): $(msg.uri.to_string ())");
 		GLib.InputStream in_stream = yield session.send_async (msg, 0, cancellable);
 		var status = msg.status_code;
 		response_headers = msg.response_headers;
