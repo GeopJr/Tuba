@@ -851,7 +851,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public async void init_notifications () {
 		var req = new RequestV2 (@"/api/v1/notifications$(Views.Notifications.get_notifications_excluded_types_query_param ())") {
-			account = accounts.active
+			account = this
 		};
 		req.add_parameter ("min_id", last_read_id.to_string ());
 		try {

@@ -58,7 +58,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		if (root_status == null) return;
 
 		Widgets.Status? status_widget = root_status_widget;
-		var req = new RequestV2 (@"/api/v1/statuses/$status_id") { account = accounts.active, ctx = this };
+		var req = new RequestV2 (@"/api/v1/statuses/$status_id") { account = account, ctx = this };
 
 		try {
 			var in_stream = yield req.exec (null);
@@ -182,7 +182,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 	}
 
 	public async void request () {
-		var req = new RequestV2 (@"/api/v1/statuses/$(root_status.id)/context") { account = accounts.active, ctx = this };
+		var req = new RequestV2 (@"/api/v1/statuses/$(root_status.id)/context") { account = account, ctx = this };
 
 		try {
 			var in_stream = yield req.exec (null);

@@ -152,7 +152,7 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 
 		if ((yield dlg.choose (this, null)) == "yes") {
 			clear_button.sensitive = false;
-			var req = new RequestV2 ("/api/v1/notifications/policy") { account = accounts.active };
+			var req = new RequestV2 ("/api/v1/notifications/clear", POST) { account = accounts.active };
 			try {
 				yield req.exec (null);
 				clear_button.sensitive = true;
