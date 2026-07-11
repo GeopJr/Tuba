@@ -60,35 +60,19 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 			mime = mime_type;
 		}
 
-		var multipart = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
-		multipart.append_form_file ("file", mime.replace ("/", "."), mime, buffer);
-		var url = @"$(accounts.active.instance)/api/v1/media";
-		var msg = new Soup.Message.from_multipart (url, multipart);
-		msg.request_headers.append ("Authorization", @"Bearer $(accounts.active.access_token)");
+		var msg = new RequestV2 ("/api/v1/media", POST) {
+			account = accounts.active
+		};
+		msg.add_form_data_file ("file", mime, buffer);
 
-		string? error = null;
-		InputStream? in_stream = null;
-		network.queue (msg, null,
-			(t_is) => {
-				in_stream = t_is;
-				upload.callback ();
-			},
-			(code, reason) => {
-				error = reason;
-				upload.callback ();
-			});
+		var in_stream = yield msg.exec (null);
+		if (in_stream == null) throw new Oopsie.INSTANCE ("Broken Stream");
 
-		yield;
-
-		if (error != null || in_stream == null)
-			throw new Oopsie.INSTANCE (error);
-		else {
-			var parser = Network.get_parser_from_inputstream (in_stream);
-			var node = network.parse_node (parser);
-			var entity = accounts.active.create_entity<API.Attachment> (node);
-			debug (@"OK! ID $(entity.id)");
-			return entity;
-		}
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+		var node = network.parse_node (parser);
+		var entity = accounts.active.create_entity<API.Attachment> (node);
+		debug (@"OK! ID $(entity.id)");
+		return entity;
 	}
 
 	public override Gtk.Widget to_widget () {

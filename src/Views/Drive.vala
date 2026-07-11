@@ -1482,36 +1482,24 @@ public class Tuba.Views.Drive : Views.Base {
 		string? filename = file.get_basename ();
 		if (filename == null) filename = mime.replace ("/", ".");
 
-		var multipart = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
-		multipart.append_form_file ("file", filename, mime, buffer);
-
 		string folder_id = to_folder == null ? "" : @"?folderId=$to_folder";
-		var msg = new Soup.Message.from_multipart (@"$(accounts.active.instance)/api/iceshrimp/drive$folder_id", multipart);
-		msg.request_headers.append ("Authorization", @"Bearer $(accounts.active.tuba_iceshrimp_api_key)");
+		var msg = new RequestV2 (@"$(accounts.active.instance)/api/iceshrimp/drive$folder_id", POST) {
+			account = accounts.active,
+			force_token = accounts.active.tuba_iceshrimp_api_key,
+			track_written_body_data = true
+		};
+		msg.add_form_data_file ("file", mime, buffer);
 		msg.wrote_body_data.connect (on_upload_bytes_written);
 
-		string? error = null;
-		InputStream? in_stream = null;
-		network.queue (msg, main_cancellable,
-			(t_is) => {
-				in_stream = t_is;
-				upload_file_real.callback ();
-			},
-			(code, reason) => {
-				error = reason;
-				upload_file_real.callback ();
-			}
-		);
-		yield;
-
-		if (error != null || in_stream == null) {
-			throw new Oopsie.INTERNAL (error);
+		GLib.InputStream in_stream = yield msg.exec (null);
+		if (in_stream == null) {
+			throw new Oopsie.INSTANCE ("Broken Stream");
 		} else if (main_cancellable.is_cancelled ()) {
 			throw new Oopsie.USER ("Cancelled");
 		}
 
 		this.progress = 1;
-		var parser = Network.get_parser_from_inputstream (in_stream);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		var node = network.parse_node (parser);
 		var entity = (API.Iceshrimp.File) Helper.Entity.from_json (node, typeof (API.Iceshrimp.File));
 
@@ -1538,7 +1526,7 @@ public class Tuba.Views.Drive : Views.Base {
 
 	uint bytes_written = 0;
 	size_t total_bytes = 0;
-	private void on_upload_bytes_written (Soup.Message msg, uint chunk) {
+	private void on_upload_bytes_written (uint chunk) {
 		bytes_written += chunk;
 		this.progress = ((double) bytes_written / (double) total_bytes).clamp (0, 0.999999999);
 	}

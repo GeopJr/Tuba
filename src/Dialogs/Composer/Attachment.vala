@@ -425,37 +425,27 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 			total_bytes = buffer.get_size ();
 		}
 
-		var multipart = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
-		multipart.append_form_file ("file", mime.replace ("/", "."), mime, buffer);
-
-		var msg = new Soup.Message.from_multipart (@"$(accounts.active.instance)/api/v1/media", multipart);
-		msg.request_headers.append ("Authorization", @"Bearer $(accounts.active.access_token)");
+		var msg = new RequestV2 ("/api/v1/media", POST) {
+			account = accounts.active,
+			track_written_body_data = true
+		};
+		msg.add_form_data_file ("file", mime, buffer);
 		msg.wrote_body_data.connect (on_upload_bytes_written);
 
-		string? error = null;
-		InputStream? in_stream = null;
-		network.queue (msg, null,
-			(t_is) => {
-				in_stream = t_is;
-				upload.callback ();
-			},
-			(code, reason) => {
-				error = reason;
-				upload.callback ();
-			}
-		);
-		yield;
-
-		if (error != null || in_stream == null) {
+		GLib.InputStream? in_stream = null;
+		try {
+			in_stream = yield msg.exec (null);
+			if (in_stream == null) throw new Oopsie.INSTANCE ("Broken Stream");
+		} catch (Error e) {
 			this.uploading = false;
-			upload_error (error);
+			upload_error (e.message);
 			return;
 		}
 
 		this.progress = 1;
 		this.file = file;
 		try {
-			var parser = Network.get_parser_from_inputstream (in_stream);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 			var node = network.parse_node (parser);
 			var entity = accounts.active.create_entity<API.Attachment> (node);
 
@@ -606,7 +596,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 
 	uint bytes_written = 0;
 	size_t total_bytes = 0;
-	private void on_upload_bytes_written (Soup.Message msg, uint chunk) {
+	private void on_upload_bytes_written (uint chunk) {
 		bytes_written += chunk;
 		this.progress = ((double) bytes_written / (double) total_bytes).clamp (0, 0.999999999);
 	}
