@@ -19,41 +19,49 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 
 		if (widget_account != null) {
 			var fr_row = widget_account.add_fr_row ();
-			fr_row.declined.connect ((fr_row, req) => on_decline (fr_row, req, obj as Widgetizable));
-			fr_row.accepted.connect ((fr_row, req) => on_accept (fr_row, req, obj as Widgetizable));
+			fr_row.declined.connect ((fr_row, req) => on_decline.begin (fr_row, req, obj as Widgetizable));
+			fr_row.accepted.connect ((fr_row, req) => on_accept.begin (fr_row, req, obj as Widgetizable));
 		}
 
 		return widget;
 	}
 
-	public void on_accept (Widgets.FollowRequestRow fr_row, Request req, Widgetizable widget) {
+	public async void on_accept (Widgets.FollowRequestRow fr_row, RequestV2 req, Widgetizable widget) {
 		fr_row.sensitive = false;
-		req
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var relationship = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
-				if (relationship.followed_by == true) {
-					uint indx;
-					var found = model.find (widget, out indx);
-					if (found)
-						model.remove (indx);
-				} else {
-					fr_row.sensitive = true;
-				}
-			})
-			.exec ();
-	}
 
-	public void on_decline (Widgets.FollowRequestRow fr_row, Request req, Widgetizable widget) {
-		fr_row.sensitive = false;
-		req
-			.then (() => {
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var relationship = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
+			if (relationship.followed_by == true) {
 				uint indx;
 				var found = model.find (widget, out indx);
 				if (found)
 					model.remove (indx);
-			})
-			.exec ();
+			} else {
+				fr_row.sensitive = true;
+			}
+		} catch (Error e) {
+			warning (@"Couldn't perform accept: $(e.code) $(e.message)");
+			app.toast ("%s: %s".printf (_("Error"), e.message));
+			fr_row.sensitive = true;
+		}
+	}
+
+	public async void on_decline (Widgets.FollowRequestRow fr_row, RequestV2 req, Widgetizable widget) {
+		fr_row.sensitive = false;
+
+		try {
+			yield req.exec (null);
+			uint indx;
+			var found = model.find (widget, out indx);
+			if (found)
+				model.remove (indx);
+		} catch (Error e) {
+			warning (@"Couldn't perform decline: $(e.code) $(e.message)");
+			app.toast ("%s: %s".printf (_("Error"), e.message));
+			fr_row.sensitive = true;
+		}
 	}
 }

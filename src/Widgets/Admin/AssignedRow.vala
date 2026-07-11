@@ -59,21 +59,24 @@ public class Tuba.Widgets.Admin.AssignedToRow : Adw.ActionRow {
 	}
 
 	private void do_assign () {
+		do_assign_real.begin ();
+	}
+
+	private async void do_assign_real () {
 		string endpoint = is_assigned ? "unassign" : "assign_to_self";
 		assign_button.sensitive = false;
-		new Request.POST (@"/api/v1/admin/reports/$report_id/$endpoint")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				update_account (API.Admin.Report.from (node).assigned_account);
-				assign_button.sensitive = true;
-			})
-			.on_error ((code, message) => {
-				warning (@"Error trying to re-assign $report_id: $message $code");
-				on_error (@"$message $code");
-				assign_button.sensitive = true;
-			})
-			.exec ();
+		var req = new RequestV2 (@"/api/v1/admin/reports/$report_id/$endpoint") { account = accounts.active };
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			update_account (API.Admin.Report.from (node).assigned_account);
+			assign_button.sensitive = true;
+		} catch (Error e) {
+			warning (@"Error trying to re-assign $report_id: $(e.message) $(e.code)");
+			on_error (@"$(e.message) $(e.code)");
+			assign_button.sensitive = true;
+		}
 	}
 }

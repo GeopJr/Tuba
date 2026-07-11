@@ -168,25 +168,28 @@ public class Tuba.Dialogs.Admin.AddFederationBlock : Dialogs.Admin.Base {
 		private void on_save () {
 			save_button.sensitive = false;
 
-			new Request.POST ("/api/v1/admin/domain_blocks")
-				.with_account (accounts.active)
-				.with_form_data ("domain", domain_row.text)
-				.with_form_data ("severity", ((SeverityObject) sev_row.selected_item).severity.to_api_string ())
-				.with_form_data ("public_comment", public_comment_row.text)
-				.with_form_data ("private_comment", private_comment_row.text)
-				.with_form_data ("obfuscate", rule_obfuscate.active.to_string ())
-				.with_form_data ("reject_media", (reject_media_row.sensitive && rule_reject_media.active).to_string ())
-				.with_form_data ("reject_reports", (reject_reports_row.sensitive && rule_reject_reports.active).to_string ())
-				.then (() => {
-					on_domain_changed ();
-					added ();
-					on_cancel ();
-				})
-				.on_error ((code, message) => {
-					warning (@"Couldn't create federation block $(domain_row.text): $code $message");
-					add_toast (message);
-				})
-				.exec ();
+			on_save_real.begin ();
+		}
+
+		private async void on_save_real () {
+			var req = new RequestV2 ("/api/v1/admin/domain_blocks", POST) { account = accounts.active };
+			req.add_form_data ("domain", domain_row.text);
+			req.add_form_data ("severity", ((SeverityObject) sev_row.selected_item).severity.to_api_string ());
+			req.add_form_data ("public_comment", public_comment_row.text);
+			req.add_form_data ("private_comment", private_comment_row.text);
+			req.add_form_data ("obfuscate", rule_obfuscate.active.to_string ());
+			req.add_form_data ("reject_media", (reject_media_row.sensitive && rule_reject_media.active).to_string ());
+			req.add_form_data ("reject_reports", (reject_reports_row.sensitive && rule_reject_reports.active).to_string ());
+
+			try {
+				yield req.exec (null);
+				on_domain_changed ();
+				added ();
+				on_cancel ();
+			} catch (Error e) {
+				warning (@"Couldn't create federation block $(domain_row.text): $(e.code) $(e.message)");
+				add_toast (e.message);
+			}
 		}
 
 		private void sev_signal (GLib.Object item) {

@@ -26,6 +26,21 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
 		debug ("Destroying BookWyrmPage");
 	}
 
+	private async void fetch_author (string author) {
+		var req = new RequestV2 (@"$author.json");
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var author_obj = API.BookWyrmAuthor.from (node);
+			if (author_obj.id == author) {
+				authors.label = generate_authors_label (author_obj.name, author_obj.id);
+			}
+		} catch (Error e) {
+			authors.visible = false;
+		}
+	}
+
 	public BookWyrmPage (API.BookWyrm t_obj) {
 		book = t_obj;
 		title.label = t_obj.title;
@@ -42,17 +57,7 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
 
 		if (t_obj.authors != null && t_obj.authors.size > 0) {
 			foreach (var author in t_obj.authors) {
-				new Request.GET (@"$author.json")
-					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						var author_obj = API.BookWyrmAuthor.from (node);
-						if (author_obj.id == author) {
-							authors.label = generate_authors_label (author_obj.name, author_obj.id);
-						}
-					})
-					.on_error (() => authors.visible = false)
-					.exec ();
+				fetch_author.begin (author);
 			}
 		} else {
 			authors.visible = false;

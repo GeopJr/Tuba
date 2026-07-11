@@ -1,6 +1,6 @@
 public class Tuba.Widgets.FollowRequestRow : Gtk.Box {
-	public signal void declined (Request req);
-	public signal void accepted (Request req);
+	public signal void declined (RequestV2 req);
+	public signal void accepted (RequestV2 req);
 
 	public string id { get; set; }
 
@@ -29,11 +29,11 @@ public class Tuba.Widgets.FollowRequestRow : Gtk.Box {
 	}
 
 	void on_decline () {
-		declined (new Request.POST (@"/api/v1/follow_requests/$id/reject").with_account (accounts.active));
+		declined (new RequestV2 (@"/api/v1/follow_requests/$id/reject", POST) { account = accounts.active });
 	}
 
 	void on_accept () {
-		accepted (new Request.POST (@"/api/v1/follow_requests/$id/authorize").with_account (accounts.active));
+		accepted (new RequestV2 (@"/api/v1/follow_requests/$id/authorize", POST) { account = accounts.active });
 	}
 
 	public FollowRequestRow (string t_id) {

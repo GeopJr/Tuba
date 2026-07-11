@@ -118,7 +118,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		this.status_id = status_id;
 		if (collection != null)
 			this.collection_id = collection.id;
-		else populate_posts (account.id, status_id);
+		else populate_posts.begin (account.id, status_id);
 		account_id = account.id;
 
 		install_page_1 ();
@@ -362,7 +362,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {
-						submit ();
+						submit.begin ();
 						this.force_close ();
 					}
 				}
@@ -370,30 +370,29 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		}
 	}
 
-	private void submit () {
-		var msg = new Request.POST ("/api/v1/reports")
-			.with_account (accounts.active)
-			.with_form_data ("account_id", account_id);
+	private async void submit () {
+		var msg = new RequestV2 ("/api/v1/reports", POST) { account = accounts.active };
+		msg.add_form_data ("account_id", account_id);
 
 		if (forward_switches.size == 1 && forward_switches.has_key (account_domain)) {
-			msg.with_form_data ("forward", forward_switches.get (account_domain).active.to_string ());
+			msg.add_form_data ("forward", forward_switches.get (account_domain).active.to_string ());
 		} else {
 			bool has_forward = false;
 			forward_switches.foreach (e => {
 				if (((Adw.SwitchRow) e.value).active) {
 					if (!has_forward) {
 						has_forward = true;
-						msg.with_form_data ("forward", "true");
+						msg.add_form_data ("forward", "true");
 					}
-					msg.with_form_data ("forward_to_domains[]", ((string) e.key));
+					msg.add_form_data ("forward_to_domains[]", ((string) e.key));
 				}
 
 				return true;
 			});
-			if (!has_forward) msg.with_form_data ("forward", "false");
+			if (!has_forward) msg.add_form_data ("forward", "false");
 		}
 
-		if (additional_info.text != "") msg.with_form_data ("comment", additional_info.text);
+		if (additional_info.text != "") msg.add_form_data ("comment", additional_info.text);
 
 		Category category = Category.OTHER;
 		check_buttons.foreach (e => {
@@ -404,38 +403,34 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 
 			return true;
 		});
-		msg.with_form_data ("category", category.to_string ());
+		msg.add_form_data ("category", category.to_string ());
 
 		if (category == Category.VIOLATION) {
 			rules_buttons.foreach (e => {
 				if (((Gtk.CheckButton) e.value).active) {
-					msg.with_form_data ("rule_ids[]", ((string) e.key));
+					msg.add_form_data ("rule_ids[]", ((string) e.key));
 				}
 				return true;
 			});
 		}
 
-		if (status_id != null) msg.with_form_data ("status_ids[]", status_id);
+		if (status_id != null) msg.add_form_data ("status_ids[]", status_id);
 		status_buttons.foreach (e => {
 			if (((Gtk.CheckButton) e.value).active) {
-				msg.with_form_data ("status_ids[]", ((string) e.key));
+				msg.add_form_data ("status_ids[]", ((string) e.key));
 			}
 			return true;
 		});
 
-		if (collection_id != null) msg.with_form_data ("collection_ids[]", collection_id);
+		if (collection_id != null) msg.add_form_data ("collection_ids[]", collection_id);
+		try {
+			yield msg.exec (null);
+		} catch (Error e) {
+			warning (@"Error while submitting report: $(e.code) $(e.message)");
 
-		msg
-			.then (() => {
-				app.toast (_("Submitted Report Successfully"));
-			})
-			.on_error ((code, message) => {
-				warning (@"Error while submitting report: $code $message");
-
-				// translators: the variable is an error
-				app.toast (_("Couldn't submit report: %s").printf (message), 0);
-			})
-			.exec ();
+			// translators: the variable is an error
+			app.toast (_("Couldn't submit report: %s").printf (e.message), 0);
+		}
 	}
 
 	private void on_additional_info_changed () {
@@ -483,67 +478,66 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		}
 	}
 
-	private void populate_posts (string account_id, string? status_id = null) {
-		new Request.GET (@"/api/v1/accounts/$(account_id)/statuses")
-			.with_param ("exclude_replies", "false")
-			.with_param ("exclude_reblogs", "true")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var listbox = new Gtk.ListBox () {
-					selection_mode = Gtk.SelectionMode.NONE,
-					css_classes = {"boxed-list"}
+	private async void populate_posts (string account_id, string? status_id = null) {
+		var req = new RequestV2 (@"/api/v1/accounts/$(account_id)/statuses") { account = accounts.active };
+		req.add_parameter ("exclude_replies", "false");
+		req.add_parameter ("exclude_reblogs", "true");
+
+		try {
+			var in_stream = yield req.exec (null);
+			var listbox = new Gtk.ListBox () {
+				selection_mode = Gtk.SelectionMode.NONE,
+				css_classes = {"boxed-list"}
+			};
+			listbox.row_activated.connect (on_row_activated);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+
+			Network.parse_array (parser, node => {
+				var status = API.Status.from (node);
+				if (status_id != null && status.id == status_id) return;
+				status.spoiler_text = null;
+				status.tuba_spoiler_revealed = true;
+				status.sensitive = false;
+				status.card = null;
+
+				var widget_status = status.to_widget () as Widgets.Status;
+				if (widget_status == null) return;
+
+				var checkbutton = new Gtk.CheckButton () {
+					css_classes = {"selection-mode"},
+					valign = Gtk.Align.CENTER
 				};
-				listbox.row_activated.connect (on_row_activated);
-				var parser = Network.get_parser_from_inputstream (in_stream);
+				status_buttons.set (status.id, checkbutton);
 
-				Network.parse_array (parser, node => {
-					var status = API.Status.from (node);
-					if (status_id != null && status.id == status_id) return;
-					status.spoiler_text = null;
-					status.tuba_spoiler_revealed = true;
-					status.sensitive = false;
-					status.card = null;
+				widget_status.hexpand = true;
+				widget_status.indicators.visible = false;
+				widget_status.can_focus = false;
+				widget_status.can_target = false;
+				widget_status.focusable = false;
+				widget_status.actions.visible = false;
+				#if USE_LISTVIEW
+					widget_status.can_be_opened = false;
+				#else
+					widget_status.activatable = false;
+				#endif
+				listbox.append (new StatusRow (checkbutton, widget_status));
+			});
 
-					var widget_status = status.to_widget () as Widgets.Status;
-					if (widget_status == null) return;
-
-					var checkbutton = new Gtk.CheckButton () {
-						css_classes = {"selection-mode"},
-						valign = Gtk.Align.CENTER
-					};
-					status_buttons.set (status.id, checkbutton);
-
-					widget_status.hexpand = true;
-					widget_status.indicators.visible = false;
-					widget_status.can_focus = false;
-					widget_status.can_target = false;
-					widget_status.focusable = false;
-					widget_status.actions.visible = false;
-					#if USE_LISTVIEW
-						widget_status.can_be_opened = false;
-					#else
-						widget_status.activatable = false;
-					#endif
-					listbox.append (new StatusRow (checkbutton, widget_status));
-				});
-
-				if (status_buttons.size == 0) {
-					page_3.visible = false;
-					page_3_error.description = _("%s. You can continue with the report however.").printf (_("No posts found"));
-					page_3_stack.visible_child_name = "error";
-
-					return;
-				}
-
-				group_3.add (listbox);
-				page_3_stack.visible_child_name = "main";
-			})
-			.on_error ((code, message) => {
-				// translators: the variable is an error
-				page_3_error.description = _("%s. You can continue with the report however.").printf (message);
+			if (status_buttons.size == 0) {
+				page_3.visible = false;
+				page_3_error.description = _("%s. You can continue with the report however.").printf (_("No posts found"));
 				page_3_stack.visible_child_name = "error";
-			})
-			.exec ();
+
+				return;
+			}
+
+			group_3.add (listbox);
+			page_3_stack.visible_child_name = "main";
+		} catch (Error e) {
+			// translators: the variable is an error
+			page_3_error.description = _("%s. You can continue with the report however.").printf (e.message);
+			page_3_stack.visible_child_name = "error";
+		}
 	}
 
 	private void on_row_activated (Gtk.ListBoxRow row) {

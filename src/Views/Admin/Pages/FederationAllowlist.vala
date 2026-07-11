@@ -40,14 +40,14 @@ public class Tuba.Views.Admin.Page.FederationAllowList : Views.Admin.Page.Base {
 	}
 
 	void new_item_cb () {
-		on_action_bar_activate (child_entry.buffer);
+		on_action_bar_activate.begin (child_entry.buffer);
 	}
 
 	void on_entry_changed () {
 		add_button.sensitive = child_entry.text.length > 0;
 	}
 
-	void on_action_bar_activate (Gtk.EntryBuffer buffer) {
+	private async void on_action_bar_activate (Gtk.EntryBuffer buffer) {
 		if (buffer.length > 0) {
 			string domain = buffer.text;
 			var dlg = new Adw.AlertDialog (
@@ -63,21 +63,18 @@ public class Tuba.Views.Admin.Page.FederationAllowList : Views.Admin.Page.Base {
 
 			dlg.add_response ("yes", _("Allow"));
 			dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-			dlg.choose.begin (this.admin_window, null, (obj, res) => {
-				if (dlg.choose.end (res) == "yes") {
-					new Request.POST ("/api/v1/admin/domain_allows")
-						.with_account (accounts.active)
-						.with_form_data ("domain", domain)
-						.then (() => {
-							pagination_timeline.request.begin ();
-						})
-						.on_error ((code, message) => {
-							warning (@"Error trying to allow federation with $domain: $message $code");
-							on_error (code, message);
-						})
-						.exec ();
-				}
-			});
+
+			if ((yield dlg.choose (this.admin_window, null)) == "yes") {
+					var req = new RequestV2 ("/api/v1/admin/domain_allows", POST) { account = accounts.active };
+					req.add_form_data ("domain", domain);
+					try {
+						yield req.exec (null);
+						yield pagination_timeline.request ();
+					} catch (Error e) {
+						warning (@"Error trying to allow federation with $domain: $(e.message) $(e.code)");
+						on_error (e.code, e.message);
+					}
+			}
 		}
 		buffer.set_text ("".data);
 	}

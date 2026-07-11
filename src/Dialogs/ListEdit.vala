@@ -62,7 +62,7 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 		hide_from_home_row.active = t_list.exclusive;
 
 		update_active_radio_button (RepliesPolicy.from_string (t_list.replies_policy));
-		update_members ();
+		update_members.begin ();
 	}
 
 	[GtkCallback]
@@ -116,40 +116,43 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 		}
 	}
 
-	private void update_members () {
-		new Request.GET (@"/api/v1/lists/$(list.id)/accounts")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				if (Network.get_array_size (parser) > 0) {
-					this.add (members_page);
+	private async void update_members () {
+		var req = new RequestV2 (@"/api/v1/lists/$(list.id)/accounts") { account = accounts.active };
 
-					Network.parse_array (parser, node => {
-						var member = API.Account.from (node);
-						var avi = new Widgets.Avatar () {
-							account = member,
-							size = 32
-						};
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			if (Network.get_array_size (parser) > 0) {
+				this.add (members_page);
 
-						var remove_button = new MemberCheckButton (member.id) {
-							active = false,
-							valign = Gtk.Align.CENTER,
-							halign = Gtk.Align.CENTER,
-						};
-						remove_button.changed.connect (on_member_remove_changed);
+				Network.parse_array (parser, node => {
+					var member = API.Account.from (node);
+					var avi = new Widgets.Avatar () {
+						account = member,
+						size = 32
+					};
 
-						var member_row = new Adw.ActionRow () {
-							title = member.full_handle
-						};
+					var remove_button = new MemberCheckButton (member.id) {
+						active = false,
+						valign = Gtk.Align.CENTER,
+						halign = Gtk.Align.CENTER,
+					};
+					remove_button.changed.connect (on_member_remove_changed);
 
-						member_row.add_prefix (avi);
-						member_row.add_suffix (remove_button);
+					var member_row = new Adw.ActionRow () {
+						title = member.full_handle
+					};
 
-						members_group.add (member_row);
-					});
-				}
-			})
-			.exec ();
+					member_row.add_prefix (avi);
+					member_row.add_suffix (remove_button);
+
+					members_group.add (member_row);
+				});
+			}
+		} catch (Error e) {
+			this.add_toast (new Adw.Toast (_("Couldn't fetch members: %s").printf (e.message)) { timeout = 5 });
+			warning (@"Couldn't fetch members: $(e.code) $(e.message)");
+		}
 	}
 
 	private void on_member_remove_changed (string member_id, bool active) {
@@ -162,11 +165,11 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 
 	[GtkCallback]
 	private void on_close () {
-		on_apply ();
+		on_apply.begin ();
 		force_close ();
 	}
 
-	private void on_apply () {
+	private async void on_apply () {
 		if (list.title != list_title || RepliesPolicy.from_string (list.replies_policy) != replies_policy_active || list.exclusive != is_exclusive) {
 			var replies_policy_string = replies_policy_active.to_string ();
 
@@ -180,15 +183,18 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 			builder.add_boolean_value (is_exclusive);
 			builder.end_object ();
 
-			new Request.PUT (@"/api/v1/lists/$(list.id)")
-				.with_account (accounts.active)
-				.body_json (builder)
-				.then (() => {
-					list.title = list_title;
-					list.replies_policy = replies_policy_string;
-					list.exclusive = is_exclusive;
-				})
-				.exec ();
+			var req = new RequestV2 (@"/api/v1/lists/$(list.id)", PUT) { account = accounts.active };
+			req.set_body_from_json (builder);
+
+			try {
+				yield req.exec (null);
+				list.title = list_title;
+				list.replies_policy = replies_policy_string;
+				list.exclusive = is_exclusive;
+			} catch (Error e) {
+				app.toast (_("Couldn't save list: %s").printf (e.message));
+				warning (@"Couldn't save list: $(e.code) $(e.message)");
+			}
 		}
 
 		if (memebers_to_be_removed.size > 0) {
@@ -203,10 +209,15 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 			ids_builder.end_array ();
 			ids_builder.end_object ();
 
-			new Request.DELETE (@"/api/v1/lists/$(list.id)/accounts")
-				.with_account (accounts.active)
-				.body_json (ids_builder)
-				.exec ();
+			var req = new RequestV2 (@"/api/v1/lists/$(list.id)/accounts", DELETE) { account = accounts.active };
+			req.set_body_from_json (ids_builder);
+
+			try {
+				yield req.exec (null);
+			} catch (Error e) {
+				app.toast (_("Couldn't save list: %s").printf (e.message));
+				warning (@"Couldn't save list members: $(e.code) $(e.message)");
+			}
 		}
 	}
 }

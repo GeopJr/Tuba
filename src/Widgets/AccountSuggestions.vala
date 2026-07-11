@@ -125,7 +125,7 @@ public class Tuba.Widgets.AccountSuggestions : Gtk.ListBoxRow {
 		this.child = main_box;
 		on_page_changed ();
 
-		GLib.Idle.add (populate_account_suggestions);
+		populate_account_suggestions.begin ();
 		scrolled_window.hadjustment.value_changed.connect (on_page_changed);
 	}
 
@@ -150,42 +150,38 @@ public class Tuba.Widgets.AccountSuggestions : Gtk.ListBoxRow {
 		}
 	}
 
-	private bool populate_account_suggestions () {
-		new Request.GET ("/api/v2/suggestions")
-			.with_account (accounts.active)
-			.with_param ("limit", "10")
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
+	private async void populate_account_suggestions () {
+		var req = new RequestV2 ("/api/v2/suggestions") { account = accounts.active };
+		req.add_parameter ("limit", "10");
 
-				Gee.HashMap<string, AccountSuggestion> widgets = new Gee.HashMap<string, AccountSuggestion> ();
-				Gtk.Widget? last_sep = null;
-				Network.parse_array (parser, node => {
-					var entity = Tuba.Helper.Entity.from_json (node, typeof (API.Suggestion)) as API.Suggestion;
-					if (entity != null) {
-						var widget = new AccountSuggestion (((API.Suggestion) entity).account);
-						widgets.set (((API.Suggestion) entity).account.id, widget);
-						account_box.append (widget);
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			Gee.HashMap<string, AccountSuggestion> widgets = new Gee.HashMap<string, AccountSuggestion> ();
+			Gtk.Widget? last_sep = null;
+			Network.parse_array (parser, node => {
+				var entity = Tuba.Helper.Entity.from_json (node, typeof (API.Suggestion)) as API.Suggestion;
+				if (entity != null) {
+					var widget = new AccountSuggestion (((API.Suggestion) entity).account);
+					widgets.set (((API.Suggestion) entity).account.id, widget);
+					account_box.append (widget);
 
-						last_sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-						account_box.append (last_sep);
-					}
-				});
-
-				if (last_sep != null) account_box.remove (last_sep);
-				if (widgets.size > 0) {
-					this.visible = true;
-					populate_account_suggestions_relationships (widgets);
-				} else {
-					this.visible = false;
+					last_sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+					account_box.append (last_sep);
 				}
-				on_page_changed ();
-			})
-			.on_error (() => {
-				this.visible = false;
-			})
-			.exec ();
+			});
 
-		return GLib.Source.REMOVE;
+			if (last_sep != null) account_box.remove (last_sep);
+			if (widgets.size > 0) {
+				this.visible = true;
+				populate_account_suggestions_relationships (widgets);
+			} else {
+				this.visible = false;
+			}
+			on_page_changed ();
+		} catch (Error e) {
+			this.visible = false;
+		}
 	}
 
 	private bool populate_account_suggestions_relationships (Gee.HashMap<string, AccountSuggestion> account_widgets) {

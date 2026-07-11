@@ -136,6 +136,10 @@ public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 	}
 
 	private void on_take_action () {
+		on_take_action_real.begin ();
+	}
+
+	private async void on_take_action_real () {
 		var dlg = new Adw.AlertDialog (
 			// translators: Question dialog when an admin is about to
 			//				take action against an account
@@ -149,8 +153,8 @@ public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 
 		dlg.add_response ("yes", _("Take Action"));
 		dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-		dlg.choose.begin (this, null, (obj, res) => {
-			if (dlg.choose.end (res) == "yes") {
+
+		if ((yield dlg.choose (this, null)) == "yes") {
 				this.sensitive = false;
 
 				string kind = "none";
@@ -164,25 +168,21 @@ public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 					kind = "suspend";
 				}
 
-				var req = new Request.POST (@"/api/v1/admin/accounts/$account_id/action")
-					.with_account (accounts.active)
-					.with_form_data ("type", kind)
-					.with_form_data ("text", comment_row.text)
-					.with_form_data ("send_email_notification", send_email.active.to_string ())
-					.then (() => {
-						on_cancel ();
-						took_action ();
-					})
-					.on_error ((code, message) => {
-						this.sensitive = true;
-						warning (@"Couldn't perform action $kind: $code $message");
-						add_toast (@"$message $code");
-					});
+				var req = new RequestV2 (@"/api/v1/admin/accounts/$account_id/action", POST) { account = accounts.active };
+				req.add_form_data ("type", kind);
+				req.add_form_data ("text", comment_row.text);
+				req.add_form_data ("send_email_notification", send_email.active.to_string ());
+				if (report_id != null) req.add_form_data ("report_id", report_id);
 
-				if (report_id != null) req.with_form_data ("report_id", report_id);
-
-				req.exec ();
-			}
-		});
+				try {
+					yield req.exec (null);
+					on_cancel ();
+					took_action ();
+				} catch (Error e) {
+					this.sensitive = true;
+					warning (@"Couldn't perform action $kind: $(e.code) $(e.message)");
+					add_toast (@"$(e.message) $(e.code)");
+				}
+		}
 	}
 }

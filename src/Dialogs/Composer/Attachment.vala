@@ -582,22 +582,25 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 				? new_alt_text.slice (0, (long) (accounts.active.instance_info.tuba_max_alt_chars + 1))
 				: new_alt_text;
 
+			put_alt_text.begin (limited_alt_text);
+		}
+
+		private async void put_alt_text (string limited_alt_text) {
 			var builder = new Json.Builder ();
 			builder.begin_object ();
 				builder.set_member_name ("description");
 				builder.add_string_value (limited_alt_text);
 			builder.end_object ();
 
-			new Request.PUT (@"/api/v1/media/$media_id")
-				.with_account (accounts.active)
-				.body_json (builder)
-				.then (() => {
-					this.alt_text = limited_alt_text;
-				})
-				.on_error ((code, message) => {
-					warning (message);
-				})
-				.exec ();
+			var req = new RequestV2 (@"/api/v1/media/$media_id", PUT) { account = accounts.active };
+			req.set_body_from_json (builder);
+
+			try {
+				yield req.exec (null);
+				this.alt_text = limited_alt_text;
+			} catch (Error e) {
+				warning (@"Couldn't set alt text ($limited_alt_text): $(e.code) $(e.message)");
+			}
 		}
 	#endif
 

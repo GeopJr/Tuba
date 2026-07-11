@@ -200,6 +200,10 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 			}
 			working = true;
 
+			put_alt_text.begin ();
+		}
+
+		private async void put_alt_text () {
 			var builder = new Json.Builder ();
 			builder.begin_object ();
 				builder.set_member_name ("description");
@@ -212,20 +216,19 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 				));
 			builder.end_object ();
 
-			new Request.PUT (@"/api/v1/media/$media_id")
-				.with_account (accounts.active)
-				.body_json (builder)
-				.then (() => {
-					saved (this.pos_x, this.pos_y, alt_editor.buffer.text);
-					// translators: toast shown when saving alt text and focus position in the composer
-					toast (new Adw.Toast (_("Saved Media Metadata")));
-					working = false;
-				})
-				.on_error ((code, message) => {
-					toast (new Adw.Toast (@"$code $message"));
-					working = false;
-				})
-				.exec ();
+			var req = new RequestV2 (@"/api/v1/media/$media_id", PUT) { account = accounts.active };
+			req.set_body_from_json (builder);
+
+			try {
+				yield req.exec (null);
+				saved (this.pos_x, this.pos_y, alt_editor.buffer.text);
+				// translators: toast shown when saving alt text and focus position in the composer
+				toast (new Adw.Toast (_("Saved Media Metadata")));
+				working = false;
+			} catch (Error e) {
+				toast (new Adw.Toast (@"$(e.code) $(e.message)"));
+				working = false;
+			}
 		}
 
 		public Editor (string media_id, Gdk.Paintable? paintable = null, GLib.File? video = null, float pos_x = 0, float pos_y = 0, string alt_text = "", bool edit_mode) {

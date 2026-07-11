@@ -33,7 +33,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			allow_nesting: true
 		);
 		construct_account_holder ();
-		update_root_status (status.id);
+		update_root_status.begin (status.id);
 
 		app.refresh.connect (on_refresh);
 	}
@@ -51,36 +51,37 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		status_button.sensitive = false;
 		clear ();
 		base_status = new StatusMessage () { loading = true };
-		request ();
+		request.begin ();
 	}
 
-	private void update_root_status (string status_id = root_status.id) {
+	private async void update_root_status (string status_id = root_status.id) {
 		if (root_status == null) return;
 
 		Widgets.Status? status_widget = root_status_widget;
-		new Request.GET (@"/api/v1/statuses/$status_id")
-			.with_account (account)
-			.with_ctx (this)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var api_status = API.Status.from (node);
-				if (api_status != null) {
-					if (root_status != null) root_status.patch (api_status);
-					if (status_widget != null) {
-						status_widget.on_edit (api_status);
-						status_widget.unref ();
-						status_widget = null;
-					}
+		var req = new RequestV2 (@"/api/v1/statuses/$status_id") { account = accounts.active, ctx = this };
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var api_status = API.Status.from (node);
+			if (api_status != null) {
+				if (root_status != null) root_status.patch (api_status);
+				if (status_widget != null) {
+					status_widget.on_edit (api_status);
+					status_widget.unref ();
+					status_widget = null;
 				}
-			})
-			.exec ();
+			}
+		} catch (Error e) {
+			warning (@"Couldn't update root status $status_id: $(e.message)");
+		}
 	}
 
 	public override void on_account_changed (InstanceAccount? acc) {
 		if (account != null) return;
 		account = acc;
-		request ();
+		request.begin ();
 	}
 
 	void connect_threads () {
@@ -180,71 +181,77 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		return GLib.Source.REMOVE;
 	}
 
-	public bool request () {
-		new Request.GET (@"/api/v1/statuses/$(root_status.id)/context")
-			.with_account (account)
-			.with_ctx (this)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var root = network.parse (parser);
+	public async void request () {
+		var req = new RequestV2 (@"/api/v1/statuses/$(root_status.id)/context") { account = accounts.active, ctx = this };
 
-				Object[] to_add_ancestors = {};
-				var ancestors = root.get_array_member ("ancestors");
-				ancestors.foreach_element ((array, i, node) => {
-					var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
-					if (!e.formal.tuba_filter_hidden)
-						to_add_ancestors += e;
-				});
-				to_add_ancestors += root_status;
-				model.splice (model.get_n_items (), 0, to_add_ancestors);
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var root = network.parse (parser);
 
-				Object[] to_add_descendants = {};
-				var descendants = root.get_array_member ("descendants");
-				descendants.foreach_element ((array, i, node) => {
-					var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
-					if (!e.formal.tuba_filter_hidden)
-						to_add_descendants += e;
-				});
-				model.splice (model.get_n_items (), 0, to_add_descendants);
+			Object[] to_add_ancestors = {};
+			var ancestors = root.get_array_member ("ancestors");
+			ancestors.foreach_element ((array, i, node) => {
+				var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+				if (!e.formal.tuba_filter_hidden)
+					to_add_ancestors += e;
+			});
+			to_add_ancestors += root_status;
+			model.splice (model.get_n_items (), 0, to_add_ancestors);
 
-				connect_threads ();
-				on_content_changed ();
+			Object[] to_add_descendants = {};
+			var descendants = root.get_array_member ("descendants");
+			descendants.foreach_element ((array, i, node) => {
+				var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+				if (!e.formal.tuba_filter_hidden)
+					to_add_descendants += e;
+			});
+			model.splice (model.get_n_items (), 0, to_add_descendants);
 
-				#if USE_LISTVIEW
-					if (to_add_ancestors.length > 0) {
-						uint timeout = 0;
-						timeout = Timeout.add (1000, () => {
-							content.scroll_to (to_add_ancestors.length, Gtk.ListScrollFlags.FOCUS, null);
+			connect_threads ();
+			on_content_changed ();
 
-							GLib.Source.remove (timeout);
-							return true;
-						}, Priority.LOW);
-					}
-				#endif
-			})
-			.exec ();
+			#if USE_LISTVIEW
+				if (to_add_ancestors.length > 0) {
+					uint timeout = 0;
+					timeout = Timeout.add (1000, () => {
+						content.scroll_to (to_add_ancestors.length, Gtk.ListScrollFlags.FOCUS, null);
 
-		return GLib.Source.REMOVE;
+						GLib.Source.remove (timeout);
+						return true;
+					}, Priority.LOW);
+				}
+			#endif
+		} catch (Error e) {
+			on_error (e.code, e.message);
+		}
 	}
 
 	public static void open_from_link (string q) {
-		new Request.GET ("/api/v1/search")
-			.with_account ()
-			.with_param ("q", q)
-			.with_param ("resolve", "true")
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var root = network.parse (parser);
-				var statuses = root.get_array_member ("statuses");
-				var node = statuses.get_element (0);
-				if (node != null) {
-					var status = API.Status.from (node);
-					app.main_window.open_view (new Views.Thread (status));
-				}
-				else
-					Utils.Host.open_url.begin (q);
-			})
-			.exec ();
+		open_from_link_async.begin (q);
+	}
+
+	public static async void open_from_link_async (string q) {
+		var req = new RequestV2 ("/api/v1/search") { account = accounts.active };
+		req.add_parameter ("q", q);
+		req.add_parameter ("resolve", "true");
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var root = network.parse (parser);
+			var statuses = root.get_array_member ("statuses");
+			var node = statuses.get_element (0);
+			if (node != null) {
+				var status = API.Status.from (node);
+				app.main_window.open_view (new Views.Thread (status));
+			}
+			else
+				yield Utils.Host.open_url (q);
+		} catch (Error e) {
+			warning (@"Couldn't resolve $q: $(e.message)");
+			yield Utils.Host.open_url (q);
+		}
 	}
 
 	public override Gtk.Widget on_create_model_widget (Object obj) {

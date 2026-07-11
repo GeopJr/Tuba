@@ -197,7 +197,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		status_btn.active = !status_btn.active;
 
 		string action;
-		Request req;
+		RequestV2 req;
 		if (status_btn.active) {
 			action = "bookmark";
 			req = this.status.bookmark_req ();
@@ -207,7 +207,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		}
 
 		debug (@"Performing status action '$action'…");
-		mastodon_action (status_btn, req, action);
+		mastodon_action.begin (status_btn, req, action);
 	}
 
 	private void on_favorite_button_clicked (Gtk.Button btn) {
@@ -218,7 +218,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		status_btn.active = !status_btn.active;
 
 		string action;
-		Request req;
+		RequestV2 req;
 		if (status_btn.active) {
 			action = "favorite";
 			req = this.status.favourite_req ();
@@ -229,7 +229,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		status_btn.amount += status_btn.active ? 1 : -1;
 
 		debug (@"Performing status action '$action'…");
-		mastodon_action (status_btn, req, action, "favourites-count");
+		mastodon_action.begin (status_btn, req, action, "favourites-count");
 	}
 
 	private bool is_any_missing_alt () {
@@ -389,7 +389,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			status_btn.active = !status_btn.active;
 
 			string action;
-			Request req;
+			RequestV2 req;
 			if (status_btn.active) {
 				action = "reblog";
 				req = this.status.reblog_req (visibility);
@@ -400,52 +400,49 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 
 			status_btn.amount += status_btn.active ? 1 : -1;
 			debug (@"Performing status action '$action'…");
-			mastodon_action (status_btn, req, action, "reblogs-count");
+			mastodon_action.begin (status_btn, req, action, "reblogs-count");
 	}
 
-	private void mastodon_action (Widgets.StatusActionButton status_btn, Request req, string action, string? count_property = null) {
-		req.await.begin ((o, res) => {
-			try {
-				req.await.end (res);
-
-				if (count_property != null) {
-					int64 status_property_count;
-					this.status.get (count_property, out status_property_count);
-					this.status.set (count_property, status_property_count + (status_btn.active ? 1 : -1));
-				}
-
-				// Not reliable, it sometimes returns wrong info.
-				// But it should be the desired one, as it updated the whole object.
-				//
-				//  var msg = req.await.end (res);
-
-				//  var parser = Network.get_parser_from_inputstream (msg.response_body);
-				//  var node = network.parse_node (parser);
-				//  var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status), true);
-
-				//  if (count_property != null) {
-				//  	int64 e_property_count;
-				//  	int64 status_property_count;
-				//  	((API.Status) e).get (count_property, out e_property_count);
-				//  	this.status.get (count_property, out status_property_count);
-				//  	if (e_property_count == status_property_count) {
-				//  		((API.Status) e).set (count_property, e_property_count + (status_btn.active ? 1 : -1));
-				//  	}
-				//  }
-
-				//  this.status.patch (e);
-				debug (@"Status action '$action' complete");
-			} catch (Error e) {
-				warning (@"Couldn't perform action \"$action\" on a Status:");
-				warning (e.message);
-				app.toast ("%s: %s".printf (_("Network Error"), e.message));
-
-				if (count_property != null)
-					status_btn.amount += status_btn.active ? -1 : 1;
-				status_btn.active = !status_btn.active;
+	private async void mastodon_action (Widgets.StatusActionButton status_btn, RequestV2 req, string action, string? count_property = null) {
+		try {
+			yield req.exec (null);
+			if (count_property != null) {
+				int64 status_property_count;
+				this.status.get (count_property, out status_property_count);
+				this.status.set (count_property, status_property_count + (status_btn.active ? 1 : -1));
 			}
 
-			status_btn.unblock_clicked ();
-		});
+			// Not reliable, it sometimes returns wrong info.
+			// But it should be the desired one, as it updated the whole object.
+			//
+			//  var msg = req.await.end (res);
+
+			//  var parser = Network.get_parser_from_inputstream (msg.response_body);
+			//  var node = network.parse_node (parser);
+			//  var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status), true);
+
+			//  if (count_property != null) {
+			//  	int64 e_property_count;
+			//  	int64 status_property_count;
+			//  	((API.Status) e).get (count_property, out e_property_count);
+			//  	this.status.get (count_property, out status_property_count);
+			//  	if (e_property_count == status_property_count) {
+			//  		((API.Status) e).set (count_property, e_property_count + (status_btn.active ? 1 : -1));
+			//  	}
+			//  }
+
+			//  this.status.patch (e);
+			debug (@"Status action '$action' complete");
+		} catch (Error e) {
+			warning (@"Couldn't perform action \"$action\" on a Status:");
+			warning (e.message);
+			app.toast ("%s: %s".printf (_("Network Error"), e.message));
+
+			if (count_property != null)
+				status_btn.amount += status_btn.active ? -1 : 1;
+			status_btn.active = !status_btn.active;
+		}
+
+		status_btn.unblock_clicked ();
 	}
 }

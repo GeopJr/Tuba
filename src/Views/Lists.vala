@@ -78,7 +78,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 
 		private void title_changed () {
 			this.title = GLib.Markup.escape_text (this.list.title);
-			GLib.Idle.add (accounts.active.gather_fav_lists);
+			accounts.active.gather_fav_lists.begin ();
 		}
 
 		private void update_fav_status () {
@@ -104,7 +104,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 
 			settings.favorite_lists_ids = new_ids;
 
-			GLib.Idle.add (accounts.active.gather_fav_lists);
+			accounts.active.gather_fav_lists.begin ();
 		}
 
 		private void remove_from_favs () {
@@ -116,7 +116,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 
 			settings.favorite_lists_ids = new_ids;
 
-			GLib.Idle.add (accounts.active.gather_fav_lists);
+			accounts.active.gather_fav_lists.begin ();
 		}
 
 		private void on_edit () {
@@ -126,26 +126,31 @@ public class Tuba.Views.Lists : Views.Timeline {
 		public virtual signal void remove_from_model (API.List? t_list);
 
 		void on_remove_clicked () {
-			app.question.begin (
+			on_remove_clicked_real.begin ();
+		}
+
+		private async void on_remove_clicked_real () {
+			var qs = yield app.question (
 				{_("Delete \"%s\"?").printf (this.list.title), false},
 				{_("This action cannot be reverted."), false},
 				app.main_window,
 				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 				null,
-				false,
-				(obj, res) => {
-					if (app.question.end (res).truthy ()) {
-						new Request.DELETE (@"/api/v1/lists/$(list.id)")
-							.with_account (accounts.active)
-							.then (() => {
-								remove_from_model (this.list);
-								if (fav_button.active) remove_from_favs ();
-								this.destroy ();
-							})
-							.exec ();
-					}
-				}
+				false
 			);
+
+			if (qs.truthy ()) {
+				var req = new RequestV2 (@"/api/v1/lists/$(list.id)", DELETE) { account = accounts.active };
+				try {
+					yield req.exec (null);
+					remove_from_model (this.list);
+					if (fav_button.active) remove_from_favs ();
+					this.destroy ();
+				} catch (Error e) {
+					warning (@"Couldn't delete list: $(e.code) $(e.message)");
+					app.toast (_("Couldn't delete list: %s").printf (e.message));
+				}
+			}
 		}
 
 		public Adw.PreferencesDialog create_edit_preferences_dialog (API.List t_list) {
@@ -186,28 +191,31 @@ public class Tuba.Views.Lists : Views.Timeline {
 			model.remove (indx);
 	}
 
-	public void create_list (string list_name) {
+	public async void create_list (string list_name) {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 		builder.set_member_name ("title");
 		builder.add_string_value (list_name);
 		builder.end_object ();
 
-		new Request.POST ("/api/v1/lists")
-			.with_account (accounts.active)
-			.body_json (builder)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var list = API.List.from (node);
-				model.insert (0, list);
-			})
-			.exec ();
+		var req = new RequestV2 ("/api/v1/lists", POST) { account = accounts.active };
+		req.set_body_from_json (builder);
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var list = API.List.from (node);
+			model.insert (0, list);
+		} catch (Error e) {
+			warning (@"Couldn't create list: $(e.code) $(e.message)");
+			app.toast (_("Couldn't create list: %s").printf (e.message));
+		}
 	}
 
 	public void on_action_bar_activate (Gtk.EntryBuffer buffer) {
 		if (buffer.length > 0)
-				create_list (buffer.text);
+				create_list.begin (buffer.text);
 		buffer.set_text ("".data);
 	}
 

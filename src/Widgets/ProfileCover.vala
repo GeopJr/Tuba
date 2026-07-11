@@ -278,7 +278,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		} else if (!is_self) {
 			moved_btn.clicked.connect (on_moved_btn_clicked);
 			if (accounts.active.tuba_api_versions.mastodon > 0 || InstanceAccount.InstanceFeatures.MUTUALS in accounts.active.tuba_instance_features) {
-				GLib.Idle.add (populate_mutuals);
+				populate_mutuals.begin ();
 			}
 		}
 
@@ -378,50 +378,50 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 	Gee.ArrayList<API.Account>? mutual_accounts = null;
 	Gtk.ListBox? mutuals_listbox = null;
-	private bool populate_mutuals () {
+	private async void populate_mutuals () {
 		mutuals_button.visible = false;
 
-		new Request.GET ("/api/v1/accounts/familiar_followers")
-			.with_account (accounts.active)
-			.with_param ("id[]", profile_id)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) return;
+		var req = new RequestV2 ("/api/v1/accounts/familiar_followers") { account = accounts.active };
+		req.add_parameter ("id[]", profile_id);
 
-				Value res_accounts;
-				Entity.des_list (out res_accounts, node, typeof (API.FamiliarFollowers));
-				var res_mutual_accounts = (Gee.ArrayList<API.FamiliarFollowers>) res_accounts;
-				if (res_mutual_accounts.size == 0) return;
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			if (node == null) return;
 
-				mutual_accounts = res_mutual_accounts.get (0).accounts;
-				if (mutual_accounts.size > 0) {
-					mutuals_button.visible = true;
+			Value res_accounts;
+			Entity.des_list (out res_accounts, node, typeof (API.FamiliarFollowers));
+			var res_mutual_accounts = (Gee.ArrayList<API.FamiliarFollowers>) res_accounts;
+			if (res_mutual_accounts.size == 0) return;
 
-					mutuals_button.child = new MutualsButtonContent (mutual_accounts);
-					mutuals_listbox = new Gtk.ListBox () {
-						selection_mode = Gtk.SelectionMode.NONE,
-						css_classes = {"boxed-list"}
-					};
+			mutual_accounts = res_mutual_accounts.get (0).accounts;
+			if (mutual_accounts.size > 0) {
+				mutuals_button.visible = true;
 
-					mutuals_button.popover = new Gtk.Popover () {
-						child = new Gtk.ScrolledWindow () {
-							child = mutuals_listbox,
-							hexpand = true,
-							vexpand = true,
-							hscrollbar_policy = Gtk.PolicyType.NEVER,
-							max_content_height = 500,
-							width_request = 360,
-							propagate_natural_height = true
-						}
-					};
-					mutuals_button.popover.add_css_class ("no-padding");
-					mutuals_button.notify["active"].connect (on_mutuals_popover);
-				}
-			})
-			.exec ();
+				mutuals_button.child = new MutualsButtonContent (mutual_accounts);
+				mutuals_listbox = new Gtk.ListBox () {
+					selection_mode = Gtk.SelectionMode.NONE,
+					css_classes = {"boxed-list"}
+				};
 
-		return GLib.Source.REMOVE;
+				mutuals_button.popover = new Gtk.Popover () {
+					child = new Gtk.ScrolledWindow () {
+						child = mutuals_listbox,
+						hexpand = true,
+						vexpand = true,
+						hscrollbar_policy = Gtk.PolicyType.NEVER,
+						max_content_height = 500,
+						width_request = 360,
+						propagate_natural_height = true
+					}
+				};
+				mutuals_button.popover.add_css_class ("no-padding");
+				mutuals_button.notify["active"].connect (on_mutuals_popover);
+			}
+		} catch (Error e) {
+			warning (@"Couldn't get mutuals: $(e.code) $(e.message)");
+		}
 	}
 
 	private void on_mutuals_popover () {

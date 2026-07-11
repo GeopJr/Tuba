@@ -35,7 +35,7 @@ public class Tuba.Views.List : Views.Timeline {
 
 	private void title_changed () {
 		this.label = GLib.Markup.escape_text (this.list.title);
-		GLib.Idle.add (accounts.active.gather_fav_lists);
+		accounts.active.gather_fav_lists.begin ();
 	}
 
 	public override string? get_stream_url () {

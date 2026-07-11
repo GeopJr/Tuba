@@ -19,6 +19,10 @@ public class Tuba.Views.Admin.Timeline.DomainAllow : Views.Admin.Timeline.Pagina
 	}
 
 	private void on_remove (Widgets.Admin.DomainAllow widget, string domain_allow_id) {
+		on_remove_real.begin (widget, domain_allow_id);
+	}
+
+	private async void on_remove_real (Widgets.Admin.DomainAllow widget, string domain_allow_id) {
 		var dlg = new Adw.AlertDialog (
 			// translators: Question dialog when an admin is about to
 			//				delete a domain from the federation allowlist.
@@ -34,21 +38,18 @@ public class Tuba.Views.Admin.Timeline.DomainAllow : Views.Admin.Timeline.Pagina
 
 		dlg.add_response ("yes", _("Remove"));
 		dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-		dlg.choose.begin (this, null, (obj, res) => {
-			if (dlg.choose.end (res) == "yes") {
+
+		if ((yield dlg.choose (this, null)) == "yes") {
 				widget.sensitive = false;
-				new Request.DELETE (@"/api/v1/admin/domain_allows/$domain_allow_id")
-					.with_account (accounts.active)
-					.then (() => {
-						widget.sensitive = true;
-						request.begin ();
-					})
-					.on_error ((code, message) => {
-						widget.sensitive = true;
-						on_error (code, message);
-					})
-					.exec ();
-			}
-		});
+				var req = new RequestV2 (@"/api/v1/admin/domain_allows/$domain_allow_id", DELETE) { account = accounts.active };
+				try {
+					yield req.exec (null);
+					widget.sensitive = true;
+					yield request ();
+				} catch (Error e) {
+					widget.sensitive = true;
+					on_error (e.code, e.message);
+				}
+		}
 	}
 }

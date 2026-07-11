@@ -352,6 +352,11 @@ public class Tuba.Views.Drive : Views.Base {
 		private void on_ms_change (GLib.Variant? variant) {
 			if (variant == null || this.folder) return;
 
+			this.working = true;
+			on_ms_change_real.begin ();
+		}
+
+		private async void on_ms_change_real () {
 			var builder = new Json.Builder ();
 			builder.begin_object ();
 			builder.set_member_name ("description");
@@ -362,25 +367,23 @@ public class Tuba.Views.Drive : Views.Base {
 			builder.add_boolean_value (!this.item.file.sensitive);
 			builder.end_object ();
 
-			this.working = true;
-			new Request.PATCH (@"/api/iceshrimp/drive/$(this.item_id)")
-				.with_account (accounts.active)
-				.with_token (accounts.active.tuba_iceshrimp_api_key)
-				.body_json (builder)
-				.then (() => {
-					ms_action.set_state (!this.item.file.sensitive);
-					this.item.file.sensitive = !this.item.file.sensitive;
-					update_indicators ();
-					this.working = false;
-				})
-				.on_error ((code, message) => {
-					this.working = false;
-					// translators: the first variable is a filename,
-					//				the second is an error message
-					app.toast (_("Couldn't mark '%s' as sensitive: %s").printf (GLib.Markup.escape_text (this.filename), message));
-					warning (@"Couldn't mark $(this.folder ? "folder" : "file") '$(this.filename)' as sensitive: $code $message");
-				})
-				.exec ();
+			var req = new RequestV2 (@"/api/iceshrimp/drive/$(this.item_id)", PATCH) {
+				account = accounts.active,
+				force_token = accounts.active.tuba_iceshrimp_api_key
+			};
+			req.set_body_from_json (builder);
+			try {
+				yield req.exec (null);
+				ms_action.set_state (!this.item.file.sensitive);
+				this.item.file.sensitive = !this.item.file.sensitive;
+				update_indicators ();
+			} catch (Error e) {
+				// translators: the first variable is a filename,
+				//				the second is an error message
+				app.toast (_("Couldn't mark '%s' as sensitive: %s").printf (GLib.Markup.escape_text (this.filename), e.message));
+				warning (@"Couldn't mark $(this.folder ? "folder" : "file") '$(this.filename)' as sensitive: $(e.code) $(e.message)");
+			}
+			this.working = false;
 		}
 
 		private void on_copy () {
@@ -412,7 +415,7 @@ public class Tuba.Views.Drive : Views.Base {
 			fill_reserved_names (rename_popover);
 			rename_popover.set_parent (this);
 			rename_popover.text = this.filename;
-			rename_popover.done.connect (on_rename_real);
+			rename_popover.done.connect (on_rename_done);
 			rename_popover.popup ();
 		}
 
@@ -432,11 +435,16 @@ public class Tuba.Views.Drive : Views.Base {
 				alt_popover.text = this.item.file.description == null ? "" : this.item.file.description;
 			}
 
-			alt_popover.done.connect (on_alt_real);
+			alt_popover.done.connect (on_alt_done);
 			alt_popover.popup ();
 		}
 
-		private void on_alt_real (string new_alt) {
+		private void on_alt_done (string new_alt) {
+			this.working = true;
+			on_alt_real.begin (new_alt);
+		}
+
+		private async void on_alt_real (string new_alt) {
 			var builder = new Json.Builder ();
 			builder.begin_object ();
 			builder.set_member_name ("filename");
@@ -447,35 +455,38 @@ public class Tuba.Views.Drive : Views.Base {
 			builder.add_string_value (new_alt);
 			builder.end_object ();
 
-			this.working = true;
-			new Request.PATCH (@"/api/iceshrimp/drive/$(this.item_id)")
-				.body_json (builder)
-				.with_account (accounts.active)
-				.with_token (accounts.active.tuba_iceshrimp_api_key)
-				.then (() => {
-					this.item.file.description = new_alt;
-					update_indicators ();
-					this.working = false;
-				})
-				.on_error ((code, message) => {
-					this.working = false;
-					// translators: the first variable is a filename,
-					//				the second is an error message
-					app.toast (_("Couldn't change alt text for '%s': %s").printf (GLib.Markup.escape_text (this.filename), message));
-					warning (@"Couldn't change alt for '$(this.filename)' to '$new_alt': $code $message");
-				})
-				.exec ();
+			var req = new RequestV2 (@"/api/iceshrimp/drive/$(this.item_id)", PATCH) {
+				account = accounts.active,
+				force_token = accounts.active.tuba_iceshrimp_api_key
+			};
+			req.set_body_from_json (builder);
+			try {
+				yield req.exec (null);
+				this.item.file.description = new_alt;
+				update_indicators ();
+			} catch (Error e) {
+				// translators: the first variable is a filename,
+				//				the second is an error message
+				app.toast (_("Couldn't change alt text for '%s': %s").printf (GLib.Markup.escape_text (this.filename), e.message));
+				warning (@"Couldn't change alt for '$(this.filename)' to '$new_alt': $(e.code) $(e.message)");
+			}
+			this.working = false;
 		}
 
-		private void on_rename_real (string new_name) {
-			Request req;
+		private void on_rename_done (string new_name) {
+			this.working = true;
+			on_rename_real.begin (new_name);
+		}
+
+		private async void on_rename_real (string new_name) {
+			RequestV2 req;
 			if (this.folder) {
 				Json.Node node = new Json.Node (Json.NodeType.VALUE);
 				node.set_string (new_name);
 				Json.Generator gen = new Json.Generator ();
 				gen.set_root (node);
-				req = new Request.PUT (@"/api/iceshrimp/drive/folder/$(this.item_id)")
-					.body ("application/json", new Bytes.take (gen.to_data (null).data));
+				req = new RequestV2 (@"/api/iceshrimp/drive/folder/$(this.item_id)", PUT);
+				req.set_body ("application/json", new Bytes.take (gen.to_data (null).data));
 			} else {
 				var builder = new Json.Builder ();
 				builder.begin_object ();
@@ -487,31 +498,28 @@ public class Tuba.Views.Drive : Views.Base {
 				builder.add_string_value (new_name);
 				builder.end_object ();
 
-				req = new Request.PATCH (@"/api/iceshrimp/drive/$(this.item_id)")
-					.body_json (builder);
+				req = new RequestV2 (@"/api/iceshrimp/drive/$(this.item_id)", PATCH);
+				req.set_body_from_json (builder);
 			}
 
-			this.working = true;
-			req
-				.with_account (accounts.active)
-				.with_token (accounts.active.tuba_iceshrimp_api_key)
-				.then (() => {
-					this.filename = new_name;
-					if (this.folder) {
-						item.folder.name = new_name;
-					} else {
-						item.file.filename = new_name;
-					}
-					this.working = false;
-				})
-				.on_error ((code, message) => {
-					this.working = false;
-					// translators: the first variable is a filename,
-					//				the second is an error message
-					app.toast (_("Couldn't rename '%s': %s").printf (GLib.Markup.escape_text (this.filename), message));
-					warning (@"Couldn't rename $(this.folder ? "folder" : "file") '$(this.filename)' to '$new_name': $code $message");
-				})
-				.exec ();
+			req.account = accounts.active;
+			req.force_token = accounts.active.tuba_iceshrimp_api_key;
+
+			try {
+				yield req.exec (null);
+				this.filename = new_name;
+				if (this.folder) {
+					item.folder.name = new_name;
+				} else {
+					item.file.filename = new_name;
+				}
+			} catch (Error e) {
+				// translators: the first variable is a filename,
+				//				the second is an error message
+				app.toast (_("Couldn't rename '%s': %s").printf (GLib.Markup.escape_text (this.filename), e.message));
+				warning (@"Couldn't rename $(this.folder ? "folder" : "file") '$(this.filename)' to '$new_name': $(e.code) $(e.message)");
+			}
+			this.working = false;
 		}
 
 		private void on_long_press (double x, double y) {
@@ -791,16 +799,17 @@ public class Tuba.Views.Drive : Views.Base {
 
 		builder.end_object ();
 
-		var req = new Request.POST ("/api/iceshrimp/drive/folder")
-			.with_account (accounts.active)
-			.with_token (accounts.active.tuba_iceshrimp_api_key)
-			.body_json (builder);
+		var req = new RequestV2 ("/api/iceshrimp/drive/folder", POST) {
+			account = accounts.active,
+			force_token = accounts.active.tuba_iceshrimp_api_key
+		};
+		req.set_body_from_json (builder);
 
 		try {
 			this.working = true;
-			yield req.await ();
+			var in_stream = yield req.exec (null);
 
-			var parser = Network.get_parser_from_inputstream (req.response_body);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 			var node = network.parse_node (parser);
 			var entity = Helper.Entity.from_json (node, typeof (API.Iceshrimp.Folder));
 			if (entity is API.Iceshrimp.Folder) {
@@ -826,7 +835,7 @@ public class Tuba.Views.Drive : Views.Base {
 	}
 
 	private void on_go_back () {
-		load_folder (this.current_folder == null ? null : this.current_folder.parentId);
+		load_folder.begin (this.current_folder == null ? null : this.current_folder.parentId);
 	}
 
 	private double progress {
@@ -898,22 +907,9 @@ public class Tuba.Views.Drive : Views.Base {
 
 		if (accounts.active.tuba_iceshrimp_api_key == null || accounts.active.tuba_iceshrimp_api_key == "") {
 			base_status = new StatusMessage () { loading = true };
-			new Request.POST ("/api/v1/accounts/authorize_iceshrimp")
-				.with_account (accounts.active)
-				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
-					var node = network.parse_node (parser);
-					if (node == null) throw new Oopsie.PARSING ("Instance didn't return key");
-					string key = node.get_string ();
-					if (key == null || key == "") throw new Oopsie.PARSING ("Instance key is missing");
-					accounts.active.tuba_update_iceshrimp_api_key (key);
-
-					load_folder ();
-				})
-				.on_error (on_error)
-				.exec ();
+			authorize_iceshrimp.begin ();
 		} else {
-			load_folder ();
+			load_folder.begin ();
 		}
 
 		var delete_action = new SimpleAction ("delete", null);
@@ -933,6 +929,23 @@ public class Tuba.Views.Drive : Views.Base {
 		drop_overlay.add_controller (base_drop_target_controller);
 
 		app.refresh.connect (on_refresh);
+	}
+
+	private async void authorize_iceshrimp () {
+		var req = new RequestV2 ("/api/v1/accounts/authorize_iceshrimp", POST) { account = accounts.active };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			if (node == null) throw new Oopsie.PARSING ("Instance didn't return key");
+			string key = node.get_string ();
+			if (key == null || key == "") throw new Oopsie.PARSING ("Instance key is missing");
+			accounts.active.tuba_update_iceshrimp_api_key (key);
+
+			yield load_folder ();
+		} catch (Error e) {
+			on_error (e.code, e.message);
+		}
 	}
 
 	private Gdk.DragAction on_drag_enter (double x, double y) {
@@ -975,24 +988,27 @@ public class Tuba.Views.Drive : Views.Base {
 		}
 	}
 
-	private void load_folder (string? id = null) {
+	private async void load_folder (string? id = null) {
 		base_status = new StatusMessage () { loading = true };
 		var folder_id = id == null ? "" : @"/$id";
-		new Request.GET (@"/api/iceshrimp/drive/folder$folder_id")
-			.with_account (accounts.active)
-			.with_token (accounts.active.tuba_iceshrimp_api_key)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				this.current_folder = API.Iceshrimp.Folder.from (node);
-				this.label = current_folder.name != null ? current_folder.name : _("Drive");
-				open_folder (current_folder);
-				if (create_folder_btn_popover != null) {
-					create_folder_btn_popover.clear ();
-				}
-			})
-			.on_error (on_error)
-			.exec ();
+
+		var req = new RequestV2 (@"/api/iceshrimp/drive/folder$folder_id") {
+			account = accounts.active,
+			force_token = accounts.active.tuba_iceshrimp_api_key
+		};
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			this.current_folder = API.Iceshrimp.Folder.from (node);
+			this.label = current_folder.name != null ? current_folder.name : _("Drive");
+			open_folder (current_folder);
+			if (create_folder_btn_popover != null) {
+				create_folder_btn_popover.clear ();
+			}
+		} catch (Error e) {
+			on_error (e.code, e.message);
+		}
 	}
 
 	private void on_store_changed () {
@@ -1048,7 +1064,7 @@ public class Tuba.Views.Drive : Views.Base {
 
 	private void on_refresh () {
 		if (this.working || !this.get_mapped ()) return;
-		load_folder (this.current_folder.id);
+		load_folder.begin (this.current_folder.id);
 		this.working = false;
 	}
 
@@ -1075,7 +1091,7 @@ public class Tuba.Views.Drive : Views.Base {
 
 	private void open_item_real (Item item) {
 		if (item.folder != null) {
-			load_folder (item.folder.id);
+			load_folder.begin (item.folder.id);
 		} else if (item.file.contentType.has_prefix ("image/")) {
 			app.main_window.show_media_viewer (item.file.url, Attachment.MediaType.IMAGE, null);
 		} else if (item.file.contentType.has_prefix ("audio/")) {
@@ -1105,7 +1121,7 @@ public class Tuba.Views.Drive : Views.Base {
 	}
 
 	struct ReqData {
-		Request req;
+		RequestV2 req;
 		ItemData item_data;
 	}
 
@@ -1172,11 +1188,14 @@ public class Tuba.Views.Drive : Views.Base {
 		ReqData[] rqs = {};
 		if (items.length > 0) {
 			foreach (ItemData item_data in items) {
+				var req = new RequestV2 (@"/api/iceshrimp/drive/$(item_data.folder ? "folder/" : "")$(item_data.id)/move", POST) {
+					account = accounts.active,
+					force_token = accounts.active.tuba_iceshrimp_api_key
+				};
+				req.set_body_from_json (builder);
+
 				rqs += ReqData () {
-					req = new Request.POST (@"/api/iceshrimp/drive/$(item_data.folder ? "folder/" : "")$(item_data.id)/move")
-						.with_account (accounts.active)
-						.with_token (accounts.active.tuba_iceshrimp_api_key)
-						.body_json (builder),
+					req = req,
 					item_data = item_data
 				};
 			}
@@ -1187,7 +1206,7 @@ public class Tuba.Views.Drive : Views.Base {
 			if (main_cancellable.is_cancelled ()) break;
 			try {
 				this.progress += step;
-				yield rq.req.await ();
+				yield rq.req.exec (null);
 
 				uint pos;
 				if (store.find (rq.item_data.item, out pos)) {
@@ -1205,6 +1224,41 @@ public class Tuba.Views.Drive : Views.Base {
 		if (requires_refresh) on_refresh ();
 	}
 
+	private async void ask_delete_single_real (ItemWidget? item) {
+		var qs = yield app.question (
+			// translators: the variable is a folder/file name
+			{_("Delete '%s'?").printf (item.filename), false},
+			{_("This is irreversible."), false},
+			app.main_window,
+			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			null,
+			false
+		);
+
+		if (qs.truthy ()) {
+			this.working = true;
+			var req = new RequestV2 (@"/api/iceshrimp/drive/$(item.folder ? "folder/" : "" )$(item.item_id)", DELETE) {
+				account = accounts.active,
+				force_token = accounts.active.tuba_iceshrimp_api_key
+			};
+			try {
+				yield req.exec (null);
+				uint pos;
+				if (store.find (item.item, out pos)) {
+					store.remove (pos);
+				} else {
+					on_refresh ();
+				}
+			} catch (Error e) {
+				// translators: the first variable is a filename,
+				//				the second is an error message
+				app.toast (_("Couldn't delete '%s': %s").printf (GLib.Markup.escape_text (item.filename), e.message));
+				warning (@"Couldn't delete $(item.folder ? "folder" : "file") '$(item.filename)': $(e.code) $(e.message)");
+			}
+			this.working = false;
+		}
+	}
+
 	private void on_delete_request (ItemWidget? item) {
 		var bitset = selection.get_selection ();
 		var size = bitset.get_size ();
@@ -1219,40 +1273,7 @@ public class Tuba.Views.Drive : Views.Base {
 				return;
 			}
 
-			app.question.begin (
-				// translators: the variable is a folder/file name
-				{_("Delete '%s'?").printf (item.filename), false},
-				{_("This is irreversible."), false},
-				app.main_window,
-				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
-				null,
-				false,
-				(obj, res) => {
-					if (app.question.end (res).truthy ()) {
-						this.working = true;
-						new Request.DELETE (@"/api/iceshrimp/drive/$(item.folder ? "folder/" : "" )$(item.item_id)")
-							.with_account (accounts.active)
-							.with_token (accounts.active.tuba_iceshrimp_api_key)
-							.then (() => {
-								this.working = false;
-								uint pos;
-								if (store.find (item.item, out pos)) {
-									store.remove (pos);
-								} else {
-									on_refresh ();
-								}
-							})
-							.on_error ((code, message) => {
-								this.working = false;
-								// translators: the first variable is a filename,
-								//				the second is an error message
-								app.toast (_("Couldn't delete '%s': %s").printf (GLib.Markup.escape_text (item.filename), message));
-								warning (@"Couldn't delete $(item.folder ? "folder" : "file") '$(item.filename)': $code $message");
-							})
-							.exec ();
-					}
-				}
-			);
+			ask_delete_single_real.begin (item);
 		} else if (size > 1 || item == null) {
 			ItemData[] items = {};
 
@@ -1336,9 +1357,10 @@ public class Tuba.Views.Drive : Views.Base {
 		if (items.length > 0) {
 			foreach (ItemData item_data in items) {
 				rqs += ReqData () {
-					req = new Request.DELETE (@"/api/iceshrimp/drive/$(item_data.folder ? "folder/" : "")$(item_data.id)")
-						.with_account (accounts.active)
-						.with_token (accounts.active.tuba_iceshrimp_api_key),
+					req = new RequestV2 (@"/api/iceshrimp/drive/$(item_data.folder ? "folder/" : "")$(item_data.id)", DELETE) {
+						account = accounts.active,
+						force_token = accounts.active.tuba_iceshrimp_api_key
+					},
 					item_data = item_data
 				};
 			}
@@ -1349,7 +1371,7 @@ public class Tuba.Views.Drive : Views.Base {
 			if (main_cancellable.is_cancelled ()) break;
 			try {
 				this.progress += step;
-				yield rq.req.await ();
+				yield rq.req.exec (null);
 
 				uint pos;
 				if (store.find (rq.item_data.item, out pos)) {
@@ -1547,7 +1569,10 @@ public class Tuba.Views.Drive : Views.Base {
 
 		private void on_extracted_alt_text (string new_alt_text, API.Iceshrimp.File is_file) {
 			if ((is_file.description != null && is_file.description != "") || new_alt_text == "") return;
+			apply_alt_text.begin (new_alt_text, is_file);
+		}
 
+		private async void apply_alt_text (string new_alt_text, API.Iceshrimp.File is_file) {
 			var builder = new Json.Builder ();
 			builder.begin_object ();
 			builder.set_member_name ("description");
@@ -1558,14 +1583,18 @@ public class Tuba.Views.Drive : Views.Base {
 			builder.add_null_value ();
 			builder.end_object ();
 
-			new Request.PATCH (@"/api/iceshrimp/drive/$(is_file.id)")
-				.with_account (accounts.active)
-				.with_token (accounts.active.tuba_iceshrimp_api_key)
-				.body_json (builder)
-				.then (() => {
-					is_file.description = new_alt_text;
-				})
-				.exec ();
+			var req = new RequestV2 (@"/api/iceshrimp/drive/$(is_file.id)", PATCH) {
+				account = accounts.active,
+				force_token = accounts.active.tuba_iceshrimp_api_key
+			};
+			req.set_body_from_json (builder);
+
+			try {
+				yield req.exec (null);
+				is_file.description = new_alt_text;
+			} catch (Error e) {
+				warning (@"Couldn't apply alt text \"$new_alt_text\": $(e.code) $(e.message)");
+			}
 		}
 	#endif
 }

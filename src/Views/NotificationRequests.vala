@@ -25,29 +25,32 @@ public class Tuba.Views.NotificationRequests : Views.Timeline {
 		return widget;
 	}
 
-	private void on_response (Widgets.NotificationRequest wdg, Request req, API.NotificationFilter.Request api_req) {
+	private void on_response (Widgets.NotificationRequest wdg, RequestV2 req, API.NotificationFilter.Request api_req) {
 		wdg.btns_box.sensitive = false;
-		req
-			.then ((in_stream) => {
-				uint indx;
-				var found = model.find (api_req, out indx);
-				if (found) {
-					model.remove (indx);
+		on_response_real.begin (wdg, req, api_req);
+	}
 
-					if (accounts.active.filtered_notifications_count > 0) {
-						int to_remove = int.parse (api_req.notifications_count);
-						if (to_remove < 1) to_remove = 1;
+	private async void on_response_real (Widgets.NotificationRequest wdg, RequestV2 req, API.NotificationFilter.Request api_req) {
+		try {
+			yield req.exec (null);
 
-						accounts.active.filtered_notifications_count -= to_remove;
-					}
-				} else {
-					wdg.btns_box.sensitive = true;
+			uint indx;
+			var found = model.find (api_req, out indx);
+			if (found) {
+				model.remove (indx);
+
+				if (accounts.active.filtered_notifications_count > 0) {
+					int to_remove = int.parse (api_req.notifications_count);
+					if (to_remove < 1) to_remove = 1;
+
+					accounts.active.filtered_notifications_count -= to_remove;
 				}
-			})
-			.on_error (() => {
+			} else {
 				wdg.btns_box.sensitive = true;
-			})
-			.exec ();
+			}
+		} catch (Error e) {
+			wdg.btns_box.sensitive = true;
+		}
 	}
 
 	public override void on_content_item_activated (Gtk.ListBoxRow row) {

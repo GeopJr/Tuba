@@ -139,29 +139,29 @@ public class Tuba.Widgets.Collection : Gtk.Box {
 	}
 
 	private void on_remove_me () {
-		app.question.begin (
+		on_remove_me_real.begin ();
+	}
+
+	private async void on_remove_me_real () {
+		var question_answer = yield app.question (
 			// translators: question dialog title when removing yourself from a Collection; the variable is the collection name string
 			{_("Remove yourself from \"%s\"?").printf (collection.name), false},
 			null,
 			app.main_window,
 			{ { _("Remove"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 			null,
-			false,
-			(obj, res) => {
-				if (app.question.end (res).truthy ()) {
-					new Request.POST (@"/api/v1/collections/$(collection.id)/items/$collection_self_item_id/revoke")
-						.with_account (accounts.active)
-						.then (() => {
-							refresh ();
-						})
-						.on_error ((code, message) => {
-							app.toast (message);
-							warning (@"Couldn't remove yourself from collection $(collection.id): $code $message");
-						})
-						.exec ();
-				}
-			}
+			false
 		);
+		if (!question_answer.truthy ()) return;
+
+		var req = new RequestV2 (@"/api/v1/collections/$(collection.id)/items/$collection_self_item_id/revoke", POST) { account = accounts.active };
+		try {
+			yield req.exec (null);
+			refresh ();
+		} catch (Error e) {
+			app.toast (e.message);
+			warning (@"Couldn't remove yourself from collection $(collection.id): $(e.code) $(e.message)");
+		}
 	}
 
 	private void on_report () {
@@ -183,28 +183,28 @@ public class Tuba.Widgets.Collection : Gtk.Box {
 	}
 
 	private void on_delete () {
-		app.question.begin (
+		on_delete_real.begin ();
+	}
+
+	private async void on_delete_real () {
+		var question_answer = yield app.question (
 			{_("Delete \"%s\"?").printf (collection.name), false},
 			null,
 			app.main_window,
 			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 			null,
-			false,
-			(obj, res) => {
-				if (app.question.end (res).truthy ()) {
-					new Request.DELETE (@"/api/v1/collections/$(collection.id)")
-						.with_account (accounts.active)
-						.then (() => {
-							refresh ();
-						})
-						.on_error ((code, message) => {
-							app.toast (message);
-							warning (@"Couldn't delete collection $(collection.id): $code $message");
-						})
-						.exec ();
-				}
-			}
+			false
 		);
+		if (!question_answer.truthy ()) return;
+
+		var req = new RequestV2 (@"/api/v1/collections/$(collection.id)", DELETE) { account = accounts.active };
+		try {
+			yield req.exec (null);
+			refresh ();
+		} catch (Error e) {
+			app.toast (e.message);
+			warning (@"Couldn't delete collection $(collection.id): $(e.code) $(e.message)");
+		}
 	}
 
 	private async void block_author () {
@@ -303,21 +303,28 @@ public class Tuba.Widgets.Collection : Gtk.Box {
 				hexpand = true
 			});
 		} else {
-			new Request.GET (@"/api/v1/accounts/$(collection.account_id)")
-				.with_account (accounts.active)
-				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
-					var node = network.parse_node (parser);
-					var acc = API.Account.from (node);
-					author = acc;
+			get_collection_real.begin (title_box);
+		}
+	}
 
-					title_box.append (new Widgets.RichLabel.with_emojis (_("By %s").printf (acc.display_name), acc.emojis_map) {
-						use_markup = false,
-						ellipsize = true,
-						xalign = 0.0f
-					});
-				})
-				.exec ();
+	private async void get_collection_real (Gtk.Box title_box) {
+		var req = new RequestV2 (@"/api/v1/accounts/$(collection.account_id)") { account = accounts.active };
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var acc = API.Account.from (node);
+			author = acc;
+
+			title_box.append (new Widgets.RichLabel.with_emojis (_("By %s").printf (acc.display_name), acc.emojis_map) {
+				use_markup = false,
+				ellipsize = true,
+				xalign = 0.0f
+			});
+		} catch (Error e) {
+			app.toast (e.message);
+			warning (@"Couldn't fetch collection $(collection.id): $(e.code) $(e.message)");
 		}
 	}
 }

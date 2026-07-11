@@ -140,29 +140,26 @@ public class Tuba.Views.Profile : Views.Accounts {
 		if (this.filter == FEATURED && this.get_mapped ()) on_refresh ();
 	}
 
-	public bool append_pinned () {
+	public async void append_pinned () {
 		if (source == "statuses" && filter == Widgets.ProfileFilterGroup.Filter.POSTS) {
-			new Request.GET (@"/api/v1/accounts/$(profile.account.id)/statuses")
-				.with_account (account)
-				.with_param ("pinned", "true")
-				.with_ctx (this)
-				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
+			var req = new RequestV2 (@"/api/v1/accounts/$(profile.account.id)/statuses") { account = account, ctx = this };
+			req.add_parameter ("pinned", "true");
+			try {
+				var in_stream = yield req.exec (null);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+				Object[] to_add = {};
+				Network.parse_array (parser, node => {
+					var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+					var e_status = e as API.Status;
+					if (e_status != null) e_status.pinned = true;
 
-					Object[] to_add = {};
-					Network.parse_array (parser, node => {
-						var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
-						var e_status = e as API.Status;
-						if (e_status != null) e_status.pinned = true;
-
-						to_add += e_status;
-					});
-					model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
-				})
-				.exec ();
+					to_add += e_status;
+				});
+				model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
+			} catch (Error e) {
+				warning (@"Couldn't append pinned for $(profile.account.id): $(e.code) $(e.message)");
+			}
 		}
-
-		return GLib.Source.REMOVE;
 	}
 
 	public override void on_request_finish () {
@@ -230,8 +227,8 @@ public class Tuba.Views.Profile : Views.Accounts {
 	public override void on_refresh () {
 		error_message_row.visible = false;
 		base.on_refresh ();
-		GLib.Idle.add (append_pinned);
-		GLib.Idle.add (append_featured_tags);
+		append_pinned.begin ();
+		append_featured_tags.begin ();
 	}
 
 	public override void on_manual_refresh () {
@@ -302,44 +299,35 @@ public class Tuba.Views.Profile : Views.Accounts {
 		}
 	}
 
-	private bool append_featured_tags () {
+	private async void append_featured_tags () {
 		if (source == "endorsements" && filter == Widgets.ProfileFilterGroup.Filter.FEATURED) {
-			fill_featured.begin ((obj, res) => {
-				try {
-					fill_featured.end (res);
-				} catch (Error e) {
-					on_error (e.code, e.message);
-				}
-			});
+			try {
+				Object[] to_add = {};
+
+				var req = new RequestV2 (@"/api/v1/accounts/$(profile.account.id)/featured_tags") { account = account, ctx = this };
+				var in_stream = yield req.exec (null);
+
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+				Network.parse_array (parser, node => {
+					to_add += Tuba.Helper.Entity.from_json (node, typeof (API.FeaturedTag));
+				});
+
+				//  req = new Request.GET (@"/api/v1/accounts/$(profile.account.id)/endorsements")
+				//  		.with_account (account)
+				//  		.with_ctx (this);
+				//  yield req.await ();
+
+				//  parser = Network.get_parser_from_inputstream (req.response_body);
+				//  Network.parse_array (parser, node => {
+				//  	to_add += Tuba.Helper.Entity.from_json (node, typeof (API.Account));
+				//  });
+				model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
+			} catch (Error e) {
+				on_error (e.code, e.message);
+			}
 		}
-
-		return GLib.Source.REMOVE;
 	}
 
-	private async void fill_featured () throws Error {
-		Object[] to_add = {};
-
-		var req = new Request.GET (@"/api/v1/accounts/$(profile.account.id)/featured_tags")
-				.with_account (account)
-				.with_ctx (this);
-		yield req.await ();
-
-		var parser = Network.get_parser_from_inputstream (req.response_body);
-		Network.parse_array (parser, node => {
-			to_add += Tuba.Helper.Entity.from_json (node, typeof (API.FeaturedTag));
-		});
-
-		//  req = new Request.GET (@"/api/v1/accounts/$(profile.account.id)/endorsements")
-		//  		.with_account (account)
-		//  		.with_ctx (this);
-		//  yield req.await ();
-
-		//  parser = Network.get_parser_from_inputstream (req.response_body);
-		//  Network.parse_array (parser, node => {
-		//  	to_add += Tuba.Helper.Entity.from_json (node, typeof (API.Account));
-		//  });
-		model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
-	}
 
 	public override void on_content_changed () {
 		error_message_row.visible = false;
@@ -403,6 +391,31 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 	protected override void clear () {
 		base.clear_all_but_first (TOTAL_STATIC_ITEMS);
+	}
+
+	private async void on_domain_block_real (bool block) {
+		var q = block ? _("Block Entire \"%s\"?") : _("Unblock Entire \"%s\"?");
+		var question = yield app.question (
+			{q.printf (profile.account.domain), false},
+			{_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"), false},
+
+			app.main_window,
+			{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			null,
+			false
+		);
+
+		if (question.truthy ()) {
+			var req = new RequestV2 ("/api/v1/domain_blocks", block ? RequestV2.Method.POST : RequestV2.Method.DELETE) { account = accounts.active };
+			req.add_parameter ("domain", profile.account.domain);
+			try {
+				yield req.exec (null);
+				profile.rs.request ();
+			} catch (Error e) {
+				warning (@"Couldn't block domain $(profile.account.domain): $(e.code) $(e.message)");
+				app.toast (_("Couldn't block domain: %s").printf (e.message));
+			}
+		}
 	}
 
 	protected override void build_actions () {
@@ -503,29 +516,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 		domain_blocking_action = new SimpleAction.stateful ("domain_blocking", null, false);
 		domain_blocking_action.change_state.connect (v => {
 			var block = v.get_boolean ();
-			var q = block ? _("Block Entire \"%s\"?") : _("Unblock Entire \"%s\"?");
-			app.question.begin (
-				{q.printf (profile.account.domain), false},
-				{_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"), false},
-
-				app.main_window,
-				{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
-				null,
-				false,
-				(obj, res) => {
-					if (app.question.end (res).truthy ()) {
-						var req = new Request.POST ("/api/v1/domain_blocks")
-							.with_account (accounts.active)
-							.with_param ("domain", profile.account.domain)
-							.then (() => {
-								profile.rs.request ();
-							});
-
-						if (!block) req.method = "DELETE";
-						req.exec ();
-					}
-				}
-			);
+			on_domain_block_real.begin (block);
 		});
 		actions.add_action (domain_blocking_action);
 
@@ -651,114 +642,120 @@ public class Tuba.Views.Profile : Views.Accounts {
 			title = _("You don't have any lists")
 		};
 
-		new Request.GET ("/api/v1/lists/")
-			.with_account (accounts.active)
-			.with_ctx (this)
-			.on_error (on_error)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				if (Network.get_array_size (parser) > 0) {
-					new Request.GET (@"/api/v1/accounts/$(profile.account.id)/lists")
-					.with_account (accounts.active)
-					.with_ctx (this)
-					.on_error (on_error)
-					.then ((in_stream2) => {
-						var added = false;
-						var in_list = new Gee.ArrayList<string> ();
-
-						var parser2 = Network.get_parser_from_inputstream (in_stream2);
-						Network.parse_array (parser2, node => {
-							var list = API.List.from (node);
-							in_list.add (list.id);
-						});
-						Network.parse_array (parser, node => {
-							var list = API.List.from (node);
-							var is_already = in_list.contains (list.id);
-
-							var add_button = new RowButton () {
-								icon_name = is_already ? "tuba-minus-large-symbolic" : "tuba-plus-large-symbolic",
-								tooltip_text = is_already
-									? _("Remove \"%s\" from \"%s\"").printf (profile.account.handle, list.title)
-									: _("Add \"%s\" to \"%s\"").printf (profile.account.handle, list.title),
-								halign = Gtk.Align.CENTER,
-								valign = Gtk.Align.CENTER,
-								css_classes = { "flat", "circular" }
-							};
-							add_button.remove = is_already;
-
-							var row = new Adw.ActionRow () {
-								use_markup = false,
-								title = list.title
-							};
-							row.add_suffix (add_button);
-
-							add_button.clicked.connect (() => {
-								handle_list_edit (list, row, toast_overlay, add_button);
-							});
-
-							preferences_group.add (row);
-							added = true;
-						});
-
-						if (added) {
-							preferences_page.add (preferences_group);
-
-							toast_overlay.child = preferences_page;
-							toast_overlay.valign = Gtk.Align.FILL;
-						} else {
-							toast_overlay.child = no_lists_page;
-						}
-					})
-					.exec ();
-				} else {
-					toast_overlay.child = no_lists_page;
-				}
-			})
-			.exec ();
-
+		fill_ar_list_dialog.begin (no_lists_page, preferences_group, toast_overlay, preferences_page);
 		return dialog;
 	}
 
-	public void handle_list_edit (API.List list, Adw.ActionRow row, Adw.ToastOverlay toast_overlay, RowButton button) {
-			row.sensitive = false;
+	// TODO: clean this mess up, it should subclass a dialog already
+	private async void fill_ar_list_dialog (
+		Adw.StatusPage no_lists_page,
+		Adw.PreferencesGroup preferences_group,
+		Adw.ToastOverlay toast_overlay,
+		Adw.PreferencesPage preferences_page
+	) {
+		var req = new RequestV2 ("/api/v1/lists/") { account = accounts.active, ctx = this };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			if (Network.get_array_size (parser) > 0) {
+				var list_req = new RequestV2 (@"/api/v1/accounts/$(profile.account.id)/lists") { account = accounts.active, ctx = this };
+				try {
+					var list_in_stream = yield list_req.exec (null);
+					Json.Parser list_parser = yield Network.get_parser_from_inputstream_async (list_in_stream);
 
-			var builder = new Json.Builder ();
-			builder.begin_object ();
-			builder.set_member_name ("account_ids");
-			builder.begin_array ();
-			builder.add_string_value (profile.account.id);
-			builder.end_array ();
-			builder.end_object ();
+					var added = false;
+					var in_list = new Gee.ArrayList<string> ();
 
-			var endpoint = @"/api/v1/lists/$(list.id)/accounts";
-			var req = button.remove ? new Request.DELETE (endpoint) : new Request.POST (endpoint);
-			req
-				.with_account (accounts.active)
-				.with_ctx (this)
-				.body_json (builder)
-				.on_error (on_error)
-				.then (() => {
-					var toast_msg = "";
-					if (button.remove) {
-						//  translators: First variable is a handle, second variable is a list name
-						toast_msg = _("User \"%s\" got removed from \"%s\"").printf (profile.account.handle, list.title);
-						button.icon_name = "tuba-plus-large-symbolic";
-						//  translators: First variable is a handle, second variable is a list name
-						button.tooltip_text = _("Add \"%s\" to \"%s\"").printf (profile.account.handle, list.title);
+					Network.parse_array (list_parser, node => {
+						var list = API.List.from (node);
+						in_list.add (list.id);
+					});
+					Network.parse_array (parser, node => {
+						var list = API.List.from (node);
+						var is_already = in_list.contains (list.id);
+
+						var add_button = new RowButton () {
+							icon_name = is_already ? "tuba-minus-large-symbolic" : "tuba-plus-large-symbolic",
+							tooltip_text = is_already
+								? _("Remove \"%s\" from \"%s\"").printf (profile.account.handle, list.title)
+								: _("Add \"%s\" to \"%s\"").printf (profile.account.handle, list.title),
+							halign = Gtk.Align.CENTER,
+							valign = Gtk.Align.CENTER,
+							css_classes = { "flat", "circular" }
+						};
+						add_button.remove = is_already;
+
+						var row = new Adw.ActionRow () {
+							use_markup = false,
+							title = list.title
+						};
+						row.add_suffix (add_button);
+
+						add_button.clicked.connect (() => {
+							handle_list_edit.begin (list, row, toast_overlay, add_button);
+						});
+
+						preferences_group.add (row);
+						added = true;
+					});
+
+					if (added) {
+						preferences_page.add (preferences_group);
+
+						toast_overlay.child = preferences_page;
+						toast_overlay.valign = Gtk.Align.FILL;
 					} else {
-						//  translators: First variable is a handle, second variable is a list name
-						toast_msg = _("User \"%s\" got added to \"%s\"").printf (profile.account.handle, list.title);
-						button.icon_name = "tuba-minus-large-symbolic";
-						//  translators: First variable is a handle, second variable is a list name
-						button.tooltip_text = _("Remove \"%s\" from \"%s\"").printf (profile.account.handle, list.title);
+						toast_overlay.child = no_lists_page;
 					}
+				} catch (Error e) {
+					on_error (e.code, e.message);
+				}
+			} else {
+				toast_overlay.child = no_lists_page;
+			}
+		} catch (Error e) {
+			on_error (e.code, e.message);
+		}
+	}
 
-					button.remove = !button.remove;
-					row.sensitive = true;
+	public async void handle_list_edit (API.List list, Adw.ActionRow row, Adw.ToastOverlay toast_overlay, RowButton button) {
+		row.sensitive = false;
 
-					var toast = new Adw.Toast (toast_msg);
-					toast_overlay.add_toast (toast);
-				})
-				.exec ();
+		var builder = new Json.Builder ();
+		builder.begin_object ();
+		builder.set_member_name ("account_ids");
+		builder.begin_array ();
+		builder.add_string_value (profile.account.id);
+		builder.end_array ();
+		builder.end_object ();
+
+		var endpoint = @"/api/v1/lists/$(list.id)/accounts";
+		var req = new RequestV2 (endpoint, button.remove ? RequestV2.Method.DELETE : RequestV2.Method.POST) { account = accounts.active, ctx = this };
+		req.set_body_from_json (builder);
+		try {
+			yield req.exec (null);
+			var toast_msg = "";
+			if (button.remove) {
+				//  translators: First variable is a handle, second variable is a list name
+				toast_msg = _("User \"%s\" got removed from \"%s\"").printf (profile.account.handle, list.title);
+				button.icon_name = "tuba-plus-large-symbolic";
+				//  translators: First variable is a handle, second variable is a list name
+				button.tooltip_text = _("Add \"%s\" to \"%s\"").printf (profile.account.handle, list.title);
+			} else {
+				//  translators: First variable is a handle, second variable is a list name
+				toast_msg = _("User \"%s\" got added to \"%s\"").printf (profile.account.handle, list.title);
+				button.icon_name = "tuba-minus-large-symbolic";
+				//  translators: First variable is a handle, second variable is a list name
+				button.tooltip_text = _("Remove \"%s\" from \"%s\"").printf (profile.account.handle, list.title);
+			}
+
+			button.remove = !button.remove;
+			row.sensitive = true;
+
+			var toast = new Adw.Toast (toast_msg);
+			toast_overlay.add_toast (toast);
+		} catch (Error e) {
+			on_error (e.code, e.message);
+		}
 	}
 }

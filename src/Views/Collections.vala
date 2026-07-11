@@ -50,38 +50,45 @@ public class Tuba.Views.Collections : Views.TabbedBase {
 	private void refresh_all (bool skip_mapped_check = false) {
 		if (!skip_mapped_check && !this.get_mapped ()) return;
 
-		new Request.GET (@"/api/v1/accounts/$(accounts.active.id)/collections")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var collections = API.Collections.from (node);
+		refresh_collections_real.begin ();
+		refresh_in_collections_real.begin ();
+	}
 
-				API.Collection[] to_add = {};
-				foreach (API.Collection collection in collections.collections) {
-					to_add += collection;
-				}
-				own.model.splice (0, own.model.n_items, to_add);
-				add_collection_button.sensitive = own.model.n_items < (accounts.active.role != null ? accounts.active.role.collection_limit : 10);
-			})
-			.on_error (own.on_error)
-			.exec ();
+	private async void refresh_collections_real () {
+		var req = new RequestV2 (@"/api/v1/accounts/$(accounts.active.id)/collections") { account = accounts.active };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var collections = API.Collections.from (node);
 
-		new Request.GET (@"/api/v1/accounts/$(accounts.active.id)/in_collections")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var collections = API.Collections.from (node);
+			API.Collection[] to_add = {};
+			foreach (API.Collection collection in collections.collections) {
+				to_add += collection;
+			}
+			own.model.splice (0, own.model.n_items, to_add);
+			add_collection_button.sensitive = own.model.n_items < (accounts.active.role != null ? accounts.active.role.collection_limit : 10);
+		} catch (Error e) {
+			own.on_error (e.code, e.message);
+		}
+	}
 
-				API.Collection[] to_add = {};
-				foreach (API.Collection collection in collections.collections) {
-					to_add += collection;
-				}
-				featured.model.splice (0, featured.model.n_items, to_add);
-			})
-			.on_error (featured.on_error)
-			.exec ();
+	private async void refresh_in_collections_real () {
+		var req = new RequestV2 (@"/api/v1/accounts/$(accounts.active.id)/in_collections") { account = accounts.active };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var collections = API.Collections.from (node);
+
+			API.Collection[] to_add = {};
+			foreach (API.Collection collection in collections.collections) {
+				to_add += collection;
+			}
+			featured.model.splice (0, featured.model.n_items, to_add);
+		} catch (Error e) {
+			featured.on_error (e.code, e.message);
+		}
 	}
 }
 
@@ -97,30 +104,30 @@ public class Tuba.Views.CollectionList : Views.ContentBase {
 
 		this.for_user_id = for_user_id;
 		app.refresh.connect (refresh);
-		refresh_real (true);
+		refresh_real.begin (true);
 	}
 
 	private void refresh () {
-		refresh_real ();
+		refresh_real.begin ();
 	}
 
-	private void refresh_real (bool skip_mapped_check = false) {
+	private async void refresh_real (bool skip_mapped_check = false) {
 		if (!skip_mapped_check && !this.get_mapped ()) return;
 
-		new Request.GET (@"/api/v1/accounts/$for_user_id/collections")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var collections = API.Collections.from (node);
+		var req = new RequestV2 (@"/api/v1/accounts/$for_user_id/collections") { account = accounts.active };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var collections = API.Collections.from (node);
 
-				API.Collection[] to_add = {};
-				foreach (API.Collection collection in collections.collections) {
-					to_add += collection;
-				}
-				this.model.splice (0, this.model.n_items, to_add);
-			})
-			.on_error (this.on_error)
-			.exec ();
+			API.Collection[] to_add = {};
+			foreach (API.Collection collection in collections.collections) {
+				to_add += collection;
+			}
+			this.model.splice (0, this.model.n_items, to_add);
+		} catch (Error e) {
+			this.on_error (e.code, e.message);
+		}
 	}
 }

@@ -59,73 +59,80 @@ public class Tuba.Views.Admin.Page.Dashboard : Views.Admin.Page.Base {
 
 	private void populate_stat (string key, string title, int next_i) {
 		update_requests (1);
-		new Request.POST ("/api/v1/admin/measures")
-			.with_account (accounts.active)
-			.body_json (get_dimensions_body (key))
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				Network.parse_array (parser, node => {
-					if (node != null) {
-						var dimension = API.Admin.Dimension.from (node);
-						if (dimension.key == key && dimension.total != null) {
-							add_stat (
-								new Adw.ActionRow () {
-									title = title,
-									subtitle = dimension.total,
-									use_markup = false,
-									subtitle_selectable = true
-								}
-							);
+		populate_stat_real.begin (key, title, next_i);
+	}
 
-							if (next_i > -1) {
-								populate_stats (next_i);
+	private async void populate_stat_real (string key, string title, int next_i) {
+		var req = new RequestV2 ("/api/v1/admin/measures", POST) { account = accounts.active };
+		req.set_body_from_json (get_dimensions_body (key));
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+
+			Network.parse_array (parser, node => {
+				if (node != null) {
+					var dimension = API.Admin.Dimension.from (node);
+					if (dimension.key == key && dimension.total != null) {
+						add_stat (
+							new Adw.ActionRow () {
+								title = title,
+								subtitle = dimension.total,
+								use_markup = false,
+								subtitle_selectable = true
 							}
+						);
+
+						if (next_i > -1) {
+							populate_stats (next_i);
 						}
 					}
-				});
+				}
+			});
+		} catch (Error e) {
+			add_toast (e.message);
+		}
 
-				update_requests (-1);
-			})
-			.on_error ((code, message) => {
-				add_toast (message);
-				update_requests (-1);
-			})
-			.exec ();
+		update_requests (-1);
 	}
 
 	private void do_dimension_request (string key, string title, int limit) {
 		update_requests (1);
-		var group = create_group (title);
-		new Request.POST ("/api/v1/admin/dimensions")
-			.with_account (accounts.active)
-			.body_json (get_dimensions_body (key, limit))
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				Network.parse_array (parser, node => {
-					if (node != null) {
-						var dimension = API.Admin.Dimension.from (node);
-						if (dimension.key == key && dimension.data != null && dimension.data.size > 0) {
-							foreach (var entry in dimension.data) {
-								group.add (
-									new Adw.ActionRow () {
-										title = entry.human_key,
-										subtitle = entry.human_value != null ? entry.human_value : entry.value,
-										use_markup = false,
-										subtitle_selectable = true
-									}
-								);
-								group.visible = true;
-							}
+		do_dimension_request_real.begin (key, title, limit);
+	}
+
+	private async void do_dimension_request_real (string key, string title, int limit) {
+		var req = new RequestV2 ("/api/v1/admin/dimensions", POST) { account = accounts.active };
+		req.set_body_from_json (get_dimensions_body (key, limit));
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+
+			var group = create_group (title);
+			Network.parse_array (parser, node => {
+				if (node != null) {
+					var dimension = API.Admin.Dimension.from (node);
+					if (dimension.key == key && dimension.data != null && dimension.data.size > 0) {
+						foreach (var entry in dimension.data) {
+							group.add (
+								new Adw.ActionRow () {
+									title = entry.human_key,
+									subtitle = entry.human_value != null ? entry.human_value : entry.value,
+									use_markup = false,
+									subtitle_selectable = true
+								}
+							);
+							group.visible = true;
 						}
 					}
-				});
-				update_requests (-1);
-			})
-			.on_error ((code, message) => {
-				add_toast (message);
-				update_requests (-1);
-			})
-			.exec ();
+				}
+			});
+		} catch (Error e) {
+			add_toast (e.message);
+		}
+
+		update_requests (-1);
 	}
 
 	private static Json.Builder get_dimensions_body (string key, int limit = 0) {

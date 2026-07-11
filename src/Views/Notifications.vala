@@ -82,7 +82,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		base.on_scrolled_vadjustment_value_change ();
 
 		if (scrolled.vadjustment.value <= 50 && account != null && account.unread_count > 0) {
-			account.read_notifications (
+			account.read_notifications.begin (
 				account.last_received_id > account.last_read_id
 					? account.last_received_id
 					: account.last_read_id
@@ -163,14 +163,14 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	public override void on_shown () {
 		base.on_shown ();
 		if (account != null) {
-			account.read_notifications (
+			account.read_notifications.begin (
 				account.last_received_id > account.last_read_id
 					? account.last_received_id
 					: account.last_read_id
 			);
 
 			if (account.tuba_probably_has_notification_filters)
-				update_filtered_notifications ();
+				update_filtered_notifications.begin ();
 		}
 	}
 
@@ -245,31 +245,30 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		}
 	}
 
-	public void update_filtered_notifications () {
-		new Request.GET ("/api/v1/notifications/policy")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) {
-					accounts.active.filtered_notifications_count = 0;
-					return;
-				};
+	public async void update_filtered_notifications () {
+		var req = new RequestV2 ("/api/v1/notifications/policy") { account = accounts.active };
 
-				var policies = API.NotificationFilter.Policy.from (node);
-				if (policies.summary != null) {
-					accounts.active.filtered_notifications_count = policies.summary.pending_notifications_count;
-				}
-			})
-			.on_error ((code, message) => {
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			if (node == null) {
 				accounts.active.filtered_notifications_count = 0;
-				if (code == 404) {
-					accounts.active.tuba_probably_has_notification_filters = false;
-				} else {
-					warning (@"Error while trying to get notification policy: $code $message");
-				}
-			})
-			.exec ();
+				return;
+			};
+
+			var policies = API.NotificationFilter.Policy.from (node);
+			if (policies.summary != null) {
+				accounts.active.filtered_notifications_count = policies.summary.pending_notifications_count;
+			}
+		} catch (Error e) {
+			accounts.active.filtered_notifications_count = 0;
+			if (e.code == 404) { // TODO: check if it actually triggers
+				accounts.active.tuba_probably_has_notification_filters = false;
+			} else {
+				warning (@"Error while trying to get notification policy: $(e.code) $(e.message)");
+			}
+		}
 	}
 
 	public override string? get_stream_url () {

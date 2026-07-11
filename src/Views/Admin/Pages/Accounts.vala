@@ -416,6 +416,10 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 			}
 
 			private void on_undo () {
+				on_undo_real.begin ();
+			}
+
+			private async void on_undo_real () {
 				var dlg = new Adw.AlertDialog (
 					// translators: Question dialog when an admin is about to
 					//				undo an action, like a suspension
@@ -428,23 +432,20 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 
 				dlg.add_response ("yes", _("Undo"));
 				dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-				dlg.choose.begin (this, null, (obj, res) => {
-					if (dlg.choose.end (res) == "yes") {
-						action_button.sensitive = false;
-						new Request.POST (@"/api/v1/admin/accounts/$account_id/$endpoint")
-							.with_account (accounts.active)
-							.then (() => {
-								this.visible = false;
-								undone ();
-							})
-							.on_error ((code, message) => {
-								action_button.sensitive = true;
-								warning (@"Error while trying to undo action using $endpoint: $code $message");
-								on_error (message);
-							})
-							.exec ();
+
+				if ((yield dlg.choose (this, null)) == "yes") {
+					action_button.sensitive = false;
+					var req = new RequestV2 (@"/api/v1/admin/accounts/$account_id/$endpoint", POST) { account = accounts.active };
+					try {
+						yield req.exec (null);
+						this.visible = false;
+						undone ();
+					} catch (Error e) {
+						action_button.sensitive = true;
+						warning (@"Error while trying to undo action using $endpoint: $(e.code) $(e.message)");
+						on_error (e.message);
 					}
-				});
+				}
 			}
 		}
 
@@ -476,6 +477,10 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 		}
 
 		private void on_approve () {
+			on_approve_real.begin ();
+		}
+
+		private async void on_approve_real () {
 			var dlg = new Adw.AlertDialog (
 				// translators: Question dialog when an admin is about to
 				//				approve an account. The variable is an
@@ -489,26 +494,27 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 
 			dlg.add_response ("yes", _("Approve"));
 			dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-			dlg.choose.begin (this, null, (obj, res) => {
-				if (dlg.choose.end (res) == "yes") {
-					approval_row.sensitive = false;
-					new Request.POST (@"/api/v1/admin/accounts/$account_id/approve")
-						.with_account (accounts.active)
-						.then (() => {
-							approval_row.visible = false;
-							mark_for_refresh ();
-						})
-						.on_error ((code, message) => {
-							approval_row.sensitive = true;
-							warning (@"Error while trying to approve account: $code $message");
-							add_toast (message);
-						})
-						.exec ();
+
+			if ((yield dlg.choose (this, null)) == "yes") {
+				approval_row.sensitive = false;
+				var req = new RequestV2 (@"/api/v1/admin/accounts/$account_id/approve", POST) { account = accounts.active };
+				try {
+					yield req.exec (null);
+					approval_row.visible = false;
+					mark_for_refresh ();
+				} catch (Error e) {
+					approval_row.sensitive = true;
+					warning (@"Error while trying to approve account: $(e.code) $(e.message)");
+					add_toast (e.message);
 				}
-			});
+			}
 		}
 
 		private void on_reject () {
+			on_reject_real.begin ();
+		}
+
+		private async void on_reject_real () {
 			var dlg = new Adw.AlertDialog (
 				// translators: Question dialog when an admin is about to
 				//				reject an account. The variable is an
@@ -522,23 +528,20 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 
 			dlg.add_response ("yes", _("Reject"));
 			dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-			dlg.choose.begin (this, null, (obj, res) => {
-				if (dlg.choose.end (res) == "yes") {
-					approval_row.sensitive = false;
-					new Request.POST (@"/api/v1/admin/accounts/$account_id/reject")
-						.with_account (accounts.active)
-						.then (() => {
-							approval_row.visible = false;
-							mark_for_refresh ();
-						})
-						.on_error ((code, message) => {
-							approval_row.sensitive = true;
-							warning (@"Error while trying to reject account: $code $message");
-							add_toast (message);
-						})
-						.exec ();
+
+			if ((yield dlg.choose (this, null)) == "yes") {
+				approval_row.sensitive = false;
+				var req = new RequestV2 (@"/api/v1/admin/accounts/$account_id/reject", POST) { account = accounts.active };
+				try {
+					yield req.exec (null);
+					approval_row.visible = false;
+					mark_for_refresh ();
+				} catch (Error e) {
+					approval_row.sensitive = true;
+					warning (@"Error while trying to reject account: $(e.code) $(e.message)");
+					add_toast (e.message);
 				}
-			});
+			}
 		}
 	}
 }

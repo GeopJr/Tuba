@@ -472,51 +472,55 @@
 
 	public signal void pin_changed ();
 	private void toggle_pinned () {
+		toggle_pinned_real.begin ();
+	}
+
+	private async void toggle_pinned_real () {
 		var p_action = status.formal.pinned ? "unpin" : "pin";
-		new Request.POST (@"/api/v1/statuses/$(status.formal.id)/$p_action")
-			.with_account (accounts.active)
-			.then (() => {
-				this.status.formal.pinned = p_action == "pin";
-				pin_changed ();
-			})
-			.exec ();
+		var req = new RequestV2 (@"/api/v1/statuses/$(status.formal.id)/$p_action", POST) { account = accounts.active };
+
+		try {
+			yield req.exec (null);
+			this.status.formal.pinned = p_action == "pin";
+			pin_changed ();
+		} catch (Error e) {
+			warning (@"Error while pin toggling: $(e.code) $(e.message)");
+			app.toast ("%s: %s".printf (_("Error"), e.message));
+		}
 	}
 
 	private void edit_status () {
-		edit_status_real ();
+		edit_status_real.begin ();
 	}
 
-	private void edit_status_real (bool redraft = false) {
-		Request req;
+	private async void edit_status_real (bool redraft = false) {
+		RequestV2 req;
 		if (redraft) {
 			req = this.status.formal.annihilate ();
 		} else {
-			req = new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source");
+			req = new RequestV2 (@"/api/v1/statuses/$(status.formal.id)/source");
 		}
+		req.account = accounts.active;
 
-		req
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var source = API.StatusSource.from (node);
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var source = API.StatusSource.from (node);
 
-				if (redraft) {
-					new Dialogs.Composer.Dialog.edit (status.formal, source, null, true);
-				} else {
-					new Dialogs.Composer.Dialog.edit (status.formal, source, on_edit);
-				}
-			})
-			.on_error ((code, message) => {
-				if (redraft) {
-					warning (@"Error while deleting status for redrafting: $code $message");
-					app.toast (message, 0);
-				} else {
-					new Dialogs.Composer.Dialog.edit (status.formal, null, on_edit);
-				}
-			})
-
-			.exec ();
+			if (redraft) {
+				new Dialogs.Composer.Dialog.edit (status.formal, source, null, true);
+			} else {
+				new Dialogs.Composer.Dialog.edit (status.formal, source, on_edit);
+			}
+		} catch (Error e) {
+			if (redraft) {
+				warning (@"Error while deleting status for redrafting: $(e.code) $(e.message)");
+				app.toast (e.message, 0);
+			} else {
+				new Dialogs.Composer.Dialog.edit (status.formal, null, on_edit);
+			}
+		}
 	}
 
 	private void delete_status () {
@@ -541,10 +545,10 @@
 		dlg.choose.begin (app.main_window, null, (obj, res) => {
 			switch (dlg.choose.end (res)) {
 				case "delete":
-					delete_status_real ();
+					delete_status_real.begin ();
 					break;
 				case "redraft":
-					edit_status_real (true);
+					edit_status_real.begin (true);
 					break;
 				default:
 					break;
@@ -552,37 +556,37 @@
 		});
 	}
 
-	private void delete_status_real () {
-		this.status.formal.annihilate ()
-			//  .then ((in_stream) => {
-			//  	var parser = Network.get_parser_from_inputstream (in_stream);
-			//  	var root = network.parse (parser);
-			//  	if (root.has_member ("error")) {
-			//  		// TODO: Handle error (probably a toast?)
-			//  	};
-			//  })
-			.exec ();
+	private async void delete_status_real () {
+		try {
+			yield this.status.formal.annihilate ().exec (null);
+		} catch (Error e) {
+			warning (@"Couldn't delete status: $(e.code) $(e.message)");
+			app.toast ("%s %s".printf (_("Error"), e.message));
+		}
 	}
 
 	private void toggle_mute_conversation () {
+		toggle_mute_conversation_real.begin ();
+	}
+
+	private async void toggle_mute_conversation_real () {
 		string api_action = status.formal.muted ? "unmute" : "mute";
-		new Request.POST (@"/api/v1/statuses/$(status.formal.id)/$api_action")
-			.with_account (accounts.active)
-			.then (() => {
-				status.formal.muted = !status.formal.muted;
-				update_mute_conversation_actions_enabled_status ();
-			})
-			.on_error ((code, message) => {
-				warning (@"Couldn't $api_action $(status.formal.id): $code $message");
-				app.toast (
-					api_action == "mute"
-					// translators: toast shown when muting a post
-					? _("Couldn't Mute Conversation: %s").printf (message)
-					// translators: toast shown when unmuting a post
-					: _("Couldn't Unmute Conversation: %s").printf (message)
-				);
-			})
-			.exec ();
+		var req = new RequestV2 (@"/api/v1/statuses/$(status.formal.id)/$api_action", POST) { account = accounts.active };
+
+		try {
+			yield req.exec (null);
+			status.formal.muted = !status.formal.muted;
+			update_mute_conversation_actions_enabled_status ();
+		} catch (Error e) {
+			warning (@"Couldn't $api_action $(status.formal.id): $(e.code) $(e.message)");
+			app.toast (
+				api_action == "mute"
+				// translators: toast shown when muting a post
+				? _("Couldn't Mute Conversation: %s").printf (e.message)
+				// translators: toast shown when unmuting a post
+				: _("Couldn't Unmute Conversation: %s").printf (e.message)
+			);
+		}
 	}
 
 	private void update_mute_conversation_actions_enabled_status () {
@@ -608,6 +612,10 @@
 	}
 
 	private void translate () {
+		translate_real.begin ();
+	}
+
+	private async void translate_real () {
 		if (translation != null) {
 			translation = null;
 			bind ();
@@ -618,47 +626,49 @@
 		}
 
 		if (accounts.active.instance_info.pleroma != null) {
-			new Request.GET (@"/api/v1/statuses/$(status.formal.id)/translations/$(Tuba.default_locale)")
-				.with_account (accounts.active)
-				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
-					var node = network.parse_node (parser);
-					var akkotrans = API.AkkomaTranslation.from (node);
-					translation = new API.Translation () {
-						content = akkotrans.text,
-						detected_source_language = akkotrans.detected_language
-					};
-					bind ();
+			var req = new RequestV2 (@"/api/v1/statuses/$(status.formal.id)/translations/$(Tuba.default_locale)") {
+				account = accounts.active
+			};
 
-					translate_simple_action.set_enabled (false);
-					show_original_simple_action.set_enabled (true);
-				})
-				.on_error ((code, message) => {
-					warning (@"Couldn't translate $(status.formal.id): $code $message");
-					app.toast (_("Couldn't translate: %s").printf (message));
-				})
-				.exec ();
-
-			return;
-		}
-
-		new Request.POST (@"/api/v1/statuses/$(status.formal.id)/translate")
-			.with_form_data ("lang", Tuba.default_locale)
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
+			try {
+				var in_stream = yield req.exec (null);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 				var node = network.parse_node (parser);
-				translation = API.Translation.from (node);
+				var akkotrans = API.AkkomaTranslation.from (node);
+				translation = new API.Translation () {
+					content = akkotrans.text,
+					detected_source_language = akkotrans.detected_language
+				};
 				bind ();
 
 				translate_simple_action.set_enabled (false);
 				show_original_simple_action.set_enabled (true);
-			})
-			.on_error ((code, message) => {
-				warning (@"Couldn't translate $(status.formal.id): $code $message");
-				app.toast (_("Couldn't translate: %s").printf (message));
-			})
-			.exec ();
+			} catch (Error e) {
+				warning (@"Couldn't translate $(status.formal.id): $(e.code) $(e.message)");
+				app.toast (_("Couldn't translate: %s").printf (e.message));
+			}
+
+			return;
+		}
+
+		var req = new RequestV2 (@"/api/v1/statuses/$(status.formal.id)/translate", POST) {
+			account = accounts.active
+		};
+		req.add_form_data ("lang", Tuba.default_locale);
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			translation = API.Translation.from (node);
+			bind ();
+
+			translate_simple_action.set_enabled (false);
+			show_original_simple_action.set_enabled (true);
+		} catch (Error e) {
+			warning (@"Couldn't translate $(status.formal.id): $(e.code) $(e.message)");
+			app.toast (_("Couldn't translate: %s").printf (e.message));
+		}
 	}
 
 	protected string spoiler_text {

@@ -281,25 +281,25 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		return result.length > 0;
 	}
 
-	private Request action (string action) {
-		var req = new Request.POST (@"/api/v1/statuses/$(formal.id)/$action").with_account (accounts.active);
+	private RequestV2 action (string action) {
+		var req = new RequestV2 (@"/api/v1/statuses/$(formal.id)/$action", POST) { account = accounts.active };
 		req.priority = Soup.MessagePriority.HIGH;
 		return req;
 	}
 
-	public Request favourite_req () {
+	public RequestV2 favourite_req () {
 		return action ("favourite");
 	}
 
-	public Request unfavourite_req () {
+	public RequestV2 unfavourite_req () {
 		return action ("unfavourite");
 	}
 
-	public Request bookmark_req () {
+	public RequestV2 bookmark_req () {
 		return action ("bookmark");
 	}
 
-	public Request unbookmark_req () {
+	public RequestV2 unbookmark_req () {
 		return action ("unbookmark");
 	}
 
@@ -386,20 +386,19 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		}
 	}
 
-	public Request reblog_req (Visibility? visibility = null) {
+	public RequestV2 reblog_req (Visibility? visibility = null) {
 		var req = action ("reblog");
 		if (visibility != null)
-			req.with_form_data ("visibility", visibility.to_string ());
+			req.add_form_data ("visibility", visibility.to_string ());
 
 		return req;
 	}
 
-	public Request unreblog_req () {
+	public RequestV2 unreblog_req () {
 		return action ("unreblog");
 	}
 
-	public Request annihilate () {
-		return new Request.DELETE (@"/api/v1/statuses/$id")
-			.with_account (accounts.active);
+	public RequestV2 annihilate () {
+		return new RequestV2 (@"/api/v1/statuses/$id", DELETE) { account = accounts.active };
 	}
 }

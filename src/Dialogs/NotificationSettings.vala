@@ -59,10 +59,14 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 		};
 
 		this.closed.connect (save);
-		setup_notification_filters ();
+		setup_notification_filters.begin ();
 	}
 
 	private void save () {
+		save_real.begin ();
+	}
+
+	private async void save_real () {
 		bool changed = false;
 		string[] new_filters = {};
 
@@ -116,10 +120,14 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 
 				builder.end_object ();
 
-				new Request.PUT ("/api/v1/notifications/policy")
-					.with_account (accounts.active)
-					.body_json (builder)
-					.exec ();
+				var req = new RequestV2 ("/api/v1/notifications/policy", PUT) { account = accounts.active };
+				req.set_body_from_json (builder);
+				try {
+					yield req.exec (null);
+				} catch (Error e) {
+					warning (@"Couldn't save notification settings: $(e.code) $(e.message)");
+					app.toast (_("Couldn't save notification settings: %s").printf (e.message));
+				}
 			}
 
 			notification_filter_policy_status.clear ();
@@ -127,6 +135,10 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 	}
 
 	[GtkCallback] private void clear_all_notifications () {
+		clear_all_notifications_real.begin ();
+	}
+
+	private async void clear_all_notifications_real () {
 		var dlg = new Adw.AlertDialog (
 			_("Clear All Notifications?"),
 			null
@@ -137,60 +149,55 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 
 		dlg.add_response ("yes", _("Clear"));
 		dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-		dlg.choose.begin (this, null, (obj, res) => {
-			if (dlg.choose.end (res) == "yes") {
-				clear_button.sensitive = false;
-				new Request.POST ("/api/v1/notifications/clear")
-					.with_account (accounts.active)
-					.then (() => {
-						clear_button.sensitive = true;
-						this.force_close ();
-						app.refresh ();
-					})
-					.on_error ((code, message) => {
-						warning (@"Error while trying to clear notifications: $code $message");
-						toast_overlay.add_toast (new Adw.Toast (message) {
-							timeout = 5
-						});
-					})
-					.exec ();
+
+		if ((yield dlg.choose (this, null)) == "yes") {
+			clear_button.sensitive = false;
+			var req = new RequestV2 ("/api/v1/notifications/policy") { account = accounts.active };
+			try {
+				yield req.exec (null);
+				clear_button.sensitive = true;
+				this.force_close ();
+				app.refresh ();
+			} catch (Error e) {
+				warning (@"Error while trying to clear notifications: $(e.code) $(e.message)");
+				toast_overlay.add_toast (new Adw.Toast (e.message) {
+					timeout = 5
+				});
 			}
-		});
+		}
 	}
 
 	private Gee.HashMap<Adw.SwitchRow, bool>? notification_filter_policy_status = null;
-	void setup_notification_filters () {
+	private async void setup_notification_filters () {
 		if (!accounts.active.tuba_probably_has_notification_filters) return;
 
-		new Request.GET ("/api/v1/notifications/policy")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) return;
+		var req = new RequestV2 ("/api/v1/notifications/policy") { account = accounts.active };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			if (node == null) return;
 
-				filtered_notifications_group.visible = true;
-				var policies = API.NotificationFilter.Policy.from (node);
+			filtered_notifications_group.visible = true;
+			var policies = API.NotificationFilter.Policy.from (node);
 
-				notification_filter_policy_status = new Gee.HashMap<Adw.SwitchRow, bool> ();
-				notification_filter_policy_status.set (filter_notifications_following_switch, policies.filter_not_following);
-				notification_filter_policy_status.set (filter_notifications_follower_switch, policies.filter_not_followers);
-				notification_filter_policy_status.set (filter_notifications_new_account_switch, policies.filter_new_accounts);
-				notification_filter_policy_status.set (filter_notifications_dm_switch, policies.filter_private_mentions);
+			notification_filter_policy_status = new Gee.HashMap<Adw.SwitchRow, bool> ();
+			notification_filter_policy_status.set (filter_notifications_following_switch, policies.filter_not_following);
+			notification_filter_policy_status.set (filter_notifications_follower_switch, policies.filter_not_followers);
+			notification_filter_policy_status.set (filter_notifications_new_account_switch, policies.filter_new_accounts);
+			notification_filter_policy_status.set (filter_notifications_dm_switch, policies.filter_private_mentions);
 
-				notification_filter_policy_status.@foreach (entry => {
-					((Adw.SwitchRow) entry.key).active = (bool) entry.value;
+			notification_filter_policy_status.@foreach (entry => {
+				((Adw.SwitchRow) entry.key).active = (bool) entry.value;
 
-					return true;
-				});
-			})
-			.on_error ((code, message) => {
-				if (code == 404) {
-					accounts.active.tuba_probably_has_notification_filters = false;
-				} else {
-					warning (@"Error while trying to get notification policy: $code $message");
-				}
-			})
-			.exec ();
+				return true;
+			});
+		} catch (Error e) {
+			if (e.code == 404) { // TODO: check if returns correctly
+				accounts.active.tuba_probably_has_notification_filters = false;
+			} else {
+				warning (@"Error while trying to get notification policy: $(e.code) $(e.message)");
+			}
+		}
 	}
 }
