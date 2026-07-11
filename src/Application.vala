@@ -830,11 +830,11 @@ namespace Tuba {
 			}
 
 			if (!can_update) return;
-			var msg = new Request.GET ("https://api.tuba.geopjr.dev/v1/supporters");
+			var msg = new RequestV2 ("https://api.tuba.geopjr.dev/v1/supporters");
 
 			try {
-				yield msg.await ();
-				var parser = Network.get_parser_from_inputstream (msg.response_body);
+				var in_stream = yield msg.exec (null);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 
 				string[] new_contributors = {};
 				Network.parse_array (parser, node => {
@@ -868,11 +868,11 @@ namespace Tuba {
 			}
 
 			if (!can_update) return;
-			var msg = new Request.POST ("https://api.tuba.geopjr.dev/v1/analytics")
-				.body ("application/json", new Bytes.take (generate_analytics_object ().data));
+			var msg = new RequestV2 ("https://api.tuba.geopjr.dev/v1/analytics", POST);
+			msg.set_body ("application/json", new Bytes.take (generate_analytics_object ().data));
 
 			try {
-				yield msg.await ();
+				yield msg.exec (null);
 				settings.last_analytics_update = now_utc.format_iso8601 ();
 			} catch (Error e) {
 				warning (@"Couldn't update analytics: $(e.code) $(e.message)");

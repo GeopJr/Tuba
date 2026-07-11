@@ -171,22 +171,27 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	}
 
 	private void on_schedule_picked (string iso8601) {
-		new Request.PUT (@"/api/v1/scheduled_statuses/$(bound_scheduled_status.id)")
-			.with_account (accounts.active)
-			.with_form_data ("scheduled_at", iso8601)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var e = Tuba.Helper.Entity.from_json (node, typeof (API.ScheduledStatus), true);
-				if (e is API.ScheduledStatus) bind ((API.ScheduledStatus) e);
-			})
-			.on_error ((code, message) => {
-				warning (@"Error while rescheduling: $code $message");
+		on_schedule_picked_real.begin (iso8601);
+	}
 
-				// translators: the variable is an error
-				app.toast (_("Couldn't reschedule: %s").printf (message), 0);
-			})
-			.exec ();
+	private async void on_schedule_picked_real (string iso8601) {
+		var req = new RequestV2 (@"/api/v1/scheduled_statuses/$(bound_scheduled_status.id)", PUT) {
+			account = accounts.active
+		};
+		req.add_form_data ("scheduled_at", iso8601);
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var e = Tuba.Helper.Entity.from_json (node, typeof (API.ScheduledStatus), true);
+			if (e is API.ScheduledStatus) bind ((API.ScheduledStatus) e);
+		} catch (Error e) {
+			warning (@"Error while rescheduling: $(e.code) $(e.message)");
+
+			// translators: the variable is an error
+			app.toast (_("Couldn't reschedule: %s").printf (e.message), 0);
+		}
 	}
 
 	private void on_delete () {
@@ -206,23 +211,22 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 			false,
 			(obj, res) => {
 				if (app.question.end (res).truthy ()) {
-					delete_status ();
+					delete_status.begin ();
 				}
 			}
 		);
 	}
 
-	private void delete_status () {
-		new Request.DELETE (@"/api/v1/scheduled_statuses/$(bound_scheduled_status.id)")
-			.with_account (accounts.active)
-			.then (() => {
-				deleted (bound_scheduled_status.id);
-			})
-			.on_error ((code, message) => {
-				warning (@"Error while deleting scheduled status: $code $message");
-				app.toast (message, 0);
-			})
-			.exec ();
+	private async void delete_status () {
+		var req = new RequestV2 (@"/api/v1/scheduled_statuses/$(bound_scheduled_status.id)", DELETE) { account = accounts.active };
+
+		try {
+			yield req.exec (null);
+			deleted (bound_scheduled_status.id);
+		} catch (Error e) {
+			warning (@"Error while deleting scheduled status: $(e.code) $(e.message)");
+			app.toast (e.message, 0);
+		}
 	}
 
 	private void on_activated () {
@@ -232,7 +236,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	}
 
 	private void on_draft_posted (API.Status x) {
-		if (_draft) delete_status ();
+		if (_draft) delete_status.begin ();
 	}
 
 	private void on_edit () {

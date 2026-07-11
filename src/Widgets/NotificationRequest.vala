@@ -1,6 +1,6 @@
 public class Tuba.Widgets.NotificationRequest : Gtk.ListBoxRow {
-	public signal void dismissed (Request req, API.NotificationFilter.Request api_req);
-	public signal void accepted (Request req, API.NotificationFilter.Request api_req);
+	public signal void dismissed (RequestV2 req, API.NotificationFilter.Request api_req);
+	public signal void accepted (RequestV2 req, API.NotificationFilter.Request api_req);
 	public Gtk.Box btns_box;
 
 	API.NotificationFilter.Request request;
@@ -78,11 +78,11 @@ public class Tuba.Widgets.NotificationRequest : Gtk.ListBoxRow {
 	}
 
 	public void on_dismiss () {
-		dismissed (new Request.POST (@"/api/v1/notifications/requests/$(request.id)/dismiss").with_account (accounts.active), request);
+		dismissed (new RequestV2 (@"/api/v1/notifications/requests/$(request.id)/dismiss", POST) { account = accounts.active }, request);
 	}
 
 	public void on_accept () {
-		accepted (new Request.POST (@"/api/v1/notifications/requests/$(request.id)/accept").with_account (accounts.active), request);
+		accepted (new RequestV2 (@"/api/v1/notifications/requests/$(request.id)/accept", POST) { account = accounts.active }, request);
 	}
 
 	public void open () {

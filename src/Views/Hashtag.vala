@@ -22,14 +22,14 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 		if (following != null) {
 			this.following = following;
 		} else {
-			init_tag ();
+			init_tag.begin ();
 		}
 
 		if (featured != null) {
 			this.featured = featured;
 			create_featuring_button ();
 		} else if (following != null) {
-			init_tag ();
+			init_tag.begin ();
 		}
 	}
 
@@ -55,27 +55,32 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 	private void on_feature () {
 		feature_tag_btn.block_clicked ();
 		this.featured = !this.featured;
-		new Request.POST (@"/api/v1/tags/$tag/$(!this.featured ? "unfeature" : "feature")") // we reversed it above
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
+		on_feature_real.begin ();
+	}
 
-				var node = network.parse_node (parser);
-				var tag_info = API.Tag.from (node);
+	private async void on_feature_real () {
+		var req = new RequestV2 (@"/api/v1/tags/$tag/$(!this.featured ? "unfeature" : "feature")", POST) { // we reversed it above
+			account = accounts.active,
+			ctx = this
+		};
 
-				if (this.following != tag_info.following) this.following = tag_info.following;
-				if (this.featured != tag_info.featuring) this.featured = tag_info.featuring;
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var tag_info = API.Tag.from (node);
 
-				app.refresh_featured ();
-				feature_tag_btn.unblock_clicked ();
-			})
-			.on_error ((code, message) => {
-				warning (@"Couldn't feature tag '$tag': $code $message");
-				app.toast (message);
-				this.featured = !this.featured;
-				feature_tag_btn.unblock_clicked ();
-			})
-			.exec ();
+			if (this.following != tag_info.following) this.following = tag_info.following;
+			if (this.featured != tag_info.featuring) this.featured = tag_info.featuring;
+
+			app.refresh_featured ();
+			feature_tag_btn.unblock_clicked ();
+		} catch (Error e) {
+			warning (@"Couldn't feature tag '$tag': $(e.code) $(e.message)");
+			app.toast (e.message);
+			this.featured = !this.featured;
+			feature_tag_btn.unblock_clicked ();
+		}
 	}
 
 	Gtk.Button? follow_tag_btn = null;
@@ -105,18 +110,25 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 		var action = this.following ? "unfollow" : "follow";
 		this.following = !this.following;
 
-		new Request.POST (@"/api/v1/tags/$tag/$action")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var root = network.parse (parser);
-				if (!root.has_member ("following")) {
-					this.following = !this.following;
-				} else if (!this.following) {
-					remove_from_favs ();
-				}
-			})
-			.exec ();
+		follow_real.begin (action);
+	}
+
+	private async void follow_real (string action) {
+		var req = new RequestV2 (@"/api/v1/tags/$tag/$action", POST) {
+			account = accounts.active,
+			ctx = this
+		};
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var root = network.parse (parser);
+			if (!root.has_member ("following")) {
+				this.following = !this.following;
+			} else if (!this.following) {
+				remove_from_favs ();
+			}
+		} catch {}
 	}
 
 	private void remove_from_favs () {
@@ -134,18 +146,22 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 		}
 	}
 
-	private void init_tag () {
-		new Request.GET (@"/api/v1/tags/$tag")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var tag_info = API.Tag.from (node);
-				this.following = tag_info.following;
-				this.featured = tag_info.featuring;
-				create_featuring_button ();
-			})
-			.exec ();
+	private async void init_tag () {
+		var req = new RequestV2 (@"/api/v1/tags/$tag") {
+			account = accounts.active,
+			ctx = this
+		};
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var tag_info = API.Tag.from (node);
+
+			this.following = tag_info.following;
+			this.featured = tag_info.featuring;
+			create_featuring_button ();
+		} catch {}
 	}
 
 	public override string? get_stream_url () {

@@ -188,15 +188,14 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	async void register_client () throws Error {
 		debug ("Registering client");
 
-		var msg = new Request.POST ("/api/v1/apps")
-			.with_account (account)
-			.with_form_data ("client_name", Build.NAME)
-			.with_form_data ("redirect_uris", redirect_uri = setup_redirect_uri ())
-			.with_form_data ("scopes", get_full_scopes ())
-			.with_form_data ("website", Build.WEBSITE);
-		yield msg.await ();
+		var msg = new RequestV2 ("/api/v1/apps", POST) { account = account };
+		msg.add_form_data ("client_name", Build.NAME);
+		msg.add_form_data ("redirect_uris", redirect_uri = setup_redirect_uri ());
+		msg.add_form_data ("scopes", get_full_scopes ());
+		msg.add_form_data ("website", Build.WEBSITE);
+		var in_stream = yield msg.exec (null);
 
-		var parser = Network.get_parser_from_inputstream (msg.response_body);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		var root = network.parse (parser);
 
 		if (root.get_string_member ("name") != Build.NAME)
@@ -227,16 +226,15 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			throw new Oopsie.USER (_("Please enter a valid authorization code"));
 
 		debug ("Requesting access token");
-		var token_req = new Request.POST ("/oauth/token")
-			.with_account (account)
-			.with_form_data ("client_id", account.client_id)
-			.with_form_data ("client_secret", account.client_secret)
-			.with_form_data ("redirect_uri", redirect_uri)
-			.with_form_data ("grant_type", "authorization_code")
-			.with_form_data ("code", code_entry.text);
-		yield token_req.await ();
+		var token_req = new RequestV2 ("/oauth/token", POST) { account = account };
+		token_req.add_form_data ("client_id", account.client_id);
+		token_req.add_form_data ("client_secret", account.client_secret);
+		token_req.add_form_data ("redirect_uri", redirect_uri);
+		token_req.add_form_data ("grant_type", "authorization_code");
+		token_req.add_form_data ("code", code_entry.text);
+		var in_stream = yield token_req.exec (null);
 
-		var parser = Network.get_parser_from_inputstream (token_req.response_body);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		var root = network.parse (parser);
 		account.access_token = root.get_string_member ("access_token");
 

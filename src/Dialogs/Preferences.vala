@@ -80,32 +80,33 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		}
 
 		private void on_delete () {
-			app.question.begin (
+			on_delete_real.begin ();
+		}
+
+		private async void on_delete_real () {
+			var qs = yield app.question (
 				// translators: the variable is a filter name
 				{_("Delete %s?").printf (filter.title), false},
 				null,
 				this.win,
 				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 				null,
-				false,
-				(obj, res) => {
-					if (app.question.end (res).truthy ()) {
-						new Request.DELETE (@"/api/v2/filters/$(filter.id)")
-							.with_account (accounts.active)
-							.then (() => {
-								filter_deleted (this);
-							})
-							.on_error ((code, message) => {
-								// translators: the variable is an error message
-								win.add_toast (new Adw.Toast (_("Couldn't delete filter: %s").printf (message)) {
-									timeout = 0
-								});
-								warning (@"Couldn't delete filter $(this.filter.id): $code $message");
-							})
-							.exec ();
-					}
-				}
+				false
 			);
+
+			if (qs.truthy ()) {
+				var req = new RequestV2 (@"/api/v2/filters/$(filter.id)", DELETE) { account = accounts.active };
+				try {
+					yield req.exec (null);
+					filter_deleted (this);
+				} catch (Error e) {
+					// translators: the variable is an error message
+					win.add_toast (new Adw.Toast (_("Couldn't delete filter: %s").printf (e.message)) {
+						timeout = 0
+					});
+					warning (@"Couldn't delete filter $(this.filter.id): $(e.code) $(e.message)");
+				}
+			}
 		}
 	}
 
@@ -210,12 +211,12 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 		setup_languages_combo_row ();
 		setup_notification_mutes ();
-		setup_filters ();
+		setup_filters.begin ();
 		bind ();
 		closed.connect (on_window_closed);
 	}
 
-	void setup_filters () {
+	private async void setup_filters () {
 		filter_row = new Adw.ButtonRow () {
 			title = _("Add Filter…"),
 			start_icon_name = "tuba-plus-large-symbolic"
@@ -224,19 +225,21 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		keywords_group.add (filter_row);
 
 		// Only support v2 filters
-		new Request.GET ("/api/v2/filters")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				keywords_group.remove (filter_row);
-				Network.parse_array (parser, node => {
-					var row = new FilterRow (API.Filters.Filter.from (node), this);
-					row.filter_deleted.connect (on_filter_delete);
-					keywords_group.add (row);
-				});
-				keywords_group.add (filter_row);
-			})
-			.exec ();
+		var req = new RequestV2 ("/api/v2/filters") { account = accounts.active };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			keywords_group.remove (filter_row);
+			Network.parse_array (parser, node => {
+				var row = new FilterRow (API.Filters.Filter.from (node), this);
+				row.filter_deleted.connect (on_filter_delete);
+				keywords_group.add (row);
+			});
+			keywords_group.add (filter_row);
+		} catch (Error e) {
+			warning (@"Couldn't retrieve filters: $(e.code) $(e.message)");
+			on_toast (_("Couldn't retrieve filters: %s").printf (e.message), 5);
+		}
 	}
 
 	void on_filter_delete (FilterRow row) {
@@ -368,30 +371,45 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		}
 	}
 
+	private async void update_credentials_language_real (string new_lang) {
+		var req = new RequestV2 ("/api/v1/accounts/update_credentials", PATCH) { account = accounts.active };
+		req.add_form_data ("source[language]", new_lang);
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var updated = API.Account.from (node);
+
+			settings.default_language = updated.source.language;
+		} catch (Error e) {
+			warning (@"Couldn't update language: $(e.code) $(e.message)");
+			app.toast (_("Couldn't update language: %s").printf (e.message));
+		}
+	}
+
+	private async void update_credentials_privacy_real (string new_priv) {
+		var req = new RequestV2 ("/api/v1/accounts/update_credentials", PATCH) { account = accounts.active };
+		req.add_form_data ("source[privacy]", new_priv);
+		try {
+			yield req.exec (null);
+		} catch (Error e) {
+			warning (@"Couldn't update visibility: $(e.code) $(e.message)");
+			//  translators: toast shown when changing the default post visibility in settings fails
+			app.toast (_("Couldn't update visibility: %s").printf (e.message));
+		}
+	}
+
 	private void on_window_closed () {
 		if (lang_changed) {
 			var new_lang = ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale;
 			if (settings.default_language != ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale) {
 
-				new Request.PATCH ("/api/v1/accounts/update_credentials")
-					.with_account (accounts.active)
-					.with_form_data ("source[language]", new_lang)
-					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						var updated = API.Account.from (node);
-
-						settings.default_language = updated.source.language;
-					})
-					.exec ();
+				update_credentials_language_real.begin (new_lang);
 			}
 		}
 
 		if (privacy_changed && settings.default_post_visibility != "direct") {
-			new Request.PATCH ("/api/v1/accounts/update_credentials")
-				.with_account (accounts.active)
-				.with_form_data ("source[privacy]", settings.default_post_visibility)
-				.exec ();
+			update_credentials_privacy_real.begin (settings.default_post_visibility);
 		}
 
 		if (default_content_type_combo_row.visible)

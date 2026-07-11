@@ -425,37 +425,27 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 			total_bytes = buffer.get_size ();
 		}
 
-		var multipart = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
-		multipart.append_form_file ("file", mime.replace ("/", "."), mime, buffer);
-
-		var msg = new Soup.Message.from_multipart (@"$(accounts.active.instance)/api/v1/media", multipart);
-		msg.request_headers.append ("Authorization", @"Bearer $(accounts.active.access_token)");
+		var msg = new RequestV2 ("/api/v1/media", POST) {
+			account = accounts.active,
+			track_written_body_data = true
+		};
+		msg.add_form_data_file ("file", mime, buffer);
 		msg.wrote_body_data.connect (on_upload_bytes_written);
 
-		string? error = null;
-		InputStream? in_stream = null;
-		network.queue (msg, null,
-			(t_is) => {
-				in_stream = t_is;
-				upload.callback ();
-			},
-			(code, reason) => {
-				error = reason;
-				upload.callback ();
-			}
-		);
-		yield;
-
-		if (error != null || in_stream == null) {
+		GLib.InputStream? in_stream = null;
+		try {
+			in_stream = yield msg.exec (null);
+			if (in_stream == null) throw new Oopsie.INSTANCE ("Broken Stream");
+		} catch (Error e) {
 			this.uploading = false;
-			upload_error (error);
+			upload_error (e.message);
 			return;
 		}
 
 		this.progress = 1;
 		this.file = file;
 		try {
-			var parser = Network.get_parser_from_inputstream (in_stream);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 			var node = network.parse_node (parser);
 			var entity = accounts.active.create_entity<API.Attachment> (node);
 
@@ -582,28 +572,31 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 				? new_alt_text.slice (0, (long) (accounts.active.instance_info.tuba_max_alt_chars + 1))
 				: new_alt_text;
 
+			put_alt_text.begin (limited_alt_text);
+		}
+
+		private async void put_alt_text (string limited_alt_text) {
 			var builder = new Json.Builder ();
 			builder.begin_object ();
 				builder.set_member_name ("description");
 				builder.add_string_value (limited_alt_text);
 			builder.end_object ();
 
-			new Request.PUT (@"/api/v1/media/$media_id")
-				.with_account (accounts.active)
-				.body_json (builder)
-				.then (() => {
-					this.alt_text = limited_alt_text;
-				})
-				.on_error ((code, message) => {
-					warning (message);
-				})
-				.exec ();
+			var req = new RequestV2 (@"/api/v1/media/$media_id", PUT) { account = accounts.active };
+			req.set_body_from_json (builder);
+
+			try {
+				yield req.exec (null);
+				this.alt_text = limited_alt_text;
+			} catch (Error e) {
+				warning (@"Couldn't set alt text ($limited_alt_text): $(e.code) $(e.message)");
+			}
 		}
 	#endif
 
 	uint bytes_written = 0;
 	size_t total_bytes = 0;
-	private void on_upload_bytes_written (Soup.Message msg, uint chunk) {
+	private void on_upload_bytes_written (uint chunk) {
 		bytes_written += chunk;
 		this.progress = ((double) bytes_written / (double) total_bytes).clamp (0, 0.999999999);
 	}

@@ -144,30 +144,30 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public virtual signal void activated () {
 		bump_sidebar_items ();
-		gather_instance_info ();
-		gather_instance_custom_emojis ();
-		GLib.Idle.add (gather_fav_lists);
+		gather_instance_info.begin ();
+		gather_instance_custom_emojis.begin ();
+		gather_fav_lists.begin ();
 		GLib.Idle.add (gather_fav_tags);
-		check_announcements ();
+		check_announcements.begin ();
 
 		if (_account_settings != null) _account_settings = null;
 	}
 	public virtual signal void deactivated () {}
 	public virtual signal void added () {
 		subscribed = true;
-		check_notifications ();
+		check_notifications.begin ();
 	}
 	public virtual signal void removed () {
 		subscribed = false;
 	}
 
 	public void reconnect () {
-		gather_instance_info ();
-		gather_instance_custom_emojis ();
-		GLib.Idle.add (gather_fav_lists);
+		gather_instance_info.begin ();
+		gather_instance_custom_emojis.begin ();
+		gather_fav_lists.begin ();
 		GLib.Idle.add (gather_fav_tags);
-		check_announcements ();
-		check_notifications ();
+		check_announcements.begin ();
+		check_notifications.begin ();
 	}
 
 	construct {
@@ -203,28 +203,33 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	private void on_network_change () {
 		if (is_active && app.is_online) {
 			if (needs_update) {
-			needs_update = false;
-			new Request.GET (@"/api/v1/accounts/$(this.id)")
-				.with_account (this)
-				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
-					var node = network.parse_node (parser);
-					if (node == null) {
-						needs_update = true;
-						return;
-					}
-
-					var acc = API.Account.from (node);
-
-					if (this.display_name != acc.display_name || this.avatar != acc.avatar) {
-						this.display_name = acc.display_name;
-						this.avatar = acc.avatar;
-					}
-				})
-			.exec ();
+				needs_update = false;
+				on_network_change_real.begin ();
 			}
 
 			reconnect ();
+		}
+	}
+
+	private async void on_network_change_real () {
+		var req = new RequestV2 (@"/api/v1/accounts/$(this.id)") { account = accounts.active };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			if (node == null) {
+				needs_update = true;
+				return;
+			}
+
+			var acc = API.Account.from (node);
+
+			if (this.display_name != acc.display_name || this.avatar != acc.avatar) {
+				this.display_name = acc.display_name;
+				this.avatar = acc.avatar;
+			}
+		} catch (Error e) {
+			warning (@"Couldn't update accounr $(this.id): $(e.code) $(e.message)");
 		}
 	}
 
@@ -284,14 +289,14 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public async void verify_credentials () throws Error {
-		var req = new Request.GET ("/api/v1/accounts/verify_credentials").with_account (this);
-		yield req.await ();
+		var req = new RequestV2 ("/api/v1/accounts/verify_credentials") { account = this };
+		var in_stream = yield req.exec (null);
 
-		update_object (req.response_body);
+		yield update_object (in_stream);
 	}
 
-	public void update_object (InputStream in_stream) throws Error {
-		var parser = Network.get_parser_from_inputstream (in_stream);
+	public async void update_object (InputStream in_stream) throws Error {
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		var node = network.parse_node (parser);
 		var updated = API.Account.from (node);
 		patch (updated);
@@ -606,119 +611,121 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public GLib.ListStore supported_mime_types = new GLib.ListStore (typeof (StatusContentType));
-	public void gather_instance_info () {
+	public async void gather_instance_info () {
 		if (instance_info != null) return;
 
-		new Request.GET ("/api/v1/instance")
-			.with_account (this)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) return;
+		var req = new RequestV2 ("/api/v1/instance") { account = this };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			if (node == null) return;
 
-				instance_info = API.Instance.from (node);
+			instance_info = API.Instance.from (node);
 
-				var content_types = instance_info.compat_supported_mime_types;
-				if (content_types != null) {
-					supported_mime_types.remove_all ();
-					foreach (string content_type in content_types) {
-						supported_mime_types.append (new StatusContentType (content_type));
-					}
+			var content_types = instance_info.compat_supported_mime_types;
+			if (content_types != null) {
+				supported_mime_types.remove_all ();
+				foreach (string content_type in content_types) {
+					supported_mime_types.append (new StatusContentType (content_type));
 				}
+			}
 
-				var new_flags = this.tuba_instance_features;
+			var new_flags = this.tuba_instance_features;
 
-				if (instance_info.pleroma == null) {
-					gather_v2_instance_info ();
-				} else if (instance_info.pleroma.metadata != null && instance_info.pleroma.metadata.features != null) {
-					instance_info.tuba_can_translate = "akkoma:machine_translation" in instance_info.pleroma.metadata.features;
+			if (instance_info.pleroma == null) {
+				gather_v2_instance_info.begin ();
+			} else if (instance_info.pleroma.metadata != null && instance_info.pleroma.metadata.features != null) {
+				instance_info.tuba_can_translate = "akkoma:machine_translation" in instance_info.pleroma.metadata.features;
 
-					new_flags = instance_info.supports_quote_posting ? new_flags | InstanceFeatures.QUOTE : new_flags & ~InstanceFeatures.QUOTE;
-					new_flags = instance_info.tuba_can_translate ? new_flags | InstanceFeatures.TRANSLATION : new_flags & ~InstanceFeatures.TRANSLATION;
-					if (instance_info.supports_bubble) new_flags |= InstanceFeatures.BUBBLE;
+				new_flags = instance_info.supports_quote_posting ? new_flags | InstanceFeatures.QUOTE : new_flags & ~InstanceFeatures.QUOTE;
+				new_flags = instance_info.tuba_can_translate ? new_flags | InstanceFeatures.TRANSLATION : new_flags & ~InstanceFeatures.TRANSLATION;
+				if (instance_info.supports_bubble) new_flags |= InstanceFeatures.BUBBLE;
+			}
+
+			// LOCAL_ONLY is common between them and we can use it to skip the whole string parsing
+			if (instance_info.version != null && !(InstanceFeatures.LOCAL_ONLY in new_flags)) {
+				if ("Pleroma " in instance_info.version) {
+					new_flags |= InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS | InstanceFeatures.MUTUALS | InstanceFeatures.LOCAL_ONLY;
+				} else if ("Iceshrimp.NET/" in instance_info.version) {
+					new_flags |= InstanceFeatures.ICESHRIMP | InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.LOCAL_ONLY | InstanceFeatures.BUBBLE;
+				} else if ("+glitch" in instance_info.version) {
+					new_flags |= InstanceFeatures.GLITCH | InstanceFeatures.LOCAL_ONLY | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS;
+				} else if ("+hometown" in instance_info.version) {
+					new_flags |= InstanceFeatures.LOCAL_ONLY | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS;
+				} else if ("Akkoma " in instance_info.version) {
+					new_flags |= InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.LOCAL_ONLY;
 				}
+			}
+			tuba_instance_features_update_and_save (new_flags);
 
-				// LOCAL_ONLY is common between them and we can use it to skip the whole string parsing
-				if (instance_info.version != null && !(InstanceFeatures.LOCAL_ONLY in new_flags)) {
-					if ("Pleroma " in instance_info.version) {
-						new_flags |= InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS | InstanceFeatures.MUTUALS | InstanceFeatures.LOCAL_ONLY;
-					} else if ("Iceshrimp.NET/" in instance_info.version) {
-						new_flags |= InstanceFeatures.ICESHRIMP | InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.LOCAL_ONLY | InstanceFeatures.BUBBLE;
-					} else if ("+glitch" in instance_info.version) {
-						new_flags |= InstanceFeatures.GLITCH | InstanceFeatures.LOCAL_ONLY | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS;
-					} else if ("+hometown" in instance_info.version) {
-						new_flags |= InstanceFeatures.LOCAL_ONLY | InstanceFeatures.FEATURE_TAGS | InstanceFeatures.ENDORSE_USERS;
-					} else if ("Akkoma " in instance_info.version) {
-						new_flags |= InstanceFeatures.EMOJI_REACTIONS | InstanceFeatures.LOCAL_ONLY;
-					}
-				}
-				tuba_instance_features_update_and_save (new_flags);
+			if (instance_info.urls != null && instance_info.urls.streaming_api != null)
+				tuba_update_streaming_url (instance_info.urls.streaming_api);
 
-				if (instance_info.urls != null && instance_info.urls.streaming_api != null)
-					tuba_update_streaming_url (instance_info.urls.streaming_api);
-
-				app.handle_share ();
-				bump_sidebar_items ();
-			})
-			.exec ();
+			app.handle_share ();
+			bump_sidebar_items ();
+		} catch (Error e) {
+			warning (@"Couldn't fetch instance: $(e.code) $(e.message)");
+		}
 	}
 
 	protected virtual void bump_sidebar_items () {}
 
-	private void gather_v2_instance_info () {
-		new Request.GET ("/api/v2/instance")
-			.with_account (this)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) return;
+	private async void gather_v2_instance_info () {
+		var req = new RequestV2 ("/api/v2/instance") { account = this };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			if (node == null) return;
 
-				InstanceFeatures? new_flags = null;
-				var instance_v2 = API.InstanceV2.from (node);
-				if (instance_v2 != null) {
-					new_flags = this.tuba_instance_features;
+			InstanceFeatures? new_flags = null;
+			var instance_v2 = API.InstanceV2.from (node);
+			if (instance_v2 != null) {
+				new_flags = this.tuba_instance_features;
 
-					if (instance_v2.configuration != null) {
-						if (instance_v2.configuration.translation != null) this.instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
-						if (instance_v2.configuration.media_attachments != null) this.instance_info.tuba_max_alt_chars = instance_v2.configuration.media_attachments.description_limit;
+				if (instance_v2.configuration != null) {
+					if (instance_v2.configuration.translation != null) this.instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
+					if (instance_v2.configuration.media_attachments != null) this.instance_info.tuba_max_alt_chars = instance_v2.configuration.media_attachments.description_limit;
 
-						new_flags = instance_info.tuba_can_translate ? new_flags | InstanceFeatures.TRANSLATION : new_flags & ~InstanceFeatures.TRANSLATION;
-					}
-
-					if (instance_v2.api_versions != null && instance_v2.api_versions.mastodon > 0) {
-						if (!this.tuba_api_versions.tuba_same (instance_v2.api_versions)) {
-							this.tuba_api_versions = instance_v2.api_versions;
-							accounts.update_account (this);
-						}
-						this.tuba_probably_has_notification_filters = true;
-
-						if (this.tuba_api_versions.mastodon > 1) {
-							gather_annual_report ();
-							new_flags |= InstanceFeatures.GROUP_NOTIFICATIONS;
-						}
-
-						if (this.tuba_api_versions.mastodon > 5) {
-							new_flags |= InstanceFeatures.ENDORSE_USERS;
-						}
-
-						if (this.tuba_api_versions.chuckya > 0) {
-							new_flags |= InstanceFeatures.EMOJI_REACTIONS;
-						}
-
-						new_flags |= InstanceFeatures.FEATURE_TAGS | InstanceFeatures.MUTUALS;
-						if (instance_info.supports_bubble) new_flags |= InstanceFeatures.BUBBLE;
-					}
+					new_flags = instance_info.tuba_can_translate ? new_flags | InstanceFeatures.TRANSLATION : new_flags & ~InstanceFeatures.TRANSLATION;
 				}
 
-				if (new_flags != null) tuba_instance_features_update_and_save (new_flags);
-				bump_sidebar_items ();
-			})
-			.exec ();
+				if (instance_v2.api_versions != null && instance_v2.api_versions.mastodon > 0) {
+					if (!this.tuba_api_versions.tuba_same (instance_v2.api_versions)) {
+						this.tuba_api_versions = instance_v2.api_versions;
+						accounts.update_account (this);
+					}
+					this.tuba_probably_has_notification_filters = true;
+
+					if (this.tuba_api_versions.mastodon > 1) {
+						gather_annual_report.begin ();
+						new_flags |= InstanceFeatures.GROUP_NOTIFICATIONS;
+					}
+
+					if (this.tuba_api_versions.mastodon > 5) {
+						new_flags |= InstanceFeatures.ENDORSE_USERS;
+					}
+
+					if (this.tuba_api_versions.chuckya > 0) {
+						new_flags |= InstanceFeatures.EMOJI_REACTIONS;
+					}
+
+					new_flags |= InstanceFeatures.FEATURE_TAGS | InstanceFeatures.MUTUALS;
+					if (instance_info.supports_bubble) new_flags |= InstanceFeatures.BUBBLE;
+				}
+			}
+
+			if (new_flags != null) tuba_instance_features_update_and_save (new_flags);
+			bump_sidebar_items ();
+		} catch (Error e) {
+			warning (@"Couldn't fetch instance v2: $(e.code) $(e.message)");
+		}
 	}
 
 	public int tuba_last_fediwrapped_year { get; set; default=0; }
 	API.AnnualReports? annual_report;
-	private void gather_annual_report () {
+	private async void gather_annual_report () {
 		var now = new GLib.DateTime.now ();
 
 		int year = 0;
@@ -733,15 +740,16 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				return;
 		}
 
-		new Request.GET (@"/api/v1/annual_reports/$(year)")
-			.with_account (this)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				annual_report = API.AnnualReports.from (node);
-				if (annual_report.annual_reports.size > 0) tuba_last_fediwrapped_year = year;
-			})
-			.exec ();
+		var req = new RequestV2 (@"/api/v1/annual_reports/$(year)") { account = this };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			annual_report = API.AnnualReports.from (node);
+			if (annual_report.annual_reports.size > 0) tuba_last_fediwrapped_year = year;
+		} catch (Error e) {
+			debug (@"Couldn't fetch annual reports: $(e.code) $(e.message)");
+		}
 	}
 
 	public void open_latest_wrapped () {
@@ -751,21 +759,22 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		annual_report = null;
 	}
 
-	public void gather_instance_custom_emojis () {
+	public async void gather_instance_custom_emojis () {
 		if (instance_emojis != null) return;
 
-		new Request.GET ("/api/v1/custom_emojis")
-			.with_account (this)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) return;
+		var req = new RequestV2 ("/api/v1/custom_emojis") { account = this };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			if (node == null) return;
 
-				Value res_emojis;
-				Entity.des_list (out res_emojis, node, typeof (API.Emoji));
-				instance_emojis = (Gee.ArrayList<Tuba.API.Emoji>) res_emojis;
-			})
-			.exec ();
+			Value res_emojis;
+			Entity.des_list (out res_emojis, node, typeof (API.Emoji));
+			instance_emojis = (Gee.ArrayList<Tuba.API.Emoji>) res_emojis;
+		} catch (Error e) {
+			warning (@"Couldn't fetch custom emojis: $(e.code) $(e.message)");
+		}
 	}
 
 	public bool gather_fav_tags () {
@@ -794,45 +803,44 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		return GLib.Source.REMOVE;
 	}
 
-	public bool gather_fav_lists () {
+	public async void gather_fav_lists () {
 		if (settings.favorite_lists_ids.length == 0) {
 			this.register_extra (this.list_places);
-			return GLib.Source.REMOVE;
+			return;
 		}
 
-		new Request.GET ("/api/v1/lists")
-			.with_account (this)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				Place[] fav_lists = {};
-				string[] all_ids = {};
-				Network.parse_array (parser, node => {
-					var list = API.List.from (node);
-					if (list.id in settings.favorite_lists_ids) {
-						fav_lists += new Place () {
-							icon = "tuba-list-compact-symbolic",
-							title = list.title,
-							extra_data = list,
-							open_func = (win, list) => {
-								win.open_view (set_as_sidebar_item (new Views.List ((API.List) list)));
+		var req = new RequestV2 ("/api/v1/lists") { account = this };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			Place[] fav_lists = {};
+			string[] all_ids = {};
+			Network.parse_array (parser, node => {
+				var list = API.List.from (node);
+				if (list.id in settings.favorite_lists_ids) {
+					fav_lists += new Place () {
+						icon = "tuba-list-compact-symbolic",
+						title = list.title,
+						extra_data = list,
+						open_func = (win, list) => {
+							win.open_view (set_as_sidebar_item (new Views.List ((API.List) list)));
 
-							}
-						};
-					}
-
-					all_ids += list.id;
-				});
-				this.register_extra (this.list_places, fav_lists);
-
-				string[] new_favs = {};
-				foreach (string fav_id in settings.favorite_lists_ids) {
-					if (fav_id in all_ids) new_favs += fav_id;
+						}
+					};
 				}
-				settings.favorite_lists_ids = new_favs;
-			})
-			.exec ();
 
-		return GLib.Source.REMOVE;
+				all_ids += list.id;
+			});
+			this.register_extra (this.list_places, fav_lists);
+
+			string[] new_favs = {};
+			foreach (string fav_id in settings.favorite_lists_ids) {
+				if (fav_id in all_ids) new_favs += fav_id;
+			}
+			settings.favorite_lists_ids = new_favs;
+		} catch (Error e) {
+			warning (@"Couldn't fetch lists: $(e.code) $(e.message)");
+		}
 	}
 
 	protected static Views.Base set_as_sidebar_item (Views.Base view) {
@@ -841,55 +849,60 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		return view;
 	}
 
-	public void init_notifications () {
-		new Request.GET (@"/api/v1/notifications$(Views.Notifications.get_notifications_excluded_types_query_param ())")
-			.with_account (this)
-			.with_param ("min_id", last_read_id.to_string ())
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var array = Network.get_array_mstd (parser);
-				if (array != null) {
-					unread_count = (int)array.get_length ();
-					if (unread_count > 0) {
-						last_received_id = int.parse (array.get_object_element (0).get_string_member_with_default ("id", "-1"));
-					}
+	public async void init_notifications () {
+		var req = new RequestV2 (@"/api/v1/notifications$(Views.Notifications.get_notifications_excluded_types_query_param ())") {
+			account = this
+		};
+		req.add_parameter ("min_id", last_read_id.to_string ());
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var array = Network.get_array_mstd (parser);
+			if (array != null) {
+				unread_count = (int)array.get_length ();
+				if (unread_count > 0) {
+					last_received_id = int.parse (array.get_object_element (0).get_string_member_with_default ("id", "-1"));
 				}
-			})
-			.exec ();
+			}
+		} catch (Error e) {
+			warning (@"Couldn't init notifications: $(e.code) $(e.message)");
+		}
 	}
 
-	public virtual void check_notifications () {
-		new Request.GET ("/api/v1/markers?timeline[]=notifications")
-			.with_account (this)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var root = network.parse (parser);
-				if (!root.has_member ("notifications")) return;
-				var notifications = root.get_object_member ("notifications");
-				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1"));
-				init_notifications ();
-			})
-			.exec ();
+	public virtual async void check_notifications () {
+		var req = new RequestV2 ("/api/v1/markers?timeline[]=notifications") { account = this };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var root = network.parse (parser);
+			if (!root.has_member ("notifications")) return;
+			var notifications = root.get_object_member ("notifications");
+			last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1"));
+			yield init_notifications ();
+		} catch (Error e) {
+			warning (@"Couldn't check notifications: $(e.code) $(e.message)");
+		}
 	}
 
-	public void check_announcements () {
-		new Request.GET ("/api/v1/announcements")
-			.with_account (this)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var array = Network.get_array_mstd (parser);
-				if (array != null) {
-					int t_unread_announcements = 0;
-					array.foreach_element ((array, i, node) => {
-						if (node.get_object ().get_boolean_member_with_default ("read", true) == false) t_unread_announcements += 1;
-					});
-					unread_announcements = t_unread_announcements;
-				}
-			})
-			.exec ();
+	public async void check_announcements () {
+		var req = new RequestV2 ("/api/v1/announcements") { account = this };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var array = Network.get_array_mstd (parser);
+			if (array != null) {
+				int t_unread_announcements = 0;
+				array.foreach_element ((array, i, node) => {
+					if (node.get_object ().get_boolean_member_with_default ("read", true) == false) t_unread_announcements += 1;
+				});
+				unread_announcements = t_unread_announcements;
+			}
+		} catch (Error e) {
+			warning (@"Couldn't check announcements: $(e.code) $(e.message)");
+		}
 	}
 
-	public void read_notifications (int up_to_id) {
+	public async void read_notifications (int up_to_id) {
 		debug (@"Reading notifications up to id $up_to_id");
 
 		if (up_to_id > last_read_id) {
@@ -897,17 +910,23 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 			if (last_read_id != -1) {
 				// Mark as read
-				new Request.POST ("/api/v1/markers")
-					.with_account (this)
-					.with_form_data ("notifications[last_read_id]", up_to_id.to_string ())
-					.exec ();
+				var req = new RequestV2 ("/api/v1/markers", POST) { account = this };
+				req.add_form_data ("notifications[last_read_id]", up_to_id.to_string ());
+				try {
+					yield req.exec (null);
+				} catch (Error e) {
+					warning (@"Couldn't mark notifications as read: $(e.code) $(e.message)");
+				}
 
 				// Pleroma FE doesn't mark them as read by just updating the marker
 				if (instance_info != null && instance_info.pleroma != null) {
-					new Request.POST ("/api/v1/pleroma/notifications/read")
-						.with_account (this)
-						.with_form_data ("max_id", up_to_id.to_string ())
-						.exec ();
+					req = new RequestV2 ("/api/v1/pleroma/notifications/read", POST) { account = this };
+					req.add_form_data ("max_id", up_to_id.to_string ());
+					try {
+						yield req.exec (null);
+					} catch (Error e) {
+						warning (@"Couldn't mark pleroma notifications as read: $(e.code) $(e.message)");
+					}
 				}
 
 				foreach (string notification_id in sent_notifications.keys) {

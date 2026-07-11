@@ -46,7 +46,7 @@ public class Tuba.API.Poll : Entity, Widgetizable {
 
 	public override void open () {}
 
-	public static Request vote (
+	public static RequestV2 vote (
 		InstanceAccount acc,
 		Gee.ArrayList<PollOption> options,
 		Gee.ArrayList<string> selection,
@@ -72,13 +72,8 @@ public class Tuba.API.Poll : Entity, Widgetizable {
 
 		builder.end_object ();
 
-		var generator = new Json.Generator ();
-		generator.set_root (builder.get_root ());
-		var json = generator.to_data (null);
-
-		Request voting = new Request.POST (@"/api/v1/polls/$(id)/votes")
-			.with_account (acc);
-		voting.set_request_body_from_bytes ("application/json", new Bytes.take (json.data));
+		RequestV2 voting = new RequestV2 (@"/api/v1/polls/$(id)/votes", POST) { account = acc };
+		voting.set_body_from_json (builder);
 		return voting;
 	}
 }

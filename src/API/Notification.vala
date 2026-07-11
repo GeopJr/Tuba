@@ -60,6 +60,24 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 	public RelationshipSeveranceEvent? event { get; set; default = null; }
 	public RelationshipSeveranceEvent? relationship_severance_event { get; set; default = null; }
 
+	private async void open_annual_report (int year) {
+		var req = new RequestV2 (@"/api/v1/annual_reports/$year") { account = accounts.active };
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			API.AnnualReports.from (node).open (year);
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (Error e) {
+			warning (@"Error while opening annual report: $(e.code) $(e.message)");
+
+			var dlg = app.inform (_("Error"), e.message);
+			dlg.present (app.main_window);
+		}
+	}
+
 	public override void open () {
 		switch (kind) {
 			case InstanceAccount.KIND_SEVERED_RELATIONSHIPS:
@@ -88,15 +106,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				} else {
 					year = new GLib.DateTime.from_iso8601 (this.created_at, null).get_year ();
 				}
-
-				new Request.GET (@"/api/v1/annual_reports/$year")
-					.with_account (accounts.active)
-					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						API.AnnualReports.from (node).open (year);
-					})
-					.exec ();
+				open_annual_report.begin (year);
 				break;
 			case InstanceAccount.KIND_COLLECTION_ADDED:
 			case InstanceAccount.KIND_COLLECTION_EDITED:

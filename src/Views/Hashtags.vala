@@ -10,13 +10,18 @@ public class Tuba.Views.Hashtags : Views.Timeline {
 		}
 	}
 
+	public Hashtags () {
+		Object (
+			url: "/api/v1/followed_tags",
+			label: _("Hashtags"),
+			icon: "tuba-hashtag-symbolic",
+			empty_state_title: _("No Hashtags"),
+			batch_size_min: 20
+		);
+	}
+
 	construct {
-		url = "/api/v1/followed_tags";
-		label = _("Hashtags");
-		icon = "tuba-hashtag-symbolic";
 		accepts = typeof (FavoriteTag);
-		empty_state_title = _("No Hashtags");
-		batch_size_min = 20;
 	}
 
 	protected override void build_header () {

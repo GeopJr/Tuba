@@ -1,8 +1,13 @@
 public class Tuba.Views.Federated : Views.Timeline {
+	public Federated () {
+		Object (
+			url: "/api/v1/timelines/public",
+			label: _("Federated"),
+			icon: "tuba-globe-symbolic"
+		);
+	}
+
 	construct {
-		url = "/api/v1/timelines/public";
-		label = _("Federated");
-		icon = "tuba-globe-symbolic";
 		is_public = true;
 	}
 

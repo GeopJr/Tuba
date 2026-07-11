@@ -63,8 +63,8 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	private static async bool download (string attachment_url, File file) {
 		bool res = false;
 		try {
-			var req = yield new Request.GET (attachment_url).await ();
-			var data = req.response_body;
+			var req = new RequestV2 (attachment_url);
+			var data = yield req.exec (null);
 			FileOutputStream stream = file.replace (null, false, FileCreateFlags.PRIVATE);
 			try {
 				stream.splice (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);

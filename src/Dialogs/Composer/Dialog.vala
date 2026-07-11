@@ -1097,35 +1097,26 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	}
 
 	private async void transaction () throws Error {
-		var publish_req = new Request () {
-			method = "POST",
-			url = "/api/v1/statuses",
+		var publish_req = new RequestV2 ("/api/v1/statuses", POST) {
 			account = accounts.active
 		};
 
 		if (this.edit_status_id != null && this.edit_status_id != "") {
-			publish_req = new Request () {
-				method = "PUT",
-				url = @"/api/v1/statuses/$(this.edit_status_id)",
+			publish_req = new RequestV2 (@"/api/v1/statuses/$(this.edit_status_id)", PUT) {
 				account = accounts.active
 			};
 		}
 
-		publish_req.body_json (populate_json_body ());
-		yield publish_req.await ();
+		publish_req.set_body_from_json (populate_json_body ());
+		var in_stream = yield publish_req.exec (null);
 
-		var parser = Network.get_parser_from_inputstream (publish_req.response_body);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		var node = network.parse_node (parser);
 		var status = API.Status.from (node);
 		debug (@"Published post with id $(status.id)");
 
 		if (this.scheduled_id != null) {
-			new Request.DELETE (@"/api/v1/scheduled_statuses/$scheduled_id")
-				.with_account (accounts.active)
-				.then (() => {
-					if (cb != null) cb (status);
-				})
-				.exec ();
+			delete_scheduled_post.begin (status);
 		} else if (cb != null) {
 			cb (status);
 		} else if (schedule_iso8601 != null) {
@@ -1133,6 +1124,17 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		}
 
 		this.force_close ();
+	}
+
+	private async void delete_scheduled_post (API.Status status) {
+		var req = new RequestV2 (@"/api/v1/scheduled_statuses/$scheduled_id", DELETE) { account = accounts.active };
+		try {
+			yield req.exec (null);
+			if (cb != null) cb (status);
+		} catch (Error e) {
+			warning (@"Couldn't delete scheduled post: $(e.code) $(e.message)");
+			app.toast (_("Couldn't delete scheduled post: %s").printf (e.message));
+		}
 	}
 
 	// This is used to check if something changed so we

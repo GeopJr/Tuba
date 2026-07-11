@@ -121,12 +121,12 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 		return Entity.from_json (typeof (API.Account), node) as API.Account;
 	}
 
-	public static Request search (string query) throws Error {
-		return new Request.GET ("/api/v1/accounts/search")
-			.with_account (accounts.active)
-			.with_param ("q", query)
-			.with_param ("resolve", "false")
-			.with_param ("limit", "4");
+	public static RequestV2 search (string query) throws Error {
+		var req = new RequestV2 ("/api/v1/accounts/search") { account = accounts.active };
+		req.add_parameter ("q", query);
+		req.add_parameter ("resolve", "false");
+		req.add_parameter ("limit", "4");
+		return req;
 	}
 
 	public bool is_self () {
@@ -160,13 +160,11 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 		}
 	}
 
-	public Request accept_follow_request () {
-		return new Request.POST (@"/api/v1/follow_requests/$id/authorize")
-			.with_account (accounts.active);
+	public RequestV2 accept_follow_request () {
+		return new RequestV2 (@"/api/v1/follow_requests/$id/authorize", POST) { account = accounts.active };
 	}
 
-	public Request decline_follow_request () {
-		return new Request.POST (@"/api/v1/follow_requests/$id/reject")
-			.with_account (accounts.active);
+	public RequestV2 decline_follow_request () {
+		return new RequestV2 (@"/api/v1/follow_requests/$id/reject", POST) { account = accounts.active };
 	}
 }

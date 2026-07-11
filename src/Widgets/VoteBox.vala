@@ -48,23 +48,27 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 	private void on_vote_button_clicked (Gtk.Button button) {
 		button.sensitive = false;
 		update_selected_index ();
+		on_vote_real.begin (button);
+	}
 
-		API.Poll.vote (accounts.active, poll.options, selected_index, poll.id)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
+	private async void on_vote_real (Gtk.Button button) {
+		var req = API.Poll.vote (accounts.active, poll.options, selected_index, poll.id);
 
-				freeze_notify ();
-				poll = API.Poll.from (network.parse_node (parser));
-				thaw_notify ();
-				update_rows ();
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			freeze_notify ();
+			poll = API.Poll.from (network.parse_node (parser));
+			thaw_notify ();
+			update_rows ();
 
-				button.sensitive = true;
-			})
-			.on_error ((code, reason) => {
-				app.toast ("%s: %s".printf (_("Error"), reason));
-				button.sensitive = true;
-			})
-			.exec ();
+			button.sensitive = true;
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (Error e) {
+			warning (@"Error while voting: $(e.code) $(e.message)");
+			app.toast ("%s: %s".printf (_("Error"), e.message));
+		}
 	}
 
 	void update_translations () {
@@ -186,27 +190,30 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 
 		poll_box.grab_focus ();
 		button_refresh.sensitive = false;
-		new Request.GET (@"/api/v1/polls/$(poll.id)")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				button_refresh.sensitive = true;
+		do_refresh_poll_real.begin ();
+	}
 
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var parsed_poll = API.Poll.from (node);
+	private async void do_refresh_poll_real () {
+		var req = new RequestV2 (@"/api/v1/polls/$(poll.id)") { account = accounts.active };
 
-				if (parsed_poll != null) {
-					poll = parsed_poll;
-					update_rows ();
-				}
-			})
-			.on_error ((code, message) => {
-				warning (@"Couldn't refresh poll $(poll.id): $code $message");
-				button_refresh.sensitive = true;
+		try {
+			var in_stream = yield req.exec (null);
+			button_refresh.sensitive = true;
 
-				app.toast (@"Couldn't refresh poll: $message");
-			})
-			.exec ();
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var parsed_poll = API.Poll.from (node);
+
+			if (parsed_poll != null) {
+				poll = parsed_poll;
+				update_rows ();
+			}
+		} catch (Error e) {
+			warning (@"Couldn't refresh poll $(poll.id): $(e.code) $(e.message)");
+			button_refresh.sensitive = true;
+
+			app.toast (@"Couldn't refresh poll: $(e.message)");
+		}
 	}
 
 	[GtkCallback] private void on_toggle_results () {

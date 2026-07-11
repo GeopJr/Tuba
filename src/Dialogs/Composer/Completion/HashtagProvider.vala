@@ -18,10 +18,10 @@ public class Tuba.HashtagProvider: Tuba.CompletionProvider {
 
 	public override async ListModel suggest (string word, Cancellable? cancellable) throws Error {
 		var req = API.Tag.search (word.substring (1));
-		yield req.await ();
+		var in_stream = yield req.exec (null);
 
 		var suggestions = new GLib.ListStore (typeof (Object));
-		var parser = Network.get_parser_from_inputstream (req.response_body);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		var results = API.SearchResults.from (network.parse_node (parser));
 		if (results != null) {
 			results.hashtags.foreach (tag => {

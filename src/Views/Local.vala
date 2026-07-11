@@ -4,10 +4,15 @@ public class Tuba.Views.Local : Views.Federated {
 		icon = "tuba-people-symbolic";
 	}
 
-	public override Request append_params (Request r) {
-		var req = base.append_params (r);
-		req.with_param ("local", "true");
-		return req;
+	//  public override Request append_params (Request r) {
+	//  	var req = base.append_params (r);
+	//  	req.with_param ("local", "true");
+	//  	return req;
+	//  }
+
+	public override void append_params_v2 (RequestV2 req) {
+		base.append_params_v2 (req);
+		req.add_parameter ("local", "true");
 	}
 
 	public override string? get_stream_url () {

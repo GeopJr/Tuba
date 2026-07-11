@@ -315,27 +315,27 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 
 		builder.end_object ();
 
-		Request req;
+		RequestV2 req;
 		if (filter_id != null) {
-			req = new Request.PUT (@"/api/v2/filters/$filter_id");
+			req = new RequestV2 (@"/api/v2/filters/$filter_id", PUT) { account = accounts.active };
 		} else {
-			req = new Request.POST ("/api/v2/filters");
+			req = new RequestV2 ("/api/v2/filters", POST) { account = accounts.active };
 		}
+		req.set_body_from_json (builder);
+		save_real.begin (req);
+	}
 
-		req
-			.body_json (builder)
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				saved (API.Filters.Filter.from (node));
-				on_close ();
-			})
-			.on_error ((code, message) => {
-				this.sensitive = true;
-				this.toast (_("Couldn't edit filter: %s").printf (message), 0);
-				warning (@"Couldn't edit filter: $code $message");
-			})
-			.exec ();
+	private async void save_real (RequestV2 req) {
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			saved (API.Filters.Filter.from (node));
+			on_close ();
+		} catch (Error e) {
+			this.sensitive = true;
+			this.toast (_("Couldn't edit filter: %s").printf (e.message), 0);
+			warning (@"Couldn't edit filter: $(e.code) $(e.message)");
+		}
 	}
 }

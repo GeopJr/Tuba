@@ -43,18 +43,22 @@ public class Tuba.API.Announcement : Entity, Widgetizable {
 
 	public override void open () {
 		if (this.read) return;
+		open_real.begin ();
+	}
 
-		new Request.POST (@"/api/v1/announcements/$(this.id)/dismiss")
-			.with_account (accounts.active)
-			.then (() => {
-				this.read = true;
-			})
-			.on_error ((code, message) => {
-				warning (@"Error while dismissing announcement: $code $message");
+	private async void open_real () {
+		var req = new RequestV2 (@"/api/v1/announcements/$(this.id)/dismiss", POST) { account = accounts.active };
 
-				var dlg = app.inform (_("Error"), message);
-				dlg.present (app.main_window);
-			})
-			.exec ();
+		try {
+			yield req.exec (null);
+			this.read = true;
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (Error e) {
+			warning (@"Error while dismissing announcement: $(e.code) $(e.message)");
+
+			var dlg = app.inform (_("Error"), e.message);
+			dlg.present (app.main_window);
+		}
 	}
 }

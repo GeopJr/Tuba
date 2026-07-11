@@ -1,4 +1,12 @@
 public class Tuba.Views.Accounts : Views.Timeline {
+	public Accounts.prefilled (string url, string label, string icon) {
+		Object (
+			url: url,
+			label: label,
+			icon: icon
+		);
+	}
+
 	public override void on_content_changed () {
 		if (accepts == typeof (API.Account) || accepts == typeof (API.Suggestion)) {
 			string[] ids_to_rs = {};

@@ -5,15 +5,19 @@ public class Tuba.Views.Home : Views.Timeline {
 		}
 	}
 
+	public Home () {
+		Object (
+			url: "/api/v1/timelines/home",
+			label: _("Home"),
+			icon: "tuba-user-home-symbolic",
+			badge_number: 0,
+			needs_attention: false
+		);
+	}
+
 	Gtk.Revealer compose_button_rev;
 	Gtk.Button compose_button;
 	construct {
-		url = "/api/v1/timelines/home";
-		label = _("Home");
-		icon = "tuba-user-home-symbolic";
-		badge_number = 0;
-		needs_attention = false;
-
 		scroll_to_top_rev.margin_end = 32;
 		scroll_to_top_rev.margin_bottom = 24;
 		scroll_to_top_rev.add_css_class ("scroll-to-top-btn");

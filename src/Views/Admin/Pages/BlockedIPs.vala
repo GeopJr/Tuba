@@ -29,6 +29,6 @@ public class Tuba.Views.Admin.Page.BlockedIPs : Views.Admin.Page.Base {
 	}
 
 	private void refresh () {
-		pagination_timeline.request_idle ();
+		pagination_timeline.request.begin ();
 	}
 }

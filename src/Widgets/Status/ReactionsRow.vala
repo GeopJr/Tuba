@@ -138,54 +138,63 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 	}
 
 	private void on_reaction_toggled (ReactButton btn) {
-		btn.sensitive = false;
-		reaction_request (btn.shortcode, btn.has_reacted)
-			.with_account (accounts.active)
-			.then (() => {
-				btn.update_reacted (!btn.has_reacted);
-				btn.sensitive = true;
-			})
-			.on_error ((code, message) => {
-				warning (@"Error while reacting to $status_id with $(btn.shortcode): $code $message");
-				btn.sensitive = true;
-
-				app.toast ("%s: %s".printf (_("Error"), message));
-				update_reaction_add_state ();
-			})
-			.exec ();
+		on_reaction_toggled_real.begin (btn);
 	}
 
-	private void react_with_shortcode (string shortcode) {
-		if (react_btn_list.has_key (shortcode)) {
-			on_reaction_toggled (react_btn_list.get (shortcode));
-		} else {
-			reaction_request (shortcode, false)
-				.with_account (accounts.active)
-				.then ((in_stream) => {
-					if (!this.is_announcement) {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						var status = API.Status.from (node);
-						if (status.formal.compat_status_reactions != null) {
-							update_reactions_diff (status.formal.compat_status_reactions);
-						}
-					}
-				})
-				.on_error ((code, message) => {
-					warning (@"Error while reacting to $status_id with $(shortcode): $code $message");
-					app.toast ("%s: %s".printf (_("Error"), message));
-				})
-				.exec ();
+	private async void on_reaction_toggled_real (ReactButton btn) {
+		btn.sensitive = false;
+
+		var req = reaction_request (btn.shortcode, btn.has_reacted);
+		req.account = accounts.active;
+
+		try {
+			yield req.exec (null);
+			btn.update_reacted (!btn.has_reacted);
+			btn.sensitive = true;
+		} catch (Error e) {
+			warning (@"Error while reacting to $status_id with $(btn.shortcode): $(e.code) $(e.message)");
+			btn.sensitive = true;
+
+			app.toast ("%s: %s".printf (_("Error"), e.message));
+			update_reaction_add_state ();
 		}
 	}
 
-	private Request reaction_request (string shortcode, bool has_reacted) {
+	private void react_with_shortcode (string shortcode) {
+		react_with_shortcode_real.begin (shortcode);
+	}
+
+	private async void react_with_shortcode_real (string shortcode) {
+		if (react_btn_list.has_key (shortcode)) {
+			yield on_reaction_toggled_real (react_btn_list.get (shortcode));
+		} else {
+			var req = reaction_request (shortcode, false);
+			req.account = accounts.active;
+
+			try {
+				var in_stream = yield req.exec (null);
+				if (!this.is_announcement) {
+					Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+					var node = network.parse_node (parser);
+					var status = API.Status.from (node);
+					if (status.formal.compat_status_reactions != null) {
+						update_reactions_diff (status.formal.compat_status_reactions);
+					}
+				}
+			} catch (Error e) {
+				warning (@"Error while reacting to $status_id with $(shortcode): $(e.code) $(e.message)");
+				app.toast ("%s: %s".printf (_("Error"), e.message));
+			}
+		}
+	}
+
+	private RequestV2 reaction_request (string shortcode, bool has_reacted) {
 		if (this.is_announcement) {
 			string endpoint = @"/api/v1/announcements/$status_id/reactions/$(Uri.escape_string(shortcode))";
-			return has_reacted ? new Request.DELETE (endpoint) : new Request.PUT (endpoint);
+			return has_reacted ? new RequestV2 (endpoint, DELETE) : new RequestV2 (endpoint, PUT);
 		} else if (accounts.active.instance_info.pleroma != null) {
 			string endpoint = @"/api/v1/pleroma/statuses/$status_id/reactions/$(Uri.escape_string(shortcode))";
-			return has_reacted ? new Request.DELETE (endpoint) : new Request.PUT (endpoint);
+			return has_reacted ? new RequestV2 (endpoint, DELETE) : new RequestV2 (endpoint, PUT);
 		} else {
 			string action = "react";
 			if (has_reacted) {
@@ -193,7 +202,7 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 			}
 
 			string endpoint = @"/api/v1/statuses/$status_id/$action/$(Uri.escape_string(shortcode))";
-			return new Request.POST (endpoint);
+			return new RequestV2 (endpoint, POST);
 		}
 	}
 

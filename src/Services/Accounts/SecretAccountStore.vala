@@ -74,21 +74,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		secrets.foreach (item => {
 			var account = secret_to_account (item);
 			if (account != null && account.id != "") {
-				new Request.GET (@"/api/v1/accounts/$(account.id)")
-					.with_account (account)
-					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						var acc = API.Account.from (node);
-
-						if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
-							account.display_name = acc.display_name;
-							account.avatar = acc.avatar;
-
-							account_to_secret (account);
-						}
-					})
-					.exec ();
+				update_account_info.begin (account);
 				saved.add (account);
 				account.added ();
 			}
@@ -96,6 +82,23 @@ public class Tuba.SecretAccountStore : AccountStore {
 		changed (saved);
 
 		debug (@"Loaded $(saved.size) accounts");
+	}
+
+	private async void update_account_info (InstanceAccount account) {
+		var req = new RequestV2 (@"/api/v1/accounts/$(account.id)") { account = account };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var acc = API.Account.from (node);
+
+			if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
+				account.display_name = acc.display_name;
+				account.avatar = acc.avatar;
+
+				account_to_secret (account);
+			}
+		} catch (Error e) { }
 	}
 
 	public override void save () throws GLib.Error {

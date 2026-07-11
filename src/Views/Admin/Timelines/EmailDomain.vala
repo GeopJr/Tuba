@@ -19,6 +19,10 @@ public class Tuba.Views.Admin.Timeline.EmailDomain : Views.Admin.Timeline.Pagina
 	}
 
 	private void on_remove (Widgets.Admin.EmailDomainBlock widget, string domain_block_id) {
+		on_remove_real.begin (widget, domain_block_id);
+	}
+
+	private async void on_remove_real (Widgets.Admin.EmailDomainBlock widget, string domain_block_id) {
 		var dlg = new Adw.AlertDialog (
 			// translators: Question dialog when an admin is about to
 			//				unblock an e-mail address block. The variable
@@ -32,21 +36,18 @@ public class Tuba.Views.Admin.Timeline.EmailDomain : Views.Admin.Timeline.Pagina
 
 		dlg.add_response ("yes", _("Unblock"));
 		dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-		dlg.choose.begin (this, null, (obj, res) => {
-			if (dlg.choose.end (res) == "yes") {
+
+		if ((yield dlg.choose (this, null)) == "yes") {
 				widget.sensitive = false;
-				new Request.DELETE (@"/api/v1/admin/email_domain_blocks/$domain_block_id")
-					.with_account (accounts.active)
-					.then (() => {
-						widget.sensitive = true;
-						request_idle ();
-					})
-					.on_error ((code, message) => {
-						widget.sensitive = true;
-						on_error (code, message);
-					})
-					.exec ();
-			}
-		});
+				var req = new RequestV2 (@"/api/v1/admin/email_domain_blocks/$domain_block_id", DELETE) { account = accounts.active };
+				try {
+					yield req.exec (null);
+					widget.sensitive = true;
+					yield request ();
+				} catch (Error e) {
+					widget.sensitive = true;
+					on_error (e.code, e.message);
+				}
+		}
 	}
 }

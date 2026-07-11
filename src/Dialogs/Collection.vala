@@ -101,12 +101,11 @@ public class Tuba.Dialogs.Collection : Adw.Dialog {
 			return true;
 		});
 
-		var req = new Request.GET (@"/api/v1/accounts?$(string.joinv ("&", accounts_arr))")
-			.with_account (accounts.active);
-		yield req.await ();
+		var req = new RequestV2 (@"/api/v1/accounts?$(string.joinv ("&", accounts_arr))") { account = accounts.active };
+		var in_stream = yield req.exec (null);
 
 		Widgets.AccountRow[] widgets = {};
-		var parser = Network.get_parser_from_inputstream (req.response_body);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		bool did_author = false;
 		Network.parse_array (parser, node => {
 			var acc = API.Account.from (node);

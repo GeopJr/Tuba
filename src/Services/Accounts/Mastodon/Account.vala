@@ -282,9 +282,16 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	public override void answer_follow_request (string issuer_id, string fr_id, bool accept) {
 		if (!check_issuer (issuer_id)) return;
 
-		new Request.POST (@"/api/v1/follow_requests/$fr_id/$(accept ? "authorize" : "reject")")
-			.with_account (this)
-			.exec ();
+		answer_follow_request_real.begin (fr_id, accept);
+	}
+
+	private async void answer_follow_request_real (string fr_id, bool accept) {
+		var req = new RequestV2 (@"/api/v1/follow_requests/$fr_id/$(accept ? "authorize" : "reject")", POST) { account = this };
+		try {
+			yield req.exec (null);
+		} catch (Error e) {
+			warning (@"Couldn't $(accept ? "accept" : "reject") follow request: $(e.code) $(e.message)");
+		}
 	}
 
 	public override void follow_back (string issuer_id, string acc_id) {
@@ -295,21 +302,34 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		ulong invalidate_signal_id = 0;
 		invalidate_signal_id = relationship.invalidated.connect (() => {
 			if (!relationship.following) {
-				new Request.POST (@"/api/v1/accounts/$acc_id/follow")
-					.with_account (this)
-					.exec ();
+				follow_real.begin (acc_id);
 			}
 
 			relationship.disconnect (invalidate_signal_id);
 		});
 	}
 
+	private async void follow_real (string acc_id) {
+		var req = new RequestV2 (@"/api/v1/accounts/$acc_id/follow", POST) { account = this };
+		try {
+			yield req.exec (null);
+		} catch (Error e) {
+			warning (@"Couldn't follow $acc_id: $(e.code) $(e.message)");
+		}
+	}
+
 	public override void remove_from_followers (string issuer_id, string acc_id) {
 		if (!check_issuer (issuer_id)) return;
+		remove_from_followers_real.begin (acc_id);
+	}
 
-		new Request.POST (@"/api/v1/accounts/$acc_id/remove_from_followers")
-			.with_account (this)
-			.exec ();
+	private async void remove_from_followers_real (string acc_id) {
+		var req = new RequestV2 (@"/api/v1/accounts/$acc_id/remove_from_followers", POST) { account = this };
+		try {
+			yield req.exec (null);
+		} catch (Error e) {
+			warning (@"Couldn't unfollow $acc_id: $(e.code) $(e.message)");
+		}
 	}
 
 	public override void reply_to_status_uri (string issuer_id, string uri) {

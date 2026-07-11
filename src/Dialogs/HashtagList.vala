@@ -199,7 +199,7 @@ public class Tuba.Dialogs.HashtagList : Adw.PreferencesDialog {
 			search_real.begin (entry.text.strip ());
 		}
 
-		Request? last_req = null;
+		RequestV2? last_req = null;
 		private async void search_real (string query) {
 			result_box.remove_all ();
 
@@ -210,10 +210,10 @@ public class Tuba.Dialogs.HashtagList : Adw.PreferencesDialog {
 			if (query == "") return;
 			try {
 				last_req = API.Tag.search (query);
-				yield last_req.await ();
+				var in_stream = yield last_req.exec (null);
 				if (last_req == null || last_req.cancellable.is_cancelled ()) return;
 
-				var parser = Network.get_parser_from_inputstream (last_req.response_body);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 				var results = API.SearchResults.from (network.parse_node (parser));
 				if (results != null) {
 					int i = 0;
@@ -227,6 +227,8 @@ public class Tuba.Dialogs.HashtagList : Adw.PreferencesDialog {
 						return i < 4;
 					});
 				}
+			} catch (GLib.IOError.CANCELLED e) {
+				debug ("Message is cancelled.");
 			} catch (Error e) {
 				errored (e.message);
 				warning (@"Couldn't search tag $query: $(e.code) $(e.message)");

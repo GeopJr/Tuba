@@ -483,35 +483,39 @@ public class Tuba.Views.Search : Views.TabbedBase {
 			string user_query = user_row.text.chug ().chomp ();
 			if (user_query == "") return;
 
+			on_search_users_real.begin (user_query);
+		}
+
+		private async void on_search_users_real (string user_query) {
 			auto_fill_users_button.sensitive = false;
-			new Request.GET ("/api/v2/search")
-				.with_account (accounts.active)
-				.with_param ("q", user_query)
-				.with_param ("type", "accounts")
-				.with_param ("exclude_unreviewed", "true")
-				.with_param ("limit", "1")
-				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
-					var search_results = API.SearchResults.from (network.parse_node (parser));
 
-					if (search_results.accounts.size > 0) {
-						user_row.text = search_results.accounts.get (0).full_handle;
-					}
+			var req = new RequestV2 ("/api/v2/search") { account = accounts.active };
+			req.add_parameter ("q", user_query);
+			req.add_parameter ("type", "accounts");
+			req.add_parameter ("exclude_unreviewed", "true");
+			req.add_parameter ("limit", "1");
 
-					auto_fill_users_button.sensitive = true;
-				})
-				.on_error ((code, message) => {
-					auto_fill_users_button.sensitive = true;
-					// translators: warning toast in advanced search dialog when auto-filling a user fails.
-					// 				Auto-fill refers to automatically filling the entry with the first
-					//				found user based on the query.
-					toast_overlay.add_toast (new Adw.Toast (_("Couldn't auto-fill user: %s").printf (message)) {
-						timeout = 5
-					});
+			try {
+				var in_stream = yield req.exec (null);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+				var search_results = API.SearchResults.from (network.parse_node (parser));
 
-					warning (@"Couldn't auto-fill user with $user_query: $code $message");
-				})
-				.exec ();
+				if (search_results.accounts.size > 0) {
+					user_row.text = search_results.accounts.get (0).full_handle;
+				}
+
+				auto_fill_users_button.sensitive = true;
+			} catch (Error e) {
+				auto_fill_users_button.sensitive = true;
+				// translators: warning toast in advanced search dialog when auto-filling a user fails.
+				// 				Auto-fill refers to automatically filling the entry with the first
+				//				found user based on the query.
+				toast_overlay.add_toast (new Adw.Toast (_("Couldn't auto-fill user: %s").printf (e.message)) {
+					timeout = 5
+				});
+
+				warning (@"Couldn't auto-fill user with $user_query: $(e.code) $(e.message)");
+			}
 		}
 
 		[GtkCallback] void on_search () {
