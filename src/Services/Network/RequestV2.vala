@@ -18,6 +18,7 @@ public class Tuba.RequestV2 : GLib.Object {
 		}
 	}
 
+	public signal void wrote_body_data (uint chunk_size);
 	public Method method { get; private set; default = GET; }
 	public string url { get; private set; }
 	public Soup.MessagePriority priority { get; set; default = NORMAL; }
@@ -26,6 +27,7 @@ public class Tuba.RequestV2 : GLib.Object {
 	public string? force_token { get; set; default = null; }
 	public bool no_auth { get; set; default = false; }
 	public bool cache { get; set; default = true; }
+	public bool track_written_body_data { get; set; default = false; }
 	public weak Gtk.Widget? ctx {
 		set {
 			this._ctx = value;
@@ -40,6 +42,10 @@ public class Tuba.RequestV2 : GLib.Object {
 	private weak Gtk.Widget? _ctx = null;
 	private Soup.Multipart? form_data = null;
 	private Bytes? body_bytes = null;
+
+	private void on_wrote_body_data (uint chunk_size) {
+		wrote_body_data (chunk_size);
+	}
 
 	private void on_ctx_destroy () {
 		this.cancellable.cancel ();
@@ -114,6 +120,8 @@ public class Tuba.RequestV2 : GLib.Object {
 			// POST is default for multipart
 			if (this.method != POST) message.method = this.method.to_string ();
 		}
+
+		if (track_written_body_data) message.wrote_body_data.connect (on_wrote_body_data);
 
 		if (!no_auth) {
 			if (force_token != null) {
