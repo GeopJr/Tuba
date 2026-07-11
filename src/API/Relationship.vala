@@ -64,10 +64,21 @@ public class Tuba.API.Relationship : Entity {
 		}
 	}
 
+	public static string array2string (Gee.ArrayList<string> array, string key) {
+		var result = "";
+		array.@foreach (i => {
+			result += @"$key[]=$i";
+			if (array.index_of (i) + 1 != array.size)
+				result += "&";
+			return true;
+		});
+		return result;
+	}
+
 	public static async Gee.HashMap<string, API.Relationship> request_many (string[] ids) throws Error {
 		Gee.HashMap<string, API.Relationship> res = new Gee.HashMap<string, API.Relationship> ();
 
-		var id_array = Request.array2string (new Gee.ArrayList<string>.wrap (ids), "id");
+		var id_array = array2string (new Gee.ArrayList<string>.wrap (ids), "id");
 		var req = new RequestV2 (@"/api/v1/accounts/relationships?$id_array") { account = accounts.active };
 
 		try {

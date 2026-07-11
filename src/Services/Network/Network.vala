@@ -51,59 +51,59 @@ public class Tuba.Network : GLib.Object {
 		RESPONSE_HEADERS
 	}
 
-	public void queue (
-		owned Soup.Message msg,
-		GLib.Cancellable? cancellable,
-		owned SuccessCallback cb,
-		owned ErrorCallback? ecb,
-		ExtraData? extra_data = null
-	) {
-		requests_processing++;
-		started ();
+	//  public void queue (
+	//  	owned Soup.Message msg,
+	//  	GLib.Cancellable? cancellable,
+	//  	owned SuccessCallback cb,
+	//  	owned ErrorCallback? ecb,
+	//  	ExtraData? extra_data = null
+	//  ) {
+	//  	requests_processing++;
+	//  	started ();
 
-		debug (@"$(msg.method): $(msg.uri.to_string ())");
+	//  	debug (@"$(msg.method): $(msg.uri.to_string ())");
 
-		session.send_async.begin (msg, 0, cancellable, (obj, res) => {
-			try {
-				var in_stream = session.send_async.end (res);
+	//  	session.send_async.begin (msg, 0, cancellable, (obj, res) => {
+	//  		try {
+	//  			var in_stream = session.send_async.end (res);
 
-				var status = msg.status_code;
-				if (status >= 200 && status < 300) {
-					try {
-						if (cb != null)
-							cb (in_stream, extra_data == ExtraData.RESPONSE_HEADERS ? msg.response_headers : null);
-					} catch (Error e) {
-						warning (@"Error in session: $(e.message)");
-					}
-				} else if (status == GLib.IOError.CANCELLED) {
-					debug ("Message is cancelled. Ignoring callback invocation.");
-				} else {
-					if (ecb == null) {
-						critical (@"Request \"$(msg.uri.to_string ())\" failed: $status $(msg.reason_phrase)");
-					} else {
-						string error_msg = msg.reason_phrase;
+	//  			var status = msg.status_code;
+	//  			if (status >= 200 && status < 300) {
+	//  				try {
+	//  					if (cb != null)
+	//  						cb (in_stream, extra_data == ExtraData.RESPONSE_HEADERS ? msg.response_headers : null);
+	//  				} catch (Error e) {
+	//  					warning (@"Error in session: $(e.message)");
+	//  				}
+	//  			} else if (status == GLib.IOError.CANCELLED) {
+	//  				debug ("Message is cancelled. Ignoring callback invocation.");
+	//  			} else {
+	//  				if (ecb == null) {
+	//  					critical (@"Request \"$(msg.uri.to_string ())\" failed: $status $(msg.reason_phrase)");
+	//  				} else {
+	//  					string error_msg = msg.reason_phrase;
 
-						try {
-							var parser = Network.get_parser_from_inputstream (in_stream);
-							var root = network.parse (parser);
-							if (root != null) {
-								error_msg = root.has_member ("message")
-								? root.get_string_member_with_default ("message", msg.reason_phrase)
-								: root.get_string_member_with_default ("error", msg.reason_phrase);
-							}
-						} catch {}
+	//  					try {
+	//  						var parser = Network.get_parser_from_inputstream (in_stream);
+	//  						var root = network.parse (parser);
+	//  						if (root != null) {
+	//  							error_msg = root.has_member ("message")
+	//  							? root.get_string_member_with_default ("message", msg.reason_phrase)
+	//  							: root.get_string_member_with_default ("error", msg.reason_phrase);
+	//  						}
+	//  					} catch {}
 
-						ecb ((int32) status, error_msg);
-					}
-				}
-			} catch (GLib.Error e) {
-				warning (e.message);
-				if (ecb != null) {
-					ecb ((int32) e.code, e.message);
-				}
-			}
-		});
-	}
+	//  					ecb ((int32) status, error_msg);
+	//  				}
+	//  			}
+	//  		} catch (GLib.Error e) {
+	//  			warning (e.message);
+	//  			if (ecb != null) {
+	//  				ecb ((int32) e.code, e.message);
+	//  			}
+	//  		}
+	//  	});
+	//  }
 
 	public async GLib.InputStream queue_v2 (
 		owned Soup.Message msg,
@@ -151,11 +151,11 @@ public class Tuba.Network : GLib.Object {
 		return node.get_object ();
 	}
 
-	public static Json.Parser get_parser_from_inputstream (InputStream in_stream) throws Error {
-		var parser = new Json.Parser ();
-		parser.load_from_stream (in_stream);
-		return parser;
-	}
+	//  public static Json.Parser get_parser_from_inputstream (InputStream in_stream) throws Error {
+	//  	var parser = new Json.Parser ();
+	//  	parser.load_from_stream (in_stream);
+	//  	return parser;
+	//  }
 
 	public static async Json.Parser get_parser_from_inputstream_async (InputStream in_stream) throws Error {
 		var parser = new Json.Parser ();

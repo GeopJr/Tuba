@@ -258,12 +258,12 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		return url;
 	}
 
-	public virtual Request append_params (Request req) {
-		if (page_next == null)
-			return req.with_param ("limit", settings.timeline_page_size.clamp (this.batch_size_min, 40).to_string ());
-		else
-			return req;
-	}
+	//  public virtual Request append_params (Request req) {
+	//  	if (page_next == null)
+	//  		return req.with_param ("limit", settings.timeline_page_size.clamp (this.batch_size_min, 40).to_string ());
+	//  	else
+	//  		return req;
+	//  }
 
 	public virtual void append_params_v2 (RequestV2 req) {
 		if (page_next == null)

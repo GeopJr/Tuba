@@ -248,16 +248,4 @@ public class Tuba.Request : GLib.Object {
 		else
 			return this;
 	}
-
-	public static string array2string (Gee.ArrayList<string> array, string key) {
-		var result = "";
-		array.@foreach (i => {
-			result += @"$key[]=$i";
-			if (array.index_of (i) + 1 != array.size)
-				result += "&";
-			return true;
-		});
-		return result;
-	}
-
 }

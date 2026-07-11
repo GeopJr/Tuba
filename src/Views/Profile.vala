@@ -556,26 +556,26 @@ public class Tuba.Views.Profile : Views.Accounts {
 		invalidate_actions (false);
 	}
 
-	public override Request append_params (Request req) {
-		if (page_next == null && source == "statuses") {
-			switch (this.filter) {
-				case Widgets.ProfileFilterGroup.Filter.POSTS:
-					req.with_param ("exclude_replies", "true");
-					break;
-				case Widgets.ProfileFilterGroup.Filter.REPLIES:
-					req.with_param ("exclude_replies", "false");
-					req.with_param ("exclude_reblogs", "true");
-					break;
-				case Widgets.ProfileFilterGroup.Filter.MEDIA:
-					req.with_param ("only_media", "true");
-					break;
-				case Widgets.ProfileFilterGroup.Filter.FEATURED: break;
-				default:
-					assert_not_reached ();
-			}
-		}
-		return base.append_params (req);
-	}
+	//  public override Request append_params (Request req) {
+	//  	if (page_next == null && source == "statuses") {
+	//  		switch (this.filter) {
+	//  			case Widgets.ProfileFilterGroup.Filter.POSTS:
+	//  				req.with_param ("exclude_replies", "true");
+	//  				break;
+	//  			case Widgets.ProfileFilterGroup.Filter.REPLIES:
+	//  				req.with_param ("exclude_replies", "false");
+	//  				req.with_param ("exclude_reblogs", "true");
+	//  				break;
+	//  			case Widgets.ProfileFilterGroup.Filter.MEDIA:
+	//  				req.with_param ("only_media", "true");
+	//  				break;
+	//  			case Widgets.ProfileFilterGroup.Filter.FEATURED: break;
+	//  			default:
+	//  				assert_not_reached ();
+	//  		}
+	//  	}
+	//  	return base.append_params (req);
+	//  }
 
 	public override void append_params_v2 (RequestV2 req) {
 		if (page_next == null && source == "statuses") {
