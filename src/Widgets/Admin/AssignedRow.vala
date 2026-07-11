@@ -65,7 +65,7 @@ public class Tuba.Widgets.Admin.AssignedToRow : Adw.ActionRow {
 	private async void do_assign_real () {
 		string endpoint = is_assigned ? "unassign" : "assign_to_self";
 		assign_button.sensitive = false;
-		var req = new RequestV2 (@"/api/v1/admin/reports/$report_id/$endpoint") { account = accounts.active };
+		var req = new RequestV2 (@"/api/v1/admin/reports/$report_id/$endpoint", POST) { account = accounts.active };
 
 		try {
 			var in_stream = yield req.exec (null);
