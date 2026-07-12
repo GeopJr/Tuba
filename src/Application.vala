@@ -3,7 +3,16 @@ namespace Tuba {
 		USER,
 		PARSING,
 		INSTANCE,
-		INTERNAL
+		INTERNAL,
+
+		HTTP_401 = 401,
+		HTTP_403 = 403,
+		HTTP_404 = 404,
+		HTTP_410 = 410,
+		HTTP_422 = 422,
+		HTTP_429 = 429,
+		HTTP_500 = 500,
+		HTTP_503 = 503
 	}
 
 	public static Application app;

@@ -132,6 +132,17 @@ public class Tuba.Network : GLib.Object {
 		} catch {}
 
 		critical (@"Request \"$(msg.uri.to_string ())\" failed: $status $(msg.reason_phrase) $error_msg");
+		switch (status) {
+			case 401: throw new Oopsie.HTTP_401 (error_msg);
+			case 403: throw new Oopsie.HTTP_403 (error_msg);
+			case 404: throw new Oopsie.HTTP_404 (error_msg);
+			case 410: throw new Oopsie.HTTP_410 (error_msg);
+			case 422: throw new Oopsie.HTTP_422 (error_msg);
+			case 429: throw new Oopsie.HTTP_429 (error_msg);
+			case 500: throw new Oopsie.HTTP_500 (error_msg);
+			case 503: throw new Oopsie.HTTP_503 (error_msg);
+		}
+
 		throw new Oopsie.INSTANCE (error_msg);
 	}
 

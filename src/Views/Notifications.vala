@@ -263,7 +263,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			}
 		} catch (Error e) {
 			accounts.active.filtered_notifications_count = 0;
-			if (e.code == 404) { // TODO: check if it actually triggers
+			if (e.code == 404) {
 				accounts.active.tuba_probably_has_notification_filters = false;
 			} else {
 				warning (@"Error while trying to get notification policy: $(e.code) $(e.message)");

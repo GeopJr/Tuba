@@ -193,7 +193,7 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 				return true;
 			});
 		} catch (Error e) {
-			if (e.code == 404) { // TODO: check if returns correctly
+			if (e.code == 404) {
 				accounts.active.tuba_probably_has_notification_filters = false;
 			} else {
 				warning (@"Error while trying to get notification policy: $(e.code) $(e.message)");
