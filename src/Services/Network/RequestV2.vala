@@ -22,7 +22,7 @@ public class Tuba.RequestV2 : GLib.Object {
 	public Method method { get; private set; default = GET; }
 	public string url { get; private set; }
 	public Soup.MessagePriority priority { get; set; default = NORMAL; }
-	public GLib.Cancellable? cancellable { get; set; default = null; } // priv?
+	public GLib.Cancellable? cancellable { get; set; default = new GLib.Cancellable (); }
 	public InstanceAccount? account { get; set; default = null; }
 	public string? force_token { get; set; default = null; }
 	public bool no_auth { get; set; default = false; }
@@ -48,7 +48,7 @@ public class Tuba.RequestV2 : GLib.Object {
 	}
 
 	private void on_ctx_destroy () {
-		this.cancellable.cancel ();
+		if (this.cancellable != null) this.cancellable.cancel ();
 		this.ctx = null;
 	}
 
@@ -107,8 +107,11 @@ public class Tuba.RequestV2 : GLib.Object {
 	}
 
 	public async GLib.InputStream exec (out Soup.MessageHeaders response_headers) throws GLib.Error, Oopsie {
-		if (this.cancellable != null) this.cancellable.cancel ();
-		this.cancellable = new GLib.Cancellable ();
+		if (this.cancellable == null) {
+			this.cancellable = new GLib.Cancellable ();
+		} else if (this.cancellable.is_cancelled ()) {
+			throw new GLib.IOError.CANCELLED ("Cancelled");
+		}
 
 		string final_url = build_final_url ();
 		Soup.Message message;

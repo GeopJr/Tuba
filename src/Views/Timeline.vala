@@ -220,6 +220,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public override void clear () {
+		if (request_cancellable != null) request_cancellable.cancel ();
 		cleanup_timeline_api ();
 		base.clear ();
 	}
@@ -276,11 +277,14 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		base.on_bottom_reached ();
 	}
 
+	protected GLib.Cancellable? request_cancellable { get; set; default = null; }
 	public async virtual void request () {
+		if (request_cancellable != null) request_cancellable.cancel ();
 		var req = new RequestV2 (get_req_url ()) {
 			account = account,
 			ctx = this
 		};
+		request_cancellable = req.cancellable;
 		append_params_v2 (req);
 
 		GLib.InputStream in_stream;
@@ -289,6 +293,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		try {
 			in_stream = yield req.exec (out response_headers);
 			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			if (request_cancellable.is_cancelled ()) return;
 
 			Object[] to_add = {};
 			Network.parse_array (parser, node => {

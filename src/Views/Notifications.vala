@@ -187,10 +187,12 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			return;
 		}
 
+		if (request_cancellable != null) request_cancellable.cancel ();
 		var req = new RequestV2 (get_req_url ()) {
 			account = account,
 			ctx = this
 		};
+		request_cancellable = req.cancellable;
 		append_params_v2 (req);
 
 		GLib.InputStream in_stream;
@@ -199,6 +201,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		try {
 			in_stream = yield req.exec (out response_headers);
 			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			if (request_cancellable.is_cancelled ()) return;
 
 			var node = network.parse_node (parser);
 			if (node == null) return;
