@@ -244,9 +244,17 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		issuer.describe_kind (kind, out res_kind, kind_actor_name, null, other_data);
 		var toast = new GLib.Notification (res_kind.description);
 		if (status != null) {
-			var body = "";
-			body += Utils.Htmlx.remove_tags (status.content);
-			toast.set_body (body);
+			if (
+				status.spoiler_text != null
+				&& status.spoiler_text != ""
+				&& !settings.show_spoilers
+			) {
+				// translators: in notifications when the notification has a spoiler/content warning
+				//				instead of the actual content
+				toast.set_body ("%s: %s".printf (_("Content Warning"), status.spoiler_text));
+			} else {
+				toast.set_body (Utils.Htmlx.remove_tags (status.content));
+			}
 		}
 
 		if (should_show_buttons) {
