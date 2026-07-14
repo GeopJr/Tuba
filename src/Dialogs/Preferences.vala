@@ -402,6 +402,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	private void on_window_closed () {
 		if (lang_changed) {
 			var new_lang = ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale;
+
+			settings.default_language = new_lang; // respect local settings first (#1407)
+
 			if (settings.default_language != ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale) {
 
 				update_credentials_language_real.begin (new_lang);
