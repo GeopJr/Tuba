@@ -223,6 +223,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		update_rows ();
 	}
 
+	string voted_numerical_string = "";
 	private void update_rows () {
 		update_translations ();
 
@@ -295,11 +296,18 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		}
 
 		string voted_string = Utils.Units.shorten (poll.votes_count);
-		string voted_numerical_string = GLib.ngettext (
+		voted_numerical_string = GLib.ngettext (
 			// translators: the variable is the amount of people that voted
 			"%s voted", "%s voted",
 			(ulong) poll.votes_count
 		).printf (voted_string);
+		update_time (true);
+
+		update_aria ();
+		update_selected_index ();
+	}
+
+	public void update_time (bool skip_aria = false) {
 		if (poll.expires_at != null) {
 			info_label.label = "%s · %s".printf (
 				voted_numerical_string,
@@ -307,11 +315,9 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 					? Utils.DateTime.humanize_ago (poll.expires_at)
 					: Utils.DateTime.humanize_left (poll.expires_at)
 			);
+			if (!skip_aria) update_aria (); // other branch is static and updated above
 		} else {
 			info_label.label = voted_numerical_string;
 		}
-
-		update_aria ();
-		update_selected_index ();
 	}
 }

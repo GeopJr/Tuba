@@ -2,7 +2,14 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }
-	public Type accepts { get; set; default = typeof (API.Status); }
+	private Type _accepts = typeof (API.Status);
+	public Type accepts {
+		get { return _accepts; }
+		set {
+			_accepts = value;
+			update_time_signal ();
+		}
+	}
 	#if !USE_LISTVIEW
 		public bool use_queue { get; set; default = true; }
 	#endif
@@ -179,6 +186,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			new Gtk.NamedAction ("app.decrease-font-size")
 		));
 		this.add_controller (shortcutscontroller);
+
+		update_time_signal ();
 	}
 	~Timeline () {
 		debug (@"Destroying Timeline $label");
@@ -196,6 +205,32 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	protected void refresh_if_mapped () {
 		if (!this.get_mapped ()) return;
 		on_manual_refresh ();
+	}
+
+	private static Type[] acceptable_time_types = {
+		typeof (API.Status),
+		typeof (API.Conversation),
+		typeof (API.Announcement),
+		typeof (API.GroupedNotificationsResults.NotificationGroup),
+		typeof (API.Notification)
+	};
+	private void update_time_signal () {
+		if (accepts in acceptable_time_types) {
+			if (!this.is_public) app.time_update.connect (on_time_update);
+		} else {
+			app.time_update.disconnect (on_time_update);
+		}
+	}
+
+	private void on_time_update () {
+		if (!this.get_mapped () || this.is_public) return;
+
+		for (int i = 0; i < uint.min (model.n_items, 250); i++) {
+			var status_widget = content.get_row_at_index (i) as Widgets.Status;
+			if (status_widget != null) {
+				status_widget.update_time ();
+			}
+		}
 	}
 
 	#if !USE_LISTVIEW

@@ -712,6 +712,12 @@
 		}
 	}
 
+	public void update_time () {
+		if (expanded) return;
+		if (date_label.visible) date_label.label = this.date;
+		if (this.poll != null) poll.update_time ();
+	}
+
 	protected string full_date {
 		get {
 			return status.formal.edited_at ?? status.formal.created_at;
@@ -1061,7 +1067,7 @@
 	private Widgets.CollectionButton collection_card;
 	private Widgets.Attachment.Box attachments;
 	private Gtk.Label translation_label;
-	public Widgets.VoteBox poll;
+	public Widgets.VoteBox? poll = null;
 	private Gtk.Image? local_only_indicator = null;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};

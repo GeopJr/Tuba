@@ -124,7 +124,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 			edited_indicator.visible = false;
 		}
 
-		date_label.label = Utils.DateTime.humanize (announcement_date);
+		update_time ();
 		date_label.tooltip_text = new GLib.DateTime.from_iso8601 (announcement_date, null).format ("%F %T");
 		date_label.update_property (Gtk.AccessibleProperty.LABEL, date_label.tooltip_text, -1);
 
@@ -141,6 +141,10 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 
 		t_announcement.bind_property ("read", attention_indicator, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 		aria_describe_status ();
+	}
+
+	public void update_time () {
+		date_label.label = Utils.DateTime.humanize (announcement_date);
 	}
 
 	void on_cache_response (Gdk.Paintable? data) {

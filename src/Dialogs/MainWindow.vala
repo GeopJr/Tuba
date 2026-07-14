@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/main.ui")]
-public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
+public class Tuba.Dialogs.MainWindow : Adw.ApplicationWindow, Saveable {
 	[GtkChild] unowned Adw.NavigationView navigation_view;
 	[GtkChild] public unowned Adw.OverlaySplitView split_view;
 	[GtkChild] unowned Views.Sidebar sidebar;
@@ -13,6 +13,11 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	Views.Base? last_view = null;
+
+	private bool update_times () {
+		if (this.get_mapped ()) app.time_update ();
+		return GLib.Source.CONTINUE;
+	}
 
 	static construct {
 		typeof (Views.MediaViewer).ensure ();
@@ -32,6 +37,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		settings.notify["darken-images-on-dark-mode"].connect (settings_updated);
 
 		app.toast.connect (add_toast);
+		GLib.Timeout.add (5 * 60 * 1000, update_times, GLib.Priority.LOW);
 	}
 
 	private void settings_updated () {
