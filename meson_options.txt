@@ -5,3 +5,4 @@ option('clapper', type: 'feature', deprecated: {'true': 'enabled', 'false': 'dis
 option('gstreamer', type: 'feature')
 option('in-app-browser', type: 'feature')
 option('gexiv2', type: 'feature')
+option('unifiedpush', type: 'feature')

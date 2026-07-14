@@ -74,6 +74,7 @@ i18n = import('i18n')
 gstreamer = false
 webkit = false
 gexiv2 = false
+unifiedpush = false
 gtk_dep = dependency('gtk4', version: '>=4.19', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.8', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
@@ -83,6 +84,7 @@ clapper_dep = dependency('clapper-0.0', required: get_option('clapper'), version
 clapper_gtk_dep = dependency('clapper-gtk-0.0', required: get_option('clapper'))
 gstreamer_dep = dependency('gstreamer-1.0', required: get_option('gstreamer'))
 webkit_dep = dependency('webkitgtk-6.0', required: get_option('in-app-browser'))
+unifiedpush_dep = dependency('unifiedpush', required: get_option('unifiedpush'))
 
 gexiv2_dep = dependency('gexiv2-0.16', 'gexiv2', version: '>=0.14', required: get_option('gexiv2'))
 
@@ -113,6 +115,11 @@ if gexiv2_dep.found ()
     add_project_arguments(['--define=GEXIV2_0_16'], language: 'vala')
   endif
   gexiv2 = true
+endif
+
+if unifiedpush_dep.found ()
+  add_project_arguments(['--define=UNIFIEDPUSH'], language: 'vala')
+  unifiedpush = true
 endif
 
 if clapper_dep.found () and clapper_gtk_dep.found ()
@@ -151,7 +158,8 @@ final_deps = [
   clapper_gtk_dep,
   gstreamer_dep,
   webkit_dep,
-  gexiv2_dep
+  gexiv2_dep,
+  unifiedpush_dep
 ]
 
 subdir('data')

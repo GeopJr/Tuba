@@ -244,6 +244,16 @@
 				<property name="icon_name">tuba-bell-outline-symbolic</property>
 				<property name="title" translatable="yes">Notifications</property>
 				<child>
+					<object class="AdwPreferencesGroup" id="up_group">
+						<child>
+							<object class="AdwSwitchRow" id="up_row">
+								<!-- don't translate -->
+								<property name="title">UnifiedPush</property>
+							</object>
+						</child>
+					</object>
+				</child>
+				<child>
 					<object class="AdwPreferencesGroup">
 						<!-- translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb. -->
 						<property name="title" translatable="yes">Push Notifications</property>

@@ -24,6 +24,9 @@ public class Tuba.API.Instance : Entity {
 
 	public bool tuba_can_translate { get; set; default=false; }
 	public int64 tuba_max_alt_chars { get; set; default = 1500; }
+	#if UNIFIEDPUSH
+		public string? tuba_vapid { get; set; default = null; }
+	#endif
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {

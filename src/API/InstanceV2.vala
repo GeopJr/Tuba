@@ -8,8 +8,13 @@ public class Tuba.API.InstanceV2 : Entity {
 			public int64 description_limit { get; set; default = 1500; }
 		}
 
+		public class Vapid : Entity {
+			public string public_key { get; set; }
+		}
+
 		public Translation translation { get; set; default = null; }
 		public MediaAttachments media_attachments { get; set; default = null; }
+		public Vapid vapid { get; set; default = null; }
 	}
 
 	public class APIVersions : Entity {

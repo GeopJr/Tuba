@@ -78,6 +78,20 @@ configure_file(
     ),
 )
 
+if unifiedpush
+  configure_file(
+      input: meson.project_name() + '.UnifiedPush.service.in',
+      output: meson.project_name() + '.UnifiedPush.service',
+      configuration: config,
+      install: true,
+      install_dir: join_paths(
+          get_option('datadir'),
+         'dbus-1',
+         'services',
+      ),
+  )
+endif
+
 if host_machine.system() != 'windows' and host_machine.system() != 'darwin' and host_machine.system() != 'haiku'
     appstream_file = i18n.merge_file(
         input: meson.project_name() + '.metainfo.xml.in',

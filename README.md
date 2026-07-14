@@ -56,6 +56,7 @@ gstreamer + gst-plugins-good | ❌
 clapper | ❌
 webkitgtk | ❌
 gexiv2 | ❌
+unifiedpush | ❌
 
 </details>
 

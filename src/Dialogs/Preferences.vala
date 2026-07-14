@@ -140,6 +140,11 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow dim_trivial_notifications;
 	[GtkChild] unowned Adw.SwitchRow collapse_long_posts;
 	[GtkChild] unowned Adw.SwitchRow in_app_browser_switch;
+	#if !UNIFIEDPUSH
+		[GtkChild] unowned Adw.PreferencesGroup up_group;
+	#else
+		[GtkChild] unowned Adw.SwitchRow up_row;
+	#endif
 
 	[GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
@@ -166,7 +171,32 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		}
 
 		settings.muted_notification_types = res;
+		#if UNIFIEDPUSH
+			update_notification_mutes_webpush.begin ();
+		#endif
 	}
+
+	#if UNIFIEDPUSH
+		private async void update_notification_mutes_webpush () {
+			if (!settings.unifiedpush_enabled || !Tuba.up_distributor_found) return;
+
+			var req = new RequestV2 ("/api/v1/push/subscription", PUT) { account = accounts.active };
+			req.add_form_data ("data[alerts][mention]", mentions_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][reblog]", boosts_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][follow]", new_followers_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][follow_request]", new_follower_requests_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][favourite]", favorites_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][poll]", poll_results_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][update]", edits_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][quoted_update]", edits_notifications_switch.active.to_string ());
+			try {
+				yield req.exec (null);
+			} catch (Error e) {
+				warning (@"Couldn't update webpush notification types: $(e.code) $(e.message)");
+				app.toast (_("Couldn't update notification types: %s").printf (e.message));
+			}
+		}
+	#endif
 
 	void update_notification_mutes_switches () {
 		foreach (var notification_type_mute in notification_type_mutes) {
@@ -181,6 +211,17 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		typeof (ColorSchemeListModel).ensure ();
 	}
 
+	#if UNIFIEDPUSH
+		private void unifiedpush_changed () {
+			string id = @"$(GLib.Uri.escape_string (accounts.active.uuid)):$(GLib.Uri.escape_string (accounts.active.instance))";
+			if (up_row.active) {
+				app.unifiedpush.register (id, null, accounts.active.instance_info.tuba_vapid);
+			} else {
+				app.unifiedpush.unregister (id);
+			}
+		}
+	#endif
+
 	construct {
 		proxy_entry.text = settings.proxy;
 		post_visibility_combo_row.model = accounts.active.visibility_list;
@@ -188,6 +229,18 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 		#if !WEBKIT
 			in_app_browser_switch.visible = false;
+		#endif
+
+		#if !UNIFIEDPUSH
+			up_group.visible = false;
+		#else
+			up_row.active = settings.unifiedpush_enabled;
+			up_row.sensitive = Tuba.up_distributor_found;
+			//  translators: leave "UnifiedPush" as is. "distributors" can be substituted with "services".
+			//				 This is a subtitle in the settings option that enabled UnifiedPush shown when
+			//				 it's not possible to.
+			up_row.subtitle = Tuba.up_distributor_found ? "" : _("No UnifiedPush distributors available");
+			up_row.notify["active"].connect (unifiedpush_changed);
 		#endif
 
 		uint default_visibility_index;

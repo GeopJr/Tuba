@@ -33,6 +33,10 @@ namespace Tuba {
 	public static bool is_rtl;
 
 	public static bool start_hidden = false;
+	#if UNIFIEDPUSH
+		public static bool up_bg = false;
+		public static bool up_distributor_found = true;
+	#endif
 	public static bool is_flatpak = false;
 	public static string cache_path;
 
@@ -47,6 +51,9 @@ namespace Tuba {
 		public bool is_online { get; private set; default=true; }
 
 		public Utils.Locales app_locales { get; construct set; }
+		#if UNIFIEDPUSH
+			public UnifiedPush.UnifiedPush unifiedpush { get; construct set; }
+		#endif
 
 		// These are used for the GTK Inspector
 		public Settings app_settings { get {return Tuba.settings; } }
@@ -71,7 +78,11 @@ namespace Tuba {
 		//  public CssProvider zoom_css_provider = new CssProvider (); //FIXME: Zoom not working
 
 		public const GLib.OptionEntry[] APP_OPTIONS = {
-			{ "hidden", 0, 0, OptionArg.NONE, ref start_hidden, N_("Do not show main window on start"), null },
+			{ "hidden", 0, 0, OptionArg.NONE, ref start_hidden, N_("Do not show main window on start"), null
+			#if UNIFIEDPUSH
+				}, { "unifiedpush-bg", 0, GLib.OptionFlags.HIDDEN, OptionArg.NONE, ref up_bg, "UnifiedPush background service", null
+			#endif
+			},
 			{ null }
 		};
 
@@ -192,8 +203,21 @@ namespace Tuba {
 			flags = ApplicationFlags.HANDLES_OPEN;
 
 			add_main_option_entries (APP_OPTIONS);
+			#if UNIFIEDPUSH
+				this.handle_local_options.connect (on_handle_local_options);
+			#endif
 			app_locales = new Utils.Locales ();
 		}
+
+		#if UNIFIEDPUSH
+			private int on_handle_local_options (GLib.VariantDict options) {
+				if (up_bg) {
+					this.flags |= GLib.ApplicationFlags.IS_SERVICE;
+				}
+
+				return -1;
+			}
+		#endif
 
 		public static int main (string[] args) {
 			#if GEXIV2
@@ -255,6 +279,141 @@ namespace Tuba {
 			return app.run (args);
 		}
 
+		#if UNIFIEDPUSH
+			private void on_new_endpoint (UnifiedPush.PushEndpoint obj) {;
+				var req = new RequestV2 ("/api/v1/push/subscription", POST) { account = accounts.active };
+				req.add_form_data ("subscription[endpoint]", obj.endpoint);
+				req.add_form_data ("subscription[keys][p256dh]", obj.pubkey);
+				req.add_form_data ("subscription[keys][auth]", obj.auth);
+				req.add_form_data ("subscription[standard]", "true");
+				req.add_form_data ("data[alerts][mention]", (!(InstanceAccount.KIND_MENTION in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][quote]", "true");
+				req.add_form_data ("data[alerts][status]", "true");
+				req.add_form_data ("data[alerts][reblog]", (!(InstanceAccount.KIND_REBLOG in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][follow]", (!(InstanceAccount.KIND_FOLLOW in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][follow_request]", (!(InstanceAccount.KIND_FOLLOW_REQUEST in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][favourite]", (!(InstanceAccount.KIND_FAVOURITE in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][poll]", (!(InstanceAccount.KIND_POLL in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][update]", (!(InstanceAccount.KIND_EDITED in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][quoted_update]", (!(InstanceAccount.KIND_EDITED in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][admin.sign_up]", "true");
+				req.add_form_data ("data[alerts][admin.report]", "true");
+				req.add_form_data ("data[policy]", "all");
+
+				register_web_push.begin (req, accounts.active);
+			}
+
+			private async void register_web_push (RequestV2 msg, InstanceAccount account) {
+				// remove existing subscription for user
+				yield unregister_real (account);
+
+				try {
+					yield msg.exec (null);
+				} catch (Error e) {
+					warning (@"Couldn't add UnifiedPush subscription for $(account.handle): $(e.code) $(e.message)");
+					app.toast ("%s: %s".printf (_("Error"), e.message));
+				}
+
+				if (account == accounts.active) {
+					settings.unifiedpush_enabled = true;
+				} else {
+					(new Tuba.Settings.Account (account.uuid)).unifiedpush_enabled = true;
+				}
+				account.setup_notification_streams ();
+			}
+
+			private void on_up_message (UnifiedPush.PushMessage obj) {
+				debug (@"UnifiedPush: new message for $(obj.instance) decrypted=$(obj.decrypted)");
+				var instance_parts = obj.instance.split (":");
+				string account_uuid = GLib.Uri.unescape_string (instance_parts[0]);
+				//  string account_instance = GLib.Uri.unescape_string (instance_parts[1]);
+
+				uint8[] raw = obj.content.data;
+				uint8[] buf = new uint8[raw.length + 1];
+				Memory.copy (buf, raw, raw.length);
+				buf[raw.length] = 0;
+				string string_payload = (string) buf;
+
+				Json.Parser parser = new Json.Parser ();
+				try {
+					parser.load_from_data (string_payload);
+				} catch (Error e) {
+					warning (@"Couldn't parse notification payload: $(e.code) $(e.message)");
+					return;
+				}
+
+				var payload = Helper.Entity.from_json (parser.get_root (), typeof (API.Push.Payload)) as API.Push.Payload;
+				if (!(payload is API.Push.Payload)) return;
+
+				// Don't want to spawn a mainloop and soup servers
+				// just for a push while the app is closed, so just
+				// send it as is then.
+				if (accounts == null) {
+					var toast = new GLib.Notification (payload.title);
+					if (payload.body != null) {
+						var body = Utils.Htmlx.remove_tags (payload.body);
+						toast.set_body (body);
+					}
+
+					Icon? icon = null;
+					var icon_file = GLib.File.new_for_uri (payload.icon);
+					if (Tuba.is_flatpak) {
+						try {
+							// sync is okay here because it's running as a service, no GUI
+							Bytes avatar_bytes = icon_file.load_bytes ();
+							if (avatar_bytes != null)
+								icon = new BytesIcon (avatar_bytes);
+						} catch (Error e) {
+							warning (@"Couldn't download UnifiedPush icon: $(e.code) $(e.message)");
+						}
+					} else {
+						icon = new FileIcon (icon_file);
+					}
+
+					if (icon != null)
+						toast.set_icon (icon);
+
+					this.send_notification (@"$(account_uuid)-$(payload.notification_id)", toast);
+				} else {
+					handle_up_notification.begin (account_uuid, payload);
+				}
+			}
+
+			private async void handle_up_notification (string account_uuid, API.Push.Payload payload) {
+				var account = accounts.find_by_uuid (account_uuid);
+				if (account == null) return;
+
+				var req = new RequestV2 (@"/api/v1/notifications/$(payload.notification_id)") {
+					account = account
+				};
+
+				try {
+					var in_stream = yield req.exec (null);
+					var parser = yield Network.get_parser_from_inputstream_async (in_stream);
+					var node = network.parse_node (parser);
+					var notification = Entity.from_json (typeof (API.Notification), node) as API.Notification;
+					if (notification != null) account.on_notification_received (notification);
+				} catch (Error e) {
+					warning (@"Error while trying to fetch unifiedpush notification: $(e.code) $(e.message)");
+				}
+			}
+
+			private void on_unregistered (string obj) {
+				debug (@"UnifiedPush: unregistered $obj");
+				unregister_real.begin (accounts.active);
+				settings.unifiedpush_enabled = false;
+				accounts.active.setup_notification_streams ();
+			}
+
+			private async void unregister_real (InstanceAccount account) {
+				try {
+					yield (new RequestV2 ("/api/v1/push/subscription", DELETE) { account = account }).exec (null);
+				} catch (Error e) {
+					warning (@"Couldn't remove UnifiedPush subscription for $(account.handle): $(e.code) $(e.message)");
+				}
+			}
+		#endif
+
 		private void on_network_change (bool online) {
 			// We really need to avoid triggering it unnecessarily
 			// wait 5 seconds before triggering it
@@ -274,6 +433,32 @@ namespace Tuba {
 
 		protected override void startup () {
 			base.startup ();
+#if UNIFIEDPUSH
+			unifiedpush = new UnifiedPush.UnifiedPush ("dev.geopjr.Tuba.UnifiedPush");
+			unifiedpush.new_endpoint.connect (on_new_endpoint);
+			unifiedpush.message.connect (on_up_message);
+			unifiedpush.unregistered.connect (on_unregistered);
+
+			// Normally there would be a UI selector, but I believe there's
+			// only one distributor for Linux in existence.
+			if (!unifiedpush.try_use_default_distributor ()) {
+				if (unifiedpush.list_distributors ().length () > 1) {
+					unifiedpush.save_distributor (unifiedpush.list_distributors ().nth_data (0));
+				} else {
+					Tuba.up_distributor_found = false;
+				}
+			}
+
+			if (!up_bg) {
+				startup_real ();
+			}
+		}
+
+		bool done_startup_real = false;
+		private void startup_real () {
+			if (done_startup_real) return;
+			up_bg = false;
+#endif
 			try {
 				var lines = troubleshooting.split ("\n");
 				foreach (unowned string line in lines) {
@@ -351,6 +536,9 @@ namespace Tuba {
 				settings.larger_font_size = false;
 				settings.status_font_size = 1.2;
 			}
+#if UNIFIEDPUSH
+			done_startup_real = true;
+#endif
 		}
 
 		private void on_proxy_change (bool recover = false) {
@@ -398,6 +586,13 @@ namespace Tuba {
 		}
 
 		protected override void shutdown () {
+			#if UNIFIEDPUSH
+				if (up_bg) {
+					base.shutdown ();
+					return;
+				}
+			#endif
+
 			#if !DEV_MODE
 				settings.apply_all ();
 			#endif
@@ -455,6 +650,9 @@ namespace Tuba {
 
 		public void present_window (bool destroy_main = false) {
 			if (!activated && ApplicationFlags.IS_SERVICE in this.flags) return;
+			#if UNIFIEDPUSH
+				startup_real ();
+			#endif
 
 			if (accounts.saved.is_empty) {
 				if (main_window != null && destroy_main)

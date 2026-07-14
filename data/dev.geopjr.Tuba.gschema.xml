@@ -57,6 +57,13 @@
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<description>Whether account suggestions should be shown in the Home tab when the user doesn't follow enough people</description>
 		</key>
+    <key name="unifiedpush-enabled" type="b">
+			<default>false</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>UnifiedPush</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Whether account has enabled UnifiedPush</description>
+		</key>
 	</schema>
 
 	<schema path="/dev/geopjr/Tuba/" id="dev.geopjr.Tuba" gettext-domain="dev.geopjr.Tuba">

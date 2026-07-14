@@ -36,6 +36,10 @@ sources += files(
     'Translation.vala',
 )
 
+if unifiedpush
+  sources += files ('Push.vala')
+endif
+
 subdir('Admin')
 subdir('Account')
 subdir('Akkoma')

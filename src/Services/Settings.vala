@@ -11,6 +11,7 @@ public class Tuba.Settings : GLib.Settings {
 		public string[] favorite_lists_ids { get; set; default = {}; }
 		public string[] favorite_tags_ids { get; set; default = {}; }
 		public string[] hashtag_lists { get; set; default = {}; }
+		public bool unifiedpush_enabled { get; set; default = false; }
 
 		private const string[] KEYS_TO_INIT = {
 			"default-post-visibility",
@@ -22,7 +23,8 @@ public class Tuba.Settings : GLib.Settings {
 			"account-suggestions",
 			"favorite-lists-ids",
 			"favorite-tags-ids",
-			"hashtag-lists"
+			"hashtag-lists",
+			"unifiedpush-enabled"
 		};
 
 		public Account (string id) {
@@ -90,6 +92,16 @@ public class Tuba.Settings : GLib.Settings {
 
 		set {
 			active_account_settings.account_suggestions = value;
+		}
+	}
+
+	public bool unifiedpush_enabled {
+		get {
+			return active_account_settings.unifiedpush_enabled;
+		}
+
+		set {
+			active_account_settings.unifiedpush_enabled = value;
 		}
 	}
 

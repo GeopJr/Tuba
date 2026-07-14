@@ -106,7 +106,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		}
 	}
 
-	public string uuid { get; set; }
 	public bool admin_mode { get; set; default=false; }
 	public string? backend { set; get; }
 	public API.Instance? instance_info { get; set; }
@@ -170,9 +169,32 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		check_notifications.begin ();
 	}
 
+	#if UNIFIEDPUSH
+		private string? _uuid = null;
+		public string uuid {
+			get { return _uuid; }
+			set {
+				_uuid = value;
+				if (_uuid != null) setup_notification_streams (true);
+			}
+		}
+
+		public void setup_notification_streams (bool initial = false) {
+			if (account_settings_unifiedpush_enabled () && Tuba.up_distributor_found) {
+				if (!initial) this.stream_event[EVENT_NOTIFICATION].disconnect (on_notification_event);
+			} else {
+				this.stream_event[EVENT_NOTIFICATION].connect (on_notification_event);
+			}
+		}
+	#else
+		public string uuid { get; set; }
+	#endif
+
 	construct {
 		this.construct_streamable ();
-		this.stream_event[EVENT_NOTIFICATION].connect (on_notification_event);
+		#if !UNIFIEDPUSH
+			this.stream_event[EVENT_NOTIFICATION].connect (on_notification_event);
+		#endif
 		this.register_known_places (this.known_places);
 		this.register_extra (this.list_places);
 		this.register_extra (this.tags_places);
@@ -687,6 +709,9 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				if (instance_v2.configuration != null) {
 					if (instance_v2.configuration.translation != null) this.instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
 					if (instance_v2.configuration.media_attachments != null) this.instance_info.tuba_max_alt_chars = instance_v2.configuration.media_attachments.description_limit;
+					#if UNIFIEDPUSH
+						if (instance_v2.configuration.vapid != null) this.instance_info.tuba_vapid = instance_v2.configuration.vapid.public_key;
+					#endif
 
 					new_flags = instance_info.tuba_can_translate ? new_flags | InstanceFeatures.TRANSLATION : new_flags & ~InstanceFeatures.TRANSLATION;
 				}
@@ -1000,22 +1025,26 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		return @"$instance/api/v1/streaming?stream=user:notification&access_token=$access_token";
 	}
 
-	public virtual void on_notification_event (Streamable.Event ev) {
+	private void on_notification_event (Streamable.Event ev) {
 		try {
 			var entity = create_entity<API.Notification> (ev.get_node ());
-			if (entity.status != null && entity.status.formal.tuba_filter_hidden) return;
-			if (entity.kind == InstanceAccount.KIND_FOLLOW_REQUEST) unreviewed_follow_requests += 1;
-
-			var id = int.parse (entity.id);
-			if (id > last_received_id) {
-				last_received_id = id;
-
-				if (!(entity.kind in account_settings_notification_filters ()))
-					unread_count++;
-				send_toast (entity);
-			}
+			on_notification_received (entity);
 		} catch (Error e) {
 			warning (@"on_notification_event: $(e.message)");
+		}
+	}
+
+	public virtual void on_notification_received (API.Notification entity) {
+		if (entity.status != null && entity.status.formal.tuba_filter_hidden) return;
+		if (entity.kind == InstanceAccount.KIND_FOLLOW_REQUEST) unreviewed_follow_requests += 1;
+
+		var id = int.parse (entity.id);
+		if (id > last_received_id) {
+			last_received_id = id;
+
+			if (!(entity.kind in account_settings_notification_filters ()))
+				unread_count++;
+			send_toast (entity);
 		}
 	}
 
@@ -1040,4 +1069,14 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			return ((Settings.Account) account_settings ()).notification_filters;
 		}
 	}
+
+	#if UNIFIEDPUSH
+		private bool account_settings_unifiedpush_enabled () {
+			if (accounts.active == this) {
+				return ((Settings) account_settings ()).unifiedpush_enabled;
+			} else {
+				return ((Settings.Account) account_settings ()).unifiedpush_enabled;
+			}
+		}
+	#endif
 }

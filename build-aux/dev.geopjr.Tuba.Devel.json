@@ -20,7 +20,8 @@
 		}
 	},
 	"sdk-extensions": [
-		"org.freedesktop.Sdk.Extension.llvm21"
+		"org.freedesktop.Sdk.Extension.llvm21",
+		"org.freedesktop.Sdk.Extension.rust-stable"
 	],
 	"command": "dev.geopjr.Tuba",
 	"finish-args": [
@@ -51,6 +52,36 @@
 		"mkdir -p /app/extensions/clapper/enhancers"
 	],
 	"modules": [
+		{
+			"name": "libunifiedpush",
+			"buildsystem": "simple",
+			"build-options": {
+				"append-path": "/usr/lib/sdk/rust-stable/bin",
+				"env": {
+					"CARGO_HOME": "/run/build/libunifiedpush/cargo",
+					"CARGO_NET_OFFLINE": "true"
+				}
+			},
+			"build-commands": [
+				"cargo --offline fetch --manifest-path Cargo.toml --verbose",
+				"sed -i 's/\\bcargo build\\b/cargo build --offline/' ./libunifiedpush/Makefile",
+				"cd libunifiedpush && make typelib",
+				"printf '%s\\n' 'prefix=/app' 'exec_prefix=${prefix}' 'libdir=${exec_prefix}/lib' 'includedir=${prefix}/include' 'datarootdir=${prefix}/share' 'datadir=${datarootdir}' '' 'Name: unifiedpush' 'Description:' 'Version: 0.1' 'Requires: glib-2.0 gobject-2.0' 'Libs: -L${libdir} -lunifiedpush' 'Cflags: -I${includedir}/libunifiedpush' > unifiedpush.pc",
+				"install -Dm0755 ./target/debug/libunifiedpush.so ${FLATPAK_DEST}/lib/libunifiedpush.so",
+				"install -Dm0755 ./target/debug/libunifiedpush.so ${FLATPAK_DEST}/lib/libunifiedpush.so.0",
+				"install -Dm0644 ./libunifiedpush/out/UnifiedPush-0.1.gir ${FLATPAK_DEST}/share/gir-1.0/out/UnifiedPush-0.1.gir",
+				"install -Dm0644 ./unifiedpush.pc ${FLATPAK_DEST}/lib/pkgconfig/unifiedpush.pc",
+				"install -Dm0644 ./libunifiedpush/include/unifiedpush.h ${FLATPAK_DEST}/include/libunifiedpush/unifiedpush.h"
+			],
+			"sources": [
+				{
+					"type": "git",
+					"url": "https://codeberg.org/UnifiedPush/unifiedpush-rs",
+					"commit": "77a97643e5ec185e4f4ec90265e845b2f39c05c0"
+				},
+				"cargo-sources.json"
+			]
+		},
 		{
 			"name": "libpeas",
 			"buildsystem": "meson",
