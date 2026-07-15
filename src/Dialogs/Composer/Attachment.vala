@@ -3,6 +3,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 	public signal void delete_me ();
 	public signal void edit ();
 	public signal void upload_error (string message);
+	public signal void toast (string message);
 
 	~Attachment () {
 		debug ("Destroying Composer Component Attachment");
@@ -86,14 +87,17 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 			switch (value) {
 				case AUDIO:
 					media_icon.icon_name = "tuba-music-note-symbolic";
+					custom_thumbnail_button.visible =
 					media_icon.visible = true;
 					break;
 				case VIDEO:
 				case GIFV:
 					media_icon.icon_name = "media-playback-start-symbolic";
+					custom_thumbnail_button.visible =
 					media_icon.visible = true;
 					break;
 				default:
+					custom_thumbnail_button.visible =
 					media_icon.visible = false;
 					break;
 			}
@@ -179,6 +183,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 	Gtk.Button delete_button;
 	Gtk.Button alt_button;
 	AltIndicator alt_indicator;
+	Gtk.Button custom_thumbnail_button;
 	Gtk.Label progress_label;
 	Gtk.Image media_icon;
 	Adw.TimedAnimation animation;
@@ -248,6 +253,19 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 		};
 		alt_button.clicked.connect (on_edit_clicked);
 
+		custom_thumbnail_button = new Gtk.Button.from_icon_name ("tuba-image-round-symbolic") {
+			halign = START,
+			valign = START,
+			margin_top = 6,
+			margin_start = 6,
+			css_classes = { "osd", "circular" },
+			visible = false,
+			// translators: composer media attachment button that uploads
+			//				a custom thumbnail for the video it's on
+			tooltip_text = _("Upload Custom Thumbnail")
+		};
+		custom_thumbnail_button.clicked.connect (upload_thumbnail);
+
 		alt_indicator = new AltIndicator () {
 			halign = START,
 			valign = END,
@@ -272,6 +290,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 
 		overlay.add_overlay (delete_button);
 		overlay.add_overlay (alt_button);
+		overlay.add_overlay (custom_thumbnail_button);
 		overlay.add_overlay (alt_indicator);
 		overlay.add_overlay (progress_label);
 		overlay.add_overlay (media_icon);
@@ -478,6 +497,80 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 		// translators: screen reader announcement when the composer
 		//				successfully uploads an attachment
 		this.announce (_("Finished Uploading Attachment"), LOW);
+	}
+
+	private void upload_thumbnail () {
+		upload_thumbnail_real.begin ();
+	}
+
+	private async void upload_thumbnail_real () {
+		custom_thumbnail_button.sensitive = false;
+		Gtk.FileFilter filter = new Gtk.FileFilter () {
+			name = _("All Supported Files")
+		};
+
+		foreach (var mime_type in Dialogs.Composer.Components.AttachmentsBin.SUPPORTED_MIMES) {
+			if (mime_type.has_prefix ("image/")) filter.add_mime_type (mime_type.down ());
+		}
+
+		var chooser = new Gtk.FileDialog () {
+			title = _("Open"),
+			modal = true,
+			default_filter = filter
+		};
+
+		try {
+			var file = yield chooser.open (app.main_window, null);
+
+			Bytes buffer;
+			string mime;
+			string uri = file.get_uri ();
+			debug (@"Uploading new media: $(uri)…");
+
+			{
+				uint8[] contents;
+				try {
+					file.load_contents (null, out contents, null);
+					GLib.FileInfo type = file.query_info (GLib.FileAttribute.STANDARD_CONTENT_TYPE, 0);
+					mime = type.get_content_type ();
+				} catch (Error e) {
+					custom_thumbnail_button.sensitive = true;
+					toast ("Can't open file %s:\n%s".printf (uri, e.message));
+					return;
+				}
+				buffer = new Bytes.take (contents);
+			}
+
+			var msg = new RequestV2 (@"/api/v1/media/$media_id", PUT) {
+				account = accounts.active
+			};
+			msg.add_form_data_file ("thumbnail", mime, buffer);
+
+			GLib.InputStream? in_stream = null;
+			try {
+				in_stream = yield msg.exec (null);
+				if (in_stream == null) throw new Oopsie.INSTANCE ("Broken Stream");
+				// translators: toast shown when successfully uploading a custom
+				//				thumbnail for a video in the composer
+				toast (_("Successfully uploaded custom thumbnail"));
+
+				var working_loader = new AttachmentThumbnailer (file.get_uri (), Attachment.MediaType.IMAGE);
+				working_loader.done.connect (on_done);
+				try {
+					new GLib.Thread<void>.try (@"Attachment Thumbnail $(file.get_uri ())", working_loader.fetch);
+				} catch (Error e) {
+					critical ("Couldn't spawn thumbnailer for %s: %s", file.get_uri (), e.message);
+				}
+			} catch (Error e) {
+				toast (e.message);
+			}
+		} catch (Error e) {
+			// User dismissing the dialog also ends here so don't make it sound like
+			// it's an error
+			warning (@"Couldn't get the result of FileDialog for AttachmentsBin: $(e.message)");
+		}
+
+		custom_thumbnail_button.sensitive = true;
 	}
 
 	private class AttachmentThumbnailer : GLib.Object {
