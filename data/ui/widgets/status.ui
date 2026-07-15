@@ -14,13 +14,12 @@
             <property name="name">status</property>
             <property name="child">
               <object class="GtkBox" id="status_box">
-                <property name="margin-start">18</property>
-                <property name="margin-end">18</property>
-                <property name="margin_top">15</property>
-                <property name="margin_bottom">18</property>
                 <property name="hexpand">1</property>
                 <property name="orientation">horizontal</property>
                 <property name="spacing">14</property>
+				<style>
+					<class name="status-box" />
+				</style>
                 <child>
                   <object class="GtkBox" id="avatar_side">
                     <property name="orientation">vertical</property>

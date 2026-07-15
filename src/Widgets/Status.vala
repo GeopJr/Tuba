@@ -184,12 +184,24 @@
 		fade_bin.reveal = !settings.collapse_long_posts || expanded || enable_thread_lines;
 	}
 
+	private void on_mobile_size () {
+		if (avatar.visible = true) {
+			if (avatar.size == 48 && app.is_mobile) {
+				avatar.size = 36;
+				if (actor_avatar != null) actor_avatar.size = 24;
+			} else if (avatar.size == 36 && !app.is_mobile) {
+				avatar.size = 48;
+				if (actor_avatar != null) actor_avatar.size = 34;
+			}
+		}
+	}
+
 	construct {
 		pin_indicator.update_property (Gtk.AccessibleProperty.LABEL, pin_indicator.tooltip_text, -1);
 		edited_indicator.update_property (Gtk.AccessibleProperty.LABEL, edited_indicator.tooltip_text, -1);
 
 		name_label.use_markup = false;
-		avatar_overlay.set_size_request (avatar.size, avatar.size);
+		avatar_overlay.set_measure_overlay (avatar, true);
 		open.connect (on_open);
 		if (settings.status_font_size != 1.0)
 			this.add_css_class (@"ttl-status-font-large-$((int) (settings.status_font_size * 100))");
@@ -204,6 +216,8 @@
 		settings.notify["larger-line-height"].connect (settings_updated);
 		settings.notify["scale-emoji-hover"].connect (settings_updated);
 		settings.notify["collapse-long-posts"].connect (update_collapse);
+		app.notify["is-mobile"].connect (on_mobile_size);
+		on_mobile_size ();
 
 		edit_history_simple_action = new SimpleAction ("edit-history", null);
 		edit_history_simple_action.activate.connect (view_edit_history);
@@ -795,7 +809,7 @@
 		if (kind in SHOULD_SHOW_ACTOR_AVATAR) {
 			if (actor_avatar == null) {
 				actor_avatar = new Widgets.Avatar () {
-					size = 34,
+					size = app.is_mobile ? 24 : 34,
 					valign = Gtk.Align.START,
 					halign = Gtk.Align.START,
 					overflow = Gtk.Overflow.HIDDEN,

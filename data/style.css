@@ -369,6 +369,11 @@ drive-item:drop(active) image {
 
 .preview_card_v {
 	border-radius: 6px 6px 0px 0px;
+	min-height: 250px;
+}
+
+.ttl-view:not(.large-view) .preview_card_v {
+	min-height: 150px;
 }
 
 .preview_card_h:dir(ltr) {
@@ -649,6 +654,14 @@ drive-item:drop(active) image {
 /*
 	Status
 */
+.status-box {
+	margin: 14px 18px 18px 18px;
+}
+
+.ttl-view:not(.large-view) .status-box {
+	margin: 10px 8px 12px 8px;
+}
+
 .hashtag-bar-hashtag {
 	padding: 2px 7px;
 }

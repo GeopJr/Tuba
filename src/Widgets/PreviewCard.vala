@@ -23,7 +23,6 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 			var image = new Gtk.Picture () {
 				width_request = 25,
 				content_fit = Gtk.ContentFit.COVER,
-				height_request = 250,
 				css_classes = {"preview_card_v"}
 			};
 
