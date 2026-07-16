@@ -529,6 +529,7 @@ drive-item:drop(active) image {
 
 /* .ttl-view:not(.large-view) .content .card { */
 .ttl-view:not(.large-view)>.fake-content>.card,
+.ttl-view:not(.large-view)>.fake-content>.toggle-group-17,
 .ttl-view:not(.large-view)>.fake-content>.toggle-group-17 > toggle-group {
 	border-left: none;
 	border-right: none;
@@ -809,8 +810,8 @@ drive-item:drop(active) image {
 	border-bottom-right-radius: 12px;
 }
 
-:not(.large-view) .ttl-profile-cover-container .ttl-profile-stat-button:first-child,
-:not(.large-view) .ttl-profile-cover-container .ttl-profile-stat-button:last-child {
+.ttl-view:not(.large-view) .ttl-profile-cover-container .ttl-profile-stat-button:first-child,
+.ttl-view:not(.large-view) .ttl-profile-cover-container .ttl-profile-stat-button:last-child {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
@@ -860,7 +861,7 @@ popover.mini-profile row  {
 	background: none;
 }
 
-:not(.large-view) .ttl-profile-cover>.content {
+.ttl-view:not(.large-view) .ttl-profile-cover>.content {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
@@ -926,6 +927,15 @@ popover.mini-profile row  {
 	color: var(--success-color);
 }
 
+.note-row {
+	background-color: rgb(from var(--warning-bg-color) r g b / calc(alpha * 0.1));
+}
+
+.note-row:hover {
+	--multiplier: 0.7;
+	background-color: hsl(from rgb(from var(--warning-bg-color) r g b / calc(alpha * 0.1)) h calc(s * var(--multiplier)) calc(l * var(--multiplier)));
+}
+
 /*
 	Profile Filter Group
 */
@@ -934,6 +944,7 @@ popover.mini-profile row  {
 	padding: 0;
 	margin-top: 6px;
 	margin-bottom: 6px;
+	border-radius: 9px;
 }
 
 /*
@@ -1183,7 +1194,7 @@ splitbutton.pill:dir(ltr) > menubutton > button {
 		color: var(--blue-2);
 	}
 
-	.ttl-post.direct:hover {
+	.ttl-post.direct:hover, .note-row {
 		--multiplier: 1.3;
 	}
 

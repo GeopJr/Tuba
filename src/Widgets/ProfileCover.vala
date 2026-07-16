@@ -107,10 +107,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	[GtkChild] public unowned Widgets.MarkupView note;
 	[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
 	[GtkChild] unowned Gtk.MenuButton mutuals_button;
-
-	[GtkChild] unowned Adw.EntryRow note_entry_row;
-	[GtkChild] unowned Gtk.ListBoxRow note_row;
-	[GtkChild] unowned Gtk.Label note_error;
+	[GtkChild] unowned Adw.ActionRow note_row;
 
 	[GtkChild] unowned Gtk.Image supporter_icon;
 
@@ -118,6 +115,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	public signal void rs_invalidated ();
 	public signal void timeline_change (string timeline);
 	public signal void aria_updated (string new_aria);
+	public signal void edit_note ();
 
 	~Cover () {
 		debug ("Destroying Profile Cover");
@@ -138,26 +136,6 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			cover_badge.label = value;
 
 			update_cover_badge ();
-		}
-	}
-
-	public string note_error_label {
-		get {
-			return note_error.label;
-		}
-
-		set {
-			note_entry_row.show_apply_button = note_entry_row.text != rsbtn.rs.note && value == "";
-			if (note_error.label == value) return;
-
-			note_error.visible = value != "";
-			note_error.label = value;
-
-			if (value != "") {
-				note_entry_row.add_css_class ("error");
-			} else {
-				note_entry_row.remove_css_class ("error");
-			}
 		}
 	}
 
@@ -274,7 +252,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 		_mini = mini;
 		if (mini) {
-			note_row.sensitive = false;
+			note_row.can_target = false;
 		} else if (!is_self) {
 			moved_btn.clicked.connect (on_moved_btn_clicked);
 			if (accounts.active.tuba_api_versions.mastodon > 0 || InstanceAccount.InstanceFeatures.MUTUALS in accounts.active.tuba_instance_features) {
@@ -288,7 +266,6 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		}
 
 		if (!is_self) {
-			note_entry_row.notify["text"].connect (on_note_changed);
 			profile.rs.invalidated.connect (on_rs_invalidation);
 			rsbtn.handle = profile.account.handle;
 			rsbtn.rs = profile.rs;
@@ -640,8 +617,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 	private void on_rs_invalidation (API.Relationship rs) {
 		cover_badge_label = rs.to_string ();
-		note_row.visible = _mini ? rs.note != "" : rs.note != null;
-		if (note_row.visible) note_entry_row.text = rs.note;
+		note_row.visible = rs.note != null && rs.note != "";
+		if (note_row.visible) note_row.subtitle = rs.note;
 
 		if (!_mini) app.relationship_invalidated (rs);
 
@@ -723,18 +700,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	}
 
 	[GtkCallback]
-	void on_note_apply () {
-		if (!note_row.visible) return;
-		if (note_error_label != "") return;
-		rsbtn.rs.modify_note (note_entry_row.text);
-	}
-
-	void on_note_changed () {
-		if (note_entry_row.text.length >= 2000) {
-			note_error_label = _("Error: Note is over 2000 characters long");
-			return;
-		}
-
-		note_error_label = "";
+	void on_edit_note () {
+		if (!note_row.visible || !note_row.can_target) return;
+		edit_note ();
 	}
 }

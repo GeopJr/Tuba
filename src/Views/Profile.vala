@@ -1,6 +1,124 @@
 public class Tuba.Views.Profile : Views.Accounts {
 	const int TOTAL_STATIC_ITEMS = 3;
 
+	public class NoteEditor : Adw.Dialog {
+		public signal void note_done (string note);
+		const int MAX_CHARS = 2000;
+		GtkSource.View editor;
+		Gtk.Label dialog_char_counter;
+		Dialogs.Composer.Components.Editor.PlaceholderHack placeholder;
+
+		public NoteEditor (string? note = "") {
+			this.can_close = false;
+			this.content_width = 400;
+			this.content_height = 400;
+			// translators: private note dialog title, shown when editing a private note on a profile
+			this.title = _("Private Note");
+			var toolbar_view = new Adw.ToolbarView ();
+			var headerbar = new Adw.HeaderBar () {
+				show_end_title_buttons = false,
+				show_start_title_buttons = false
+			};
+			toolbar_view.add_top_bar (headerbar);
+
+			var cancel_btn = new Gtk.Button.with_label (_("Cancel"));
+			cancel_btn.clicked.connect (on_cancel);
+
+			var save_btn = new Gtk.Button.with_label (_("Save")) {
+				css_classes = {"suggested-action"}
+			};
+			save_btn.clicked.connect (on_save);
+			headerbar.pack_start (cancel_btn);
+			headerbar.pack_end (save_btn);
+
+			editor = new GtkSource.View () {
+				vexpand = true,
+				hexpand = true,
+				accepts_tab = false,
+				wrap_mode = Gtk.WrapMode.WORD_CHAR,
+				margin_bottom = 6,
+				margin_top = 6,
+				margin_start = 6,
+				margin_end = 6,
+				input_hints = WORD_COMPLETION | SPELLCHECK | EMOJI
+			};
+			editor.remove_css_class ("view");
+			editor.add_css_class ("reset");
+
+			// translators: placeholder shown in the private note editor on profiles
+			placeholder = new Dialogs.Composer.Components.Editor.PlaceholderHack (new Gtk.Label (_("Type your note…")) {
+				valign = Gtk.Align.START,
+				halign = Gtk.Widget.get_default_direction () == Gtk.TextDirection.RTL ? Gtk.Align.END : Gtk.Align.START,
+				justify = Gtk.Justification.FILL,
+				//  margin_top = 6,
+				margin_start = 3,
+				margin_end = 3,
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR,
+				sensitive = false
+			});
+			editor.add_overlay (placeholder, 0, 0);
+			editor.update_property (Gtk.AccessibleProperty.PLACEHOLDER, _("Type your note…"), -1);
+
+			Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
+			update_style_scheme ();
+
+			#if LIBSPELLING
+				var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
+
+				editor.extra_menu = adapter.get_menu_model ();
+				editor.insert_action_group ("spelling", adapter);
+				adapter.enabled = true;
+			#endif
+
+			toolbar_view.content = new Gtk.ScrolledWindow () {
+				hexpand = true,
+				vexpand = true,
+				child = editor,
+				propagate_natural_height = true,
+				max_content_height = 209
+			};
+
+			dialog_char_counter = new Gtk.Label (MAX_CHARS.to_string ()) {
+				tooltip_text = _("Remaining Characters"),
+				css_classes = { "numeric", "dimmed" },
+				margin_end = 6
+			};
+			headerbar.pack_end (dialog_char_counter);
+			editor.buffer.changed.connect (on_editor_buffer_change);
+			if (note != null && note != "") editor.buffer.text = note;
+			this.child = toolbar_view;
+		}
+
+		private void on_editor_buffer_change () {
+			int total_count = Utils.Counting.chars (editor.buffer.text, "en");
+			placeholder.visible = total_count == 0;
+
+			dialog_char_counter.label = (MAX_CHARS - total_count).to_string ();
+			if (total_count < MAX_CHARS) {
+				dialog_char_counter.remove_css_class ("error");
+			} else {
+				dialog_char_counter.add_css_class ("error");
+			}
+		}
+
+		private void update_style_scheme () {
+			var manager = GtkSource.StyleSchemeManager.get_default ();
+			string scheme_name = "Adwaita";
+			if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+			((GtkSource.Buffer) editor.buffer).style_scheme = manager.get_scheme (scheme_name);
+		}
+
+		private void on_save () {
+			note_done (editor.buffer.text);
+			this.force_close ();
+		}
+
+		private void on_cancel () {
+			this.force_close ();
+		}
+	}
+
 	public class ProfileAccount : Widgetizable, GLib.Object {
 		public API.Account account { get; construct set; }
 		public API.Relationship rs { get; construct set; }
@@ -105,6 +223,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	protected SimpleAction domain_blocking_action;
 	protected SimpleAction endorse_action;
 	protected SimpleAction ar_list_action;
+	protected SimpleAction add_note_action;
 	protected SimpleAction notify_on_new_post_action;
 	//  protected SimpleAction source_action;
 
@@ -184,6 +303,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 			widget_cover.rs_invalidated.connect (on_rs_updated);
 			widget_cover.timeline_change.connect (change_timeline_source);
 			widget_cover.aria_updated.connect (on_cover_aria_update);
+			widget_cover.edit_note.connect (on_edit_cover_note);
 			widget_cover.remove_css_class ("card");
 			widget_cover.remove_css_class ("card-spacing");
 			this.cover_profile_update.connect (widget_cover.update_cover_from_profile);
@@ -458,6 +578,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 		actions.add_action (collection_action);
 		collection_action.set_enabled (accounts.active.tuba_api_versions.mastodon >= 10 && !profile.account.hide_collections);
 
+		add_note_action = new SimpleAction ("add-note", null);
+		add_note_action.activate.connect (v => {
+			on_edit_note ();
+		});
+		actions.add_action (add_note_action);
+
 		var copy_handle_action = new SimpleAction ("copy_handle", null);
 		copy_handle_action.activate.connect (v => {
 			Utils.Host.copy (profile.account.full_handle);
@@ -546,6 +672,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 		ar_list_action.set_enabled (profile.account.id != accounts.active.id && profile.rs.following);
 		notify_on_new_post_action.set_enabled (profile.account.id != accounts.active.id && profile.rs.following);
 		notify_on_new_post_action.set_state (profile.rs.notifying);
+		add_note_action.set_enabled (profile.account.id != accounts.active.id);
 
 		if (refresh) {
 			page_next = null;
@@ -757,6 +884,30 @@ public class Tuba.Views.Profile : Views.Accounts {
 			toast_overlay.add_toast (toast);
 		} catch (Error e) {
 			on_error (e.code, e.message);
+		}
+	}
+
+	private void on_edit_cover_note () {
+		on_edit_note ();
+	}
+
+	private void on_edit_note (string? note = null) {
+		var note_editor = new NoteEditor (note == null ? profile.rs.note : note);
+		note_editor.note_done.connect (on_note_done);
+		note_editor.present (app.main_window);
+	}
+
+	private void on_note_done (string new_note) {
+		on_note_done_real.begin (new_note);
+	}
+
+	private async void on_note_done_real (string new_note) {
+		try {
+			yield profile.rs.modify_note_real (new_note);
+		} catch (Error e) {
+			warning (@"Error while writing note: $(e.code) $(e.message)");
+			app.toast ("%s: %s".printf (_("Error"), e.message));
+			on_edit_note (new_note);
 		}
 	}
 }

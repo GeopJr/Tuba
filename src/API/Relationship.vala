@@ -143,10 +143,19 @@ public class Tuba.API.Relationship : Entity {
 	}
 
 	public void modify_note (string comment) {
-		modify_note_real.begin (comment);
+		modify_note_real_safe.begin (comment);
 	}
 
-	private async void modify_note_real (string comment) {
+	private async void modify_note_real_safe (string comment) {
+		try {
+			yield modify_note_real (comment);
+		} catch (Error e) {
+			warning (@"Error while writing note: $(e.code) $(e.message)");
+			app.toast ("%s: %s".printf (_("Error"), e.message));
+		}
+	}
+
+	public async void modify_note_real (string comment) throws Error {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 
@@ -166,9 +175,6 @@ public class Tuba.API.Relationship : Entity {
 			debug (@"Performed \"note\" on Relationship $id");
 		} catch (GLib.IOError.CANCELLED e) {
 			debug ("Message is cancelled.");
-		} catch (Error e) {
-			warning (@"Error while writing note: $(e.code) $(e.message)");
-			app.toast ("%s: %s".printf (_("Error"), e.message));
 		}
 	}
 
