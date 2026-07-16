@@ -166,6 +166,25 @@
 										</child>
 
 										<child>
+											<object class="GtkButton">
+												<property name="child">
+													<object class="AdwActionRow" id="note_row">
+														<property name="visible">0</property>
+														<!-- translators: title shown above personal notes on profiles. They are private, not shared with the person the profile belongs to. -->
+														<property name="title" translatable="yes">Note (visible only to you)</property>
+													</object>
+												</property>
+												<property name="visible" bind-source="note_row" bind-property="visible" bind-flags="sync-create" />
+												<property name="can-target" bind-source="note_row" bind-property="can-target" bind-flags="sync-create" />
+												<signal name="clicked" handler="on_edit_note" swapped="no" />
+												<style>
+													<class name="card" />
+													<class name="note-row" />
+												</style>
+											</object>
+										</child>
+
+										<child>
 											<object class="TubaWidgetsMarkupView" id="note">
 												<property name="margin_top">6</property>
 											</object>
@@ -196,34 +215,6 @@
 								</child>
 							</object>
 
-						</child>
-					</object>
-				</child>
-				<child>
-					<object class="GtkListBoxRow" id="note_row">
-						<property name="activatable">false</property>
-						<property name="visible">0</property>
-						<child>
-							<object class="GtkBox">
-								<property name="orientation">vertical</property>
-								<child>
-									<object class="AdwEntryRow" id="note_entry_row">
-										<property name="input-purpose">free-form</property>
-										<property name="title" translatable="yes">Note</property>
-										<signal name="apply" handler="on_note_apply" swapped="no" />
-									</object>
-								</child>
-								<child>
-									<object class="GtkLabel" id="note_error">
-										<property name="visible">0</property>
-										<property name="wrap">1</property>
-										<property name="wrap-mode">word-char</property>
-										<style>
-											<class name="error" />
-										</style>
-									</object>
-								</child>
-							</object>
 						</child>
 					</object>
 				</child>

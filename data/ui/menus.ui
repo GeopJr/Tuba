@@ -45,6 +45,12 @@
 			<attribute name="action">view.collections</attribute>
 			<attribute name="hidden-when">action-disabled</attribute>
 		</item>
+		<item>
+			<!-- translators: headerbar menu item that edits the private note of the profile it's on -->
+			<attribute name="label" translatable="yes">Private Note…</attribute>
+			<attribute name="action">view.add-note</attribute>
+			<attribute name="hidden-when">action-disabled</attribute>
+		</item>
 
 		<section>
 			<attribute name="label" translatable="yes">Moderation</attribute>
