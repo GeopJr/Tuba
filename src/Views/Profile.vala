@@ -117,7 +117,8 @@ public class Tuba.Views.Profile : Views.Accounts {
 			profile: new ProfileAccount (acc),
 			label: _("Profile"),
 			allow_nesting: true,
-			url: @"/api/v1/accounts/$(acc.id)/statuses"
+			url: @"/api/v1/accounts/$(acc.id)/statuses",
+			tuba_row: true
 		);
 
 		this.bind_property ("empty-state-title", error_message_row, "message", SYNC_CREATE);

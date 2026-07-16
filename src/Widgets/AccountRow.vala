@@ -65,7 +65,9 @@ public class Tuba.Widgets.AccountRow : Gtk.ListBoxRow {
 		title_label.instance_emojis = account.emojis_map;
 		title_label.content = account.display_name;
 
-		var info_wrap_box = new Adw.WrapBox ();
+		var info_wrap_box = new Adw.WrapBox () {
+			child_spacing = 4
+		};
 		info_wrap_box.append (title_label);
 		info_wrap_box.append (new Gtk.Label (account.full_handle) {
 			hexpand = true,
@@ -145,6 +147,8 @@ public class Tuba.Widgets.AccountRow : Gtk.ListBoxRow {
 			this.rs = this.account.tuba_rs;
 			this.account.notify["tuba-rs"].connect (on_tuba_rs);
 		}
+
+		app.relationship_invalidated.connect (on_relationship_invalidated_global);
 	}
 
 	private void on_tuba_rs () {
@@ -232,5 +236,11 @@ public class Tuba.Widgets.AccountRow : Gtk.ListBoxRow {
 	private void on_rs_invalidation (API.Relationship rs) {
 		app.relationship_invalidated (rs);
 		if (note != null) update_note ();
+	}
+
+	private void on_relationship_invalidated_global (API.Relationship new_relationship) {
+		if (this.rs == null || this.rs.id != new_relationship.id) return;
+
+		this.rs = new_relationship;
 	}
 }

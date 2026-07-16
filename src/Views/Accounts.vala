@@ -1,5 +1,5 @@
 public class Tuba.Views.Accounts : Views.Timeline {
-	private bool tuba_row { get; set; default = false; }
+	public bool tuba_row { get; set; default = false; }
 	public Accounts.prefilled (string url, string label, string icon, bool use_rows) {
 		Object (
 			url: url,
