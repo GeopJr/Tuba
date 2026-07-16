@@ -21,6 +21,7 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 		}
 	}
 
+	public bool tuba_row { get; set; default = false; }
 	public API.Relationship? tuba_rs { get; set; default=null; }
 	public GLib.Regex? tuba_search_query_regex { get; set; default = null; }
 
@@ -138,6 +139,14 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 	}
 
 	public override Gtk.Widget to_widget () {
+		if (this.tuba_row) {
+			var widg = new Widgets.AccountRow (this, false);
+			widg.add_rs_button (true);
+			widg.enable_activation ();
+			widg.add_followers_and_verified_link ();
+			widg.add_note ();
+			return widg;
+		}
 		return new Widgets.Account (this);
 	}
 

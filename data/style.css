@@ -922,6 +922,10 @@ popover.mini-profile row  {
 	background-color: var(--card-bg-color);
 }
 
+.verified-link, .verified-link link {
+	color: var(--success-color);
+}
+
 /*
 	Profile Filter Group
 */

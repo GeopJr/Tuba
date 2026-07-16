@@ -12,7 +12,9 @@ public class Tuba.Views.MutesBlocks : Views.TabbedBase {
 			"audio-volume-muted-symbolic",
 			"/api/v1/mutes",
 			typeof (API.Account),
-			_("No Muted Accounts")
+			_("No Muted Accounts"),
+			null,
+			true
 		);
 
 		blocks = add_timeline_tab (
@@ -20,7 +22,9 @@ public class Tuba.Views.MutesBlocks : Views.TabbedBase {
 			"tuba-error-symbolic",
 			"/api/v1/blocks",
 			typeof (API.Account),
-			_("No Blocked Accounts")
+			_("No Blocked Accounts"),
+			null,
+			true
 		);
 	}
 }

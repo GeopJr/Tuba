@@ -15,7 +15,8 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 			@"/api/v1/statuses/$(status_id)/reblogged_by",
 			typeof (API.Account),
 			_("No Boosts"),
-			"tuba-heart-broken-symbolic"
+			"tuba-heart-broken-symbolic",
+			true
 		);
 
 		favorited = add_timeline_tab (
@@ -25,7 +26,8 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 			@"/api/v1/statuses/$(status_id)/favourited_by",
 			typeof (API.Account),
 			_("No Favorites"),
-			"tuba-heart-broken-symbolic"
+			"tuba-heart-broken-symbolic",
+			true
 		);
 
 		if (has_reactors && accounts.active.instance_info != null && accounts.active.instance_info.pleroma != null) {

@@ -142,8 +142,8 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		return tab;
 	}
 
-	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts, string? empty_state_title = null, string? empty_state_icon = null) {
-		var tab = new Views.Accounts.prefilled (url, label, icon) {
+	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts, string? empty_state_title = null, string? empty_state_icon = null, bool use_rows = false) {
+		var tab = new Views.Accounts.prefilled (url, label, icon, use_rows) {
 			accepts = accepts
 		};
 		tab.label = label;

@@ -1,10 +1,21 @@
 public class Tuba.Views.Accounts : Views.Timeline {
-	public Accounts.prefilled (string url, string label, string icon) {
+	private bool tuba_row { get; set; default = false; }
+	public Accounts.prefilled (string url, string label, string icon, bool use_rows) {
 		Object (
 			url: url,
 			label: label,
 			icon: icon
 		);
+
+		this.tuba_row = use_rows;
+	}
+
+	public override Gtk.Widget on_create_model_widget (Object obj) {
+		if (this.tuba_row && obj is API.Account) {
+			((API.Account) obj).tuba_row = true;
+		}
+
+		return base.on_create_model_widget (obj);
 	}
 
 	public override void on_content_changed () {

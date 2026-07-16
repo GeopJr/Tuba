@@ -337,7 +337,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 				string followers_str = GLib.ngettext (
 					"%s Follower",
 					"%s Followers",
-					(ulong) profile.account.statuses_count
+					(ulong) profile.account.followers_count
 				).printf (@"<b>$(Utils.Units.shorten (profile.account.followers_count))</b>");
 				stats += "<span allow_breaks=\"false\">%s</span>".printf (followers_str);
 			}
