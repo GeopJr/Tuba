@@ -22,6 +22,12 @@
 					<foaf:accountName>GeopJr</foaf:accountName>
 				</foaf:OnlineAccount>
 			</foaf:account>
+			<foaf:account>
+				<foaf:OnlineAccount>
+					<foaf:accountServiceHomepage rdf:resource="https://gitlab.gnome.org/" />
+					<foaf:accountName>GeopJr</foaf:accountName>
+				</foaf:OnlineAccount>
+			</foaf:account>
 		</foaf:Person>
 	</maintainer>
 </Project>
