@@ -96,7 +96,7 @@ if libspelling.found ()
   add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
 endif
 
-if gtk_dep.version().version_compare('>=4.20')
+if gtk_dep.version().version_compare('>=4.20') and meson.get_compiler('vala').version().version_compare('>=0.56.19')
   add_project_arguments(['--define=GTK_4_20'], language: 'vala')
 endif
 
