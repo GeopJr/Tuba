@@ -78,6 +78,8 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-police-badge2-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-clock-alt-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-quotation-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-quotation-disabled-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-quotation-locked-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-fish-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-dock-right-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-channel-insecure-symbolic.svg</file>
@@ -118,6 +120,8 @@
         <file preprocess="xml-stripblanks">gtk/dropdown/language.ui</file>
         <file preprocess="xml-stripblanks">gtk/dropdown/expiration_title.ui</file>
         <file preprocess="xml-stripblanks">gtk/dropdown/expiration.ui</file>
+        <file preprocess="xml-stripblanks">gtk/dropdown/quotation_policy_title.ui</file>
+        <file preprocess="xml-stripblanks">gtk/dropdown/quotation_policy.ui</file>
 
         <file preprocess="xml-stripblanks">ui/views/base.ui</file>
         <file preprocess="xml-stripblanks">ui/views/media_viewer.ui</file>

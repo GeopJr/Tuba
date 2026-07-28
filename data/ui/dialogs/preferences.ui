@@ -160,6 +160,13 @@
 							</object>
 						</child>
 						<child>
+							<object class="AdwComboRow" id="default_quotation_policy_combo_row">
+								<!-- translators: settings row on setting the mastodon quote policy -->
+								<property name="title" translatable="yes">Default Quote Policy</property>
+								<property name="visible">0</property>
+							</object>
+						</child>
+						<child>
 							<object class="AdwComboRow" id="default_language_combo_row">
 								<property name="title" translatable="yes">Default Post Language</property>
 
@@ -296,6 +303,18 @@
 						<child>
 							<object class="AdwSwitchRow" id="edits_notifications_switch">
 								<property name="title" translatable="yes">Edits</property>
+								<property name="active">1</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="quotes_notifications_switch">
+								<property name="title" translatable="yes">Quotes</property>
+								<property name="active">1</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="quote_edited_notifications_switch">
+								<property name="title" translatable="yes">Quote Edits</property>
 								<property name="active">1</property>
 							</object>
 						</child>

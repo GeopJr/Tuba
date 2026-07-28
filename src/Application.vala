@@ -288,7 +288,7 @@ namespace Tuba {
 				req.add_form_data ("subscription[keys][auth]", obj.auth);
 				req.add_form_data ("subscription[standard]", "true");
 				req.add_form_data ("data[alerts][mention]", (!(InstanceAccount.KIND_MENTION in settings.muted_notification_types)).to_string ());
-				req.add_form_data ("data[alerts][quote]", "true");
+				req.add_form_data ("data[alerts][quote]", (!(InstanceAccount.KIND_QUOTE in settings.muted_notification_types)).to_string ());
 				req.add_form_data ("data[alerts][status]", "true");
 				req.add_form_data ("data[alerts][reblog]", (!(InstanceAccount.KIND_REBLOG in settings.muted_notification_types)).to_string ());
 				req.add_form_data ("data[alerts][follow]", (!(InstanceAccount.KIND_FOLLOW in settings.muted_notification_types)).to_string ());
@@ -296,7 +296,7 @@ namespace Tuba {
 				req.add_form_data ("data[alerts][favourite]", (!(InstanceAccount.KIND_FAVOURITE in settings.muted_notification_types)).to_string ());
 				req.add_form_data ("data[alerts][poll]", (!(InstanceAccount.KIND_POLL in settings.muted_notification_types)).to_string ());
 				req.add_form_data ("data[alerts][update]", (!(InstanceAccount.KIND_EDITED in settings.muted_notification_types)).to_string ());
-				req.add_form_data ("data[alerts][quoted_update]", (!(InstanceAccount.KIND_EDITED in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][quoted_update]", (!(InstanceAccount.KIND_QUOTE_UPDATE in settings.muted_notification_types)).to_string ());
 				req.add_form_data ("data[alerts][admin.sign_up]", "true");
 				req.add_form_data ("data[alerts][admin.report]", "true");
 				req.add_form_data ("data[policy]", "all");

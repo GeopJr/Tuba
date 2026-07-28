@@ -23,7 +23,7 @@ public class Tuba.Widgets.Conversation : Widgets.Status {
 			}
 		);
 
-		this.actions.destroy ();
+		this.toggle_actions_visibility (false);
 	}
 
 	public new string title_text {

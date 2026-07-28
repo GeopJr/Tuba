@@ -92,6 +92,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 					account.verify_credentials.end (res);
 					account.error = null;
 					if (account.source != null) {
+						if (account.source.quote_policy != null && account.source.quote_policy != "") settings.default_quote_policy = account.source.quote_policy;
 						if (account.source.language != null && account.source.language != "") settings.default_language = account.source.language;
 						if (account.source.privacy != null && account.source.privacy != "") {
 							string visibility_id = account.source.privacy.down ();

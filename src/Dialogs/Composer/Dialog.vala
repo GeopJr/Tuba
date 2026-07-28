@@ -180,6 +180,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	public string? quote_id { get; set; default = null; }
 	public string? scheduled_id { get; set; default = null; }
 	public string? edit_status_id { get; set; default = null; }
+	private bool quote_limited { get; set; default = false; }
 
 	private void install_emoji_pickers () {
 		var emoji_picker = new Gtk.EmojiChooser ();
@@ -220,6 +221,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	protected Gtk.DropDown visibility_button;
 	protected Gtk.DropDown language_button;
 	protected Gtk.DropDown? content_type_button = null;
+	protected Gtk.DropDown? quote_policy_button = null;
 	protected Gtk.ToggleButton? local_only_button = null;
 
 	private void append_dropdown (Gtk.DropDown dropdown) {
@@ -259,12 +261,15 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	}
 
 	private void visibility_changed () {
+		string vis = ((InstanceAccount.Visibility) visibility_button.selected_item).id;
 		post_btn.update_label (
-			((InstanceAccount.Visibility) visibility_button.selected_item).id == "direct"
+			vis == "direct"
 			// translators: post compositor post button label when the visibility is 'mentioned only'
 			? _("Send")
 			: null
 		);
+
+		if (quote_policy_button != null) quote_policy_button.sensitive = vis == "public" || vis == "unlisted";
 	}
 
 	private void install_languages (string? locale_iso) {
@@ -374,6 +379,66 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		cw_revealer.notify["child-revealed"].connect (on_cw_revealed);
 	}
 
+	public class QuotationPolicy : Object {
+		public API.Status.QuotePolicy policy { get; construct set; }
+		public string title { owned get { return this.policy.to_title (); } }
+		public string subtitle { owned get { return this.policy.to_subtitle (); } }
+		public string icon {
+			get {
+				switch (this.policy) {
+					case NOBODY: return "tuba-quotation-disabled-symbolic";
+					case FOLLOWERS: return "tuba-quotation-locked-symbolic";
+					default: return "tuba-quotation-symbolic";
+				}
+			}
+		}
+
+		public QuotationPolicy (string policy_name) {
+			this.policy = API.Status.QuotePolicy.from_string (policy_name);
+		}
+
+		public QuotationPolicy.from_policy (API.Status.QuotePolicy policy) {
+			this.policy = policy;
+		}
+
+		public static EqualFunc<string> compare = (a, b) => {
+			return ((QuotationPolicy) a).policy == ((QuotationPolicy) b).policy;
+		};
+	}
+
+	private void install_quote_policy_button (string? quote_policy = null, bool sensitive = true) {
+		GLib.ListStore supported_quotation_policies = new GLib.ListStore (typeof (QuotationPolicy));
+		supported_quotation_policies.append (new QuotationPolicy.from_policy (API.Status.QuotePolicy.PUBLIC));
+		supported_quotation_policies.append (new QuotationPolicy.from_policy (API.Status.QuotePolicy.FOLLOWERS));
+		supported_quotation_policies.append (new QuotationPolicy.from_policy (API.Status.QuotePolicy.NOBODY));
+
+		quote_policy_button = new Gtk.DropDown (supported_quotation_policies, null) {
+			expression = new Gtk.PropertyExpression (typeof (QuotationPolicy), null, "title"),
+			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/quotation_policy_title.ui"),
+			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/quotation_policy.ui"),
+			tooltip_text = _("Quote Policy"),
+			enable_search = false,
+			sensitive = sensitive
+		};
+
+		if (quote_policy != null) {
+			uint default_quote_policy_index;
+			if (
+				supported_quotation_policies.find_with_equal_func (
+					new QuotationPolicy (quote_policy),
+					QuotationPolicy.compare,
+					out default_quote_policy_index
+				)
+			) {
+				quote_policy_button.selected = default_quote_policy_index;
+			}
+		}
+
+		unowned Gtk.Widget? actual_button = quote_policy_button.get_first_child () as Gtk.ToggleButton;
+		if (actual_button != null) actual_button.add_css_class ("flat");
+		headerbar.pack_end (quote_policy_button);
+	}
+
 	private void install_local_only_button (bool active) {
 		local_only_button = new Gtk.ToggleButton () {
 			icon_name = "tuba-user-home-symbolic",
@@ -457,7 +522,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		// translators: composer post button label
 		string post_button_label = _("Post"),
 		bool edit_mode = false,
-		bool can_schedule = true
+		bool can_schedule = true,
+		string default_quote_policy = settings.default_quote_policy
 	) {
 		Object ();
 
@@ -471,6 +537,10 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		install_languages (default_language);
 		if (accounts.active.supported_mime_types.n_items > 1)
 			install_content_types (settings.default_content_type);
+
+		if (accounts.active.tuba_api_versions.mastodon >= 7) {
+			install_quote_policy_button (default_quote_policy, default_visibility == "public" || default_visibility == "unlisted");
+		}
 
 		if (InstanceAccount.InstanceFeatures.LOCAL_ONLY in accounts.active.tuba_instance_features) {
 			install_local_only_button (default_visibility == "local" || (precompose != null && precompose.local_only));
@@ -500,7 +570,15 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				cw_button.active = precompose.spoiler != "";
 				cw_entry.text = precompose.spoiler;
 			}
-			if (precompose.quote_id != null) this.quote_id = precompose.quote_id;
+			if (precompose.quote_id != null) {
+				this.quote_id = precompose.quote_id;
+
+				if (accounts.active.tuba_api_versions.mastodon >= 7) {
+					this.quote_limited = true;
+					poll_button.sensitive = false;
+					add_media_button.sensitive = false;
+				}
+			}
 			if (precompose.scheduled_id != null) this.scheduled_id = precompose.scheduled_id;
 			if (precompose.in_reply_to_id != null) this.in_reply_to_id = precompose.in_reply_to_id;
 
@@ -681,7 +759,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			// translators: composer post button label
 			redraft ? _("Redraft") : _("Edit"),
 			!redraft,
-			redraft
+			redraft,
+			t_status.quote_approval == null ? settings.default_quote_policy : t_status.quote_approval.to_quote_policy ().to_string ()
 		);
 
 		if (!redraft) {
@@ -780,7 +859,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		bool is_used = attachmentsbin_component.working || !attachmentsbin_component.is_empty;
 		sensitive_media_button.visible = !attachmentsbin_component.is_empty;
-		poll_button.sensitive = !is_used;
+		poll_button.sensitive = !is_used && !this.quote_limited;
 		if (!is_used) editor.add_bottom_child (null);
 		validate_post_button ();
 		update_attachmentsbin_sensitivity ();
@@ -882,6 +961,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		if (!has_files) return;
 
 		Signal.stop_emission_by_name (editor, "paste-clipboard");
+
+		if (!add_media_button.sensitive) return;
 		app.question.begin (
 			// translators: media as in picture or files
 			{_("Paste Media from Clipboard?"), false},
@@ -995,12 +1076,14 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			builder.add_boolean_value (true);
 		}
 
+		string? vis = null;
 		if (is_local && is_pleroma && !is_shrimp) {
 			builder.set_member_name ("visibility");
 			builder.add_string_value ("local");
 		} else if (visibility_button.selected != Gtk.INVALID_LIST_POSITION) {
 			builder.set_member_name ("visibility");
-			builder.add_string_value (((InstanceAccount.Visibility) visibility_button.selected_item).id);
+			vis = ((InstanceAccount.Visibility) visibility_button.selected_item).id;
+			builder.add_string_value (vis);
 		}
 
 		// Move to editor?
@@ -1010,6 +1093,14 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		if (content_type_button != null && content_type_button.selected != Gtk.INVALID_LIST_POSITION) {
 			builder.set_member_name ("content_type");
 			builder.add_string_value (((InstanceAccount.StatusContentType) content_type_button.selected_item).mime);
+		}
+
+		if (
+			quote_policy_button != null && quote_policy_button.selected != Gtk.INVALID_LIST_POSITION
+			&& (vis == "public" || vis == "unlisted")
+		) {
+			builder.set_member_name ("quote_approval_policy");
+			builder.add_string_value (((QuotationPolicy) quote_policy_button.selected_item).policy.to_string ());
 		}
 
 		if (in_reply_to_id != null && !edit_mode) {

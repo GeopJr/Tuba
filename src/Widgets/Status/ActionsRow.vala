@@ -1,4 +1,4 @@
-public class Tuba.Widgets.ActionsRow : Gtk.Box {
+public class Tuba.Widgets.ActionsRow : Adw.BreakpointBin {
 	public signal void reply (Gtk.Button btn);
 	public API.Status status { get; set; }
 
@@ -41,7 +41,10 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		bindings += this.status.bind_property ("bookmarked", bookmark_button, "active", GLib.BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 
 		if (quote_button != null) {
-			quote_button.visible = status.formal.can_be_quoted;
+			bindings += this.status.bind_property ("can-be-quoted", quote_button, "sensitive", BindingFlags.SYNC_CREATE);
+			bindings += this.status.bind_property ("quotes-count", quote_button, "amount", BindingFlags.SYNC_CREATE);
+			status_notify_signals += this.status.notify["can-be-quoted"].connect (can_be_quoted_notify_fun);
+			can_be_quoted_notify_fun ();
 		}
 	}
 
@@ -62,6 +65,20 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		}
 	}
 
+	private void can_be_quoted_notify_fun () {
+		bool src_val = this.status.can_be_quoted;
+		quote_button.sensitive = src_val;
+
+		if (src_val) {
+			quote_button.tooltip_text = _("Quote");
+			quote_button.default_icon_name = "tuba-quotation-symbolic";
+		} else {
+			// translators: tooltip text when the quote button is disabled
+			quote_button.tooltip_text = _("This post can't be quoted");
+			quote_button.default_icon_name = "tuba-quotation-disabled-symbolic";
+		}
+	}
+
 	public void unbind () {
 		foreach (var binding in bindings) {
 			binding.unbind ();
@@ -76,9 +93,48 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		status_notify_signals = {};
 	}
 
+	Gtk.Box box;
+	private bool _is_narrow = false;
+	public bool is_narrow {
+		get { return _is_narrow; }
+		set {
+			_is_narrow = value;
+			if (value) {
+				this.height_request = 30;
+				box.spacing = 2;
+				this.add_css_class ("narrow");
+				reply_button.show_counts = false;
+				if (quote_button != null) {
+					quote_button.show_counts = false;
+					quote_button.smaller = true;
+				}
+				reply_button.smaller = true;
+				reblog_button.smaller = true;
+				favorite_button.smaller = true;
+			} else {
+				this.height_request = 36;
+				box.spacing = 6;
+				this.remove_css_class ("narrow");
+				reply_button.show_counts = settings.show_interaction_counters;
+				if (quote_button != null) {
+					quote_button.show_counts = settings.show_interaction_counters;
+					quote_button.smaller = false;
+				}
+				reply_button.smaller = false;
+				reblog_button.smaller = false;
+				favorite_button.smaller = false;
+			}
+		}
+	}
+
 	construct {
+		box = new Gtk.Box (HORIZONTAL, 6);
 		this.add_css_class ("ttl-post-actions");
-		this.spacing = 6;
+		box.spacing = 6;
+		this.child = box;
+		this.overflow = VISIBLE;
+		this.height_request = 36;
+		this.width_request = 24;
 
 		reply_button = new Widgets.StatusActionButton.with_icon_name ("tuba-reply-sender-symbolic") {
 			show_counts = settings.show_interaction_counters,
@@ -99,7 +155,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			//  }
 		};
 		reply_button.clicked.connect (on_reply_button_clicked);
-		this.append (reply_button);
+		box.append (reply_button);
 
 		reblog_button = new Widgets.StatusActionButton.with_icon_name ("tuba-media-playlist-repeat-symbolic") {
 			show_counts = settings.show_interaction_counters,
@@ -118,7 +174,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			//  }
 		};
 		reblog_button.clicked.connect (on_boost_button_clicked);
-		this.append (reblog_button);
+		box.append (reblog_button);
 
 		if ((accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) || InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features) {
 			quote_button = new Widgets.StatusActionButton.with_icon_name ("tuba-quotation-symbolic") {
@@ -126,11 +182,10 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 				css_classes = { "ttl-status-action-quote", "flat", "circular" },
 				halign = Gtk.Align.START,
 				hexpand = true,
-				tooltip_text = _("Quote"),
-				visible = false
+				tooltip_text = _("Quote")
 			};
 			quote_button.clicked.connect (on_quote_button_clicked);
-			this.append (quote_button);
+			box.append (quote_button);
 		}
 
 		favorite_button = new Widgets.StatusActionButton.with_icon_name ("tuba-unstarred-symbolic") {
@@ -151,7 +206,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			//  }
 		};
 		favorite_button.clicked.connect (on_favorite_button_clicked);
-		this.append (favorite_button);
+		box.append (favorite_button);
 
 		bookmark_button = new Widgets.StatusActionButton.with_icon_name ("tuba-bookmarks-symbolic") {
 			active_icon_name = "tuba-bookmarks-filled-symbolic",
@@ -161,7 +216,16 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			tooltip_text = _("Bookmark")
 		};
 		bookmark_button.clicked.connect (on_bookmark_button_clicked);
-		this.append (bookmark_button);
+		box.append (bookmark_button);
+
+
+		var condition = new Adw.BreakpointCondition.length (
+			Adw.BreakpointConditionLengthType.MAX_WIDTH,
+			quote_button == null ? 300 : 380, Adw.LengthUnit.SP
+		);
+		var breakpoint = new Adw.Breakpoint ((owned) condition);
+		breakpoint.add_setter (this, "is-narrow", true);
+		add_breakpoint (breakpoint);
 	}
 
 	private void on_reply_button_clicked (Gtk.Button btn) {
@@ -324,11 +388,12 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			) {
 				extra_child = visibility_box
 			};
-			dlg.add_responses (
-				"no", _("Cancel"),
-				"quote", _("Quote"),
-				"yes", _("Boost")
-			);
+			dlg.add_response ("no", _("Cancel"));
+			// don't add the "quote" option if there's a quote button available
+			if (quote_button == null) {
+				dlg.add_response ("quote", _("Quote"));
+			}
+			dlg.add_response ("yes", _("Boost"));
 			dlg.set_response_appearance ("yes", Adw.ResponseAppearance.SUGGESTED);
 
 			dlg.response.connect (res => {
@@ -357,7 +422,6 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 									&& (
 										(accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting)
 										|| InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features
-										|| accounts.active.tuba_api_versions.mastodon >= 7 // TODO: in next minor, move this to supports_quote_posting
 									);
 								new Dialogs.Composer.Dialog.quote (status.formal, reblog_visibility, supports_quotes);
 								status_btn.unblock_clicked ();

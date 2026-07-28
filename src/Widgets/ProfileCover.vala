@@ -474,7 +474,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			) {
 				use_markup = true,
 				wrap = true,
-				wrap_mode = Pango.WrapMode.WORD_CHAR
+				wrap_mode = Pango.WrapMode.CHAR
 			};
 			moved_to_account = profile.moved;
 		} else {

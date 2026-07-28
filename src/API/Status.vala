@@ -5,7 +5,44 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	}
 
 	public class QuoteApproval : Entity {
+		public Gee.ArrayList<string>? automatic { get; set; default = null; }
+		public Gee.ArrayList<string>? manual { get; set; default = null; }
 		public string current_user { get; set; }
+
+		public QuotePolicy to_quote_policy () {
+			if (
+				(this.current_user == "automatic" || this.current_user == "manual")
+				&& (
+					(this.automatic != null && this.automatic.size > 0)
+					|| (this.manual != null && this.manual.size > 0)
+				)
+			) {
+				foreach (var qp in (
+					this.automatic != null && this.automatic.size > 0
+					? this.automatic : this.manual
+				)) {
+					switch (qp) {
+						case "public":
+							return QuotePolicy.PUBLIC;
+						case "followers":
+						case "following":
+							return QuotePolicy.FOLLOWERS;
+					}
+				}
+			}
+
+			return QuotePolicy.NOBODY;
+		}
+
+		public override Type deserialize_array_type (string prop) {
+			switch (prop) {
+				case "automatic":
+				case "manual":
+					return Type.STRING;
+			}
+
+			return base.deserialize_array_type (prop);
+		}
 	}
 
 	public string id { get; set; }
@@ -17,6 +54,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	public string content { get; set; default = ""; }
 	public StatusApplication? application { get; set; default = null; }
 	public int64 replies_count { get; set; default = 0; }
+	public int64 quotes_count { get; set; default = 0; }
 	public int64 reblogs_count { get; set; default = 0; }
 	public int64 favourites_count { get; set; default = 0; }
 	public string created_at { get; set; default = "0"; }
@@ -42,7 +80,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	public API.PreviewCard? card { get; set; default = null; }
 	public Gee.ArrayList<API.Filters.FilterResult>? filtered { get; set; default = null; }
 	public QuoteApproval? quote_approval { get; set; default = null; }
-	//  public bool tuba_had_quote { get; set; default = false; } // TODO: preparation for 2-level nesting
+	public bool tuba_had_quote { get; set; default = false; }
 	public Gee.ArrayList<API.Collection>? tagged_collections { get; set; default = null; }
 
 	public override Type deserialize_array_type (string prop) {
@@ -198,8 +236,11 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 
 	public bool can_be_quoted {
 		get {
-			if (accounts.active.tuba_api_versions.mastodon >= 7 && this.formal.quote_approval != null) {
-				return this.formal.quote_approval.current_user != "denied";
+			if (
+				(InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features || accounts.active.tuba_api_versions.mastodon >= 7)
+				&& this.formal.quote_approval != null
+			) {
+				return this.formal.quote_approval.current_user != "denied" && this.formal.quote_approval.current_user != "unknown";
 			}
 
 			return this.formal.visibility != "direct" && this.formal.visibility != "private" && this.formal.visibility != "local";
@@ -301,6 +342,59 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 
 	public RequestV2 unbookmark_req () {
 		return action ("unbookmark");
+	}
+
+	public enum QuotePolicy {
+		PUBLIC,
+		FOLLOWERS,
+		NOBODY;
+
+		public string to_string () {
+			switch (this) {
+				case PUBLIC:
+					return "public";
+				case FOLLOWERS:
+					return "followers";
+				default:
+					return "nobody";
+			}
+		}
+
+		public string to_title () {
+			switch (this) {
+				case PUBLIC:
+					// translators: quote policy title, who can quote a post
+					return _("Anybody");
+				case FOLLOWERS:
+					// translators: quote policy title, who can quote a post
+					return _("Followers Only");
+				default:
+					// translators: quote policy title, who can quote a post
+					return _("Just Me");
+			}
+		}
+
+		public string to_subtitle () {
+			switch (this) {
+				case PUBLIC:
+					// translators: quote policy subtitle, when Anybody can quote
+					return _("Everyone can quote your post");
+				case FOLLOWERS:
+					// translators: quote policy subtitle, when Followers Only can quote
+					return _("Only your followers can quote your post");
+				default:
+					// translators: quote policy subtitle, when Just Me can quote
+					return _("Nobody can quote your post");
+			}
+		}
+
+		public static QuotePolicy from_string (string policy) {
+			switch (policy.down ()) {
+				case "public": return PUBLIC;
+				case "followers": return FOLLOWERS;
+				default: return NOBODY;
+			}
+		}
 	}
 
 	public enum Visibility {

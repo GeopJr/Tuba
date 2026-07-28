@@ -45,7 +45,7 @@ public class Tuba.API.Instance : Entity {
 				return "quote_posting" in pleroma.metadata.features;
 			}
 
-			return false;
+			return accounts.active.tuba_api_versions.mastodon >= 7;
 		}
 	}
 

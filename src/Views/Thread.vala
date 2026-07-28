@@ -54,11 +54,18 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		request.begin ();
 	}
 
+	GLib.Cancellable? root_update_cancellable = null;
 	private async void update_root_status (string status_id = root_status.id) {
 		if (root_status == null) return;
+		if (root_update_cancellable != null) root_update_cancellable.cancel ();
+		root_update_cancellable = new GLib.Cancellable ();
 
 		Widgets.Status? status_widget = root_status_widget;
-		var req = new RequestV2 (@"/api/v1/statuses/$status_id") { account = account, ctx = this };
+		var req = new RequestV2 (@"/api/v1/statuses/$status_id") {
+			account = account,
+			ctx = this,
+			cancellable = root_update_cancellable
+		};
 
 		try {
 			var in_stream = yield req.exec (null);
@@ -69,10 +76,11 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				if (root_status != null) root_status.patch (api_status);
 				if (status_widget != null) {
 					status_widget.on_edit (api_status);
-					status_widget.unref ();
 					status_widget = null;
 				}
 			}
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
 		} catch (Error e) {
 			warning (@"Couldn't update root status $status_id: $(e.message)");
 		}
@@ -269,6 +277,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			#endif
 			widget_status.expand_root ();
 			root_status_widget = widget_status;
+			update_root_status.begin (root_status.id);
 		}
 
 		return widget_status;

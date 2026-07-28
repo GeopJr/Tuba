@@ -24,6 +24,7 @@
 
 	public API.Account? kind_instigator { get; set; default = null; }
 	private Gtk.Button? quoted_status_btn { get; set; default = null; }
+	private Gtk.Label? quote_warning { get; set; default = null; }
 	public API.Translation? translation { get; private set; default = null; }
 	private Adw.Bin? emoji_reactions { get; set; default = null; }
 	protected string? other_data { get; set; default = null; }
@@ -65,8 +66,6 @@
 			Gtk.Widget?[] widgets_to_toggle = {
 				menu_button,
 				emoji_reactions,
-				actions,
-				quoted_status_btn,
 				prev_card,
 				collection_card
 			};
@@ -76,6 +75,8 @@
 					widget.visible = !value;
 				}
 			}
+
+			toggle_actions_visibility (!value);
 		}
 	}
 
@@ -142,7 +143,7 @@
 	[GtkChild] public unowned Gtk.Stack filter_stack;
 	[GtkChild] protected unowned Gtk.Label filter_label;
 
-	public ActionsRow actions { get; private set; }
+	private ActionsRow actions { get; private set; }
 	protected Gtk.PopoverMenu context_menu { get; set; }
 	private const GLib.ActionEntry[] ACTION_ENTRIES = {
 		{"copy-url", copy_url},
@@ -157,6 +158,16 @@
 	private SimpleAction show_original_simple_action;
 	private SimpleAction? mute_conversation_action = null;
 	private SimpleAction? unmute_conversation_action = null;
+	private SimpleAction? change_quote_policy_action = null;
+
+	public void toggle_actions_visibility (bool visible) {
+		this.actions.visible = visible;
+		if (visible) {
+			status_box.add_css_class ("has-actions");
+		} else {
+			status_box.remove_css_class ("has-actions");
+		}
+	}
 
 	void settings_updated () {
 		Tuba.toggle_css (this, settings.larger_line_height, "ttl-status-line-height-large");
@@ -185,7 +196,7 @@
 	}
 
 	private void on_mobile_size () {
-		if (avatar.visible = true) {
+		if (avatar.visible) {
 			if (avatar.size == 48 && app.is_mobile) {
 				avatar.size = 36;
 				if (actor_avatar != null) actor_avatar.size = 24;
@@ -319,6 +330,20 @@
 				toggle_pinned_simple_action.activate.connect (toggle_pinned);
 				toggle_pinned_simple_action.set_enabled (false);
 				action_group.add_action (toggle_pinned_simple_action);
+
+				if (
+					accounts.active.tuba_api_versions.mastodon >= 7
+					&& (status.formal.visibility == "public" || status.formal.visibility == "unlisted")
+					&& status.formal.quote_approval != null
+				) {
+					change_quote_policy_action = new SimpleAction.stateful (
+						"change-quote-policy",
+						GLib.VariantType.STRING,
+						status.formal.quote_approval.to_quote_policy ().to_string ()
+					);
+					change_quote_policy_action.activate.connect (change_quote_policy);
+					action_group.add_action (change_quote_policy_action);
+				}
 			}
 
 			var edit_status_simple_action = new SimpleAction ("edit-status", null);
@@ -339,6 +364,16 @@
 
 			action_group.add_action (translate_simple_action);
 			action_group.add_action (show_original_simple_action);
+		}
+
+		if (
+			status.formal.quote != null && status.formal.quote.tuba_has_quote
+			&& accounts.active.tuba_api_versions.mastodon >= 7
+			&& status.formal.quote.account.is_self ()
+		) {
+			var revoke_quote_simple_action = new SimpleAction ("revoke-quote", null);
+			revoke_quote_simple_action.activate.connect (revoke_quote);
+			action_group.add_action (revoke_quote_simple_action);
 		}
 
 		update_mute_conversation_actions_enabled_status ();
@@ -373,6 +408,30 @@
 			menu_model.append_item (pin_menu_item);
 			menu_model.append_item (mute_menu_item);
 			menu_model.append_item (unmute_menu_item);
+
+			if (
+				accounts.active.tuba_api_versions.mastodon >= 7
+				&& (status.formal.visibility == "public" || status.formal.visibility == "unlisted")
+				&& status.formal.quote_approval != null
+			) {
+				var quote_policy_submenu = new GLib.Menu ();
+				quote_policy_submenu.append (
+					API.Status.QuotePolicy.PUBLIC.to_title (),
+					@"status.change-quote-policy('$(API.Status.QuotePolicy.PUBLIC.to_string ())')"
+				);
+				quote_policy_submenu.append (
+					API.Status.QuotePolicy.FOLLOWERS.to_title (),
+					@"status.change-quote-policy('$(API.Status.QuotePolicy.FOLLOWERS.to_string ())')"
+				);
+				quote_policy_submenu.append (
+					API.Status.QuotePolicy.NOBODY.to_title (),
+					@"status.change-quote-policy('$(API.Status.QuotePolicy.NOBODY.to_string ())')"
+				);
+
+				// translators: quote policy menu in post menus. You may translate it as
+				//				"quote privacy"
+				menu_model.append_submenu (_("Quote Policy"), quote_policy_submenu);
+			}
 
 			menu_model.append (_("Edit"), "status.edit-status");
 			menu_model.append (_("Delete"), "status.delete-status");
@@ -409,6 +468,12 @@
 				menu_model.append_item (show_original_menu_item);
 			}
 
+			// translators: menu item on posts, shown when someone has quoted a post
+			//				of yours and clicking it will remove your post from their
+			//				quote. You may translate it as 'Revoke quote' otherwise
+			var revoke_quote_menu_item = new GLib.MenuItem (_("Remove my post"), "status.revoke-quote");
+			revoke_quote_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+			menu_model.append_item (revoke_quote_menu_item);
 			menu_model.append (_("Report"), "status.report");
 		}
 
@@ -484,6 +549,28 @@
 		bind ();
 	}
 
+	private void change_quote_policy (GLib.SimpleAction action, GLib.Variant? value) {
+		if (value == null) return;
+		string new_quote_policy = value.get_string ();
+		change_quote_policy_real.begin (new_quote_policy, action.get_state ().get_string ());
+		action.set_state (new_quote_policy);
+	}
+
+	private async void change_quote_policy_real (string new_policy, string old_policy) {
+		try {
+			var req = new RequestV2 (@"/api/v1/statuses/$(status.formal.id)/interaction_policy", PUT) { account = accounts.active };
+			req.add_form_data ("quote_approval_policy", new_policy);
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			on_edit (API.Status.from (node));
+		} catch (Error e) {
+			change_quote_policy_action.set_state (old_policy);
+			warning (@"Couldn't change quote policy for $(status.formal.id): $(e.code) $(e.message)");
+			app.toast ("%s %s".printf (_("Error"), e.message));
+		}
+	}
+
 	public signal void pin_changed ();
 	private void toggle_pinned () {
 		toggle_pinned_real.begin ();
@@ -536,6 +623,34 @@
 			}
 		}
 	}
+
+	private void revoke_quote () {
+		revoke_quote_real.begin ();
+	}
+
+	private async void revoke_quote_real () {
+		var res = yield app.question (
+			// translators: dialog title shown when attempting to revoke your post
+			//				from someone else's quote
+			{_("Remove your post from the quote?"), false},
+			null, app.main_window,
+			{ { _("Remove"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			null, false
+		);
+		if (!res.truthy ()) return;
+
+		try {
+			var req = new RequestV2 (@"/api/v1/statuses/$(status.formal.quote.id)/quotes/$(status.formal.id)/revoke", POST) { account = accounts.active };
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			on_edit (API.Status.from (node));
+		} catch (Error e) {
+			warning (@"Couldn't revoke quote: $(e.code) $(e.message)");
+			app.toast ("%s %s".printf (_("Error"), e.message));
+		}
+	}
+
 
 	private void delete_status () {
 		var dlg = new Adw.AlertDialog (_("Delete Post?"), null) {
@@ -768,6 +883,19 @@
 			on_avatar_clicked ();
 		else
 			status.open ();
+	}
+
+	public void on_open_unless_reveal (Gtk.Button? btn = null) {
+		if (btn != null
+			&& (btn.get_first_child () is Gtk.Stack)
+			&& (((Gtk.Stack) btn.get_first_child ()).visible_child_name != "status")
+		) {
+			((Gtk.Stack) btn.get_first_child ()).visible_child_name = "status";
+		} else if (filter_stack.visible_child_name == "filter") {
+			toggle_filter ();
+		} else {
+			on_open ();
+		}
 	}
 
 	string? forced_kind_instigator_name;
@@ -1024,7 +1152,7 @@
 			//				please be mindful.
 			//				The variables are strings <amount> replies,
 			//				<amount> boosts, <amount> favorites.
-			aria_stats = "Post stats: %s, %s, %s.".printf (
+			aria_stats = "Post stats: %s, %s, %s, %s.".printf (
 				GLib.ngettext (
 					"%s reply",
 					"%s replies",
@@ -1035,6 +1163,11 @@
 					"%s boosts",
 					(ulong) status.formal.reblogs_count
 				).printf (status.formal.reblogs_count.to_string ()),
+				GLib.ngettext (
+					"%s quote",
+					"%s quotes",
+					(ulong) status.formal.quotes_count
+				).printf (status.formal.quotes_count.to_string ()),
 				GLib.ngettext (
 					"%s favorite",
 					"%s favorites",
@@ -1108,11 +1241,11 @@
 		actions = new ActionsRow (this.status.formal);
 		actions.reply.connect (on_reply_button_clicked);
 		content_column.append (actions);
+		toggle_actions_visibility (true);
 
 		this.content.bold_text_regex = status.tuba_search_query_regex;
-		bool has_quote = status.formal.quote != null && status.formal.quote.tuba_has_quote;
-		this.content.has_quote = has_quote;
-		//  this.content.has_quote = has_quote || status.formal.tuba_had_quote; // TODO: preparation for 2-level nesting
+		bool has_quote = status.formal.quote != null;// && status.formal.quote.tuba_has_quote;
+		this.content.has_quote = has_quote || status.formal.tuba_had_quote;
 		this.content.mentions = status.formal.mentions;
 		this.content.instance_emojis = status.formal.emojis_map;
 
@@ -1123,18 +1256,92 @@
 		}
 
 		if (quoted_status_btn != null) content_box.remove (quoted_status_btn);
-		if (has_quote && !is_quote) {
-			var quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
-			quoted_status.is_quote = true;
-			quoted_status.add_css_class ("frame");
-			quoted_status.add_css_class ("ttl-quote");
+		if (quote_warning != null) content_box.remove (quote_warning);
+		if ((has_quote && !is_quote) || status.formal.tuba_had_quote) {
+			if (status.formal.quote != null && status.formal.quote.tuba_has_quote) {
+				var quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
+				quoted_status.is_quote = true;
+				quoted_status.add_css_class ("frame");
+				quoted_status.add_css_class ("ttl-quote");
 
-			quoted_status_btn = new Gtk.Button () {
-				child = quoted_status,
-				css_classes = { "ttl-flat-button", "flat" }
-			};
-			quoted_status_btn.clicked.connect (quoted_status.on_open);
-			content_box.append (quoted_status_btn);
+				var qstack = new Gtk.Stack () {
+					vhomogeneous = false,
+					hhomogeneous = false,
+					transition_type = Gtk.StackTransitionType.CROSSFADE,
+					interpolate_size = true
+				};
+				qstack.add_named (quoted_status, "status");
+
+				quoted_status_btn = new Gtk.Button () {
+					child = qstack,
+					css_classes = { "ttl-flat-button", "flat" }
+				};
+				quoted_status_btn.clicked.connect (quoted_status.on_open_unless_reveal);
+				content_box.append (quoted_status_btn);
+
+				if (status.formal.quote.state != "accepted") {
+					// translators: placeholder message when a quote has
+					//				been hidden for an unknown reason;
+					//				should never be visible to users
+					string label = _("Quote is hidden");
+					switch (status.formal.quote.state) {
+						case "blocked_account":
+						// translators: label shown when the quote is hidden
+						//				inside a post for the described reason;
+						//				the variable is a string account handle
+						//				or domain
+							label = _("This quote is hidden because you've blocked %s").printf (status.formal.quote.account.handle);
+							break;
+						case "blocked_domain":
+							label = _("This quote is hidden because you've blocked %s").printf (status.formal.quote.account.domain);
+							break;
+						case "muted_account":
+						// translators: label shown when the quote is hidden
+						//				inside a post for the described reason;
+						//				the variable is a string account handle
+							label = _("This quote is hidden because you've muted %s").printf (status.formal.quote.account.handle);
+							break;
+					}
+					var qbtn = new Gtk.Label (label) {
+						wrap = true,
+						wrap_mode = CHAR,
+						tooltip_text = _("Show Anyway"),
+						css_classes = {"border-radius-6", "frame"}
+					};
+					qstack.add_named (qbtn, "hidden-btn");
+					qstack.visible_child_name = "hidden-btn";
+				}
+			} else {
+				// translators: label shown when the quote can't be displayed
+				//				inside a post
+				string label = _("Quote Unavailable");
+				if (status.formal.tuba_had_quote) {
+					// translators: label shown when a quote is quoting a post
+					//				that we won't display
+					label = _("Quoted a post");
+				} else {
+					switch (status.formal.quote.state) {
+						case "pending":
+						// translators: label shown when the quote can't be displayed
+						//				inside a post
+							label = _("Quote Pending");
+							break;
+						case "revoked":
+						case "deleted":
+						// translators: label shown when the quote can't be displayed
+						//				inside a post
+							label = _("Quote removed by author");
+							break;
+					}
+				}
+
+				quote_warning = new Gtk.Label (label) {
+					wrap = true,
+					wrap_mode = Pango.WrapMode.WORD_CHAR,
+					css_classes = {"warning", "border-radius-6", "frame", "ttl-quote-state"}
+				};
+				content_box.append (quote_warning);
+			}
 		}
 
 		if (emoji_reactions != null) content_column.remove (emoji_reactions);
@@ -1358,7 +1565,7 @@
 		if (attachments != null) attachments.usable = false;
 		if (emoji_reactions != null) emoji_reactions.visible = false;
 		this.can_be_opened = false;
-		this.actions.visible = false;
+		toggle_actions_visibility (false);
 		this.menu_button.visible = false;
 		this.activatable = false;
 		this.avatar.allow_mini_profile = false;

@@ -118,6 +118,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
 	[GtkChild] unowned Adw.ComboRow default_language_combo_row;
 	[GtkChild] unowned Adw.ComboRow default_content_type_combo_row;
+	[GtkChild] unowned Adw.ComboRow default_quotation_policy_combo_row;
 	[GtkChild] unowned Adw.SwitchRow work_in_background;
 	[GtkChild] unowned Adw.SwitchRow live_updates;
 	[GtkChild] unowned Adw.SwitchRow public_live_updates;
@@ -153,6 +154,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow boosts_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow poll_results_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow edits_notifications_switch;
+	[GtkChild] unowned Adw.SwitchRow quotes_notifications_switch;
+	[GtkChild] unowned Adw.SwitchRow quote_edited_notifications_switch;
 
 	[GtkChild] unowned Gtk.Switch analytics_switch;
 	[GtkChild] unowned Adw.SwitchRow update_contributors;
@@ -188,7 +191,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			req.add_form_data ("data[alerts][favourite]", favorites_notifications_switch.active.to_string ());
 			req.add_form_data ("data[alerts][poll]", poll_results_notifications_switch.active.to_string ());
 			req.add_form_data ("data[alerts][update]", edits_notifications_switch.active.to_string ());
-			req.add_form_data ("data[alerts][quoted_update]", edits_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][quote]", quotes_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][quoted_update]", quote_edited_notifications_switch.active.to_string ());
 			try {
 				yield req.exec (null);
 			} catch (Error e) {
@@ -206,6 +210,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	private bool lang_changed { get; set; default=false; }
 	private bool privacy_changed { get; set; default=false; }
+	private bool quote_policy_changed { get; set; default=false; }
 
 	static construct {
 		typeof (ColorSchemeListModel).ensure ();
@@ -262,6 +267,12 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			setup_content_type_combo_row ();
 		}
 
+		if (accounts.active.tuba_api_versions.mastodon >= 7) {
+			default_quotation_policy_combo_row.visible = true;
+			default_quotation_policy_combo_row.expression = new Gtk.PropertyExpression (typeof (QuotationPolicy), null, "title");
+			setup_quote_policy_combo_row ();
+		}
+
 		setup_languages_combo_row ();
 		setup_notification_mutes ();
 		setup_filters.begin ();
@@ -307,7 +318,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			{ mentions_notifications_switch, InstanceAccount.KIND_MENTION },
 			{ boosts_notifications_switch, InstanceAccount.KIND_REBLOG},
 			{ poll_results_notifications_switch, InstanceAccount.KIND_POLL},
-			{ edits_notifications_switch, InstanceAccount.KIND_EDITED }
+			{ edits_notifications_switch, InstanceAccount.KIND_EDITED },
+			{ quotes_notifications_switch, InstanceAccount.KIND_QUOTE },
+			{ quote_edited_notifications_switch, InstanceAccount.KIND_QUOTE_UPDATE }
 		};
 
 		update_notification_mutes_switches ();
@@ -340,6 +353,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("use-in-app-browser-if-available", in_app_browser_switch, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
+		default_quotation_policy_combo_row.notify["selected-item"].connect (on_default_quotation_policy_changed);
 		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
 	}
 
@@ -389,6 +403,11 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		privacy_changed = true;
 	}
 
+	private void on_default_quotation_policy_changed () {
+		settings.default_quote_policy = ((QuotationPolicy) default_quotation_policy_combo_row.selected_item).policy.to_string ();
+		quote_policy_changed = true;
+	}
+
 	private void setup_languages_combo_row () {
 		default_language_combo_row.list_factory = new Gtk.BuilderListItemFactory.from_resource (
 			null,
@@ -406,6 +425,43 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			)
 		) {
 			default_language_combo_row.selected = default_lang_index;
+		}
+	}
+
+	public class QuotationPolicy : Object {
+		public API.Status.QuotePolicy policy { get; construct set; }
+		public string title { get; construct set; }
+
+		public QuotationPolicy (string policy_name) {
+			this.policy = API.Status.QuotePolicy.from_string (policy_name);
+			this.title = this.policy.to_title ();
+		}
+
+		public QuotationPolicy.from_policy (API.Status.QuotePolicy policy) {
+			this.policy = policy;
+			this.title = policy.to_title ();
+		}
+
+		public static EqualFunc<string> compare = (a, b) => {
+			return ((QuotationPolicy) a).policy == ((QuotationPolicy) b).policy;
+		};
+	}
+	private void setup_quote_policy_combo_row () {
+		GLib.ListStore supported_quotation_policies = new GLib.ListStore (typeof (QuotationPolicy));
+		supported_quotation_policies.append (new QuotationPolicy.from_policy (API.Status.QuotePolicy.PUBLIC));
+		supported_quotation_policies.append (new QuotationPolicy.from_policy (API.Status.QuotePolicy.FOLLOWERS));
+		supported_quotation_policies.append (new QuotationPolicy.from_policy (API.Status.QuotePolicy.NOBODY));
+		default_quotation_policy_combo_row.model = supported_quotation_policies;
+
+		uint default_quote_policy_index;
+		if (
+			supported_quotation_policies.find_with_equal_func (
+				new QuotationPolicy (settings.default_quote_policy),
+				QuotationPolicy.compare,
+				out default_quote_policy_index
+			)
+		) {
+			default_quotation_policy_combo_row.selected = default_quote_policy_index;
 		}
 	}
 
@@ -440,9 +496,10 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		}
 	}
 
-	private async void update_credentials_privacy_real (string new_priv) {
+	private async void update_credentials_privacy_real (string new_priv, string? new_qpol = null) {
 		var req = new RequestV2 ("/api/v1/accounts/update_credentials", PATCH) { account = accounts.active };
 		req.add_form_data ("source[privacy]", new_priv);
+		if (new_qpol != null) req.add_form_data ("source[quote_policy]", new_qpol);
 		try {
 			yield req.exec (null);
 		} catch (Error e) {
@@ -456,13 +513,18 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		if (lang_changed) {
 			var new_lang = ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale;
 			if (settings.default_language != ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale) {
-
 				update_credentials_language_real.begin (new_lang);
 			}
 		}
 
-		if (privacy_changed && settings.default_post_visibility != "direct") {
-			update_credentials_privacy_real.begin (settings.default_post_visibility);
+		if (
+			(privacy_changed && settings.default_post_visibility != "direct")
+			|| quote_policy_changed
+		) {
+			update_credentials_privacy_real.begin (
+				settings.default_post_visibility,
+				quote_policy_changed ? settings.default_quote_policy : null
+			);
 		}
 
 		if (default_content_type_combo_row.visible)

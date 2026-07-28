@@ -17,12 +17,23 @@ public class Tuba.Widgets.StatusActionButton : Gtk.Button {
 	public bool working { get; private set; default = false; }
 	public bool show_counts { get; set; default = true; }
 
+	private bool _smaller = false;
+	public bool smaller {
+		get { return _smaller; }
+		set {
+			if (_smaller != value) {
+				_smaller = value;
+				update_button_content (this.amount);
+			}
+		}
+	}
+
 	private int64 _amount = 0;
 	public int64 amount {
 		get { return _amount; }
 		set {
 			_amount = value;
-			update_button_content (value);
+			update_button_content (_amount);
 			//  update_aria_label ();
 		}
 	}
@@ -79,8 +90,8 @@ public class Tuba.Widgets.StatusActionButton : Gtk.Button {
 		}
 
 		content.label = Utils.Units.shorten (new_value);
-		content.margin_start = 12;
-		content.margin_end = 9;
+		content.margin_start = this.smaller ? 6 : 12;
+		content.margin_end = this.smaller ? 4 : 9;
 	}
 
 	public void block_clicked () {

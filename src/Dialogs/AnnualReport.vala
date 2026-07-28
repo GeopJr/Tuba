@@ -16,7 +16,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			status.formal.tuba_spoiler_revealed = true;
 
 			var widg = status.to_widget () as Widgets.Status;
-			widg.actions.visible = false;
+			widg.toggle_actions_visibility (false);
 			widg.menu_button.visible = false;
 			widg.activatable = false;
 			widg.filter_stack.can_focus = false;

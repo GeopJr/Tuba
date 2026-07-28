@@ -1,5 +1,6 @@
 public class Tuba.Settings : GLib.Settings {
 	public class Account : GLib.Settings {
+		public string default_quote_policy { get; set; default = "followers"; }
 		public string default_language { get; set; default = "en"; }
 		public string default_post_visibility { get; set; default = "public"; }
 		public string default_content_type { get; set; default = "text/plain"; }
@@ -62,6 +63,16 @@ public class Tuba.Settings : GLib.Settings {
 
 		set {
 			active_account_settings.default_language = value;
+		}
+	}
+
+	public string default_quote_policy {
+		get {
+			return active_account_settings.default_quote_policy;
+		}
+
+		set {
+			active_account_settings.default_quote_policy = value;
 		}
 	}
 

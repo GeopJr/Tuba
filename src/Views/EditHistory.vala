@@ -13,7 +13,7 @@ public class Tuba.Views.EditHistory : Views.Timeline {
 		var widget = base.on_create_model_widget (obj);
 		var widget_status = widget as Widgets.Status;
 
-		widget_status.actions.visible = false;
+		widget_status.toggle_actions_visibility (false);
 		widget_status.menu_button.visible = false;
 		#if USE_LISTVIEW
 			widget_status.can_be_opened = false;

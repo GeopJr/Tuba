@@ -351,8 +351,12 @@ drive-item:drop(active) image {
 	color: var(--blue-4);
 }
 
-.ttl-post-actions {
-	margin-bottom: -12px;
+.ttl-post-actions.narrow {
+	font-size: smaller;
+}
+
+.ttl-post-actions.narrow > box > button {
+	min-height: 30px;
 }
 
 .ttl-post-actions button image,
@@ -659,6 +663,10 @@ drive-item:drop(active) image {
 	margin: 14px 18px 18px 18px;
 }
 
+.status-box.has-actions, .ttl-view:not(.large-view) .status-box.has-actions {
+	margin-bottom: 6px;
+}
+
 .ttl-view:not(.large-view) .status-box {
 	margin: 10px 8px 12px 8px;
 }
@@ -679,6 +687,10 @@ drive-item:drop(active) image {
 .ttl-quote {
 	border-radius: 6px;
 	font-weight: initial;
+}
+
+.ttl-quote-state {
+	padding: 6px;
 }
 
 .ttl-status-font-large > .ttl-large-body {
@@ -1273,50 +1285,50 @@ splitbutton.pill:dir(ltr) > menubutton > button {
 	?: changing dpi or font size applies to the
 	?: whole app, not just statuses
 */
-.ttl-status-font-large-80 {
+.ttl-status-font-large-80:not(.ttl-quote) {
 	font-size: 80%;
 }
 
-.ttl-status-font-large-90 {
+.ttl-status-font-large-90:not(.ttl-quote) {
 	font-size: 90%;
 }
 
-.ttl-status-font-large-110 {
+.ttl-status-font-large-110:not(.ttl-quote) {
 	font-size: 110%;
 }
 
-.ttl-status-font-large-120 {
+.ttl-status-font-large-120:not(.ttl-quote) {
 	font-size: 120%;
 }
 
-.ttl-status-font-large-130 {
+.ttl-status-font-large-130:not(.ttl-quote) {
 	font-size: 130%;
 }
 
-.ttl-status-font-large-140 {
+.ttl-status-font-large-140:not(.ttl-quote) {
 	font-size: 140%;
 }
 
-.ttl-status-font-large-150 {
+.ttl-status-font-large-150:not(.ttl-quote) {
 	font-size: 150%;
 }
 
-.ttl-status-font-large-160 {
+.ttl-status-font-large-160:not(.ttl-quote) {
 	font-size: 160%;
 }
 
-.ttl-status-font-large-170 {
+.ttl-status-font-large-170:not(.ttl-quote) {
 	font-size: 170%;
 }
 
-.ttl-status-font-large-180 {
+.ttl-status-font-large-180:not(.ttl-quote) {
 	font-size: 180%;
 }
 
-.ttl-status-font-large-190 {
+.ttl-status-font-large-190:not(.ttl-quote) {
 	font-size: 190%;
 }
 
-.ttl-status-font-large-200 {
+.ttl-status-font-large-200:not(.ttl-quote) {
 	font-size: 200%;
 }

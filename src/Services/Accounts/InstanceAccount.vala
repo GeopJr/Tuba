@@ -732,6 +732,10 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 						new_flags |= InstanceFeatures.ENDORSE_USERS;
 					}
 
+					if (this.tuba_api_versions.mastodon >= 7) {
+						new_flags |= InstanceFeatures.QUOTE;
+					}
+
 					if (this.tuba_api_versions.chuckya > 0) {
 						new_flags |= InstanceFeatures.EMOJI_REACTIONS;
 					}

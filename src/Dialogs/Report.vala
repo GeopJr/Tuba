@@ -514,7 +514,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 				widget_status.can_focus = false;
 				widget_status.can_target = false;
 				widget_status.focusable = false;
-				widget_status.actions.visible = false;
+				widget_status.toggle_actions_visibility (false);
 				#if USE_LISTVIEW
 					widget_status.can_be_opened = false;
 				#else
