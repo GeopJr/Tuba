@@ -544,7 +544,8 @@
 		app.main_window.open_view (new Views.StatusStats (status.formal.id, has_reactions ()));
 	}
 
-	public void on_edit (API.Status x) {
+	public void on_edit (API.Status? x) {
+		if (x == null) return;
 		if (this.status != null) this.status.patch (x);
 		bind ();
 	}
@@ -1263,6 +1264,7 @@
 				quoted_status.is_quote = true;
 				quoted_status.add_css_class ("frame");
 				quoted_status.add_css_class ("ttl-quote");
+				quoted_status.overflow = HIDDEN;
 
 				var qstack = new Gtk.Stack () {
 					vhomogeneous = false,
@@ -1521,7 +1523,8 @@
 		status.formal.card.open_special_card ();
 	}
 
-	private void on_reply (API.Status x) {
+	private void on_reply (API.Status? x) {
+		if (x == null) return;
 		if (reply_cb != null)
 			reply_cb (x);
 	}

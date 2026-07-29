@@ -235,7 +235,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		new Dialogs.Composer.Dialog.from_scheduled (bound_scheduled_status, true, status_poll, on_draft_posted);
 	}
 
-	private void on_draft_posted (API.Status x) {
+	private void on_draft_posted (API.Status? x) {
 		if (_draft) delete_status.begin ();
 	}
 
@@ -243,7 +243,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		new Dialogs.Composer.Dialog.from_scheduled (bound_scheduled_status, false, status_poll, on_edited);
 	}
 
-	private void on_edited (API.Status x) {
+	private void on_edited (API.Status? x) {
 		refresh ();
 	}
 }

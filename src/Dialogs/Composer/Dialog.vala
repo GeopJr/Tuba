@@ -333,7 +333,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		}
 	}
 
-	public delegate void SuccessCallback (API.Status cb_status);
+	public delegate void SuccessCallback (API.Status? cb_status);
 	protected SuccessCallback? cb;
 
 	static construct {
@@ -1203,11 +1203,17 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		var node = network.parse_node (parser);
-		var status = API.Status.from (node);
-		debug (@"Published post with id $(status.id)");
+		API.Status? status = null;
+		if (schedule_iso8601 != null) {
+			var scheduled_status = API.ScheduledStatus.from (node);
+			debug (@"Scheduled post with id $(scheduled_status.id) at $(scheduled_status.scheduled_at)");
+		} else {
+			status = API.Status.from (node);
+			debug (@"Published post with id $(status.id)");
+		}
 
 		if (this.scheduled_id != null) {
-			delete_scheduled_post.begin (status);
+			delete_scheduled_post.begin ();
 		} else if (cb != null) {
 			cb (status);
 		} else if (schedule_iso8601 != null) {
@@ -1217,11 +1223,11 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		this.force_close ();
 	}
 
-	private async void delete_scheduled_post (API.Status status) {
+	private async void delete_scheduled_post () {
 		var req = new RequestV2 (@"/api/v1/scheduled_statuses/$scheduled_id", DELETE) { account = accounts.active };
 		try {
 			yield req.exec (null);
-			if (cb != null) cb (status);
+			if (cb != null) cb (null);
 		} catch (Error e) {
 			warning (@"Couldn't delete scheduled post: $(e.code) $(e.message)");
 			app.toast (_("Couldn't delete scheduled post: %s").printf (e.message));

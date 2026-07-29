@@ -110,7 +110,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		}
 	}
 
-	private void on_replied (API.Status t_status) {
+	private void on_replied (API.Status? t_status) {
+		if (t_status == null) return;
 		var found = false;
 		if (t_status.in_reply_to_id != null) {
 			for (uint i = 0; i < model.get_n_items (); i++) {
