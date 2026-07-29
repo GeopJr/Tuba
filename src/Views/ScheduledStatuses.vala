@@ -7,7 +7,8 @@ public class Tuba.Views.ScheduledStatuses : Views.Timeline {
 			icon: "tuba-chat-symbolic",
 			// translators: as in posts set to be posted sometime in the future
 			empty_state_title: _("No Scheduled Posts"),
-			batch_size_min: 20
+			batch_size_min: 20,
+			allow_nesting: true
 		);
 	}
 

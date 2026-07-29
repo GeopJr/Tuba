@@ -1,5 +1,6 @@
 public class Tuba.Views.Local : Views.Federated {
-	construct {
+	public Local () {
+		base ();
 		label = _("Local");
 		icon = "tuba-people-symbolic";
 	}

@@ -643,7 +643,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			content = to.content,
 			spoiler_text = to.spoiler_text,
 			account = to.account,
-			created_at = to.created_at
+			created_at = to.created_at,
+			quote = to.quote
 		};
 
 		if (sample.formal.has_media) {
@@ -701,8 +702,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			to.language,
 			// translators: composer post button label, verb
 			_("Quote"),
-			false,
-			!supports_quotes
+			false
 		);
 
 		var sample = new API.Status.empty () {
@@ -714,7 +714,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			content = to.content,
 			spoiler_text = to.spoiler_text,
 			account = to.account,
-			created_at = to.created_at
+			created_at = to.created_at,
+			quote = to.quote
 		};
 
 		if (sample.formal.has_media) {
@@ -777,9 +778,9 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			{
 				scheduled_status.props.text,
 				scheduled_status.props.spoiler_text,
-				null,
+				scheduled_status.props.quoted_status_id != null ? scheduled_status.props.quoted_status_id : null,
 				posting_draft ? null : scheduled_status.id,
-				scheduled_status.props.in_reply_to_id,
+				scheduled_status.props.in_reply_to_id > 0 ? scheduled_status.props.in_reply_to_id.to_string () : null,
 				poll,
 				scheduled_status.media_attachments,
 				scheduled_status.props.sensitive,
@@ -791,7 +792,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			// translators: composer post button label
 			posting_draft ? _("Post") : _("Edit"),
 			false,
-			false
+			false,
+			scheduled_status.props.quote_approval_policy
 		);
 
 		if (!posting_draft) {
@@ -800,7 +802,63 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			this.schedule_iso8601 = scheduled_status.scheduled_at;
 		}
 
+		load_replied_to_or_quote_status_async.begin (!posting_draft);
+
 		this.cb = (owned) t_cb;
+	}
+
+	private async void load_replied_to_or_quote_status_async (bool editing) {
+		if (this.quote_id == null && this.in_reply_to_id == null) return;
+
+		bool quote = this.quote_id != null;
+		string status_id = quote ? this.quote_id : this.in_reply_to_id;
+
+		var req = new RequestV2 (@"/api/v1/statuses/$status_id") {
+			account = accounts.active,
+			ctx = this
+		};
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var api_status = API.Status.from (node);
+
+			api_status.tuba_spoiler_revealed = true;
+			if (api_status.formal.has_media) {
+				api_status.formal.media_attachments.foreach (e => {
+					e.tuba_is_report = true;
+
+					return true;
+				});
+			}
+
+			Widgets.Status widget_status = (Widgets.Status?) api_status.to_widget ();
+			widget_status.add_css_class ("card");
+			widget_status.add_css_class ("initial-font-size");
+			widget_status.to_display_only ();
+			if (quote) {
+				widget_status.update_property (Gtk.AccessibleProperty.LABEL, _("The post you are quoting."), -1);
+			} else {
+				widget_status.update_property (Gtk.AccessibleProperty.LABEL, _("The post you are replying to."), -1);
+			}
+
+			var lbox = new Gtk.ListBox () {
+				selection_mode = Gtk.SelectionMode.NONE
+			};
+			lbox.append (widget_status);
+
+			string composer_title = (quote ? _("Quoting @%s") : _("Reply to @%s")).printf (api_status.account.username);
+			if (editing) composer_title = this.title;
+			this.set_editor_title (composer_title, lbox);
+
+			this.scroller.map.disconnect (scroller_mapped);
+			this.scroller.map.connect (scroller_mapped);
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (Error e) {
+			warning (@"Couldn't get $(quote ? "quote" : "reply") $status_id: $(e.message)");
+		}
 	}
 
 	private inline void set_editor_title (string new_title, Gtk.Widget? widget_status) {

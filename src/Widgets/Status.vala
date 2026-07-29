@@ -1580,6 +1580,11 @@
 		name_button.focusable = false;
 		this.content.selectable = true;
 		this.content.can_open = false;
+		if (quoted_status_btn != null) {
+			quoted_status_btn.can_target = false;
+			quoted_status_btn.can_focus = false;
+			quoted_status_btn.focusable = false;
+		}
 		this.avatar.accessible_role = Gtk.AccessibleRole.PRESENTATION;
 		this.date_label.accessible_role = Gtk.AccessibleRole.PRESENTATION;
 		name_button.accessible_role = Gtk.AccessibleRole.PRESENTATION;
