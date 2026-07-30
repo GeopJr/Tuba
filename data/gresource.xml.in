@@ -111,6 +111,8 @@
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Collision.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Turntable.svg</file>
 
+        @GRESOURCE_ANDROID_ICONS_FILES@
+
         <file preprocess="xml-stripblanks" alias="shortcuts-dialog.ui">gtk/shortcuts-dialog.ui</file>
         <file preprocess="xml-stripblanks">gtk/dropdown/content_type_title.ui</file>
         <file preprocess="xml-stripblanks">gtk/dropdown/content_type.ui</file>

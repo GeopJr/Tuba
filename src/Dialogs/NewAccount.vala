@@ -6,7 +6,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	const string SCOPES = "read write follow push";
 	const string ADMIN_SCOPES = "admin:read admin:write admin:read:reports admin:write:reports admin:read:ip_blocks admin:write:ip_blocks admin:read:domain_blocks admin:write:domain_blocks admin:read:domain_allows admin:write:domain_allows admin:read:email_domain_blocks admin:write:email_domain_blocks admin:read:canonical_email_blocks admin:write:canonical_email_blocks";
 
-	#if WINDOWS || DARWIN || HAIKU
+	#if WINDOWS || DARWIN || HAIKU || ANDROID
 		const bool SHOULD_AUTO_AUTH = false;
 	#else
 		const bool SHOULD_AUTO_AUTH = true;
@@ -54,6 +54,13 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		this.can_access_settings = can_access_settings;
 		app.add_account_window = this;
 		app.add_window (this);
+
+		//  FIX: hack for the broken font
+		#if ANDROID
+			if (!settings.enlarge_custom_emojis) {
+				this.add_css_class ("android");
+			}
+		#endif
 
 		bind_property ("use-auto-auth", auth_page, "description", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_string (src.get_boolean () ? AUTO_AUTH_DESCRIPTION : CODE_AUTH_DESCRIPTION);

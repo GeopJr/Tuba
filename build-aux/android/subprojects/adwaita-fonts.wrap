@@ -1,0 +1,8 @@
+[wrap-git]
+url = https://github.com/GNOME/adwaita-fonts
+revision = main
+diff_files = adwaita-fonts_install_tag.patch
+
+[provide]
+adwaita-fonts = adwaita_fonts_dep
+

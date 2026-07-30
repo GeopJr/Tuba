@@ -1,0 +1,28 @@
+diff --git a/data/language-specs/meson.build b/data/language-specs/meson.build
+index 2fdee360..4ae1a8cd 100644
+--- a/data/language-specs/meson.build
++++ b/data/language-specs/meson.build
+@@ -2,4 +2,4 @@ install_data([
+   'language.rng',
+   'language2.rng',
+   'language.dtd',
+-], install_dir: join_paths(pkgdatadir, 'language-specs'))
++], install_dir: join_paths(pkgdatadir, 'language-specs'), install_tag: 'runtime')
+diff --git a/data/snippets/meson.build b/data/snippets/meson.build
+index acd5c52d..36cea68d 100644
+--- a/data/snippets/meson.build
++++ b/data/snippets/meson.build
+@@ -1,3 +1,3 @@
+ install_data([
+   'snippets.rng',
+-], install_dir: join_paths(pkgdatadir, 'snippets'))
++], install_dir: join_paths(pkgdatadir, 'snippets'), install_tag: 'runtime')
+diff --git a/data/styles/meson.build b/data/styles/meson.build
+index 98b6dfdf..0cb14d68 100644
+--- a/data/styles/meson.build
++++ b/data/styles/meson.build
+@@ -1,3 +1,3 @@
+ install_data([
+   'styles.rng',
+-], install_dir: join_paths(pkgdatadir, 'styles'))
++], install_dir: join_paths(pkgdatadir, 'styles'), install_tag: 'runtime')

@@ -11,3 +11,7 @@ builddir
 /tuba_windows_portable/
 tuba_windows_portable.zip
 /nsis/
+apks/
+_subprojects/
+.pixiewood/
+./subprojects/

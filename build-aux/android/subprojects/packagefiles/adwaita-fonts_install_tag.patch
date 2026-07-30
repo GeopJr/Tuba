@@ -1,0 +1,10 @@
+diff --git a/meson.build b/meson.build
+index c064a8a..e3ab3f5 100644
+--- a/meson.build
++++ b/meson.build
+@@ -20,4 +20,4 @@ sans = [
+   'sans/AdwaitaSans-Regular.ttf',
+ ]
+ 
+-install_data(mono + sans, install_dir: fontsdir)
++install_data(mono + sans, install_dir: fontsdir, install_tag: 'runtime')

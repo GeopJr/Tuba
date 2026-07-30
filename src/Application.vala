@@ -42,6 +42,11 @@ namespace Tuba {
 
 	public static string default_locale;
 
+	#if ANDROID
+		[CCode (cname = "g_io_openssl_load")]
+		extern void g_io_openssl_load (GLib.IOModule? module);
+	#endif
+
 	public class Application : Adw.Application {
 
 		public GLib.ProxyResolver? proxy { get; set; default=null; }
@@ -264,10 +269,15 @@ namespace Tuba {
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
 			GLib.Environment.unset_variable ("GTK_THEME");
-			#if WINDOWS || DARWIN || HAIKU
+			#if WINDOWS || DARWIN || HAIKU || ANDROID
 				GLib.Environment.set_variable ("SECRET_BACKEND", "file", false);
 				if (GLib.Environment.get_variable ("SECRET_BACKEND") == "file")
 					GLib.Environment.set_variable ("SECRET_FILE_TEST_PASSWORD", @"$(GLib.Environment.get_user_name ())$(Build.DOMAIN)", false);
+			#endif
+			#if ANDROID
+				string assets_dir = "/data/data/dev.geopjr.tuba/files";
+				g_io_openssl_load (null);
+				GLib.Environment.set_variable ("FONTCONFIG_FILE", @"$assets_dir/etc/fonts/fonts.conf", true);
 			#endif
 
 			if (GLib.Environment.get_variable ("GSK_RENDERER") == "gl") {

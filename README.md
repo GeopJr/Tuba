@@ -25,10 +25,10 @@
 
 ### Nightly
 
-Flatpak | Windows
-:---: | :---:
-[x86_64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-x86_64.zip) | [x86_64 Installer](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/Tuba%20Setup.exe.zip)<br/>[x86_64 Portable](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/tuba_windows_portable.zip)
-[aarch64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-aarch64.zip) | [aarch64 Portable](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/tuba_windows_portable_aarch64.zip)
+Flatpak | Windows | Android
+:---: | :---: | :---:
+[x86_64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-x86_64.flatpak.zip) | [x86_64 Installer](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/Tuba%20Setup.exe.zip)<br/>[x86_64 Portable](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/tuba_windows_portable.zip) | [arm64-v8a](https://nightly.link/GeopJr/Tuba/workflows/android/main/apks.zip)
+[aarch64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-aarch64.flatpak.zip) | [aarch64 Portable](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/tuba_windows_portable_aarch64.zip)
 
 ## Third Party
 
