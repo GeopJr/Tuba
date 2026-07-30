@@ -376,6 +376,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		sensitive_media_button.toggled.connect (update_attachmentsbin_sensitivity);
 		this.close_attempt.connect (on_exit);
 
+		if (accounts.active.tuba_api_versions.mastodon < 10 )
+			poll_button.bind_property ("sensitive", add_media_button, "sensitive", SYNC_CREATE | INVERT_BOOLEAN);
 		cw_revealer.notify["child-revealed"].connect (on_cw_revealed);
 	}
 
@@ -878,8 +880,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			if (polls_animation != null) {
 				polls_animation.reverse = true;
 				polls_animation.play ();
-			} else {
-				editor.add_bottom_child (null);
+			} else if (polls_component != null && editor.has_bottom_child (polls_component)) {
+				editor.remove_bottom_child (polls_component);
 			}
 			return;
 		}
@@ -901,7 +903,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		};
 		polls_component.notify["is-valid"].connect (validate_post_button);
 		polls_animation = new Adw.TimedAnimation (polls_component, 0, 1, 250, new Adw.PropertyAnimationTarget (polls_component, "opacity"));
-		polls_animation.done.connect (on_component_animation_end);
+		polls_animation.done.connect (on_poll_component_animation_end);
 		this.bind_property ("is-narrow", polls_component, "is-narrow", SYNC_CREATE);
 	}
 
@@ -917,8 +919,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		bool is_used = attachmentsbin_component.working || !attachmentsbin_component.is_empty;
 		sensitive_media_button.visible = !attachmentsbin_component.is_empty;
-		poll_button.sensitive = !is_used && !this.quote_limited;
-		if (!is_used) editor.add_bottom_child (null);
+		poll_button.sensitive = (accounts.active.tuba_api_versions.mastodon >= 10 || !is_used) && !this.quote_limited;
+		if (!is_used) editor.remove_bottom_child (attachmentsbin_component);
 		validate_post_button ();
 		update_attachmentsbin_sensitivity ();
 	}
@@ -1062,9 +1064,9 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		on_commit ();
 	}
 
-	private void on_component_animation_end (Adw.Animation animation) {
-		if (animation.value == 0) editor.add_bottom_child (null);
-		else if (polls_component != null && editor.is_bottom_child (polls_component)) polls_component.grab_first_row_focus ();
+	private void on_poll_component_animation_end (Adw.Animation animation) {
+		if (animation.value == 0) editor.remove_bottom_child (polls_component);
+		else if (polls_component != null && editor.has_bottom_child (polls_component)) polls_component.grab_first_row_focus ();
 		validate_post_button ();
 	}
 
@@ -1090,12 +1092,14 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	private void validate_post_button () {
 		bool sensitive = remaining_chars >= 0;
 		if (sensitive) {
-			if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component)) {
+			if (attachmentsbin_component != null && editor.has_bottom_child (attachmentsbin_component)) {
 				sensitive = !attachmentsbin_component.is_empty && !attachmentsbin_component.working;
-			} else if (polls_component != null && editor.is_bottom_child (polls_component)) {
-				sensitive = polls_component.is_valid && remaining_chars < char_limit;
+			}
+
+			if (polls_component != null && editor.has_bottom_child (polls_component)) {
+				sensitive = sensitive && polls_component.is_valid && remaining_chars < char_limit;
 			} else {
-				sensitive = remaining_chars < char_limit;
+				sensitive = sensitive && remaining_chars < char_limit;
 			}
 		}
 
@@ -1171,7 +1175,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		builder.set_member_name ("spoiler_text");
 		builder.add_string_value (cw_button.active ? cw_entry.text : "");
 
-		if (polls_component != null && editor.is_bottom_child (polls_component) && polls_component.is_valid && polls_component.has_rows) {
+		if (polls_component != null && editor.has_bottom_child (polls_component) && polls_component.is_valid && polls_component.has_rows) {
 			builder.set_member_name ("poll");
 			builder.begin_object ();
 				builder.set_member_name ("multiple");
@@ -1190,7 +1194,9 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 					}
 				builder.end_array ();
 			builder.end_object ();
-		} else if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
+		}
+
+		if (attachmentsbin_component != null && editor.has_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
 			builder.set_member_name ("media_ids");
 			builder.begin_array ();
 				foreach (var m_id in attachmentsbin_component.get_all_media_ids ()) {
@@ -1303,7 +1309,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		builder.append (cw_button.active.to_string ());
 		builder.append (cw_entry.text);
 
-		if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
+		if (attachmentsbin_component != null && editor.has_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
 			builder.append (string.joinv ("", attachmentsbin_component.get_all_media_ids ()));
 
 			foreach (var meta in attachmentsbin_component.get_all_metadata ()) {
@@ -1315,7 +1321,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			builder.append ("none");
 		}
 
-		if (polls_component != null && editor.is_bottom_child (polls_component) && polls_component.is_valid && polls_component.has_rows) {
+		if (polls_component != null && editor.has_bottom_child (polls_component) && polls_component.is_valid && polls_component.has_rows) {
 			builder.append (string.joinv ("", polls_component.get_all_options ()));
 			builder.append (polls_component.multiple_choice.to_string ());
 			builder.append (polls_component.hide_totals.to_string ());

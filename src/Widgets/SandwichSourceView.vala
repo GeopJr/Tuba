@@ -3,7 +3,8 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 	Gtk.Widget? bottom_child = null;
 	Adw.TimedAnimation scroll_animation;
 	Gtk.EventController[] top_controllers = {};
-	Gtk.EventController[] bottom_controllers = {};
+	Gee.HashMap<Gtk.Widget, Gee.ArrayList<Gtk.EventController>>? bottom_controllers_new = null;
+	Gtk.Box bottom_child_box;
 
 	~SandwichSourceView () {
 		debug ("Destroying SandwichSourceView");
@@ -17,12 +18,20 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 
 	public override void dispose () {
 		add_top_child (null);
-		add_bottom_child (null);
+		remove_bottom_all ();
+		this.bottom_child.unparent ();
 
 		base.dispose ();
 	}
 
 	construct {
+		bottom_controllers_new = new Gee.HashMap<Gtk.Widget, Gee.ArrayList<Gtk.EventController>> ();
+		bottom_child_box = new Gtk.Box (VERTICAL, 0) {
+			visible = false,
+			margin_top = 28
+		};
+		this.bottom_child = bottom_child_box;
+		this.bottom_child.set_parent (this);
 		this.accepts_tab = false;
 		this.wrap_mode = Gtk.WrapMode.WORD_CHAR;
 
@@ -39,6 +48,10 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 
 	public bool is_bottom_child (Gtk.Widget? child) {
 		return child == this.bottom_child;
+	}
+
+	public bool has_bottom_child (Gtk.Widget child) {
+		return bottom_controllers_new != null && bottom_controllers_new.has_key (child);
 	}
 
 	public virtual void add_top_child (Gtk.Widget? new_top_child) {
@@ -59,36 +72,48 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		this.top_child.add_controller (focus_controller);
 		top_controllers += focus_controller;
 
+		this.top_child.set_parent (this);
 		setup_child_widget (this.top_child);
 	}
 
-	public virtual void add_bottom_child (Gtk.Widget? new_bottom_child) {
-		if (new_bottom_child == null) {
-			if (this.bottom_child != null) {
-				clear_child_widget (this.bottom_child);
-				this.bottom_child = null;
-			}
-			return;
-		}
+	public virtual void add_bottom_child (Gtk.Widget new_bottom_child, bool append = false) {
+		bottom_controllers_new.set (new_bottom_child, new Gee.ArrayList<Gtk.EventController> ());
 
-		if (this.bottom_child != null) clear_child_widget (this.bottom_child);
-		this.bottom_child = new_bottom_child;
-
+		bottom_child_box.visible = true;
 		var focus_controller = new Gtk.EventControllerFocus ();
 		focus_controller.enter.connect (scroll_to_bottom_widget);
 		focus_controller.leave.connect (on_focus_leave);
-		this.bottom_child.add_controller (focus_controller);
-		bottom_controllers += focus_controller;
+		new_bottom_child.add_controller (focus_controller);
+		bottom_controllers_new.get (new_bottom_child).add (focus_controller);
 
-		setup_child_widget (this.bottom_child);
+		if (append) {
+			bottom_child_box.append (new_bottom_child);
+		} else {
+			bottom_child_box.prepend (new_bottom_child);
+		}
+		setup_child_widget (new_bottom_child);
+	}
+
+	public virtual void remove_bottom_child (Gtk.Widget old_bottom_child) {
+		bottom_child_box.remove (old_bottom_child);
+		clear_child_widget (old_bottom_child);
+		if (bottom_child_box.get_first_child () == null) bottom_child_box.visible = false;
+	}
+
+	private void remove_bottom_all () {
+		foreach (var widg in bottom_controllers_new.keys.to_array ()) {
+			remove_bottom_child (widg);
+		}
 	}
 
 	protected virtual void clear_child_widget (Gtk.Widget widget) {
-		if (is_bottom_child (widget)) {
-			foreach (var controller in bottom_controllers) {
+		if (bottom_controllers_new.has_key (widget)) {
+			var controllers = bottom_controllers_new.get (widget);
+			foreach (var controller in controllers) {
 				widget.remove_controller (controller);
 			}
-			bottom_controllers = {};
+			controllers.clear ();
+			bottom_controllers_new.unset (widget);
 		} else {
 			foreach (var controller in top_controllers) {
 				widget.remove_controller (controller);
@@ -114,7 +139,6 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 	}
 
 	protected virtual void setup_child_widget (Gtk.Widget wdgt) {
-		wdgt.set_parent (this);
 		wdgt.set_cursor (new Gdk.Cursor.from_name ("default", null));
 
 		Gtk.GestureClick click_gesture = new Gtk.GestureClick () {
@@ -125,8 +149,8 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		click_gesture.released.connect (on_click_gesture_pressed);
 		wdgt.add_controller (click_gesture);
 
-		if (is_bottom_child (wdgt)) {
-			bottom_controllers += click_gesture;
+		if (bottom_controllers_new.has_key (wdgt)) {
+			bottom_controllers_new.get (wdgt).add (click_gesture);
 		} else {
 			top_controllers += click_gesture;
 		}
@@ -177,7 +201,7 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 			this.top_margin = 0;
 		}
 
-		if (this.bottom_child != null) {
+		if (this.bottom_child != null && this.bottom_child.visible) {
 			this.bottom_child.measure (VERTICAL, width, out bottom_child_height, null, null, null);
 			if (bottom_child_height != this.bottom_margin) this.bottom_margin = bottom_child_height;
 		} else {
@@ -199,7 +223,7 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 			);
 		}
 
-		if (this.bottom_child != null) {
+		if (this.bottom_child != null && this.bottom_child.visible) {
 			this.bottom_child.allocate_size (
 				Gtk.Allocation () {
 					height = bottom_child_height,
@@ -269,7 +293,7 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 	public override void snapshot (Gtk.Snapshot snapshot) {
 		base.snapshot (snapshot);
 		if (this.top_child != null) this.snapshot_child (this.top_child, snapshot);
-		if (this.bottom_child != null) this.snapshot_child (this.bottom_child, snapshot);
+		if (this.bottom_child != null && this.bottom_child.visible) this.snapshot_child (this.bottom_child, snapshot);
 	}
 
 	// Scroll to either the top or bottom widget.

@@ -142,11 +142,11 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		placeholder.visible = char_count == 0;
 	}
 
-	public override void add_bottom_child (Gtk.Widget? new_bottom_child) {
-		if (is_bottom_child (new_bottom_child)) return;
+	public override void add_bottom_child (Gtk.Widget new_bottom_child, bool append = false) {
+		if (has_bottom_child (new_bottom_child)) return;
 
-		base.add_bottom_child (new_bottom_child);
-		if (new_bottom_child != null) scroll_to_widget (true);
+		base.add_bottom_child (new_bottom_child, append);
+		scroll_to_widget (true);
 	}
 
 	private void connect_child_attachable (Composer.Components.Attachable attachable) {
@@ -173,7 +173,6 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		if (widget is Composer.Components.Attachable) {
 			connect_child_attachable (widget as Composer.Components.Attachable);
 			widget.add_css_class ("editor-component");
-			widget.margin_top = 28;
 		}
 		base.setup_child_widget (widget);
 	}
