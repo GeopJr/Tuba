@@ -1475,13 +1475,13 @@
 
 		if (prev_card != null) content_box.remove (prev_card);
 		if (collection_card != null) content_box.remove (collection_card);
-		if (settings.show_preview_cards && !status.formal.has_media && quoted_status_btn == null && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
+		if (status.formal.tagged_collections != null && status.formal.tagged_collections.size > 0) {
+			collection_card = new Widgets.CollectionButton (status.formal.tagged_collections.get (0));
+			content_box.append (collection_card);
+		} else if (settings.show_preview_cards && !status.formal.has_media && quoted_status_btn == null && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
 			prev_card = (Widgets.PreviewCard) status.formal.card.to_widget ();
 			prev_card.button.clicked.connect (open_card_url);
 			content_box.append (prev_card);
-		} else if (status.formal.tagged_collections != null && status.formal.tagged_collections.size > 0) {
-			collection_card = new Widgets.CollectionButton (status.formal.tagged_collections.get (0));
-			content_box.append (collection_card);
 		}
 
 		if (hashtag_bar != null) content_box.remove (hashtag_bar);
