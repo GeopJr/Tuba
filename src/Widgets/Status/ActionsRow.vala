@@ -100,7 +100,7 @@ public class Tuba.Widgets.ActionsRow : Adw.BreakpointBin {
 		set {
 			_is_narrow = value;
 			if (value) {
-				this.height_request = 30;
+				this.height_request = 34;
 				box.spacing = 2;
 				this.add_css_class ("narrow");
 				reply_button.show_counts = false;
