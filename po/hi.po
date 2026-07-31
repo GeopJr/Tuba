@@ -7,15 +7,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2024-06-24 09:09+0000\n"
-"Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
-"Language-Team: Hindi <https://hosted.weblate.org/projects/tuba/tuba/hi/>\n"
+"PO-Revision-Date: 2026-07-31 21:43+0000\n"
+"Last-Translator: Anonymous <anonymous@noreply.codeberg.org>\n"
+"Language-Team: Hindi <https://translate.codeberg.org/projects/tuba/tuba/hi/>"
+"\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.6-rc\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -247,7 +248,8 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:148
 msgid "Show a blurred version of the media until they fully load"
-msgstr "मीडिया का धुंधला संस्करण तब तक दिखाएं जब तक वे पूरी तरह से लोड न हो जाएं"
+msgstr ""
+"मीडिया का धुंधला संस्करण तब तक दिखाएं जब तक वे पूरी तरह से लोड न हो जाएं"
 
 #: data/dev.geopjr.Tuba.gschema.xml:152 data/ui/dialogs/preferences.ui:67
 msgid "Reveal Sensitive Media by Default"
@@ -932,7 +934,8 @@ msgstr "लोग जो आपका अनुसरण नहीं कर र
 #. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:60
 msgid "Including people who have been following you fewer than 3 days"
-msgstr "इसमें वे लोग भी शामिल हैं जो 3 दिनों से कम समय से आपका अनुसरण कर रहे हैं"
+msgstr ""
+"इसमें वे लोग भी शामिल हैं जो 3 दिनों से कम समय से आपका अनुसरण कर रहे हैं"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:66

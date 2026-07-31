@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2026-04-22 20:12+0000\n"
-"Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
-"Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
+"PO-Revision-Date: 2026-07-31 21:41+0000\n"
+"Last-Translator: Priit Jõerüüt <jrtcdbrg@noreply.codeberg.org>\n"
+"Language-Team: Estonian <https://translate.codeberg.org/projects/tuba/tuba/"
+"et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -1002,8 +1003,7 @@ msgstr "Välimus"
 
 #: data/ui/dialogs/preferences.ui:44
 msgid "Slightly increases the size of custom emojis when you hover over them"
-msgstr ""
-"Natuke suurendab sinu lisatud emojisid, kui kursoriga üle nende libised"
+msgstr "Natuke suurendab sinu lisatud emojisid, kui kursoriga üle nende libised"
 
 #. translators: noun, plural
 #: data/ui/dialogs/preferences.ui:51 src/Views/Explore.vala:6
@@ -4422,14 +4422,15 @@ msgstr "Näita veel %d teemaviidet"
 #: src/Widgets/PreviewCardExplore.vala:75
 #, c-format
 msgid "Discussed %d times by %d people yesterday"
-msgstr "Eile on sel teemal arutanud %2$d inimest %1$d korda"
+msgstr "Eile on sel teemal arutatud %d korda ja seda tegid %d inimest"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCardExplore.vala:83
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
 msgstr ""
-"Viimase kahe päeva jooksul on sel teemal arutanud %2$d inimest %1$d korda"
+"Viimase kahe päeva jooksul on sel teemal arutatud %d korda ja seda tegid %d "
+"inimest"
 
 #. translators: tooltip text on 'explore' tab button to
 #. see posts where the selected article is

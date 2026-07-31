@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-08-27 14:01+0000\n"
-"Last-Translator: Kolappan N <kolappan@users.noreply.hosted.weblate.org>\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/tuba/tuba/ta/>\n"
+"PO-Revision-Date: 2026-07-31 21:49+0000\n"
+"Last-Translator: Anonymous <anonymous@noreply.codeberg.org>\n"
+"Language-Team: Tamil <https://translate.codeberg.org/projects/tuba/tuba/ta/>"
+"\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -211,7 +212,8 @@ msgstr "இணைப்புகளிலிருந்து உரி டி�
 #. translators: Broken as in incorrect
 #: data/dev.geopjr.Tuba.gschema.xml:125 data/ui/dialogs/preferences.ui:101
 msgid "This option can lead to broken links when enabled"
-msgstr "இந்த விருப்பம் இயக்கப்பட்டிருக்கும் போது உடைந்த இணைப்புகளுக்கு வழிவகுக்கும்"
+msgstr ""
+"இந்த விருப்பம் இயக்கப்பட்டிருக்கும் போது உடைந்த இணைப்புகளுக்கு வழிவகுக்கும்"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/dev.geopjr.Tuba.gschema.xml:129 data/ui/dialogs/preferences.ui:60
@@ -271,7 +273,8 @@ msgstr "மேம்பட்ட பூச்ட் உரையாடல்"
 
 #: data/dev.geopjr.Tuba.gschema.xml:163 data/ui/dialogs/preferences.ui:88
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr "பூச்ட் தெரிவுநிலையை மாற்றவும், மேற்கோள் மற்றும் ஊக்கத்தை உறுதிப்படுத்தவும்"
+msgstr ""
+"பூச்ட் தெரிவுநிலையை மாற்றவும், மேற்கோள் மற்றும் ஊக்கத்தை உறுதிப்படுத்தவும்"
 
 #: data/dev.geopjr.Tuba.gschema.xml:167 data/ui/dialogs/preferences.ui:106
 msgid "Warn before replying to an old post"
@@ -872,8 +875,8 @@ msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
 msgstr ""
-"ஏதேனும் தவறு நடந்தால், <a href = \"manual_auth\"> கையேடு அங்கீகாரத்தை முயற்சிக்கவும் "
-"</a>."
+"ஏதேனும் தவறு நடந்தால், <a href = \"manual_auth\"> கையேடு அங்கீகாரத்தை முயற்சிக்கவும் </"
+"a>."
 
 #: data/ui/dialogs/new_account.ui:171
 msgid "Authorization Code"
@@ -956,8 +959,8 @@ msgstr "கோரப்படாத தனியார் குறிப்ப�
 msgid ""
 "Filtered unless it's in reply to your own mention or if you follow the sender"
 msgstr ""
-"இது உங்கள் சொந்த குறிப்புக்கு பதில் இல்லாவிட்டால் வடிகட்டப்படுகிறது அல்லது நீங்கள் "
-"அனுப்புநரைப் பின்தொடர்ந்தால்"
+"இது உங்கள் சொந்த குறிப்புக்கு பதில் இல்லாவிட்டால் வடிகட்டப்படுகிறது அல்லது நீங்கள் அனுப்புநரைப் "
+"பின்தொடர்ந்தால்"
 
 #: data/ui/dialogs/preferences.ui:11
 msgid "Appearance"
@@ -1007,7 +1010,8 @@ msgstr "Api.tuba.geopjr.dev உடன் இணைக்கும் அம்�
 #: data/ui/dialogs/preferences.ui:190
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly"
-msgstr "புகழ்பெற்ற ஆராய்ச்சிக்காக துபாவின் டெவலப்பர்களுக்கு உங்கள் விருப்பங்களை அனுப்பவும்"
+msgstr ""
+"புகழ்பெற்ற ஆராய்ச்சிக்காக துபாவின் டெவலப்பர்களுக்கு உங்கள் விருப்பங்களை அனுப்பவும்"
 
 #: data/ui/dialogs/preferences.ui:196
 msgid "Preview Analytics"
@@ -1582,8 +1586,7 @@ msgstr "உங்கள் %s #fediwrapped தயாராக உள்ளது
 #: src/API/Notification.vala:138
 msgid "Review your year's highlights and memorable moments on the Fediverse!"
 msgstr ""
-"ஃபெடிவர்சில் உங்கள் ஆண்டின் சிறப்பம்சங்கள் மற்றும் மறக்கமுடியாத தருணங்களை மதிப்பாய்வு "
-"செய்யவும்!"
+"ஃபெடிவர்சில் உங்கள் ஆண்டின் சிறப்பம்சங்கள் மற்றும் மறக்கமுடியாத தருணங்களை மதிப்பாய்வு செய்யவும்!"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -2133,8 +2136,8 @@ msgid ""
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
 "இந்த கணக்கிலிருந்து அல்லது இந்த கணக்கிலிருந்து எந்தவொரு தொடர்பையும் தடுத்து அதன் "
-"உள்ளடக்கங்களை நீக்கவும். 30 நாட்களுக்குள் மாற்றியமைக்கக்கூடியது. இந்த கணக்கிற்கு எதிரான "
-"அனைத்து அறிக்கைகளையும் மூடுகிறது"
+"உள்ளடக்கங்களை நீக்கவும். 30 நாட்களுக்குள் மாற்றியமைக்கக்கூடியது. இந்த கணக்கிற்கு எதிரான அனைத்து "
+"அறிக்கைகளையும் மூடுகிறது"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
@@ -2817,7 +2820,8 @@ msgstr "இது வேறு சேதி"
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:39
 msgid "Malicious links, fake engagement, or repetitive replies"
-msgstr "தீங்கிழைக்கும் இணைப்புகள், போலி ஈடுபாடு அல்லது மீண்டும் நிகழும் பதில்கள்"
+msgstr ""
+"தீங்கிழைக்கும் இணைப்புகள், போலி ஈடுபாடு அல்லது மீண்டும் நிகழும் பதில்கள்"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
@@ -2887,7 +2891,8 @@ msgstr "இந்த அறிக்கையை ஆதரிக்கும் 
 #. this is shown at the top of the last page of the report dialog
 #: src/Dialogs/Report.vala:273
 msgid "Is there anything else you think we should know?"
-msgstr "நாங்கள் தெரிந்து கொள்ள வேண்டும் என்று நீங்கள் நினைக்கும் வேறு ஏதாவது இருக்கிறதா?"
+msgstr ""
+"நாங்கள் தெரிந்து கொள்ள வேண்டும் என்று நீங்கள் நினைக்கும் வேறு ஏதாவது இருக்கிறதா?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. additional comments to be included in the report
@@ -4591,7 +4596,8 @@ msgstr "குறிப்பிடப்பட்ட நபர்கள் ம�
 #. post that is private or mentioned-only
 #: src/Widgets/Status.vala:404
 msgid "Only mentioned people and your followers will be able to view it."
-msgstr "குறிப்பிடப்பட்ட நபர்களும் உங்களைப் பின்தொடர்பவர்களும் மட்டுமே அதைப் பார்க்க முடியும்."
+msgstr ""
+"குறிப்பிடப்பட்ட நபர்களும் உங்களைப் பின்தொடர்பவர்களும் மட்டுமே அதைப் பார்க்க முடியும்."
 
 #. translators: dialog subtitle visibility warning when copying a link to a post
 #. that is private or mentioned-only, the variable is a handle
@@ -4599,7 +4605,8 @@ msgstr "குறிப்பிடப்பட்ட நபர்களும�
 #, c-format
 msgid ""
 "Only mentioned people and people that follow %s will be able to view it."
-msgstr "குறிப்பிடப்பட்ட நபர்களும், %s பின்பற்றும் நபர்களும் மட்டுமே அதைப் பார்க்க முடியும்."
+msgstr ""
+"குறிப்பிடப்பட்ட நபர்களும், %s பின்பற்றும் நபர்களும் மட்டுமே அதைப் பார்க்க முடியும்."
 
 #. translators: the variable is the post visibility e.g. Public, Unlisted...
 #: src/Widgets/Status.vala:413

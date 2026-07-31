@@ -7,9 +7,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2026-03-12 20:09+0000\n"
-"Last-Translator: Flynn <cirilla@tuta.io>\n"
-"Language-Team: Cornish <https://hosted.weblate.org/projects/tuba/tuba/kw/>\n"
+"PO-Revision-Date: 2026-07-31 21:59+0000\n"
+"Last-Translator: GeopJr <geopjr@noreply.codeberg.org>\n"
+"Language-Team: Cornish <https://translate.codeberg.org/projects/tuba/tuba/"
+"kw/>\n"
 "Language: kw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +22,7 @@ msgstr ""
 "1000000 == 100000) ? 2 : ((n % 100 == 3 || n % 100 == 23 || n % 100 == 43 || "
 "n % 100 == 63 || n % 100 == 83) ? 3 : ((n != 1 && (n % 100 == 1 || n % 100 "
 "== 21 || n % 100 == 41 || n % 100 == 61 || n % 100 == 81)) ? 4 : 5))));\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -45,9 +46,9 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma & more!"
 msgstr ""
-"Tirhwithra an gwi socyal keffrysek gans Tuba rag GNOME. Triga rosweythys dhe "
-"dha kemenethow drudh, eseli teylu, ha kothmans gans skoodhyans rag bynkyow "
-"Fediverse gerys-da kepar ha Mastodon, GoToSocial, Akkoma &amp; moy!"
+"Hwithra an wi socyal keffrysek gans Tuba rag GNOME. Gwithewgh junys dh'gas "
+"kemenethow drudh, teylu ha kowetha gans skoodhyans rag bynkys Fediverse "
+"gerys-da kepar ha Mastodon, GoToSocial, Akkoma &amp; moy!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
@@ -57,10 +58,11 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
-"An Fediverse yw unn rosweyth socyal ankresennys konsystya a bynkyow ha "
-"kemenethow liesek rosweythys, owth alowa usyoryon rag keskomunya ha kevrenna "
-"dalgh a-dreus rosweythyow ha servellow dyffrans. Y avonsya privetter usyer "
-"ha perghenogeth data, hag offra unn ken dewis dhe bynkyow socyal kresennys."
+"An Fediverse yw rosweyth socyal ankresennys ow synsi meur a vynkys ha "
+"kemenethow kesjunys, ow kasa devnydhyoryon rag keskomunya ha kevrenna synsas "
+"a-dreus dhe rosweythyow dyffrans ha servellow. Skoodhya a wra privetter "
+"devnydhyer ha perghenogeth dhata, ha profya ken dewis dhe vynkys media "
+"socyal kresennys."
 
 #: data/dev.geopjr.Tuba.gschema.xml:12 data/ui/dialogs/preferences.ui:135
 msgid "Default Post Visibility"
@@ -68,17 +70,17 @@ msgstr "Gweladewder Post Defowt"
 
 #: data/dev.geopjr.Tuba.gschema.xml:16 data/ui/dialogs/preferences.ui:154
 msgid "Default Post Content Type"
-msgstr "Eghen Dalgh Post Defowt"
+msgstr "Eghen Synsas Post Defowt"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:21
 msgid "Muted Push Notification Types"
-msgstr "Eghennow Gwarnyansow Omlavar"
+msgstr "Eghennow Gwarnyansow Tawhes"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:26
 msgid "Recently Used Custom Emojis"
-msgstr "Emojys An-vusur A-dhiwedhes"
+msgstr "Emojys A-vusur Devnydhys A-dhiwedhes"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:31
@@ -93,7 +95,7 @@ msgstr "Eghennow Gwarnyansow Sidhlys"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:41
 msgid "IDs of Lists shown on the sidebar"
-msgstr "IDs a Rolyow diskwedhys war'n bord lestri"
+msgstr "IDs a Rolyow diskwedhys war'n bordh lestri"
 
 #: data/dev.geopjr.Tuba.gschema.xml:45
 msgid "Hashtags shown on the sidebar"
@@ -102,7 +104,7 @@ msgstr "Hashtaggys diskwedhys war'n bord lestri"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:50
 msgid "Account Suggestions"
-msgstr "Kussulyow Akont"
+msgstr "Profyansow Akont"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:52
@@ -110,8 +112,8 @@ msgid ""
 "Whether account suggestions should be shown in the Home tab when the user "
 "doesn't follow enough people"
 msgstr ""
-"Mar kussulyow akont kodh diskwedhys y'n tabb Tre when an usyer na holya lowr "
-"tus"
+"Mar profyansow akont kodh diskwedhys y'n tabb Tre mars nyns eus tus lowr "
+"holys gans an devnydhyer"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
@@ -126,7 +128,7 @@ msgstr "An UUID a'n akont byw"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:67
 msgid "The default color scheme"
-msgstr "An kolor defowt"
+msgstr "An gis liw defowt"
 
 #: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
 msgid "Run in Background"
@@ -139,40 +141,40 @@ msgstr "Kerghes gwarnyansow hag an app yw deges"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:77
 msgid "Posts per Load Batch"
-msgstr "Postow dre Bagasik Karg"
+msgstr "Postow dre Vagasik Karg"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:79
 msgid ""
 "The amount of posts that should be displayed on every scroll on timelines "
 "(10-40)"
-msgstr "Myns a postow rag diskwedhes skroll kettep (10-40)"
+msgstr "Myns a bostow rag diskwedhes war bub skroll war linennow termyn (10-40)"
 
 #: data/dev.geopjr.Tuba.gschema.xml:83 data/ui/dialogs/preferences.ui:168
 msgid "Stream Timelines"
-msgstr "Stremya Linennow Dermyn"
+msgstr "Stremya Linennow Termyn"
 
 #: data/dev.geopjr.Tuba.gschema.xml:84 data/ui/dialogs/preferences.ui:169
 msgid "Receive new posts and notifications in real-time"
-msgstr "Receva postow ha gwarnyans nowydh seulvegyns"
+msgstr "Degemeres postow ha gwarnyansow nowydh yn fyw"
 
 #: data/dev.geopjr.Tuba.gschema.xml:88 data/ui/dialogs/preferences.ui:175
 msgid "Stream Public Timelines"
-msgstr "Stremya Linennow Dermyn Poblek"
+msgstr "Stremya Linennow Termyn Poblek"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:90
 msgid ""
 "Public means the local and federated ones that usually have a lot of traffic"
-msgstr "Poblek menya an re na leel ha keffrysek may yw bysi"
+msgstr "Poblek yw an re leel ha keffrysek gans meur a draffik"
 
 #: data/dev.geopjr.Tuba.gschema.xml:94 data/ui/dialogs/preferences.ui:72
 msgid "Reveal Spoilers by Default"
-msgstr "Diskudha Gwarnyans Dalgh yn Defowt"
+msgstr "Diskudha Pedrians yn Defowt"
 
 #: data/dev.geopjr.Tuba.gschema.xml:98 data/ui/dialogs/preferences.ui:77
 msgid "Show Link Preview Cards"
-msgstr "Diskwedhes Ragwologow Gorgevren"
+msgstr "Diskwedhes Karten Ragwologow Gorgevren"
 
 #: data/dev.geopjr.Tuba.gschema.xml:102 data/ui/dialogs/preferences.ui:31
 msgid "Large Text"
@@ -180,11 +182,11 @@ msgstr "Tekst Bras"
 
 #: data/dev.geopjr.Tuba.gschema.xml:103 data/ui/dialogs/preferences.ui:32
 msgid "Increase the size of text in posts"
-msgstr "Moghhe an braster a text yn postow"
+msgstr "Moghhe an braster a dekst yn postow"
 
 #: data/dev.geopjr.Tuba.gschema.xml:107 data/ui/dialogs/preferences.ui:37
 msgid "Large Line Height"
-msgstr "Ughelder Linen Bras"
+msgstr "Ughelder Linen Vras"
 
 #: data/dev.geopjr.Tuba.gschema.xml:108 data/ui/dialogs/preferences.ui:38
 msgid "Increase the line height in posts"
@@ -196,12 +198,12 @@ msgstr "Skeulya Emojys A-vusur war Resell-Bargesi"
 
 #: data/dev.geopjr.Tuba.gschema.xml:113
 msgid "lightly increases the size of custom emojis when you hover over them"
-msgstr "yn kav moghhe an braster a emojys a-vusur pan tybargesi a-ugh y's"
+msgstr "moghhe yn kav an braster a emojys a-vusur pan a's bargesowgh"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:118
 msgid "Aggressive User Resolving"
-msgstr "Ervirans Argasus Usyer"
+msgstr "Ervirans Argasus Devnydhyer"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:120
@@ -210,9 +212,6 @@ msgid ""
 "it leads to a user or a post regardless if it matches the typical post and "
 "user URLs"
 msgstr ""
-"Pan ow klyckya war unn gorgevren, Tuba a wra peji dha servell rag ervirans "
-"dhe determya mars y a led dhe unn usyer po post, heb govis mars y omdhesedha "
-"an gorgevrennow tipek rag postow hag usyoryon"
 
 #: data/dev.geopjr.Tuba.gschema.xml:124 data/ui/dialogs/preferences.ui:99
 msgid "Strip Tracking Parameters From Links"
