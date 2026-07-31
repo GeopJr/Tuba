@@ -590,7 +590,9 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			if (precompose.poll != null) {
 				init_polls_component (precompose.poll);
 				poll_button.active = true;
-			} else if (precompose.media_attachments != null && precompose.media_attachments.size > 0) {
+			}
+
+			if (precompose.media_attachments != null && precompose.media_attachments.size > 0) {
 				create_attachmentsbin (precompose.media_attachments);
 				editor.add_bottom_child (attachmentsbin_component);
 				sensitive_media_button.active = precompose.sensitive_media;
@@ -1136,7 +1138,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		status_widget.indicators.append (remove_quote_button);
 
 		inline_quote_widget = status_widget;
-		editor.add_bottom_child (inline_quote_widget);
+		editor.add_bottom_child (inline_quote_widget, true);
 	}
 
 	private void remove_quote_inline_widget () {

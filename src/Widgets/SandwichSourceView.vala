@@ -77,9 +77,10 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 	}
 
 	public virtual void add_bottom_child (Gtk.Widget new_bottom_child, bool append = false) {
-		bottom_controllers_new.set (new_bottom_child, new Gee.ArrayList<Gtk.EventController> ());
-
 		bottom_child_box.visible = true;
+		if (has_bottom_child (new_bottom_child)) return;
+
+		bottom_controllers_new.set (new_bottom_child, new Gee.ArrayList<Gtk.EventController> ());
 		var focus_controller = new Gtk.EventControllerFocus ();
 		focus_controller.enter.connect (scroll_to_bottom_widget);
 		focus_controller.leave.connect (on_focus_leave);
