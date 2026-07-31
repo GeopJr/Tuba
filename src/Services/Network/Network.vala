@@ -168,25 +168,19 @@ public class Tuba.Network : GLib.Object {
 	//  	return parser;
 	//  }
 
-	public static async GLib.Bytes read_inputstream_to_bytes_async (InputStream in_stream, Cancellable? cancellable = null) throws Error {
-		var output = new GLib.MemoryOutputStream.resizable ();
-
-		while (true) {
-			GLib.Bytes chunk = yield in_stream.read_bytes_async (64 * 1024, GLib.Priority.DEFAULT, cancellable);
-			if (chunk.get_size () == 0) break;
-
-			yield output.write_bytes_async (chunk, GLib.Priority.DEFAULT, cancellable);
-		}
-
-		yield output.close_async (GLib.Priority.DEFAULT, cancellable);
-		return output.steal_as_bytes ();
-	}
-
 	public static async Json.Parser get_parser_from_inputstream_async (InputStream in_stream, Cancellable? cancellable = null) throws Error {
-		GLib.Bytes bytes = yield read_inputstream_to_bytes_async (in_stream, cancellable);
+		var mem_out = new GLib.MemoryOutputStream.resizable ();
+		yield mem_out.splice_async (
+			in_stream,
+			GLib.OutputStreamSpliceFlags.NONE,
+			GLib.Priority.DEFAULT,
+			cancellable
+		);
+		yield mem_out.close_async (GLib.Priority.DEFAULT, cancellable);
+		var mem_in = new GLib.MemoryInputStream.from_bytes (mem_out.steal_as_bytes ());
+
 		var parser = new Json.Parser ();
-		unowned uint8[] data = bytes.get_data ();
-		parser.load_from_data ((string) data, (ssize_t) bytes.get_size ());
+		yield parser.load_from_stream_async (mem_in);
 		return parser;
 	}
 
