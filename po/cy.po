@@ -7,16 +7,17 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-06-20 13:01+0000\n"
-"Last-Translator: newidyn <grugallt@protonmail.ch>\n"
-"Language-Team: Welsh <https://hosted.weblate.org/projects/tuba/tuba/cy/>\n"
+"PO-Revision-Date: 2026-07-31 21:40+0000\n"
+"Last-Translator: Anonymous <anonymous@noreply.codeberg.org>\n"
+"Language-Team: Welsh <https://translate.codeberg.org/projects/tuba/tuba/cy/>"
+"\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=(n==0) ? 0 : (n==1) ? 1 : (n==2) ? 2 : "
 "(n==3) ? 3 :(n==6) ? 4 : 5;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -843,8 +844,8 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
-"Os nad oes gennych gyfrif eto, <a href=\"https://joinmastodon.org/"
-"servers\">dewiswch weinydd a chofrestru</a>."
+"Os nad oes gennych gyfrif eto, <a href=\"https://joinmastodon.org/servers\">"
+"dewiswch weinydd a chofrestru</a>."
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"
@@ -1467,6 +1468,10 @@ msgid "%s Post"
 msgid_plural "%s Posts"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: tooltip on featured hashtags on profiles on a number that
 #. shows the amount of posts that use said hashtag
@@ -1514,6 +1519,10 @@ msgid_plural ""
 "follow."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24
@@ -1526,6 +1535,10 @@ msgid_plural ""
 "follow."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:33
@@ -1662,6 +1675,10 @@ msgid "%d Hour"
 msgid_plural "%d Hours"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:227 src/API/Relationship.vala:228
@@ -1673,6 +1690,10 @@ msgid "%d Day"
 msgid_plural "%d Days"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: src/API/SearchResults.vala:32
 msgid "Search returned no results"
@@ -1923,6 +1944,10 @@ msgid "%d Year"
 msgid_plural "%d Years"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: src/Dialogs/Admin/AddIPBlock.vala:21 src/Dialogs/Admin/AddIPBlock.vala:23
 #, c-format
@@ -1930,6 +1955,10 @@ msgid "%d Month"
 msgid_plural "%d Months"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: src/Dialogs/Admin/AddIPBlock.vala:25 src/Dialogs/FilterEdit.vala:35
 #, c-format
@@ -1937,6 +1966,10 @@ msgid "%d Week"
 msgid_plural "%d Weeks"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: src/Dialogs/Admin/AddIPBlock.vala:68
 #: src/Views/Admin/Pages/BlockedIPs.vala:10
@@ -2607,6 +2640,10 @@ msgid "%d Minute"
 msgid_plural "%d Minutes"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: the variable is a number, short form for minutes
 #: src/Dialogs/Composer/Polls.vala:380 src/Dialogs/Composer/Polls.vala:382
@@ -2732,6 +2769,10 @@ msgid "%d keyword"
 msgid_plural "%d keywords"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: the variable is a filter name
 #: src/Dialogs/Preferences.vala:81
@@ -3234,6 +3275,10 @@ msgid "less than a minute old"
 msgid_plural "%s minutes old"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:174
@@ -3242,6 +3287,10 @@ msgid "an hour old"
 msgid_plural "%s hours old"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:190 src/Utils/DateTime.vala:205
@@ -3262,6 +3311,10 @@ msgid "a day old"
 msgid_plural "%d days old"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:201
@@ -3270,6 +3323,10 @@ msgid "a year old"
 msgid_plural "%d years old"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
@@ -3910,6 +3967,10 @@ msgid "%d Filtered Notification"
 msgid_plural "%d Filtered Notifications"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: src/Views/Notifications.vala:43
 msgid "No Notifications"
@@ -4046,6 +4107,10 @@ msgid "%d Announcement"
 msgid_plural "%d Announcements"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. tanslators: used in a banner, the variable is the number of unreviewed follow requests
 #: src/Views/Sidebar.vala:40
@@ -4054,6 +4119,10 @@ msgid "%d Follow Request"
 msgid_plural "%d Follow Requests"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: main menu entry, please don't translate it unless you have to.
 #. Refer to other #FediWrapped strings for more info
@@ -4183,6 +4252,10 @@ msgid "%s Follower"
 msgid_plural "%s Followers"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of people a user follows.
@@ -4262,6 +4335,10 @@ msgid "Contains %d reaction."
 msgid_plural "Contains %d reactions."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4344,6 +4421,10 @@ msgid "%d Reaction"
 msgid_plural "%d Reactions"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: focus picking knob(?)/target(?) tooltip in the focus picker
 #: src/Widgets/FocusPicker.vala:49
@@ -4395,6 +4476,10 @@ msgid "See %d author"
 msgid_plural "See all %d authors"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The first variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -4407,6 +4492,10 @@ msgid "Followed by %s & %s Other"
 msgid_plural "Followed by %s & %s Others"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -4428,6 +4517,10 @@ msgid "Contains %d field."
 msgid_plural "Contains %d fields."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: Button label shown when a user has moved to another instance.
 #. The first variable is this account's handle while the second
@@ -4662,6 +4755,10 @@ msgid "Contains %d attachment."
 msgid_plural "Contains %d attachments."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4709,6 +4806,10 @@ msgid "%s reply"
 msgid_plural "%s replies"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: src/Widgets/Status.vala:987
 #, c-format
@@ -4716,6 +4817,10 @@ msgid "%s boost"
 msgid_plural "%s boosts"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: src/Widgets/Status.vala:992
 #, c-format
@@ -4723,6 +4828,10 @@ msgid "%s favorite"
 msgid_plural "%s favorites"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4764,6 +4873,10 @@ msgid "Poll with %d option."
 msgid_plural "Poll with %d options."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4780,6 +4893,10 @@ msgid "%s voted"
 msgid_plural "%s voted"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #~ msgid "Color Scheme"
 #~ msgstr "Cynllun lliwiau"

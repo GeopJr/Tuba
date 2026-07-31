@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2026-03-26 16:09+0000\n"
-"Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
-"Language-Team: Kabyle <https://hosted.weblate.org/projects/tuba/tuba/kab/>\n"
+"PO-Revision-Date: 2026-07-31 21:45+0000\n"
+"Last-Translator: butterflyoffire <butterflyoffire@noreply.codeberg.org>\n"
+"Language-Team: Kabyle <https://translate.codeberg.org/projects/tuba/tuba/"
+"kab/>\n"
 "Language: kab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -103,7 +104,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:60
 msgid "Active Account"
-msgstr ""
+msgstr "Amiḍan urmid"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:62
@@ -291,7 +292,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:180
 msgid "Spellchecker"
-msgstr ""
+msgstr "Imseɣti n tira"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:182
@@ -928,7 +929,7 @@ msgstr ""
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:66
 msgid "New accounts"
-msgstr ""
+msgstr "Imiḍan imaynuten"
 
 #. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:68
@@ -1209,7 +1210,7 @@ msgstr "Nɣel URL"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:177
 msgid "Save Media…"
-msgstr ""
+msgstr "Sekles amidya…"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:179
 msgid "Copy Media"
@@ -1640,7 +1641,7 @@ msgstr ""
 #: src/API/Relationship.vala:184
 #, c-format
 msgid "Mute \"%s\"?"
-msgstr ""
+msgstr "Sgugem \"%s\"?"
 
 #: src/API/Relationship.vala:224 src/Dialogs/FilterEdit.vala:29
 msgid "Never"
@@ -2168,7 +2169,7 @@ msgstr "Bḍu"
 
 #: src/Dialogs/AnnualReport.vala:108
 msgid "Save As…"
-msgstr ""
+msgstr "Sekles am…"
 
 #. translators: dropdown label for picking a window style
 #: src/Dialogs/AnnualReport.vala:115
@@ -2196,7 +2197,7 @@ msgstr ""
 #. translators: #FediWrapped, title of the 'amount of new posts' card
 #: src/Dialogs/AnnualReport.vala:200
 msgid "New Posts"
-msgstr ""
+msgstr "Tisuffaɣ timaynutin"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -2400,7 +2401,7 @@ msgstr "Tabaḍnit n tsuffeɣt"
 #. translators: post compositor post button label when the visibility is 'mentioned only'
 #: src/Dialogs/Composer/Dialog.vala:265
 msgid "Send"
-msgstr ""
+msgstr "Azen"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:276
@@ -2413,7 +2414,7 @@ msgstr "Tutlayt n tsuffeɣt"
 #. https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
 #: src/Dialogs/Composer/Dialog.vala:384 src/Widgets/Status.vala:1137
 msgid "Local Only"
-msgstr ""
+msgstr "Adigan kan"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:414
@@ -2424,7 +2425,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:458 src/Dialogs/Composer/Dialog.vala:469
 #: src/Dialogs/Composer/Dialog.vala:692
 msgid "Post"
-msgstr ""
+msgstr "Suffeɣ"
 
 #. translators: composer post button label
 #. translators: verb
@@ -2448,7 +2449,7 @@ msgstr "Efk-d tiririt i %s"
 #: src/Dialogs/Composer/Dialog.vala:604 src/Widgets/Status/ActionsRow.vala:129
 #: src/Widgets/Status/ActionsRow.vala:285
 msgid "Quote"
-msgstr ""
+msgstr "Abdar"
 
 #. translators: composer embedded quoting post, aria label
 #: src/Dialogs/Composer/Dialog.vala:634
@@ -2459,7 +2460,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:642
 #, c-format
 msgid "Quoting @%s"
-msgstr ""
+msgstr "Tanebdurt n @%s"
 
 #. translators: composer post button label
 #. translators: button on the delete post dialog that
@@ -2479,7 +2480,7 @@ msgstr "Ẓreg"
 #. translators: composer title
 #: src/Dialogs/Composer/Dialog.vala:669 src/Dialogs/Composer/Dialog.vala:699
 msgid "Edit Post"
-msgstr ""
+msgstr "Ẓreg tasuffeɣt"
 
 #. translators: media as in picture or files
 #: src/Dialogs/Composer/Dialog.vala:866
@@ -2673,12 +2674,12 @@ msgstr "Aqeddac yerra-d tuccḍa"
 
 #: src/Dialogs/NewAccount.vala:339
 msgid "Apply"
-msgstr ""
+msgstr "Snes"
 
 #. translators: Switch title in the new account window
 #: src/Dialogs/NewAccount.vala:372
 msgid "Admin Mode"
-msgstr ""
+msgstr "Askar n unedbal"
 
 #. translators: Switch description in the new account window
 #: src/Dialogs/NewAccount.vala:374
@@ -2693,7 +2694,7 @@ msgstr "Isestanen"
 
 #: src/Dialogs/NotificationSettings.vala:53
 msgid "Post Edits"
-msgstr ""
+msgstr "Tiẓrigin n tsuffaɣ"
 
 #: src/Dialogs/NotificationSettings.vala:54
 msgid "Follows"
@@ -2718,7 +2719,7 @@ msgstr[1] ""
 #: src/Dialogs/Preferences.vala:81
 #, c-format
 msgid "Delete %s?"
-msgstr ""
+msgstr "Kkes %s?"
 
 #. translators: the variable is an error message
 #: src/Dialogs/Preferences.vala:96
@@ -2743,13 +2744,13 @@ msgstr "Agbur"
 #. translators: profile field, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:209
 msgid "Add Field"
-msgstr ""
+msgstr "Rnu urti"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:228
 #, c-format
 msgid "Field %d"
-msgstr ""
+msgstr "Urti %d"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
@@ -2945,7 +2946,7 @@ msgstr ""
 #. translators: post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:364
 msgid "In Reply"
-msgstr ""
+msgstr "Deg tririt"
 
 #. translators: the variable is a string user handle,
 #. post header, on posts that are replies
@@ -3022,7 +3023,7 @@ msgstr "Ihacṭagen"
 #: src/Services/Accounts/Mastodon/Account.vala:149 src/Views/Drive.vala:849
 #: src/Views/Drive.vala:988
 msgid "Drive"
-msgstr ""
+msgstr "Drive"
 
 #. translators: visibility dropdown subtitle
 #: src/Services/Accounts/Mastodon/Account.vala:218
@@ -3308,7 +3309,7 @@ msgstr "Ɣur-s talast"
 #: src/Views/Admin/Pages/Accounts.vala:388 src/Widgets/Admin/AccountRow.vala:33
 #: src/Widgets/Admin/Report.vala:54
 msgid "Disabled"
-msgstr ""
+msgstr "Yexsi"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3317,7 +3318,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:374 src/Widgets/Admin/AccountRow.vala:29
 #: src/Widgets/Admin/Report.vala:50
 msgid "Suspended"
-msgstr ""
+msgstr "Yettwaḥbes"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3364,7 +3365,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:356
 #: src/Views/Admin/Pages/Accounts.vala:490
 msgid "Approve"
-msgstr ""
+msgstr "Qbel"
 
 #: src/Views/Admin/Pages/Accounts.vala:363
 #: src/Views/Admin/Pages/Accounts.vala:523
@@ -3520,11 +3521,11 @@ msgstr ""
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:57
 msgid "Previous Page"
-msgstr ""
+msgstr "Asebter uzwir"
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:66
 msgid "Next Page"
-msgstr ""
+msgstr "Asebter uḍfir"
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:75
 msgid "Announcements"
@@ -3607,7 +3608,7 @@ msgstr ""
 
 #: src/Views/Drive.vala:242
 msgid "Copy Link"
-msgstr ""
+msgstr "Nɣel aseɣwen"
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
@@ -3635,7 +3636,7 @@ msgstr ""
 
 #: src/Views/Drive.vala:407
 msgid "Rename File"
-msgstr ""
+msgstr "Ẓreg isem n ufaylu"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
@@ -3664,7 +3665,7 @@ msgstr "Isem n ukaram"
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
 msgid "Create"
-msgstr ""
+msgstr "Snulfu-d"
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
@@ -3762,7 +3763,7 @@ msgstr "Isallen"
 
 #: src/Views/Explore.vala:8
 msgid "No News"
-msgstr ""
+msgstr "Ulac isallen"
 
 #: src/Views/Explore.vala:9
 msgid "For You"
@@ -3890,7 +3891,7 @@ msgstr[1] ""
 
 #: src/Views/Notifications.vala:43
 msgid "No Notifications"
-msgstr ""
+msgstr "Ulac tilɣa"
 
 #: src/Views/Profile.vala:118
 msgid "Profile"
@@ -4417,7 +4418,7 @@ msgstr ""
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "Yettwaffer"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"

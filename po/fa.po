@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: 2025-08-18 10:02+0000\n"
-"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
-"Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
+"PO-Revision-Date: 2026-07-31 21:42+0000\n"
+"Last-Translator: Anonymous <anonymous@noreply.codeberg.org>\n"
+"Language-Team: Persian <https://translate.codeberg.org/projects/tuba/tuba/"
+"fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -34,8 +35,8 @@ msgstr "کاربر فدیورس"
 #: data/dev.geopjr.Tuba.desktop.in:10
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 msgstr ""
-"toot;mastodon;fediverse;gotosocial;pleroma;akkoma;بوق;ماستودون;فدیورس;پلروما;"
-"گوتو سوشال;آکوما;"
+"toot;mastodon;fediverse;gotosocial;pleroma;akkoma;بوق;ماستودون;فدیورس;پلروما;گوتو "
+"سوشال;آکوما;"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
@@ -1017,8 +1018,7 @@ msgstr "زبان پیش‌گزیدهٔ فرستهٔ"
 #: data/ui/dialogs/preferences.ui:177
 msgid "This will increase memory usage when browsing high traffic timelines"
 msgstr ""
-"این کار استفادهٔ حافظه را هنگام مرور خط‌های زمانی با شدآمد بالا افزایش خواهد "
-"داد"
+"این کار استفادهٔ حافظه را هنگام مرور خط‌های زمانی با شدآمد بالا افزایش خواهد داد"
 
 #: data/ui/dialogs/preferences.ui:184
 msgid "Online Services"
@@ -1545,10 +1545,8 @@ msgid ""
 msgid_plural ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
-msgstr[0] ""
-"شما %s را مسدود کردید که %s پی‌گیر و %s حسابی که پی می‌گیرید را برداشت."
-msgstr[1] ""
-"شما %s را مسدود کردید که %s پی‌گیر و %s حسابی که پی می‌گیرید را برداشت."
+msgstr[0] "شما %s را مسدود کردید که %s پی‌گیر و %s حسابی که پی می‌گیرید را برداشت."
+msgstr[1] "شما %s را مسدود کردید که %s پی‌گیر و %s حسابی که پی می‌گیرید را برداشت."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24

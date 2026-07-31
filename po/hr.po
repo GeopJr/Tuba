@@ -7,31 +7,33 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-24 14:23+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-07-31 21:43+0000\n"
+"Last-Translator: milotype <milotype@noreply.codeberg.org>\n"
+"Language-Team: Croatian <https://translate.codeberg.org/projects/tuba/tuba/"
+"hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
-msgstr ""
+msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr ""
+msgstr "Pregledaj Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:5
 msgid "Fediverse Client"
-msgstr ""
+msgstr "Fediverse klijent"
 
 #: data/dev.geopjr.Tuba.desktop.in:10
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr ""
+msgstr "alat;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
@@ -115,7 +117,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:71 data/ui/dialogs/preferences.ui:116
 msgid "Run in Background"
-msgstr ""
+msgstr "Izvodi u pozadini"
 
 #: data/dev.geopjr.Tuba.gschema.xml:72 data/ui/dialogs/preferences.ui:117
 msgid "Fetch notifications while the app is closed"
@@ -161,7 +163,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.gschema.xml:102 data/ui/dialogs/preferences.ui:31
 msgid "Large Text"
-msgstr ""
+msgstr "Velik tekst"
 
 #: data/dev.geopjr.Tuba.gschema.xml:103 data/ui/dialogs/preferences.ui:32
 msgid "Increase the size of text in posts"
@@ -338,7 +340,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:210
 msgid "Proxy URL"
-msgstr ""
+msgstr "URL poslužitelja"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:212
@@ -456,7 +458,7 @@ msgstr ""
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:291
 msgid "Window Height"
-msgstr ""
+msgstr "Visina prozora"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:296
@@ -466,11 +468,11 @@ msgstr ""
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:8
 msgid "General"
-msgstr ""
+msgstr "Opće"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "Prikaži postavke"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
@@ -479,90 +481,90 @@ msgstr ""
 #: data/gtk/help-overlay.ui:26 data/ui/widgets/votebox.ui:42
 #: src/Views/Browser.vala:161 src/Views/Sidebar.vala:71
 msgid "Refresh"
-msgstr ""
+msgstr "Osvježi"
 
 #: data/gtk/help-overlay.ui:32 data/ui/dialogs/advanced_search.ui:28
 #: src/Services/Accounts/Mastodon/Account.vala:92
 #: src/Views/Admin/Pages/Accounts.vala:25 src/Views/Main.vala:67
 #: src/Views/Search.vala:91 src/Views/Search.vala:93
 msgid "Search"
-msgstr ""
+msgstr "Traži"
 
 #: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:52
 #: src/Views/Drive.vala:718
 msgid "Go Back"
-msgstr ""
+msgstr "Idi natrag"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "Prikaži tipkovne prečace"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
-msgstr ""
+msgstr "Zatvori prozor"
 
 #: data/gtk/help-overlay.ui:56 src/Views/Sidebar.vala:97
 msgid "Quit"
-msgstr ""
+msgstr "Zatvori aplikaciju"
 
 #: data/gtk/help-overlay.ui:62
 msgid "About"
-msgstr ""
+msgstr "Informacije"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Up"
-msgstr ""
+msgstr "Klizni gore"
 
 #: data/gtk/help-overlay.ui:74
 msgid "Scroll Down"
-msgstr ""
+msgstr "Klizni dolje"
 
 #: data/gtk/help-overlay.ui:82
 msgid "Composer"
-msgstr ""
+msgstr "Skladatelj"
 
 #: data/gtk/help-overlay.ui:85
 msgid "Commit"
-msgstr ""
+msgstr "Commit"
 
 #: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:43
 msgid "Media Viewer"
-msgstr ""
+msgstr "Prikazivač medija"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "Cjelozaslonski prikaz"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:172
 msgid "Zoom In"
-msgstr ""
+msgstr "Uvećaj prikaz"
 
 #: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:160
 msgid "Zoom Out"
-msgstr ""
+msgstr "Umanji prikaz"
 
 #: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Prethodni prilog"
 
 #: data/gtk/help-overlay.ui:120 data/ui/views/media_viewer.ui:106
 msgid "Next Attachment"
-msgstr ""
+msgstr "Sljedeći prilog"
 
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Uvećaj prikaz"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Umanji prikaz"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Prethodni prilog"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
@@ -576,7 +578,7 @@ msgstr ""
 #. translators: window title
 #: data/ui/dialogs/advanced_search.ui:11 src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "Napredna pretraga"
 
 #: data/ui/dialogs/advanced_search.ui:22 data/ui/dialogs/filter_edit.ui:16
 #: data/ui/dialogs/new_account.ui:26 data/ui/dialogs/profile_edit.ui:21
@@ -603,7 +605,7 @@ msgstr ""
 #: src/Widgets/ScheduledStatus.vala:204 src/Widgets/Status/ActionsRow.vala:284
 #: src/Widgets/Status.vala:521
 msgid "Cancel"
-msgstr ""
+msgstr "Odustani"
 
 #. translators: Label in the advanced search window. Leave `-is:reply` as is. 'instances' as in fediverse servers
 #: data/ui/dialogs/advanced_search.ui:59
@@ -615,7 +617,7 @@ msgstr ""
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:76
 msgid "Query"
-msgstr ""
+msgstr "Upit"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:83
@@ -647,7 +649,7 @@ msgstr ""
 #: data/ui/dialogs/advanced_search.ui:123
 #: src/Widgets/ProfileFilterGroup.vala:68
 msgid "Media"
-msgstr ""
+msgstr "Mediji"
 
 #: data/ui/dialogs/advanced_search.ui:128
 msgid "Poll"
@@ -656,7 +658,7 @@ msgstr ""
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:134
 msgid "Embed"
-msgstr ""
+msgstr "Ugradi"
 
 #: data/ui/dialogs/advanced_search.ui:141 data/ui/dialogs/preferences.ui:165
 msgid "Timelines"
@@ -669,7 +671,7 @@ msgstr ""
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:159
 msgid "Library"
-msgstr ""
+msgstr "Biblioteka"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:161
@@ -679,18 +681,18 @@ msgstr ""
 #. translators: post visibility label
 #: data/ui/dialogs/advanced_search.ui:176 src/API/Status.vala:320
 msgid "Public"
-msgstr ""
+msgstr "Javno"
 
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:194
 msgid "Dates"
-msgstr ""
+msgstr "Datumi"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:200
 msgid "Before"
-msgstr ""
+msgstr "Prije"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
@@ -702,7 +704,7 @@ msgstr ""
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:246
 msgid "After"
-msgstr ""
+msgstr "Nakon"
 
 #. translators: composer title
 #: data/ui/dialogs/composer.ui:18 src/Dialogs/Composer/Dialog.vala:496
@@ -751,15 +753,15 @@ msgstr ""
 #: data/ui/dialogs/filter_edit.ui:24 data/ui/dialogs/profile_edit.ui:28
 #: src/Views/Drive.vala:426
 msgid "Save"
-msgstr ""
+msgstr "Spremi"
 
 #: data/ui/dialogs/filter_edit.ui:58
 msgid "Title"
-msgstr ""
+msgstr "Naslov"
 
 #: data/ui/dialogs/filter_edit.ui:64
 msgid "Expires In"
-msgstr ""
+msgstr "Isteče"
 
 #: data/ui/dialogs/filter_edit.ui:69
 msgid "Hide Completely"
@@ -787,11 +789,11 @@ msgstr ""
 
 #: data/ui/dialogs/list_edit.ui:7 data/ui/dialogs/list_edit.ui:10
 msgid "Members"
-msgstr ""
+msgstr "Članovi"
 
 #: data/ui/dialogs/list_edit.ui:27
 msgid "List Name"
-msgstr ""
+msgstr "Ime popisa"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
@@ -808,7 +810,7 @@ msgstr ""
 #: data/ui/dialogs/list_edit.ui:43 src/Widgets/Admin/AssignedRow.vala:49
 #: src/Widgets/Admin/Report.vala:20 src/Widgets/Admin/Report.vala:24
 msgid "Nobody"
-msgstr ""
+msgstr "Nitko"
 
 #: data/ui/dialogs/list_edit.ui:54
 msgid "Other members of the list"
@@ -821,13 +823,13 @@ msgstr ""
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:321
 #: src/Views/Sidebar.vala:325
 msgid "Add Account"
-msgstr ""
+msgstr "Dodaj račun"
 
 #: data/ui/dialogs/new_account.ui:33 data/ui/dialogs/new_account.ui:126
 #: src/Dialogs/Report.vala:88 src/Dialogs/Report.vala:452
 #: src/Widgets/AccountSuggestions.vala:89
 msgid "Next"
-msgstr ""
+msgstr "Dalje"
 
 #: data/ui/dialogs/new_account.ui:47
 msgid "What is your Server?"
@@ -842,12 +844,12 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"
-msgstr ""
+msgstr "URL servera"
 
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:332
 msgid "Settings"
-msgstr ""
+msgstr "Postavke"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
@@ -870,11 +872,11 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:223
 msgid "Done"
-msgstr ""
+msgstr "Obavljeno"
 
 #: data/ui/dialogs/notification_settings.ui:6 src/Views/Main.vala:74
 msgid "Filter"
-msgstr ""
+msgstr "Filtar"
 
 #: data/ui/dialogs/notification_settings.ui:16
 msgid "Clear All Notifications"
@@ -885,7 +887,7 @@ msgstr ""
 #: src/Services/Accounts/Mastodon/Account.vala:34
 #: src/Views/Notifications.vala:38
 msgid "Notifications"
-msgstr ""
+msgstr "Obavijesti"
 
 #: data/ui/dialogs/notification_settings.ui:37
 msgid "Included Notifications"
@@ -944,7 +946,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:11
 msgid "Appearance"
-msgstr ""
+msgstr "Izgled"
 
 #: data/ui/dialogs/preferences.ui:44
 msgid "Slightly increases the size of custom emojis when you hover over them"
@@ -954,16 +956,16 @@ msgstr ""
 #: data/ui/dialogs/preferences.ui:51 src/Views/Explore.vala:6
 #: src/Views/Search.vala:115 src/Widgets/ProfileFilterGroup.vala:56
 msgid "Posts"
-msgstr ""
+msgstr "Objave"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Behavior"
-msgstr ""
+msgstr "Način rada"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:124 src/Dialogs/NewAccount.vala:363
 msgid "Proxy"
-msgstr ""
+msgstr "Posrednički poslužitelj"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Posting"
@@ -1013,11 +1015,11 @@ msgstr ""
 #: data/ui/dialogs/preferences.ui:244 src/Dialogs/NotificationSettings.vala:50
 #: src/Services/Accounts/Mastodon/Account.vala:74 src/Views/Favorites.vala:4
 msgid "Favorites"
-msgstr ""
+msgstr "Favoriti"
 
 #: data/ui/dialogs/preferences.ui:250 src/Dialogs/NotificationSettings.vala:49
 msgid "Mentions"
-msgstr ""
+msgstr "Spominjanja"
 
 #: data/ui/dialogs/preferences.ui:256 src/Dialogs/NotificationSettings.vala:51
 msgid "Boosts"
@@ -1025,31 +1027,31 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:262
 msgid "Poll Results"
-msgstr ""
+msgstr "Rezultati ankete"
 
 #: data/ui/dialogs/preferences.ui:268
 msgid "Edits"
-msgstr ""
+msgstr "Uređivanja"
 
 #: data/ui/dialogs/preferences.ui:274
 msgid "Group"
-msgstr ""
+msgstr "Grupa"
 
 #: data/ui/dialogs/preferences.ui:287
 msgid "Filters"
-msgstr ""
+msgstr "Filtri"
 
 #: data/ui/dialogs/preferences.ui:291
 msgid "Keywords"
-msgstr ""
+msgstr "Ključne riječi"
 
 #: data/ui/dialogs/preferences.ui:299
 msgid "Add Filter…"
-msgstr ""
+msgstr "Dodaj filtar …"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:364
 msgid "Edit Profile"
-msgstr ""
+msgstr "Uredi profil"
 
 #: data/ui/dialogs/profile_edit.ui:68
 msgid "Edit Profile Picture"
@@ -1062,12 +1064,12 @@ msgstr ""
 
 #: data/ui/dialogs/profile_edit.ui:122 src/Views/Admin/Pages/Accounts.vala:135
 msgid "Display Name"
-msgstr ""
+msgstr "Prikazano ime"
 
 #. translators: profile bio or description
 #: data/ui/dialogs/profile_edit.ui:130
 msgid "Bio"
-msgstr ""
+msgstr "Biografija"
 
 #. translators: Alternative Text refers to text that describes
 #. an attachment when using screen readers or the
@@ -1090,50 +1092,50 @@ msgstr ""
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:184
 msgid "Fields"
-msgstr ""
+msgstr "Polja"
 
 #. translators: window title
 #: data/ui/dialogs/schedule.ui:25
 msgid "Schedule Post"
-msgstr ""
+msgstr "Odredi termin objave"
 
 #. translators: verb
 #: data/ui/dialogs/schedule.ui:36
 msgid "Schedule"
-msgstr ""
+msgstr "Odredi termin"
 
 #. translators: Title used for calendar date picking
 #: data/ui/dialogs/schedule.ui:67
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #. translators: Title used for time picking
 #: data/ui/dialogs/schedule.ui:92
 msgid "Time"
-msgstr ""
+msgstr "Vrijeme"
 
 #. translators: Label on an hour picker
 #: data/ui/dialogs/schedule.ui:107
 msgid "Hour"
-msgstr ""
+msgstr "sat"
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:128
 msgid "Minute"
-msgstr ""
+msgstr "minuta"
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:149
 msgid "Second"
-msgstr ""
+msgstr "sekunda"
 
 #: data/ui/dialogs/schedule.ui:164
 msgid "Timezone"
-msgstr ""
+msgstr "Vremenska zona"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr ""
+msgstr "Spominjanje"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
@@ -1163,7 +1165,7 @@ msgstr ""
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:45 src/Views/Admin/Pages/Accounts.vala:118
 msgid "Moderation"
-msgstr ""
+msgstr "Moderacija"
 
 #: data/ui/menus.ui:47
 msgid "Hide Boosts"
@@ -1172,36 +1174,36 @@ msgstr ""
 #: data/ui/menus.ui:52 src/API/Relationship.vala:187
 #: src/Widgets/Status.vala:338
 msgid "Mute"
-msgstr ""
+msgstr "Isključi"
 
 #: data/ui/menus.ui:57 src/API/Relationship.vala:142
 #: src/Views/Admin/Pages/BlockedEmails.vala:24
 #: src/Views/Admin/Pages/BlockedEmails.vala:71 src/Views/Profile.vala:503
 msgid "Block"
-msgstr ""
+msgstr "Blokiraj"
 
 #: data/ui/menus.ui:61
 msgid "Block Domain"
-msgstr ""
+msgstr "Blokiraj domenu"
 
 #: data/ui/menus.ui:66 src/Dialogs/Admin/Report.vala:8
 #: src/Widgets/Status.vala:388
 msgid "Report"
-msgstr ""
+msgstr "Izvještaj"
 
 #: data/ui/menus.ui:73
 msgid "Timeline"
-msgstr ""
+msgstr "Vremenska traka"
 
 #: data/ui/menus.ui:89 src/Services/Accounts/Mastodon/Account.vala:83
 #: src/Views/Lists.vala:209 src/Views/Profile.vala:613
 msgid "Lists"
-msgstr ""
+msgstr "Popisi"
 
 #: data/ui/views/media_viewer.ui:10 src/Views/Browser.vala:175
 #: src/Widgets/Attachment/Item.vala:176 src/Widgets/Status.vala:327
 msgid "Copy URL"
-msgstr ""
+msgstr "Kopiraj URL"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:177
 msgid "Save Media…"
@@ -1214,16 +1216,16 @@ msgstr ""
 #: data/ui/views/media_viewer.ui:60 data/ui/views/sidebar/view.ui:56
 #: data/ui/widgets/status.ui:180 src/Views/Browser.vala:185
 msgid "Menu"
-msgstr ""
+msgstr "Izbornik"
 
 #: data/ui/views/media_viewer.ui:67 data/ui/views/media_viewer.ui:132
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "Uklj./Isklj. cjeloekranski prikaz"
 
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:37 data/ui/widgets/profile.ui:25
 msgid "Bot"
-msgstr ""
+msgstr "Bot"
 
 #. translators: Tooltip text shown on an icon that indicates
 #. that the user is either a financial supporter
@@ -1255,7 +1257,7 @@ msgstr ""
 
 #: data/ui/views/profile_header.ui:211
 msgid "Note"
-msgstr ""
+msgstr "Bilješka"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:53
@@ -1269,62 +1271,62 @@ msgstr ""
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr ""
+msgstr "Veza s internetom je prekinuta"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
 #: src/Views/Notifications.vala:63
 msgid "View"
-msgstr ""
+msgstr "Prikaži"
 
 #: data/ui/widgets/announcement.ui:81
 msgid "Unread"
-msgstr ""
+msgstr "Nepročitano"
 
 #: data/ui/widgets/announcement.ui:92 data/ui/widgets/status.ui:150
 msgid "Edited"
-msgstr ""
+msgstr "Uređeno"
 
 #. translators: Media play bar play button tooltip
 #: data/ui/widgets/audiocontrols.ui:33 src/Widgets/AudioPlayer/Controls.vala:26
 msgctxt "media controls tooltip"
 msgid "Play"
-msgstr ""
+msgstr "Sviraj"
 
 #: data/ui/widgets/audiocontrols.ui:56
 msgctxt "media controls"
 msgid "Position"
-msgstr ""
+msgstr "Pozicija"
 
 #: data/ui/widgets/audiocontrols.ui:74
 msgctxt "media controls"
 msgid "Volume"
-msgstr ""
+msgstr "Glasnoća"
 
 #: data/ui/widgets/status.ui:139
 msgid "Pinned"
-msgstr ""
+msgstr "Prikvačeno"
 
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:209
 msgid "Show Less"
-msgstr ""
+msgstr "Prikaži manje"
 
 #. translators: Tooltip that opens content warning
 #. translators: as in 'Expand collapsed post'. It's a button label.
 #: data/ui/widgets/status.ui:242 data/ui/widgets/status.ui:287
 #: src/Widgets/Status.vala:658
 msgid "Show More"
-msgstr ""
+msgstr "Prikaži više"
 
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:332
 msgid "Show Anyway"
-msgstr ""
+msgstr "Svejedno prikaži"
 
 #: data/ui/widgets/votebox.ui:35
 msgid "Vote"
-msgstr ""
+msgstr "Glasaj"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:10 src/Views/Admin/Pages/Accounts.vala:297
@@ -1332,22 +1334,22 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:336
 #: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
 msgid "None"
-msgstr ""
+msgstr "Bez"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
 msgid "Limit"
-msgstr ""
+msgstr "Ograničenje"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
 msgid "Suspend"
-msgstr ""
+msgstr "Odgodi"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:10
 msgid "Blocked"
-msgstr ""
+msgstr "Blokirano"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:12
@@ -1399,7 +1401,7 @@ msgstr ""
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
-msgstr ""
+msgstr "Pravne stvari"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:209
@@ -1407,17 +1409,17 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:214
 #: src/Widgets/CustomEmojiChooser.vala:218
 msgid "Other"
-msgstr ""
+msgstr "Drugo"
 
 #. translators: the variable is a string report comment
 #: src/API/Admin/Report.vala:72
 msgid "With the comment"
-msgstr ""
+msgstr "S komentarom"
 
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "Razlog"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
@@ -1439,7 +1441,7 @@ msgstr ""
 #: src/Widgets/Status/ReactionsRow.vala:152
 #: src/Widgets/Status/ReactionsRow.vala:176 src/Widgets/VoteBox.vala:64
 msgid "Error"
-msgstr ""
+msgstr "Greška"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
@@ -1457,6 +1459,7 @@ msgid "%s Post"
 msgid_plural "%s Posts"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #. translators: tooltip on featured hashtags on profiles on a number that
 #. shows the amount of posts that use said hashtag
@@ -1484,15 +1487,15 @@ msgstr ""
 #: src/Services/Accounts/Mastodon/Account.vala:45
 #: src/Views/Conversations.vala:4
 msgid "Conversations"
-msgstr ""
+msgstr "Razgovori"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "Profili"
 
 #: src/API/Iceshrimp/Folder.vala:3
 msgid "Folder"
-msgstr ""
+msgstr "Mapa"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1504,6 +1507,7 @@ msgid_plural ""
 "follow."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24
@@ -1516,6 +1520,7 @@ msgid_plural ""
 "follow."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:33
@@ -1577,13 +1582,13 @@ msgstr ""
 
 #: src/API/Notification.vala:247 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
-msgstr ""
+msgstr "Odbij"
 
 #: src/API/Notification.vala:252 src/Views/NotificationRequestsList.vala:33
 #: src/Widgets/NotificationRequest.vala:65
 #: src/Widgets/Status/FollowRequestRow.vala:14
 msgid "Accept"
-msgstr ""
+msgstr "Prihvati"
 
 #: src/API/Relationship.vala:24
 msgid "Sent follow request"
@@ -1595,30 +1600,30 @@ msgstr ""
 
 #: src/API/Relationship.vala:28
 msgid "Follows you"
-msgstr ""
+msgstr "Prate te"
 
 #. translators: as in, you've been blocked by them
 #: src/API/Relationship.vala:31
 msgid "Blocks you"
-msgstr ""
+msgstr "Blokiraju te"
 
 #. translators: the variable is a user handle
 #: src/API/Relationship.vala:136
 #, c-format
 msgid "Block \"%s\"?"
-msgstr ""
+msgstr "Blokirati „%s”?"
 
 #: src/API/Relationship.vala:136
 #, c-format
 msgid "Unblock \"%s\"?"
-msgstr ""
+msgstr "Deblokirati „%s”?"
 
 #: src/API/Relationship.vala:142 src/Views/Admin/Timelines/BlockedIPs.vala:33
 #: src/Views/Admin/Timelines/DomainBlock.vala:33
 #: src/Views/Admin/Timelines/EmailDomain.vala:33 src/Views/Profile.vala:503
 #: src/Widgets/RelationshipButton.vala:43
 msgid "Unblock"
-msgstr ""
+msgstr "Deblokiraj"
 
 #. translators: switch label when muting someone,
 #. turning it on will also hide notifications
@@ -1636,11 +1641,11 @@ msgstr ""
 #: src/API/Relationship.vala:184
 #, c-format
 msgid "Mute \"%s\"?"
-msgstr ""
+msgstr "Isključiti korisnika „%s”?"
 
 #: src/API/Relationship.vala:224 src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "Nikada"
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:225 src/API/Relationship.vala:226
@@ -1650,8 +1655,9 @@ msgstr ""
 #, c-format
 msgid "%d Hour"
 msgid_plural "%d Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d sat"
+msgstr[1] "%d sata"
+msgstr[2] "%d sati"
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:227 src/API/Relationship.vala:228
@@ -1661,8 +1667,9 @@ msgstr[1] ""
 #, c-format
 msgid "%d Day"
 msgid_plural "%d Days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d dan"
+msgstr[1] "%d dana"
+msgstr[2] "%d dana"
 
 #: src/API/SearchResults.vala:32
 msgid "Search returned no results"
@@ -1685,24 +1692,24 @@ msgstr ""
 #. post visibility label
 #: src/API/Status.vala:324
 msgid "Unlisted"
-msgstr ""
+msgstr "Nenavedeno"
 
 #. translators: post visibility label
 #: src/API/Status.vala:327
 msgid "Followers Only"
-msgstr ""
+msgstr "Samo pratiteljI"
 
 #. translators: post visibility label
 #: src/API/Status.vala:330
 msgid "Direct"
-msgstr ""
+msgstr "Izravno"
 
 #. translators: post visibility label
 #. local = will be displayed in this instance only
 #: src/API/Status.vala:334 src/Services/Accounts/Mastodon/Account.vala:111
 #: src/Views/Admin/Pages/Accounts.vala:69 src/Views/Local.vala:3
 msgid "Local"
-msgstr ""
+msgstr "Lokalno"
 
 #. translators: the variable is the amount of times a hashtag was used in a week
 #. in the composer auto-complete popup (so keep it short)
@@ -1710,8 +1717,9 @@ msgstr ""
 #, c-format
 msgid "%d per week"
 msgid_plural "%d per week"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d puta tjedno"
+msgstr[1] "%d puta tjedno"
+msgstr[2] "%d puta tjedno"
 
 #. var total_uses = int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1719,8 +1727,9 @@ msgstr[1] ""
 #, c-format
 msgid "%d person yesterday"
 msgid_plural "%d people yesterday"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d osoba jučer"
+msgstr[1] "%d osobe jučer"
+msgstr[2] "%d osoba jučer"
 
 #. total_uses += int.parse (last_history_entry.uses);
 #. translators: Shown as a hashtag subtitle. The variable is the number of people that used a hashtag
@@ -1728,8 +1737,9 @@ msgstr[1] ""
 #, c-format
 msgid "%d person in the past 2 days"
 msgid_plural "%d people in the past 2 days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d osoba u zadnja 2 dana"
+msgstr[1] "%d osobe u zadnja 2 dana"
+msgstr[2] "%d osoba u zadnja 2 dana"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
@@ -1760,38 +1770,38 @@ msgstr ""
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:633
 msgid "translator-credits"
-msgstr ""
+msgstr "Milo Ivir <mail@milotype.de>"
 
 #. translators: Wiki pages / Guides
 #: src/Application.vala:637
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: src/Application.vala:639 src/Widgets/Status.vala:375
 msgid "Translate"
-msgstr ""
+msgstr "Prevedi"
 
 #: src/Application.vala:640
 msgid "Donate"
-msgstr ""
+msgstr "Doniraj"
 
 #. translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 #: src/Application.vala:643
 msgid "Archives"
-msgstr ""
+msgstr "Arhive"
 
 #: src/Application.vala:643
 msgid "Create and view web archives"
-msgstr ""
+msgstr "Stvaraj i pogledaj web-arhive"
 
 #. translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 #: src/Application.vala:645
 msgid "Calligraphy"
-msgstr ""
+msgstr "Kaligrafija"
 
 #: src/Application.vala:645
 msgid "Turn text into ASCII banners"
-msgstr ""
+msgstr "Pretvori tekst u ASCII natpise"
 
 #. translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 #: src/Application.vala:647
@@ -1813,11 +1823,11 @@ msgstr ""
 
 #: src/Application.vala:671
 msgid "OK"
-msgstr ""
+msgstr "U redu"
 
 #: src/Application.vala:721
 msgid "Yes"
-msgstr ""
+msgstr "Da"
 
 #: src/Dialogs/Admin/AddFederationBlock.vala:29
 #: src/Views/Admin/Pages/FederationBlocklist.vala:9
@@ -1827,13 +1837,13 @@ msgstr ""
 #: src/Dialogs/Admin/AddFederationBlock.vala:40
 #: src/Dialogs/Admin/AddIPBlock.vala:79
 msgid "Add"
-msgstr ""
+msgstr "Dodaj"
 
 #. translators: Admin dashboard, federation block dialog,
 #. e.g. 'gnome.org'
 #: src/Dialogs/Admin/AddFederationBlock.vala:52
 msgid "Domain"
-msgstr ""
+msgstr "Domena"
 
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
@@ -1900,6 +1910,7 @@ msgid "%d Year"
 msgid_plural "%d Years"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: src/Dialogs/Admin/AddIPBlock.vala:21 src/Dialogs/Admin/AddIPBlock.vala:23
 #, c-format
@@ -1907,6 +1918,7 @@ msgid "%d Month"
 msgid_plural "%d Months"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: src/Dialogs/Admin/AddIPBlock.vala:25 src/Dialogs/FilterEdit.vala:35
 #, c-format
@@ -1914,6 +1926,7 @@ msgid "%d Week"
 msgid_plural "%d Weeks"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: src/Dialogs/Admin/AddIPBlock.vala:68
 #: src/Views/Admin/Pages/BlockedIPs.vala:10
@@ -1923,17 +1936,17 @@ msgstr ""
 #. translators: Admin dashboard ip block comment entry title
 #: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
 msgid "Comment"
-msgstr ""
+msgstr "Komentar"
 
 #. translators: Admin dashboard ip block expiration date row title.
 #: src/Dialogs/Admin/AddIPBlock.vala:123 src/Dialogs/Composer/Polls.vala:424
 msgid "Expiration"
-msgstr ""
+msgstr "Istek"
 
 #. translators: Admin dashboard ip block rule (e.g. no access)
 #: src/Dialogs/Admin/AddIPBlock.vala:131
 msgid "Rule"
-msgstr ""
+msgstr "Pravilo"
 
 #. translators: Admin dashboard ip block rule descriptions.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1949,7 +1962,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:101
 msgid "Resolve"
-msgstr ""
+msgstr "Riješi"
 
 #. translators: Question dialog when an admin is about to
 #. reopen a report
@@ -1959,21 +1972,21 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:101
 msgid "Reopen"
-msgstr ""
+msgstr "Ponovo otvori"
 
 #. translators: Admin dashboard, take action against user headerbar button
 #: src/Dialogs/Admin/Report.vala:95 src/Dialogs/Admin/TakeAction.vala:18
 #: src/Dialogs/Admin/TakeAction.vala:150
 #: src/Views/Admin/Pages/Accounts.vala:250
 msgid "Take Action"
-msgstr ""
+msgstr "Poduzmi radnju"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
 #: src/Dialogs/Admin/Report.vala:125 src/Views/Admin/Pages/Accounts.vala:289
 #: src/Widgets/ProfileCover.vala:575
 msgid "Joined"
-msgstr ""
+msgstr "Pridružio/la se"
 
 #. translators: this is a "long" date format shown in places like expanded posts or
 #. the profile "Joined" field. You can find all the available specifiers
@@ -1985,33 +1998,33 @@ msgstr ""
 #: src/Widgets/ProfileCover.vala:559 src/Widgets/ScheduledStatus.vala:135
 #: src/Widgets/Status.vala:682
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%d. %m. %Y."
 
 #: src/Dialogs/Admin/Report.vala:132
 msgid "Reported on"
-msgstr ""
+msgstr "Prijavljeno"
 
 #. translators: 'Reported by: <account>'
 #: src/Dialogs/Admin/Report.vala:138 src/Widgets/Admin/Report.vala:31
 msgid "Reported by"
-msgstr ""
+msgstr "Autor prijave"
 
 #: src/Dialogs/Admin/Report.vala:144
 msgid "Status"
-msgstr ""
+msgstr "Stanje"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Resolved"
-msgstr ""
+msgstr "Riješeno"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Unresolved"
-msgstr ""
+msgstr "Neriješeno"
 
 #. translators: admin dashboard, whether a report was 'forwarded' from another server
 #: src/Dialogs/Admin/Report.vala:152
 msgid "Forwarded"
-msgstr ""
+msgstr "Proslijeđeno"
 
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:158 src/Widgets/Admin/Report.vala:22
@@ -2020,7 +2033,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:170
 msgid "Category"
-msgstr ""
+msgstr "Kategorija"
 
 #. translators: Admin dashboard report category description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -2042,11 +2055,11 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:353
 #: src/Dialogs/Report.vala:450
 msgid "Submit"
-msgstr ""
+msgstr "Pošalji"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
-msgstr ""
+msgstr "Upozorenje"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:61
@@ -2056,7 +2069,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
-msgstr ""
+msgstr "Zamrzni"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:70
@@ -2068,7 +2081,7 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Views/Drive.vala:196
 #: src/Widgets/Status.vala:669
 msgid "Sensitive"
-msgstr ""
+msgstr "Osjetljivo"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
@@ -2111,17 +2124,17 @@ msgstr ""
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
-msgstr ""
+msgstr "Kontrolna ploča"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
 msgid "Reports"
-msgstr ""
+msgstr "Izvještaji"
 
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:114
 msgid "Accounts"
-msgstr ""
+msgstr "Računi"
 
 #. translators: Admin Dialog page title,
 #. this is about blocking
@@ -2151,25 +2164,25 @@ msgstr ""
 
 #: src/Dialogs/AnnualReport.vala:60
 msgid "Default"
-msgstr ""
+msgstr "Standardno"
 
 #. translators: Accent color
 #: src/Dialogs/AnnualReport.vala:62
 msgid "Accent"
-msgstr ""
+msgstr "Isticanje"
 
 #: src/Dialogs/AnnualReport.vala:100
 msgid "Share"
-msgstr ""
+msgstr "Dijeli"
 
 #: src/Dialogs/AnnualReport.vala:108
 msgid "Save As…"
-msgstr ""
+msgstr "Spremi kao …"
 
 #. translators: dropdown label for picking a window style
 #: src/Dialogs/AnnualReport.vala:115
 msgid "Style"
-msgstr ""
+msgstr "Stil"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -2311,7 +2324,7 @@ msgstr ""
 #. translators: shown in file picker filter dropdown
 #: src/Dialogs/Composer/AttachmentsBin.vala:291 src/Dialogs/ProfileEdit.vala:81
 msgid "All Supported Files"
-msgstr ""
+msgstr "Sve podržane datoteke"
 
 #. translators: toast shown when uploading a file bigger than what the instance allows.
 #. The variable is a string filename
@@ -2331,7 +2344,7 @@ msgstr ""
 #: src/Dialogs/ProfileEdit.vala:246 src/Views/Drive.vala:240
 #: src/Widgets/EmojiReactionAccounts.vala:39
 msgid "Open"
-msgstr ""
+msgstr "Otvori"
 
 #. translators: composer media attachment button that removes it
 #: src/Dialogs/Composer/Attachment.vala:233
@@ -2343,7 +2356,7 @@ msgstr ""
 #. to translate, leave it as just "Edit"
 #: src/Dialogs/Composer/Attachment.vala:247
 msgid "Edit Metadata"
-msgstr ""
+msgstr "Uredi metapodatke"
 
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:307
@@ -2396,7 +2409,7 @@ msgstr ""
 #. translators: post compositor post button label when the visibility is 'mentioned only'
 #: src/Dialogs/Composer/Dialog.vala:265
 msgid "Send"
-msgstr ""
+msgstr "Pošalji"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:276
@@ -2409,7 +2422,7 @@ msgstr ""
 #. https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
 #: src/Dialogs/Composer/Dialog.vala:384 src/Widgets/Status.vala:1137
 msgid "Local Only"
-msgstr ""
+msgstr "Samo lokalno"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:414
@@ -2420,14 +2433,14 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:458 src/Dialogs/Composer/Dialog.vala:469
 #: src/Dialogs/Composer/Dialog.vala:692
 msgid "Post"
-msgstr ""
+msgstr "Objavi"
 
 #. translators: composer post button label
 #. translators: verb
 #: src/Dialogs/Composer/Dialog.vala:536 src/Widgets/Status/ActionsRow.vala:90
 #: src/Widgets/Status/ActionsRow.vala:177
 msgid "Reply"
-msgstr ""
+msgstr "Odgovori"
 
 #. translators: composer embedded replying-to post, aria label
 #: src/Dialogs/Composer/Dialog.vala:563
@@ -2444,7 +2457,7 @@ msgstr ""
 #: src/Dialogs/Composer/Dialog.vala:604 src/Widgets/Status/ActionsRow.vala:129
 #: src/Widgets/Status/ActionsRow.vala:285
 msgid "Quote"
-msgstr ""
+msgstr "Citat"
 
 #. translators: composer embedded quoting post, aria label
 #: src/Dialogs/Composer/Dialog.vala:634
@@ -2470,7 +2483,7 @@ msgstr ""
 #: src/Views/List.vala:25 src/Widgets/ScheduledStatus.vala:44
 #: src/Widgets/Status.vala:353
 msgid "Edit"
-msgstr ""
+msgstr "Uredi"
 
 #. translators: composer title
 #: src/Dialogs/Composer/Dialog.vala:669 src/Dialogs/Composer/Dialog.vala:699
@@ -2490,7 +2503,7 @@ msgstr ""
 #. translators: dialog button label when pasting from clipboard, verb
 #: src/Dialogs/Composer/Dialog.vala:872
 msgid "Paste"
-msgstr ""
+msgstr "Zalijepi"
 
 #. translators: Dialog title when closing the composer
 #: src/Dialogs/Composer/Dialog.vala:1154
@@ -2509,7 +2522,7 @@ msgstr ""
 #. translators: dialog button action, verb
 #: src/Dialogs/Composer/Dialog.vala:1164
 msgid "Discard"
-msgstr ""
+msgstr "Odbaci"
 
 #. translators: composer placeholder
 #: src/Dialogs/Composer/Editor.vala:265 src/Dialogs/Composer/Editor.vala:277
@@ -2524,12 +2537,12 @@ msgstr ""
 #: src/Dialogs/Composer/Editor.vala:423 src/Views/Admin/Pages/Accounts.vala:409
 #: src/Views/Admin/Pages/Accounts.vala:429
 msgid "Undo"
-msgstr ""
+msgstr "Poništi"
 
 #: src/Dialogs/Composer/Polls.vala:50 src/Dialogs/ListEdit.vala:109
 #: src/Views/Admin/Timelines/DomainAllow.vala:35 src/Views/Search.vala:176
 msgid "Remove"
-msgstr ""
+msgstr "Ukloni"
 
 #. translators: screen reader announcements on buttons that change label
 #. when clicked in the composer. The variable is a string of
@@ -2582,36 +2595,37 @@ msgstr ""
 #, c-format
 msgid "%d Minute"
 msgid_plural "%d Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minuta"
+msgstr[1] "%d minute"
+msgstr[2] "%d minuta"
 
 #. translators: the variable is a number, short form for minutes
 #: src/Dialogs/Composer/Polls.vala:380 src/Dialogs/Composer/Polls.vala:382
 #, c-format
 msgid "%dmin"
-msgstr ""
+msgstr "%d min"
 
 #. translators: the variable is a number, short form for hours
 #: src/Dialogs/Composer/Polls.vala:386 src/Dialogs/Composer/Polls.vala:388
 #: src/Dialogs/Composer/Polls.vala:390
 #, c-format
 msgid "%dh"
-msgstr ""
+msgstr "%d h"
 
 #. translators: the variable is a number, short form for days
 #: src/Dialogs/Composer/Polls.vala:394 src/Dialogs/Composer/Polls.vala:396
 #: src/Dialogs/Composer/Polls.vala:398
 #, c-format
 msgid "%dd"
-msgstr ""
+msgstr "%d d"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
-msgstr ""
+msgstr "Novi filtar"
 
 #: src/Dialogs/FilterEdit.vala:189
 msgid "Keyword"
-msgstr ""
+msgstr "Ključna riječ"
 
 #: src/Dialogs/FilterEdit.vala:192
 msgid "Match Whole Word"
@@ -2626,7 +2640,7 @@ msgstr ""
 #: src/Widgets/ScheduledStatus.vala:59 src/Widgets/ScheduledStatus.vala:204
 #: src/Widgets/Status.vala:354 src/Widgets/Status.vala:527
 msgid "Delete"
-msgstr ""
+msgstr "Izbriši"
 
 #: src/Dialogs/FilterEdit.vala:325
 #, c-format
@@ -2636,7 +2650,7 @@ msgstr ""
 #: src/Dialogs/MainWindow.vala:72
 #: src/Services/Accounts/Mastodon/Account.vala:20 src/Views/Home.vala:12
 msgid "Home"
-msgstr ""
+msgstr "Početna stranica"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
@@ -2669,7 +2683,7 @@ msgstr ""
 
 #: src/Dialogs/NewAccount.vala:339
 msgid "Apply"
-msgstr ""
+msgstr "Primijeni"
 
 #. translators: Switch title in the new account window
 #: src/Dialogs/NewAccount.vala:372
@@ -2693,7 +2707,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:54
 msgid "Follows"
-msgstr ""
+msgstr "Prati"
 
 #: src/Dialogs/NotificationSettings.vala:131
 msgid "Clear All Notifications?"
@@ -2701,20 +2715,21 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:138
 msgid "Clear"
-msgstr ""
+msgstr "Izbriši"
 
 #: src/Dialogs/Preferences.vala:44
 #, c-format
 msgid "%d keyword"
 msgid_plural "%d keywords"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ključna riječ"
+msgstr[1] "%d ključne riječi"
+msgstr[2] "%d ključnih riječi"
 
 #. translators: the variable is a filter name
 #: src/Dialogs/Preferences.vala:81
 #, c-format
 msgid "Delete %s?"
-msgstr ""
+msgstr "Izbrisati %s?"
 
 #. translators: the variable is an error message
 #: src/Dialogs/Preferences.vala:96
@@ -2729,12 +2744,12 @@ msgstr ""
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
 msgid "Label"
-msgstr ""
+msgstr "Oznaka"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:53
 msgid "Content"
-msgstr ""
+msgstr "Sadržaj"
 
 #. translators: profile field, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:209
@@ -2845,7 +2860,7 @@ msgstr ""
 #. additional comments to be included in the report
 #: src/Dialogs/Report.vala:279
 msgid "Additional Comments"
-msgstr ""
+msgstr "Dodatni komentari"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. the variable is an instance name e.g. 'Forward to mastodon.social'
@@ -2872,7 +2887,7 @@ msgstr ""
 #: src/Dialogs/Report.vala:446 src/Views/Browser.vala:157
 #: src/Widgets/AccountSuggestions.vala:79
 msgid "Back"
-msgstr ""
+msgstr "Natrag"
 
 #. translators: the variable is an error
 #: src/Dialogs/Report.vala:523 src/Dialogs/Report.vala:534
@@ -2995,15 +3010,15 @@ msgstr ""
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:493
 msgid "Plain Text"
-msgstr ""
+msgstr "Obični tekst"
 
 #: src/Services/Accounts/Mastodon/Account.vala:65 src/Views/Bookmarks.vala:4
 msgid "Bookmarks"
-msgstr ""
+msgstr "Zabilješke"
 
 #: src/Services/Accounts/Mastodon/Account.vala:101 src/Views/Explore.vala:3
 msgid "Explore"
-msgstr ""
+msgstr "Istraži"
 
 #: src/Services/Accounts/Mastodon/Account.vala:130 src/Views/Federated.vala:4
 msgid "Federated"
@@ -3018,7 +3033,7 @@ msgstr ""
 #: src/Services/Accounts/Mastodon/Account.vala:149 src/Views/Drive.vala:849
 #: src/Views/Drive.vala:988
 msgid "Drive"
-msgstr ""
+msgstr "Disk"
 
 #. translators: visibility dropdown subtitle
 #: src/Services/Accounts/Mastodon/Account.vala:218
@@ -3051,51 +3066,51 @@ msgstr ""
 #: src/Services/Accounts/SecretAccountStore.vala:237
 #, c-format
 msgid "%s Account"
-msgstr ""
+msgstr "%s račun"
 
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:298
 msgid "Follow System"
-msgstr ""
+msgstr "Slijedi sustav"
 
 #. translators: Light mode theme
 #: src/Services/Settings.vala:301
 msgid "Light"
-msgstr ""
+msgstr "Svijetla"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:304
 msgid "Dark"
-msgstr ""
+msgstr "Tamna"
 
 #: src/Utils/DateTime.vala:12
 msgid "expires soon"
-msgstr ""
+msgstr "uskoro isteče"
 
 #. tranlators: the variable is a number, `m` as in minutes in short form
 #: src/Utils/DateTime.vala:16
 #, c-format
 msgid "%sm left"
-msgstr ""
+msgstr "Preostalo: %s min"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:20
 #, c-format
 msgid "%sh left"
-msgstr ""
+msgstr "Preostalo: %s h"
 
 #. tranlators: the variable is a number, `d` as in days in short form
 #: src/Utils/DateTime.vala:24
 #, c-format
 msgid "%sd left"
-msgstr ""
+msgstr "Preostalo: %s d"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:29
 msgid "expires on %b %-e, %Y"
-msgstr ""
+msgstr "Isteče %e. %m. %Y."
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -3104,41 +3119,41 @@ msgstr ""
 #. %M is the minutes
 #: src/Utils/DateTime.vala:43
 msgid "expires on %b %-e, %Y %H:%M"
-msgstr ""
+msgstr "Isteče %e. %m. %Y, %H:%M"
 
 #: src/Utils/DateTime.vala:45
 msgid "expired on just now"
-msgstr ""
+msgstr "upravo je isteknulo"
 
 #. tranlators: the variable is a number, `m` as in minutes in short form
 #: src/Utils/DateTime.vala:49
 #, c-format
 msgid "expired %sm ago"
-msgstr ""
+msgstr "Isteklo prije %s min"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:54
 #, c-format
 msgid "expired %sh ago"
-msgstr ""
+msgstr "Isteklo prije %s h"
 
 #: src/Utils/DateTime.vala:57
 msgid "expired yesterday"
-msgstr ""
+msgstr "isteklo jučer"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:62
 #, c-format
 msgid "expired on %b %-e"
-msgstr ""
+msgstr "isteklo %e. %m."
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:68
 msgid "expired on %b %-e, %Y"
-msgstr ""
+msgstr "isteklo %e. %m. %Y."
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -3147,34 +3162,34 @@ msgstr ""
 #. %M is the minutes
 #: src/Utils/DateTime.vala:82 src/Utils/DateTime.vala:121
 msgid "%b %-e, %Y %H:%M"
-msgstr ""
+msgstr "%e. %m. %Y., %H:%M"
 
 #: src/Utils/DateTime.vala:84
 msgid "Just now"
-msgstr ""
+msgstr "Upravo sada"
 
 #. tranlators: the variable is a number, `m` as in minutes in short form
 #: src/Utils/DateTime.vala:88
 #, c-format
 msgid "%sm"
-msgstr ""
+msgstr "%s min"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:93
 #, c-format
 msgid "%sh"
-msgstr ""
+msgstr "%s h"
 
 #: src/Utils/DateTime.vala:96
 msgid "Yesterday"
-msgstr ""
+msgstr "Jučer"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:101 src/Utils/DateTime.vala:140
 #, c-format
 msgid "%b %-e"
-msgstr ""
+msgstr "%b %-e"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -3182,110 +3197,115 @@ msgstr ""
 #: src/Utils/DateTime.vala:107 src/Utils/DateTime.vala:146
 #: src/Utils/DateTime.vala:155
 msgid "%b %-e, %Y"
-msgstr ""
+msgstr "%b %-e, %Y."
 
 #: src/Utils/DateTime.vala:123
 msgid "just now"
-msgstr ""
+msgstr "upravo sada"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:127
 #, c-format
 msgid "%s minutes ago"
-msgstr ""
+msgstr "prije %s min"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:132
 #, c-format
 msgid "%s hours ago"
-msgstr ""
+msgstr "prije %s h"
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
-msgstr ""
+msgstr "jučer"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:169
 #, c-format
 msgid "less than a minute old"
 msgid_plural "%s minutes old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "manje od jedne minute staro"
+msgstr[1] "%s minute staro"
+msgstr[2] "%s minuta staro"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:174
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "jedan sat staro"
+msgstr[1] "%s sata staro"
+msgstr[2] "%s sati staro"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:190 src/Utils/DateTime.vala:205
 #, c-format
 msgid "a month old"
 msgid_plural "%d months old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "jedan mjesec staro"
+msgstr[1] "%d mjeseca staro"
+msgstr[2] "%d mjeseci staro"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:196
 #, c-format
 msgid "a day old"
 msgid_plural "%d days old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "jedan dan staro"
+msgstr[1] "%d dana staro"
+msgstr[2] "%d dana staro"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:201
 #, c-format
 msgid "a year old"
 msgid_plural "%d years old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "jednu godinu staro"
+msgstr[1] "%d godine staro"
+msgstr[2] "%d godin staro"
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
 #: src/Utils/Units.vala:13
 msgid "k"
-msgstr ""
+msgstr "tis."
 
 #. translators: short unit suffix for millions
 #. 3000000 => 3M
 #: src/Utils/Units.vala:17
 msgid "M"
-msgstr ""
+msgstr "mil."
 
 #. translators: short unit suffix for billions
 #. 3000000000 => 3G
 #: src/Utils/Units.vala:21
 msgid "G"
-msgstr ""
+msgstr "mlrd."
 
 #. translators: as in All search results
 #: src/Views/Admin/Pages/Accounts.vala:68
 #: src/Views/Admin/Pages/Accounts.vala:91 src/Views/Search.vala:113
 msgid "All"
-msgstr ""
+msgstr "Sve"
 
 #. translators: Dropdown entry, remote as in from a different instance.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:73
 msgid "Remote"
-msgstr ""
+msgstr "Udaljeni repozitorij"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: src/Views/Admin/Pages/Accounts.vala:78
 msgid "Location"
-msgstr ""
+msgstr "Mjesto"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:95
 msgid "Active"
-msgstr ""
+msgstr "Aktivno"
 
 #. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
 #. translators: Dropdown entry, account status.
@@ -3295,7 +3315,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:381 src/Widgets/Admin/AccountRow.vala:31
 #: src/Widgets/Admin/Report.vala:52
 msgid "Limited"
-msgstr ""
+msgstr "Ograničeno"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3304,7 +3324,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:388 src/Widgets/Admin/AccountRow.vala:33
 #: src/Widgets/Admin/Report.vala:54
 msgid "Disabled"
-msgstr ""
+msgstr "Isključeno"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3313,39 +3333,39 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:374 src/Widgets/Admin/AccountRow.vala:29
 #: src/Widgets/Admin/Report.vala:50
 msgid "Suspended"
-msgstr ""
+msgstr "Odgođeno"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:113
 msgid "Pending"
-msgstr ""
+msgstr "Predstojeće"
 
 #: src/Views/Admin/Pages/Accounts.vala:128
 msgid "Username"
-msgstr ""
+msgstr "Korisničko ime"
 
 #: src/Views/Admin/Pages/Accounts.vala:142
 #: src/Views/Admin/Pages/Accounts.vala:302
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: src/Views/Admin/Pages/Accounts.vala:296
 msgid "Role"
-msgstr ""
+msgstr "Uloga"
 
 #. translators: admin dashboard, account view
 #. e-mail has been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:313
 msgid "Confirmed"
-msgstr ""
+msgstr "Potvrđeno"
 
 #. translators: admin dashboard, account view
 #. e-mail has NOT been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:321
 msgid "Not Confirmed"
-msgstr ""
+msgstr "Nije potvrđeno"
 
 #. translators: admin panel, account waiting to be approved, placeholder when they didn't include a reason
 #: src/Views/Admin/Pages/Accounts.vala:345
@@ -3360,12 +3380,12 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:356
 #: src/Views/Admin/Pages/Accounts.vala:490
 msgid "Approve"
-msgstr ""
+msgstr "Odobri"
 
 #: src/Views/Admin/Pages/Accounts.vala:363
 #: src/Views/Admin/Pages/Accounts.vala:523
 msgid "Reject"
-msgstr ""
+msgstr "Odbij"
 
 #. translators: Question dialog when an admin is about to
 #. undo an action, like a suspension
@@ -3424,7 +3444,7 @@ msgstr ""
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Interactions"
-msgstr ""
+msgstr "Interakcije"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Opened"
@@ -3452,7 +3472,7 @@ msgstr ""
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
 msgid "Software"
-msgstr ""
+msgstr "Softver"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:26
@@ -3461,7 +3481,7 @@ msgstr ""
 
 #: src/Views/Admin/Pages/Dashboard.vala:53
 msgid "Stats"
-msgstr ""
+msgstr "Statistike"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about allowing federation
@@ -3473,7 +3493,7 @@ msgstr ""
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
 msgid "Allow"
-msgstr ""
+msgstr "Dozvoli"
 
 #. translators: Question dialog when an admin is about to
 #. allow federation with an instance. The variable is a
@@ -3516,51 +3536,51 @@ msgstr ""
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:57
 msgid "Previous Page"
-msgstr ""
+msgstr "Prethodna stranica"
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:66
 msgid "Next Page"
-msgstr ""
+msgstr "Sljedeća stranica"
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:75
 msgid "Announcements"
-msgstr ""
+msgstr "Najave"
 
 #: src/Views/Announcements.vala:8
 msgid "No Announcements"
-msgstr ""
+msgstr "Nema najava"
 
 #. translators: Fallback shown when there are 0 results
 #: src/Views/Base.vala:4
 msgid "Nothing to see here"
-msgstr ""
+msgstr "Ovdje se nema ništa za vidjeti"
 
 #: src/Views/Base.vala:142
 msgid "Reload"
-msgstr ""
+msgstr "Učitaj ponovo"
 
 #: src/Views/Base.vala:221
 msgid "An Error Occurred"
-msgstr ""
+msgstr "Dogodila se greška"
 
 #: src/Views/Bookmarks.vala:6
 msgid "No Bookmarks"
-msgstr ""
+msgstr "Nema zabilješki"
 
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:43
 msgid "Secure"
-msgstr ""
+msgstr "Sigurno"
 
 #. translators: in-app web browser, tooltip on SSL icon
 #: src/Views/Browser.vala:48
 msgid "Insecure"
-msgstr ""
+msgstr "Nesigurno"
 
 #. translators: in-app web browser, move forward in history action
 #: src/Views/Browser.vala:166
 msgid "Forward"
-msgstr ""
+msgstr "Proslijedi"
 
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Views/Browser.vala:200
@@ -3603,7 +3623,7 @@ msgstr ""
 
 #: src/Views/Drive.vala:242
 msgid "Copy Link"
-msgstr ""
+msgstr "Kopiraj poveznicu"
 
 #: src/Views/Drive.vala:248
 msgid "Mark as Sensitive"
@@ -3616,7 +3636,7 @@ msgstr ""
 
 #: src/Views/Drive.vala:259 src/Views/Drive.vala:409
 msgid "Rename"
-msgstr ""
+msgstr "Preimenuj"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
@@ -3631,7 +3651,7 @@ msgstr ""
 
 #: src/Views/Drive.vala:407
 msgid "Rename File"
-msgstr ""
+msgstr "Preimenuj datoteku"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
@@ -3650,25 +3670,25 @@ msgstr ""
 #. translators: title on an entry
 #: src/Views/Drive.vala:730
 msgid "New Folder"
-msgstr ""
+msgstr "Nova mapa"
 
 #. translators: placeholder on an entry
 #: src/Views/Drive.vala:732
 msgid "Folder Name"
-msgstr ""
+msgstr "Ime mape"
 
 #. translators: button label, verb
 #: src/Views/Drive.vala:734
 msgid "Create"
-msgstr ""
+msgstr "Stvori"
 
 #: src/Views/Drive.vala:740
 msgid "Create Folder"
-msgstr ""
+msgstr "Stvori mapu"
 
 #: src/Views/Drive.vala:748
 msgid "Upload File"
-msgstr ""
+msgstr "Prenesi datoteku"
 
 #. translators: error that shows up as a toast when creating folders
 #. in iceshrimp drive
@@ -3697,7 +3717,7 @@ msgstr ""
 #: src/Views/Drive.vala:1224
 #, c-format
 msgid "Delete '%s'?"
-msgstr ""
+msgstr "Izbrisati „%s”?"
 
 #: src/Views/Drive.vala:1225 src/Views/Drive.vala:1312
 msgid "This is irreversible."
@@ -3742,7 +3762,7 @@ msgstr ""
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
-msgstr ""
+msgstr "Uredi povijest"
 
 #: src/Views/EditHistory.vala:7
 msgid "No Edit History"
@@ -3754,23 +3774,23 @@ msgstr ""
 
 #: src/Views/Explore.vala:8
 msgid "News"
-msgstr ""
+msgstr "Novosti"
 
 #: src/Views/Explore.vala:8
 msgid "No News"
-msgstr ""
+msgstr "Nema novosti"
 
 #: src/Views/Explore.vala:9
 msgid "For You"
-msgstr ""
+msgstr "Za tebe"
 
 #: src/Views/Explore.vala:9
 msgid "No Suggestions"
-msgstr ""
+msgstr "Nema prijedloga"
 
 #: src/Views/Favorites.vala:5 src/Views/StatusStats.vala:17
 msgid "No Favorites"
-msgstr ""
+msgstr "Nema favorita"
 
 #: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:76
 msgid "Follow Requests"
@@ -3789,20 +3809,20 @@ msgstr ""
 #: src/Widgets/RelationshipButton.vala:33
 #: src/Widgets/RelationshipButton.vala:70
 msgid "Follow"
-msgstr ""
+msgstr "Prati"
 
 #: src/Views/Hashtag.vala:94 src/Widgets/RelationshipButton.vala:62
 msgid "Unfollow"
-msgstr ""
+msgstr "Prestani pratiti"
 
 #: src/Views/Home.vala:23
 msgid "Compose"
-msgstr ""
+msgstr "Sastavi"
 
 #: src/Views/Lists.vala:121
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr ""
+msgstr "Izbrisati „%s”?"
 
 #: src/Views/Lists.vala:122
 msgid "This action cannot be reverted."
@@ -3822,7 +3842,7 @@ msgstr ""
 
 #: src/Views/Main.vala:81
 msgid "Open Sidebar"
-msgstr ""
+msgstr "Otvori bočnu traku"
 
 #: src/Views/MediaViewer.vala:827
 msgid "Copied media url to clipboard"
@@ -3846,28 +3866,28 @@ msgstr ""
 
 #: src/Views/MutesBlocks.vala:19
 msgid "Blocks"
-msgstr ""
+msgstr "Blokiranja"
 
 #: src/Views/MutesBlocks.vala:23
 msgid "No Blocked Accounts"
-msgstr ""
+msgstr "Nema blokiranih računa"
 
 #. translators: the variable is a user handle
 #: src/Views/NotificationRequestsList.vala:8
 #, c-format
 msgid "Notifications by %s"
-msgstr ""
+msgstr "Obavijesti od %s"
 
 #. translators: the variable is a user handle
 #: src/Views/NotificationRequestsList.vala:11
 #, c-format
 msgid "No Notifications by %s"
-msgstr ""
+msgstr "Nema obavijesti od %s"
 
 #: src/Views/NotificationRequestsList.vala:26
 #: src/Widgets/NotificationRequest.vala:56
 msgid "Dismiss"
-msgstr ""
+msgstr "Odbaci"
 
 #: src/Views/NotificationRequests.vala:4
 msgid "Filtered Notifications"
@@ -3883,14 +3903,15 @@ msgid "%d Filtered Notification"
 msgid_plural "%d Filtered Notifications"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: src/Views/Notifications.vala:43
 msgid "No Notifications"
-msgstr ""
+msgstr "Nema obavijesti"
 
 #: src/Views/Profile.vala:118
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #. translators: posts tab on profiles, shown when empty.
 #: src/Views/Profile.vala:270 src/Views/Timeline.vala:73
@@ -3991,18 +4012,18 @@ msgstr ""
 
 #: src/Views/Search.vala:38
 msgid "Clear Entry"
-msgstr ""
+msgstr "Izbriši unos"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Views/Search.vala:113 src/Views/Search.vala:114
 #: src/Views/Search.vala:115 src/Views/Search.vala:116
 #: src/Widgets/CustomEmojiChooser.vala:173
 msgid "No Results"
-msgstr ""
+msgstr "Nema rezultata"
 
 #: src/Views/Search.vala:341
 msgid "Language"
-msgstr ""
+msgstr "Jezik"
 
 #. translators: warning toast in advanced search dialog when auto-filling a user fails.
 #. Auto-fill refers to automatically filling the entry with the first
@@ -4017,35 +4038,37 @@ msgstr ""
 #, c-format
 msgid "%d Announcement"
 msgid_plural "%d Announcements"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d najava"
+msgstr[1] "%d najave"
+msgstr[2] "%d najava"
 
 #. tanslators: used in a banner, the variable is the number of unreviewed follow requests
 #: src/Views/Sidebar.vala:40
 #, c-format
 msgid "%d Follow Request"
 msgid_plural "%d Follow Requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d zahtjev za praćenje"
+msgstr[1] "%d zahtjeva za praćenje"
+msgstr[2] "%d zahtjeva za praćenje"
 
 #. translators: main menu entry, please don't translate it unless you have to.
 #. Refer to other #FediWrapped strings for more info
 #: src/Views/Sidebar.vala:83
 msgid "#FediWrapped"
-msgstr ""
+msgstr "#FediWrapped"
 
 #: src/Views/Sidebar.vala:94
 msgid "Preferences"
-msgstr ""
+msgstr "Postavke"
 
 #: src/Views/Sidebar.vala:95
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Tipkovni prečaci"
 
 #: src/Views/Sidebar.vala:96
 #, c-format
 msgid "About %s"
-msgstr ""
+msgstr "O aplikaciji %s"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:349
@@ -4059,7 +4082,7 @@ msgstr ""
 
 #: src/Views/Sidebar.vala:352
 msgid "Forget"
-msgstr ""
+msgstr "Zaboravi"
 
 #: src/Views/StatusStats.vala:7
 msgid "Post Stats"
@@ -4107,7 +4130,7 @@ msgstr ""
 
 #: src/Views/Timeline.vala:233 src/Widgets/Status/ActionsRow.vala:391
 msgid "Network Error"
-msgstr ""
+msgstr "Greška u mreži"
 
 #. translators: Tooltip text for avatars in posts.
 #. The variable is a string user handle.
@@ -4154,8 +4177,9 @@ msgstr ""
 #, c-format
 msgid "%s Follower"
 msgid_plural "%s Followers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s pratitelj"
+msgstr[1] "%s pratitelja"
+msgstr[2] "%s pratitelja"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of people a user follows.
@@ -4163,22 +4187,22 @@ msgstr[1] ""
 #: src/Widgets/ProfileCover.vala:622
 #, c-format
 msgid "%s Following"
-msgstr ""
+msgstr "Pratiš %s"
 
 #. translators: Admin dashboard, report status
 #: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
 msgid "No Limits"
-msgstr ""
+msgstr "Bez ograničenja"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Widgets/Admin/AccountRow.vala:36
 msgid "Waiting Approval"
-msgstr ""
+msgstr "Čekanje na odobrenje"
 
 #. translators: Report 'Assigned to: <account>'
 #: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
 msgid "Assigned to"
-msgstr ""
+msgstr "Dodijeljen za"
 
 #: src/Widgets/Admin/AssignedRow.vala:38
 msgid "Unassign"
@@ -4186,7 +4210,7 @@ msgstr ""
 
 #: src/Widgets/Admin/AssignedRow.vala:42
 msgid "Assign"
-msgstr ""
+msgstr "Pripiši"
 
 #. translators: subtitle on email domain blocks.
 #. The variable is the number of sing up
@@ -4235,6 +4259,7 @@ msgid "Contains %d reaction."
 msgid_plural "Contains %d reactions."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4261,7 +4286,7 @@ msgstr ""
 
 #: src/Widgets/Attachment/Item.vala:34
 msgid "Save Attachment"
-msgstr ""
+msgstr "Spremi privitak"
 
 #: src/Widgets/Attachment/Item.vala:44
 msgid "Saved Media"
@@ -4279,30 +4304,30 @@ msgstr ""
 #: src/Widgets/AudioPlayer/Controls.vala:22
 msgctxt "media controls tooltip"
 msgid "Stop"
-msgstr ""
+msgstr "Prekini"
 
 #. translators: the variable is the date the book was published
 #: src/Widgets/BookWyrmPage.vala:79
 #, c-format
 msgid "Published: %s"
-msgstr ""
+msgstr "Objavljeno: %s"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
 #: src/Widgets/BookWyrmPage.vala:98
 #, c-format
 msgid "by %s"
-msgstr ""
+msgstr "od %s"
 
 #. translators: Used when there are results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:67
 #: src/Widgets/CustomEmojiChooser.vala:169
 msgid "Results"
-msgstr ""
+msgstr "Rezultati"
 
 #: src/Widgets/CustomEmojiChooser.vala:73
 msgid "Recently Used"
-msgstr ""
+msgstr "Nedavno korišteno"
 
 #: src/Widgets/CustomEmojiChooser.vala:212
 msgid "Custom Emojis"
@@ -4317,6 +4342,7 @@ msgid "%d Reaction"
 msgid_plural "%d Reactions"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #. translators: focus picking knob(?)/target(?) tooltip in the focus picker
 #: src/Widgets/FocusPicker.vala:49
@@ -4356,7 +4382,7 @@ msgstr ""
 #: src/Widgets/PreviewCard.vala:103 src/Widgets/PreviewCard.vala:111
 #, c-format
 msgid "By %s"
-msgstr ""
+msgstr "Od korisnika %s"
 
 #. translators: the variable is a number. This is shown on
 #. preview cards of articles from 'verified' fedi authors,
@@ -4368,6 +4394,7 @@ msgid "See %d author"
 msgid_plural "See all %d authors"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The first variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -4380,6 +4407,7 @@ msgid "Followed by %s & %s Other"
 msgid_plural "Followed by %s & %s Others"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -4401,6 +4429,7 @@ msgid "Contains %d field."
 msgid_plural "Contains %d fields."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #. translators: Button label shown when a user has moved to another instance.
 #. The first variable is this account's handle while the second
@@ -4413,7 +4442,7 @@ msgstr ""
 #. translators: shown when the user has hidden their followers/following counts
 #: src/Widgets/ProfileCover.vala:664
 msgid "Hidden"
-msgstr ""
+msgstr "Skriveno"
 
 #: src/Widgets/ProfileCover.vala:731
 msgid "Error: Note is over 2000 characters long"
@@ -4422,12 +4451,12 @@ msgstr ""
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Widgets/ProfileFilterGroup.vala:48
 msgid "Featured"
-msgstr ""
+msgstr "Predstavljeno"
 
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63
 msgid "Replies"
-msgstr ""
+msgstr "Odgovori"
 
 #. translators: the variable is the emoji or its name if it's custom.
 #. A reaction is not the same as a favorite or a boost,
@@ -4435,20 +4464,20 @@ msgstr ""
 #: src/Widgets/ReactButton.vala:37
 #, c-format
 msgid "React with %s"
-msgstr ""
+msgstr "Regiraj s %s"
 
 #: src/Widgets/RelationshipButton.vala:55 src/Widgets/Status.vala:341
 msgid "Unmute"
-msgstr ""
+msgstr "Uključi"
 
 #. translators: not a verb, as in a post that is saved but not posted yet
 #: src/Widgets/ScheduledStatus.vala:13
 msgid "Draft"
-msgstr ""
+msgstr "Nacrt"
 
 #: src/Widgets/ScheduledStatus.vala:51 src/Widgets/ScheduledStatus.vala:151
 msgid "Reschedule"
-msgstr ""
+msgstr "Promijeni termin"
 
 #. translators: Scheduled Post title, 'scheduled for <date>'
 #: src/Widgets/ScheduledStatus.vala:137
@@ -4488,7 +4517,7 @@ msgstr ""
 
 #: src/Widgets/Status/ActionsRow.vala:161
 msgid "Bookmark"
-msgstr ""
+msgstr "Zabilješka"
 
 #. translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
 #. The "old" suffix is translated on the datetime strings, not here
@@ -4519,7 +4548,7 @@ msgstr ""
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:345 src/Widgets/Status.vala:847
 msgid "Pin"
-msgstr ""
+msgstr "Prikvači"
 
 #. translators: Post menu items to revert a translation
 #: src/Widgets/Status.vala:379
@@ -4554,7 +4583,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:416
 msgid "Copy"
-msgstr ""
+msgstr "Kopiraj"
 
 #: src/Widgets/Status.vala:425 src/Widgets/Status.vala:430
 msgid "Copied post url to clipboard"
@@ -4591,7 +4620,7 @@ msgstr ""
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:845
 msgid "Unpin"
-msgstr ""
+msgstr "Otkvači"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4635,6 +4664,7 @@ msgid "Contains %d attachment."
 msgid_plural "Contains %d attachments."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4680,8 +4710,9 @@ msgstr ""
 #, c-format
 msgid "%s reply"
 msgid_plural "%s replies"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s odgovor"
+msgstr[1] "%s odgovora"
+msgstr[2] "%s odgovora"
 
 #: src/Widgets/Status.vala:987
 #, c-format
@@ -4689,13 +4720,15 @@ msgid "%s boost"
 msgid_plural "%s boosts"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: src/Widgets/Status.vala:992
 #, c-format
 msgid "%s favorite"
 msgid_plural "%s favorites"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s favorit"
+msgstr[1] "%s favorita"
+msgstr[2] "%s favorita"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4703,29 +4736,29 @@ msgstr[1] ""
 #. This is used to announce the quoted post
 #: src/Widgets/Status.vala:1028
 msgid "Quoted Post"
-msgstr ""
+msgstr "Citirana objava"
 
 #: src/Widgets/Status.vala:1050
 #, c-format
 msgid "Filtered: %s"
-msgstr ""
+msgstr "Filtrirano: %s"
 
 #: src/Widgets/Status.vala:1052
 msgid "Filtered"
-msgstr ""
+msgstr "Filtrirano"
 
 #. translatiors: the first variable is a language name,
 #. the second variable is a service name e.g. DeepL
 #: src/Widgets/Status.vala:1202
 #, c-format
 msgid "Translated from %s using %s"
-msgstr ""
+msgstr "Prevedeno iz jezika %s korištenjem usluge %s"
 
 #. translatiors: the variable is a service name e.g. DeepL
 #: src/Widgets/Status.vala:1205
 #, c-format
 msgid "Translated using %s"
-msgstr ""
+msgstr "Prevedeno korištenjem usluge %s"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4735,8 +4768,9 @@ msgstr ""
 #, c-format
 msgid "Poll with %d option."
 msgid_plural "Poll with %d options."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Anketa s %d opcijom."
+msgstr[1] "Anketa s %d opcije."
+msgstr[2] "Anketa s %d opcija."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4744,12 +4778,13 @@ msgstr[1] ""
 #. Describes whether the user has voted on the poll.
 #: src/Widgets/VoteBox.vala:145
 msgid "You have voted."
-msgstr ""
+msgstr "Glasao/la si."
 
 #. translators: the variable is the amount of people that voted
 #: src/Widgets/VoteBox.vala:293
 #, c-format
 msgid "%s voted"
 msgid_plural "%s voted"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s je glasao"
+msgstr[1] "%s su glasala"
+msgstr[2] "%s je glasalo"
