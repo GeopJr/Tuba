@@ -1585,6 +1585,8 @@
 			quoted_status_btn.can_focus = false;
 			quoted_status_btn.focusable = false;
 		}
+		if (prev_card != null) prev_card.visible = false;
+		if (collection_card != null) collection_card.visible = false;
 		this.avatar.accessible_role = Gtk.AccessibleRole.PRESENTATION;
 		this.date_label.accessible_role = Gtk.AccessibleRole.PRESENTATION;
 		name_button.accessible_role = Gtk.AccessibleRole.PRESENTATION;

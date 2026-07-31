@@ -4,6 +4,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 	~Dialog () {
 		debug ("Destroying Composer");
+		if (quote_paste_cancellable != null) quote_paste_cancellable.cancel ();
+		if (inline_quote_widget != null) inline_quote_widget = null;
 	}
 
 	[GtkChild] private unowned Gtk.Label counter_label;
@@ -574,12 +576,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			}
 			if (precompose.quote_id != null) {
 				this.quote_id = precompose.quote_id;
-
-				if (accounts.active.tuba_api_versions.mastodon >= 7) {
-					this.quote_limited = true;
-					poll_button.sensitive = false;
-					add_media_button.sensitive = false;
-				}
+				update_quote_id_state ();
 			}
 			if (precompose.scheduled_id != null) this.scheduled_id = precompose.scheduled_id;
 			if (precompose.in_reply_to_id != null) this.in_reply_to_id = precompose.in_reply_to_id;
@@ -1003,13 +1000,141 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		}
 	}
 
+	GLib.Cancellable? quote_paste_cancellable = null;
+	private void handle_potential_quote_paste (Gdk.Clipboard clipboard) {
+		if (
+			this.edit_mode
+			|| this.quote_id != null
+			|| accounts.active.tuba_api_versions.mastodon < 7
+			|| (polls_component != null && editor.has_bottom_child (polls_component))
+			|| (attachmentsbin_component != null && editor.has_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty)
+		) return;
+
+		if (quote_paste_cancellable != null) quote_paste_cancellable.cancel ();
+		quote_paste_cancellable = new GLib.Cancellable ();
+
+		string original_text = editor.buffer.text;
+		handle_potential_quote_paste_real.begin (original_text, clipboard);
+	}
+
+	private async void handle_potential_quote_paste_real (string original_text, Gdk.Clipboard clipboard) {
+		try {
+			string? clipboard_text = yield clipboard.read_text_async (quote_paste_cancellable);
+			if (clipboard_text == null) return;
+			clipboard_text = clipboard_text.strip ();
+			if (clipboard_text == "") return;
+
+			GLib.Uri uri;
+			try {
+				uri = GLib.Uri.parse (clipboard_text, GLib.UriFlags.NONE);
+			} catch (Error e) {
+				return;
+			}
+
+			if (uri.get_scheme () != "http" && uri.get_scheme () != "https") return;
+			string path = uri.get_path ();
+			if (
+				path == ""
+				|| !(
+					path.has_prefix ("/@")
+					|| path.has_prefix ("/notes/")
+					|| path.has_prefix ("/notice/")
+				)
+			) return;
+
+			var req = new RequestV2 ("/api/v2/search") { account = accounts.active };
+			req.add_parameter ("resolve", "true");
+			req.add_parameter ("limit", "1");
+			req.add_parameter ("type", "statuses");
+			req.add_parameter ("q", uri.to_string ());
+
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var results = API.SearchResults.from (network.parse_node (parser));
+			if (results.statuses.size == 0) return;
+			var status = results.statuses[0];
+			if (!status.can_be_quoted) return;
+			Widgets.Status? status_widget = status.to_widget () as Widgets.Status;
+			if (status_widget == null) return;
+			status_widget.to_display_only ();
+			status_widget.add_css_class ("card");
+			status_widget.add_css_class ("initial-font-size");
+
+			var qs = yield app.question (
+				// translators: dialog title shown when the user pastes a post url in the composer;
+				//				the variable is a uri string of a quote
+				{_("Quote %s?").printf (clipboard_text), false},
+				null,
+				this,
+				{ { _("Quote"), Adw.ResponseAppearance.SUGGESTED }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				status_widget,
+				false
+			);
+			if (qs.truthy ()) {
+				editor.buffer.text = original_text;
+				this.quote_id = status.id;
+				update_quote_id_state ();
+				add_quote_inline_widget (status);
+			}
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (Error e) {
+			debug (@"Couldn't fetch quote from clipboard: $(e.message)");
+		}
+	}
+
+	private void update_quote_id_state () {
+		bool has_quote = this.quote_id != null;
+		if (accounts.active.tuba_api_versions.mastodon >= 7) {
+			this.quote_limited = has_quote;
+			poll_button.sensitive = !has_quote;
+			add_media_button.sensitive = !has_quote;
+		}
+	}
+
+	Gtk.Widget? inline_quote_widget = null;
+	private void add_quote_inline_widget (API.Status quote_status) {
+		if (inline_quote_widget != null) return;
+		Widgets.Status status_widget = (Widgets.Status) quote_status.to_widget ();
+		status_widget.to_display_only ();
+		status_widget.add_css_class ("card");
+		status_widget.add_css_class ("initial-font-size");
+		status_widget.margin_bottom = 8;
+
+		var remove_quote_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+			css_classes = { "circular", "error" },
+			// translators: in the composer, inside a quote post, top right button
+			//				with a trash can icon that when clicked removes the
+			//				quote; tooltip text
+			tooltip_text = _("Remove Quote"),
+			valign = Gtk.Align.CENTER
+		};
+		remove_quote_button.clicked.connect (remove_quote_inline_widget);
+		status_widget.indicators.append (remove_quote_button);
+
+		inline_quote_widget = status_widget;
+		editor.add_bottom_child (inline_quote_widget);
+	}
+
+	private void remove_quote_inline_widget () {
+		if (inline_quote_widget == null) return;
+
+		editor.remove_bottom_child (inline_quote_widget);
+		this.quote_id = null;
+		update_quote_id_state ();
+		inline_quote_widget = null;
+	}
+
 	private void on_paste () {
 		Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 		var formats = clipboard.get_formats ();
 		bool has_files = formats.contain_mime_type ("text/uri-list");
 		if (!has_files) {
 			var mime_types = formats.get_mime_types ();
-			if (mime_types == null) return;
+			if (mime_types == null) {
+				handle_potential_quote_paste (clipboard);
+				return;
+			}
 
 			foreach (string mime_type in mime_types) {
 				if (mime_type.has_prefix ("image/")) {
@@ -1018,7 +1143,10 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				}
 			}
 		}
-		if (!has_files) return;
+		if (!has_files) {
+			handle_potential_quote_paste (clipboard);
+			return;
+		}
 
 		Signal.stop_emission_by_name (editor, "paste-clipboard");
 
