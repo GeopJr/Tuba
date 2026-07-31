@@ -809,8 +809,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	private async void load_replied_to_or_quote_status_async (bool editing) {
 		if (this.quote_id == null && this.in_reply_to_id == null) return;
 
-		bool quote = this.quote_id != null;
-		string status_id = quote ? this.quote_id : this.in_reply_to_id;
+		bool is_reply = this.in_reply_to_id != null;
+		string status_id = is_reply ? this.in_reply_to_id : this.quote_id;
 
 		var req = new RequestV2 (@"/api/v1/statuses/$status_id") {
 			account = accounts.active,
@@ -836,10 +836,10 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			widget_status.add_css_class ("card");
 			widget_status.add_css_class ("initial-font-size");
 			widget_status.to_display_only ();
-			if (quote) {
-				widget_status.update_property (Gtk.AccessibleProperty.LABEL, _("The post you are quoting."), -1);
-			} else {
+			if (is_reply) {
 				widget_status.update_property (Gtk.AccessibleProperty.LABEL, _("The post you are replying to."), -1);
+			} else {
+				widget_status.update_property (Gtk.AccessibleProperty.LABEL, _("The post you are quoting."), -1);
 			}
 
 			var lbox = new Gtk.ListBox () {
@@ -847,7 +847,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			};
 			lbox.append (widget_status);
 
-			string composer_title = (quote ? _("Quoting @%s") : _("Reply to @%s")).printf (api_status.account.username);
+			string composer_title = (is_reply ? _("Reply to @%s") : _("Quoting @%s")).printf (api_status.account.username);
 			if (editing) composer_title = this.title;
 			this.set_editor_title (composer_title, lbox);
 
@@ -856,7 +856,26 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		} catch (GLib.IOError.CANCELLED e) {
 			debug ("Message is cancelled.");
 		} catch (Error e) {
-			warning (@"Couldn't get $(quote ? "quote" : "reply") $status_id: $(e.message)");
+			warning (@"Couldn't get $(is_reply ? "reply" : "quote") $status_id: $(e.message)");
+		}
+
+		if (is_reply && this.quote_id != null) {
+			req = new RequestV2 (@"/api/v1/statuses/$(this.quote_id)") {
+				account = accounts.active,
+				ctx = this
+			};
+
+			try {
+				var in_stream = yield req.exec (null);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+				var node = network.parse_node (parser);
+				var api_status = API.Status.from (node);
+				add_quote_inline_widget (api_status);
+			} catch (GLib.IOError.CANCELLED e) {
+				debug ("Message is cancelled.");
+			} catch (Error e) {
+				warning (@"Couldn't get quote $(this.quote_id): $(e.message)");
+			}
 		}
 	}
 
@@ -1005,6 +1024,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		if (
 			this.edit_mode
 			|| this.quote_id != null
+			|| ((InstanceAccount.Visibility) visibility_button.selected_item).id == "direct"
 			|| accounts.active.tuba_api_versions.mastodon < 7
 			|| (polls_component != null && editor.has_bottom_child (polls_component))
 			|| (attachmentsbin_component != null && editor.has_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty)
@@ -1039,6 +1059,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 					path.has_prefix ("/@")
 					|| path.has_prefix ("/notes/")
 					|| path.has_prefix ("/notice/")
+					|| path.has_prefix ("/objects/")
 				)
 			) return;
 
@@ -1059,6 +1080,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			status_widget.to_display_only ();
 			status_widget.add_css_class ("card");
 			status_widget.add_css_class ("initial-font-size");
+			status_widget.overflow = HIDDEN;
 
 			var qs = yield app.question (
 				// translators: dialog title shown when the user pastes a post url in the composer;
@@ -1100,6 +1122,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		status_widget.add_css_class ("card");
 		status_widget.add_css_class ("initial-font-size");
 		status_widget.margin_bottom = 8;
+		status_widget.overflow = HIDDEN;
 
 		var remove_quote_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
 			css_classes = { "circular", "error" },
