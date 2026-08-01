@@ -24,6 +24,7 @@ public class Tuba.Views.Home : Views.Timeline {
 
 		compose_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
 			action_name = "app.compose",
+			// translators: tooltip on the floating button; compose a post
 			tooltip_text = _("Compose"),
 			css_classes = { "circular", "compose-button", "suggested-action" }
 		};

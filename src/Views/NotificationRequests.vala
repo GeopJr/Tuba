@@ -2,8 +2,10 @@ public class Tuba.Views.NotificationRequests : Views.Timeline {
 	public NotificationRequests () {
 		Object (
 			url: "/api/v1/notifications/requests",
+			// translators: filtered notifications is a mastodon feature "notifications that are filtered out"
 			label: _("Filtered Notifications"),
 			icon: "tuba-bell-outline-symbolic",
+			// translators: empty state title
 			empty_state_title: _("No Filtered Notifications"),
 			batch_size_min: 20
 		);

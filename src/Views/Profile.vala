@@ -472,6 +472,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		if (profile.account.is_self ()) {
 			var edit_btn = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+				//  translators: verb, title or button that when clicked will show the profile editor
 				tooltip_text = _("Edit Profile")
 			};
 			edit_btn.clicked.connect (open_edit_page);
@@ -515,9 +516,11 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	private async void on_domain_block_real (bool block) {
+		// translators: confirmation dialog on blocking/unblocking an instance; variable is a string instance
 		var q = block ? _("Block Entire \"%s\"?") : _("Unblock Entire \"%s\"?");
 		var question = yield app.question (
 			{q.printf (profile.account.domain), false},
+			// translators: confirmation dialog explaining what blocking an instance will do
 			{_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"), false},
 
 			app.main_window,
@@ -534,6 +537,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 				profile.rs.request ();
 			} catch (Error e) {
 				warning (@"Couldn't block domain $(profile.account.domain): $(e.code) $(e.message)");
+				// translators: error toast, variable is a string error message
 				app.toast (_("Couldn't block domain: %s").printf (e.message));
 			}
 		}

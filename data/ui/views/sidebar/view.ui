@@ -35,6 +35,7 @@
 					<object class="AdwHeaderBar">
 						<child type="start">
 							<object class="GtkMenuButton" id="accounts_button">
+								<!-- translators: tooltip text on the account switcher button, clicking it will show a drop down of all the accounts -->
 								<property name="tooltip_text" translatable="yes">Switch Account</property>
 								<property name="popover">account_switcher_popover_menu</property>
 								<child>
@@ -74,14 +75,13 @@
 						<child>
 							<object class="AdwBanner" id="announcements_banner">
 								<property name="revealed">0</property>
-								<!-- translators: Button on a banner -->
+								<!-- translators: Button on a banner; clicking it opens the context of the banner -->
 								<property name="button-label" translatable="yes">View</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwBanner" id="fr_banner">
 								<property name="revealed">0</property>
-								<!-- translators: Button on a banner -->
 								<property name="button-label" translatable="yes">View</property>
 							</object>
 						</child>

@@ -261,7 +261,7 @@ public class Tuba.Widgets.Collection : Gtk.Box {
 			if (i_made_it) menu_model.append (_("Edit"), "collection.edit");
 			// translators: menu item, remove myself from mastodon collection
 			if (i_am_in_it) menu_model.append (_("Remove Myself"), "collection.remove-me");
-			if (!i_made_it) menu_model.append (_("Report"), "collection.report");
+			if (!i_made_it) menu_model.append (C_("verb", "Report"), "collection.report");
 			// translators: block mastodon collection author, menu item
 			if (i_am_in_it) menu_model.append (_("Block Author"), "collection.block");
 			if (i_made_it) menu_model.append (_("Delete"), "collection.delete");

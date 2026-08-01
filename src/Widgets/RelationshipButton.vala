@@ -40,6 +40,7 @@ public class Tuba.Widgets.RelationshipButton : Gtk.Button {
 		remove_css_class ("destructive-action");
 
 		if (rs.blocking || rs.domain_blocking) {
+			// translators: action to take on a user, verb
 			label = _("Unblock");
 			// icon_name = "changes-allow-symbolic";
 			fn = () => {
@@ -52,6 +53,7 @@ public class Tuba.Widgets.RelationshipButton : Gtk.Button {
 			add_css_class ("destructive-action");
 			return;
 		} else if (rs.muting) {
+			// translators: action to take on a user, verb
 			label = _("Unmute");
 			fn = () => {
 				rs.modify ("unmute");
@@ -59,6 +61,7 @@ public class Tuba.Widgets.RelationshipButton : Gtk.Button {
 			};
 			add_css_class ("destructive-action");
 		} else if (rs.following || rs.requested) {
+			// translators: action to take on a user, verb
 			label = _("Unfollow");
 			fn = () => {
 				rs.modify ("unfollow");
@@ -67,6 +70,7 @@ public class Tuba.Widgets.RelationshipButton : Gtk.Button {
 			add_css_class ("destructive-action");
 			return;
 		} else if (!rs.following) {
+			// translators: action to take on a user, verb
 			label = _("Follow");
 			add_css_class ("suggested-action");
 

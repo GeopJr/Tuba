@@ -18,6 +18,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	private void copy_url () {
 		Utils.Host.copy (entity.url);
+		// translators: toast shown when copying an attachment url to clipboard successfully
 		app.toast (_("Copied attachment url to clipboard"));
 	}
 
@@ -31,6 +32,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	public static async void save_media_as (string url) {
 		var chooser = new Gtk.FileDialog () {
+			// translators: file picker dialog title when saving attachments
 			title = _("Save Attachment"),
 			modal = true,
 			initial_name = Path.get_basename (url)
@@ -44,12 +46,14 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 				if (success) {
 					app.toast (
+						// translators: label on toast shown when downloading an attachment successfully
 						_("Saved Media"), 5, "app.open-containing-folder",
 						new GLib.Variant.string (file.get_path ()),
 						// translators: label on toast shown when downloading an attachment that opens the folder containing the file
 						_("Open Folder")
 					);
 				} else {
+					// translators: error toast
 					app.toast (_("Couldn't Save Media"));
 				}
 			}
@@ -116,6 +120,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		gesture_lp_controller.pressed.connect (on_long_press);
 
 		alt_btn = new Gtk.Button.with_label ("ALT") {
+			// translators: tooltip on a button on attachments with the label ALT, shows the alternative text of the attachment
 			tooltip_text = _("View Alt Text"),
 			css_classes = { "heading", "flat" },
 			valign = Gtk.Align.END,

@@ -5,6 +5,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 	Gtk.Button take_action_button;
 	Gtk.Button resolve_button;
 	construct {
+		// translators: noun; report as in report someone to the server admins
 		this.title = _("Report");
 		this.content_width = 460;
 		this.content_height = 560;

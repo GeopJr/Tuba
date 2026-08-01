@@ -60,7 +60,7 @@
     <key name="unifiedpush-enabled" type="b">
 			<default>false</default>
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
-			<summary>UnifiedPush</summary>
+			<summary translatable="no">UnifiedPush</summary>
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<description>Whether account has enabled UnifiedPush</description>
 		</key>

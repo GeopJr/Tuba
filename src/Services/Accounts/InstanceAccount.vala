@@ -539,7 +539,9 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				result = {
 					"tuba-shapes-symbolic",
 					// translators: the variable is a string user name,
-					//				this is used for notifications
+					//				this is used for notifications;
+					//				collections are a mastodon feature
+					//				see mastodon-web
 					_("%s added you to a collection").printf (actor_name),
 					callback_url
 				};
@@ -548,7 +550,9 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				result = {
 					"tuba-shapes-symbolic",
 					// translators: the variable is a string user name,
-					//				this is used for notifications
+					//				this is used for notifications;
+					//				collections are a mastodon feature
+					//				see mastodon-web
 					_("%s edited a collection you are in").printf (actor_name),
 					callback_url
 				};

@@ -110,6 +110,7 @@ public class Tuba.Widgets.AccountSuggestions : Gtk.ListBoxRow {
 		});
 
 		var dra_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+			// translators: shown on confirmation features of tuba to disable them
 			tooltip_text = _("Don't remind me again"),
 			css_classes = { "circular", "error" },
 			margin_start = margin_end = margin_top = margin_bottom = 6

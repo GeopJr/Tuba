@@ -134,6 +134,7 @@
                                 <property name="visible">0</property>
                                 <property name="icon_name">tuba-pin-small-symbolic</property>
                                 <property name="icon_size">1</property>
+								<!-- translators: tooltip on an icon that indicates that this post is pinned -->
                                 <property name="tooltip_text" translatable="yes">Pinned</property>
                                 <style>
                                   <class name="dim-label" />
@@ -145,6 +146,7 @@
                                 <property name="visible">0</property>
                                 <property name="icon_name">tuba-paper-small-symbolic</property>
                                 <property name="icon_size">1</property>
+								<!-- translators: tooltip on an icon that indicates that this post was edited -->
                                 <property name="tooltip_text" translatable="yes">Edited</property>
                                 <style>
                                   <class name="dim-label" />
@@ -154,7 +156,6 @@
                             <child>
                               <object class="GtkImage" id="visibility_indicator">
                                 <property name="visible">1</property>
-                                <property name="icon_name">unknown</property>
                                 <property name="icon_size">1</property>
                                 <style>
                                   <class name="dim-label" />

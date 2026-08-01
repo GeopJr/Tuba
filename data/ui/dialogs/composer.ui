@@ -41,6 +41,7 @@
 														<property name="reveal-child" bind-source="cw_button" bind-property="active" bind-flags="sync-create" />
 														<property name="child">
 															<object class="GtkEntry" id="cw_entry">
+																<!-- translators: placeholder text in the composer's content warning entry -->
 																<property name="placeholder-text" translatable="yes">Write your content warning here</property>
 																<property name="margin-start">32</property>
 																<property name="margin-end">32</property>
@@ -66,6 +67,7 @@
 																<child>
 																	<object class="GtkMenuButton" id="native_emojis_button">
 																		<property name="icon-name">tuba-sentiment-satisfied-symbolic</property>
+																		<!-- translators: button tooltip that opens the native emoji picker -->
 																		<property name="tooltip-text" translatable="yes">Emoji Picker</property>
 																		<style>
 																			<class name="flat" />
@@ -75,6 +77,7 @@
 																<child>
 																	<object class="GtkMenuButton" id="custom_emojis_button">
 																		<property name="icon-name">tuba-bear-symbolic</property>
+																		<!-- translators: button tooltip that opens the custom emoji picker; its a picker for custom emojis, not an emoji picker that is custom -->
 																		<property name="tooltip-text" translatable="yes">Custom Emoji Picker</property>
 																		<style>
 																			<class name="flat" />
@@ -84,6 +87,7 @@
 																<child>
 																	<object class="GtkButton" id="add_media_button">
 																		<property name="icon-name">tuba-image-round-symbolic</property>
+																		<!-- translators: composer tooltip for button that makes the user select a file to upload -->
 																		<property name="tooltip-text" translatable="yes">Add Media</property>
 																		<style>
 																			<class name="flat" />
@@ -93,6 +97,7 @@
 																<child>
 																	<object class="GtkToggleButton" id="poll_button">
 																		<property name="icon-name">tuba-polls-symbolic</property>
+																		<!-- translators: composer tooltip for button that adds the poll UI to the post -->
 																		<property name="tooltip-text" translatable="yes">Create Poll</property>
 																		<style>
 																			<class name="flat" />
@@ -112,6 +117,7 @@
 																	<object class="GtkToggleButton" id="sensitive_media_button">
 																		<property name="icon-name">tuba-eye-not-looking-symbolic</property>
 																		<property name="visible">0</property>
+																		<!-- translators: button tooltip that when clicked blurs and marks the media as NSFW -->
 																		<property name="tooltip-text" translatable="yes">Mark media as sensitive</property>
 																		<style>
 																			<class name="flat" />

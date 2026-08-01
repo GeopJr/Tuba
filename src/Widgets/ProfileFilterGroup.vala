@@ -65,6 +65,7 @@ public class Tuba.Widgets.ProfileFilterGroup : Gtk.ListBoxRow {
 		});
 
 		toggle_group.add (new Adw.Toggle () {
+			// translators: as in attachments / music, videos, pictures
 			label = _("Media"),
 			name = Filter.MEDIA.to_string ()
 		});

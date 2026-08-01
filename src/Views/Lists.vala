@@ -4,6 +4,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 			url: "/api/v1/lists",
 			label: _("Lists"),
 			icon: "tuba-list-compact-symbolic",
+			// translators: empty state title
 			empty_state_title: _("No Lists"),
 			batch_size_min: 20
 		);
@@ -131,6 +132,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 
 		private async void on_remove_clicked_real () {
 			var qs = yield app.question (
+				// translators: confirmation dialog when deleting a list; the variable is a string list name
 				{_("Delete \"%s\"?").printf (this.list.title), false},
 				{_("This action cannot be reverted."), false},
 				app.main_window,
@@ -148,6 +150,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 					this.destroy ();
 				} catch (Error e) {
 					warning (@"Couldn't delete list: $(e.code) $(e.message)");
+					// translators: error toast; the variable is a string error message
 					app.toast (_("Couldn't delete list: %s").printf (e.message));
 				}
 			}
@@ -209,6 +212,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 			model.insert (0, list);
 		} catch (Error e) {
 			warning (@"Couldn't create list: $(e.code) $(e.message)");
+			// translators: error toast; variable is a string error message
 			app.toast (_("Couldn't create list: %s").printf (e.message));
 		}
 	}
@@ -226,6 +230,8 @@ public class Tuba.Views.Lists : Views.Timeline {
 
 		child_entry = new Gtk.Entry () {
 			input_purpose = Gtk.InputPurpose.FREE_FORM,
+			// translators: placeholder text inside an entry where users will
+			//				type the name of a list they're about to make
 			placeholder_text = _("New list title")
 		};
 
@@ -235,6 +241,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 
 		var child_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 
+		// translators: button that creates a new list
 		add_button = new Gtk.Button.with_label (_("Add list")) {
 			sensitive = false
 		};

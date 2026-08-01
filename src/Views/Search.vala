@@ -89,6 +89,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	construct {
 		this.uid = 1;
 
+		// translators: can be a view title or a button tooltip; either noun or verb will do
 		label = _("Search");
 		this.empty_timeline_icon = "system-search";
 		this.empty_state_title = _("Search");

@@ -282,6 +282,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	private async void setup_filters () {
 		filter_row = new Adw.ButtonRow () {
+			// translators: button in settings that opens the filter editor dialog page
 			title = _("Add Filter…"),
 			start_icon_name = "tuba-plus-large-symbolic"
 		};
@@ -302,6 +303,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			keywords_group.add (filter_row);
 		} catch (Error e) {
 			warning (@"Couldn't retrieve filters: $(e.code) $(e.message)");
+			// translators: error toast when tuba cant fetch the user's filters;
+			//				the variable is a string error message
 			on_toast (_("Couldn't retrieve filters: %s").printf (e.message), 5);
 		}
 	}
@@ -492,6 +495,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			settings.default_language = updated.source.language;
 		} catch (Error e) {
 			warning (@"Couldn't update language: $(e.code) $(e.message)");
+			// translators: error toast when tuba cant update the user's locale;
+			//				the variable is a string error message
 			app.toast (_("Couldn't update language: %s").printf (e.message));
 		}
 	}

@@ -9,7 +9,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		set {
 			_draft = value;
 			reschedule_button.visible = !value;
-			// translators: not a verb, as in a post that is saved but not posted yet
+			// translators: noun, as in a post that is saved but not posted yet
 			schedule_label.label = _("Draft");
 			this.activatable = value;
 		}
@@ -48,6 +48,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		actions_box.append (edit_button);
 
 		reschedule_button = new Gtk.Button.from_icon_name ("tuba-clock-alt-symbolic") {
+			// translators: button, verb, "Reschedule a post"
 			tooltip_text = _("Reschedule"),
 			css_classes = { "flat" }
 		};
@@ -152,6 +153,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 			schedule_page.schedule_picked.connect (on_schedule_picked);
 
 			var navigation_view = new Adw.NavigationView ();
+			// translators: dialog title when rescheduling a post, reschedule is a verb, post is a noun
 			this.title = schedule_page.title = _("Reschedule Post");
 			navigation_view.add (schedule_page);
 
@@ -189,7 +191,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		} catch (Error e) {
 			warning (@"Error while rescheduling: $(e.code) $(e.message)");
 
-			// translators: the variable is an error
+			// translators:error toast; the variable is an error message
 			app.toast (_("Couldn't reschedule: %s").printf (e.message), 0);
 		}
 	}

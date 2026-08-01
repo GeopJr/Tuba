@@ -5,6 +5,7 @@
     <property name="modal">True</property>
     <property name="default_width">600</property>
     <property name="default_height">500</property>
+	<!-- translators: add a new account to tuba -->
     <property name="title" translatable="yes">Add Account</property>
 	<child>
 		<object class="AdwToastOverlay" id="toast_overlay">
@@ -44,8 +45,9 @@
                   <object class="AdwStatusPage">
                     <property name="vexpand">1</property>
                     <property name="icon_name">tuba-network-server-symbolic</property>
+					<!-- translators: title above an entry where users can input the link to their fediverse instance (aka server) -->
                     <property name="title" translatable="yes">What is your Server?</property>
-                    <!-- translators: Please replace the joinmastodon.org/servers link with the one for your language if available -->
+                    <!-- translators: Subtitle pointing users to create a fediverse account if they don't have one yet; please replace the joinmastodon.org/servers link with the one for your language if available -->
                     <property name="description" translatable="yes">If you don&apos;t have an account yet, &lt;a href=&quot;https://joinmastodon.org/servers&quot;&gt;choose a server and register one&lt;/a&gt;.</property>
                     <style>
                         <class name="compact"/>
@@ -67,6 +69,7 @@
                                   <object class="AdwPreferencesGroup">
                                     <child>
                                       <object class="AdwEntryRow" id="instance_entry">
+										<!-- translators: entry title where users input their fediverse instance/server url -->
                                         <property name="title" translatable="yes">Server URL</property>
                                         <property name="input_purpose">url</property>
                                         <signal name="entry_activated" handler="on_next_clicked" swapped="no"/>
@@ -138,6 +141,7 @@
                   <object class="AdwStatusPage" id="auth_page">
                     <property name="vexpand">1</property>
                     <property name="icon_name">tuba-key-symbolic</property>
+					<!-- translators: title shown when the user has been sent to their instance in their browser to allow tuba to use their account; you may change it to "Give access" and so on -->
                     <property name="title" translatable="yes">Confirm Authorization</property>
                     <style>
                         <class name="compact"/>
@@ -157,7 +161,7 @@
                                 <child>
                                   <object class="GtkLabel" id="manual_auth_label">
                                     <property name="visible" bind-source="TubaDialogsNewAccount" bind-property="use_auto_auth" bind-flags="sync-create"/>
-                                    <!-- translators: Do not translate "manual_auth" -->
+                                    <!-- translators: Subtitle when using the 'automatic' verification workflow when adding a new account; the user can click the link to switch to 'manual' mode; Do not translate "manual_auth" and keep all the &gt; &quot; &lt; as is -->
                                     <property name="label" translatable="yes">If something went wrong, &lt;a href=&quot;manual_auth&quot;&gt;try manual authorization&lt;/a&gt;.</property>
                                     <property name="use_markup">1</property>
                                     <property name="wrap">1</property>
@@ -168,6 +172,7 @@
                                     <property name="visible" bind-source="TubaDialogsNewAccount" bind-property="use_auto_auth" bind-flags="sync-create|invert-boolean"/>
                                     <child>
                                       <object class="AdwEntryRow" id="code_entry">
+										<!-- translators: entry title where the user will paste an auth code given to them by their instance if they are adding their account using the manual method -->
                                         <property name="title" translatable="yes">Authorization Code</property>
                                         <signal name="entry_activated" handler="on_next_clicked" swapped="no"/>
                                         <signal name="changed" handler="clear_errors" swapped="no"/>
@@ -248,6 +253,7 @@
 											<property name="justify">center</property>
 											<property name="wrap">1</property>
 											<property name="wrap-mode">word-char</property>
+											<!-- translators: message shown after successfully adding a new account to tuba -->
 											<property name="label" translatable="yes">Your account is connected and ready to use!</property>
 											<style>
 												<class name="description" />
@@ -259,6 +265,7 @@
 										<object class="GtkButton">
 										  <property name="halign">center</property>
 										  <property name="receives_default">1</property>
+										  <!-- translators: button that will close the new account dialog; "done with adding a new account" -->
 										  <property name="label" translatable="yes">Done</property>
 										  <property name="sensitive" bind-source="TubaDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
 										  <signal name="clicked" handler="on_done_clicked" swapped="no"/>

@@ -125,12 +125,13 @@
 														</child>
 														<child>
 															<object class="AdwSwitchRow" id="poll_switch_row">
+																<!-- translators: switch title that when enabled searches for posts that have polls in them -->
 																<property name="title" translatable="yes">Poll</property>
 															</object>
 														</child>
 														<child>
 															<object class="AdwSwitchRow" id="embed_switch_row">
-																<!-- translators: advanced search window switch title -->
+																<!-- translators: advanced search window switch title; when enabled searches for posts that have embedded widgets e.g. a youtube video -->
 																<property name="title" translatable="yes">Embed</property>
 															</object>
 														</child>
@@ -141,6 +142,7 @@
 														<property name="title" translatable="yes">Timelines</property>
 														<child>
 															<object class="AdwActionRow">
+																<!-- translators: setting in advanced search that when enabled searches in all timelines -->
 																<property name="title" translatable="yes">Everywhere</property>
 																<property name="activatable-widget">all_radio</property>
 																<child type="prefix">

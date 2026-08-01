@@ -888,6 +888,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		if (page == null) return;
 
 		Utils.Host.copy (page.url);
+		// translators: toast shown after successfully copying an attachment link to clipboard
 		app.toast (_("Copied media url to clipboard"));
 	}
 

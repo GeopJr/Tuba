@@ -474,7 +474,7 @@
 			var revoke_quote_menu_item = new GLib.MenuItem (_("Remove my post"), "status.revoke-quote");
 			revoke_quote_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 			menu_model.append_item (revoke_quote_menu_item);
-			menu_model.append (_("Report"), "status.report");
+			menu_model.append (C_("verb", "Report"), "status.report");
 		}
 
 		context_menu = new Gtk.PopoverMenu.from_model (menu_model);
@@ -498,7 +498,7 @@
 			}
 
 			app.question.begin (
-				// translators: the variable is the post visibility e.g. Public, Unlisted...
+				// translators: confirmation dialog title, the variable is the post visibility e.g. Public, Unlisted...
 				{_("Copy %s Post Link?").printf (accounts.active.visibility[status.formal.visibility].name), false},
 				{ body, false },
 				app.main_window,
@@ -511,6 +511,7 @@
 					}
 
 					Utils.Host.copy (status.formal.url);
+					// translators: toast shown when copying a post link to clipboard successfully
 					app.toast (_("Copied post url to clipboard"));
 				}
 			);
@@ -654,6 +655,7 @@
 
 
 	private void delete_status () {
+		// translators: dialog title asking the user to confirm if they really want to remove a post
 		var dlg = new Adw.AlertDialog (_("Delete Post?"), null) {
 			heading_use_markup = false,
 			body_use_markup = false,
@@ -797,6 +799,7 @@
 			show_original_simple_action.set_enabled (true);
 		} catch (Error e) {
 			warning (@"Couldn't translate $(status.formal.id): $(e.code) $(e.message)");
+			// translators: error toast; the variable is a string error message
 			app.toast (_("Couldn't translate: %s").printf (e.message));
 		}
 	}
@@ -1153,22 +1156,30 @@
 			//				please be mindful.
 			//				The variables are strings <amount> replies,
 			//				<amount> boosts, <amount> favorites.
-			aria_stats = "Post stats: %s, %s, %s, %s.".printf (
+			aria_stats = _("Post stats: %s, %s, %s, %s.").printf (
+				// translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
+				//				the variable is a string representation of the amount of replies
 				GLib.ngettext (
 					"%s reply",
 					"%s replies",
 					(ulong) status.formal.replies_count
 				).printf (status.formal.replies_count.to_string ()),
+				// translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
+				//				the variable is a string representation of the amount of boosts
 				GLib.ngettext (
 					"%s boost",
 					"%s boosts",
 					(ulong) status.formal.reblogs_count
 				).printf (status.formal.reblogs_count.to_string ()),
+				// translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
+				//				the variable is a string representation of the amount of quotes
 				GLib.ngettext (
 					"%s quote",
 					"%s quotes",
 					(ulong) status.formal.quotes_count
 				).printf (status.formal.quotes_count.to_string ()),
+				// translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
+				//				the variable is a string representation of the amount of favorites
 				GLib.ngettext (
 					"%s favorite",
 					"%s favorites",
@@ -1229,8 +1240,10 @@
 
 			string? filter_warn = this.status.formal.tuba_filter_warn;
 			if (filter_warn != null) {
+				// translators: post filter message; the variable is a string filter title
 				filter_label.label = _("Filtered: %s").printf (filter_warn);
 			} else {
+				// translators: post default filter message
 				filter_label.label = _("Filtered");
 			}
 		}

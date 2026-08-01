@@ -65,6 +65,7 @@
 														<child type="overlay">
 															<object class="GtkButton">
 																<property name="icon-name">document-edit-symbolic</property>
+																<!-- translators: button tooltip that when clicked will show the file picker so the user picks a new avatar -->
 																<property name="tooltip-text" translatable="yes">Edit Profile Picture</property>
 																<property name="valign">center</property>
 																<property name="halign">center</property>
@@ -93,7 +94,7 @@
 														<child type="overlay">
 															<object class="GtkButton">
 																<property name="icon-name">document-edit-symbolic</property>
-																<!-- translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form) -->
+																<!-- translators: button tooltip that when clicked a file picker will show up so the user changes their cover image; if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form) -->
 																<property name="tooltip-text" translatable="yes">Edit Header Picture</property>
 																<property name="valign">start</property>
 																<property name="halign">start</property>
@@ -119,6 +120,7 @@
 												<child>
 													<object class="AdwEntryRow" id="name_row">
 														<property name="input-purpose">free-form</property>
+														<!-- translators: entry title for the user to input their new name in; display is not a verb -->
 														<property name="title" translatable="yes">Display Name</property>
 														<signal name="changed" handler="on_name_row_changed" swapped="no" />
 													</object>
@@ -126,7 +128,7 @@
 												<child>
 													<object class="AdwExpanderRow" id="bio_row">
 														<property name="expanded">0</property>
-														<!-- translators: profile bio or description -->
+														<!-- translators: entry title for the profile bio or description -->
 														<property name="title" translatable="yes">Bio</property>
 														<child type="action">
 															<object class="GtkMenuButton" id="cepbtn">

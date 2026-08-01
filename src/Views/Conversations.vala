@@ -2,8 +2,10 @@ public class Tuba.Views.Conversations : Views.Timeline {
 	public Conversations () {
 		Object (
 			url: "/api/v1/conversations",
+			// translators: same as mastodon web / aka direct or private messages (but not really)
 			label: _("Conversations"),
 			icon: "tuba-mail-unread-symbolic",
+			// translators: empty state label
 			empty_state_title: _("No Conversations")
 		);
 	}

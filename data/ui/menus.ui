@@ -30,6 +30,7 @@
 			<attribute name="action">view.open_in_browser</attribute>
 		</item>
 		<item>
+			<!-- translators: option on profiles, when enabled the user will get notifications every time this profile posts something -->
 			<attribute name="label" translatable="yes">Receive Post Notifications</attribute>
 			<attribute name="action">view.notify_on_post</attribute>
 			<attribute name="hidden-when">action-disabled</attribute>
@@ -55,26 +56,30 @@
 		<section>
 			<attribute name="label" translatable="yes">Moderation</attribute>
 			<item>
+				<!-- translators: option on profiles that when enabled will hide this user's posts from your Home timeline -->
 				<attribute name="label" translatable="yes">Hide Boosts</attribute>
 				<attribute name="action">view.hiding_reblogs</attribute>
 				<attribute name="hidden-when">action-disabled</attribute>
 			</item>
 			<item>
+				<!-- translators: whether to mute someone -->
 				<attribute name="label" translatable="yes">Mute</attribute>
 				<attribute name="action">view.muting</attribute>
 			</item>
 			<section>
 				<item>
+					<!-- translators: whether to block someone -->
 					<attribute name="label" translatable="yes">Block</attribute>
 					<attribute name="action">view.blocking</attribute>
 				</item>
 				<item>
+					<!-- translators: whether to block someone's whole instance; you may replace "domain" with "server" or "instance" -->
 					<attribute name="label" translatable="yes">Block Domain</attribute>
 					<attribute name="action">view.domain_blocking</attribute>
 					<!-- <attribute name="hidden-when">action-disabled</attribute> -->
 				</item>
 				<item>
-					<attribute name="label" translatable="yes">Report</attribute>
+					<attribute name="label" translatable="yes" context="verb">Report</attribute>
 					<attribute name="action">view.report</attribute>
 				</item>
 			</section>

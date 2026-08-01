@@ -165,6 +165,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		spoiler_toggle_button.icon_name = spoiler_toggle_button_active
 			? "tuba-eye-not-looking-symbolic"
 			: "tuba-eye-open-negative-filled-symbolic";
+		// translators: tooltip on button that toggles all spoilers of a thread
 		spoiler_toggle_button.tooltip_text = spoiler_toggle_button_active ? _("Hide Spoilers") : _("Reveal Spoilers");
 		reveal_spoilers = spoiler_toggle_button_active;
 	}

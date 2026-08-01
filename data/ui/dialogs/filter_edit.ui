@@ -3,6 +3,7 @@
 	<requires lib="gtk" version="4.0" />
 	<requires lib="libadwaita" version="1.0" />
 	<template class="TubaDialogsFilterEdit" parent="AdwNavigationPage">
+		<!-- translators: dialog title of the filter editor -->
 		<property name="title" translatable="yes">Edit Filter</property>
 		<property name="can-pop">0</property>
 		<child>
@@ -21,6 +22,7 @@
 							<object class="GtkButton" id="save_btn">
 								<property name="receives_default">1</property>
 								<property name="sensitive">0</property>
+								<!-- translators: button label; verb -->
 								<property name="label" translatable="yes">Save</property>
 								<signal name="clicked" handler="on_save_clicked" swapped="no" />
 								<style>
@@ -55,18 +57,22 @@
 												<child>
 													<object class="AdwEntryRow" id="title_row">
 														<property name="input-purpose">free-form</property>
+														<!-- translators: entry title for writing a 'title' -->
 														<property name="title" translatable="yes">Title</property>
 														<signal name="changed" handler="on_title_row_changed" swapped="no" />
 													</object>
 												</child>
 												<child>
 													<object class="AdwComboRow" id="expire_in_row">
+														<!-- translators: filter editor dropdown title to select when the filter should expire -->
 														<property name="title" translatable="yes">Expires In</property>
 													</object>
 												</child>
 												<child>
 													<object class="AdwSwitchRow" id="hide_row">
+														<!-- translators: filter editor setting that when enabled hides posts that match the query completely instead of showing a warning -->
 														<property name="title" translatable="yes">Hide Completely</property>
+														<!-- translators: filter editor setting subtitle; if hide completely is off -->
 														<property name="subtitle" translatable="yes">Otherwise a warning will be used</property>
 													</object>
 												</child>
@@ -74,12 +80,15 @@
 										</child>
 										<child>
 											<object class="AdwPreferencesGroup" id="context_group">
+												<!-- translators: filter editor group title; 'under which contexts should the filter be used' aka timelines -->
 												<property name="title" translatable="yes">Contexts</property>
+												<!-- translators: filter editor group description: context = timelines -->
 												<property name="description" translatable="yes">One or multiple contexts where the filter should apply</property>
 											</object>
 										</child>
 										<child>
 											<object class="AdwPreferencesGroup" id="keywords_group">
+												<!-- translators: filter editor group title; keywords or phrases to filter out; not a question -->
 												<property name="title" translatable="yes">Keywords or Phrases</property>
 											</object>
 										</child>

@@ -126,6 +126,8 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 					yield req.exec (null);
 				} catch (Error e) {
 					warning (@"Couldn't save notification settings: $(e.code) $(e.message)");
+					// translators: error toast when tuba cant update the user's notification settings;
+					//				the variable is a string error message
 					app.toast (_("Couldn't save notification settings: %s").printf (e.message));
 				}
 			}
@@ -140,6 +142,7 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 
 	private async void clear_all_notifications_real () {
 		var dlg = new Adw.AlertDialog (
+			//  translators: dialog title for the user to confirm if they want to remove all their notifications
 			_("Clear All Notifications?"),
 			null
 		);

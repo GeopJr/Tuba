@@ -102,6 +102,8 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 	string? filter_id = null;
 	public FilterEdit (API.Filters.Filter? filter = null) {
 		filter_row = new Adw.ButtonRow () {
+			// translators: button that adds a new keyword or phrase
+			//				entry to the filter editor
 			title = _("Add Keyword"),
 			start_icon_name = "tuba-plus-large-symbolic"
 		};
@@ -334,6 +336,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 			on_close ();
 		} catch (Error e) {
 			this.sensitive = true;
+			//  translators: error toast, the variable is a string error
 			this.toast (_("Couldn't edit filter: %s").printf (e.message), 0);
 			warning (@"Couldn't edit filter: $(e.code) $(e.message)");
 		}

@@ -13,6 +13,7 @@
 						<child type="start">
 							<object class="GtkButton" id="clear_button">
 								<property name="icon-name">user-trash-symbolic</property>
+								<!-- translators: button tooltip that when clicked will ask the user if they want to remove all their notifications -->
 								<property name="tooltip-text" translatable="yes">Clear All Notifications</property>
 								<signal name="clicked" handler="clear_all_notifications" swapped="no" />
 								<style>
@@ -34,6 +35,7 @@
 								<property name="title" translatable="yes">Notifications</property>
 								<child>
 									<object class="AdwPreferencesGroup" id="filters_group">
+										<!-- translators: preferences group title, lists types of notifications to be included in the notifications tab below it -->
 										<property name="title" translatable="yes">Included Notifications</property>
 									</object>
 								</child>

@@ -60,6 +60,7 @@ public class Tuba.Widgets.ActionsRow : Adw.BreakpointBin {
 			reblog_button.tooltip_text = _("Boost");
 			reblog_button.default_icon_name = "tuba-media-playlist-repeat-symbolic";
 		} else {
+			// translators: tooltip text when the boost button is disabled
 			reblog_button.tooltip_text = _("This post can't be boosted");
 			reblog_button.default_icon_name = "tuba-arrows-loop-tall-disabled-symbolic";
 		}
@@ -162,6 +163,7 @@ public class Tuba.Widgets.ActionsRow : Adw.BreakpointBin {
 			css_classes = { "ttl-status-action-reblog", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,
+			// translators: verb, boost / reblog / repost a post
 			tooltip_text = _("Boost"),
 			//  aria_label_template = (amount) => {
 			//  	// translators: Accessibility label on post buttons.
@@ -213,6 +215,7 @@ public class Tuba.Widgets.ActionsRow : Adw.BreakpointBin {
 			css_classes = { "ttl-status-action-bookmark", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = false,
+			// translators: verb, bookmark a post
 			tooltip_text = _("Bookmark")
 		};
 		bookmark_button.clicked.connect (on_bookmark_button_clicked);
@@ -383,6 +386,7 @@ public class Tuba.Widgets.ActionsRow : Adw.BreakpointBin {
 			}
 
 			var dlg = new Adw.AlertDialog (
+				// translators: dialog title to select boost visibility (public, unlisted, private)
 				_("Boost with Visibility"),
 				null
 			) {
@@ -500,6 +504,7 @@ public class Tuba.Widgets.ActionsRow : Adw.BreakpointBin {
 		} catch (Error e) {
 			warning (@"Couldn't perform action \"$action\" on a Status:");
 			warning (e.message);
+			// translators: error title
 			app.toast ("%s: %s".printf (_("Network Error"), e.message));
 
 			if (count_property != null)

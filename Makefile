@@ -26,7 +26,7 @@ test:
 	ninja test -C builddir
 
 potfiles:
-	find ./ -not -path '*/.*' -type f -name "*.in" | sort > po/POTFILES
+	find ./ -not -path '*/.*' -not -path '*/*.nsi.in' -not -path '*/*.1.in' -not -path '*/*.service.in' -type f -name "*.in" | sort > po/POTFILES
 	echo "./data/dev.geopjr.Tuba.gschema.xml" >> po/POTFILES
 	echo "" >> po/POTFILES
 	find ./ -not -path '*/.*' -type f -name "*.ui" -exec grep -l "translatable=\"yes\"" {} \; | sort >> po/POTFILES
@@ -34,7 +34,10 @@ potfiles:
 	find ./ -not -path '*/.*' -type f -name "*.vala" -exec grep -l "_(\"\|ngettext" {} \; | sort >> po/POTFILES
 
 xgettext:
-	xgettext --files-from=po/POTFILES --output=po/dev.geopjr.Tuba.pot --from-code=UTF-8 --add-comments --keyword=_ --keyword=C_:1c,2 --xml
+	xgettext --files-from=po/POTFILES --output=po/dev.geopjr.Tuba.pot --from-code=UTF-8 --add-comments --keyword=_ --keyword=C_:1c,2
+
+pot:
+	meson compile dev.geopjr.Tuba-pot -C builddir/
 
 windows: PREFIX = $(PWD)/tuba_windows_portable
 windows: __windows_pre build install __windows_set_icon __windows_copy_deps __windows_schemas __windows_copy_icons __windows_cleanup __windows_package
@@ -101,12 +104,14 @@ windows_nsis:
 	cd nsis && makensis dev.geopjr.Tuba.nsi
 
 android:
+	sed -i 's|<component type="desktop">|<component type="desktop" xmlns="https://specifications.freedesktop.org/metainfo/1.0">|' ./data/dev.geopjr.Tuba.metainfo.xml.in
 	rm -rf subprojects/
 	cp -r build-aux/android/subprojects/ .
 	rm -rf .pixiewood
 	pixiewood prepare $(if $(release),--release,) --android-studio=$(android_studio) --sdk=$(android_sdk) ./build-aux/android/pixiewood.xml
 	pixiewood generate
 	pixiewood build
+	sed -i 's|<component type="desktop" xmlns="https://specifications.freedesktop.org/metainfo/1.0">|<component type="desktop">|' ./data/dev.geopjr.Tuba.metainfo.xml.in
 
 android_sign:
 	mkdir -p apks/

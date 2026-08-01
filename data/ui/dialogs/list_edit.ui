@@ -4,6 +4,7 @@
   <requires lib="libadwaita" version="1.0"/>
   <object class="AdwPreferencesPage" id="members_page">
     <property name="icon-name">tuba-people-symbolic</property>
+	<!-- translators: title above a list of users that are members of the group it's showcasing (lists, collections) -->
     <property name="title" translatable="yes">Members</property>
     <child>
       <object class="AdwPreferencesGroup" id="members_group">
@@ -24,11 +25,13 @@
             <child>
               <object class="AdwEntryRow" id="title_row">
                 <property name="input-purpose">free-form</property>
+				<!-- translators: list editor entry title -->
                 <property name="title" translatable="yes">List Name</property>
               </object>
             </child>
             <child>
               <object class="AdwSwitchRow" id="hide_from_home_row">
+				<!-- translators: list editor setting that when enabled removes the members' posts from the 'home' timeline and only shows them in the list -->
                 <property name="title" translatable="yes">Hide Posts From Home</property>
               </object>
             </child>
@@ -36,10 +39,13 @@
         </child>
         <child>
           <object class="AdwPreferencesGroup">
+			<!-- translators: list edit settings group; what kind of replies should be in the list from the members -->
             <property name="title" translatable="yes">Replies Policy</property>
+			<!-- translators: list edit settings group description; to... and then there's 3 options below the user can select of -->
             <property name="description" translatable="yes">Show member replies to</property>
             <child>
               <object class="AdwActionRow">
+				<!-- translators: list edit replies policy option -->
                 <property name="title" translatable="yes">Nobody</property>
                 <property name="activatable-widget">none_radio</property>
                 <child type="prefix">
@@ -51,6 +57,7 @@
             </child>
             <child>
               <object class="AdwActionRow">
+				<!-- translators: list edit replies policy option -->
                 <property name="title" translatable="yes">Other members of the list</property>
                 <property name="activatable-widget">list_radio</property>
                 <child type="prefix">
@@ -63,6 +70,7 @@
             </child>
             <child>
               <object class="AdwActionRow">
+				<!-- translators: list edit replies policy option; followed by you -->
                 <property name="title" translatable="yes">Any followed user</property>
                 <property name="activatable-widget">followed_radio</property>
                 <child type="prefix">

@@ -40,6 +40,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		accepts = enabled_group_notifications ? typeof (API.GroupedNotificationsResults.NotificationGroup) : typeof (API.Notification);
 		badge_number = 0;
 		needs_attention = false;
+		// translators: empty state title
 		empty_state_title = _("No Notifications");
 
 		filters_changed (false);

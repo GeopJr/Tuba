@@ -11,10 +11,12 @@
 			<attribute name="action">mediaviewer.copy-url</attribute>
 		</item>
 		<item>
+			<!-- translators: save image/video/music/attachment locally; will show destination picker -->
 			<attribute name="label" translatable="yes">Save Media…</attribute>
 			<attribute name="action">mediaviewer.save-as</attribute>
 		</item>
 		<item>
+			<!-- translators: copy image/attachment to clipboard -->
 			<attribute name="label" translatable="yes">Copy Media</attribute>
 			<attribute name="action">mediaviewer.copy-media</attribute>
 			<attribute name="hidden-when">action-disabled</attribute>
@@ -196,6 +198,7 @@
 												<child>
 													<object class="GtkToggleButton" id="toggle_zoom_btn">
 														<property name="icon-name">tuba-zoom-symbolic</property>
+														<!-- translators: button tooltip, when clicked it toggles between zooming in and resetting the zoom level -->
 														<property name="tooltip-text" translatable="yes">Toggle Zoom</property>
 														<property name="active">0</property>
 														<property name="active" bind-source="zoom_out_btn" bind-property="sensitive" bind-flags="sync-create" />

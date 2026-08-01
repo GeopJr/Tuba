@@ -150,6 +150,8 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 				});
 			}
 		} catch (Error e) {
+			// translators: error toast when tuba cant gather the members of a list;
+			//				the variable is a string error message
 			this.add_toast (new Adw.Toast (_("Couldn't fetch members: %s").printf (e.message)) { timeout = 5 });
 			warning (@"Couldn't fetch members: $(e.code) $(e.message)");
 		}
@@ -192,6 +194,8 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 				list.replies_policy = replies_policy_string;
 				list.exclusive = is_exclusive;
 			} catch (Error e) {
+				// translators: error toast when tuba cant save a list;
+				//				the variable is a string error message
 				app.toast (_("Couldn't save list: %s").printf (e.message));
 				warning (@"Couldn't save list: $(e.code) $(e.message)");
 			}

@@ -4,6 +4,7 @@ public class Tuba.Views.Announcements : Views.Timeline {
 			url: "/api/v1/announcements?with_dismissed=true",
 			label: _("Announcements"),
 			icon: "tuba-lightbulb-symbolic",
+			// translators: empty state title
 			empty_state_title: _("No Announcements")
 		);
 	}

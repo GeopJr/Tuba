@@ -5,6 +5,7 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 	Views.ContentBase quoted;
 
 	construct {
+		// translators: post statistics view title (favs, boosts, reactions, quotes)
 		label = _("Post Stats");
 	}
 
@@ -15,6 +16,7 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 			"tuba-media-playlist-repeat-symbolic",
 			@"/api/v1/statuses/$(status_id)/reblogged_by",
 			typeof (API.Account),
+			// translators: empty state title
 			_("No Boosts"),
 			"tuba-heart-broken-symbolic",
 			true
@@ -26,6 +28,7 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 			"tuba-starred-symbolic",
 			@"/api/v1/statuses/$(status_id)/favourited_by",
 			typeof (API.Account),
+			// translators: empty state title
 			_("No Favorites"),
 			"tuba-heart-broken-symbolic",
 			true

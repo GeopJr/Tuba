@@ -113,6 +113,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 				Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 				clipboard.set_texture (texture);
+				// translators: toast shown after successfully copying an image to clipboard
 				app.toast (_("Copied image to clipboard"));
 			} catch (Error e) {
 				app.toast ("%s: %s".printf (_("Error"), e.message));

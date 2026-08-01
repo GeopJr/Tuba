@@ -98,6 +98,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	public static Place PLACE_EXPLORE = new Place () { // vala-lint=naming-convention
 
 		icon = "tuba-explore2-large-symbolic",
+		// translators sidebar item; see mastodon-web; contains news/hot posts/follower suggestions and hot hashtags
 		title = _("Explore"),
 		separated = true,
 		open_func = (win) => {
@@ -108,6 +109,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	public static Place PLACE_LOCAL = new Place () { // vala-lint=naming-convention
 
 		icon = "tuba-network-server-symbolic",
+		// translators: sidebar item; it refers to timelines, see mastodon-web; local = only this instance
 		title = _("Local"),
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item (new Views.Local ()));
@@ -127,6 +129,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	public static Place PLACE_FEDERATED = new Place () { // vala-lint=naming-convention
 
 		icon = "tuba-globe-symbolic",
+		// translators: sidebar item; it refers to timelines, see mastodon-web; federated = from all instances that connect to this one
 		title = _("Federated"),
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item (new Views.Federated ()));

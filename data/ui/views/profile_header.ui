@@ -158,6 +158,7 @@
 										<child>
 											<object class="GtkButton" id="moved_btn">
 												<property name="visible">0</property>
+												<!-- translators: opens someone's profile in the app -->
 												<property name="tooltip-text" translatable="yes">Open Profile</property>
 												<style>
 													<class name="warning" />

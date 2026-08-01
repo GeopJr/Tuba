@@ -21,7 +21,7 @@
 		<property name="page_increment">1</property>
 	</object>
 	<template class="TubaDialogsSchedule" parent="AdwNavigationPage">
-		<!-- translators: window title -->
+		<!-- translators: window title; schedule is a verb, post is a noun -->
 		<property name="title" translatable="yes">Schedule Post</property>
 		<child>
 			<object class="TubaDialogsComposerPreferredSizeBin" id="size_bin">
@@ -34,7 +34,7 @@
 
 								<child type="end">
 									<object class="GtkButton" id="schedule_button">
-										<!-- translators: verb -->
+										<!-- translators: verb; button label that when clicked will schedule a post -->
 										<property name="label" translatable="yes">Schedule</property>
 										<signal name="clicked" handler="on_schedule" swapped="no" />
 										<style>

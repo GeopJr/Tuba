@@ -409,6 +409,7 @@ public class Tuba.Views.Drive : Views.Base {
 			rename_popover = new EntryPopover (
 				this.folder ? _("Rename Folder") : _("Rename File"),
 				this.filename,
+				// translators: verb, rename a file
 				_("Rename"),
 				null
 			);
@@ -745,6 +746,7 @@ public class Tuba.Views.Drive : Views.Base {
 		create_folder_btn = new Gtk.MenuButton () {
 			icon_name = "tuba-folder-new-symbolic",
 			css_classes = { "flat" },
+			// translators: tooltip on a button that will open a dialog to name a new folder
 			tooltip_text = _("Create Folder"),
 			always_show_arrow = false,
 			popover = create_folder_btn_popover
@@ -753,6 +755,7 @@ public class Tuba.Views.Drive : Views.Base {
 		upload_file_btn = new Gtk.Button () {
 			icon_name = "tuba-plus-large-symbolic",
 			css_classes = { "flat" },
+			// translators: tooltip on a button that will open the file picker to select a file to upload when clicked
 			tooltip_text = _("Upload File")
 		};
 		upload_file_btn.clicked.connect (upload_pick);
@@ -880,6 +883,7 @@ public class Tuba.Views.Drive : Views.Base {
 		grid.remove_css_class ("view");
 
 		drop_overlay = new Dialogs.Composer.Components.DropOverlay () {
+			// translators: drop overlay label when hovering over with a dragged file
 			title = _("Drop files to upload them"),
 			overlay_child = new Gtk.ScrolledWindow () {
 				vexpand = true,
@@ -1215,6 +1219,8 @@ public class Tuba.Views.Drive : Views.Base {
 					requires_refresh = true;
 				}
 			} catch (Error e) {
+				// translators: error toast shown when Drive is unable to move a file;
+				//				the variables are a string file name and a string error message
 				app.toast (_("Couldn't move '%s': %s").printf (GLib.Markup.escape_text (rq.item_data.name), e.message));
 				warning (@"Couldn't move item '$(rq.item_data.name)': $(e.code) $(e.message)");
 			}

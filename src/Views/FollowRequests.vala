@@ -4,6 +4,7 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 			url: "/api/v1/follow_requests",
 			label: _("Follow Requests"),
 			icon: "address-book-new-symbolic",
+			// translators: empty state title
 			empty_state_title: _("No Follow Requests"),
 			batch_size_min: 20
 		);

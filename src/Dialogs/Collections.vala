@@ -285,7 +285,8 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 		};
 
 		var c3 = new Adw.ActionRow () {
-			title = _("Mark as sensitive"),
+			// translators: mark an item as sensitive / nsfw
+			title = _("Mark as Sensitive"),
 			activatable_widget = cw_checkbox,
 			// translators: collection checkbox description
 			subtitle = _("Hides the collection's description and accounts behind a content warning. The collection name will still be visible.")
@@ -303,7 +304,6 @@ public class Tuba.Dialogs.Collections : Adw.PreferencesDialog {
 		};
 		search_group = new Adw.PreferencesGroup ();
 		search_row = new Adw.EntryRow () {
-			// translators: entry row title
 			title = _("Search")
 		};
 		search_row.changed.connect (on_search_changed);

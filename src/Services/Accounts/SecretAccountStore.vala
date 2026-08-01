@@ -248,7 +248,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		generator.set_root (builder.get_root ());
 		var secret = generator.to_data (null);
 		// translators: The variable is "Fediverse" or a backend like "Mastodon"
-		var label = _("%s Account").printf (
+		var label = C_("system", "%s Account").printf (
 			account.backend == null || account.backend == ""
 			? "Fediverse"
 			: @"$(account.backend[0].to_string ().up ())$(account.backend.substring (1))"

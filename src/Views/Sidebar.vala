@@ -68,6 +68,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		var account_submenu_model = new GLib.Menu ();
 		account_submenu_model.append (_("New Post"), "app.compose");
 		account_submenu_model.append (_("Open Profile"), "app.open-current-account-profile");
+		//  translators: 'refresh timeline'; same as a browser refreshing/reloading a page
 		account_submenu_model.append (_("Refresh"), "app.refresh");
 		menu_model.append_section (null, account_submenu_model);
 
@@ -89,6 +90,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		wrapped_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 		misc_submenu_model.append_item (wrapped_menu_item);
 
+		//  translators: admin as in fediverse server administrator
 		var admin_dahsboard_menu_item = new MenuItem (_("Admin Dashboard"), "app.open-admin-dashboard");
 		admin_dahsboard_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 		misc_submenu_model.append_item (admin_dahsboard_menu_item);
@@ -99,6 +101,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		misc_submenu_model.append (_("Preferences"), "app.open-preferences");
 		misc_submenu_model.append (_("Keyboard Shortcuts"), "app.shortcuts");
 		misc_submenu_model.append (_("About %s").printf (Build.NAME), "app.about");
+		//  translators: exit the app
 		misc_submenu_model.append (_("Quit"), "app.quit");
 		menu_model.append_section (null, misc_submenu_model);
 

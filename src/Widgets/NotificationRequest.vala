@@ -53,6 +53,7 @@ public class Tuba.Widgets.NotificationRequest : Gtk.ListBoxRow {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			css_classes = { "flat", "circular", "error" },
+			// translators: dismiss notification request
 			tooltip_text = _("Dismiss")
 		};
 		dismiss_btn.clicked.connect (on_dismiss);

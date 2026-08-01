@@ -1447,6 +1447,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			if (cb != null) cb (null);
 		} catch (Error e) {
 			warning (@"Couldn't delete scheduled post: $(e.code) $(e.message)");
+			// translators: error taost; the variable is a string error message
 			app.toast (_("Couldn't delete scheduled post: %s").printf (e.message));
 		}
 	}

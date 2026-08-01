@@ -71,6 +71,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 
 		notification_settings_button = new Gtk.Button.from_icon_name ("tuba-funnel-symbolic") {
 			css_classes = { "flat" },
+			//  translators: noun
 			tooltip_text = _("Filter"),
 			visible = false
 		};
@@ -78,6 +79,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		header.pack_end (notification_settings_button);
 
 		var sidebar_button = new Gtk.ToggleButton () {
+			// translators: tooltip of a button that opens the sidebar
 			tooltip_text = _("Open Sidebar")
 		};
 		header.pack_start (sidebar_button);

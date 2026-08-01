@@ -2,8 +2,10 @@ public class Tuba.Views.EditHistory : Views.Timeline {
 	public EditHistory (string status_id) {
 		Object (
 			url: @"/api/v1/statuses/$(status_id)/history",
+			// translators: view title that shows the previous versions of an edited post
 			label: _("Edit History"),
 			icon: "document-edit-symbolic",
+			// translators: empty state title
 			empty_state_title: _("No Edit History"),
 			batch_size_min: 20
 		);
