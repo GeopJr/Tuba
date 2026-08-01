@@ -468,7 +468,10 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	private void update_local_only_button_state (bool skip_remaining_char_recalc = false) {
 		if (accounts.active.instance_info.pleroma != null && !(InstanceAccount.InstanceFeatures.ICESHRIMP in accounts.active.tuba_instance_features)) {
 			visibility_button.sensitive = !local_only_button.active && !this.edit_mode;
-		} else if (InstanceAccount.InstanceFeatures.GLITCH in accounts.active.tuba_instance_features) {
+		} else if (
+			accounts.active.tuba_api_versions.mastodon < 11
+			&& InstanceAccount.InstanceFeatures.GLITCH in accounts.active.tuba_instance_features
+		) {
 			this.reserved_chars = local_only_button.active && !editor.buffer.text.has_suffix (LOCAL_ONLY_GLITCH_SUFFIX) ? 2 : 0;
 			if (!skip_remaining_char_recalc) update_remaining_chars ();
 		}
@@ -548,7 +551,12 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		if (InstanceAccount.InstanceFeatures.LOCAL_ONLY in accounts.active.tuba_instance_features) {
 			install_local_only_button (default_visibility == "local" || (precompose != null && precompose.local_only));
-			if (local_only_button.active && precompose != null && precompose.content != null && precompose.content.has_suffix (LOCAL_ONLY_GLITCH_SUFFIX)) {
+			if (
+				local_only_button.active
+				&& InstanceAccount.InstanceFeatures.GLITCH in accounts.active.tuba_instance_features
+				&& accounts.active.tuba_api_versions.mastodon < 11
+				&& precompose != null && precompose.content != null && precompose.content.has_suffix (LOCAL_ONLY_GLITCH_SUFFIX)
+			) {
 				precompose.content = precompose.content.substring (0, precompose.content.length - LOCAL_ONLY_GLITCH_SUFFIX.length);
 			}
 			local_only_button.sensitive = !this.edit_mode;
@@ -1275,18 +1283,19 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		bool is_pleroma = accounts.active.instance_info.pleroma != null;
 		bool is_glitch = InstanceAccount.InstanceFeatures.GLITCH in accounts.active.tuba_instance_features;
 		bool is_shrimp = InstanceAccount.InstanceFeatures.ICESHRIMP in accounts.active.tuba_instance_features;
+		bool supports_eye = accounts.active.tuba_api_versions.mastodon < 11;
 
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 
 		builder.set_member_name ("status");
 		builder.add_string_value (
-			is_local && is_glitch && !editor.buffer.text.has_suffix (LOCAL_ONLY_GLITCH_SUFFIX)
+			is_local && supports_eye && is_glitch && !editor.buffer.text.has_suffix (LOCAL_ONLY_GLITCH_SUFFIX)
 			? @"$(editor.buffer.text)$LOCAL_ONLY_GLITCH_SUFFIX"
 			: editor.buffer.text
 		);
 
-		if (is_local && !is_glitch && (!is_pleroma || is_shrimp)) {
+		if (is_local && (!is_glitch || !supports_eye) && (!is_pleroma || is_shrimp)) {
 			builder.set_member_name ("local_only");
 			builder.add_boolean_value (true);
 		}

@@ -59,8 +59,8 @@
 		</key>
     <key name="unifiedpush-enabled" type="b">
 			<default>false</default>
-			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
-			<summary translatable="no">UnifiedPush</summary>
+			<!-- translators: leave it as is; brand/software/protocol name -->
+			<summary>UnifiedPush</summary>
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<description>Whether account has enabled UnifiedPush</description>
 		</key>
