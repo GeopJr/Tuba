@@ -6,6 +6,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		debug ("Destroying Composer");
 		if (quote_paste_cancellable != null) quote_paste_cancellable.cancel ();
 		if (inline_quote_widget != null) inline_quote_widget = null;
+		if (inline_quote_widget_animation != null) inline_quote_widget_animation = null;
 	}
 
 	[GtkChild] private unowned Gtk.Label counter_label;
@@ -1073,7 +1074,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				)
 			) return;
 
-			var req = new RequestV2 ("/api/v2/search") { account = accounts.active };
+			var req = new RequestV2 ("/api/v2/search") { account = accounts.active, cancellable = quote_paste_cancellable };
 			req.add_parameter ("resolve", "true");
 			req.add_parameter ("limit", "1");
 			req.add_parameter ("type", "statuses");
@@ -1125,6 +1126,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	}
 
 	Gtk.Widget? inline_quote_widget = null;
+	Adw.TimedAnimation? inline_quote_widget_animation = null;
 	private void add_quote_inline_widget (API.Status quote_status) {
 		if (inline_quote_widget != null) return;
 		Widgets.Status status_widget = (Widgets.Status) quote_status.to_widget ();
@@ -1133,6 +1135,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		status_widget.add_css_class ("initial-font-size");
 		status_widget.margin_bottom = 8;
 		status_widget.overflow = HIDDEN;
+		status_widget.opacity = 0;
 
 		var remove_quote_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
 			css_classes = { "circular", "error" },
@@ -1147,15 +1150,37 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		inline_quote_widget = status_widget;
 		editor.add_bottom_child (inline_quote_widget, true);
+
+		// the combination of the confirmation dialog getting hidden and creating
+		// bottom widget, makes it feel shorter than 250ms, so double it here
+		// and reset when reversing
+		inline_quote_widget_animation = new Adw.TimedAnimation (inline_quote_widget, 0, 1, 500, new Adw.PropertyAnimationTarget (inline_quote_widget, "opacity"));
+		inline_quote_widget_animation.done.connect (on_inline_quote_widget_animation_done);
+		inline_quote_widget_animation.play ();
+	}
+
+	private void on_inline_quote_widget_animation_done (Adw.Animation animation) {
+		if (animation.value == 0) remove_quote_inline_widget_real ();
 	}
 
 	private void remove_quote_inline_widget () {
+		if (inline_quote_widget_animation == null) {
+			remove_quote_inline_widget_real ();
+			return;
+		}
+		inline_quote_widget_animation.duration = 250;
+		inline_quote_widget_animation.reverse = true;
+		inline_quote_widget_animation.play ();
+	}
+
+	private void remove_quote_inline_widget_real () {
 		if (inline_quote_widget == null) return;
 
 		editor.remove_bottom_child (inline_quote_widget);
 		this.quote_id = null;
 		update_quote_id_state ();
 		inline_quote_widget = null;
+		inline_quote_widget_animation = null;
 	}
 
 	private void on_paste () {
