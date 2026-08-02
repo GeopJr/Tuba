@@ -117,26 +117,30 @@ public class Tuba.SecretAccountStore : AccountStore {
 	public override void remove (InstanceAccount account) throws GLib.Error {
 		base.remove (account);
 
-		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
-		attrs["version"] = VERSION;
-		attrs["login"] = account.handle;
-		//  attrs["appid"] = Build.DOMAIN;
+		remove_account_real.begin (account);
+	}
 
-		Secret.password_clearv.begin (
-			schema,
-			attrs,
-			null,
-			(obj, async_res) => {
-				try {
-					Secret.password_clearv.end (async_res);
-				}
-				catch (GLib.Error e) {
-					warning (e.message);
-					var dlg = app.inform (_("Error"), e.message);
-					dlg.present (app.main_window);
-				}
+	private async void remove_account_real (InstanceAccount account) {
+		try {
+			var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
+			attrs["version"] = VERSION;
+			attrs["login"] = account.handle;
+			//  attrs["appid"] = Build.DOMAIN;
+
+			yield Secret.password_clearv (schema, attrs, null);
+
+			if (account.client_id != null && account.client_secret != null && account.access_token != null) {
+				var req = new RequestV2 ("/oauth/revoke", POST) { account = account, no_auth = true };
+				req.add_form_data ("client_id", account.client_id);
+				req.add_form_data ("client_secret", account.client_secret);
+				req.add_form_data ("token", account.access_token);
+				yield req.exec (null);
 			}
-		);
+		} catch (Error e) {
+			warning (e.message);
+			var dlg = app.inform (_("Error"), e.message);
+			dlg.present (app.main_window);
+		}
 	}
 
 	void account_to_secret (InstanceAccount account) {
