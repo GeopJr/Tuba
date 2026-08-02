@@ -85,7 +85,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 			return des_list (out val, node, contains);
 		}
 
-		if (!success && (type == GLib.Type.BOOLEAN || type == GLib.Type.INT)) {
+		if (!success && (type == GLib.Type.BOOLEAN || type == GLib.Type.INT || type == GLib.Type.INT64)) {
 			var default_val = spec.get_default_value ();
 			if (default_val != null) {
 				val = default_val;

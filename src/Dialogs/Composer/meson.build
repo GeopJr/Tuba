@@ -3,6 +3,7 @@ sources += files(
     'Attachable.vala',
     'Attachment.vala',
     'AttachmentsBin.vala',
+    'Drafts.vala',
     'DropOverlay.vala',
     'Editor.vala',
     'Polls.vala',

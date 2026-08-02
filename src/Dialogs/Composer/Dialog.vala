@@ -42,17 +42,32 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		string original_label = "";
 		Gtk.Widget? label_widget = null;
-		public void install (string label, bool with_menu) {
+		public void install (string label, bool with_menu, bool can_update_draft = true, bool can_schedule = true, bool can_have_drafts = true) {
 			if (this.child != null) return;
 			original_label = label;
 
 			if (with_menu) {
 				var menu_model = new GLib.Menu ();
-				// translators: 'Draft' is a verb; entry in composer post menu
-				menu_model.append (_("Draft Post"), "composer.draft");
+				menu_model.append (
+					can_update_draft
+					// translators: 'Draft' is a noun; entry in composer post menu to
+					//				edit an already draft post
+					? _("Edit Draft Post")
 
-				// translators: 'Schedule' is a verb; entry in composer post menu
-				menu_model.append (_("Schedule Post…"), "composer.schedule");
+					// translators: 'Draft' is a verb; entry in composer post menu
+					: _("Draft Post"),
+					"composer.draft"
+				);
+
+				if (can_schedule) {
+					// translators: 'Schedule' is a verb; entry in composer post menu
+					menu_model.append (_("Schedule Post…"), "composer.schedule");
+				}
+
+				if (can_have_drafts && !can_update_draft) {
+					// translators: plural of "Drafted Posts"; you may change it to "Drafted Posts…"; entry in composer post menu; opens a list of all draft posts
+					menu_model.append (_("Drafts…"), "composer.drafted-posts");
+				}
 
 				label_widget = new Adw.SplitButton () {
 					label = label,
@@ -81,6 +96,36 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			} else if (label_widget is Gtk.Label) {
 				((Gtk.Label) label_widget).label = new_label == null ? original_label : new_label;
 			}
+		}
+
+		bool drafts_default = false;
+		public void show_drafts_default () {
+			if (this.child == null || !(label_widget is Adw.SplitButton) || drafts_default) return;
+			this.child = new Gtk.Button () {
+				action_name = "composer.drafted-posts",
+				css_classes = { "pill", "suggested-action" },
+				child = new Gtk.Label (_("Drafts…")) {
+					ellipsize = END
+				}
+			};
+			drafts_default = true;
+			this.sensitive = true;
+		}
+
+		private void on_sensitive_changed () {
+			if (!drafts_default || this.child == label_widget || !(label_widget is Adw.SplitButton)) return;
+			drafts_default = false;
+			this.child = label_widget;
+			this.sensitive = !this.sensitive; // trigger
+		}
+
+		// we are 'overriding' the sensitivity setter
+		// so if show_drafts_default was ran, we will
+		// remove it here and instead use the normal
+		// button
+		public void set_sensitive_real (bool val) {
+			if (drafts_default) on_sensitive_changed ();
+			this.sensitive = val;
 		}
 
 		private void on_clicked () {
@@ -359,9 +404,13 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		var draft_action = new SimpleAction ("draft", null);
 		draft_action.activate.connect (on_draft_action_activated);
 
+		var drafted_posts_action = new SimpleAction ("drafted-posts", null);
+		drafted_posts_action.activate.connect (on_drafted_posts_action_activated);
+
 		var action_group = new GLib.SimpleActionGroup ();
 		action_group.add_action (schedule_action);
 		action_group.add_action (draft_action);
+		action_group.add_action (drafted_posts_action);
 
 		this.insert_action_group ("composer", action_group);
 
@@ -531,14 +580,21 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		string post_button_label = _("Post"),
 		bool edit_mode = false,
 		bool can_schedule = true,
-		string default_quote_policy = settings.default_quote_policy
+		string default_quote_policy = settings.default_quote_policy,
+		bool can_update_draft = false
 	) {
 		Object ();
 
 		this.edit_mode = edit_mode;
 		install_editor ();
 		install_emoji_pickers ();
-		post_btn.install (post_button_label, !this.edit_mode && can_schedule);
+		post_btn.install (
+			post_button_label,
+			!this.edit_mode && (can_schedule || can_update_draft),
+			can_update_draft,
+			can_schedule,
+			precompose == null || (precompose.quote_id == null && precompose.in_reply_to_id == null)
+		);
 		post_btn.clicked.connect (on_commit);
 		post_btn.allow_dynamic_name = post_button_label == _("Post");
 		install_visibility (default_visibility);
@@ -606,6 +662,11 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 				editor.add_bottom_child (attachmentsbin_component);
 				sensitive_media_button.active = precompose.sensitive_media;
 			}
+		} else if (post_btn.allow_dynamic_name) {
+			// when precompose is empty, instead of the disabled post button
+			// show a "Drafts" button which will open the available drafts so
+			// the user can choose one
+			post_btn.show_drafts_default ();
 		}
 
 		unique_state = generate_unique_state ();
@@ -771,7 +832,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			redraft ? _("Redraft") : _("Edit"),
 			!redraft,
 			redraft,
-			t_status.quote_approval == null ? settings.default_quote_policy : t_status.quote_approval.to_quote_policy ().to_string ()
+			t_status.quote_approval == null ? settings.default_quote_policy : t_status.quote_approval.to_quote_policy ().to_string (),
+			redraft
 		);
 
 		if (!redraft) {
@@ -802,8 +864,9 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			// translators: composer post button label
 			posting_draft ? _("Post") : _("Edit"),
 			false,
-			false,
-			scheduled_status.props.quote_approval_policy
+			posting_draft,
+			scheduled_status.props.quote_approval_policy,
+			posting_draft
 		);
 
 		if (!posting_draft) {
@@ -1245,6 +1308,44 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		on_commit ();
 	}
 
+	private void on_drafted_posts_action_activated () {
+		if (!post_btn.sensitive) return;
+
+		var drafts_dlg = new Dialogs.Drafts ();
+		drafts_dlg.draft_selected.connect (on_draft_selected);
+		on_push_subpage (drafts_dlg);
+	}
+
+	private void on_draft_selected (Widgets.ScheduledStatus draft_status_widget) {
+		app.question.begin (
+			// translators: Dialog title when replacing the current
+			//				composer data with those of a draft
+			{_("Replace Current Post?"), false},
+
+			// translators: Dialog body when replacing the current
+			//				composer data with those of a draft.
+			//				This means that the post the user was
+			//				typing in the composer will be replaced.
+			{_("Your current post will be lost."), false},
+			this,
+			// translators: dialog button action, verb; replacing current
+			//				composer data with those of a draft
+			{ { _("Replace"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			null,
+			// skip this question if
+			// the default state is the empty one
+			// and the state hasn't changed
+			// aka the composer started as and is empty
+			this.unique_state == DEFAULT_EMPTY_STATE && !state_changed (),
+			(obj, res) => {
+				if (app.question.end (res).truthy ()) {
+					this.force_close ();
+					draft_status_widget.compose_draft ();
+				}
+			}
+		);
+	}
+
 	private void on_schedule_picked (string iso8601) {
 		this.schedule_iso8601 = iso8601;
 		on_commit ();
@@ -1289,7 +1390,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			}
 		}
 
-		post_btn.sensitive = sensitive;
+		post_btn.set_sensitive_real (sensitive);
 	}
 
 	private void update_attachmentsbin_sensitivity () {
@@ -1492,6 +1593,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	// let's just check the important ones only, since
 	// asking when just changing trivial properties seems
 	// annoying.
+	private const uint DEFAULT_EMPTY_STATE = (uint) 2395400144;
 	private uint generate_unique_state () {
 		GLib.StringBuilder builder = new GLib.StringBuilder (editor.buffer.text);
 		builder.append (cw_button.active.to_string ());

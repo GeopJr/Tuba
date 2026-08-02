@@ -2,12 +2,14 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	public signal void deleted (string scheduled_status_id);
 	public signal void refresh ();
 	public signal void open ();
+	public signal void inline_clicked ();
 
 	private bool _draft = false;
 	public bool draft {
 		get { return _draft; }
 		set {
 			_draft = value;
+			to_draft_button.visible =
 			reschedule_button.visible = !value;
 			// translators: noun, as in a post that is saved but not posted yet
 			schedule_label.label = _("Draft");
@@ -15,18 +17,31 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		}
 	}
 
+	private bool _is_inline = false;
+	public bool is_inline {
+		get { return _is_inline; }
+		set {
+			_is_inline = value;
+			separator.visible =
+			action_box.visible = !value;
+		}
+	}
+
 	Gtk.Button reschedule_button;
+	Gtk.Button to_draft_button;
 	Gtk.Button edit_button;
 	Gtk.Box content_box;
 	Gtk.Label schedule_label;
+	Gtk.Box action_box;
+	Gtk.Separator separator;
 	construct {
 		this.focusable = true;
 		this.activatable = false;
-		this.css_classes = { "card-spacing", "card" };
+		this.css_classes = { "card-spacing", "card", "no-padding" };
 		this.overflow = Gtk.Overflow.HIDDEN;
 
 		content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-		var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
+		action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
 			margin_top = margin_bottom = margin_start = margin_end = 6
 		};
 		schedule_label = new Gtk.Label ("") {
@@ -55,6 +70,16 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		reschedule_button.clicked.connect (on_reschedule);
 		actions_box.append (reschedule_button);
 
+		to_draft_button = new Gtk.Button.from_icon_name ("tuba-archive-symbolic") {
+			// translators: button, clicking it converts a scheduled post
+			//				into a draft post; "Turn into a draft", "Make Draft"
+			//				"To Draft" or "Draft" (verb) are alternatives
+			tooltip_text = _("Convert into a draft"),
+			css_classes = { "flat" }
+		};
+		to_draft_button.clicked.connect (on_convert_to_draft);
+		actions_box.append (to_draft_button);
+
 		Gtk.Button delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
 			css_classes = { "flat", "error" },
 			tooltip_text = _("Delete"),
@@ -65,7 +90,8 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		action_box.append (actions_box);
 
 		content_box.append (action_box);
-		content_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+		separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+		content_box.append (separator);
 		this.child = content_box;
 
 		open.connect (on_activated);
@@ -149,8 +175,11 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		public RescheduleDialog (string iso8601) {
 			this.follows_content_size = true;
 
-			var schedule_page = new Dialogs.Schedule (iso8601, _("Reschedule"));
+			var schedule_page = new Dialogs.Schedule (iso8601, _("Reschedule")) {
+				can_cancel = true
+			};
 			schedule_page.schedule_picked.connect (on_schedule_picked);
+			schedule_page.cancelled.connect (on_cancel);
 
 			var navigation_view = new Adw.NavigationView ();
 			// translators: dialog title when rescheduling a post, reschedule is a verb, post is a noun
@@ -160,10 +189,18 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 			this.child = navigation_view;
 		}
 
+		private void on_cancel () {
+			this.force_close ();
+		}
+
 		private void on_schedule_picked (string iso8601) {
 			schedule_picked (iso8601);
 			this.force_close ();
 		}
+	}
+
+	private void on_convert_to_draft () {
+		on_schedule_picked ((new GLib.DateTime.now ()).add_years (3000).format_iso8601 ());
 	}
 
 	private void on_reschedule () {
@@ -187,7 +224,13 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 			var node = network.parse_node (parser);
 			var e = Tuba.Helper.Entity.from_json (node, typeof (API.ScheduledStatus), true);
-			if (e is API.ScheduledStatus) bind ((API.ScheduledStatus) e);
+			if (e is API.ScheduledStatus) {
+				if (new GLib.DateTime.from_iso8601 (((API.ScheduledStatus) e).scheduled_at, null).get_year () >= API.ScheduledStatus.DRAFT_YEAR) {
+					deleted (bound_scheduled_status.id);
+				} else {
+					bind ((API.ScheduledStatus) e);
+				}
+			}
 		} catch (Error e) {
 			warning (@"Error while rescheduling: $(e.code) $(e.message)");
 
@@ -225,6 +268,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		try {
 			yield req.exec (null);
 			deleted (bound_scheduled_status.id);
+			if (this.is_inline) app.refresh_scheduled_statuses ();
 		} catch (Error e) {
 			warning (@"Error while deleting scheduled status: $(e.code) $(e.message)");
 			app.toast (e.message, 0);
@@ -233,6 +277,16 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 
 	private void on_activated () {
 		if (!_draft || status_widget == null) return;
+		if (this.is_inline) {
+			inline_clicked ();
+			return;
+		}
+
+		compose_draft ();
+	}
+
+	public void compose_draft () {
+		if (!_draft) return;
 
 		new Dialogs.Composer.Dialog.from_scheduled (bound_scheduled_status, true, status_poll, on_draft_posted);
 	}

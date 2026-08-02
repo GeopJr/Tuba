@@ -1,6 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/schedule.ui")]
 public class Tuba.Dialogs.Schedule : Adw.NavigationPage, Composer.PreferredSizeable {
 	public signal void schedule_picked (string iso8601);
+	public signal void cancelled ();
 	public int preferred_height { get; set; default = -1; }
 	public int preferred_width { get; set; default = -1; }
 
@@ -18,7 +19,13 @@ public class Tuba.Dialogs.Schedule : Adw.NavigationPage, Composer.PreferredSizea
 	[GtkChild] unowned Gtk.SpinButton seconds_spin_button;
 	[GtkChild] unowned Adw.ComboRow timezone_combo_row;
 	[GtkChild] unowned Gtk.Button schedule_button;
+	[GtkChild] unowned Gtk.Button cancel_button;
 	[GtkChild] unowned Dialogs.Composer.PreferredSizeBin size_bin;
+
+	public bool can_cancel {
+		get { return cancel_button.visible; }
+		set { cancel_button.visible = value; }
+	}
 
 	GLib.DateTime result_dt;
 	construct {
@@ -66,6 +73,10 @@ public class Tuba.Dialogs.Schedule : Adw.NavigationPage, Composer.PreferredSizea
 
 	[GtkCallback] void on_schedule () {
 		schedule_picked (result_dt.format_iso8601 ());
+	}
+
+	[GtkCallback] void on_cancel () {
+		cancelled ();
 	}
 
 	void validate () {
