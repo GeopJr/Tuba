@@ -1294,34 +1294,43 @@
 				quoted_status_btn.clicked.connect (quoted_status.on_open_unless_reveal);
 				content_box.append (quoted_status_btn);
 
-				if (status.formal.quote.state != "accepted") {
+				if (status.formal.quote.state != "accepted" || (status.formal.quote.account != null && status.formal.quote.account.limited)) {
 					// translators: placeholder message when a quote has
 					//				been hidden for an unknown reason;
 					//				should never be visible to users
 					string label = _("Quote is hidden");
-					switch (status.formal.quote.state) {
-						case "blocked_account":
-						// translators: label shown when the quote is hidden
-						//				inside a post for the described reason;
-						//				the variable is a string account handle
-						//				or domain
-							label = _("This quote is hidden because you've blocked %s").printf (status.formal.quote.account.handle);
-							break;
-						case "blocked_domain":
-							label = _("This quote is hidden because you've blocked %s").printf (status.formal.quote.account.domain);
-							break;
-						case "muted_account":
-						// translators: label shown when the quote is hidden
-						//				inside a post for the described reason;
-						//				the variable is a string account handle
-							label = _("This quote is hidden because you've muted %s").printf (status.formal.quote.account.handle);
-							break;
+					if (status.formal.quote.state != "accepted") {
+						switch (status.formal.quote.state) {
+							case "blocked_account":
+							// translators: label shown when the quote is hidden
+							//				inside a post for the described reason;
+							//				the variable is a string account handle
+							//				or domain
+								label = _("This quote is hidden because you've blocked %s").printf (status.formal.quote.account.handle);
+								break;
+							case "blocked_domain":
+								label = _("This quote is hidden because you've blocked %s").printf (status.formal.quote.account.domain);
+								break;
+							case "muted_account":
+							// translators: label shown when the quote is hidden
+							//				inside a post for the described reason;
+							//				the variable is a string account handle
+								label = _("This quote is hidden because you've muted %s").printf (status.formal.quote.account.handle);
+								break;
+						}
+					} else {
+						// translators: label shown when a quote has been hidden
+						//				because the user's instance limits the
+						//				author of the quote. moderators refers
+						//				to the user instance's admins
+						label = _("This quote is hidden because the account has been hidden by the moderators");
 					}
+
 					var qbtn = new Gtk.Label (label) {
 						wrap = true,
 						wrap_mode = CHAR,
 						tooltip_text = _("Show Anyway"),
-						css_classes = {"border-radius-6", "frame"}
+						css_classes = {"border-radius-6", "frame", "ttl-quote-state"}
 					};
 					qstack.add_named (qbtn, "hidden-btn");
 					qstack.visible_child_name = "hidden-btn";

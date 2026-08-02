@@ -50,6 +50,7 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 	public string? avatar_description { get; set; default=null; }
 	public string url { get; set; }
 	public bool bot { get; set; default=false; }
+	public bool limited { get; set; default=false; }
 	public string created_at { get; set; }
 	public Gee.ArrayList<API.Emoji>? emojis { get; set; }
 	public int64 followers_count { get; set; }
