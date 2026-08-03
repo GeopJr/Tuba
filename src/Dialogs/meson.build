@@ -11,6 +11,7 @@ sources += files(
     'NotificationSettings.vala',
     'Preferences.vala',
     'ProfileEdit.vala',
+    'ProfileLists.vala',
     'Report.vala',
     'Saveable.vala',
 )

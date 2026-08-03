@@ -450,7 +450,7 @@ public class Tuba.Widgets.ActionsRow : Adw.BreakpointBin {
 	}
 
 	private void on_quote_button_clicked () {
-		new Dialogs.Composer.Dialog.quote (status.formal, null, true); // TODO: test
+		new Dialogs.Composer.Dialog.quote (status.formal, null, true);
 	}
 
 	private void commit_boost (Widgets.StatusActionButton status_btn, API.Status.Visibility? visibility = null) {
