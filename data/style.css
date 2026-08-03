@@ -685,10 +685,6 @@ drive-item:drop(active) image {
 	border-radius: 0;
 }
 
-.spoilered-attachment {
-	filter: blur(30px);
-}
-
 .ttl-quote {
 	border-radius: 6px;
 	font-weight: initial;

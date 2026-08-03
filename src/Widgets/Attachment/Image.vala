@@ -10,11 +10,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 		set {
 			_spoiler = value;
-			if (value) {
-				pic.add_css_class ("spoilered-attachment");
-			} else {
-				pic.remove_css_class ("spoilered-attachment");
-			}
+			pic.spoilered = value;
 
 			if (media_icon != null) media_icon.visible = !value;
 		}
@@ -129,7 +125,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 	public signal void spoiler_revealed ();
 	protected override void on_click () {
-		if (pic.has_css_class ("spoilered-attachment")) {
+		if (pic.spoilered) {
 			spoiler_revealed ();
 			return;
 		}

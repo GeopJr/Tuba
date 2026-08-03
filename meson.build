@@ -126,6 +126,10 @@ if gtk_dep.version().version_compare('>=4.20') and meson.get_compiler('vala').ve
   add_project_arguments(['--define=GTK_4_20'], language: 'vala')
 endif
 
+if gtk_dep.version().version_compare('>=4.22') and meson.get_compiler('vala').version().version_compare('>=0.56.19')
+  add_project_arguments(['--define=GTK_4_22'], language: 'vala')
+endif
+
 if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif
