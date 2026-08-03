@@ -116,7 +116,6 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 	public override void remove (InstanceAccount account) throws GLib.Error {
 		base.remove (account);
-
 		remove_account_real.begin (account);
 	}
 
@@ -129,17 +128,32 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 			yield Secret.password_clearv (schema, attrs, null);
 
-			if (account.client_id != null && account.client_secret != null && account.access_token != null) {
-				var req = new RequestV2 ("/oauth/revoke", POST) { account = account, no_auth = true };
-				req.add_form_data ("client_id", account.client_id);
-				req.add_form_data ("client_secret", account.client_secret);
-				req.add_form_data ("token", account.access_token);
-				yield req.exec (null);
+			if (!account.tuba_revoked && account.client_id != null && account.client_secret != null && account.access_token != null) {
+				yield revoke_token_dangerous (account);
 			}
 		} catch (Error e) {
 			warning (e.message);
 			var dlg = app.inform (_("Error"), e.message);
 			dlg.present (app.main_window);
+		}
+	}
+
+	public override async void revoke_token_dangerous (InstanceAccount account, bool should_handle_error = true) {
+		try {
+			var req = new RequestV2 ("/oauth/revoke", POST) { account = account, no_auth = true };
+			req.add_form_data ("client_id", account.client_id);
+			req.add_form_data ("client_secret", account.client_secret);
+			req.add_form_data ("token", account.access_token);
+			yield req.exec (null);
+		} catch (Error e) {
+			// we may not want to error on backends that don't implement it
+			// or when we are removing an account that may have had its token
+			// revoked already from other sources
+			if (should_handle_error) {
+				warning (e.message);
+				var dlg = app.inform (_("Error"), e.message);
+				dlg.present (app.main_window);
+			}
 		}
 	}
 

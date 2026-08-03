@@ -52,7 +52,7 @@
 				<property name="icon-name">user-trash-symbolic</property>
 				<property name="valign">center</property>
 				<property name="margin-start">6</property>
-				<!-- translators: Forget as in 'Remove Account' -->
+				<!-- translators: Forget as in 'Remove Account'; used as a label or tooltip when the user wants to remove their account from Tuba -->
 				<property name="tooltip-text" translatable="yes">Forget Account</property>
 				<signal name="clicked" handler="on_forget" swapped="no" />
 				<style>

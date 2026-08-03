@@ -35,6 +35,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 	public abstract void update_account (InstanceAccount account) throws GLib.Error;
 	public abstract void load () throws GLib.Error;
 	public abstract void save () throws GLib.Error;
+	public abstract async void revoke_token_dangerous (InstanceAccount account, bool should_handle_error = true);
 	//  public void safe_save () {
 	//  	try {
 	//  		save ();
@@ -90,7 +91,6 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			account.verify_credentials.begin ((obj, res) => {
 				try {
 					account.verify_credentials.end (res);
-					account.error = null;
 					if (account.source != null) {
 						if (account.source.quote_policy != null && account.source.quote_policy != "") settings.default_quote_policy = account.source.quote_policy;
 						if (account.source.language != null && account.source.language != "") settings.default_language = account.source.language;
@@ -100,10 +100,14 @@ public abstract class Tuba.AccountStore : GLib.Object {
 						}
 						account.unreviewed_follow_requests = account.source.follow_requests_count;
 					}
+				} catch (Oopsie.HTTP_401 e) {
+					warning (@"Couldn't activate account $(account.handle):");
+					warning (e.message);
+					account.tuba_revoked = true;
+					ask_refresh_account_token.begin (account);
 				} catch (Error e) {
 					warning (@"Couldn't activate account $(account.handle):");
 					warning (e.message);
-					account.error = e;
 				}
 			});
 		}
@@ -111,6 +115,43 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		accounts.active = account;
 		active.activated ();
 		switched (active);
+	}
+
+	private async void ask_refresh_account_token (InstanceAccount account) {
+		var res = yield app.question (
+			// translators: dialog title shown when a user's token has been revoked
+			//				and Tuba is asking them if they want to re-login. You
+			//				may replace "Reauthenticate" with "Reconnect" or "Re-login"
+			{_("Reauthenticate account?"), false},
+			// translators: dialog subtitle shown when a user's token has been revoked
+			//				and Tuba is asking them if they want to re-login. "password
+			//				expired" can be replaced with "credentials expired" or "login
+			//				expired". It's not the actual user password, just their token.
+			//				The first variable is a string account handle, the second
+			//				variable is the app name (Tuba).
+			{_("%s's password expired. To continue using %s, you have to login again.").printf (account.handle, Build.NAME), false},
+			app.main_window,
+			{
+				// translators: dialog button shown when a user's token has been revoked
+				//				and Tuba is asking them if they want to re-login. Please
+				//				use the same verb used in the dialog title "Reauthenticate
+				//				account?"
+				{ _("Reauthenticate"), Adw.ResponseAppearance.SUGGESTED },
+				{ _("Forget Account"), Adw.ResponseAppearance.DESTRUCTIVE }
+			},
+			null, false
+		);
+
+		// handle everything but CANCEL
+		if (res == Application.QuestionAnswer.YES) {
+			new Dialogs.NewAccount (true, account).present ();
+		} else if (res == Application.QuestionAnswer.NO) {
+			try {
+				this.remove (account);
+			} catch (Error e) {
+				warning (@"Couldn't remove account $(account.handle): $(e.code) $(e.message)");
+			}
+		}
 	}
 
 	public signal InstanceAccount? create_for_backend (Json.Node node);

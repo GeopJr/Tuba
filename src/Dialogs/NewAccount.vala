@@ -18,6 +18,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	protected InstanceAccount account { get; set; default = new InstanceAccount.empty (""); }
 	protected bool can_access_settings { get; set; default=false; }
 	protected bool admin_mode { get; set; default=false; }
+	private InstanceAccount? updating_account { get; set; default = null; }
 
 	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 	[GtkChild] unowned Adw.NavigationView deck;
@@ -49,7 +50,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		return scopes;
 	}
 
-	public NewAccount (bool can_access_settings = false) {
+	public NewAccount (bool can_access_settings = false, InstanceAccount? account_to_update = null) {
 		Object (transient_for: app.main_window);
 		this.can_access_settings = can_access_settings;
 		app.add_account_window = this;
@@ -75,9 +76,18 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		manual_auth_label.activate_link.connect (on_manual_auth);
 
+		if (account_to_update != null) {
+			this.updating_account = account_to_update;
+		}
+
 		reset ();
 		present ();
 		instance_entry.grab_focus ();
+
+		if (this.updating_account != null) {
+			instance_entry.text = this.updating_account.instance;
+			on_next_clicked ();
+		}
 	}
 
 	private void add_toast (string content, uint timeout = 0, string? action_name = null, GLib.Variant? action_target = null, string? action_label = null) {
@@ -124,7 +134,9 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		clear_errors ();
 		use_auto_auth = SHOULD_AUTO_AUTH;
 		account = new InstanceAccount.empty (account.instance);
-		deck.pop_to_page (instance_step);
+		if (this.updating_account == null) {
+			deck.pop_to_page (instance_step);
+		}
 	}
 
 	void oopsie (string title, string msg = "") {
@@ -188,7 +200,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			throw new Oopsie.USER (_("Please enter a valid instance URL"));
 		}
 
-		account.instance = final_string;
+		account.instance = this.updating_account == null ? final_string : this.updating_account.instance;
 		instance_entry.text = final_string_no_scheme;
 	}
 
@@ -214,6 +226,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		if (deck.visible_page != code_step) {
 			deck.push (code_step);
+			if (this.updating_account != null) deck.remove (instance_step);
 		}
 		open_confirmation_page ();
 	}
@@ -251,10 +264,22 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		yield account.verify_credentials ();
 
 		account.admin_mode = this.admin_mode;
-		account = accounts.create_account (account.to_json ());
-
-		debug ("Saving account");
-		accounts.add (account);
+		if (this.updating_account != null) {
+			yield accounts.revoke_token_dangerous (this.updating_account, false);
+			this.updating_account.tuba_revoked = false;
+			this.updating_account.client_id = account.client_id;
+			this.updating_account.client_secret = account.client_secret;
+			this.updating_account.access_token = account.access_token;
+			this.updating_account.admin_mode = account.admin_mode;
+			//  this.updating_account.tuba_instance_features = account.tuba_instance_features;
+			this.updating_account.backend = account.backend;
+			accounts.update_account (this.updating_account);
+			account = this.updating_account;
+		} else {
+			account = accounts.create_account (account.to_json ());
+			debug ("Saving account");
+			accounts.add (account);
+		}
 
 		done_page_emoji_label.instance_emojis = account.emojis_map;
 		done_page_emoji_label.content = _("Hello, %s!").printf (account.display_name);
@@ -310,12 +335,10 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			try {
 				step.end (res);
 				clear_errors ();
-			}
-			catch (Oopsie.INSTANCE e) {
+			} catch (Oopsie.INSTANCE e) {
 				oopsie (_("Server returned an error"), e.message);
 				mark_errors (e.message);
-			}
-			catch (Error e) {
+			} catch (Error e) {
 				oopsie (e.message);
 				mark_errors (e.message);
 			}

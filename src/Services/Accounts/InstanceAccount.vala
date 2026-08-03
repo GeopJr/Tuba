@@ -115,8 +115,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public string? client_secret { get; set; }
 	public string? access_token { get; set; }
 	public bool needs_update { get; set; default=false; }
-	public Error? error { get; set; } //TODO: use this field when server invalidates the auth token
 	public bool tuba_probably_has_notification_filters { get; set; default=false; }
+	public bool tuba_revoked { get; set; default=false; }
 	public API.InstanceV2.APIVersions tuba_api_versions { get; set; default= new API.InstanceV2.APIVersions (); }
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
@@ -251,7 +251,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				this.avatar = acc.avatar;
 			}
 		} catch (Error e) {
-			warning (@"Couldn't update accounr $(this.id): $(e.code) $(e.message)");
+			warning (@"Couldn't update account $(this.id): $(e.code) $(e.message)");
 		}
 	}
 
@@ -1020,8 +1020,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			app.send_notification (id, obj.to_toast.end (res));
 		});
 	}
-
-
 
 	// Streamable
 
