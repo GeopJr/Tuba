@@ -886,7 +886,7 @@
 		if (status.id == "")
 			on_avatar_clicked ();
 		else
-			status.open ();
+			on_open_unless_reveal ();
 	}
 
 	public void on_open_unless_reveal (Gtk.Button? btn = null) {
@@ -898,7 +898,7 @@
 		} else if (filter_stack.visible_child_name == "filter") {
 			toggle_filter ();
 		} else {
-			on_open ();
+			status.open ();
 		}
 	}
 
@@ -1235,7 +1235,7 @@
 	protected virtual void bind () {
 		soft_unbind ();
 
-		if (this.status.formal.filtered != null && this.status.formal.filtered.size > 0) {
+		if (this.status.formal.filtered != null && this.status.formal.filtered.size > 0 && !expanded) {
 			filter_stack.visible_child_name = "filter";
 
 			string? filter_warn = this.status.formal.tuba_filter_warn;
@@ -1625,6 +1625,7 @@
 		expanded = true;
 		content.selectable = true;
 		content.add_css_class ("ttl-large-body");
+		filter_stack.visible_child_name = "status";
 
 		// Move the avatar & thread line into the name box
 		status_box.remove (avatar_side);

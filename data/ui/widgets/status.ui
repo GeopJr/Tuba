@@ -327,6 +327,7 @@
             <property name="child">
               <object class="GtkButton">
                 <property name="receives_default">1</property>
+                <property name="focusable">0</property>
                 <!-- translators: Tooltip that opens filter -->
                 <property name="tooltip_text" translatable="yes">Show Anyway</property>
                 <signal name="clicked" handler="toggle_filter" swapped="no" />
