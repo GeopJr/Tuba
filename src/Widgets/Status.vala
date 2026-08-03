@@ -499,7 +499,7 @@
 
 			app.question.begin (
 				// translators: confirmation dialog title, the variable is the post visibility e.g. Public, Unlisted...
-				{_("Copy %s Post Link?").printf (accounts.active.visibility[status.formal.visibility].name), false},
+				{_("Copy \"%s\" Post Link?").printf (accounts.active.visibility[status.formal.visibility].name), false},
 				{ body, false },
 				app.main_window,
 				{ { _("Copy"), Adw.ResponseAppearance.SUGGESTED }, { _("Don't remind me again"), Adw.ResponseAppearance.DEFAULT } },
