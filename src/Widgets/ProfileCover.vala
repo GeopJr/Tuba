@@ -657,6 +657,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			var child_label = this.child as Gtk.Label;
 			child_label.wrap = true;
 			child_label.justify = Gtk.Justification.CENTER;
+			child_label.wrap_mode = Pango.WrapMode.WORD_CHAR;
 		}
 	}
 
