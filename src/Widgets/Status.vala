@@ -253,7 +253,7 @@
 		status.formal.account.open ();
 	}
 
-	private bool has_stats { get { return status.formal.reblogs_count != 0 || status.formal.favourites_count != 0; } }
+	private bool has_stats { get { return status.formal.reblogs_count != 0 || status.formal.favourites_count != 0 || status.formal.quotes_count != 0; } }
 	private void show_view_stats_action () {
 		stats_simple_action.set_enabled (has_stats || has_reactions ());
 	}
@@ -1687,8 +1687,18 @@
 		wrap_box.append (child);
 	}
 
-	const float THREAD_WIDTH = 4f;
+	public void patch_stats (API.Status x) {
+		if (status.formal.favourites_count != x.formal.favourites_count)
+			status.formal.favourites_count = x.formal.favourites_count;
+		if (status.formal.reblogs_count != x.formal.reblogs_count)
+			status.formal.reblogs_count = x.formal.reblogs_count;
+		if (status.formal.replies_count != x.formal.replies_count)
+			status.formal.replies_count = x.formal.replies_count;
+		if (status.formal.quotes_count != x.formal.quotes_count)
+			status.formal.quotes_count = x.formal.quotes_count;
+	}
 
+	const float THREAD_WIDTH = 4f;
 	public override void snapshot (Gtk.Snapshot snapshot) {
 		if (!expanded && enable_thread_lines && status.formal.tuba_thread_role != NONE && filter_stack.visible_child_name == "status") {
 			float y;

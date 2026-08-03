@@ -36,6 +36,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		update_root_status.begin (status.id);
 
 		app.refresh.connect (on_refresh);
+		app.time_update.connect (on_time_update);
 	}
 
 	~Thread () {
@@ -285,8 +286,83 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		return widget_status;
 	}
 
+	private void on_time_update () {
+		if (!this.get_mapped ()) return;
+
+		for (int i = 0; i < uint.min (model.n_items, 250); i++) {
+			var status_widget = content.get_row_at_index (i) as Widgets.Status;
+			if (status_widget != null) {
+				status_widget.update_time ();
+			}
+		}
+
+		regular_stat_updates.begin ();
+	}
+
+	GLib.Cancellable? regular_stat_updates_cancellable = null;
+	private async void regular_stat_updates () {
+		if (regular_stat_updates_cancellable != null)
+			regular_stat_updates_cancellable.cancel ();
+		regular_stat_updates_cancellable = new GLib.Cancellable ();
+
+		if (root_status == null) return;
+		try {
+			API.Status[] context_statuses = {};
+			{
+				var req = new RequestV2 (@"/api/v1/statuses/$(root_status.id)") {
+					account = account,
+					ctx = this,
+					cancellable = root_update_cancellable
+				};
+
+				var in_stream = yield req.exec (null);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+				var node = network.parse_node (parser);
+				var api_status = API.Status.from (node);
+				context_statuses += api_status;
+			}
+
+			var req = new RequestV2 (@"/api/v1/statuses/$(root_status.id)/context") { account = account, ctx = this };
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var root = network.parse (parser);
+
+			var ancestors = root.get_array_member ("ancestors");
+			ancestors.foreach_element ((array, i, node) => {
+				var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+				if (!e.formal.tuba_filter_hidden)
+					context_statuses += e;
+			});
+
+			var descendants = root.get_array_member ("descendants");
+			descendants.foreach_element ((array, i, node) => {
+				var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+				if (!e.formal.tuba_filter_hidden)
+					context_statuses += e;
+			});
+
+			foreach (API.Status c_status in context_statuses) {
+				uint pos;
+				if (model.find_with_equal_func (c_status, status_comp_func, out pos)) {
+					var status_widget = content.get_row_at_index ((int) pos) as Widgets.Status;
+					if (status_widget != null) {
+						status_widget.patch_stats (c_status);
+					}
+				}
+			}
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (Error e) {
+			warning (@"Couldn't regular update thread $(root_status.id): $(e.message)");
+		}
+	}
+
+	private static EqualFunc<string> status_comp_func = (s1, s2) => {
+		return ((API.Status) s1).id == ((API.Status) s2).id;
+	};
+
 	#if USE_LISTVIEW
-	protected override void bind_listitem_cb (GLib.Object item) {
+		protected override void bind_listitem_cb (GLib.Object item) {
 			base.bind_listitem_cb (item);
 
 			if (((API.Status) ((Gtk.ListItem) item).item).id == root_status.id)
