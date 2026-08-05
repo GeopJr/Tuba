@@ -20,6 +20,7 @@ jobs:
       fail-fast: false
     steps:
       - uses: anttikivi/forgejo-status@5b8059a71fcbacde735bf92eb05b30ee24458bfc
+        if: github.repository_owner == 'GeopJr'
         continue-on-error: true
         with:
           token: ${{ secrets.CODEBERG_TOKEN }}
@@ -94,7 +95,14 @@ jobs:
       - run: make android android_studio=./mini android_sdk="${ANDROID_HOME}" release=1
       - if: always()
         run: cat .pixiewood/bin-aarch64/meson-logs/meson-log.txt || true
+      - name: Upload unsigned
+        if: github.repository_owner != 'GeopJr'
+        uses: actions/upload-artifact@v7
+        with:
+          name: apks
+          path: .pixiewood/android/app/build/outputs/apk/release/
       - name: Sign
+        if: github.repository_owner == 'GeopJr'
         env:
           ANDROID_KEYSTORE_KEY: ${{ secrets.ANDROID_KEYSTORE_KEY }}
           ANDROID_KEYSTORE_LOCATION: ./ANDROID_KEY/gtk.jks
@@ -104,6 +112,7 @@ jobs:
           make android_sign
           rm -f ./apks/app-universal-release-signed.apk ./apks/app-universal-release-signed.apk.idsig
       - uses: actions/upload-artifact@v7
+        if: github.repository_owner == 'GeopJr'
         with:
           name: apks
           path: apks/
