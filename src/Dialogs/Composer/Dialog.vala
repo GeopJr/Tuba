@@ -236,7 +236,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		emoji_picker.emoji_picked.connect (editor.insert_string_at_cursor);
 
 		if (accounts.active.instance_emojis != null && accounts.active.instance_emojis.size > 0) {
-			var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
+			var custom_emoji_picker = new Widgets.CustomEmojiChooserV2 ();
 			custom_emojis_button.popover = custom_emoji_picker;
 			custom_emoji_picker.emoji_picked.connect (editor.insert_string_at_cursor);
 		}

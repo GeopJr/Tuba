@@ -50,7 +50,7 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 		emoji_picker.emoji_picked.connect (on_emoji_picked);
 
 		if (accounts.active.instance_emojis != null && accounts.active.instance_emojis.size > 0) {
-			var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
+			var custom_emoji_picker = new Widgets.CustomEmojiChooserV2 ();
 			custom_emoji_button = new Gtk.MenuButton () {
 				icon_name = "tuba-cat-symbolic",
 				popover = custom_emoji_picker,

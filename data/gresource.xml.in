@@ -126,6 +126,9 @@
         <file preprocess="xml-stripblanks">gtk/dropdown/quotation_policy_title.ui</file>
         <file preprocess="xml-stripblanks">gtk/dropdown/quotation_policy.ui</file>
 
+        <file preprocess="xml-stripblanks">gtk/dropdown/cep_main.ui</file>
+        <file preprocess="xml-stripblanks">gtk/dropdown/cep_emoji.ui</file>
+
         <file preprocess="xml-stripblanks">ui/views/base.ui</file>
         <file preprocess="xml-stripblanks">ui/views/media_viewer.ui</file>
         <file preprocess="xml-stripblanks">ui/views/profile_header.ui</file>

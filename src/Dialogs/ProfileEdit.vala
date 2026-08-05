@@ -82,7 +82,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 	};
 
 	static construct {
-		typeof (Widgets.CustomEmojiChooser).ensure ();
+		typeof (Widgets.CustomEmojiChooserV2).ensure ();
 	}
 
 	construct {

@@ -3,7 +3,7 @@
 	<requires lib="gtk" version="4.0" />
 	<requires lib="libadwaita" version="1.0" />
 	<requires lib="gtksourceview" version="5.6" />
-	<object class="TubaWidgetsCustomEmojiChooser" id="custom_emoji_picker">
+	<object class="TubaWidgetsCustomEmojiChooserV2" id="custom_emoji_picker">
 		<signal name="emoji-picked" handler="on_bio_emoji_picked" swapped="no" />
 	</object>
 	<template class="TubaDialogsProfileEdit" parent="AdwDialog">

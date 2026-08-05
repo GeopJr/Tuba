@@ -221,10 +221,17 @@ drive-item:drop(active) image {
 }
 
 /*
-	Custom Emoji Picke
+	Custom Emoji Picker
 */
 .picker-emoji-button {
 	padding: 5px;
+}
+
+.cep-category row {
+	border-radius: 6px;
+	padding: 8px 12px;
+	margin: 3px 6px;
+	font-weight: bold;
 }
 
 /*
