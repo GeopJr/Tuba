@@ -25,6 +25,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 	public API.Status root_status { get; set; }
 	private weak Widgets.Status? root_status_widget { get; set; default=null; }
 
+	Adw.Toast? refresh_toast = null;
 	public Thread (API.Status status) {
 		Object (
 			root_status: status,
@@ -43,6 +44,10 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		debug ("Destroying Thread");
 		destruct_account_holder ();
 		if (grab_focus_timeout > 0) GLib.Source.remove (grab_focus_timeout);
+		if (refresh_toast != null) {
+			refresh_toast.dismiss ();
+			refresh_toast = null;
+		}
 	}
 
 	private void on_refresh () {
@@ -53,6 +58,10 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		clear ();
 		base_status = new StatusMessage () { loading = true };
 		request.begin ();
+		if (refresh_toast != null) {
+			refresh_toast.dismiss ();
+			refresh_toast = null;
+		}
 	}
 
 	GLib.Cancellable? root_update_cancellable = null;
@@ -348,6 +357,17 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 					if (status_widget != null) {
 						status_widget.patch_stats (c_status);
 					}
+				} else if (refresh_toast == null) {
+					// translators: toast shown when the user is viewing a thread
+					//				and there's new replies since they opened it;
+					//				next to it will be a button that allows them to
+					//				load the new replies
+					refresh_toast = new Adw.Toast (_("New Replies Found")) {
+						timeout = 0,
+						button_label = _("Refresh"),
+						action_name = "app.refresh"
+					};
+					app.toast_object (refresh_toast);
 				}
 			}
 		} catch (GLib.IOError.CANCELLED e) {

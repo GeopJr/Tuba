@@ -37,6 +37,7 @@ public class Tuba.Dialogs.MainWindow : Adw.ApplicationWindow, Saveable {
 		settings.notify["darken-images-on-dark-mode"].connect (settings_updated);
 
 		app.toast.connect (add_toast);
+		app.toast_object.connect (add_real_toast);
 		GLib.Timeout.add (5 * 60 * 1000, update_times, GLib.Priority.LOW);
 	}
 
@@ -51,6 +52,10 @@ public class Tuba.Dialogs.MainWindow : Adw.ApplicationWindow, Saveable {
 			action_target = action_target,
 			button_label = action_label
 		});
+	}
+
+	private void add_real_toast (Adw.Toast toast) {
+		toast_overlay.add_toast (toast);
 	}
 
 	private Gtk.Widget? media_viewer_source_widget;
