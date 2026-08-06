@@ -69,7 +69,7 @@ public class Tuba.Utils.Host {
 	public async static string download (string url) throws Error {
 		debug (@"Downloading file: $url…");
 
-		var file_name = Path.get_basename (url);
+		var file_name = GLib.Uri.unescape_string (Path.get_basename (url));
 		var dir_name = Path.get_dirname (url);
 
 		var dir_path = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "manual", "media");

@@ -136,6 +136,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
 	[GtkChild] unowned Adw.SwitchRow reply_to_old_post_reminder;
 	[GtkChild] unowned Adw.SwitchRow boost_alt_text_reminder;
+	[GtkChild] unowned Adw.SwitchRow fetch_remote_media_reminder;
 	[GtkChild] unowned Adw.SwitchRow copy_private_link_reminder;
 	[GtkChild] unowned Adw.EntryRow proxy_entry;
 	[GtkChild] unowned Adw.SwitchRow dim_trivial_notifications;
@@ -348,6 +349,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("reply-to-old-post-reminder", reply_to_old_post_reminder, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("boost-alt-text-reminder", boost_alt_text_reminder, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("fetch-remote-media-reminder", fetch_remote_media_reminder, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("copy-private-link-reminder", copy_private_link_reminder, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("dim-trivial-notifications", dim_trivial_notifications, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("analytics", analytics_switch, "active", SettingsBindFlags.DEFAULT);

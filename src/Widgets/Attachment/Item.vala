@@ -210,14 +210,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	protected virtual void on_click () {
-		open.begin ((obj, res) => {
-			try {
-				open.end (res);
-			}
-			catch (Error e) {
-				app.toast ("%s: %s".printf (_("Error"), e.message));
-			}
-		});
+		open.begin ();
 	}
 
 	private void on_long_press (double x, double y) {
@@ -239,8 +232,16 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		context_menu.popup ();
 	}
 
-	protected async void open () throws Error {
-		var path = yield Utils.Host.download (entity.url);
-		Utils.Host.open_url.begin (path);
+	protected async void open () {
+		try {
+			var path = yield Utils.Host.download (
+				entity.kind == "unknown"
+				&& settings.fetch_remote_media_default
+				&& entity.remote_url != null ? entity.remote_url : entity.url
+			);
+			yield Utils.Host.open_url (path);
+		} catch (Error e) {
+			app.toast ("%s: %s".printf (_("Error"), e.message));
+		}
 	}
 }

@@ -153,6 +153,12 @@
 							</object>
 						</child>
 						<child>
+							<object class="AdwSwitchRow" id="fetch_remote_media_reminder">
+								<!-- translators: setting that when enabled will show the user a warning before fetching attachments from a remote instance -->
+								<property name="title" translatable="yes">Warn before fetching media from remote servers</property>
+							</object>
+						</child>
+						<child>
 							<object class="AdwSwitchRow" id="work_in_background">
 								<!-- translators: setting that when enabled will hide the app instead of closing it when pressing the X button -->
 								<property name="title" translatable="yes">Run in Background</property>

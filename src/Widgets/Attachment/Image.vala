@@ -56,13 +56,15 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			pic_paintable_id = 0;
 		}
 
-		if (media_kind.is_video ()) {
+		if (media_kind.is_video () || media_kind == UNKNOWN) {
 			media_icon = new Gtk.Image () {
 				valign = Gtk.Align.CENTER,
 				halign = Gtk.Align.CENTER
 			};
 
-			if (media_kind != Tuba.Attachment.MediaType.AUDIO) {
+			if (media_kind == UNKNOWN) {
+				media_icon.icon_name = "tuba-paper-symbolic";
+			} else if (media_kind != Tuba.Attachment.MediaType.AUDIO) {
 				media_icon.css_classes = { "osd", "tuba-circular", "min-size-64" };
 				media_icon.icon_name = "media-playback-start-symbolic";
 			} else {
@@ -133,8 +135,88 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		if (media_kind != Tuba.Attachment.MediaType.UNKNOWN) {
 			on_any_attachment_click (entity.url);
 		} else { // Fallback
-			base.on_click ();
+			on_remote_fetch_media.begin ();
 		}
+	}
+
+	private async void on_remote_fetch_media () {
+		debug (@"Loading remote media $(entity.remote_url == null ? entity.url : entity.remote_url)");
+
+		if (settings.fetch_remote_media_reminder && entity.remote_url != null) {
+			var checkbutton = new Gtk.CheckButton () {
+				label = _("Don't remind me again"),
+				halign = Gtk.Align.CENTER
+			};
+			var res = yield app.question (
+				// translators: dialog title shown when asking the user to fetch media from a remote
+				//				instance/server. Load = fetch = download, remote = external = not in
+				//				user's instance, media = attachments = photos/videos/music/files
+				{"Load remote media?", false},
+				// translators: dialog subtitle, shown when asking the user to fetch media from a
+				//				remote instance/server. "Your instance" means the server the active
+				//				user's account is on. "Proxied" means that it handles it locally,
+				//				without the user connecting to the remote instance. By "can't handle
+				//				this attachment", it means it's a file like a PDF and the user's
+				//				instance doesn't know what to do with it. By "fetch" it means to
+				//				download it from the server the author is on. The variable is a
+				//				string app name (Tuba).
+				{_("Your instance hasn't proxied or can't handle this attachment. %s can fetch it directly from the remote instance however.").printf (Build.NAME), false},
+				app.main_window,
+				{ { "Load", Adw.ResponseAppearance.SUGGESTED }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				checkbutton,
+				false
+			);
+
+			// we want to have "dont remind me again" apply the last selected
+			// option. So if it's CLOSE or NO, set it to false
+			if (res != Tuba.Application.QuestionAnswer.YES) {
+				settings.fetch_remote_media_default = false;
+				return;
+			}
+
+			settings.fetch_remote_media_default = true;
+			if (checkbutton.active) settings.fetch_remote_media_reminder = false;
+		}
+
+		var media_type = entity.remote_url == null ? null : media_type_from_url (entity.remote_url);
+		if (settings.fetch_remote_media_default && media_type != null) {
+			bool stream = false;
+			#if GSTREAMER
+				if (media_type == AUDIO) {
+					stream = true;
+				}
+			#endif
+
+			app.main_window.show_media_viewer (
+				entity.remote_url,
+				media_type,
+				null,
+				null,
+				false,
+				entity.description,
+				null,
+				entity.blurhash,
+				stream
+			);
+			return;
+		}
+
+		base.on_click ();
+	}
+
+	private Tuba.Attachment.MediaType? media_type_from_url (string url) {
+		string basename = GLib.Path.get_basename (url);
+		string? content_type = GLib.ContentType.guess (basename, null, null);
+		if (content_type == null) return null;
+
+		string? mime = GLib.ContentType.get_mime_type (content_type);
+		if (mime == null) return null;
+
+		if (mime.has_prefix ("audio/")) return AUDIO;
+		if (mime.has_prefix ("image/")) return IMAGE;
+		if (mime.has_prefix ("video/")) return VIDEO;
+
+		return null;
 	}
 
 	public signal void on_any_attachment_click (string url) {}

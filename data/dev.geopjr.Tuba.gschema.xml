@@ -187,6 +187,18 @@
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<description>Before boosting a post that has attachments without alt text, Tuba will warn you</description>
 		</key>
+    <key name="fetch-remote-media-reminder" type="b">
+			<default>true</default>
+			<summary>Warn before fetching media from remote servers</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Before fetching unproxied or unrecognized media from remote servers, Tuba will warn you</description>
+		</key>
+    <key name="fetch-remote-media-default" type="b">
+			<default>false</default>
+			<summary>Fetch remote media default choice</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Whether Tuba should fetch remote media automatically when the proxied one is not available</description>
+		</key>
 		<key name="copy-private-link-reminder" type="b">
 			<default>true</default>
 			<summary>Warn before copying a link to a private post</summary>
