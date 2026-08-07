@@ -81,7 +81,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 					ellipsize = END
 				};
 				var btn = new Gtk.Button () {
-					css_classes = { "pill", "suggested-action" },
+					css_classes = { "small-pill", "suggested-action" },
 					child = label_widget
 				};
 				btn.clicked.connect (on_clicked);
@@ -103,7 +103,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			if (this.child == null || !(label_widget is Adw.SplitButton) || drafts_default) return;
 			this.child = new Gtk.Button () {
 				action_name = "composer.drafted-posts",
-				css_classes = { "pill", "suggested-action" },
+				css_classes = { "small-pill", "suggested-action" },
 				child = new Gtk.Label (_("Drafts…")) {
 					ellipsize = END
 				}
@@ -392,7 +392,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	construct {
 		var condition = new Adw.BreakpointCondition.length (
 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
-			400, Adw.LengthUnit.SP
+			430, Adw.LengthUnit.SP
 		);
 		var breakpoint = new Adw.Breakpoint ((owned) condition);
 		breakpoint.add_setter (this, "is-narrow", true);

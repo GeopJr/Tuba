@@ -476,6 +476,11 @@ drive-item:drop(active) image {
 	padding: 12px 0;
 }
 
+.small-pill {
+	padding: 10px 16px;
+	border-radius: 9999px;
+}
+
 /*
 	LabelWithWidgets
 */
