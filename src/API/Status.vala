@@ -113,7 +113,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 
 			bool res = false;
 			filtered.@foreach (e => {
-				if (e.filter.tuba_hidden) {
+				if (API.Filters.Filter.FilterAction.from_string (e.filter.filter_action) == HIDE) {
 					res = true;
 					return false;
 				}
@@ -130,7 +130,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 
 			string? res = null;
 			filtered.@foreach (e => {
-				if (!e.filter.tuba_hidden) {
+				if (API.Filters.Filter.FilterAction.from_string (e.filter.filter_action) != HIDE) {
 					res = e.filter.title;
 					return false;
 				}

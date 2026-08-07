@@ -156,6 +156,18 @@
 										</child>
 
 										<child>
+											<object class="GtkLabel" id="our_note">
+												<property name="visible">0</property>
+												<property name="xalign">0</property>
+												<property name="wrap">1</property>
+												<property name="wrap-mode">word-char</property>
+												<style>
+													<class name="dimmed" />
+												</style>
+											</object>
+										</child>
+
+										<child>
 											<object class="GtkButton" id="moved_btn">
 												<property name="visible">0</property>
 												<!-- translators: opens someone's profile in the app -->

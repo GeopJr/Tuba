@@ -51,6 +51,11 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 	public string url { get; set; }
 	public bool bot { get; set; default=false; }
 	public bool limited { get; set; default=false; }
+	public bool suspended { get; set; default=false; }
+	public bool memorial { get; set; default=false; }
+	public bool show_media { get; set; default=true; }
+	public bool show_media_replies { get; set; default=true; }
+	public bool show_featured { get; set; default=true; }
 	public string created_at { get; set; }
 	public Gee.ArrayList<API.Emoji>? emojis { get; set; }
 	public int64 followers_count { get; set; }

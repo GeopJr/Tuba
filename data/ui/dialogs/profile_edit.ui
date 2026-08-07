@@ -169,6 +169,7 @@
 														<property name="input-purpose">free-form</property>
 														<!-- translators: row in the profile editor dialog for setting alt text for the user profile picture -->
 														<property name="title" translatable="yes">Profile Picture Description</property>
+														<signal name="changed" handler="on_avi_alt_text_row_changed" swapped="no" />
 													</object>
 												</child>
 												<child>
@@ -176,6 +177,40 @@
 														<property name="input-purpose">free-form</property>
 														<!-- translators: row in the profile editor dialog for setting alt text for the user profile header/cover -->
 														<property name="title" translatable="yes">Header Picture Description</property>
+														<signal name="changed" handler="on_header_alt_text_row_changed" swapped="no" />
+													</object>
+												</child>
+											</object>
+										</child>
+										<child>
+											<object class="AdwPreferencesGroup" id="display_group">
+												<property name="visible">0</property>
+												<!-- translators: group title in the profile edit dialog, tabs in the user's profile (featured, posts, replies, media) -->
+												<property name="title" translatable="yes">Profile Tabs</property>
+												<child>
+													<object class="AdwSwitchRow" id="featured_row">
+														<property name="active">1</property>
+														<property name="title" translatable="yes">Featured</property>
+														<!-- translators: switch row subtitle in profile edit dialog; explains what the 'Featured' tab does -->
+														<property name="subtitle" translatable="yes">Optional tab where you can showcase other accounts</property>
+													</object>
+												</child>
+												<child>
+													<object class="AdwSwitchRow" id="media_row">
+														<property name="active">1</property>
+														<property name="title" translatable="yes">Media</property>
+														<!-- translators: switch row subtitle in profile edit dialog; explains what the 'Media' tab does -->
+														<property name="subtitle" translatable="yes">Optional tab that shows your posts containing images or videos</property>
+													</object>
+												</child>
+												<child>
+													<object class="AdwSwitchRow" id="media_replies_row">
+														<property name="active">1</property>
+														<!-- translators: switch row title in the profile edit dialog; when enabled it will include replies that include media in the "media" tab (e.g. if you replied with a gif to someone, it will show in your media tab) -->
+														<property name="title" translatable="yes">Include replies on the Media tab</property>
+														<!-- translators: switch row subtitle in profile edit dialog; explains what the 'Include replies on the Media tab' setting does -->
+														<property name="subtitle" translatable="yes">Whether the Media tab should show both your posts and replies to other people’s posts</property>
+														<property name="sensitive" bind-source="media_row" bind-property="active" bind-flags="sync-create" />
 													</object>
 												</child>
 											</object>

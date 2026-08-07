@@ -24,9 +24,25 @@ public class Tuba.API.Filters.Filter : Entity {
 		return base.deserialize_array_type (prop);
 	}
 
-	public bool tuba_hidden {
-		get {
-			return filter_action != "warn";
+	public enum FilterAction {
+		HIDE,
+		BLUR,
+		WARN;
+
+		public string to_string () {
+			switch (this) {
+				case BLUR: return "blur";
+				case HIDE: return "hide";
+				default: return "warn";
+			}
+		}
+
+		public static FilterAction from_string (string action) {
+			switch (action.down ()) {
+				case "blur": return BLUR;
+				case "hide": return HIDE;
+				default: return WARN;
+			}
 		}
 	}
 

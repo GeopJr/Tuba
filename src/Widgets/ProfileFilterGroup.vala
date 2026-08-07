@@ -34,7 +34,7 @@ public class Tuba.Widgets.ProfileFilterGroup : Gtk.ListBoxRow {
 	public signal void filter_change (Filter filter);
 
 	Adw.ToggleGroup toggle_group;
-	construct {
+	public ProfileFilterGroup (bool show_media = true, bool show_featured = true) {
 		toggle_group = new Adw.ToggleGroup ();
 		this.focusable = true;
 		this.activatable = false;
@@ -42,7 +42,7 @@ public class Tuba.Widgets.ProfileFilterGroup : Gtk.ListBoxRow {
 		this.add_css_class ("toggle-group-17");
 
 		bool set_active_manually = false;
-		if (accounts.active.tuba_api_versions.mastodon > 5 || InstanceAccount.InstanceFeatures.ENDORSE_USERS in accounts.active.tuba_instance_features) {
+		if (show_featured && (accounts.active.tuba_api_versions.mastodon > 5 || InstanceAccount.InstanceFeatures.ENDORSE_USERS in accounts.active.tuba_instance_features)) {
 			toggle_group.add (new Adw.Toggle () {
 				// translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 				label = _("Featured"),
@@ -64,11 +64,13 @@ public class Tuba.Widgets.ProfileFilterGroup : Gtk.ListBoxRow {
 			name = Filter.REPLIES.to_string ()
 		});
 
-		toggle_group.add (new Adw.Toggle () {
-			// translators: as in attachments / music, videos, pictures
-			label = _("Media"),
-			name = Filter.MEDIA.to_string ()
-		});
+		if (show_media) {
+			toggle_group.add (new Adw.Toggle () {
+				// translators: as in attachments / music, videos, pictures
+				label = _("Media"),
+				name = Filter.MEDIA.to_string ()
+			});
+		}
 
 		if (set_active_manually) toggle_group.active = 1;
 

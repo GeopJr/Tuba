@@ -29,6 +29,30 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_COLLECTION_ADDED = "added_to_collection";
 	public const string KIND_COLLECTION_EDITED = "collection_update";
 
+	public const string[] ALL_HANDLED_NOTIFICATION_TYPES = {
+		KIND_MENTION,
+		KIND_REBLOG,
+		KIND_FAVOURITE,
+		KIND_FOLLOW,
+		KIND_POLL,
+		KIND_FOLLOW_REQUEST,
+		KIND_REMOTE_REBLOG,
+		KIND_EDITED,
+		KIND_REPLY,
+		KIND_SEVERED_RELATIONSHIPS,
+		KIND_ADMIN_REPORT,
+		KIND_ADMIN_SIGNUP,
+		KIND_STATUS,
+		KIND_PLEROMA_REACTION,
+		KIND_REACTION,
+		KIND_ANNUAL_REPORT,
+		KIND_MODERATION_WARNING,
+		KIND_QUOTE,
+		KIND_QUOTE_UPDATE,
+		KIND_COLLECTION_ADDED,
+		KIND_COLLECTION_EDITED,
+	};
+
 	// Not exactly sure where I'm going with this.
 	// I don't want *all* features listed here, just
 	// the ones that either take too long to figure
@@ -716,6 +740,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					#if UNIFIEDPUSH
 						if (instance_v2.configuration.vapid != null) this.instance_info.tuba_vapid = instance_v2.configuration.vapid.public_key;
 					#endif
+					if (instance_v2.configuration.accounts != null) this.instance_info.tuba_limits = instance_v2.configuration.accounts;
 
 					new_flags = instance_info.tuba_can_translate ? new_flags | InstanceFeatures.TRANSLATION : new_flags & ~InstanceFeatures.TRANSLATION;
 				}
@@ -1001,7 +1026,11 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		KIND_REBLOG
 	};
 	public void send_toast (API.Notification obj) {
-		if (obj.kind != null && (obj.kind in settings.muted_notification_types)) return;
+		if (
+			obj.kind == null
+			|| !(obj.kind in ALL_HANDLED_NOTIFICATION_TYPES)
+			|| obj.kind in settings.muted_notification_types
+		) return;
 
 		var id = this.id;
 		var others = 0;

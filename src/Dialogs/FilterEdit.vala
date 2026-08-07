@@ -115,7 +115,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 		if (filter != null) {
 			filter_id = filter.id;
 			title_row.text = filter.title;
-			hide_row.active = filter.tuba_hidden;
+			hide_row.active = API.Filters.Filter.FilterAction.from_string (filter.filter_action) == HIDE;
 
 			var exp_from_date = FilterExpiration.from_date (filter.expires_at);
 			if (exp_from_date != FilterExpiration.NEVER) {

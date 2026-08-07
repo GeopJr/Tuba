@@ -103,6 +103,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	[GtkChild] unowned Widgets.EmojiLabel display_name;
 	[GtkChild] unowned Gtk.Label handle;
 	[GtkChild] unowned Widgets.Avatar avatar;
+	[GtkChild] unowned Gtk.Label our_note;
 	[GtkChild] unowned Gtk.Button moved_btn;
 	[GtkChild] public unowned Widgets.MarkupView note;
 	[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
@@ -463,6 +464,18 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			Tuba.Helper.Image.request_paintable (profile.header, null, false, on_cache_response);
 		}
 		background.alternative_text = profile.header_description;
+
+		if (profile.memorial) {
+			// translators: note shown on profiles that have been memorialized
+			our_note.label = _("In Memoriam");
+			our_note.visible = true;
+		} else if (profile.suspended) {
+			// translators: note shown on profiles that have been suspended
+			our_note.label = _("Suspended");
+			our_note.visible = true;
+		} else {
+			our_note.visible = false;
+		}
 
 		if (!_mini && profile.moved != null) {
 			moved_btn.visible = true;

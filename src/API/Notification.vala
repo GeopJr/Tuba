@@ -39,6 +39,10 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		}
 	}
 
+	//  public class NotificationFallback : Entity {
+	//  	public string title { get; set; }
+	//  }
+
 	public class ModerationWarning : Entity {
 		public string id { get; set; }
 	}
@@ -54,6 +58,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 	public ModerationWarning? moderation_warning { get; set; default = null; }
 	public string? group_key { get; set; default = null; }
 	public API.Collection? collection { get; set; default = null; }
+	//  public NotificationFallback? fallback { get; set; default = null; }
 
 	// the docs claim that 'relationship_severance_event'
 	// is the one used but that is not true
@@ -117,10 +122,12 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				}
 				break;
 			default:
-				if (status != null) {
-					status.open ();
-				} else {
-					account.open ();
+				if (kind in InstanceAccount.ALL_HANDLED_NOTIFICATION_TYPES) {
+					if (status != null) {
+						status.open ();
+					} else {
+						account.open ();
+					}
 				}
 				break;
 		}
@@ -184,7 +191,16 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 					widget
 				);
 			default:
-				return new Widgets.Notification (this);
+				if (kind in InstanceAccount.ALL_HANDLED_NOTIFICATION_TYPES)
+					return new Widgets.Notification (this);
+
+				return create_basic_card (
+					"tuba-lightbulb-symbolic",
+					// translators: notification title when Tuba receives a notification it
+					//				can't handle yet. The variable is the string notification
+					//				 type.
+					_("Unknown notification type: %s").printf (kind)
+				);
 		}
 	}
 

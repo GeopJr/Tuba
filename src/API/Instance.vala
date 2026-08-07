@@ -22,6 +22,7 @@ public class Tuba.API.Instance : Entity {
 	public API.Pleroma.Instance? pleroma { get; set; default = null; }
 	public Gee.ArrayList<Rule>? rules { get; set; }
 
+	public API.InstanceV2.Configuration.AccountsCharLimits tuba_limits { get; set; default = new API.InstanceV2.Configuration.AccountsCharLimits (); }
 	public bool tuba_can_translate { get; set; default=false; }
 	public int64 tuba_max_alt_chars { get; set; default = 1500; }
 	#if UNIFIEDPUSH
@@ -79,7 +80,7 @@ public class Tuba.API.Instance : Entity {
 				return pleroma.metadata.fields_limits.max_fields;
 			}
 
-			return 4;
+			return this.tuba_limits.max_profile_fields;
 		}
 	}
 
@@ -89,7 +90,7 @@ public class Tuba.API.Instance : Entity {
 				return pleroma.metadata.fields_limits.name_length;
 			}
 
-			return 255;
+			return this.tuba_limits.profile_field_name_limit;
 		}
 	}
 
@@ -99,7 +100,7 @@ public class Tuba.API.Instance : Entity {
 				return pleroma.metadata.fields_limits.value_length;
 			}
 
-			return 255;
+			return this.tuba_limits.profile_field_value_limit;
 		}
 	}
 

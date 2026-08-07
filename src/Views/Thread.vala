@@ -362,7 +362,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 					//				and there's new replies since they opened it;
 					//				next to it will be a button that allows them to
 					//				load the new replies
-					refresh_toast = new Adw.Toast (_("New Replies Found")) {
+					refresh_toast = new Adw.Toast (_("New Replies Available")) {
 						timeout = 0,
 						button_label = _("Refresh"),
 						action_name = "app.refresh"

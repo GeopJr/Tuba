@@ -171,9 +171,11 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 	public class FilterGroup : Widgetizable, GLib.Object {
 		public bool visible { get; set; default=true; }
+		public bool show_media { get; set; default=true; }
+		public bool show_featured { get; set; default=true; }
 
 		public override Gtk.Widget to_widget () {
-			var widget = new Widgets.ProfileFilterGroup ();
+			var widget = new Widgets.ProfileFilterGroup (show_media, show_featured);
 			this.bind_property ("visible", widget, "visible", GLib.BindingFlags.SYNC_CREATE);
 			return widget;
 		}
@@ -241,7 +243,10 @@ public class Tuba.Views.Profile : Views.Accounts {
 		);
 
 		this.bind_property ("empty-state-title", error_message_row, "message", SYNC_CREATE);
-		filter_group = new FilterGroup ();
+		filter_group = new FilterGroup () {
+			show_featured = acc.show_featured,
+			show_media = acc.show_media
+		};
 		model.insert (0, profile);
 		model.insert (1, filter_group);
 		model.insert (2, error_message_row);
@@ -723,6 +728,8 @@ public class Tuba.Views.Profile : Views.Accounts {
 					break;
 				case Widgets.ProfileFilterGroup.Filter.MEDIA:
 					req.add_parameter ("only_media", "true");
+					if (!profile.account.show_media_replies)
+						req.add_parameter ("exclude_replies", "true");
 					break;
 				case Widgets.ProfileFilterGroup.Filter.FEATURED: break;
 				default:
