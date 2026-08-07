@@ -245,6 +245,12 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		bool should_show_buttons = issuer == accounts.active;
 
 		var kind_actor_name = account.display_name;
+		if (kind_actor_name.length > 20) {
+			kind_actor_name = kind_actor_name.substring (0, 20).strip () + "…";
+		} else if (kind_actor_name.strip ().length == 0) {
+			kind_actor_name = account.handle;
+		}
+
 		if (others > 0) {
 			//  translators: <user> (& <amount> others) <actions>
 			//               for example: GeopJr (& 10 others) mentioned you
