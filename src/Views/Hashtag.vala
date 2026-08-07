@@ -23,16 +23,14 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 
 		if (following != null) {
 			this.following = following;
-		} else {
-			init_tag.begin ();
 		}
 
 		if (featured != null) {
 			this.featured = featured;
 			create_featuring_button ();
-		} else if (following != null) {
-			init_tag.begin ();
 		}
+
+		init_tag.begin ();
 	}
 
 	Widgets.StatusActionButton? feature_tag_btn = null;
