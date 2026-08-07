@@ -24,6 +24,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 	protected InstanceAccount? account { get; set; default = null; }
 
+	// forces the timeline to keep fetching pages until it gets at least
+	// the minimum amount of items set by batch_size_min
+	// useful for timelines that should_hide a lot
+	public bool force_at_least_min { get; set; default = false; }
 	public bool is_last_page { get; set; default = false; }
 	public string? page_next { get; set; }
 	public string? page_prev { get; set; }
@@ -309,7 +313,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	protected bool has_finished_request { get; private set; default = false; }
 	public virtual void on_request_finish () {
 		has_finished_request = true;
-		base.on_bottom_reached ();
+		base.on_bottom_reached (); // **base.**
 	}
 
 	protected GLib.Cancellable? request_cancellable { get; set; default = null; }
@@ -343,6 +347,15 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			if (to_add.length == 0)
 				on_content_changed ();
 			on_request_finish ();
+
+			if (
+				this.force_at_least_min
+				&& (
+					model.get_n_items () < this.batch_size_min
+					|| to_add.length == 0
+				)
+			)
+				on_bottom_reached ();
 		} catch (GLib.IOError.CANCELLED e) {
 			debug ("Message is cancelled.");
 		} catch (GLib.Error e) {

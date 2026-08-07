@@ -8,7 +8,8 @@ public class Tuba.Views.ScheduledStatuses : Views.Timeline {
 			// translators: as in posts set to be posted sometime in the future
 			empty_state_title: _("No Scheduled Posts"),
 			batch_size_min: 20,
-			allow_nesting: true
+			allow_nesting: true,
+			force_at_least_min: true
 		);
 	}
 
