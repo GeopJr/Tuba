@@ -70,7 +70,63 @@ public class Tuba.Views.Hashtags : Views.Timeline {
 	}
 
 	public class FavoriteTag : API.Tag, Widgetizable {
-		Widgets.StatusActionButton tuba_fav_button;
+		public class FavoriteButton : Widgets.StatusActionButton {
+			private string tag { get; set; }
+			private bool force_recheck { get; set; default = false; }
+			public FavoriteButton (string tag, bool force_recheck = false) {
+				Object (
+					default_icon_name: "tuba-unstarred-symbolic"
+				);
+				this.tag = tag;
+				this.force_recheck = force_recheck;
+
+				this.active_icon_name = "tuba-starred-symbolic";
+				this.css_classes = { "ttl-status-action-star", "flat", "circular" };
+				this.valign = Gtk.Align.CENTER;
+				this.halign = Gtk.Align.CENTER;
+				this.tooltip_text = _("Favorite");
+
+				this.clicked.connect (on_favorite_button_clicked);
+				settings.notify["favorite-tags-ids"].connect (on_fav_tags_updated);
+				update_fav_status ();
+
+				if (force_recheck)
+					app.fav_tags_changed.connect (update_fav_status);
+			}
+
+			private void on_favorite_button_clicked () {
+				this.active = !this.active;
+
+				if (this.active) {
+					Views.Hashtags.add_tag_to_favs (this.tag);
+				} else {
+					Views.Hashtags.remove_tag_from_favs (this.tag);
+				}
+
+				if (!force_recheck) app.fav_tags_changed (this.tag);
+			}
+
+			private void on_fav_tags_updated () {
+				this.sensitive = this.active || settings.favorite_tags_ids.length < Views.Sidebar.MAX_SIDEBAR_TAGS;
+			}
+
+			private void update_fav_status (string? changed_tag = null) {
+				if (changed_tag != null && changed_tag.down () != this.tag.down ()) return;
+
+				bool in_list = false;
+
+				string down_name = this.tag.down ();
+				foreach (var tag_name in settings.favorite_tags_ids) {
+					if (tag_name.down () == down_name) {
+						in_list = true;
+						break;
+					}
+				}
+
+				this.active = in_list;
+				on_fav_tags_updated ();
+			}
+		}
 
 		public Dialogs.HashtagList.Data? tuba_hashtag_data { get; set; default = null; }
 
@@ -78,17 +134,7 @@ public class Tuba.Views.Hashtags : Views.Timeline {
 			var row = (Adw.ActionRow) base.to_widget ();
 
 			if (this.tuba_hashtag_data == null) {
-				tuba_fav_button = new Widgets.StatusActionButton.with_icon_name ("tuba-unstarred-symbolic") {
-					active_icon_name = "tuba-starred-symbolic",
-					css_classes = { "ttl-status-action-star", "flat", "circular" },
-					valign = Gtk.Align.CENTER,
-					halign = Gtk.Align.CENTER,
-					tooltip_text = _("Favorite"),
-				};
-				tuba_fav_button.clicked.connect (on_favorite_button_clicked);
-				row.add_prefix (tuba_fav_button);
-				settings.notify["favorite-tags-ids"].connect (on_fav_tags_updated);
-				update_fav_status ();
+				row.add_prefix (new FavoriteButton (this.name, true));
 			} else {
 				row.subtitle = this.tuba_hashtag_data.to_sub ();
 
@@ -146,59 +192,37 @@ public class Tuba.Views.Hashtags : Views.Timeline {
 			Dialogs.HashtagList.remove_hashtag_list (this.tuba_hashtag_data.uuid);
 			app.refresh ();
 		}
+	}
 
-		private void update_fav_status () {
-			bool in_list = false;
+	public static void add_tag_to_favs (string name) {
+		if (name in settings.favorite_tags_ids) return;
 
-			string down_name = this.name.down ();
-			foreach (var tag_name in settings.favorite_tags_ids) {
-				if (tag_name.down () == down_name) {
-					in_list = true;
-					break;
-				}
-			}
+		string[] res = {};
 
-			tuba_fav_button.active = in_list;
-			on_fav_tags_updated ();
+		string down_name = name.down ();
+		foreach (var tag_name in settings.favorite_tags_ids) {
+			if (tag_name.down () != down_name) res += tag_name;
+		}
+		res += name;
+
+		settings.favorite_tags_ids = res;
+		GLib.Idle.add (accounts.active.gather_fav_tags);
+	}
+
+	public static void remove_tag_from_favs (string name) {
+		if (
+			settings.favorite_tags_ids.length == 0
+			|| !(name in settings.favorite_tags_ids)
+		) return;
+
+		string[] new_ids = {};
+
+		string down_name = name.down ();
+		foreach (string tag_name in settings.favorite_tags_ids) {
+			if (down_name != tag_name.down ()) new_ids += tag_name;
 		}
 
-		private void on_favorite_button_clicked () {
-			tuba_fav_button.active = !tuba_fav_button.active;
-
-			if (tuba_fav_button.active) {
-				add_to_favs ();
-			} else {
-				remove_from_favs ();
-			}
-		}
-
-		private void on_fav_tags_updated () {
-			tuba_fav_button.sensitive = tuba_fav_button.active || settings.favorite_tags_ids.length < Views.Sidebar.MAX_SIDEBAR_TAGS;
-		}
-
-		private void add_to_favs () {
-			string[] res = {};
-
-			string down_name = this.name.down ();
-			foreach (var tag_name in settings.favorite_tags_ids) {
-				if (tag_name.down () != down_name) res += tag_name;
-			}
-			res += this.name;
-
-			settings.favorite_tags_ids = res;
-			GLib.Idle.add (accounts.active.gather_fav_tags);
-		}
-
-		private void remove_from_favs () {
-			string[] new_ids = {};
-
-			string down_name = this.name.down ();
-			foreach (string tag_name in settings.favorite_tags_ids) {
-				if (down_name != tag_name.down ()) new_ids += tag_name;
-			}
-
-			settings.favorite_tags_ids = new_ids;
-			GLib.Idle.add (accounts.active.gather_fav_tags);
-		}
+		settings.favorite_tags_ids = new_ids;
+		GLib.Idle.add (accounts.active.gather_fav_tags);
 	}
 }
