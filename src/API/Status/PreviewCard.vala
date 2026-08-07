@@ -95,7 +95,11 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			if (_special_card == null) {
 				if (is_peertube) {
 					#if CLAPPER
-						if (Clapper.enhancer_check (typeof (Clapper.Extractable), "peertube", null, null)) {
+						#if CLAPPER_0_10
+							if (enhancer_check ("peertube")) {
+						#else
+							if (Clapper.enhancer_check (typeof (Clapper.Extractable), "peertube", null, null)) {
+						#endif
 							_special_card = CardSpecialType.PEERTUBE;
 						} else {
 							_special_card = CardSpecialType.BASIC;
@@ -111,7 +115,11 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 					_special_card = CardSpecialType.BASIC;
 					#if CLAPPER
 						// TODO: maybe limit to https only
-						if (Clapper.enhancer_check (typeof (Clapper.Extractable), this.tuba_uri.get_scheme (), this.tuba_uri.get_host (), null))
+						#if CLAPPER_0_10
+							if (enhancer_check (this.tuba_uri.get_scheme (), this.tuba_uri.get_host ()))
+						#else
+							if (Clapper.enhancer_check (typeof (Clapper.Extractable), this.tuba_uri.get_scheme (), this.tuba_uri.get_host (), null))
+						#endif
 							_special_card = CardSpecialType.CLAPPER;
 					#endif
 				}
@@ -120,6 +128,38 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			return _special_card;
 		}
 	}
+
+	#if CLAPPER_0_10
+		private bool enhancer_check (string scheme, string? t_host = null) {
+			if (!Clapper.WITH_ENHANCERS_LOADER) return false;
+			bool supported = false;
+
+			string? host = t_host;
+			if (host != null && host.has_prefix ("www.")) host = host.substring (4);
+
+			var proxies = Clapper.get_global_enhancer_proxies ();
+			for (var i = 0; i < proxies.get_n_proxies (); i++) {
+				var proxy = proxies.peek_proxy (i);
+				if (!proxy.target_has_interface (typeof (Clapper.Extractable))) continue;
+
+				if (!proxy.extra_data_lists_value ("X-Schemes", scheme)) continue;
+				// We were only looking for scheme matching
+				// e.g. peertube://
+				if (host == null) {
+					supported = true;
+					break;
+				}
+
+				if (!proxy.extra_data_lists_value ("X-Hosts", host)) continue;
+				// both the host and the scheme
+				// match at this point
+				supported = true;
+				break;
+			}
+
+			return supported;
+		}
+	#endif
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
