@@ -255,10 +255,22 @@ public class Tuba.Views.Profile : Views.Accounts {
 		if (acc.is_self ()) {
 			update_profile_cover ();
 			app.refresh_featured.connect (on_featured_refresh_request);
+			app.remove_status_widget.connect (remove_own_status_widget);
 		}
 	}
 	~Profile () {
 		debug ("Destroying Profile view");
+	}
+
+	private void remove_own_status_widget (string status_id) {
+		for (uint i = 0; i < model.get_n_items (); i++) {
+			var status_obj = model.get_item (i) as API.Status;
+			if (status_obj != null && (status_obj.id == status_id || status_obj.formal.id == status_id)) {
+				safely_remove ((int) i);
+				if (status_obj.id == status_id)
+					break;
+			}
+		}
 	}
 
 	private void on_featured_refresh_request () {

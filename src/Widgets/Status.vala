@@ -690,7 +690,9 @@
 
 	private async void delete_status_real () {
 		try {
+			string s_id = this.status.formal.id;
 			yield this.status.formal.annihilate ().exec (null);
+			app.remove_status_widget (s_id);
 		} catch (Error e) {
 			warning (@"Couldn't delete status: $(e.code) $(e.message)");
 			app.toast ("%s %s".printf (_("Error"), e.message));

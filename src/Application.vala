@@ -69,6 +69,7 @@ namespace Tuba {
 		public signal void refresh ();
 		public signal void refresh_scheduled_statuses ();
 		public signal void refresh_featured ();
+		public signal void remove_status_widget (string id);
 		public signal void relationship_invalidated (API.Relationship new_relationship);
 		public signal void remove_user_id (string user_id);
 		public signal void fav_tags_changed (string tag);
