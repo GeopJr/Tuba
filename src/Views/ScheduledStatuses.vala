@@ -34,7 +34,7 @@ public class Tuba.Views.ScheduledStatuses : Views.Timeline {
 		for (uint i = 0; i < model.get_n_items (); i++) {
 			var status_obj = (API.ScheduledStatus) model.get_item (i);
 			if (status_obj.id == scheduled_status_id) {
-				model.remove (i);
+				safely_remove ((int) i);
 				break;
 			}
 		}

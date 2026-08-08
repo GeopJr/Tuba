@@ -39,7 +39,7 @@ public class Tuba.Views.NotificationRequests : Views.Timeline {
 			uint indx;
 			var found = model.find (api_req, out indx);
 			if (found) {
-				model.remove (indx);
+				safely_remove ((int) indx);
 
 				if (accounts.active.filtered_notifications_count > 0) {
 					int to_remove = int.parse (api_req.notifications_count);

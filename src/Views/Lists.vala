@@ -191,7 +191,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 		uint indx;
 		var found = model.find (list, out indx);
 		if (found)
-			model.remove (indx);
+			safely_remove ((int) indx);
 	}
 
 	public async void create_list (string list_name) {

@@ -464,7 +464,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			for (uint i = 0; i < uint.min (model.n_items, settings.timeline_page_size.clamp (10, 40)); i++) {
 				var status_obj = model.get_item (i) as API.Status;
 				if (status_obj != null && status_obj.id == e_id) {
-					model.remove (i);
+					safely_remove ((int) i);
 				}
 			}
 		}
@@ -490,8 +490,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			for (uint i = 0; i < model.get_n_items (); i++) {
 				var status_obj = model.get_item (i) as API.Status;
 				if (status_obj != null && status_obj.id == entity_id) {
+					bool had_focus = was_focused ((int) i);
 					model.remove (i);
 					model.insert (i, entity);
+					if (had_focus) focus_recover_actual ((int) i);
 					break;
 				}
 			}
@@ -508,8 +510,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				var status_obj = model.get_item (i) as API.Status;
 				// Not sure if there can be both the original
 				// and a boost of it at the same time.
-				if (status_obj != null && status_obj.id == status_id || status_obj.formal.id == status_id) {
-					model.remove (i);
+				if (status_obj != null && (status_obj.id == status_id || status_obj.formal.id == status_id)) {
+					safely_remove ((int) i);
 					// If there can be both the original
 					// and boosts at the same time, then
 					// it shouldn't stop at the first find.
@@ -524,11 +526,53 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public virtual void on_remove_user (string user_id) {
 		if (accepts != typeof (API.Status)) return;
 
+		int should_refocus = -1;
 		for (uint i = 0; i < model.get_n_items (); i++) {
 			var status_obj = model.get_item (i) as API.Status;
 			if (status_obj != null && ((status_obj.formal.account != null && status_obj.formal.account.id == user_id) || (status_obj.account != null && status_obj.account.id == user_id))) {
+				if (was_focused ((int) i)) should_refocus = (int) i;
 				model.remove (i);
 			}
 		}
+		if (should_refocus > 0) focus_recover (should_refocus);
+	}
+
+	protected void safely_remove (int i) {
+		bool refocus = was_focused (i);
+		model.remove (i);
+		if (refocus) focus_recover (i);
+	}
+
+	protected bool was_focused (int i) {
+		if (this.get_mapped ()) {
+			var w = content.get_row_at_index (i);
+			if (w != null && w.get_mapped ()) {
+				if (w.has_focus) {
+					return true;
+				} else {
+					unowned var last_focus = app.main_window.get_focus ();
+					return last_focus != null && last_focus.is_ancestor (w);
+				}
+			}
+		}
+
+		return false;
+	}
+
+	protected void focus_recover (int i) {
+		if (this.get_mapped () && !focus_recover_actual (i)) {
+			// try going backwards then
+			focus_recover_actual (i - 1);
+		}
+	}
+
+	protected bool focus_recover_actual (int i) {
+		var w = content.get_row_at_index (i);
+		if (w != null && w.get_mapped ()) {
+			w.grab_focus ();
+			return true;
+		}
+
+		return false;
 	}
 }

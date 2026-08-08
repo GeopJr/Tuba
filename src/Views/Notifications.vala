@@ -320,7 +320,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 					var notification_obj = model.get_item (i) as API.GroupedNotificationsResults.NotificationGroup;
 					if (notification_obj != null && notification_obj.group_key == entity.group_key) {
 						group = notification_obj;
-						model.remove (i);
+						safely_remove ((int) i);
 						break;
 					}
 				}
@@ -356,9 +356,11 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			for (uint i = 0; i < model.get_n_items (); i++) {
 				var notification_obj = model.get_item (i) as API.Notification;
 				if (notification_obj != null && notification_obj.status != null && notification_obj.status.id == entity_id) {
+					bool had_focus = was_focused ((int) i);
 					model.remove (i);
 					notification_obj.status = entity;
 					model.insert (i, notification_obj);
+					if (had_focus) focus_recover_actual ((int) i);
 				}
 			}
 		} catch (Error e) {
@@ -373,7 +375,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			for (uint i = 0; i < model.get_n_items (); i++) {
 				var notification_obj = model.get_item (i) as API.Notification;
 				if (notification_obj != null && notification_obj.status != null && notification_obj.status.formal.id == status_id) {
-					model.remove (i);
+					safely_remove ((int) i);
 				}
 			}
 		} catch (Error e) {

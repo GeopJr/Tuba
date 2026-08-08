@@ -112,8 +112,20 @@ public class Tuba.Views.ContentBase : Views.Base {
 		if (empty) {
 			base_status = new StatusMessage ();
 		} else {
+			if (base_status != null) attempt_focus_grab ();
 			base_status = null;
 		}
+	}
+
+	// fighting with NavigationView over focus
+	private void attempt_focus_grab () {
+		GLib.Timeout.add (500, attempt_focus_grab_real);
+	}
+
+	private bool attempt_focus_grab_real () {
+		var w = content.get_row_at_index (0);
+		if (w != null && w.get_mapped ()) w.grab_focus ();
+		return GLib.Source.REMOVE;
 	}
 
 	#if !USE_LISTVIEW

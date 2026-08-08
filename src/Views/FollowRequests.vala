@@ -39,7 +39,7 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 				uint indx;
 				var found = model.find (widget, out indx);
 				if (found)
-					model.remove (indx);
+					safely_remove ((int) indx);
 			} else {
 				fr_row.sensitive = true;
 			}
@@ -58,7 +58,7 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 			uint indx;
 			var found = model.find (widget, out indx);
 			if (found)
-				model.remove (indx);
+				safely_remove ((int) indx);
 		} catch (Error e) {
 			warning (@"Couldn't perform decline: $(e.code) $(e.message)");
 			app.toast ("%s: %s".printf (_("Error"), e.message));
