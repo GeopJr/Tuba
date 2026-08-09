@@ -32,7 +32,7 @@ public class Tuba.Views.Hashtags : Views.Timeline {
 	CompareDataFunc<FavoriteTag> compare_func = (a, b) => {
 		return ((a.tuba_hashtag_data == null && b.tuba_hashtag_data == null)
 			|| (a.tuba_hashtag_data != null && b.tuba_hashtag_data != null))
-			? GLib.strcmp (a.name, b.name) : 0;
+			? GLib.strcmp (a.name.down (), b.name.down ()) : 0;
 	};
 
 	protected override void build_header () {
