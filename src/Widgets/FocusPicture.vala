@@ -118,7 +118,10 @@ public class Tuba.Widgets.FocusPicture : Gtk.Widget, Gtk.Buildable, Gtk.Accessib
 	}
 
 	public override void snapshot (Gtk.Snapshot snapshot) {
-		if (_paintable == null) return;
+		if (
+			_paintable == null
+			|| (_spoilered && !Tuba.should_blur_sensitive_media)
+		) return;
 
 		int width = this.get_width ();
 		int height = this.get_height ();

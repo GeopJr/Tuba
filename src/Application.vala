@@ -38,6 +38,7 @@ namespace Tuba {
 		public static bool up_distributor_found = true;
 	#endif
 	public static bool is_flatpak = false;
+	public static bool should_blur_sensitive_media = true;
 	public static string cache_path;
 
 	public static string default_locale;
@@ -542,6 +543,8 @@ namespace Tuba {
 
 			if (settings.analytics) app.update_analytics.begin ();
 			app.update_contributors.begin ();
+
+			Tuba.should_blur_sensitive_media = settings.get_boolean ("blur-sensitive-media");
 
 			// TODO: remove me next release
 			// this handles the old setting and sets the new one

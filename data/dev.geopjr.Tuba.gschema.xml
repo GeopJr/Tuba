@@ -223,6 +223,13 @@
 			<summary>Dim Trivial Notifications</summary>
 			<description>Notifications like favorites and boosts will be less visible</description>
 		</key>
+    <key name="blur-sensitive-media" type="b">
+			<default>true</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<summary>Blur Sensitive Media</summary>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
+			<description>Whether Tuba should blur media marked as sensitive, instead of turning them invisible</description>
+		</key>
 		<key name="media-viewer-last-used-volume" type="d">
 			<default>1.0</default>
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
