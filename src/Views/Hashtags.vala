@@ -16,13 +16,24 @@ public class Tuba.Views.Hashtags : Views.Timeline {
 			label: _("Hashtags"),
 			icon: "tuba-hashtag-symbolic",
 			empty_state_title: _("No Hashtags"),
-			batch_size_min: 20
+			batch_size_min: 200
 		);
 	}
 
 	construct {
 		accepts = typeof (FavoriteTag);
 	}
+
+	public override void on_request_finish () {
+		if (!has_finished_request) model.sort (compare_func); // don't sort future pages
+		base.on_request_finish ();
+	}
+
+	CompareDataFunc<FavoriteTag> compare_func = (a, b) => {
+		return ((a.tuba_hashtag_data == null && b.tuba_hashtag_data == null)
+			|| (a.tuba_hashtag_data != null && b.tuba_hashtag_data != null))
+			? GLib.strcmp (a.name, b.name) : 0;
+	};
 
 	protected override void build_header () {
 		base.build_header ();

@@ -18,7 +18,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public int batch_size_min {
 		get { return _batch_size_min; }
 		set {
-			assert (value >= 10 && value <= 40);
+			assert (value >= 10);
 			_batch_size_min = value;
 		}
 	}
