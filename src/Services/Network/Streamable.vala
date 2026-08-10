@@ -65,7 +65,7 @@ public interface Tuba.Streamable : Object {
 	protected void on_network_change () {
 		if (app.is_online) {
 			update_stream ();
-			streams.reconnect_if_closed (t_connection_url);
+			streams.force_reconnect (t_connection_url);
 		} else {
 			unsubscribe ();
 		}

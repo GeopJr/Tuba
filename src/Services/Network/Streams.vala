@@ -43,10 +43,10 @@ public class Tuba.Streams : Object { // we really should decouple streams from s
 		}
 	}
 
-	public void reconnect_if_closed (string? url) {
+	public void force_reconnect (string? url) {
 		if (url == null) return;
 		if (connections.contains (url)) {
-			connections[url].reconnect_if_closed ();
+			connections[url].force_reconnect ();
 		}
 	}
 
@@ -79,10 +79,8 @@ public class Tuba.Streams : Object { // we really should decouple streams from s
 			this.url = url;
 		}
 
-		public void reconnect_if_closed () {
-			if (socket == null || socket.state != Soup.WebsocketState.CLOSED) return;
-
-			start ();
+		public void force_reconnect () {
+			on_closed ();
 		}
 
 		public bool start () {
@@ -149,6 +147,12 @@ public class Tuba.Streams : Object { // we really should decouple streams from s
 		}
 
 		void on_closed () {
+			if (socket != null) {
+				socket.error.disconnect (on_error);
+				socket.closed.disconnect (on_closed);
+				socket.message.disconnect (on_message);
+			}
+
 			socket = null;
 			if (!closing) {
 				warning (@"DISCONNECTED: $name. Reconnecting in $timeout seconds.");
