@@ -81,15 +81,12 @@
 																<property name="input-purpose">free-form</property>
 																<!-- translators: Entry title that accepts a user tag, searches for posts published by the user -->
 																<property name="title" translatable="yes">From User</property>
-																<signal name="changed" handler="on_user_row_changed" swapped="no" />
 																<child type="suffix">
-																	<object class="GtkButton" id="auto_fill_users_button">
+																	<object class="GtkMenuButton" id="acc_search_button">
 																		<property name="icon-name">tuba-people-symbolic</property>
 																		<property name="valign">center</property>
-																		<property name="visible">0</property>
-																		<!-- translators: tooltip text for a button in the 'advanced search' window. When clicked it automatically fills the entry with the first found user based on the query. -->
-																		<property name="tooltip-text" translatable="yes">Auto-Fill User</property>
-																		<signal name="clicked" handler="on_search_users_clicked" swapped="no" />
+																		<!-- translators: tooltip text for a button in the 'advanced search' window. It opens a popover that allows users to search for hashtags. -->
+																		<property name="tooltip-text" translatable="yes">Search Accounts</property>
 																		<style>
 																			<class name="circular" />
 																			<class name="flat" />

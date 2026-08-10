@@ -4,7 +4,7 @@ public class Tuba.Views.ScheduledStatuses : Views.Timeline {
 			url: "/api/v1/scheduled_statuses",
 			// translators: as in posts set to be posted sometime in the future
 			label: _("Scheduled Posts"),
-			icon: "tuba-chat-symbolic",
+			icon: "tuba-clock-alt-symbolic",
 			// translators: as in posts set to be posted sometime in the future
 			empty_state_title: _("No Scheduled Posts"),
 			batch_size_min: 20,

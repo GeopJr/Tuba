@@ -160,17 +160,26 @@ public class Tuba.Dialogs.HashtagList : Adw.PreferencesDialog {
 		public signal void errored (string error_msg);
 		Gtk.SearchEntry entry;
 		Gtk.ListBox result_box;
+		Gtk.ScrolledWindow sw;
 
 		construct {
 			this.add_css_class ("emoji-picker");
 			result_box = new Gtk.ListBox () {
 				margin_end = 6,
 				margin_bottom = 6,
-				margin_start = 6
+				margin_start = 6,
+				selection_mode = NONE
+			};
+
+			sw = new Gtk.ScrolledWindow () {
+				max_content_width = 360,
+				propagate_natural_height = true,
+				child = result_box,
+				visible = false
 			};
 
 			var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-			content_box.append (result_box);
+			content_box.append (sw);
 			this.child = content_box;
 
 			entry = new Gtk.SearchEntry () {
@@ -202,6 +211,7 @@ public class Tuba.Dialogs.HashtagList : Adw.PreferencesDialog {
 		RequestV2? last_req = null;
 		private async void search_real (string query) {
 			result_box.remove_all ();
+			sw.visible = false;
 
 			if (last_req != null) {
 				last_req.cancellable.cancel ();
@@ -223,9 +233,11 @@ public class Tuba.Dialogs.HashtagList : Adw.PreferencesDialog {
 						};
 						widget.activated.connect (on_tag_chosen);
 						result_box.append (widget);
+						if (i == 0) widget.grab_focus ();
 						i += 1;
 						return i < 4;
 					});
+					sw.visible = i > 0;
 				}
 			} catch (GLib.IOError.CANCELLED e) {
 				debug ("Message is cancelled.");
@@ -269,7 +281,11 @@ public class Tuba.Dialogs.HashtagList : Adw.PreferencesDialog {
 				icon_name = "tuba-plus-large-symbolic",
 				popover = popover,
 				valign = Gtk.Align.CENTER,
-				css_classes = {"flat"}
+				css_classes = {"flat"},
+				// translators: tooltip text on a button that opens
+				//				a popover that allows the user to
+				//				search for and pick a hashtag
+				tooltip_text = _("Add Hashtag")
 			};
 			popover.tag_picked.connect (add_row);
 			popover.errored.connect (on_error);

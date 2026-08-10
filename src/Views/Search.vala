@@ -122,7 +122,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		}
 
 		uint timeout = 0;
-		timeout = Timeout.add (200, () => {
+		timeout = Timeout.add (510, () => {
 			entry.gather_focus ();
 			GLib.Source.remove (timeout);
 
@@ -307,12 +307,123 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/advanced_search.ui")]
 	private class AdvancedSearchDialog : Adw.Dialog {
+		// Basically a copy of the HashtagGroup tag search popover
+		// maybe make a generic one
+		public class AccountSearchPopover : Gtk.Popover {
+			public signal void account_picked (string account);
+			public signal void errored (string error_msg);
+			Gtk.SearchEntry entry;
+			Gtk.ListBox result_box;
+			Gtk.ScrolledWindow sw;
+
+			construct {
+				this.add_css_class ("emoji-picker");
+				result_box = new Gtk.ListBox () {
+					margin_end = 6,
+					margin_bottom = 6,
+					margin_start = 6,
+					selection_mode = NONE
+				};
+				result_box.row_activated.connect (on_account_chosen);
+
+				sw = new Gtk.ScrolledWindow () {
+					max_content_width = 360,
+					propagate_natural_height = true,
+					child = result_box,
+					visible = false
+				};
+
+				var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+				content_box.append (sw);
+				this.child = content_box;
+
+				entry = new Gtk.SearchEntry () {
+					//  text = query,
+					hexpand = true,
+					placeholder_text = "@GTK@floss.social",
+					search_delay = 300
+				};
+
+				var entry_bin = new Adw.Bin () {
+					css_classes = { "emoji-searchbar" },
+					child = entry
+				};
+				content_box.prepend (entry_bin);
+
+				entry.activate.connect (search);
+				entry.search_changed.connect (search);
+				entry.stop_search.connect (on_close);
+			}
+
+			protected void on_close () {
+				this.popdown ();
+			}
+
+			private void search () {
+				search_real.begin (entry.text.strip ());
+			}
+
+			RequestV2? last_req = null;
+			private async void search_real (string query) {
+				result_box.remove_all ();
+				sw.visible = false;
+
+				if (last_req != null) {
+					last_req.cancellable.cancel ();
+					last_req = null;
+				}
+				if (query == "") return;
+				try {
+					last_req = API.Account.search (query);
+					var in_stream = yield last_req.exec (null);
+					if (last_req == null || last_req.cancellable.is_cancelled ()) return;
+
+					Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+
+					int i = 0;
+					Network.parse_array (parser, node => {
+						var widget = new Widgets.AccountRow (API.Account.from (node), false) {
+							css_classes = {"border-radius-6"}
+						};
+						widget.activatable = true;
+						result_box.append (widget);
+						i += 1;
+						if (i < 4) return;
+					});
+
+					sw.visible = i > 0;
+					if (i > 0) {
+						var row = result_box.get_row_at_index (0);
+						if (row != null) row.grab_focus ();
+					}
+				} catch (GLib.IOError.CANCELLED e) {
+					debug ("Message is cancelled.");
+				} catch (Error e) {
+					errored (e.message);
+					warning (@"Couldn't search account $query: $(e.code) $(e.message)");
+				}
+
+				last_req = null;
+			}
+
+			protected void on_account_chosen (Gtk.ListBoxRow row) {
+				on_close ();
+
+				account_picked (((Widgets.AccountRow) row).account.full_handle);
+			}
+
+			public override void show () {
+				base.show ();
+				entry.grab_focus ();
+			}
+		}
+
 		[GtkChild] unowned Gtk.ListBox main_list;
 
 		[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 		[GtkChild] unowned Adw.EntryRow query_row;
 		[GtkChild] unowned Adw.EntryRow user_row;
-		[GtkChild] unowned Gtk.Button auto_fill_users_button;
+		[GtkChild] unowned Gtk.MenuButton acc_search_button;
 		[GtkChild] unowned Adw.SwitchRow reply_switch_row;
 		[GtkChild] unowned Adw.SwitchRow cw_switch_row;
 
@@ -340,6 +451,11 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		private Gtk.DropDown lang_dropdown;
 		private Gtk.Switch lang_switch;
 		construct {
+			var acc_search = new AccountSearchPopover ();
+			acc_search_button.popover = acc_search;
+			acc_search.account_picked.connect (on_account_picked);
+			acc_search.errored.connect (on_account_errored);
+
 			before_calendar.remove_css_class ("view");
 			during_calendar.remove_css_class ("view");
 			after_calendar.remove_css_class ("view");
@@ -366,6 +482,16 @@ public class Tuba.Views.Search : Views.TabbedBase {
 			lang_row.add_suffix (lang_dropdown);
 
 			lang_switch.bind_property ("active", lang_dropdown, "sensitive", GLib.BindingFlags.SYNC_CREATE);
+		}
+
+		private void on_account_picked (string acc) {
+			user_row.text = acc;
+		}
+
+		private void on_account_errored (string msg) {
+			toast_overlay.add_toast (new Adw.Toast (msg) {
+				timeout = 5
+			});
 		}
 
 		public AdvancedSearchDialog (string? from_query = null) {
@@ -473,49 +599,6 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 					query_row.text = string.joinv (" ", clean_query);
 				}
-			}
-		}
-
-		[GtkCallback] void on_user_row_changed () {
-			auto_fill_users_button.visible = user_row.text.length > 0;
-		}
-
-		[GtkCallback] void on_search_users_clicked () {
-			string user_query = user_row.text.chug ().chomp ();
-			if (user_query == "") return;
-
-			on_search_users_real.begin (user_query);
-		}
-
-		private async void on_search_users_real (string user_query) {
-			auto_fill_users_button.sensitive = false;
-
-			var req = new RequestV2 ("/api/v2/search") { account = accounts.active };
-			req.add_parameter ("q", user_query);
-			req.add_parameter ("type", "accounts");
-			req.add_parameter ("exclude_unreviewed", "true");
-			req.add_parameter ("limit", "1");
-
-			try {
-				var in_stream = yield req.exec (null);
-				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
-				var search_results = API.SearchResults.from (network.parse_node (parser));
-
-				if (search_results.accounts.size > 0) {
-					user_row.text = search_results.accounts.get (0).full_handle;
-				}
-
-				auto_fill_users_button.sensitive = true;
-			} catch (Error e) {
-				auto_fill_users_button.sensitive = true;
-				// translators: warning toast in advanced search dialog when auto-filling a user fails.
-				// 				Auto-fill refers to automatically filling the entry with the first
-				//				found user based on the query.
-				toast_overlay.add_toast (new Adw.Toast (_("Couldn't auto-fill user: %s").printf (e.message)) {
-					timeout = 5
-				});
-
-				warning (@"Couldn't auto-fill user with $user_query: $(e.code) $(e.message)");
 			}
 		}
 
