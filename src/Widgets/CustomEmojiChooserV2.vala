@@ -130,6 +130,8 @@ public class Tuba.Widgets.CustomEmojiChooserV2 : Gtk.Popover {
 		};
 
 		var back_btn = new Gtk.Button.from_icon_name (is_rtl ? "tuba-right-large-symbolic" : "tuba-left-large-symbolic") {
+			// translators: custom emoji chooser, back button tooltip text; clicking it
+			//				takes you to the list of custom emoji categories
 			tooltip_text = _("Categories"),
 			css_classes = {"flat"}
 		};

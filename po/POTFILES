@@ -55,6 +55,7 @@
 ./src/Dialogs/Composer/AttachmentsBin.vala
 ./src/Dialogs/Composer/Attachment.vala
 ./src/Dialogs/Composer/Dialog.vala
+./src/Dialogs/Composer/Drafts.vala
 ./src/Dialogs/Composer/Editor.vala
 ./src/Dialogs/Composer/Polls.vala
 ./src/Dialogs/FilterEdit.vala
@@ -65,6 +66,7 @@
 ./src/Dialogs/NotificationSettings.vala
 ./src/Dialogs/Preferences.vala
 ./src/Dialogs/ProfileEdit.vala
+./src/Dialogs/ProfileLists.vala
 ./src/Dialogs/Report.vala
 ./src/Services/Accounts/AccountStore.vala
 ./src/Services/Accounts/InstanceAccount.vala
@@ -134,6 +136,7 @@
 ./src/Widgets/AudioPlayer/Controls.vala
 ./src/Widgets/BookWyrmPage.vala
 ./src/Widgets/Collection.vala
+./src/Widgets/CustomEmojiChooserV2.vala
 ./src/Widgets/CustomEmojiChooser.vala
 ./src/Widgets/EmojiReactionAccounts.vala
 ./src/Widgets/FocusPicker.vala

@@ -195,6 +195,7 @@
 		</key>
     <key name="fetch-remote-media-default" type="b">
 			<default>false</default>
+			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<summary>Fetch remote media default choice</summary>
 			<!-- translators: this string is only shown in dconf, not in the app, you may leave it untranslated -->
 			<description>Whether Tuba should fetch remote media automatically when the proxied one is not available</description>
