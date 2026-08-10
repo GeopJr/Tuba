@@ -156,6 +156,17 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		visible = false
 	};
 
+	public static Place PLACE_SCHEDULED_STATUSES = new Place () { // vala-lint=naming-convention
+
+		icon = "tuba-clock-alt-symbolic",
+		needs_attention = false,
+		title = _("Scheduled Posts"),
+		visible = false,
+		open_func = win => {
+			win.open_view (set_as_sidebar_item (new Views.ScheduledStatuses ()));
+		}
+	};
+
 	private static Place[] SIDEBAR_PLACES = { // vala-lint=naming-convention
 		PLACE_HOME,
 		PLACE_NOTIFICATIONS,
@@ -170,12 +181,14 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		PLACE_BUBBLE,
 		PLACE_FEDERATED,
 		PLACE_LISTS,
-		PLACE_DRIVE
+		PLACE_DRIVE,
+		PLACE_SCHEDULED_STATUSES
 	};
 
 	protected override void bump_sidebar_items () {
 		PLACE_BUBBLE.visible = (this.instance_info != null && this.instance_info.supports_bubble) || BUBBLE in this.tuba_instance_features || ICESHRIMP in this.tuba_instance_features;
 		PLACE_DRIVE.visible = ICESHRIMP in this.tuba_instance_features;
+		PLACE_SCHEDULED_STATUSES.visible = this.tuba_pending_scheduled_statuses > 0;
 
 		var collections_action = app.lookup_action ("open-collections") as SimpleAction;
 		if (collections_action != null) {

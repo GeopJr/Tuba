@@ -141,6 +141,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public bool needs_update { get; set; default=false; }
 	public bool tuba_probably_has_notification_filters { get; set; default=false; }
 	public bool tuba_revoked { get; set; default=false; }
+	public int tuba_pending_scheduled_statuses { get; set; default=0; }
 	public API.InstanceV2.APIVersions tuba_api_versions { get; set; default= new API.InstanceV2.APIVersions (); }
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
@@ -808,6 +809,18 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		} catch (Error e) {
 			debug (@"Couldn't fetch annual reports: $(e.code) $(e.message)");
 		}
+	}
+
+	private async void gather_scheduled_statuses () {
+		int count = 0;
+
+		while (true) {
+			var req = new RequestV2 ("/api/v1/scheduled_statuses") { account = this };
+			// ...
+		}
+
+		this.tuba_pending_scheduled_statuses = count;
+		bump_sidebar_items ();
 	}
 
 	public void open_latest_wrapped () {
