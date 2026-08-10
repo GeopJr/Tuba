@@ -1,4 +1,4 @@
-public class Tuba.Streams : Object {
+public class Tuba.Streams : Object { // we really should decouple streams from streamables
 
 	protected HashTable<string, Connection> connections {
 		get;
@@ -43,6 +43,13 @@ public class Tuba.Streams : Object {
 		}
 	}
 
+	public void reconnect_if_closed (string? url) {
+		if (url == null) return;
+		if (connections.contains (url)) {
+			connections[url].reconnect_if_closed ();
+		}
+	}
+
 	// public void force_delete (string id) {
 	// 	connections.get_values ().@foreach (c => {
 	// 		c.subscribers.@foreach (s => {
@@ -72,24 +79,45 @@ public class Tuba.Streams : Object {
 			this.url = url;
 		}
 
+		public void reconnect_if_closed () {
+			if (socket == null || socket.state != Soup.WebsocketState.CLOSED) return;
+
+			start ();
+		}
+
 		public bool start () {
 			debug (@"Opening stream: $name");
-			network.session.websocket_connect_async.begin (new Soup.Message ("GET", url), null, null, 0, null, (obj, res) => {
-				try {
-					socket = network.session.websocket_connect_async.end (res);
-					socket.keepalive_interval = 30;
-
-					socket.error.connect (on_error);
-					socket.closed.connect (on_closed);
-					socket.message.connect (on_message);
-				} catch (Error e) {
-					warning (@"Error opening stream: $(e.message)");
-					if (e.matches (Quark.from_string ("g-tls-error-quark"), 3) || e.matches (Quark.from_string ("g-io-error-quark"), 44)) {
-						on_closed ();
-					}
-				}
-			});
+			start_real.begin ();
 			return false;
+		}
+
+		GLib.Cancellable? socket_cancellable = null;
+		private async void start_real () {
+			if (socket_cancellable != null) socket_cancellable.cancel ();
+			socket_cancellable = new GLib.Cancellable ();
+
+			if (socket != null) {
+				socket.error.disconnect (on_error);
+				socket.closed.disconnect (on_closed);
+				socket.message.disconnect (on_message);
+			}
+
+			try {
+				socket = yield network.session.websocket_connect_async (
+					new Soup.Message ("GET", url),
+					null, null, 0, socket_cancellable
+				);
+				socket.keepalive_interval = 30;
+
+				socket.error.connect (on_error);
+				socket.closed.connect (on_closed);
+				socket.message.connect (on_message);
+			} catch (Error e) {
+				warning (@"Error opening stream: $(e.message)");
+				if (e.matches (Quark.from_string ("g-tls-error-quark"), 3) || e.matches (Quark.from_string ("g-io-error-quark"), 44)) {
+					on_closed ();
+				}
+			}
 		}
 
 		public void add (Streamable s) {
