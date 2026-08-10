@@ -221,9 +221,49 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		private void unifiedpush_changed () {
 			string id = @"$(GLib.Uri.escape_string (accounts.active.uuid)):$(GLib.Uri.escape_string (accounts.active.instance))";
 			if (up_row.active) {
-				app.unifiedpush.register (id, null, accounts.active.instance_info.tuba_vapid);
+				unifiedpush_register_if_push.begin (id);
 			} else {
 				app.unifiedpush.unregister (id);
+			}
+		}
+
+		private async void unifiedpush_register_if_push (string id) {
+			if (yield API.Application.has_push ()) {
+				app.unifiedpush.register (id, null, accounts.active.instance_info.tuba_vapid);
+			} else {
+				up_row.notify["active"].disconnect (unifiedpush_changed);
+				up_row.active = false;
+				up_row.notify["active"].connect (unifiedpush_changed);
+
+				var res = yield app.question (
+					// translators: dialog title shown when the user is trying to enable
+					//				UnifiedPush but don't have the required permission to.
+					//				"Push" is the permission name but you may change it to
+					//				"Webpush" or "Push Notification"
+					{_("Request “Push” Access?"), false},
+					// translators: dialog subtitle shown when the user is trying to enable
+					//				UnifiedPush but don't have the required permission to.
+					//				"Reauthenticate" = "Re-login", "Login again"...
+					//				The user will be forced to go through the same process
+					//				as when adding their account for the first time if they
+					//				continue. Please leave "UnifiedPush" as is, as it's a
+					//				brand name. The variable is the app name (Tuba).
+					{_("You'll have to reauthenticate %s to use UnifiedPush.").printf (Build.NAME), false},
+					this,
+					{
+						// translators: dialog button shown when the user is trying to enable
+						//				UnifiedPush but don't have the required permission to.
+						//				and Tuba is asking them if they want to re-login. Please
+						//				use the same verb used in the dialog title "Request
+						//				“Push” Access?"
+						{ _("Request"), Adw.ResponseAppearance.SUGGESTED },
+						{ _("Cancel"), Adw.ResponseAppearance.DEFAULT }
+					},
+					null, false
+				);
+
+				if (res == Application.QuestionAnswer.YES)
+					new Dialogs.NewAccount (true, accounts.active).present ();
 			}
 		}
 	#endif

@@ -4,6 +4,7 @@ sources += files(
     'Announcement.vala',
     'AnnualReports.vala',
     # 'Akkoma.vala', # uneeded for now
+    'Application.vala',
     'Attachment.vala',
     'BookWyrm.vala',
     'Collection.vala',
