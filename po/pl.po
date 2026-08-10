@@ -1863,16 +1863,6 @@ msgstr "Twoje konto zostało dodane do kolekcji"
 msgid "A collection you are a part of was edited"
 msgstr "Kolekcja, której jesteś częścią, została zmodyfikowana"
 
-#. translators: notification title of a Mastodon Collections related event
-#: src/API/Notification.vala:170
-msgid "You were added to a collection"
-msgstr "Twoje konto zostało dodane do kolekcji"
-
-#. translators: notification title of a Mastodon Collections related event
-#: src/API/Notification.vala:183
-msgid "A collection you are a part of was edited"
-msgstr "Kolekcja, której jesteś częścią, została zmodyfikowana"
-
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
 #: src/API/Notification.vala:235 src/Widgets/GroupedNotification.vala:71
@@ -2000,37 +1990,6 @@ msgstr "Jeżeli będziesz kontynuować, „%s” otworzy się w twojej przeglą
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
 msgstr "Jeżeli będziesz kontynuować, %s połączy się z „%s”."
-
-#. translators: quote policy title, who can quote a post
-#: src/API/Status.vala:367
-msgid "Anybody"
-msgstr "Każdy"
-
-#. translators: quote policy title, who can quote a post
-#. translators: post visibility label
-#: src/API/Status.vala:370 src/API/Status.vala:435
-msgid "Followers Only"
-msgstr "Tylko dla obserwujących"
-
-#. translators: quote policy title, who can quote a post
-#: src/API/Status.vala:373
-msgid "Just Me"
-msgstr "Tylko ja"
-
-#. translators: quote policy subtitle, when Anybody can quote
-#: src/API/Status.vala:381
-msgid "Everyone can quote your post"
-msgstr "Każdy może cytować twój wpis"
-
-#. translators: quote policy subtitle, when Followers Only can quote
-#: src/API/Status.vala:384
-msgid "Only your followers can quote your post"
-msgstr "Tylko osoby cię obserwujące mogą cytować twój wpis"
-
-#. translators: quote policy subtitle, when Just Me can quote
-#: src/API/Status.vala:387
-msgid "Nobody can quote your post"
-msgstr "Nikt nie może cytować twojego wpisu"
 
 #. translators: quote policy title, who can quote a post
 #: src/API/Status.vala:367
@@ -2312,11 +2271,6 @@ msgstr "Reguła"
 #: src/Dialogs/Admin/AddIPBlock.vala:134
 msgid "Choose what will happen with requests from this IP"
 msgstr "Wybierz, co się stanie z żądaniami z tego IP"
-
-#. translators: noun; report as in report someone to the server admins
-#: src/Dialogs/Admin/Report.vala:9
-msgid "Report"
-msgstr "Zgłoś"
 
 #. translators: noun; report as in report someone to the server admins
 #: src/Dialogs/Admin/Report.vala:9
@@ -2877,12 +2831,6 @@ msgstr "Modyfikuj metadane"
 msgid "Upload Custom Thumbnail"
 msgstr "Prześlij niestandardową miniaturkę"
 
-#. translators: composer media attachment button that uploads
-#. a custom thumbnail for the video it's on
-#: src/Dialogs/Composer/Attachment.vala:265
-msgid "Upload Custom Thumbnail"
-msgstr "Prześlij niestandardową miniaturkę"
-
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:326
 #: src/Dialogs/Composer/Attachment.vala:762
@@ -3029,20 +2977,6 @@ msgstr "Modyfikuj"
 #: src/Dialogs/Composer/Dialog.vala:771 src/Dialogs/Composer/Dialog.vala:802
 msgid "Edit Post"
 msgstr "Modyfikuj wpis"
-
-#. translators: dialog title shown when the user pastes a post url in the composer;
-#. the variable is a uri string of a quote
-#: src/Dialogs/Composer/Dialog.vala:1090
-#, c-format
-msgid "Quote %s?"
-msgstr "Zacytować %s?"
-
-#. translators: in the composer, inside a quote post, top right button
-#. with a trash can icon that when clicked removes the
-#. quote; tooltip text
-#: src/Dialogs/Composer/Dialog.vala:1134
-msgid "Remove Quote"
-msgstr "Usuń cytat"
 
 #. translators: dialog title shown when the user pastes a post url in the composer;
 #. the variable is a uri string of a quote
@@ -4747,17 +4681,6 @@ msgstr ""
 #, c-format
 msgid "Couldn't block domain: %s"
 msgstr "Nie można zablokować domeny: %s"
-
-#: src/Views/Profile.vala:594
-msgid "Copied handle to clipboard"
-msgstr "Skopiowano adres do schowka"
-
-#. translators: error toast, variable is a string error message
-#: src/Views/Profile.vala:541
-#, fuzzy, c-format
-#| msgid "Couldn't Mute Conversation: %s"
-msgid "Couldn't block domain: %s"
-msgstr "Nie udało się wyciszyć konwersacji: %s"
 
 #: src/Views/Profile.vala:594
 msgid "Copied handle to clipboard"
