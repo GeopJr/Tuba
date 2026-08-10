@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-01 05:24+0300\n"
-"PO-Revision-Date: 2026-08-03 07:25+0000\n"
+"PO-Revision-Date: 2026-08-10 11:01+0000\n"
 "Last-Translator: Łukasz Horodecki <lukasz@horodecki.net>\n"
 "Language-Team: Polish <https://translate.codeberg.org/projects/tuba/tuba/pl/>"
 "\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.7.1\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -46,7 +46,7 @@ msgid ""
 msgstr ""
 "Odkrywaj sfederowaną sieć społeczną z Tubą dla GNOME. Bądź w kontakcie ze "
 "swoimi ulubionymi społecznościami, rodziną i przyjaciółmi dzięki wsparciu "
-"dla popularnych platform fediwersum, takich jak Mastodon, GoToSocial, Akkoma "
+"dla popularnych platform Fediwersum, takich jak Mastodon, GoToSocial, Akkoma "
 "i innych!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:12
@@ -136,7 +136,7 @@ msgstr "ID list widocznych w panelu bocznym"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:46
 msgid "Hashtags shown on the sidebar"
-msgstr "Hasztagi widoczne w panelu bocznym"
+msgstr "Hasztagi widoczne w panelu bocznym"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:51
@@ -214,7 +214,7 @@ msgstr "Odświeżanie osi czasu"
 #. translators: setting description on what "stream timelines" entails
 #: data/dev.geopjr.Tuba.gschema.xml:97 data/ui/dialogs/preferences.ui:224
 msgid "Receive new posts and notifications in real-time"
-msgstr "Otrzymywanie nowych wpisów i powiadomień w czasie rzeczywistym"
+msgstr "Otrzymywanie nowych wpisów i powiadomień w czasie rzeczywistym"
 
 #. translators: setting that when enabled activates websocket live-updates - even 'local' and 'federated' timelines that get a lot of traffic; stream is a verb, you may replace it with 'live update'
 #: data/dev.geopjr.Tuba.gschema.xml:101 data/ui/dialogs/preferences.ui:231
@@ -285,7 +285,7 @@ msgstr ""
 #. translators: setting that when enabled will automatically remove tracking bits from urls
 #: data/dev.geopjr.Tuba.gschema.xml:137 data/ui/dialogs/preferences.ui:132
 msgid "Strip Tracking Parameters From Links"
-msgstr "Usuwanie parametrów śledzenia z odnośników"
+msgstr "Usuwanie parametrów śledzenia z odnośników"
 
 #. translators: Broken as in incorrect; setting subtitle about stripping tracking parameters from links
 #: data/dev.geopjr.Tuba.gschema.xml:138 data/ui/dialogs/preferences.ui:134
@@ -375,7 +375,7 @@ msgstr ""
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:152
 msgid "Warn before boosting a post that includes attachments without alt text"
 msgstr ""
-"Ostrzeganie przed podbiciem wpisów zawierającymi załączniki bez tekstu "
+"Ostrzeganie przed podbiciem wpisów zawierających załączniki bez tekstu "
 "alternatywnego"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
@@ -442,7 +442,7 @@ msgstr "Powiadomienia takie jak polubienia i podbicia będą słabiej widoczne"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:217
 msgid "The last volume value used in the media viewer for videos and audio"
-msgstr "Ostatni poziom głośności przy odtwarzaniu wideo i audio"
+msgstr "Ostatni poziom głośności użyty przy odtwarzaniu wideo i audio"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:222
@@ -574,8 +574,8 @@ msgid ""
 "Used to detect what features an instance supports like quote-posts on "
 "account activation"
 msgstr ""
-"Używane do wykrycia, jakie możliwości są wspierane przez serwer, takie jak "
-"cytowanie wpisów, przy aktywacji konta"
+"Używane do wykrycia przy aktywacji konta, jakie możliwości są wspierane "
+"przez serwer, takie jak cytowanie wpisów"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:294
@@ -777,7 +777,7 @@ msgstr "Tylko odpowiedzi"
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:110
 msgid "Only Posts with Content Warnings"
-msgstr "Tylko wpisy z ostrzeżeniem o zawartości"
+msgstr "Tylko wpisy z ostrzeżeniem o zawartości"
 
 #. translators: Advanced search window, option group
 #. This is the title and the option are
@@ -859,12 +859,12 @@ msgstr "Nowy wpis"
 #. translators: composer overlay shown when dragging files above it
 #: data/ui/dialogs/composer.ui:22
 msgid "Drop media to attach them"
-msgstr "Upuść media, by je załączyć"
+msgstr "Upuść media, by je dołączyć"
 
 #. translators: placeholder text in the composer's content warning entry
 #: data/ui/dialogs/composer.ui:45
 msgid "Write your content warning here"
-msgstr "Wpisz tutaj ostrzeżenie o zawartości"
+msgstr "Wpisz tutaj ostrzeżenie o zawartości"
 
 #. translators: button tooltip that opens the native emoji picker
 #: data/ui/dialogs/composer.ui:71 src/Widgets/Status/ReactionsRow.vala:47
@@ -902,7 +902,7 @@ msgstr "Oznacz media jako drażliwe"
 #. translators: dialog title of the filter editor
 #: data/ui/dialogs/filter_edit.ui:7
 msgid "Edit Filter"
-msgstr "Edytuj filtr"
+msgstr "Modyfikuj filtr"
 
 #. translators: button label; verb
 #: data/ui/dialogs/filter_edit.ui:26 data/ui/dialogs/profile_edit.ui:28
@@ -929,7 +929,7 @@ msgstr "Ukryj całkowicie"
 #. translators: filter editor setting subtitle; if hide completely is off
 #: data/ui/dialogs/filter_edit.ui:76
 msgid "Otherwise a warning will be used"
-msgstr "W przeciwny przypadku zobaczysz ostrzeżenie"
+msgstr "W przeciwnym przypadku zobaczysz ostrzeżenie"
 
 #. translators: filter editor group title; 'under which contexts should the filter be used' aka timelines
 #: data/ui/dialogs/filter_edit.ui:84
@@ -939,7 +939,7 @@ msgstr "Kontekst"
 #. translators: filter editor group description: context = timelines
 #: data/ui/dialogs/filter_edit.ui:86
 msgid "One or multiple contexts where the filter should apply"
-msgstr "Jedno lub wiele miejsc, w których filtr zostanie zastosowany"
+msgstr "Jedno lub wiele miejsc, w których filtr zostanie zastosowany"
 
 #. translators: filter editor group title; keywords or phrases to filter out; not a question
 #: data/ui/dialogs/filter_edit.ui:92
@@ -960,7 +960,7 @@ msgstr "Nazwa listy"
 #. translators: list editor setting that when enabled removes the members' posts from the 'home' timeline and only shows them in the list
 #: data/ui/dialogs/list_edit.ui:35
 msgid "Hide Posts From Home"
-msgstr "Ukryj wpisy z twojej osi czasu"
+msgstr "Ukryj wpisy z twojej osi czasu"
 
 #. translators: list edit settings group; what kind of replies should be in the list from the members
 #: data/ui/dialogs/list_edit.ui:43
@@ -981,7 +981,7 @@ msgstr "Nikogo"
 #. translators: list edit replies policy option
 #: data/ui/dialogs/list_edit.ui:61
 msgid "Other members of the list"
-msgstr "Innych osób z listy"
+msgstr "Innych osób z listy"
 
 #. translators: list edit replies policy option; followed by you
 #: data/ui/dialogs/list_edit.ui:74
@@ -1011,8 +1011,8 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
-"Jeżeli nie masz jeszcze konta, <a href=\"https://joinmastodon.org/"
-"servers\">wybierz serwer i je załóż</a>."
+"Jeżeli nie masz jeszcze konta, <a href=\"https://joinmastodon.org/servers\">"
+"wybierz serwer i je załóż</a>."
 
 #. translators: entry title where users input their fediverse instance/server url
 #: data/ui/dialogs/new_account.ui:73
@@ -1046,7 +1046,7 @@ msgstr "Kod autoryzacyjny"
 #. translators: message shown after successfully adding a new account to tuba
 #: data/ui/dialogs/new_account.ui:257
 msgid "Your account is connected and ready to use!"
-msgstr "Twoje konto jest podłączone i gotowe do użycia!"
+msgstr "Twoje konto jest podłączone i gotowe do użycia!"
 
 #. translators: button that will close the new account dialog; "done with adding a new account"
 #: data/ui/dialogs/new_account.ui:269
@@ -1113,7 +1113,7 @@ msgstr "Nowe konta"
 #. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:70
 msgid "Created within the past 30 days"
-msgstr "Utworzone w ciągu ostatnich 30 dni"
+msgstr "Utworzone w ciągu ostatnich 30 dni"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:76
@@ -1191,14 +1191,14 @@ msgstr "Usługi online"
 #. translators: leave api.tuba.geopjr.dev as is; setting group description
 #: data/ui/dialogs/preferences.ui:243
 msgid "Configure features that connect to api.tuba.geopjr.dev"
-msgstr "Konfiguruj funkcje, które łączą się z api.tuba.geopjr.dev"
+msgstr "Konfiguruj funkcje, które łączą się z api.tuba.geopjr.dev"
 
 #. translators: setting description on what sending user preferences to tuba's servers entails
 #: data/ui/dialogs/preferences.ui:249
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly"
 msgstr ""
-"Wysyłaj co dwa tygodnie do twórców Tuby swoje preferencje w celu badania ich "
+"Wysyłaj co dwa tygodnie do twórców Tuby swoje preferencje w celu badania ich "
 "popularności"
 
 #. translators: button tooltip that when clicked shows what the actual data the user will send to tuba's server will be
@@ -1220,7 +1220,7 @@ msgstr "Nowe osoby obserwujące"
 #. translators: notification type
 #: data/ui/dialogs/preferences.ui:310
 msgid "New Follower Requests"
-msgstr "Nowe prośby o obserwację"
+msgstr "Nowe prośby o obserwację"
 
 #. translators: notification type
 #: data/ui/dialogs/preferences.ui:317 src/Dialogs/NotificationSettings.vala:50
@@ -1246,7 +1246,7 @@ msgstr "Wyniki ankiet"
 #. translators: notification type
 #: data/ui/dialogs/preferences.ui:345
 msgid "Edits"
-msgstr "Edycje wpisów"
+msgstr "Modyfikacje"
 
 #. translators: notification type
 #. translators: title for a list of quotes of a post, shown under "View Stats"
@@ -1277,17 +1277,17 @@ msgstr "Słowa kluczowe"
 #. translators: verb, title or button that when clicked will show the profile editor
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:476
 msgid "Edit Profile"
-msgstr "Edytuj profil"
+msgstr "Modyfikuj profil"
 
 #. translators: button tooltip that when clicked will show the file picker so the user picks a new avatar
 #: data/ui/dialogs/profile_edit.ui:69
 msgid "Edit Profile Picture"
-msgstr "Edytuj awatar"
+msgstr "Modyfikuj awatar"
 
 #. translators: button tooltip that when clicked a file picker will show up so the user changes their cover image; if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:98
 msgid "Edit Header Picture"
-msgstr "Edytuj obrazek nagłówka"
+msgstr "Modyfikuj obrazek nagłówka"
 
 #. translators: entry title for the user to input their new name in; display is not a verb
 #: data/ui/dialogs/profile_edit.ui:124 src/Views/Admin/Pages/Accounts.vala:135
@@ -1371,18 +1371,18 @@ msgstr "Wiadomość bezpośrednia"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr "Kopiuj adres w fediwersum"
+msgstr "Kopiuj adres w Fediwersum"
 
 #: data/ui/menus.ui:29 data/ui/views/media_viewer.ui:6
 #: src/Views/Browser.vala:201 src/Widgets/Attachment/Item.vala:190
 #: src/Widgets/Status.vala:385
 msgid "Open in Browser"
-msgstr "Otwórz w przeglądarce"
+msgstr "Otwórz w przeglądarce"
 
 #. translators: option on profiles, when enabled the user will get notifications every time this profile posts something
 #: data/ui/menus.ui:34
 msgid "Receive Post Notifications"
-msgstr "Otrzymuj powiadomienia o wpisach"
+msgstr "Otrzymuj powiadomienia o wpisach"
 
 #. translators: used in profile actions for endorsing a user
 #. translators: label on headerbar button on hashtag views that 'features'
@@ -1546,7 +1546,7 @@ msgstr "Nieprzeczytane"
 #. translators: tooltip on an icon that indicates that this post was edited
 #: data/ui/widgets/announcement.ui:93 data/ui/widgets/status.ui:150
 msgid "Edited"
-msgstr "Edytowany"
+msgstr "Zmodyfikowany"
 
 #. translators: Media play bar play button tooltip
 #: data/ui/widgets/audiocontrols.ui:33 src/Widgets/AudioPlayer/Controls.vala:26
@@ -1682,7 +1682,7 @@ msgstr "Pozostałe"
 #. translators: the variable is a string report comment
 #: src/API/Admin/Report.vala:76
 msgid "With the comment"
-msgstr "Z komentarzem"
+msgstr "Z komentarzem"
 
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:78
@@ -1723,7 +1723,7 @@ msgstr "Błąd"
 #: src/API/Conversation.vala:31
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr "Pusta rozmowa z %s"
+msgstr "Pusta rozmowa z %s"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of posts a user has made.
@@ -1747,12 +1747,12 @@ msgstr "Wpisy zawierające ten hasztag"
 #: src/API/FeaturedTag.vala:39
 #, c-format
 msgid "Last post on %s"
-msgstr "Ostatni wpis z %s"
+msgstr "Ostatni wpis z %s"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
 msgid "Home &amp; Lists"
-msgstr "Twoja oś czasu i listy"
+msgstr "Twoja oś czasu i listy"
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
@@ -1782,13 +1782,13 @@ msgid_plural ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
-"Instancja %s została zablokowana, usuwając %s z twoich obserwujących i %s "
+"Instancja %s została zablokowana, usuwając %s z twoich obserwujących i %s "
 "konto, które obserwujesz."
 msgstr[1] ""
-"Instancja %s została zablokowana, usuwając %s z twoich obserwujących i %s "
+"Instancja %s została zablokowana, usuwając %s z twoich obserwujących i %s "
 "konta, które obserwujesz."
 msgstr[2] ""
-"Instancja %s została zablokowana, usuwając %s z twoich obserwujących i %s "
+"Instancja %s została zablokowana, usuwając %s z twoich obserwujących i %s "
 "kont, które obserwujesz."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
@@ -1801,14 +1801,14 @@ msgid_plural ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
-"Instancja %s została zablokowana przez administrację, w tym %s z twoich "
-"obserwujących i %s konto, które obserwujesz."
+"Instancja %s została zablokowana przez administrację, w tym %s z twoich "
+"obserwujących i %s konto, które obserwujesz."
 msgstr[1] ""
-"Instancja %s została zablokowana przez administrację, w tym %s z twoich "
-"obserwujących i %s konta, które obserwujesz."
+"Instancja %s została zablokowana przez administrację, w tym %s z twoich "
+"obserwujących i %s konta, które obserwujesz."
 msgstr[2] ""
-"Instancja %s została zablokowana przez administrację, w tym %s z twoich "
-"obserwujących i %s kont, które obserwujesz."
+"Instancja %s została zablokowana przez administrację, w tym %s z twoich "
+"obserwujących i %s kont, które obserwujesz."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:33
@@ -1818,7 +1818,7 @@ msgid ""
 "from them or interact with them."
 msgstr ""
 "Konto %s jest zawieszone przez administrację, co oznacza brak powiadomień od "
-"niego i możliwości interakcji."
+"niego i możliwości interakcji."
 
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
@@ -1850,8 +1850,18 @@ msgstr "Twoje #FediWrapped %s jest gotowe!"
 #: src/API/Notification.vala:157
 msgid "Review your year's highlights and memorable moments on the Fediverse!"
 msgstr ""
-"Przejrzyj najważniejsze wydarzenia i niezapomniane chwile swojego roku w "
-"fediwersum!"
+"Przejrzyj najważniejsze wydarzenia i niezapomniane chwile swojego roku w "
+"Fediwersum!"
+
+#. translators: notification title of a Mastodon Collections related event
+#: src/API/Notification.vala:170
+msgid "You were added to a collection"
+msgstr "Twoje konto zostało dodane do kolekcji"
+
+#. translators: notification title of a Mastodon Collections related event
+#: src/API/Notification.vala:183
+msgid "A collection you are a part of was edited"
+msgstr "Kolekcja, której jesteś częścią, została zmodyfikowana"
 
 #. translators: notification title of a Mastodon Collections related event
 #: src/API/Notification.vala:170
@@ -1876,7 +1886,7 @@ msgstr "Odpowiedz…"
 
 #: src/API/Notification.vala:301
 msgid "Remove from Followers"
-msgstr "Usuń z obserwujących"
+msgstr "Usuń z obserwujących"
 
 #: src/API/Notification.vala:306
 msgid "Follow Back"
@@ -1894,7 +1904,7 @@ msgstr "Akceptuj"
 
 #: src/API/Relationship.vala:24
 msgid "Sent follow request"
-msgstr "Wysłano prośbę o obserwację"
+msgstr "Wysłano prośbę o obserwację"
 
 #: src/API/Relationship.vala:26
 msgid "Mutuals"
@@ -1913,12 +1923,12 @@ msgstr "Blokuje cię"
 #: src/API/Relationship.vala:183 src/Widgets/Collection.vala:173
 #, c-format
 msgid "Block \"%s\"?"
-msgstr "Zablokować \"%s\"?"
+msgstr "Zablokować „%s”?"
 
 #: src/API/Relationship.vala:183
 #, c-format
 msgid "Unblock \"%s\"?"
-msgstr "Odblokować \"%s\"?"
+msgstr "Odblokować „%s”?"
 
 #. translators: action to take on a user, verb
 #: src/API/Relationship.vala:189 src/Views/Admin/Timelines/BlockedIPs.vala:37
@@ -1933,7 +1943,7 @@ msgstr "Odblokuj"
 #. from this user, e.g. when they reply to you
 #: src/API/Relationship.vala:203
 msgid "Hide from Notifications"
-msgstr "Ukryj z powiadomień"
+msgstr "Ukryj z powiadomień"
 
 #. translators: Dropdown title for picking when a mute should expire
 #: src/API/Relationship.vala:218
@@ -1944,7 +1954,7 @@ msgstr "Wygaśnie za"
 #: src/API/Relationship.vala:231
 #, c-format
 msgid "Mute \"%s\"?"
-msgstr "Wyciszyć \"%s\"?"
+msgstr "Wyciszyć „%s”?"
 
 #: src/API/Relationship.vala:271 src/Dialogs/FilterEdit.vala:30
 msgid "Never"
@@ -1982,14 +1992,45 @@ msgstr "Wyszukiwanie nie przyniosło żadnych wyników"
 #: src/API/Status/PreviewCard.vala:51
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr "Jeżeli będziesz kontynuować, \"%s\" otworzy się w twojej przeglądarce."
+msgstr "Jeżeli będziesz kontynuować, „%s” otworzy się w twojej przeglądarce."
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
 #: src/API/Status/PreviewCard.vala:55
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr "Jeżeli będziesz kontynuować, %s połączy się z \"%s\"."
+msgstr "Jeżeli będziesz kontynuować, %s połączy się z „%s”."
+
+#. translators: quote policy title, who can quote a post
+#: src/API/Status.vala:367
+msgid "Anybody"
+msgstr "Każdy"
+
+#. translators: quote policy title, who can quote a post
+#. translators: post visibility label
+#: src/API/Status.vala:370 src/API/Status.vala:435
+msgid "Followers Only"
+msgstr "Tylko dla obserwujących"
+
+#. translators: quote policy title, who can quote a post
+#: src/API/Status.vala:373
+msgid "Just Me"
+msgstr "Tylko ja"
+
+#. translators: quote policy subtitle, when Anybody can quote
+#: src/API/Status.vala:381
+msgid "Everyone can quote your post"
+msgstr "Każdy może cytować twój wpis"
+
+#. translators: quote policy subtitle, when Followers Only can quote
+#: src/API/Status.vala:384
+msgid "Only your followers can quote your post"
+msgstr "Tylko osoby cię obserwujące mogą cytować twój wpis"
+
+#. translators: quote policy subtitle, when Just Me can quote
+#: src/API/Status.vala:387
+msgid "Nobody can quote your post"
+msgstr "Nikt nie może cytować twojego wpisu"
 
 #. translators: quote policy title, who can quote a post
 #: src/API/Status.vala:367
@@ -2084,7 +2125,7 @@ msgstr "%s nie akceptuje '%s://'"
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:882
 msgid "translator-credits"
-msgstr "Łukasz Horodecki http://pol.social/@LukaszHorodecki"
+msgstr "Łukasz Horodecki http://mastodon.com.pl/@LukaszHorodecki"
 
 #. translators: Wiki pages / Guides
 #: src/Application.vala:886
@@ -2106,7 +2147,7 @@ msgstr "Archives"
 
 #: src/Application.vala:892
 msgid "Create and view web archives"
-msgstr "Twórz i przeglądaj sieciowa archiwa"
+msgstr "Twórz i przeglądaj sieciowa archiwa"
 
 #. translators: Application metainfo for the app "Calligraphy". <https://codeberg.org/GeopJr/Calligraphy>
 #: src/Application.vala:894
@@ -2115,7 +2156,7 @@ msgstr "Calligraphy"
 
 #: src/Application.vala:894
 msgid "Turn text into ASCII banners"
-msgstr "Zmień tekst w banery ASCII"
+msgstr "Zmień tekst w banery ASCII"
 
 #. translators: Application metainfo for the app "Collision". <https://codeberg.org/GeopJr/Collision>
 #: src/Application.vala:896
@@ -2177,8 +2218,8 @@ msgstr "Odrzucanie plików multimedialnych"
 msgid ""
 "Removes locally stored media files and refuses to download any in the future"
 msgstr ""
-"Usuwa przechowywane lokalnie pliki multimedialne i blokuje pobieranie plików "
-"w przyszłości"
+"Usuwa przechowywane lokalnie pliki multimedialne i blokuje pobieranie plików "
+"w przyszłości"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -2191,7 +2232,7 @@ msgstr "Odrzucanie zgłoszeń"
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:106
 msgid "Ignore all reports coming from this domain"
-msgstr "Ignoruje wszelkie zgłoszenia przychodzące z tej domeny"
+msgstr "Ignoruje wszelkie zgłoszenia przychodzące z tej domeny"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -2270,7 +2311,12 @@ msgstr "Reguła"
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddIPBlock.vala:134
 msgid "Choose what will happen with requests from this IP"
-msgstr "Wybierz, co się stanie z żądaniami z tego IP"
+msgstr "Wybierz, co się stanie z żądaniami z tego IP"
+
+#. translators: noun; report as in report someone to the server admins
+#: src/Dialogs/Admin/Report.vala:9
+msgid "Report"
+msgstr "Zgłoś"
 
 #. translators: noun; report as in report someone to the server admins
 #: src/Dialogs/Admin/Report.vala:9
@@ -2366,7 +2412,7 @@ msgid ""
 "communication with the reported account"
 msgstr ""
 "Powód, dla którego to konto i/lub treść zostały zgłoszone, zostanie "
-"zacytowany w komunikacji ze zgłoszonym kontem"
+"zacytowany w komunikacji ze zgłoszonym kontem"
 
 #: src/Dialogs/Admin/Report.vala:233
 msgid "Violated Rules"
@@ -2403,7 +2449,7 @@ msgstr "Zamrożenie"
 msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
-msgstr "Zablokuj dostęp do konta, bez usuwania go i ukrywania jego treści"
+msgstr "Zablokuj dostęp do konta, bez usuwania go i ukrywania jego treści"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Views/Drive.vala:196
 #: src/Widgets/Status.vala:822
@@ -2423,7 +2469,7 @@ msgid ""
 "against this account"
 msgstr ""
 "Odbierz temu kontu możliwość publikacji wpisów widocznych publicznie, ukryj "
-"wpisy i powiadomienia przed osobami nieobserwującymi go. Zamyka wszystkie "
+"wpisy i powiadomienia przed osobami nieobserwującymi go. Zamyka wszystkie "
 "zgłoszenia dotyczące tego konta"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -2432,8 +2478,8 @@ msgid ""
 "Prevent any interaction from or to this account and delete its contents. "
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
-"Zablokuj możliwość interakcji z tego konta i z nim, oraz usuń jego "
-"zawartość. Odwracalne w ciągu 30 dni. Zamyka wszystkie zgłoszenia dotyczące "
+"Zablokuj możliwość interakcji z tego konta i z nim, oraz usuń jego "
+"zawartość. Odwracalne w ciągu 30 dni. Zamyka wszystkie zgłoszenia dotyczące "
 "tego konta"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -2445,7 +2491,7 @@ msgstr "Powiadom osobę przez e-mail"
 #: src/Dialogs/Admin/TakeAction.vala:116
 msgid ""
 "The user will receive an explanation of what happened with their account"
-msgstr "Osoba otrzyma wyjaśnienie tego, co stało się z jej kontem"
+msgstr "Osoba otrzyma wyjaśnienie tego, co stało się z jej kontem"
 
 #. translators: Question dialog when an admin is about to
 #. take action against an account
@@ -2546,7 +2592,7 @@ msgstr "Nowe wpisy"
 #: src/Dialogs/AnnualReport.vala:228
 #, c-format
 msgid "I made %s posts."
-msgstr "Mój licznik wpisów podskoczył o %s."
+msgstr "Mój licznik wpisów podskoczył o %s."
 
 #. translators: #FediWrapped, title of a card
 #: src/Dialogs/AnnualReport.vala:238
@@ -2589,7 +2635,7 @@ msgstr "Najwięcej interakcji"
 #: src/Dialogs/AnnualReport.vala:356
 #, c-format
 msgid "I had the most interactions with %s."
-msgstr "Osoby z największą liczbą interakcji to: %s."
+msgstr "Osoby z największą liczbą interakcji to: %s."
 
 #. translators: #FediWrapped, title of the section about how many
 #. new followers you got and new people you followed
@@ -2618,7 +2664,7 @@ msgstr "Najczęściej podbijany wpis"
 #. which one of your posts had the most replies
 #: src/Dialogs/AnnualReport.vala:482
 msgid "Most Replied Post"
-msgstr "Wpis z największą liczbą odpowiedzi"
+msgstr "Wpis z największą liczbą odpowiedzi"
 
 #. translators: save dialog title, refer to the other #FediWrapped strings for more info
 #: src/Dialogs/AnnualReport.vala:551
@@ -2749,9 +2795,9 @@ msgstr "Usuń"
 #, c-format
 msgid "%d Member"
 msgid_plural "%d Members"
-msgstr[0] "osoba na liście"
-msgstr[1] "osoby na liście"
-msgstr[2] "osób na liście"
+msgstr[0] "%d osoba na liście"
+msgstr[1] "%d osoby na liście"
+msgstr[2] "%d osób na liście"
 
 #. translators: title of a list of users that created a collection
 #: src/Dialogs/Collection.vala:86
@@ -2798,7 +2844,7 @@ msgstr "Wszystkie obsługiwane pliki"
 #: src/Dialogs/Composer/AttachmentsBin.vala:431
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
-msgstr "Plik \"%s\" jest większy niż limit serwera"
+msgstr "Plik „%s” jest większy niż limit serwera"
 
 #. translators: the variable is the total amount of attachments allowed (a number)
 #: src/Dialogs/Composer/AttachmentsBin.vala:459
@@ -2823,7 +2869,13 @@ msgstr "Usuń załącznik"
 #. to translate, leave it as just "Edit"
 #: src/Dialogs/Composer/Attachment.vala:252
 msgid "Edit Metadata"
-msgstr "Edytuj"
+msgstr "Modyfikuj metadane"
+
+#. translators: composer media attachment button that uploads
+#. a custom thumbnail for the video it's on
+#: src/Dialogs/Composer/Attachment.vala:265
+msgid "Upload Custom Thumbnail"
+msgstr "Prześlij niestandardową miniaturkę"
 
 #. translators: composer media attachment button that uploads
 #. a custom thumbnail for the video it's on
@@ -2878,7 +2930,7 @@ msgstr "Zaplanuj wpis…"
 #: src/Dialogs/Composer/Dialog.vala:171
 #, c-format
 msgid "Exceeded character limit by %lld"
-msgstr "Przekroczono limit znaków o %lld"
+msgstr "Przekroczono limit znaków o %lld"
 
 #. translators: composer dropdown tooltip text
 #: src/Dialogs/Composer/Dialog.vala:244
@@ -2971,12 +3023,26 @@ msgstr "Przeredaguj"
 #: src/Widgets/Collection.vala:261 src/Widgets/ScheduledStatus.vala:44
 #: src/Widgets/Status.vala:436
 msgid "Edit"
-msgstr "Edytuj"
+msgstr "Modyfikuj"
 
 #. translators: composer title
 #: src/Dialogs/Composer/Dialog.vala:771 src/Dialogs/Composer/Dialog.vala:802
 msgid "Edit Post"
-msgstr "Edytuj wpis"
+msgstr "Modyfikuj wpis"
+
+#. translators: dialog title shown when the user pastes a post url in the composer;
+#. the variable is a uri string of a quote
+#: src/Dialogs/Composer/Dialog.vala:1090
+#, c-format
+msgid "Quote %s?"
+msgstr "Zacytować %s?"
+
+#. translators: in the composer, inside a quote post, top right button
+#. with a trash can icon that when clicked removes the
+#. quote; tooltip text
+#: src/Dialogs/Composer/Dialog.vala:1134
+msgid "Remove Quote"
+msgstr "Usuń cytat"
 
 #. translators: dialog title shown when the user pastes a post url in the composer;
 #. the variable is a uri string of a quote
@@ -3048,7 +3114,7 @@ msgstr "Cofnij"
 #: src/Dialogs/Composer/Polls.vala:138
 #, c-format
 msgid "Changed state to \"%s\""
-msgstr "Zmieniono stan na \"%s\""
+msgstr "Zmieniono stan na „%s”"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/Polls.vala:231
@@ -3108,14 +3174,14 @@ msgstr "%d min"
 #: src/Dialogs/Composer/Polls.vala:390
 #, c-format
 msgid "%dh"
-msgstr "%dg"
+msgstr "%d g"
 
 #. translators: the variable is a number, short form for days
 #: src/Dialogs/Composer/Polls.vala:394 src/Dialogs/Composer/Polls.vala:396
 #: src/Dialogs/Composer/Polls.vala:398
 #, c-format
 msgid "%dd"
-msgstr "%dd"
+msgstr "%d d"
 
 #. translators: button that adds a new keyword or phrase
 #. entry to the filter editor
@@ -3151,7 +3217,7 @@ msgstr "Usuń"
 #: src/Dialogs/FilterEdit.vala:340
 #, c-format
 msgid "Couldn't edit filter: %s"
-msgstr "Nie udało się edytować filtra: %s"
+msgstr "Nie można zmodyfikować filtra: %s"
 
 #. translators: dialog title that creates a list of hashtags
 #: src/Dialogs/HashtagList.vala:337 src/Dialogs/HashtagList.vala:345
@@ -3166,7 +3232,7 @@ msgstr "Którekolwiek"
 #. translators: description on hashtags list group, above a list of hashtags
 #: src/Dialogs/HashtagList.vala:360
 msgid "Include posts that contain any of these tags."
-msgstr "Uwzględnij wpisy zawierające którykolwiek z tych hashtagów."
+msgstr "Uwzględnij wpisy zawierające którykolwiek z tych hashtagów."
 
 #. translators: as in All search results
 #: src/Dialogs/HashtagList.vala:367 src/Views/Admin/Pages/Accounts.vala:68
@@ -3177,12 +3243,12 @@ msgstr "Wszystko"
 #. translators: description on hashtags list group, above a list of hashtags
 #: src/Dialogs/HashtagList.vala:369
 msgid "Include posts that contain all of these tags."
-msgstr "Uwzględnij wpisy zawierające wszystkie z tych hashtagów."
+msgstr "Uwzględnij wpisy zawierające wszystkie z tych hashtagów."
 
 #. translators: description on hashtags list group, above a list of hashtags
 #: src/Dialogs/HashtagList.vala:378
 msgid "Don't include posts that contain any of these tags."
-msgstr "Nie uwzględniaj wpisów zawierających którykolwiek z tych tagów."
+msgstr "Nie uwzględniaj wpisów zawierających którykolwiek z tych tagów."
 
 #. translators: Dialog title when closing the Hashtag List creation dialog
 #: src/Dialogs/HashtagList.vala:402
@@ -3211,7 +3277,7 @@ msgstr "Nie powiodło się pobranie osób w kolekcji: %s"
 #: src/Dialogs/ListEdit.vala:199 src/Dialogs/ListEdit.vala:222
 #, c-format
 msgid "Couldn't save list: %s"
-msgstr "Nie powiodło się zapisanie listy '%s': %s"
+msgstr "Nie można zapisać listy: %s"
 
 #: src/Dialogs/MainWindow.vala:81
 #: src/Services/Accounts/Mastodon/Account.vala:20 src/Views/Home.vala:11
@@ -3220,11 +3286,11 @@ msgstr "Twoja oś czasu"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
-msgstr "Zezwól na dostęp do swojego konta w przeglądarce."
+msgstr "Zezwól na dostęp do swojego konta w przeglądarce."
 
 #: src/Dialogs/NewAccount.vala:4
 msgid "Copy the authorization code from the browser and paste it below."
-msgstr "Skopiuj kod autoryzacyjny z przeglądarki i wklej go poniżej."
+msgstr "Skopiuj kod autoryzacyjny z przeglądarki i wklej go poniżej."
 
 #: src/Dialogs/NewAccount.vala:188
 msgid "Please enter a valid instance URL"
@@ -3262,7 +3328,7 @@ msgid ""
 "Enables the Admin Dashboard and requests the needed permissions to use the "
 "Admin API"
 msgstr ""
-"Włącza panel administracyjny i żąda uprawnień koniecznych do używania API "
+"Włącza panel administracyjny i żąda uprawnień koniecznych do używania API "
 "administracyjnego"
 
 #: src/Dialogs/NotificationSettings.vala:52
@@ -3271,7 +3337,7 @@ msgstr "Ankiety"
 
 #: src/Dialogs/NotificationSettings.vala:53
 msgid "Post Edits"
-msgstr "Edycje wpisów"
+msgstr "Modyfikacje wpisów"
 
 #: src/Dialogs/NotificationSettings.vala:54
 msgid "Follows"
@@ -3282,7 +3348,7 @@ msgstr "Zaobserwowania"
 #: src/Dialogs/NotificationSettings.vala:131
 #, c-format
 msgid "Couldn't save notification settings: %s"
-msgstr "Nie powiodło się zapisanie ustawień powiadomień: %s"
+msgstr "Nie można zapisać ustawień powiadomień: %s"
 
 #. translators: dialog title for the user to confirm if they want to remove all their notifications
 #: src/Dialogs/NotificationSettings.vala:146
@@ -3311,12 +3377,12 @@ msgstr "Usunąć %s?"
 #: src/Dialogs/Preferences.vala:104
 #, c-format
 msgid "Couldn't delete filter: %s"
-msgstr "Nie udało się usunąć filtra: %s"
+msgstr "Nie można usunąć filtra: %s"
 
 #: src/Dialogs/Preferences.vala:200
 #, c-format
 msgid "Couldn't update notification types: %s"
-msgstr "Nie powiodła się aktualizacja typów powiadomień: %s"
+msgstr "Nie można zaktualizować typów powiadomień: %s"
 
 #. translators: leave "UnifiedPush" as is. "distributors" can be substituted with "services".
 #. This is a subtitle in the settings option that enabled UnifiedPush shown when
@@ -3335,7 +3401,7 @@ msgstr "Dodaj filtr…"
 #: src/Dialogs/Preferences.vala:308
 #, c-format
 msgid "Couldn't retrieve filters: %s"
-msgstr "Nie powiodło się pobranie filtrów: %s"
+msgstr "Nie można pobrać filtrów: %s"
 
 #. translators: error toast when tuba cant update the user's locale;
 #. the variable is a string error message
@@ -3348,7 +3414,7 @@ msgstr "Nie powiodło się przetłumaczenie: %s"
 #: src/Dialogs/Preferences.vala:513
 #, c-format
 msgid "Couldn't update visibility: %s"
-msgstr "Nie powiodła się zmiana widoczności: %s"
+msgstr "Nie można zmienić widoczności: %s"
 
 #: src/Dialogs/Preferences.vala:562
 msgid "Analytics Preview"
@@ -3357,7 +3423,7 @@ msgstr "Podgląd wysyłanych danych"
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
 msgid "Label"
-msgstr "Nazwa"
+msgstr "Etykieta"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:53
@@ -3422,19 +3488,19 @@ msgstr "Zgłaszanie %s"
 #. this is meant for reporting collections
 #: src/Dialogs/Report.vala:145
 msgid "Tell us what's going on with this collection"
-msgstr "Powiedz, co się dzieje z tą kolekcją"
+msgstr "Powiedz, co jest nie tak z tą kolekcją"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
 #: src/Dialogs/Report.vala:149
 msgid "Tell us what's going on with this account"
-msgstr "Powiedz nam, co jest nie tak z tym kontem"
+msgstr "Powiedz nam, co jest nie tak z tym kontem"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting posts
 #: src/Dialogs/Report.vala:153
 msgid "Tell us what's going on with this post"
-msgstr "Powiedz nam, co jest nie tak z tym wpisem"
+msgstr "Powiedz nam, co jest nie tak z tym wpisem"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of radio-button options where the user can only choose one
@@ -3456,19 +3522,19 @@ msgstr "Wybierz wszystkie pasujące"
 #. translators: 'fetch' as in get
 #: src/Dialogs/Report.vala:234
 msgid "Couldn't fetch all user's posts"
-msgstr "Nie udało się pobrać wszystkich wpisów z tego konta"
+msgstr "Nie można pobrać wszystkich wpisów z tego konta"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of posts. The user is meant to choose any that should be included in the report
 #: src/Dialogs/Report.vala:257
 msgid "Are there any posts that back up this report?"
-msgstr "Czy są jakieś wpisy, które obrazują opisany w zgłoszeniu problem?"
+msgstr "Czy są jakieś wpisy, które obrazują opisany w zgłoszeniu problem?"
 
 #. translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
 #. that's why it asks about choosing 'other' posts
 #: src/Dialogs/Report.vala:261
 msgid "Are there any other posts that back up this report?"
-msgstr "Czy są jakieś inne wpisy, które obrazują opisany w zgłoszeniu problem?"
+msgstr "Czy są jakieś inne wpisy, które obrazują opisany w zgłoszeniu problem?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown at the top of the last page of the report dialog
@@ -3509,7 +3575,7 @@ msgstr "Wstecz"
 #: src/Dialogs/Report.vala:528 src/Dialogs/Report.vala:538
 #, c-format
 msgid "%s. You can continue with the report however."
-msgstr "%s. Możesz i tak kontynuować zgłaszanie."
+msgstr "%s. Możesz i tak kontynuować zgłaszanie."
 
 #: src/Dialogs/Report.vala:528
 msgid "No posts found"
@@ -3567,19 +3633,19 @@ msgstr "Wyniki ankiety"
 #: src/Services/Accounts/InstanceAccount.vala:418
 #, c-format
 msgid "%s edited a post"
-msgstr "Edycja wpisu przez %s"
+msgstr "Modyfikacja wpisu przez %s"
 
 #. translators: post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:426
 msgid "In Reply"
-msgstr "W odpowiedzi"
+msgstr "W odpowiedzi"
 
 #. translators: the variable is a string user handle,
 #. post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:430
 #, c-format
 msgid "In Reply to %s"
-msgstr "W odpowiedzi dla %s"
+msgstr "W odpowiedzi dla %s"
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
@@ -3594,7 +3660,7 @@ msgstr "Nowe konto: %s"
 #. or personal domain blocking
 #: src/Services/Accounts/InstanceAccount.vala:455
 msgid "Some of your relationships got severed"
-msgstr "Niektóre z twoich relacji zostały przerwane"
+msgstr "Niektóre z twoich relacji zostały przerwane"
 
 #. translators: this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:487
@@ -3635,7 +3701,7 @@ msgstr "Zacytowanie twojego wpisu przez %s"
 #: src/Services/Accounts/InstanceAccount.vala:534
 #, c-format
 msgid "%s edited a post you have quoted"
-msgstr "Edycja zacytowanego przez ciebie wpisu przez %s"
+msgstr "Modyfikacja zacytowanego przez ciebie wpisu przez %s"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications;
@@ -3653,7 +3719,7 @@ msgstr "Twoje konto zostało dodane do kolekcji przez %s"
 #: src/Services/Accounts/InstanceAccount.vala:556
 #, c-format
 msgid "%s edited a collection you are in"
-msgstr ""
+msgstr "Kolekcja, w której jesteś, została zmodyfikowana przez %s"
 
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:595
@@ -3714,8 +3780,7 @@ msgstr "Powiadomienie zostało wysłane dla innego konta"
 
 #. translators: The variable is "Fediverse" or a backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:251
-#, fuzzy, c-format
-#| msgid "%s Account"
+#, c-format
 msgctxt "system"
 msgid "%s Account"
 msgstr "Konto %s"
@@ -3723,7 +3788,7 @@ msgstr "Konto %s"
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:337
 msgid "Follow System"
-msgstr "Jak w systemie"
+msgstr "Jak w systemie"
 
 #. translators: Light mode theme
 #: src/Services/Settings.vala:340
@@ -3743,19 +3808,19 @@ msgstr "wkrótce wygasa"
 #: src/Utils/DateTime.vala:16
 #, c-format
 msgid "%sm left"
-msgstr "%sm do końca"
+msgstr "%s m do końca"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:20
 #, c-format
 msgid "%sh left"
-msgstr "%sg do końca"
+msgstr "%s g do końca"
 
 #. tranlators: the variable is a number, `d` as in days in short form
 #: src/Utils/DateTime.vala:24
 #, c-format
 msgid "%sd left"
-msgstr "%sd do końca"
+msgstr "%s d do końca"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -3771,7 +3836,7 @@ msgstr "wygasa %-e %b %Y"
 #. %M is the minutes
 #: src/Utils/DateTime.vala:43
 msgid "expires on %b %-e, %Y %H:%M"
-msgstr "wygasa %-e %b %Y o %H:%M"
+msgstr "wygasa %-e %b %Y o %H:%M"
 
 #: src/Utils/DateTime.vala:45
 msgid "expired on just now"
@@ -3781,13 +3846,13 @@ msgstr "wygasła właśnie teraz"
 #: src/Utils/DateTime.vala:49
 #, c-format
 msgid "expired %sm ago"
-msgstr "zamknięta %sm temu"
+msgstr "zamknięta %s m temu"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:54
 #, c-format
 msgid "expired %sh ago"
-msgstr "zamknięta %sg temu"
+msgstr "zamknięta %s g temu"
 
 #: src/Utils/DateTime.vala:57
 msgid "expired yesterday"
@@ -3824,13 +3889,13 @@ msgstr "Dopiero co"
 #: src/Utils/DateTime.vala:88
 #, c-format
 msgid "%sm"
-msgstr "%sm"
+msgstr "%s m"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:93
 #, c-format
 msgid "%sh"
-msgstr "%sg"
+msgstr "%s g"
 
 #: src/Utils/DateTime.vala:96
 msgid "Yesterday"
@@ -4071,7 +4136,7 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
-"To może być domena zawarta w adresie e-mail lub używana przez rekord MX. "
+"To może być domena zawarta w adresie e-mail lub używana przez rekord MX. "
 "Będzie to sprawdzane przy rejestracji."
 
 #. translators: title in admin dashboard stats
@@ -4129,7 +4194,7 @@ msgstr "Statystyki"
 #. with other instances
 #: src/Views/Admin/Pages/FederationAllowlist.vala:18
 msgid "Allow federation with an instance"
-msgstr "Zezwól na federację z instancją"
+msgstr "Zezwól na federację z instancją"
 
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
@@ -4142,7 +4207,7 @@ msgstr "Zezwól"
 #: src/Views/Admin/Pages/FederationAllowlist.vala:57
 #, c-format
 msgid "Allow Federation with %s?"
-msgstr "Dopuścić federację z %s?"
+msgstr "Dopuścić federację z %s?"
 
 #. translators: admin dashboard, reports timeline, headerbar button tooltip text
 #: src/Views/Admin/Pages/Reports.vala:10
@@ -4173,7 +4238,7 @@ msgstr "Odblokować %s?"
 #: src/Views/Admin/Timelines/DomainAllow.vala:32
 #, c-format
 msgid "Remove Federation with %s?"
-msgstr "Usunąć federację z %s?"
+msgstr "Usunąć federację z %s?"
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:57
 msgid "Previous Page"
@@ -4222,11 +4287,8 @@ msgstr "Połączenie niezabezpieczone"
 
 #. translators: in-app browser menu item, stops the current loading process
 #: src/Views/Browser.vala:187
-#, fuzzy
-#| msgctxt "media controls tooltip"
-#| msgid "Stop"
 msgid "Stop"
-msgstr "Stop"
+msgstr "Zatrzymaj"
 
 #. translators: in-app web browser, move forward in history action
 #: src/Views/Browser.vala:193
@@ -4235,25 +4297,19 @@ msgstr "Naprzód"
 
 #. translators: 'Collections' is a Mastodon feature; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Views/Collections.vala:24
-#, fuzzy
-#| msgid "No Reactions"
 msgid "Your Collections"
-msgstr "Brak reakcji"
+msgstr "Twoje kolekcje"
 
 #. translators: 'Collections' is a Mastodon feature; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Views/Collections.vala:27 src/Views/Collections.vala:34
 #: src/Views/Collections.vala:101
-#, fuzzy
-#| msgid "No Reactions"
 msgid "No Collections"
-msgstr "Brak reakcji"
+msgstr "Brak kolekcji"
 
 #. tab title under Collections, aka "Collections Featuring You"
 #: src/Views/Collections.vala:32
-#, fuzzy
-#| msgid "For You"
 msgid "Featuring You"
-msgstr "Dla ciebie"
+msgstr "Zawierające ciebie"
 
 #. translators: empty state label
 #: src/Views/Conversations.vala:9
@@ -4297,7 +4353,7 @@ msgstr "Skopiuj odnośnik"
 #. translators: alternative text context menu item in drive
 #: src/Views/Drive.vala:253
 msgid "Edit Alt Text"
-msgstr "Edytuj opis"
+msgstr "Modyfikuj tekst alternatywny"
 
 #. translators: verb, rename a file
 #: src/Views/Drive.vala:259 src/Views/Drive.vala:413
@@ -4324,7 +4380,7 @@ msgstr "Zmień nazwę pliku"
 #: src/Views/Drive.vala:471
 #, c-format
 msgid "Couldn't change alt text for '%s': %s"
-msgstr "Nie powiodła się zmiana alt tekstu dla '%s': %s"
+msgstr "Nie powiodła się zmiana tekstu alternatywnego dla '%s': %s"
 
 #. translators: the first variable is a filename,
 #. the second is an error message
@@ -4358,19 +4414,19 @@ msgstr "Prześlij plik"
 #: src/Views/Drive.vala:830
 #, c-format
 msgid "Couldn't create folder: %s"
-msgstr "Nie powiodło się utworzenie katalogu: %s"
+msgstr "Nie można utworzyć katalogu: %s"
 
 #. translators: drop overlay label when hovering over with a dragged file
 #: src/Views/Drive.vala:887
 msgid "Drop files to upload them"
-msgstr "Upuść pliki, by je przesłać"
+msgstr "Upuść pliki, aby je przesłać"
 
 #. translators: error toast shown when Drive is unable to move a file;
 #. the variables are a string file name and a string error message
 #: src/Views/Drive.vala:1224
 #, c-format
 msgid "Couldn't move '%s': %s"
-msgstr "Nie udało się przenieść '%s': %s"
+msgstr "Nie można przenieść '%s': %s"
 
 #. translators: the variable is a folder/file name
 #: src/Views/Drive.vala:1236
@@ -4400,7 +4456,7 @@ msgstr "'%s' nie może zostać usunięty: %s"
 #. that cannot be deleted.
 #: src/Views/Drive.vala:1332
 msgid "No Deletable Files in Selection"
-msgstr "Brak usuwalnych plików w zaznaczonych"
+msgstr "Brak usuwalnych plików w zaznaczeniu"
 
 #. translators: confirmation dialog in a file-browser-like page
 #: src/Views/Drive.vala:1338
@@ -4429,12 +4485,12 @@ msgstr "Ukończono przesyłanie '%s'"
 #. translators: view title that shows the previous versions of an edited post
 #: src/Views/EditHistory.vala:6
 msgid "Edit History"
-msgstr "Historia edycji"
+msgstr "Historia modyfikacji"
 
 #. translators: empty state title
 #: src/Views/EditHistory.vala:9
 msgid "No Edit History"
-msgstr "Brak historii edycji"
+msgstr "Brak historii modyfikacji"
 
 #. translators: empty state title
 #: src/Views/Explore.vala:11 src/Views/Hashtags.vala:18
@@ -4468,19 +4524,17 @@ msgstr "Brak polubionych"
 
 #: src/Views/FollowRequests.vala:5 src/Views/Sidebar.vala:77
 msgid "Follow Requests"
-msgstr "Prośby o obserwację"
+msgstr "Prośby o obserwację"
 
 #. translators: empty state title
 #: src/Views/FollowRequests.vala:8
 msgid "No Follow Requests"
-msgstr "Brak próśb o obserwację"
+msgstr "Brak próśb o obserwację"
 
 #. translators: headerbar button tooltip, creates a list of hashtags
 #: src/Views/Hashtags.vala:36
-#, fuzzy
-#| msgid "No Hashtags"
 msgid "New Hashtag List"
-msgstr "Brak hasztagów"
+msgstr "Nowa lista hasztagów"
 
 #: src/Views/Hashtags.vala:86 src/Views/Lists.vala:55
 #: src/Widgets/Status/ActionsRow.vala:199
@@ -4513,7 +4567,7 @@ msgstr "Brak list"
 #: src/Views/Lists.vala:136 src/Widgets/Collection.vala:191
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr "Usunąć \"%s\"?"
+msgstr "Usunąć „%s”?"
 
 #: src/Views/Lists.vala:137
 msgid "This action cannot be reverted."
@@ -4521,17 +4575,15 @@ msgstr "Tej czynności nie można cofnąć."
 
 #. translators: error toast; the variable is a string error message
 #: src/Views/Lists.vala:154
-#, fuzzy, c-format
-#| msgid "Couldn't delete filter: %s"
+#, c-format
 msgid "Couldn't delete list: %s"
-msgstr "Nie udało się usunąć filtra: %s"
+msgstr "Nie można usunąć listy: %s"
 
 #. translators: error toast; variable is a string error message
 #: src/Views/Lists.vala:216
-#, fuzzy, c-format
-#| msgid "Couldn't create folder: %s"
+#, c-format
 msgid "Couldn't create list: %s"
-msgstr "Nie powiodło się utworzenie katalogu: %s"
+msgstr "Nie można utworzyć listy: %s"
 
 #. translators: placeholder text inside an entry where users will
 #. type the name of a list they're about to make
@@ -4562,7 +4614,7 @@ msgstr "Skopiowano obraz do schowka"
 #. translators: shows your muted or blocked people
 #: src/Views/MutesBlocks.vala:7 src/Views/Sidebar.vala:78
 msgid "Mutes & Blocks"
-msgstr "Wyciszenia i bloki"
+msgstr "Wyciszenia i bloki"
 
 #. translators: view title of muted people
 #: src/Views/MutesBlocks.vala:13
@@ -4627,15 +4679,13 @@ msgstr "Brak powiadomień"
 
 #. translators: private note dialog title, shown when editing a private note on a profile
 #: src/Views/Profile.vala:16
-#, fuzzy
-#| msgid "Private Comment"
 msgid "Private Note"
-msgstr "Komentarz prywatny"
+msgstr "Prywatna notatka"
 
 #. translators: placeholder shown in the private note editor on profiles
 #: src/Views/Profile.vala:49 src/Views/Profile.vala:61
 msgid "Type your note…"
-msgstr ""
+msgstr "Napisz swoją notatkę…"
 
 #: src/Views/Profile.vala:237
 msgid "Profile"
@@ -4649,7 +4699,7 @@ msgstr "Brak wpisów"
 #. translators: profile tab, when information (followers/following lists) is hidden.
 #: src/Views/Profile.vala:391 src/Views/Profile.vala:398
 msgid "This user has chosen to not make this information available"
-msgstr ""
+msgstr "Ta osoba zdecydowała się nie udostępniać tych informacji"
 
 #. translators: followers tab on profiles, shown when empty.
 #: src/Views/Profile.vala:393
@@ -4670,12 +4720,12 @@ msgstr "Ta osoba nie ma żadnych wyróżnionych hasztagów lub kont."
 #: src/Views/Profile.vala:520
 #, c-format
 msgid "Block Entire \"%s\"?"
-msgstr "Zablokować całość \"%s\"?"
+msgstr "Zablokować całość „%s”?"
 
 #: src/Views/Profile.vala:520
 #, c-format
 msgid "Unblock Entire \"%s\"?"
-msgstr "Odblokować całość \"%s\"?"
+msgstr "Odblokować całość „%s”?"
 
 #. translators: confirmation dialog explaining what blocking an instance will do
 #: src/Views/Profile.vala:524
@@ -4688,9 +4738,19 @@ msgid ""
 msgstr ""
 "Zablokowanie domeny:\n"
 "\n"
-"• Usunie publiczne wpisy i powiadomienia z niej z twoich osi czasu\n"
-"• Usunie osoby z niej z twoich obserwujących\n"
-"• Uniemożliwi ci obserwowanie osób z niej"
+"• Usunie publiczne wpisy i powiadomienia z niej z twoich osi czasu\n"
+"• Usunie osoby z niej z twoich obserwujących\n"
+"• Uniemożliwi ci obserwowanie osób z niej"
+
+#. translators: error toast, variable is a string error message
+#: src/Views/Profile.vala:541
+#, c-format
+msgid "Couldn't block domain: %s"
+msgstr "Nie można zablokować domeny: %s"
+
+#: src/Views/Profile.vala:594
+msgid "Copied handle to clipboard"
+msgstr "Skopiowano adres do schowka"
 
 #. translators: error toast, variable is a string error message
 #: src/Views/Profile.vala:541
@@ -4707,13 +4767,13 @@ msgstr "Skopiowano adres do schowka"
 #: src/Views/Profile.vala:758
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
-msgstr "Dodaj lub usuń \"%s\" z listy"
+msgstr "Dodaj lub usuń „%s” z listy"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:768
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
-msgstr "Wybierz listę do dodania lub usunięcia \"%s\":"
+msgstr "Wybierz listę do dodania lub usunięcia „%s”:"
 
 #: src/Views/Profile.vala:774
 msgid "You don't have any lists"
@@ -4723,25 +4783,25 @@ msgstr "Nie masz żadnych list"
 #: src/Views/Profile.vala:812 src/Views/Profile.vala:881
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
-msgstr "Usuń \"%s\" z \"%s\""
+msgstr "Usuń „%s” z „%s”"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:813 src/Views/Profile.vala:875
 #, c-format
 msgid "Add \"%s\" to \"%s\""
-msgstr "Dodaj \"%s\" do \"%s\""
+msgstr "Dodaj „%s” do „%s”"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:872
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
-msgstr "Osoba \"%s\" została usunięta z \"%s\""
+msgstr "Osoba „%s” została usunięta z „%s”"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:878
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
-msgstr "Osoba \"%s\" została dodana do \"%s\""
+msgstr "Osoba „%s” została dodana do „%s”"
 
 #. translators: as in posts set to be posted sometime in the future
 #: src/Views/ScheduledStatuses.vala:9
@@ -4750,7 +4810,7 @@ msgstr "Brak zaplanowanych wpisów"
 
 #: src/Views/Search.vala:24
 msgid "Search Posts and Accounts"
-msgstr "Przeszukaj wpisy i konta"
+msgstr "Przeszukaj wpisy i konta"
 
 #: src/Views/Search.vala:38
 msgid "Clear Entry"
@@ -4769,7 +4829,7 @@ msgstr "Brak wyników"
 #: src/Views/Search.vala:514
 #, c-format
 msgid "Couldn't auto-fill user: %s"
-msgstr "Nie udało się uzupełnić użytkownika %s"
+msgstr "Nie można automatycznie uzupełnić użytkownika %s"
 
 #. tanslators: used in a banner, the variable is the number of unread announcements
 #: src/Views/Sidebar.vala:28
@@ -4785,9 +4845,9 @@ msgstr[2] "%d ogłoszeń"
 #, c-format
 msgid "%d Follow Request"
 msgid_plural "%d Follow Requests"
-msgstr[0] "%d prośba o obserwację"
-msgstr[1] "%d prośby o obserwację"
-msgstr[2] "%d próśb o obserwację"
+msgstr[0] "%d prośba o obserwację"
+msgstr[1] "%d prośby o obserwację"
+msgstr[2] "%d próśb o obserwację"
 
 #. translators: main menu entry, please don't translate it unless you have to.
 #. Refer to other #FediWrapped strings for more info
@@ -4806,17 +4866,17 @@ msgstr "Skróty klawiszowe"
 #: src/Views/Sidebar.vala:103
 #, c-format
 msgid "About %s"
-msgstr "O programie"
+msgstr "O aplikacji"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:368
 #, c-format
 msgid "Forget %s?"
-msgstr "Zapomnieć o %s?"
+msgstr "Zapomnieć o %s?"
 
 #: src/Views/Sidebar.vala:369
 msgid "This account will be removed from the application."
-msgstr "To konto zostanie usunięte z aplikacji."
+msgstr "To konto zostanie usunięte z aplikacji."
 
 #: src/Views/Sidebar.vala:371
 msgid "Forget"
@@ -4843,10 +4903,8 @@ msgid "Favorited By"
 msgstr "Polubienia"
 
 #: src/Views/StatusStats.vala:44
-#, fuzzy
-#| msgid "Quote"
 msgid "No Quotes"
-msgstr "Cytuj"
+msgstr "Brak cytatów"
 
 #. translators: title for a list of people that have reacted to a post, shown under "View Stats".
 #. A reaction is not the same as a favorite or a boost,
@@ -4987,7 +5045,7 @@ msgstr "Ogłoszenie od %s (%s)."
 #: src/Widgets/Announcement.vala:31 src/Widgets/Status.vala:1065
 #, c-format
 msgid "Edited: %s."
-msgstr "Edytowano: %s."
+msgstr "Zmodyfikowano: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -5047,10 +5105,8 @@ msgstr "Zapisano media"
 
 #. translators: label on toast shown when downloading an attachment that opens the folder containing the file
 #: src/Widgets/Attachment/Item.vala:53
-#, fuzzy
-#| msgid "New Folder"
 msgid "Open Folder"
-msgstr "Nowy katalog"
+msgstr "Otwórz katalog"
 
 #. translators: error toast
 #: src/Widgets/Attachment/Item.vala:57
@@ -5060,7 +5116,7 @@ msgstr "Nie udało się zapisać mediów"
 #. translators: tooltip on a button on attachments with the label ALT, shows the alternative text of the attachment
 #: src/Widgets/Attachment/Item.vala:124
 msgid "View Alt Text"
-msgstr "Zobacz opis"
+msgstr "Zobacz tekst alternatywny"
 
 #. translators: Media play bar play button tooltip
 #: src/Widgets/AudioPlayer/Controls.vala:22
@@ -5083,41 +5139,36 @@ msgstr "autorstwa %s"
 
 #. translators: error message when failing to fetch mastodon collection images
 #: src/Widgets/Collection.vala:105
-#, fuzzy, c-format
-#| msgid "Couldn't fetch all user's posts"
+#, c-format
 msgid "Couldn't fetch collection images: %s"
-msgstr "Nie udało się pobrać wszystkich wpisów z tego konta"
+msgstr "Nie można pobrać obrazów kolekcji: %s"
 
 #. translators: question dialog title when removing yourself from a Collection; the variable is the collection name string
 #: src/Widgets/Collection.vala:148
-#, fuzzy, c-format
-#| msgid "Remove \"%s\" from \"%s\""
+#, c-format
 msgid "Remove yourself from \"%s\"?"
-msgstr "Usuń \"%s\" z \"%s\""
+msgstr "Usunąć cię z „%s”?"
 
 #. translators: menu item, remove myself from mastodon collection
 #: src/Widgets/Collection.vala:263
-#, fuzzy
-#| msgid "Remove Members"
 msgid "Remove Myself"
-msgstr "Usuń osoby"
+msgstr "Usuń mnie"
 
 #. translators: block mastodon collection author, menu item
 #: src/Widgets/Collection.vala:266
 #, fuzzy
 #| msgid "Blocks you"
 msgid "Block Author"
-msgstr "Blokuje cię"
+msgstr "Zablokuj autora"
 
 #. translators: amount of accounts in a collection, variable is a number
 #: src/Widgets/Collection.vala:287
-#, fuzzy, c-format
-#| msgid "%s Account"
+#, c-format
 msgid "%s Account"
 msgid_plural "%s Accounts"
-msgstr[0] "Konto %s"
-msgstr[1] "Konto %s"
-msgstr[2] "Konto %s"
+msgstr[0] "%s konto"
+msgstr[1] "%s konta"
+msgstr[2] "%s kont"
 
 #. translators: the variable is a user name. This is shown on
 #. preview cards of articles from 'verified' fedi authors.
@@ -5176,7 +5227,7 @@ msgstr "Omawiany wczoraj %d razy przez %d osób"
 #: src/Widgets/PreviewCardExplore.vala:83
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
-msgstr "Omawiany %d razy przez %d osób w ciągu ostatnich dwóch dni"
+msgstr "Omawiany %d razy przez %d osób w ciągu ostatnich dwóch dni"
 
 #. translators: tooltip text on 'explore' tab button to
 #. see posts where the selected article is
@@ -5206,9 +5257,9 @@ msgstr[2] "Zobacz wszystkich %d autorów"
 #, c-format
 msgid "Followed by %s & %s Other"
 msgid_plural "Followed by %s & %s Others"
-msgstr[0] "Obserwujący: %s i %s inna osoba"
-msgstr[1] "Obserwujący: %s i %s inne osoby"
-msgstr[2] "Obserwujący: %s i %s innych osób"
+msgstr[0] "Obserwujący: %s i %s inna osoba"
+msgstr[1] "Obserwujący: %s i %s inne osoby"
+msgstr[2] "Obserwujący: %s i %s innych osób"
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -5293,7 +5344,7 @@ msgstr "Przełóż wpis"
 #: src/Widgets/ScheduledStatus.vala:195
 #, c-format
 msgid "Couldn't reschedule: %s"
-msgstr "Nie udało się zmienić czasu publikacji: %s"
+msgstr "Nie można zmienić czasu publikacji: %s"
 
 #. translators: as in a post set to be posted sometime in the future
 #: src/Widgets/ScheduledStatus.vala:202
@@ -5320,10 +5371,8 @@ msgstr "Ten wpis nie może zostać podbity"
 
 #. translators: tooltip text when the quote button is disabled
 #: src/Widgets/Status/ActionsRow.vala:78
-#, fuzzy
-#| msgid "This post can't be boosted"
 msgid "This post can't be quoted"
-msgstr "Ten wpis nie może zostać podbity"
+msgstr "Ten wpis nie może być cytowany"
 
 #. translators: verb, bookmark a post
 #: src/Widgets/Status/ActionsRow.vala:219
@@ -5346,29 +5395,27 @@ msgstr "Nadal możesz odpowiedzieć, ale może to już nie być istotne."
 #. translators: title of dialog shown when trying to boost a post that has attachments without alt text
 #: src/Widgets/Status/ActionsRow.vala:329
 msgid "This post includes attachments without alt text"
-msgstr ""
+msgstr "Ten wpis zawiera załączniki bez tekstu alternatywnego"
 
 #. translators: subtitle of dialog shown when trying to boost a post that has attachments without alt text;
 #. "it" refers to "this post" (mentioned in the dialog title); "parse" as in read/grasp/understand it
 #: src/Widgets/Status/ActionsRow.vala:332
-#, fuzzy
-#| msgid "Only mentioned people and your followers will be able to view it."
 msgid "Some of your followers might not be able to parse it."
-msgstr "Tylko wspomniane osoby i twoi obserwujący będą mogli go zobaczyć."
+msgstr "Niektóre z twoich osób obserwujących nie będą w stanie go zrozumieć."
 
 #. translators: dialog title to select boost visibility (public, unlisted, private)
 #: src/Widgets/Status/ActionsRow.vala:390
 msgid "Boost with Visibility"
-msgstr "Podbij z widocznością"
+msgstr "Podbij z widocznością"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:389
 msgid "View Stats"
-msgstr "Wyświetl polubienia i podbicia"
+msgstr "Wyświetl polubienia i podbicia"
 
 #: src/Widgets/Status.vala:393
 msgid "View Edit History"
-msgstr "Wyświetl historię edycji"
+msgstr "Wyświetl historię modyfikacji"
 
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:404 src/Widgets/Status.vala:1026
@@ -5384,10 +5431,8 @@ msgstr "Pokaż oryginał"
 #. of yours and clicking it will remove your post from their
 #. quote. You may translate it as 'Revoke quote' otherwise
 #: src/Widgets/Status.vala:474
-#, fuzzy
-#| msgid "Remove Members"
 msgid "Remove my post"
-msgstr "Usuń osoby"
+msgstr "Usuń mój wpis"
 
 #. translators: dialog subtitle visibility warning when copying a link to a
 #. post that is private or mentioned-only
@@ -5399,7 +5444,7 @@ msgstr "Tylko wspomniane osoby będą mogły go zobaczyć."
 #. post that is private or mentioned-only
 #: src/Widgets/Status.vala:493
 msgid "Only mentioned people and your followers will be able to view it."
-msgstr "Tylko wspomniane osoby i twoi obserwujący będą mogli go zobaczyć."
+msgstr "Tylko wspomniane osoby i twoi obserwujący będą mogli go zobaczyć."
 
 #. translators: dialog subtitle visibility warning when copying a link to a post
 #. that is private or mentioned-only, the variable is a handle
@@ -5407,13 +5452,13 @@ msgstr "Tylko wspomniane osoby i twoi obserwujący będą mogli go zobaczyć."
 #, c-format
 msgid ""
 "Only mentioned people and people that follow %s will be able to view it."
-msgstr "Tylko osoby wspomniane i obserwujące %s będą mogły go zobaczyć."
+msgstr "Tylko osoby wspomniane i obserwujące %s będą mogły go zobaczyć."
 
 #. translators: confirmation dialog title, the variable is the post visibility e.g. Public, Unlisted...
 #: src/Widgets/Status.vala:502
 #, c-format
 msgid "Copy %s Post Link?"
-msgstr "Skopiować odnośnik do wpisu z widocznością %s?"
+msgstr "Skopiować odnośnik do wpisu z widocznością %s?"
 
 #: src/Widgets/Status.vala:505
 msgid "Copy"
@@ -5428,7 +5473,7 @@ msgstr "Skopiowano adres wpisu do schowka"
 #. from someone else's quote
 #: src/Widgets/Status.vala:637
 msgid "Remove your post from the quote?"
-msgstr ""
+msgstr "Usunąć twój wpis z cytatu?"
 
 #. translators: dialog title asking the user to confirm if they really want to remove a post
 #: src/Widgets/Status.vala:659
@@ -5439,19 +5484,19 @@ msgstr "Usunąć wpis?"
 #: src/Widgets/Status.vala:717
 #, c-format
 msgid "Couldn't Mute Conversation: %s"
-msgstr "Nie udało się wyciszyć konwersacji: %s"
+msgstr "Nie można wyciszyć konwersacji: %s"
 
 #. translators: toast shown when unmuting a post
 #: src/Widgets/Status.vala:719
 #, c-format
 msgid "Couldn't Unmute Conversation: %s"
-msgstr "Nie udało się cofnąć wyciszenia konwersacji: %s"
+msgstr "Nie można cofnąć wyciszenia konwersacji: %s"
 
 #. translators: error toast; the variable is a string error message
 #: src/Widgets/Status.vala:780 src/Widgets/Status.vala:803
 #, c-format
 msgid "Couldn't translate: %s"
-msgstr "Nie udało się przetłumaczyć: %s"
+msgstr "Nie można przetłumaczyć: %s"
 
 #. translators: Tooltip text for avatars in posts.
 #. The variable is a string user handle.
@@ -5557,7 +5602,7 @@ msgstr "Wysłane przy użyciu %s."
 #: src/Widgets/Status.vala:1159
 #, c-format
 msgid "Post stats: %s, %s, %s, %s."
-msgstr ""
+msgstr "Statystyki wpisu: %s,%s,%s,%s."
 
 #. translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
 #. the variable is a string representation of the amount of replies
@@ -5582,13 +5627,12 @@ msgstr[2] "%s podbić"
 #. translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
 #. the variable is a string representation of the amount of quotes
 #: src/Widgets/Status.vala:1177
-#, fuzzy, c-format
-#| msgid "Quote"
+#, c-format
 msgid "%s quote"
 msgid_plural "%s quotes"
-msgstr[0] "Cytuj"
-msgstr[1] "Cytuj"
-msgstr[2] "Cytuj"
+msgstr[0] "%s cytat"
+msgstr[1] "%s cytaty"
+msgstr[2] "%s cytatów"
 
 #. translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
 #. the variable is a string representation of the amount of favorites
@@ -5624,7 +5668,7 @@ msgstr "Zastosowany filtr"
 #. should never be visible to users
 #: src/Widgets/Status.vala:1301
 msgid "Quote is hidden"
-msgstr ""
+msgstr "Cytat ukryty"
 
 #. translators: label shown when the quote is hidden
 #. inside a post for the described reason;
@@ -5633,7 +5677,7 @@ msgstr ""
 #: src/Widgets/Status.vala:1308 src/Widgets/Status.vala:1311
 #, c-format
 msgid "This quote is hidden because you've blocked %s"
-msgstr ""
+msgstr "Ten cytat jest ukryty, ponieważ blokujesz %s"
 
 #. translators: label shown when the quote is hidden
 #. inside a post for the described reason;
@@ -5641,42 +5685,38 @@ msgstr ""
 #: src/Widgets/Status.vala:1317
 #, c-format
 msgid "This quote is hidden because you've muted %s"
-msgstr ""
+msgstr "Ten cytat jest ukryty, ponieważ wyciszasz %s"
 
 #. translators: label shown when the quote can't be displayed
 #. inside a post
 #: src/Widgets/Status.vala:1332
 msgid "Quote Unavailable"
-msgstr ""
+msgstr "Cytat niedostępny"
 
 #. translators: label shown when a quote is quoting a post
 #. that we won't display
 #: src/Widgets/Status.vala:1336
-#, fuzzy
-#| msgid "Quoted Post"
 msgid "Quoted a post"
 msgstr "Zacytowany wpis"
 
 #. translators: label shown when the quote can't be displayed
 #. inside a post
 #: src/Widgets/Status.vala:1342
-#, fuzzy
-#| msgid "Pending"
 msgid "Quote Pending"
-msgstr "Oczekujące"
+msgstr "Cytat oczekujący"
 
 #. translators: label shown when the quote can't be displayed
 #. inside a post
 #: src/Widgets/Status.vala:1348
 msgid "Quote removed by author"
-msgstr ""
+msgstr "Cytat usunięty przez autora"
 
 #. translatiors: the first variable is a language name,
 #. the second variable is a service name e.g. DeepL
 #: src/Widgets/Status.vala:1474
 #, c-format
 msgid "Translated from %s using %s"
-msgstr "Przetłumaczony z %s przez %s"
+msgstr "Przetłumaczony z %s przez %s"
 
 #. translatiors: the variable is a service name e.g. DeepL
 #: src/Widgets/Status.vala:1477
@@ -5698,9 +5738,9 @@ msgstr[2] "%d osób wczoraj"
 #, c-format
 msgid "%d person in the past 2 days"
 msgid_plural "%d people in the past 2 days"
-msgstr[0] "%d osoba w ciągu ostatnich 2 dni"
-msgstr[1] "%d osoby w ciągu ostatnich 2 dni"
-msgstr[2] "%d osób w ciągu ostatnich 2 dni"
+msgstr[0] "%d osoba w ciągu ostatnich 2 dni"
+msgstr[1] "%d osoby w ciągu ostatnich 2 dni"
+msgstr[2] "%d osób w ciągu ostatnich 2 dni"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -5710,9 +5750,9 @@ msgstr[2] "%d osób w ciągu ostatnich 2 dni"
 #, c-format
 msgid "Poll with %d option."
 msgid_plural "Poll with %d options."
-msgstr[0] "Ankieta z %d opcją."
-msgstr[1] "Ankieta z %d opcjami."
-msgstr[2] "Ankieta z %d opcjami."
+msgstr[0] "Ankieta z %d opcją."
+msgstr[1] "Ankieta z %d opcjami."
+msgstr[2] "Ankieta z %d opcjami."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
