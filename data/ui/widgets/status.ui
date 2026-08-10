@@ -337,18 +337,37 @@
                     <property name="margin-end">12</property>
                     <property name="margin_top">12</property>
                     <property name="margin_bottom">12</property>
-                    <property name="spacing">6</property>
+                    <property name="spacing">8</property>
                     <child>
                       <object class="GtkImage">
                         <property name="icon_name">tuba-warning-symbolic</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="filter_label">
-                        <property name="visible">1</property>
-                        <property name="wrap">1</property>
-                        <property name="wrap-mode">word-char</property>
-                      </object>
+                      <object class="GtkBox">
+                    	<property name="orientation">vertical</property>
+                    	<property name="spacing">0</property>
+						<child>
+							<object class="GtkLabel" id="filter_label">
+                      		  <property name="visible">1</property>
+                      		  <property name="xalign">0</property>
+                      		  <property name="wrap">1</property>
+                      		  <property name="wrap-mode">char</property>
+                      		</object>
+						</child>
+						<child>
+							<object class="GtkLabel" id="filter_author_label">
+                      		  <property name="visible">0</property>
+                      		  <property name="xalign">0</property>
+                      		  <property name="wrap">1</property>
+                      		  <property name="wrap-mode">char</property>
+							  <style>
+								<class name="caption" />
+								<class name="dimmed" />
+							  </style>
+                      		</object>
+						</child>
+					  </object>
                     </child>
                   </object>
                 </child>

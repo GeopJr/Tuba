@@ -142,6 +142,7 @@
 
 	[GtkChild] public unowned Gtk.Stack filter_stack;
 	[GtkChild] protected unowned Gtk.Label filter_label;
+	[GtkChild] protected unowned Gtk.Label filter_author_label;
 
 	private ActionsRow actions { get; private set; }
 	protected Gtk.PopoverMenu context_menu { get; set; }
@@ -1248,6 +1249,9 @@
 				// translators: post default filter message
 				filter_label.label = _("Filtered");
 			}
+
+			filter_author_label.label = _("by %s").printf (this.subtitle_text);
+			filter_author_label.visible = true;
 		}
 
 		if (actions != null) {
