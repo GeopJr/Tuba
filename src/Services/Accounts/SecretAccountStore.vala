@@ -84,7 +84,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		debug (@"Loaded $(saved.size) accounts");
 	}
 
-	private async void update_account_info (InstanceAccount account) {
+	public override async void update_account_info (InstanceAccount account) {
 		var req = new RequestV2 (@"/api/v1/accounts/$(account.id)") { account = account };
 		try {
 			var in_stream = yield req.exec (null);
@@ -98,6 +98,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 				account_to_secret (account);
 			}
+			account.tuba_cred_updated = true;
 		} catch (Error e) { }
 	}
 

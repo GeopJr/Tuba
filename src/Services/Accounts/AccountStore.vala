@@ -32,6 +32,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		ensure_active_account ();
 	}
 
+	public abstract async void update_account_info (InstanceAccount account);
 	public abstract void update_account (InstanceAccount account) throws GLib.Error;
 	public abstract void load () throws GLib.Error;
 	public abstract void save () throws GLib.Error;
@@ -88,33 +89,36 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			if (clear_cache)
 				network.clear_cache ();
 			settings.active_account = account.uuid;
-			account.verify_credentials.begin ((obj, res) => {
-				try {
-					account.verify_credentials.end (res);
-					if (account.source != null) {
-						if (account.source.quote_policy != null && account.source.quote_policy != "") settings.default_quote_policy = account.source.quote_policy;
-						if (account.source.language != null && account.source.language != "") settings.default_language = account.source.language;
-						if (account.source.privacy != null && account.source.privacy != "") {
-							string visibility_id = account.source.privacy.down ();
-							if (account.visibility.has_key (visibility_id)) settings.default_post_visibility = visibility_id;
-						}
-						account.unreviewed_follow_requests = account.source.follow_requests_count;
-					}
-				} catch (Oopsie.HTTP_401 e) {
-					warning (@"Couldn't activate account $(account.handle):");
-					warning (e.message);
-					account.tuba_revoked = true;
-					ask_refresh_account_token.begin (account);
-				} catch (Error e) {
-					warning (@"Couldn't activate account $(account.handle):");
-					warning (e.message);
-				}
-			});
+			this.verify_credentials.begin (account);
 		}
 
 		accounts.active = account;
 		active.activated ();
 		switched (active);
+	}
+
+	public async void verify_credentials (InstanceAccount account) {
+		try {
+			yield account.verify_credentials ();
+			if (account.source != null) {
+				if (account.source.quote_policy != null && account.source.quote_policy != "") settings.default_quote_policy = account.source.quote_policy;
+				if (account.source.language != null && account.source.language != "") settings.default_language = account.source.language;
+				if (account.source.privacy != null && account.source.privacy != "") {
+					string visibility_id = account.source.privacy.down ();
+					if (account.visibility.has_key (visibility_id)) settings.default_post_visibility = visibility_id;
+				}
+				account.unreviewed_follow_requests = account.source.follow_requests_count;
+			}
+			account.tuba_verified_credentials = true;
+		} catch (Oopsie.HTTP_401 e) {
+			warning (@"Couldn't activate account $(account.handle):");
+			warning (e.message);
+			account.tuba_revoked = true;
+			ask_refresh_account_token.begin (account);
+		} catch (Error e) {
+			warning (@"Couldn't activate account $(account.handle):");
+			warning (e.message);
+		}
 	}
 
 	private async void ask_refresh_account_token (InstanceAccount account) {

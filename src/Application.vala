@@ -527,8 +527,10 @@ namespace Tuba {
 			set_accels_for_action ("app.scroll-page-up", {"Page_Up"});
 			add_action_entries (APP_ENTRIES, this);
 
-			if (settings.monitor_network)
+			if (settings.monitor_network) {
 				network_monitor.network_changed.connect (on_network_change);
+				on_network_change (true);
+			}
 
 			if (settings.proxy != "")
 				on_proxy_change ();

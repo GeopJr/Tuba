@@ -141,6 +141,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public bool needs_update { get; set; default=false; }
 	public bool tuba_probably_has_notification_filters { get; set; default=false; }
 	public bool tuba_revoked { get; set; default=false; }
+	public bool tuba_cred_updated { get; set; default=false; }
+	public bool tuba_verified_credentials { get; set; default=false; }
 	public API.InstanceV2.APIVersions tuba_api_versions { get; set; default= new API.InstanceV2.APIVersions (); }
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
@@ -248,7 +250,13 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	private void on_network_change () {
 		if (is_active && app.is_online) {
-			if (needs_update) {
+			if (accounts.active == this && !this.tuba_verified_credentials) {
+				accounts.verify_credentials.begin (this);
+			}
+
+			if (!this.tuba_cred_updated) {
+				accounts.update_account_info.begin (this);
+			} else if (needs_update) {
 				needs_update = false;
 				on_network_change_real.begin ();
 			}
