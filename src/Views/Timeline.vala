@@ -408,7 +408,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	// Streamable
 
-	public string? t_connection_url { get; set; }
+	protected string? t_connection_url { get; set; }
 	public bool subscribed { get; set; }
 
 	protected override void on_streaming_policy_changed () {

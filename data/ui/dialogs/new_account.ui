@@ -11,6 +11,7 @@
 		<object class="AdwToastOverlay" id="toast_overlay">
 			<property name="child">
       <object class="AdwNavigationView" id="deck">
+		<style><class name="newaccdialogdeck" /></style>
         <signal name="popped" handler="on_back_clicked" swapped="no"/>
         <child>
           <object class="AdwNavigationPage" id="instance_step">

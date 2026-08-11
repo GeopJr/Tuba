@@ -1093,7 +1093,18 @@ namespace Tuba {
 			} catch (Error e) {
 				warning (@"Couldn't update analytics: $(e.code) $(e.message)");
 			}
+		}
 
+		bool loaded_egg = false;
+		public void load_egg (string style) {
+			if (loaded_egg) return;
+			loaded_egg = true;
+			var css_provider = new Gtk.CssProvider ();
+			css_provider.load_from_resource (@"/dev/geopjr/Tuba/eggs/$style.css");
+			Gtk.StyleContext.add_provider_for_display (
+				Gdk.Display.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+			);
+			Adw.StyleManager.get_default ().set_color_scheme (FORCE_LIGHT);
 		}
 	}
 

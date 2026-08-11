@@ -2,6 +2,8 @@
 <gresources>
     <gresource prefix="/dev/geopjr/Tuba/">
         <file>style.css</file>
+        <file>eggs/7.css</file>
+        <file>eggs/6.css</file>
         <file preprocess="xml-stripblanks" alias="metainfo.xml">dev.geopjr.Tuba.metainfo.xml.in</file>
 
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-hashtag-symbolic.svg</file>

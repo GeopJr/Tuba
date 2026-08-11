@@ -1,0 +1,463 @@
+/* Based on Alice's (https://nyaa.place/) stylesheets */
+
+.top-bar,
+.bottom-bar {
+	background-image: linear-gradient(to bottom, rgb(255 255 255 / 20%), rgb(0 0 0 / 15%));
+	background-color: var(--accent-bg-color);
+	box-shadow: inset 0 1px rgb(255 255 255 / 25%), inset 0 -1px rgb(0 0 0 / 15%);
+	color: white;
+	text-shadow: 0 -1px rgb(0 0 0 / 40%);
+	-gtk-icon-shadow: 0 -1px rgb(0 0 0 / 40%);
+
+	--button-bg-color: var(--accent-bg-color);
+	--button-bg-gradient: linear-gradient(to bottom, rgb(255 255 255 / 25%), rgb(0 0 0 / 15%));
+}
+
+.top-bar>windowhandle {
+	box-shadow: 0 0 5px 2px rgb(0 0 0 / 30%);
+}
+
+.toggle-group-17,
+.toggle-group-17>toggle-group {
+	border-radius: 3px;
+}
+
+.toggle-group-17>toggle-group {
+	background: #3D3846;
+	color: white;
+}
+
+.toggle-group-17>toggle-group toggle {
+	border-radius: 3px;
+	box-shadow: none;
+	background: linear-gradient(to bottom, rgb(255 255 255 / 25%), rgb(0 0 0 / 15%));
+}
+
+.toggle-group-17>toggle-group toggle:checked {
+	color: white;
+	background-image: linear-gradient(to top, rgb(255 255 255 / 5%), rgb(0 0 0 / 15%));
+}
+
+.bottom-bar {
+	background-color: #3D3846;
+	--button-bg-color: #3D3846;
+}
+
+.top-bar button,
+.bottom-bar button {
+	background-color: var(--button-bg-color);
+	background-image: var(--button-bg-gradient);
+	box-shadow: inset 0 0 2px 1px rgb(0 0 0 / 15%), inset 0 1px rgb(0 0 0 / 40%), 0 1px rgb(255 255 255 / 20%);
+	border-radius: 6px;
+	text-shadow: 0 -1px rgb(0 0 0 / 40%);
+	-gtk-icon-shadow: 0 -1px rgb(0 0 0 / 40%);
+	color: white;
+}
+
+entry {
+	background: white;
+	color: black;
+	text-shadow: none;
+	-gtk-icon-shadow: none;
+	box-shadow: inset 0 0 2px 1px rgb(0 0 0 / 45%);
+	border-radius: 9999px;
+}
+
+button.destructive-action {
+	--button-bg-color: var(--destructive-bg-color);
+	color: white;
+}
+
+button.suggested-action {
+	--button-bg-color: var(--accent-bg-color);
+	color: white;
+}
+
+splitbutton.pill>button {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+splitbutton.pill>menubutton>button {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.ttl-profile-cover row,
+.boxed-list,
+.card,
+.boxed-list-separate row {
+	background: white;
+	color: black;
+	box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%), inset 0 1px rgb(0 0 0 / 20%), 0 1px rgb(255 255 255 / 40%);
+	text-shadow: none;
+	-gtk-icon-shadow: none;
+}
+
+.header-image {
+	border-radius: 0;
+}
+
+.card:hover {
+	background: rgb(245, 245, 245);
+}
+
+.wavi,
+avatar {
+	border-radius: 6px;
+}
+
+toolbarview {
+	--color1: oklch(from var(--accent-bg-color) 86% 3% h);
+	--color2: oklch(from var(--accent-bg-color) 84% 3% h);
+	background: repeating-linear-gradient(to right, var(--color1), var(--color1) 8px, var(--color2) 8px, var(--color2) 12px);
+	text-shadow: 0 1px rgb(255 255 255 / 50%);
+	-gtk-icon-shadow: 0 1px rgb(255 255 255 / 50%);
+}
+
+:root {
+	--card-shade-color: rgb(0 0 0 / 20%);
+}
+
+.compose-button,
+.sidebar-item image,
+row .icon {
+	background: var(--accent-bg-color);
+	color: white;
+	border-radius: 6px;
+	box-shadow: inset 0 0 0 1px rgb(0 0 0 / 50%), inset 0 0 0 2px rgb(255 255 255 / 10%);
+	background-image: radial-gradient(ellipse 200% at 50% -50%, white, rgba(255 255 255 / 20%) 50%, rgba(0 0 0 / 20%) 50%, transparent 65%);
+	-gtk-icon-shadow: 0 0 2px rgb(0 0 0 / 40%);
+}
+
+.sidebar-item image,
+row .icon {
+	min-width: 32px;
+	min-height: 32px;
+	padding: 0;
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
+.ttl-status-action-heart,
+.ttl-status-action-star,
+.ttl-status-action-reblog,
+.ttl-status-action-quote,
+.ttl-status-action-reply,
+.ttl-status-action-bookmark {
+	color: white;
+	background-color: grey;
+	box-shadow: inset 0 0 0 1px rgb(0 0 0 / 50%), inset 0 0 0 2px rgb(255 255 255 / 10%);
+	background-image: radial-gradient(ellipse 200% at 50% -50%, white, rgba(255 255 255 / 20%) 50%, rgba(0 0 0 / 20%) 50%, transparent 65%);
+}
+
+.ttl-status-action-star:hover,
+.ttl-status-action-star.enabled {
+	background-color: var(--yellow-5);
+}
+
+.ttl-status-action-star:active {
+	background-color: var(--yellow-4);
+}
+
+.ttl-status-action-reblog:hover,
+.ttl-status-action-reblog.enabled {
+	background-color: var(--purple-3);
+}
+
+.ttl-status-action-reblog:active {
+	background-color: var(--purple-4);
+}
+
+.ttl-status-action-reply:hover,
+.ttl-status-action-reply.enabled {
+	background-color: var(--green-3);
+}
+
+.ttl-status-action-reply:active {
+	background-color: var(--green-4);
+}
+
+.ttl-status-action-heart:hover,
+.ttl-status-action-heart.enabled,
+.ttl-status-action-bookmark:hover,
+.ttl-status-action-bookmark.enabled {
+	background-color: var(--red-3);
+}
+
+.ttl-status-action-heart:active,
+.ttl-status-action-bookmark:active {
+	background-color: var(--red-4);
+}
+
+.ttl-status-action-quote:hover,
+.ttl-status-action-quote.enabled {
+	background-color: var(--blue-3);
+}
+
+.ttl-status-action-quote:active {
+	background-color: var(--blue-4);
+}
+
+@media (prefers-color-scheme: dark) {
+
+	.ttl-status-action-heart,
+	.ttl-status-action-star,
+	.ttl-status-action-reblog,
+	.ttl-status-action-quote,
+	.ttl-status-action-reply,
+	.ttl-status-action-bookmark {
+		color: black;
+		background-color: lightgrey;
+	}
+
+	sheet {
+		color: black;
+	}
+
+	.ttl-status-action-star:hover,
+	.ttl-status-action-star.enabled {
+		background-color: var(--yellow-1);
+	}
+
+	.ttl-status-action-star:active {
+		background-color: var(--yellow-2);
+	}
+
+	.ttl-status-action-reblog:hover,
+	.ttl-status-action-reblog.enabled {
+		background-color: var(--purple-1);
+	}
+
+	.ttl-status-action-reblog:active {
+		background-color: var(--purple-2);
+	}
+
+	.ttl-status-action-reply:hover,
+	.ttl-status-action-reply.enabled {
+		background-color: var(--green-1);
+	}
+
+	.ttl-status-action-reply:active {
+		background-color: var(--green-2);
+	}
+
+	.ttl-status-action-heart:hover,
+	.ttl-status-action-heart.enabled,
+	.ttl-status-action-bookmark:hover,
+	.ttl-status-action-bookmark.enabled {
+		background-color: var(--red-1);
+	}
+
+	.ttl-status-action-heart:active,
+	.ttl-status-action-bookmark:active {
+		background-color: var(--red-2);
+	}
+
+	.ttl-status-action-quote:hover,
+	.ttl-status-action-quote.enabled {
+		background-color: var(--blue-1);
+	}
+
+	.ttl-status-action-quote:active {
+		background-color: var(--blue-2);
+	}
+}
+
+.boxed-list row .icon {
+	min-width: 32px;
+	min-height: 32px;
+	padding: 0;
+	margin-top: 9px;
+	margin-bottom: 9px;
+}
+
+.top-bar windowcontrols button {
+	background: none;
+	box-shadow: none;
+}
+
+.top-bar windowcontrols button image {
+	background-color: black;
+	background-image: radial-gradient(ellipse 200% at 50% -50%, white, rgba(255 255 255 / 20%) 50%, rgba(0 0 0 / 20%) 50%, transparent 65%);
+	box-shadow: none;
+	box-shadow: inset 0 0 0 2px white, 0 2px 3px 1px rgb(0 0 0 / 30%);
+	-gtk-icon-shadow: 0 0 2px rgb(0 0 0 / 40%);
+}
+
+sheet {
+	box-shadow: inset 0 0 0 3px rgba(255 255 255 / 80%), 0 0 2px rgba(0 0 0 / 40%), 0 5px 8px 2px rgb(0 0 0 / 40%);
+}
+
+bottom-sheet>sheet .top-bar {
+	box-shadow: inset 0 -1px rgb(0 0 0 / 15%);
+}
+
+bottom-sheet>sheet,
+bottom-sheet>sheet>outline,
+bottom-sheet>sheet>stack>widget,
+bottom-sheet>sheet>stack>button,
+bottom-sheet>sheet>stack>button>widget {
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+}
+
+bottom-sheet>sheet>outline {
+	box-shadow: inset 0 1px rgb(255 255 255 / 25%);
+}
+
+row .title {
+	font-weight: bold;
+}
+
+dialog.alert sheet {
+	box-shadow: inset 0 0 0 3px rgba(255 255 255 / 80%), 0 0 2px rgba(0 0 0 / 40%), 0 5px 8px 2px rgb(0 0 0 / 40%);
+	background-color: color-mix(in srgb, var(--accent-bg-color) 90%, transparent);
+	background-image: radial-gradient(ellipse 500% at 50% -235%, rgba(255 255 255 / 20%) 48%, rgba(255 255 255 / 0%) 50%, rgba(0 0 0 / 30%) 50%);
+	color: white;
+	text-shadow: 0 -1px rgb(0 0 0 / 40%);
+	-gtk-icon-shadow: 0 -1px rgb(0 0 0 / 40%);
+}
+
+dialog.alert button {
+	background-color: var(--button-bg-color);
+	background-image: linear-gradient(to bottom, rgb(255 255 255 / 25%), rgb(255 255 255 / 5%) 50%, rgb(0 0 0 / 15%) 50%, rgb(0 0 0 / 5%));
+	box-shadow: inset 0 0 0 1px rgb(255 255 255 / 15%), 0 1px rgb(255 255 255 / 25%);
+	border: 1px solid rgb(0 0 0 / 50%);
+	border-radius: 6px;
+	text-shadow: 0 -1px rgb(0 0 0 / 40%);
+	-gtk-icon-shadow: 0 -1px rgb(0 0 0 / 40%);
+	color: white;
+	font-size: 130%;
+}
+
+.navigation-sidebar {
+	padding: 0;
+}
+
+.navigation-sidebar row {
+	margin: 0;
+	border-radius: 0;
+	margin-top: 2px;
+	box-shadow: 0 -2px rgb(0 0 0 / 10%), 0 -1px rgb(255 255 255 / 60%);
+}
+
+.navigation-sidebar row:first-child {
+	box-shadow: none;
+	margin-top: 0;
+}
+
+.navigation-sidebar row:selected {
+	color: white;
+	background-color: var(--accent-bg-color);
+	background-image: linear-gradient(to bottom, rgb(255 255 255 / 20%), rgb(0 0 0 / 15%));
+	text-shadow: 0 -1px rgb(0 0 0 / 40%);
+	-gtk-icon-shadow: 0 -1px rgb(0 0 0 / 40%);
+}
+
+.navigation-sidebar .header separator {
+	background: none;
+}
+
+.sidebar-item {
+	border-radius: 4px;
+
+	padding-top: 0;
+	padding-bottom: 0;
+	min-height: 25px;
+}
+
+.sidebar-item:selected {
+	color: white;
+	background-color: var(--accent-bg-color);
+	background-image: linear-gradient(to bottom, rgb(255 255 255 / 20%), rgb(0 0 0 / 15%));
+	text-shadow: 0 -1px rgb(0 0 0 / 40%);
+	-gtk-icon-shadow: 0 -1px rgb(0 0 0 / 40%);
+}
+
+.sidebar-pane {
+	border-right: 1px solid rgb(0 0 0 / 50%);
+}
+
+.bottom-bar viewswitcher>button:checked image {
+	color: var(--accent-bg-color);
+}
+
+overlay-split-view .ttl-sidebar toolbarview .top-bar {
+	background: linear-gradient(180deg, #464e5b, #1e2633);
+
+}
+
+overlay-split-view>.background:not(.sidebar-pane) toolbarview,
+.sidebar-pane toolbarview {
+	background: #32394b;
+	color: white;
+}
+
+overlay-split-view>.background:not(.sidebar-pane) toolbarview .sidebar-item:selected,
+.sidebar-pane .sidebar-item:selected {
+	background: linear-gradient(180deg, #475061, #383d50);
+}
+
+overlay-split-view>.background:not(.sidebar-pane) toolbarview .sidebar-item,
+.sidebar-pane .sidebar-item {
+	box-shadow: 0 -2px rgba(0, 0, 0, 0.1), 0 -1px #252c3c;
+	border-top: 1px solid #3a4151;
+}
+
+.bottom-bar viewswitcher>button:checked image {
+	color: var(--accent-bg-color);
+}
+
+overlay-split-view>.background:not(.sidebar-pane) toolbarview,
+.sidebar-pane toolbarview {
+	background: #32394b;
+	color: white;
+}
+
+overlay-split-view>.background:not(.sidebar-pane) toolbarview .sidebar-item:selected,
+.sidebar-pane .sidebar-item:selected {
+	background: linear-gradient(180deg, #475061, #383d50);
+}
+
+overlay-split-view>.background:not(.sidebar-pane) toolbarview .sidebar-item,
+.sidebar-pane .sidebar-item {
+	box-shadow: 0 -2px rgba(0, 0, 0, 0.1), 0 -1px #252c3c;
+	border-top: 1px solid #3a4151;
+}
+
+viewswitcher>button:checked {
+	--button-bg-gradient: linear-gradient(to top, rgb(255 255 255 / 5%), rgb(0 0 0 / 15%));
+}
+
+.fake-content {
+	background: none;
+}
+
+popover,
+popover>contents {
+	border-radius: 8px;
+}
+
+popover>contents {
+	background: #ffffff;
+	color: black;
+}
+
+popover>contents>scrolledwindow>viewport>stack>box {
+	padding: 6px 0px;
+}
+
+popover>contents modelbutton {
+	border: 1px solid transparent;
+	border-radius: 0;
+	padding: 2px 6px;
+	min-height: 0;
+}
+
+popover>contents modelbutton:hover,
+popover>contents modelbutton:focus {
+	color: white;
+	border: 1px solid #2d6ac4;
+	background: linear-gradient(180deg, #518ef9, #0466ee);
+}

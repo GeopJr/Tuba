@@ -320,7 +320,7 @@ public class Tuba.Views.Browser : Adw.Dialog {
 		headerbar.exit.connect (on_exit);
 
 		var toolbar_view = new Adw.ToolbarView () {
-			css_classes = { "background" }
+			css_classes = { "background", "browser" }
 		};
 		toolbar_view.add_top_bar (headerbar);
 

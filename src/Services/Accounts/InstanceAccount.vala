@@ -850,6 +850,10 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				open_func = (win, tag_obj) => {
 					string tag_str = ((Gtk.StringObject) tag_obj).string;
 					win.open_view (set_as_sidebar_item (new Views.Hashtag (tag_str, null, Uri.escape_string (tag_str))));
+
+					uint egg_hash = GLib.str_hash (tag_str.down ());
+					if (egg_hash == 3906476199) app.load_egg ("7");
+					else if (egg_hash == 2090371718) app.load_egg ("6");
 				}
 			};
 		}
