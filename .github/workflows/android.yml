@@ -1,8 +1,7 @@
 # To make it as hands-off as possible,
-# we use ubuntu-latest because pixiewood builds our deps from wrap files,
+# we use ubuntu-26.04 because pixiewood builds our deps from wrap files,
 # but to avoid dealing with outdated host VAPIs, we get them from debian sid
-# manually. Meson and Ninja from pip because some wraps need the latest version,
-
+# manually. Meson and Ninja from pip because some wraps need the latest version.
 on:
   push:
     branches: [main] # build takes ~20m, let's only run it on main pushes
@@ -15,7 +14,7 @@ name: Android
 jobs:
   android:
     name: "Android Builder"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     strategy:
       fail-fast: false
     steps:
