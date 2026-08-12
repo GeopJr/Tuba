@@ -1091,7 +1091,20 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				#endif
 			} else {
 				#if CLAPPER
-					#if CLAPPER_MPRIS
+					#if CLAPPER_0_10
+						var proxies = video.player.get_enhancer_proxies ();
+						var proxy = proxies.get_proxy_by_module ("clapper-mpris");
+						if (proxy != null) {
+							var mpris_table = new GLib.HashTable<string, GLib.Value?> (str_hash, str_equal);
+							mpris_table.insert ("app-id", Build.DOMAIN);
+							mpris_table.insert ("identity", Build.NAME);
+							mpris_table.insert ("desktop-entry", Build.DOMAIN);
+							mpris_table.insert ("own-name", @"org.mpris.MediaPlayer2.Tuba.instance$(items.size)");
+
+							proxy.set_locally_with_table ((owned) mpris_table);
+							proxy.set_target_creation_allowed (true);
+						}
+					#elif CLAPPER_MPRIS
 						video.player.add_feature (new Clapper.Mpris (
 							@"org.mpris.MediaPlayer2.Tuba.instance$(items.size)",
 							Build.NAME,
