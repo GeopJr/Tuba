@@ -3,7 +3,33 @@ public class Tuba.API.InstanceV2 : Entity {
 		public class Translation : Entity {
 			public bool enabled { get; set; default = false; }
 		}
+
+		public class MediaAttachments : Entity {
+			public int64 description_limit { get; set; default = 1500; }
+		}
+
+		public class Vapid : Entity {
+			public string public_key { get; set; }
+		}
+
+		public class AccountsCharLimits : Entity {
+			public int64 max_display_name_length { get; set; default = 40; }
+			public int64 max_note_length { get; set; default = 500; }
+			public int64 max_avatar_description_length { get; set; default = 150; }
+			public int64 max_header_description_length { get; set; default = 150; }
+
+			//  public int64 max_featured_tags { get; set; default = 10; }
+			//  public int64 max_pinned_statuses { get; set; default = 5; }
+			public int64 max_profile_fields { get; set; default = 4; }
+
+			public int64 profile_field_name_limit { get; set; default = 255; }
+			public int64 profile_field_value_limit { get; set; default = 255; }
+		}
+
 		public Translation translation { get; set; default = null; }
+		public MediaAttachments media_attachments { get; set; default = null; }
+		public Vapid vapid { get; set; default = null; }
+		public AccountsCharLimits accounts { get; set; default = null; }
 	}
 
 	public class APIVersions : Entity {

@@ -7,11 +7,11 @@
 >
 	<name xml:lang="en">Tuba</name>
 	<shortdesc xml:lang="en">Browse the Fediverse</shortdesc>
-	<homepage rdf:resource="https://github.com/GeopJr/Tuba" />
-	<bug-database rdf:resource="https://github.com/GeopJr/Tuba/issues" />
+	<homepage rdf:resource="https://codeberg.org/GeopJr/Tuba" />
+	<bug-database rdf:resource="https://codeberg.org/GeopJr/Tuba/issues" />
 	<programming-language>Vala</programming-language>
 	<platform>GTK 4</platform>
-	<platform>Libadwaita</platform>  
+	<platform>Libadwaita</platform>
 	<maintainer>
 		<foaf:Person>
 			<foaf:name>Evangelos "GeopJr" Paterakis</foaf:name>
@@ -19,6 +19,12 @@
 			<foaf:account>
 				<foaf:OnlineAccount>
 					<foaf:accountServiceHomepage rdf:resource="https://github.com/" />
+					<foaf:accountName>GeopJr</foaf:accountName>
+				</foaf:OnlineAccount>
+			</foaf:account>
+			<foaf:account>
+				<foaf:OnlineAccount>
+					<foaf:accountServiceHomepage rdf:resource="https://gitlab.gnome.org/" />
 					<foaf:accountName>GeopJr</foaf:accountName>
 				</foaf:OnlineAccount>
 			</foaf:account>

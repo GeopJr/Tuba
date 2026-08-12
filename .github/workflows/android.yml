@@ -1,0 +1,117 @@
+# To make it as hands-off as possible,
+# we use ubuntu-26.04 because pixiewood builds our deps from wrap files,
+# but to avoid dealing with outdated host VAPIs, we get them from debian sid
+# manually. Meson and Ninja from pip because some wraps need the latest version.
+on:
+  push:
+    branches: [main] # build takes ~20m, let's only run it on main pushes
+  # pull_request:
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+name: Android
+jobs:
+  android:
+    name: "Android Builder"
+    runs-on: ubuntu-26.04
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: anttikivi/forgejo-status@5b8059a71fcbacde735bf92eb05b30ee24458bfc
+        if: github.repository_owner == 'GeopJr'
+        continue-on-error: true
+        with:
+          token: ${{ secrets.CODEBERG_TOKEN }}
+          context: ${{ github.workflow }} / ${{ github.job }}
+      - uses: actions/checkout@v7
+        with:
+          lfs: 'true'
+      - uses: actions/checkout@v7
+        with:
+          repository: sp1ritCS/gtk-android-builder
+          path: pixiewood
+      - uses: actions/checkout@v7
+        with:
+          repository: sp1ritCS/mini-studio
+          path: mini
+      - name: Deps
+        uses: awalsh128/cache-apt-pkgs-action@58600a5c77c7b93686f116a4c7d4208cc27b2b71
+        with:
+          packages: openjdk-17-jdk libglib-perl libglib-object-introspection-perl libipc-run-perl libjson-perl libset-scalar-perl libxml-libxml-perl libxml-libxslt-perl build-essential glslc gobject-introspection gir1.2-appstream libglib2.0-dev-bin libxml2-utils sassc valac git libglib2.0-dev gettext desktop-file-utils apksigner
+          version: 1.0
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699
+      - run: |
+          echo "meson" > requirements.txt
+          echo "ninja" >> requirements.txt
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+      - run: |
+          echo "$PWD/pixiewood" >> "$GITHUB_PATH"
+          python -m pip install -r requirements.txt
+      - name: VAPIs
+        run: |
+          set -euo pipefail
+
+          VAPI_PACKAGES="libadwaita-1-dev libgtksourceview-5-dev libsecret-1-dev"
+          VAPI_TMP="${RUNNER_TEMP}/vapi-fetch"
+          rm -rf "$VAPI_TMP"
+          mkdir -p "$VAPI_TMP/lists" "$VAPI_TMP/archives" "$VAPI_TMP/extract" ./vapi
+          echo "deb [trusted=yes] http://deb.debian.org/debian sid main" > "$VAPI_TMP/sid.list"
+
+          sudo apt-get \
+            -o Dir::Etc::SourceList="$VAPI_TMP/sid.list" \
+            -o Dir::Etc::SourceParts=/dev/null \
+            -o Dir::State::Lists="$VAPI_TMP/lists" \
+            -o Acquire::AllowInsecureRepositories=true \
+            update
+
+          for pkg in $VAPI_PACKAGES; do
+            (
+              cd "$VAPI_TMP/archives"
+              sudo apt-get \
+                -o Dir::Etc::SourceList="$VAPI_TMP/sid.list" \
+                -o Dir::Etc::SourceParts=/dev/null \
+                -o Dir::State::Lists="$VAPI_TMP/lists" \
+                --yes --allow-unauthenticated download "$pkg"
+            )
+          done
+
+          for deb in "$VAPI_TMP"/archives/*.deb; do
+            dpkg-deb -x "$deb" "$VAPI_TMP/extract"
+          done
+
+          mapfile -t found < <(find "$VAPI_TMP/extract" -name '*.vapi')
+          for f in "${found[@]}"; do
+            echo "  $f"
+            cp -v "$f" "./vapi/"
+          done
+
+          rm -rf "$VAPI_TMP"
+      - run: make android android_studio=./mini android_sdk="${ANDROID_HOME}" release=1
+      - if: always()
+        run: cat .pixiewood/bin-aarch64/meson-logs/meson-log.txt || true
+      - name: Upload unsigned
+        if: github.repository_owner != 'GeopJr'
+        uses: actions/upload-artifact@v7
+        with:
+          name: apks
+          path: .pixiewood/android/app/build/outputs/apk/release/
+      - name: Sign
+        if: github.repository_owner == 'GeopJr'
+        env:
+          ANDROID_KEYSTORE_KEY: ${{ secrets.ANDROID_KEYSTORE_KEY }}
+          ANDROID_KEYSTORE_LOCATION: ./ANDROID_KEY/gtk.jks
+        run: |
+          mkdir ANDROID_KEY
+          echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 -d > ./ANDROID_KEY/gtk.jks
+          make android_sign
+          rm -f ./apks/app-universal-release-signed.apk ./apks/app-universal-release-signed.apk.idsig
+      - uses: actions/upload-artifact@v7
+        if: github.repository_owner == 'GeopJr'
+        with:
+          name: apks
+          path: apks/

@@ -23,10 +23,13 @@ public class Tuba.API.ScheduledStatus : Entity, Widgetizable {
 		public Poll? poll { get; set; }
 		public Gee.ArrayList<string>? media_ids { get; set; }
 		public bool sensitive { get; set; default=false; }
-		public string? spoiler_text { get; set; }
+		public string? spoiler_text { get; set; default = null; }
 		public string visibility { get; set; }
-		public string? language { get; set; }
-		public string? in_reply_to_id { get; set; }
+		public string? language { get; set; default = null; }
+		public int64 in_reply_to_id { get; set; default = 0; }
+		public bool local_only { get; set; default = false; }
+		public string? quoted_status_id { get; set; default = null; }
+		public string quote_approval_policy { get; set; default = settings.default_quote_policy; }
 
 		public override Type deserialize_array_type (string prop) {
 			switch (prop) {
@@ -42,6 +45,10 @@ public class Tuba.API.ScheduledStatus : Entity, Widgetizable {
 	public string scheduled_at { get; set; }
 	public Gee.ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
 	public Params? props { get; set; }
+
+	public static ScheduledStatus from (Json.Node node) throws Error {
+		return Entity.from_json (typeof (API.ScheduledStatus), node) as API.ScheduledStatus;
+	}
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {

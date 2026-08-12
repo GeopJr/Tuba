@@ -1,7 +1,7 @@
 project(
     'dev.geopjr.Tuba',
     ['c', 'vala'],
-    version: '0.9.2',
+    version: '0.10.3',
     meson_version: '>= 0.60.0',
     default_options: [
         'warning_level=2',
@@ -23,6 +23,7 @@ distro = get_option('distro')
 config = configuration_data()
 config.set('EXEC_NAME', meson.project_name())
 config.set('GETTEXT_PACKAGE', meson.project_name())
+config.set('BINDIR', join_paths(get_option('prefix'), get_option('bindir')))
 config.set('LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
 config.set('DOMAIN', meson.project_name ())
 config.set('G_LOG_DOMAIN', 'Tuba')
@@ -30,12 +31,10 @@ config.set('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/')
 config.set('VERSION', meson.project_version())
 config.set('PREFIX', get_option('prefix'))
 config.set('NAME', 'Tuba')
-config.set('WEBSITE', 'https://github.com/GeopJr/Tuba')
-config.set('ISSUES_WEBSITE', 'https://github.com/GeopJr/Tuba/issues')
-config.set('SUPPORT_WEBSITE', 'https://matrix.to/#/#tuba:gnome.org')
+config.set('WEBSITE', 'https://codeberg.org/GeopJr/Tuba')
 config.set('DONATE_WEBSITE', 'https://geopjr.dev/donate')
-config.set('TRANSLATE_WEBSITE', 'https://hosted.weblate.org/engage/tuba/')
-config.set('WIKI_WEBSITE', 'https://github.com/GeopJr/Tuba/wiki')
+config.set('TRANSLATE_WEBSITE', 'https://translate.codeberg.org/engage/tuba/')
+config.set('WIKI_WEBSITE', 'https://codeberg.org/GeopJr/Tuba/wiki')
 config.set('PROFILE', devel ? 'development' : 'production')
 
 if devel
@@ -57,6 +56,34 @@ if host_machine.system() == 'windows'
   add_project_arguments(['--define=WINDOWS'], language: 'vala')
 elif host_machine.system() == 'darwin'
   add_project_arguments(['--define=DARWIN'], language: 'vala')
+elif host_machine.system() == 'haiku'
+  add_project_arguments(['--define=HAIKU'], language: 'vala')
+elif host_machine.system() == 'android'
+  add_project_arguments(['--define=ANDROID'], language: 'vala')
+
+  if host_machine.cpu_family() == 'x86_64'
+    add_project_arguments(['--define=ANDROID_x86_64'], language: 'vala')
+  endif
+
+  add_project_arguments([
+    # '--pkg=gexiv2-0.16',
+    # '--pkg=webkitgtk-6.0',
+    # '--pkg=gstreamer-1.0',
+    '--pkg=libadwaita-1',
+    '--pkg=gtk4',
+    '--pkg=gtksourceview-5',
+    # '--pkg=libspelling-1',
+    # '--pkg=icu-uc', # remove for now
+    '--pkg=libsecret-1',
+    '--pkg=libxml-2.0',
+    '--pkg=json-glib-1.0',
+    '--pkg=libsoup-3.0',
+    ## '--pkg=gee-0.8',
+    '--pkg=glib-2.0'
+  ], language: 'vala')
+
+  subproject('glib-networking', default_options: ['default_library=static'])
+  # subproject('adwaita-fonts')
 endif
 
 add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
@@ -72,8 +99,10 @@ i18n = import('i18n')
 
 gstreamer = false
 webkit = false
-gtk_dep = dependency('gtk4', version: '>=4.17.5', required: true)
-libadwaita_dep = dependency('libadwaita-1', version: '>=1.7', required: true)
+gexiv2 = false
+unifiedpush = false
+gtk_dep = dependency('gtk4', version: '>=4.19', required: true)
+libadwaita_dep = dependency('libadwaita-1', version: '>=1.8', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
 libspelling = dependency('libspelling-1', required: get_option('spelling'))
@@ -81,6 +110,9 @@ clapper_dep = dependency('clapper-0.0', required: get_option('clapper'), version
 clapper_gtk_dep = dependency('clapper-gtk-0.0', required: get_option('clapper'))
 gstreamer_dep = dependency('gstreamer-1.0', required: get_option('gstreamer'))
 webkit_dep = dependency('webkitgtk-6.0', required: get_option('in-app-browser'))
+unifiedpush_dep = dependency('unifiedpush', required: get_option('unifiedpush'))
+
+gexiv2_dep = dependency('gexiv2-0.16', 'gexiv2', version: '>=0.14', required: get_option('gexiv2'))
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
@@ -90,6 +122,14 @@ if libspelling.found ()
   add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
 endif
 
+if gtk_dep.version().version_compare('>=4.20') and meson.get_compiler('vala').version().version_compare('>=0.56.19')
+  add_project_arguments(['--define=GTK_4_20'], language: 'vala')
+endif
+
+if gtk_dep.version().version_compare('>=4.22') and meson.get_compiler('vala').version().version_compare('>=0.56.19')
+  add_project_arguments(['--define=GTK_4_22'], language: 'vala')
+endif
+
 if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif
@@ -97,6 +137,19 @@ endif
 if gstreamer_dep.found ()
   add_project_arguments(['--define=GSTREAMER'], language: 'vala')
   gstreamer = true
+endif
+
+if gexiv2_dep.found ()
+  add_project_arguments(['--define=GEXIV2'], language: 'vala')
+  if gexiv2_dep.version().version_compare('>=0.16')
+    add_project_arguments(['--define=GEXIV2_0_16'], language: 'vala')
+  endif
+  gexiv2 = true
+endif
+
+if unifiedpush_dep.found ()
+  add_project_arguments(['--define=UNIFIEDPUSH'], language: 'vala')
+  unifiedpush = true
 endif
 
 if clapper_dep.found () and clapper_gtk_dep.found ()
@@ -114,6 +167,10 @@ if webkit_dep.found ()
   webkit = true
 endif
 
+if meson.get_compiler('vala').version().version_compare('>=0.56.19')
+  add_project_arguments(['--define=VALAC_05619'], language: 'vala')
+endif
+
 sources = files()
 subdir('src')
 
@@ -124,7 +181,7 @@ final_deps = [
   dependency('json-glib-1.0', version: '>=1.4.4'),
   dependency('libxml-2.0'),
   dependency('libsecret-1', required: true),
-  dependency('icu-uc'),
+  dependency('icu-uc', required: host_machine.system() != 'android'),
   libspelling,
   gtksourceview_dep,
   gtk_dep,
@@ -133,8 +190,14 @@ final_deps = [
   clapper_dep,
   clapper_gtk_dep,
   gstreamer_dep,
-  webkit_dep
+  webkit_dep,
+  gexiv2_dep,
+  unifiedpush_dep
 ]
+
+if host_machine.system() == 'android'
+  final_deps += dependency('gioopenssl', required: true)
+endif
 
 subdir('data')
 asresources = gnome.compile_resources(
@@ -150,7 +213,8 @@ executable(
     sources,
     dependencies: final_deps,
     install: true,
-    win_subsystem: 'windows'
+    win_subsystem: 'windows',
+    android_exe_type: 'application'
 )
 
 subdir('tests')
@@ -163,7 +227,7 @@ if not distro
   if meson.version().version_compare('>=0.59.0')
     gnome.post_install(
       glib_compile_schemas: true,
-      gtk_update_icon_cache: true,
+      gtk_update_icon_cache: host_machine.system() != 'android',
       update_desktop_database: true,
     )
   else

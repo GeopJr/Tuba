@@ -1,4 +1,124 @@
 public class Tuba.Views.Profile : Views.Accounts {
+	const int TOTAL_STATIC_ITEMS = 3;
+
+	public class NoteEditor : Adw.Dialog {
+		public signal void note_done (string note);
+		const int MAX_CHARS = 2000;
+		GtkSource.View editor;
+		Gtk.Label dialog_char_counter;
+		Dialogs.Composer.Components.Editor.PlaceholderHack placeholder;
+
+		public NoteEditor (string? note = "") {
+			this.can_close = false;
+			this.content_width = 400;
+			this.content_height = 400;
+			// translators: private note dialog title, shown when editing a private note on a profile
+			this.title = _("Private Note");
+			var toolbar_view = new Adw.ToolbarView ();
+			var headerbar = new Adw.HeaderBar () {
+				show_end_title_buttons = false,
+				show_start_title_buttons = false
+			};
+			toolbar_view.add_top_bar (headerbar);
+
+			var cancel_btn = new Gtk.Button.with_label (_("Cancel"));
+			cancel_btn.clicked.connect (on_cancel);
+
+			var save_btn = new Gtk.Button.with_label (_("Save")) {
+				css_classes = {"suggested-action"}
+			};
+			save_btn.clicked.connect (on_save);
+			headerbar.pack_start (cancel_btn);
+			headerbar.pack_end (save_btn);
+
+			editor = new GtkSource.View () {
+				vexpand = true,
+				hexpand = true,
+				accepts_tab = false,
+				wrap_mode = Gtk.WrapMode.WORD_CHAR,
+				margin_bottom = 6,
+				margin_top = 6,
+				margin_start = 6,
+				margin_end = 6,
+				input_hints = WORD_COMPLETION | SPELLCHECK | EMOJI
+			};
+			editor.remove_css_class ("view");
+			editor.add_css_class ("reset");
+
+			// translators: placeholder shown in the private note editor on profiles
+			placeholder = new Dialogs.Composer.Components.Editor.PlaceholderHack (new Gtk.Label (_("Type your note…")) {
+				valign = Gtk.Align.START,
+				halign = Gtk.Widget.get_default_direction () == Gtk.TextDirection.RTL ? Gtk.Align.END : Gtk.Align.START,
+				justify = Gtk.Justification.FILL,
+				//  margin_top = 6,
+				margin_start = 3,
+				margin_end = 3,
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR,
+				sensitive = false
+			});
+			editor.add_overlay (placeholder, 0, 0);
+			editor.update_property (Gtk.AccessibleProperty.PLACEHOLDER, _("Type your note…"), -1);
+
+			Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
+			update_style_scheme ();
+
+			#if LIBSPELLING
+				var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
+
+				editor.extra_menu = adapter.get_menu_model ();
+				editor.insert_action_group ("spelling", adapter);
+				adapter.enabled = true;
+			#endif
+
+			toolbar_view.content = new Gtk.ScrolledWindow () {
+				hexpand = true,
+				vexpand = true,
+				child = editor,
+				propagate_natural_height = true,
+				max_content_height = 209
+			};
+
+			dialog_char_counter = new Gtk.Label (MAX_CHARS.to_string ()) {
+				tooltip_text = _("Remaining Characters"),
+				css_classes = { "numeric", "dimmed" },
+				margin_end = 6
+			};
+			headerbar.pack_end (dialog_char_counter);
+			editor.buffer.changed.connect (on_editor_buffer_change);
+			if (note != null && note != "") editor.buffer.text = note;
+			this.child = toolbar_view;
+		}
+
+		private void on_editor_buffer_change () {
+			int total_count = Utils.Counting.chars (editor.buffer.text, "en");
+			placeholder.visible = total_count == 0;
+
+			dialog_char_counter.label = (MAX_CHARS - total_count).to_string ();
+			if (total_count < MAX_CHARS) {
+				dialog_char_counter.remove_css_class ("error");
+			} else {
+				dialog_char_counter.add_css_class ("error");
+			}
+		}
+
+		private void update_style_scheme () {
+			var manager = GtkSource.StyleSchemeManager.get_default ();
+			string scheme_name = "Adwaita";
+			if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+			((GtkSource.Buffer) editor.buffer).style_scheme = manager.get_scheme (scheme_name);
+		}
+
+		private void on_save () {
+			note_done (editor.buffer.text);
+			this.force_close ();
+		}
+
+		private void on_cancel () {
+			this.force_close ();
+		}
+	}
+
 	public class ProfileAccount : Widgetizable, GLib.Object {
 		public API.Account account { get; construct set; }
 		public API.Relationship rs { get; construct set; }
@@ -8,11 +128,11 @@ public class Tuba.Views.Profile : Views.Accounts {
 		}
 
 		public async bool update_profile () {
-			Request req = new Request.GET (@"/api/v1/accounts/$(account.id)").with_account (accounts.active);
+			RequestV2 req = new RequestV2 (@"/api/v1/accounts/$(account.id)") { account = accounts.active };
 
 			try {
-				yield req.await ();
-				var parser = Network.get_parser_from_inputstream (req.response_body);
+				var in_stream = yield req.exec (null);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 				var node = network.parse_node (parser);
 				var updated = API.Account.from (node);
 
@@ -51,12 +171,46 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 	public class FilterGroup : Widgetizable, GLib.Object {
 		public bool visible { get; set; default=true; }
+		public bool show_media { get; set; default=true; }
+		public bool show_featured { get; set; default=true; }
 
 		public override Gtk.Widget to_widget () {
-			var widget = new Widgets.ProfileFilterGroup ();
+			var widget = new Widgets.ProfileFilterGroup (show_media, show_featured);
 			this.bind_property ("visible", widget, "visible", GLib.BindingFlags.SYNC_CREATE);
 			return widget;
 		}
+	}
+
+	public class ErrorMessageRow : Widgetizable, GLib.Object {
+		public bool visible { get; set; default=true; }
+		public string message { get; set; default = ""; }
+
+		public override Gtk.Widget to_widget () {
+			var widget = new Gtk.Label (message) {
+				wrap = true,
+				wrap_mode = WORD_CHAR,
+				css_classes = { "title-1" },
+				margin_start = 16,
+				margin_end = 16,
+				margin_top = 16,
+				margin_bottom = 16,
+				justify = CENTER
+			};
+
+			var row = new Gtk.ListBoxRow () {
+				child = widget,
+				overflow = Gtk.Overflow.HIDDEN,
+				activatable = false
+			};
+
+			this.bind_property ("visible", row, "visible", GLib.BindingFlags.SYNC_CREATE);
+			this.bind_property ("message", widget, "label", GLib.BindingFlags.SYNC_CREATE);
+			return row;
+		}
+	}
+
+	public override bool empty {
+		get { return false; }
 	}
 
 	public ProfileAccount profile { get; construct set; }
@@ -69,53 +223,85 @@ public class Tuba.Views.Profile : Views.Accounts {
 	protected SimpleAction hiding_reblogs_action;
 	protected SimpleAction blocking_action;
 	protected SimpleAction domain_blocking_action;
+	protected SimpleAction endorse_action;
 	protected SimpleAction ar_list_action;
+	protected SimpleAction add_note_action;
 	protected SimpleAction notify_on_new_post_action;
 	//  protected SimpleAction source_action;
 
 	private FilterGroup filter_group;
+	private ErrorMessageRow error_message_row = new ErrorMessageRow () {
+		visible = false
+	};
 	public Profile (API.Account acc) {
 		Object (
 			profile: new ProfileAccount (acc),
 			label: _("Profile"),
 			allow_nesting: true,
-			url: @"/api/v1/accounts/$(acc.id)/statuses"
+			url: @"/api/v1/accounts/$(acc.id)/statuses",
+			tuba_row: true
 		);
 
-		filter_group = new FilterGroup ();
+		this.bind_property ("empty-state-title", error_message_row, "message", SYNC_CREATE);
+		filter_group = new FilterGroup () {
+			show_featured = acc.show_featured,
+			show_media = acc.show_media
+		};
 		model.insert (0, profile);
 		model.insert (1, filter_group);
+		model.insert (2, error_message_row);
 		profile.rs.invalidated.connect (on_rs_updated);
 
-		if (acc.is_self ()) update_profile_cover ();
+		if (acc.is_self ()) {
+			update_profile_cover ();
+			app.refresh_featured.connect (on_featured_refresh_request);
+			app.remove_status_widget.connect (remove_own_status_widget);
+		}
 	}
 	~Profile () {
 		debug ("Destroying Profile view");
 	}
 
-	public bool append_pinned () {
-		if (source == "statuses" && filter == Widgets.ProfileFilterGroup.Filter.POSTS) {
-			new Request.GET (@"/api/v1/accounts/$(profile.account.id)/statuses")
-				.with_account (account)
-				.with_param ("pinned", "true")
-				.with_ctx (this)
-				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
-
-					Object[] to_add = {};
-					Network.parse_array (parser, node => {
-						var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
-						var e_status = e as API.Status;
-						if (e_status != null) e_status.pinned = true;
-
-						to_add += e_status;
-					});
-					model.splice (2, 0, to_add);
-				})
-				.exec ();
+	private void remove_own_status_widget (string status_id) {
+		for (uint i = 0; i < model.get_n_items (); i++) {
+			var status_obj = model.get_item (i) as API.Status;
+			if (status_obj != null && (status_obj.id == status_id || status_obj.formal.id == status_id)) {
+				safely_remove ((int) i);
+				if (status_obj.id == status_id)
+					break;
+			}
 		}
+	}
 
-		return GLib.Source.REMOVE;
+	private void on_featured_refresh_request () {
+		if (this.filter == FEATURED && this.get_mapped ()) on_refresh ();
+	}
+
+	public async void append_pinned () {
+		if (source == "statuses" && filter == Widgets.ProfileFilterGroup.Filter.POSTS) {
+			var req = new RequestV2 (@"/api/v1/accounts/$(profile.account.id)/statuses") { account = account, ctx = this };
+			req.add_parameter ("pinned", "true");
+			try {
+				var in_stream = yield req.exec (null);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+				Object[] to_add = {};
+				Network.parse_array (parser, node => {
+					var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+					var e_status = e as API.Status;
+					if (e_status != null) e_status.pinned = true;
+
+					to_add += e_status;
+				});
+				model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
+			} catch (Error e) {
+				warning (@"Couldn't append pinned for $(profile.account.id): $(e.code) $(e.message)");
+			}
+		}
+	}
+
+	public override void on_request_finish () {
+		base.on_request_finish ();
+		on_content_changed ();
 	}
 
 	private void on_cover_aria_update (Widgets.Cover p_cover, string new_aria) {
@@ -134,6 +320,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 			widget_cover.rs_invalidated.connect (on_rs_updated);
 			widget_cover.timeline_change.connect (change_timeline_source);
 			widget_cover.aria_updated.connect (on_cover_aria_update);
+			widget_cover.edit_note.connect (on_edit_cover_note);
 			widget_cover.remove_css_class ("card");
 			widget_cover.remove_css_class ("card-spacing");
 			this.cover_profile_update.connect (widget_cover.update_cover_from_profile);
@@ -142,7 +329,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 				focusable = true,
 				activatable = false,
 				child = widget_cover,
-				css_classes = { "card-spacing", "card" },
+				css_classes = { "card-spacing", "card", "ttl-profile-cover-container" },
 				overflow = Gtk.Overflow.HIDDEN
 			};
 			widget_cover.update_aria ();
@@ -159,6 +346,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 		var widget_filter_group = widget as Widgets.ProfileFilterGroup;
 		if (widget_filter_group != null) {
 			widget_filter_group.remove_css_class ("card");
+			widget_filter_group.remove_css_class ("card-spacing");
 			widget_filter_group.filter_change.connect (change_filter);
 		}
 
@@ -175,8 +363,10 @@ public class Tuba.Views.Profile : Views.Accounts {
 	#endif
 
 	public override void on_refresh () {
+		error_message_row.visible = false;
 		base.on_refresh ();
-		GLib.Idle.add (append_pinned);
+		append_pinned.begin ();
+		append_featured_tags.begin ();
 	}
 
 	public override void on_manual_refresh () {
@@ -185,33 +375,104 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	protected void change_timeline_source (string t_source) {
-		source = t_source;
+		if (t_source == "statuses-like") {
+			source = this.filter == FEATURED ? "endorsements" : "statuses";
+		} else {
+			source = t_source;
+		}
+		string pleroma =
+			source == "endorsements"
+			&& accounts.active.instance_info != null
+			&& accounts.active.instance_info.pleroma != null
+			&& !(InstanceAccount.InstanceFeatures.ICESHRIMP in accounts.active.tuba_instance_features)
+			? "/pleroma" : "";
 
-		filter_group.visible = t_source == "statuses";
+		filter_group.visible = source == "statuses" || source == "endorsements";
+		source_meta_update (source);
+
+		url = @"/api/v1$pleroma/accounts/$(profile.account.id)/$source";
+		invalidate_actions (true);
+	}
+
+	private void source_meta_update (string t_source) {
 		switch (t_source) {
 			case "statuses":
 				accepts = typeof (API.Status);
+				// translators: posts tab on profiles, shown when empty.
 				empty_state_title = _("No Posts");
 				break;
 			case "followers":
 				accepts = typeof (API.Account);
-				empty_state_title = _("No Followers");
+				empty_state_title = profile.account.followers_count > 0
+				// translators: profile tab, when information (followers/following lists) is hidden.
+				? _("This user has chosen to not make this information available")
+				// translators: followers tab on profiles, shown when empty.
+				: _("No Followers");
 				break;
 			case "following":
 				accepts = typeof (API.Account);
-				empty_state_title = _("This user doesn't follow anyone yet");
+				empty_state_title = profile.account.following_count > 0
+				? _("This user has chosen to not make this information available")
+				// translators: following tab on profiles, shown when empty or hidden.
+				: _("This user doesn't follow anyone yet");
+				break;
+			case "endorsements":
+				accepts = typeof (API.Account);
+				// translators: featured tab on profiles, shown when empty.
+				empty_state_title = _("This user doesn't have any featured hashtags or accounts.");
 				break;
 			default:
 				assert_not_reached ();
 		}
-
-		url = @"/api/v1/accounts/$(profile.account.id)/$t_source";
-		invalidate_actions (true);
 	}
 
 	protected void change_filter (Widgets.ProfileFilterGroup.Filter filter) {
+		bool was_featured = this.filter == FEATURED;
 		this.filter = filter;
-		invalidate_actions (true);
+		if (this.filter == FEATURED || was_featured) {
+			change_timeline_source ("statuses-like");
+		} else {
+			source_meta_update (source);
+			invalidate_actions (true);
+		}
+	}
+
+	private async void append_featured_tags () {
+		if (source == "endorsements" && filter == Widgets.ProfileFilterGroup.Filter.FEATURED) {
+			try {
+				Object[] to_add = {};
+
+				var req = new RequestV2 (@"/api/v1/accounts/$(profile.account.id)/featured_tags") { account = account, ctx = this };
+				var in_stream = yield req.exec (null);
+
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+				Network.parse_array (parser, node => {
+					to_add += Tuba.Helper.Entity.from_json (node, typeof (API.FeaturedTag));
+				});
+
+				//  req = new Request.GET (@"/api/v1/accounts/$(profile.account.id)/endorsements")
+				//  		.with_account (account)
+				//  		.with_ctx (this);
+				//  yield req.await ();
+
+				//  parser = Network.get_parser_from_inputstream (req.response_body);
+				//  Network.parse_array (parser, node => {
+				//  	to_add += Tuba.Helper.Entity.from_json (node, typeof (API.Account));
+				//  });
+				model.splice (TOTAL_STATIC_ITEMS, 0, to_add);
+			} catch (Error e) {
+				on_error (e.code, e.message);
+			}
+		}
+	}
+
+
+	public override void on_content_changed () {
+		error_message_row.visible = false;
+		base.on_content_changed ();
+		if (has_finished_request && base_status == null && model.get_n_items () == TOTAL_STATIC_ITEMS) {
+			error_message_row.visible = true;
+		}
 	}
 
 	protected override void build_header () {
@@ -228,6 +489,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		if (profile.account.is_self ()) {
 			var edit_btn = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+				//  translators: verb, title or button that when clicked will show the profile editor
 				tooltip_text = _("Edit Profile")
 			};
 			edit_btn.clicked.connect (open_edit_page);
@@ -267,7 +529,35 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	protected override void clear () {
-		base.clear_all_but_first (2);
+		base.clear_all_but_first (TOTAL_STATIC_ITEMS);
+	}
+
+	private async void on_domain_block_real (bool block) {
+		// translators: confirmation dialog on blocking/unblocking an instance; variable is a string instance
+		var q = block ? _("Block Entire \"%s\"?") : _("Unblock Entire \"%s\"?");
+		var question = yield app.question (
+			{q.printf (profile.account.domain), false},
+			// translators: confirmation dialog explaining what blocking an instance will do
+			{_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"), false},
+
+			app.main_window,
+			{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			null,
+			false
+		);
+
+		if (question.truthy ()) {
+			var req = new RequestV2 ("/api/v1/domain_blocks", block ? RequestV2.Method.POST : RequestV2.Method.DELETE) { account = accounts.active };
+			req.add_parameter ("domain", profile.account.domain);
+			try {
+				yield req.exec (null);
+				profile.rs.request ();
+			} catch (Error e) {
+				warning (@"Couldn't block domain $(profile.account.domain): $(e.code) $(e.message)");
+				// translators: error toast, variable is a string error message
+				app.toast (_("Couldn't block domain: %s").printf (e.message));
+			}
+		}
 	}
 
 	protected override void build_actions () {
@@ -292,18 +582,30 @@ public class Tuba.Views.Profile : Views.Accounts {
 		//  actions.add_action (source_action);
 		ar_list_action = new SimpleAction ("ar_list", null);
 		ar_list_action.activate.connect (v => {
-			create_ar_list_dialog ().present (app.main_window);
+			var dpl = new Dialogs.ProfileLists (profile.account.id, profile.account.handle);
+			dpl.errored.connect (on_error);
+			dpl.present (app.main_window);
 		});
 		actions.add_action (ar_list_action);
 
 		var mention_action = new SimpleAction ("mention", VariantType.STRING);
 		mention_action.activate.connect (v => {
-			var status = new API.Status.empty ();
-			status.visibility = v.get_string ();
-			status.content = @"$(profile.account.handle) ";
-			new Dialogs.Compose (status);
+			new Dialogs.Composer.Dialog ({@"$(profile.account.handle) ", null, null, null, null, null, null, false, false}, v.get_string ());
 		});
 		actions.add_action (mention_action);
+
+		var collection_action = new SimpleAction ("collections", null);
+		collection_action.activate.connect (v => {
+			app.main_window.open_view (new Views.CollectionList (profile.account.id));
+		});
+		actions.add_action (collection_action);
+		collection_action.set_enabled (accounts.active.tuba_api_versions.mastodon >= 10 && !profile.account.hide_collections);
+
+		add_note_action = new SimpleAction ("add-note", null);
+		add_note_action.activate.connect (v => {
+			on_edit_note ();
+		});
+		actions.add_action (add_note_action);
 
 		var copy_handle_action = new SimpleAction ("copy_handle", null);
 		copy_handle_action.activate.connect (v => {
@@ -364,37 +666,27 @@ public class Tuba.Views.Profile : Views.Accounts {
 		domain_blocking_action = new SimpleAction.stateful ("domain_blocking", null, false);
 		domain_blocking_action.change_state.connect (v => {
 			var block = v.get_boolean ();
-			var q = block ? _("Block Entire \"%s\"?") : _("Unblock Entire \"%s\"?");
-			app.question.begin (
-				{q.printf (profile.account.domain), false},
-				{_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"), false},
-
-				app.main_window,
-				{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
-				null,
-				false,
-				(obj, res) => {
-					if (app.question.end (res).truthy ()) {
-						var req = new Request.POST ("/api/v1/domain_blocks")
-							.with_account (accounts.active)
-							.with_param ("domain", profile.account.domain)
-							.then (() => {
-								profile.rs.request ();
-							});
-
-						if (!block) req.method = "DELETE";
-						req.exec ();
-					}
-				}
-			);
+			on_domain_block_real.begin (block);
 		});
 		actions.add_action (domain_blocking_action);
+
+		string endorse_str = accounts.active.tuba_api_versions.mastodon >= 6 ? "endorse" : "pin";
+		string unendorse_str = accounts.active.tuba_api_versions.mastodon >= 6 ? "unendorse" : "unpin";
+
+		endorse_action = new SimpleAction.stateful ("endorsed", null, false);
+		endorse_action.change_state.connect (v => {
+			profile.rs.modify (v.get_boolean () ? endorse_str : unendorse_str);
+			invalidate_actions (false);
+		});
+		actions.add_action (endorse_action);
 
 		invalidate_actions (false);
 	}
 
 	void invalidate_actions (bool refresh) {
 		muting_action.set_state (profile.rs.muting);
+		endorse_action.set_state (profile.rs.endorsed);
+		endorse_action.set_enabled (profile.rs.following);
 		hiding_reblogs_action.set_state (!profile.rs.showing_reblogs);
 		hiding_reblogs_action.set_enabled (profile.rs.following);
 		blocking_action.set_state (profile.rs.blocking);
@@ -403,6 +695,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 		ar_list_action.set_enabled (profile.account.id != accounts.active.id && profile.rs.following);
 		notify_on_new_post_action.set_enabled (profile.account.id != accounts.active.id && profile.rs.following);
 		notify_on_new_post_action.set_state (profile.rs.notifying);
+		add_note_action.set_enabled (profile.account.id != accounts.active.id);
 
 		if (refresh) {
 			page_next = null;
@@ -414,177 +707,71 @@ public class Tuba.Views.Profile : Views.Accounts {
 		invalidate_actions (false);
 	}
 
-	public override Request append_params (Request req) {
+	//  public override Request append_params (Request req) {
+	//  	if (page_next == null && source == "statuses") {
+	//  		switch (this.filter) {
+	//  			case Widgets.ProfileFilterGroup.Filter.POSTS:
+	//  				req.with_param ("exclude_replies", "true");
+	//  				break;
+	//  			case Widgets.ProfileFilterGroup.Filter.REPLIES:
+	//  				req.with_param ("exclude_replies", "false");
+	//  				req.with_param ("exclude_reblogs", "true");
+	//  				break;
+	//  			case Widgets.ProfileFilterGroup.Filter.MEDIA:
+	//  				req.with_param ("only_media", "true");
+	//  				break;
+	//  			case Widgets.ProfileFilterGroup.Filter.FEATURED: break;
+	//  			default:
+	//  				assert_not_reached ();
+	//  		}
+	//  	}
+	//  	return base.append_params (req);
+	//  }
+
+	public override void append_params_v2 (RequestV2 req) {
 		if (page_next == null && source == "statuses") {
 			switch (this.filter) {
 				case Widgets.ProfileFilterGroup.Filter.POSTS:
-					req.with_param ("exclude_replies", "true");
+					req.add_parameter ("exclude_replies", "true");
 					break;
 				case Widgets.ProfileFilterGroup.Filter.REPLIES:
-					req.with_param ("exclude_replies", "false");
-					req.with_param ("exclude_reblogs", "true");
+					req.add_parameter ("exclude_replies", "false");
+					req.add_parameter ("exclude_reblogs", "true");
 					break;
 				case Widgets.ProfileFilterGroup.Filter.MEDIA:
-					req.with_param ("only_media", "true");
+					req.add_parameter ("only_media", "true");
+					if (!profile.account.show_media_replies)
+						req.add_parameter ("exclude_replies", "true");
 					break;
+				case Widgets.ProfileFilterGroup.Filter.FEATURED: break;
 				default:
 					assert_not_reached ();
 			}
 		}
-		return base.append_params (req);
+		base.append_params_v2 (req);
 	}
 
-	public class RowButton : Gtk.Button {
-		public bool remove { get; set; default = false; }
+	private void on_edit_cover_note () {
+		on_edit_note ();
 	}
 
-	public Adw.Dialog create_ar_list_dialog () {
-		var spinner = new Adw.Spinner () {
-			halign = Gtk.Align.CENTER,
-			valign = Gtk.Align.CENTER,
-			vexpand = true,
-			hexpand = true,
-			width_request = 32,
-			height_request = 32
-		};
-		var toolbar_view = new Adw.ToolbarView ();
-		var headerbar = new Adw.HeaderBar ();
-		var toast_overlay = new Adw.ToastOverlay () {
-			vexpand = true,
-			valign = Gtk.Align.CENTER
-		};
-		toast_overlay.child = spinner;
-
-		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.set_content (toast_overlay);
-		var dialog = new Adw.Dialog () {
-			// translators: the variable is an account handle
-			title = _("Add or remove \"%s\" to or from a list").printf (profile.account.handle),
-			child = toolbar_view,
-			content_width = 600,
-			content_height = 550
-		};
-
-		var preferences_page = new Adw.PreferencesPage ();
-		var preferences_group = new Adw.PreferencesGroup () {
-			title = _("Lists"),
-			// translators: the variable is an account handle
-			description = _("Select the list to add or remove \"%s\" to or from:").printf (profile.account.handle)
-		};
-
-		var no_lists_page = new Adw.StatusPage () {
-			icon_name = "dialog-error-symbolic",
-			vexpand = true,
-			title = _("You don't have any lists")
-		};
-
-		new Request.GET ("/api/v1/lists/")
-			.with_account (accounts.active)
-			.with_ctx (this)
-			.on_error (on_error)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				if (Network.get_array_size (parser) > 0) {
-					new Request.GET (@"/api/v1/accounts/$(profile.account.id)/lists")
-					.with_account (accounts.active)
-					.with_ctx (this)
-					.on_error (on_error)
-					.then ((in_stream2) => {
-						var added = false;
-						var in_list = new Gee.ArrayList<string> ();
-
-						var parser2 = Network.get_parser_from_inputstream (in_stream2);
-						Network.parse_array (parser2, node => {
-							var list = API.List.from (node);
-							in_list.add (list.id);
-						});
-						Network.parse_array (parser, node => {
-							var list = API.List.from (node);
-							var is_already = in_list.contains (list.id);
-
-							var add_button = new RowButton () {
-								icon_name = is_already ? "tuba-minus-large-symbolic" : "tuba-plus-large-symbolic",
-								tooltip_text = is_already
-									? _("Remove \"%s\" from \"%s\"").printf (profile.account.handle, list.title)
-									: _("Add \"%s\" to \"%s\"").printf (profile.account.handle, list.title),
-								halign = Gtk.Align.CENTER,
-								valign = Gtk.Align.CENTER,
-								css_classes = { "flat", "circular" }
-							};
-							add_button.remove = is_already;
-
-							var row = new Adw.ActionRow () {
-								title = list.title
-							};
-							row.add_suffix (add_button);
-
-							add_button.clicked.connect (() => {
-								handle_list_edit (list, row, toast_overlay, add_button);
-							});
-
-							preferences_group.add (row);
-							added = true;
-						});
-
-						if (added) {
-							preferences_page.add (preferences_group);
-
-							toast_overlay.child = preferences_page;
-							toast_overlay.valign = Gtk.Align.FILL;
-						} else {
-							toast_overlay.child = no_lists_page;
-						}
-					})
-					.exec ();
-				} else {
-					toast_overlay.child = no_lists_page;
-				}
-			})
-			.exec ();
-
-		return dialog;
+	private void on_edit_note (string? note = null) {
+		var note_editor = new NoteEditor (note == null ? profile.rs.note : note);
+		note_editor.note_done.connect (on_note_done);
+		note_editor.present (app.main_window);
 	}
 
-	public void handle_list_edit (API.List list, Adw.ActionRow row, Adw.ToastOverlay toast_overlay, RowButton button) {
-			row.sensitive = false;
+	private void on_note_done (string new_note) {
+		on_note_done_real.begin (new_note);
+	}
 
-			var builder = new Json.Builder ();
-			builder.begin_object ();
-			builder.set_member_name ("account_ids");
-			builder.begin_array ();
-			builder.add_string_value (profile.account.id);
-			builder.end_array ();
-			builder.end_object ();
-
-			var endpoint = @"/api/v1/lists/$(list.id)/accounts";
-			var req = button.remove ? new Request.DELETE (endpoint) : new Request.POST (endpoint);
-			req
-				.with_account (accounts.active)
-				.with_ctx (this)
-				.body_json (builder)
-				.on_error (on_error)
-				.then (() => {
-					var toast_msg = "";
-					if (button.remove) {
-						//  translators: First variable is a handle, second variable is a list name
-						toast_msg = _("User \"%s\" got removed from \"%s\"").printf (profile.account.handle, list.title);
-						button.icon_name = "tuba-plus-large-symbolic";
-						//  translators: First variable is a handle, second variable is a list name
-						button.tooltip_text = _("Add \"%s\" to \"%s\"").printf (profile.account.handle, list.title);
-					} else {
-						//  translators: First variable is a handle, second variable is a list name
-						toast_msg = _("User \"%s\" got added to \"%s\"").printf (profile.account.handle, list.title);
-						button.icon_name = "tuba-minus-large-symbolic";
-						//  translators: First variable is a handle, second variable is a list name
-						button.tooltip_text = _("Remove \"%s\" from \"%s\"").printf (profile.account.handle, list.title);
-					}
-
-					button.remove = !button.remove;
-					row.sensitive = true;
-
-					var toast = new Adw.Toast (toast_msg);
-					toast_overlay.add_toast (toast);
-				})
-				.exec ();
+	private async void on_note_done_real (string new_note) {
+		try {
+			yield profile.rs.modify_note_real (new_note);
+		} catch (Error e) {
+			warning (@"Error while writing note: $(e.code) $(e.message)");
+			app.toast ("%s: %s".printf (_("Error"), e.message));
+			on_edit_note (new_note);
+		}
 	}
 }

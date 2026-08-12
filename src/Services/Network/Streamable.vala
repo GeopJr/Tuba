@@ -1,4 +1,4 @@
-public abstract interface Tuba.Streamable : Object {
+public interface Tuba.Streamable : Object {
 
 	public struct Event {
 		public string type;
@@ -19,7 +19,7 @@ public abstract interface Tuba.Streamable : Object {
 		}
 	}
 
-	public abstract string? t_connection_url { get; set; }
+	protected abstract string? t_connection_url { get; set; }
 	public abstract bool subscribed { get; set; default = false; }
 
 	public abstract string? get_stream_url ();
@@ -65,6 +65,7 @@ public abstract interface Tuba.Streamable : Object {
 	protected void on_network_change () {
 		if (app.is_online) {
 			update_stream ();
+			streams.force_reconnect (t_connection_url);
 		} else {
 			unsubscribe ();
 		}

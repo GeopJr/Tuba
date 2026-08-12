@@ -28,7 +28,6 @@ public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
 		if (text == null) return;
 
 		instance_emojis = emojis;
-
 		content = text;
 	}
 

@@ -2,9 +2,12 @@ public class Tuba.Views.EditHistory : Views.Timeline {
 	public EditHistory (string status_id) {
 		Object (
 			url: @"/api/v1/statuses/$(status_id)/history",
+			// translators: view title that shows the previous versions of an edited post
 			label: _("Edit History"),
 			icon: "document-edit-symbolic",
-			empty_state_title: _("No Edit History")
+			// translators: empty state title
+			empty_state_title: _("No Edit History"),
+			batch_size_min: 20
 		);
 	}
 
@@ -12,7 +15,7 @@ public class Tuba.Views.EditHistory : Views.Timeline {
 		var widget = base.on_create_model_widget (obj);
 		var widget_status = widget as Widgets.Status;
 
-		widget_status.actions.visible = false;
+		widget_status.toggle_actions_visibility (false);
 		widget_status.menu_button.visible = false;
 		#if USE_LISTVIEW
 			widget_status.can_be_opened = false;

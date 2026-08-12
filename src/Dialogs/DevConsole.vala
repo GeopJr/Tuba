@@ -25,7 +25,8 @@ public class Tuba.Dialogs.Dev : Adw.PreferencesDialog {
 		new WindowSize (1600, 900),
 		new WindowSize (360, 654),
 		new WindowSize (720, 360),
-		new WindowSize (1000, 700)
+		new WindowSize (1000, 700),
+		new WindowSize (800, 566)
 	};
 
 	construct {

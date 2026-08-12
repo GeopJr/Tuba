@@ -1,6 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/view.ui")]
 public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	public const int MAX_SIDEBAR_LISTS = 25;
+	public const int MAX_SIDEBAR_TAGS = 25;
 
 	[GtkChild] unowned Gtk.ListBox items;
 	[GtkChild] unowned Gtk.ListBox saved_accounts;
@@ -13,6 +14,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	protected InstanceAccount? account { get; set; default = null; }
 
+	protected Gtk.SliceListModel tags_items;
 	protected Gtk.SliceListModel app_items;
 	protected Gtk.SliceListModel account_items;
 	protected Gtk.FlattenListModel item_model;
@@ -66,6 +68,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		var account_submenu_model = new GLib.Menu ();
 		account_submenu_model.append (_("New Post"), "app.compose");
 		account_submenu_model.append (_("Open Profile"), "app.open-current-account-profile");
+		//  translators: 'refresh timeline'; same as a browser refreshing/reloading a page
 		account_submenu_model.append (_("Refresh"), "app.refresh");
 		menu_model.append_section (null, account_submenu_model);
 
@@ -76,12 +79,18 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		misc_submenu_model.append (_("Draft Posts"), "app.open-draft-posts");
 		misc_submenu_model.append (_("Scheduled Posts"), "app.open-scheduled-posts");
 
+		// translators: 'Collections' is a Mastodon feature; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+		var collections_menu_item = new MenuItem (_("Collections"), "app.open-collections");
+		collections_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+		misc_submenu_model.append_item (collections_menu_item);
+
 		// translators: main menu entry, please don't translate it unless you have to.
 		//				Refer to other #FediWrapped strings for more info
 		var wrapped_menu_item = new MenuItem (_("#FediWrapped"), "app.open-last-fediwrapped");
 		wrapped_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 		misc_submenu_model.append_item (wrapped_menu_item);
 
+		//  translators: admin as in fediverse server administrator
 		var admin_dahsboard_menu_item = new MenuItem (_("Admin Dashboard"), "app.open-admin-dashboard");
 		admin_dahsboard_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 		misc_submenu_model.append_item (admin_dahsboard_menu_item);
@@ -90,19 +99,22 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		misc_submenu_model = new GLib.Menu ();
 		misc_submenu_model.append (_("Preferences"), "app.open-preferences");
-		misc_submenu_model.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
+		misc_submenu_model.append (_("Keyboard Shortcuts"), "app.shortcuts");
 		misc_submenu_model.append (_("About %s").printf (Build.NAME), "app.about");
+		//  translators: exit the app
 		misc_submenu_model.append (_("Quit"), "app.quit");
 		menu_model.append_section (null, misc_submenu_model);
 
 		menu_btn.menu_model = menu_model;
 
+		tags_items = new Gtk.SliceListModel (null, 0, MAX_SIDEBAR_TAGS);
 		app_items = new Gtk.SliceListModel (null, 0, MAX_SIDEBAR_LISTS);
 		account_items = new Gtk.SliceListModel (null, 0, 15);
 
 		var models = new GLib.ListStore (typeof (Object));
 		models.append (account_items);
 		models.append (app_items);
+		models.append (tags_items);
 		item_model = new Gtk.FlattenListModel (models);
 
 		items.bind_model (item_model, on_item_create);
@@ -130,6 +142,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	protected virtual void on_accounts_changed (Gee.ArrayList<InstanceAccount> accounts) {
 		accounts_model.remove_all ();
+		accounts.sort ((owned) compare_func);
 
 		Object[] accounts_to_add = {};
 		accounts.foreach (acc => {
@@ -140,13 +153,28 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		accounts_to_add += new Object ();
 
 		accounts_model.splice (0, 0, accounts_to_add);
-		update_selected_account ();
+		update_selected_account (false);
 	}
 
-	private void update_selected_account () {
+	CompareDataFunc<InstanceAccount> compare_func = (a, b) => {
+		return GLib.strcmp (a.handle.down (), b.handle.down ());
+	};
+
+	private void update_selected_account (bool clear = true) {
+		if (clear) {
+			for (int i = 0; i < accounts_model.n_items; i++) {
+				var row = saved_accounts.get_row_at_index ((int) i);
+				if (row == null) break;
+				if (row.has_css_class ("active")) row.remove_css_class ("active");
+			}
+		}
+
 		uint index;
-		if (accounts_model.find (account, out index))
-			saved_accounts.select_row (saved_accounts.get_row_at_index ((int) index));
+		if (accounts_model.find (account, out index)) {
+			var row = saved_accounts.get_row_at_index ((int) index);
+			saved_accounts.select_row (row);
+			row.add_css_class ("active");
+		}
 	}
 
 	public void set_sidebar_selected_item (int index) {
@@ -181,6 +209,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			wrapped_binding = this.account.bind_property ("tuba-last-fediwrapped-year", this, "tuba-wrapped", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;
 			app_items.model = account.list_places;
+			tags_items.model = account.tags_places;
 			update_selected_account ();
 
 			var dashboard_action = app.lookup_action ("open-admin-dashboard") as SimpleAction;
@@ -192,6 +221,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 			account_items.model = null;
 			app_items.model = null;
+			tags_items.model = null;
 			accounts_button_avi.account = null;
 		}
 	}

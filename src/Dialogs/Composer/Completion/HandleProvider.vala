@@ -18,10 +18,10 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 
 	public override async ListModel suggest (string word, Cancellable? cancellable) throws Error {
 		var req = API.Account.search (word.substring (1));
-		yield req.await ();
+		var in_stream = yield req.exec (null);
 
 		var results = new GLib.ListStore (typeof (Object));
-		var parser = Network.get_parser_from_inputstream (req.response_body);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		Network.parse_array (parser, node => {
 			var entity = Tuba.Helper.Entity.from_json (node, typeof (API.Account));
 			if (entity is API.Account) {

@@ -1,4 +1,4 @@
-public class Tuba.Widgets.ActionsRow : Gtk.Box {
+public class Tuba.Widgets.ActionsRow : Adw.BreakpointBin {
 	public signal void reply (Gtk.Button btn);
 	public API.Status status { get; set; }
 
@@ -41,7 +41,10 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		bindings += this.status.bind_property ("bookmarked", bookmark_button, "active", GLib.BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 
 		if (quote_button != null) {
-			quote_button.visible = status.formal.can_be_quoted;
+			bindings += this.status.bind_property ("can-be-quoted", quote_button, "sensitive", BindingFlags.SYNC_CREATE);
+			bindings += this.status.bind_property ("quotes-count", quote_button, "amount", BindingFlags.SYNC_CREATE);
+			status_notify_signals += this.status.notify["can-be-quoted"].connect (can_be_quoted_notify_fun);
+			can_be_quoted_notify_fun ();
 		}
 	}
 
@@ -57,8 +60,23 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			reblog_button.tooltip_text = _("Boost");
 			reblog_button.default_icon_name = "tuba-media-playlist-repeat-symbolic";
 		} else {
+			// translators: tooltip text when the boost button is disabled
 			reblog_button.tooltip_text = _("This post can't be boosted");
 			reblog_button.default_icon_name = "tuba-arrows-loop-tall-disabled-symbolic";
+		}
+	}
+
+	private void can_be_quoted_notify_fun () {
+		bool src_val = this.status.can_be_quoted;
+		quote_button.sensitive = src_val;
+
+		if (src_val) {
+			quote_button.tooltip_text = _("Quote");
+			quote_button.default_icon_name = "tuba-quotation-symbolic";
+		} else {
+			// translators: tooltip text when the quote button is disabled
+			quote_button.tooltip_text = _("This post can't be quoted");
+			quote_button.default_icon_name = "tuba-quotation-disabled-symbolic";
 		}
 	}
 
@@ -76,15 +94,56 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		status_notify_signals = {};
 	}
 
+	Gtk.Box box;
+	private bool _is_narrow = false;
+	public bool is_narrow {
+		get { return _is_narrow; }
+		set {
+			_is_narrow = value;
+			if (value) {
+				this.height_request = 34;
+				box.spacing = 2;
+				this.add_css_class ("narrow");
+				reply_button.show_counts = false;
+				if (quote_button != null) {
+					quote_button.show_counts = false;
+					quote_button.smaller = true;
+				}
+				reply_button.smaller = true;
+				reblog_button.smaller = true;
+				favorite_button.smaller = true;
+			} else {
+				this.height_request = 36;
+				box.spacing = 6;
+				this.remove_css_class ("narrow");
+				reply_button.show_counts = settings.show_interaction_counters;
+				if (quote_button != null) {
+					quote_button.show_counts = settings.show_interaction_counters;
+					quote_button.smaller = false;
+				}
+				reply_button.smaller = false;
+				reblog_button.smaller = false;
+				favorite_button.smaller = false;
+			}
+		}
+	}
+
 	construct {
+		box = new Gtk.Box (HORIZONTAL, 6);
 		this.add_css_class ("ttl-post-actions");
-		this.spacing = 6;
+		box.spacing = 6;
+		this.child = box;
+		this.overflow = VISIBLE;
+		this.height_request = 36;
+		this.width_request = 24;
 
 		reply_button = new Widgets.StatusActionButton.with_icon_name ("tuba-reply-sender-symbolic") {
+			show_counts = settings.show_interaction_counters,
 			active = false,
 			css_classes = { "ttl-status-action-reply", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,
+			// translators: verb
 			tooltip_text = _("Reply"),
 			//  aria_label_template = (amount) => {
 			//  	// translators: Accessibility label on post buttons.
@@ -97,12 +156,14 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			//  }
 		};
 		reply_button.clicked.connect (on_reply_button_clicked);
-		this.append (reply_button);
+		box.append (reply_button);
 
 		reblog_button = new Widgets.StatusActionButton.with_icon_name ("tuba-media-playlist-repeat-symbolic") {
+			show_counts = settings.show_interaction_counters,
 			css_classes = { "ttl-status-action-reblog", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,
+			// translators: verb, boost / reblog / repost a post
 			tooltip_text = _("Boost"),
 			//  aria_label_template = (amount) => {
 			//  	// translators: Accessibility label on post buttons.
@@ -115,21 +176,22 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			//  }
 		};
 		reblog_button.clicked.connect (on_boost_button_clicked);
-		this.append (reblog_button);
+		box.append (reblog_button);
 
-		if (accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) {
+		if ((accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) || InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features) {
 			quote_button = new Widgets.StatusActionButton.with_icon_name ("tuba-quotation-symbolic") {
+				show_counts = settings.show_interaction_counters,
 				css_classes = { "ttl-status-action-quote", "flat", "circular" },
 				halign = Gtk.Align.START,
 				hexpand = true,
-				tooltip_text = _("Quote"),
-				visible = false
+				tooltip_text = _("Quote")
 			};
 			quote_button.clicked.connect (on_quote_button_clicked);
-			this.append (quote_button);
+			box.append (quote_button);
 		}
 
 		favorite_button = new Widgets.StatusActionButton.with_icon_name ("tuba-unstarred-symbolic") {
+			show_counts = settings.show_interaction_counters,
 			active_icon_name = "tuba-starred-symbolic",
 			css_classes = { "ttl-status-action-star", "flat", "circular" },
 			halign = Gtk.Align.START,
@@ -146,17 +208,27 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			//  }
 		};
 		favorite_button.clicked.connect (on_favorite_button_clicked);
-		this.append (favorite_button);
+		box.append (favorite_button);
 
 		bookmark_button = new Widgets.StatusActionButton.with_icon_name ("tuba-bookmarks-symbolic") {
 			active_icon_name = "tuba-bookmarks-filled-symbolic",
 			css_classes = { "ttl-status-action-bookmark", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = false,
+			// translators: verb, bookmark a post
 			tooltip_text = _("Bookmark")
 		};
 		bookmark_button.clicked.connect (on_bookmark_button_clicked);
-		this.append (bookmark_button);
+		box.append (bookmark_button);
+
+
+		var condition = new Adw.BreakpointCondition.length (
+			Adw.BreakpointConditionLengthType.MAX_WIDTH,
+			quote_button == null ? 300 : 380, Adw.LengthUnit.SP
+		);
+		var breakpoint = new Adw.Breakpoint ((owned) condition);
+		breakpoint.add_setter (this, "is-narrow", true);
+		add_breakpoint (breakpoint);
 	}
 
 	private void on_reply_button_clicked (Gtk.Button btn) {
@@ -192,7 +264,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		status_btn.active = !status_btn.active;
 
 		string action;
-		Request req;
+		RequestV2 req;
 		if (status_btn.active) {
 			action = "bookmark";
 			req = this.status.bookmark_req ();
@@ -202,7 +274,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		}
 
 		debug (@"Performing status action '$action'…");
-		mastodon_action (status_btn, req, action);
+		mastodon_action.begin (status_btn, req, action);
 	}
 
 	private void on_favorite_button_clicked (Gtk.Button btn) {
@@ -213,7 +285,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		status_btn.active = !status_btn.active;
 
 		string action;
-		Request req;
+		RequestV2 req;
 		if (status_btn.active) {
 			action = "favorite";
 			req = this.status.favourite_req ();
@@ -224,13 +296,57 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		status_btn.amount += status_btn.active ? 1 : -1;
 
 		debug (@"Performing status action '$action'…");
-		mastodon_action (status_btn, req, action, "favourites-count");
+		mastodon_action.begin (status_btn, req, action, "favourites-count");
+	}
+
+	private bool is_any_missing_alt () {
+		if (!status.formal.has_media) return false;
+		bool res = false;
+
+		status.formal.media_attachments.foreach (e => {
+			if (e.description == null || e.description == "") {
+				res = true;
+				return false;
+			}
+
+			return true;
+		});
+
+		return res;
 	}
 
 	private void on_boost_button_clicked (Gtk.Button btn) {
 		var status_btn = btn as Widgets.StatusActionButton;
 		if (status_btn.working) return;
 
+		if (!status_btn.active && settings.boost_alt_text_reminder && is_any_missing_alt ()) {
+			var checkbutton = new Gtk.CheckButton () {
+				label = _("Don't remind me again"),
+				halign = Gtk.Align.CENTER
+			};
+			app.question.begin (
+				// translators: title of dialog shown when trying to boost a post that has attachments without alt text
+				{_("This post includes attachments without alt text"), false},
+				// translators: subtitle of dialog shown when trying to boost a post that has attachments without alt text;
+				//				"it" refers to "this post" (mentioned in the dialog title); "parse" as in read/grasp/understand it
+				{_("Some of your followers might not be able to parse it."), false},
+				app.main_window,
+				{ { _("Boost"), Adw.ResponseAppearance.SUGGESTED }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				checkbutton,
+				false,
+				(obj, res) => {
+					if (app.question.end (res).truthy ()) {
+						boost_button_clicked_real (status_btn);
+					}
+					if (checkbutton.active) settings.boost_alt_text_reminder = false;
+				}
+			);
+		} else {
+			boost_button_clicked_real (status_btn);
+		}
+	}
+
+	private void boost_button_clicked_real (Widgets.StatusActionButton status_btn) {
 		status_btn.block_clicked ();
 
 		if (!status_btn.active && settings.advanced_boost_dialog) {
@@ -270,16 +386,18 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			}
 
 			var dlg = new Adw.AlertDialog (
+				// translators: dialog title to select boost visibility (public, unlisted, private)
 				_("Boost with Visibility"),
 				null
 			) {
 				extra_child = visibility_box
 			};
-			dlg.add_responses (
-				"no", _("Cancel"),
-				"quote", _("Quote"),
-				"yes", _("Boost")
-			);
+			dlg.add_response ("no", _("Cancel"));
+			// don't add the "quote" option if there's a quote button available
+			if (quote_button == null) {
+				dlg.add_response ("quote", _("Quote"));
+			}
+			dlg.add_response ("yes", _("Boost"));
 			dlg.set_response_appearance ("yes", Adw.ResponseAppearance.SUGGESTED);
 
 			dlg.response.connect (res => {
@@ -303,11 +421,13 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 								commit_boost (status_btn, reblog_visibility);
 								break;
 							case "quote":
-								bool supports_quotes = status.formal.can_be_quoted && accounts.active.instance_info.supports_quote_posting;
-								new Dialogs.Compose (new API.Status.empty () {
-									visibility = reblog_visibility == null ? settings.default_post_visibility : reblog_visibility.to_string (),
-									content = supports_quotes ? "" : @"\n\nRE: $(status.formal.url ?? status.formal.account.url)"
-								}, !supports_quotes, status.formal.id);
+								bool supports_quotes =
+									status.formal.can_be_quoted
+									&& (
+										(accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting)
+										|| InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features
+									);
+								new Dialogs.Composer.Dialog.quote (status.formal, reblog_visibility, supports_quotes);
 								status_btn.unblock_clicked ();
 								break;
 							default:
@@ -330,16 +450,14 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_quote_button_clicked () {
-		new Dialogs.Compose (new API.Status.empty () {
-			visibility = settings.default_post_visibility
-		}, false, status.formal.id);
+		new Dialogs.Composer.Dialog.quote (status.formal, null, true);
 	}
 
 	private void commit_boost (Widgets.StatusActionButton status_btn, API.Status.Visibility? visibility = null) {
 			status_btn.active = !status_btn.active;
 
 			string action;
-			Request req;
+			RequestV2 req;
 			if (status_btn.active) {
 				action = "reblog";
 				req = this.status.reblog_req (visibility);
@@ -350,52 +468,50 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 
 			status_btn.amount += status_btn.active ? 1 : -1;
 			debug (@"Performing status action '$action'…");
-			mastodon_action (status_btn, req, action, "reblogs-count");
+			mastodon_action.begin (status_btn, req, action, "reblogs-count");
 	}
 
-	private void mastodon_action (Widgets.StatusActionButton status_btn, Request req, string action, string? count_property = null) {
-		req.await.begin ((o, res) => {
-			try {
-				req.await.end (res);
-
-				if (count_property != null) {
-					int64 status_property_count;
-					this.status.get (count_property, out status_property_count);
-					this.status.set (count_property, status_property_count + (status_btn.active ? 1 : -1));
-				}
-
-				// Not reliable, it sometimes returns wrong info.
-				// But it should be the desired one, as it updated the whole object.
-				//
-				//  var msg = req.await.end (res);
-
-				//  var parser = Network.get_parser_from_inputstream (msg.response_body);
-				//  var node = network.parse_node (parser);
-				//  var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status), true);
-
-				//  if (count_property != null) {
-				//  	int64 e_property_count;
-				//  	int64 status_property_count;
-				//  	((API.Status) e).get (count_property, out e_property_count);
-				//  	this.status.get (count_property, out status_property_count);
-				//  	if (e_property_count == status_property_count) {
-				//  		((API.Status) e).set (count_property, e_property_count + (status_btn.active ? 1 : -1));
-				//  	}
-				//  }
-
-				//  this.status.patch (e);
-				debug (@"Status action '$action' complete");
-			} catch (Error e) {
-				warning (@"Couldn't perform action \"$action\" on a Status:");
-				warning (e.message);
-				app.toast ("%s: %s".printf (_("Network Error"), e.message));
-
-				if (count_property != null)
-					status_btn.amount += status_btn.active ? -1 : 1;
-				status_btn.active = !status_btn.active;
+	private async void mastodon_action (Widgets.StatusActionButton status_btn, RequestV2 req, string action, string? count_property = null) {
+		try {
+			yield req.exec (null);
+			if (count_property != null) {
+				int64 status_property_count;
+				this.status.get (count_property, out status_property_count);
+				this.status.set (count_property, status_property_count + (status_btn.active ? 1 : -1));
 			}
 
-			status_btn.unblock_clicked ();
-		});
+			// Not reliable, it sometimes returns wrong info.
+			// But it should be the desired one, as it updated the whole object.
+			//
+			//  var msg = req.await.end (res);
+
+			//  var parser = Network.get_parser_from_inputstream (msg.response_body);
+			//  var node = network.parse_node (parser);
+			//  var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status), true);
+
+			//  if (count_property != null) {
+			//  	int64 e_property_count;
+			//  	int64 status_property_count;
+			//  	((API.Status) e).get (count_property, out e_property_count);
+			//  	this.status.get (count_property, out status_property_count);
+			//  	if (e_property_count == status_property_count) {
+			//  		((API.Status) e).set (count_property, e_property_count + (status_btn.active ? 1 : -1));
+			//  	}
+			//  }
+
+			//  this.status.patch (e);
+			debug (@"Status action '$action' complete");
+		} catch (Error e) {
+			warning (@"Couldn't perform action \"$action\" on a Status:");
+			warning (e.message);
+			// translators: error title
+			app.toast ("%s: %s".printf (_("Network Error"), e.message));
+
+			if (count_property != null)
+				status_btn.amount += status_btn.active ? -1 : 1;
+			status_btn.active = !status_btn.active;
+		}
+
+		status_btn.unblock_clicked ();
 	}
 }

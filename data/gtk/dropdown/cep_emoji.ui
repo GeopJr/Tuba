@@ -1,0 +1,20 @@
+<interface>
+	<template class="GtkListItem">
+		<property name="child">
+			<object class="TubaWidgetsEmoji">
+				<property name="icon-size">large</property>
+				<property name="disable-hover-scale">true</property>
+				<binding name="shortcode">
+					<lookup name="shortcode" type="TubaAPIEmoji">
+						<lookup name="item">GtkListItem</lookup>
+					</lookup>
+				</binding>
+				<binding name="emoji-url">
+					<lookup name="url" type="TubaAPIEmoji">
+						<lookup name="item">GtkListItem</lookup>
+					</lookup>
+				</binding>
+			</object>
+		</property>
+	</template>
+</interface>

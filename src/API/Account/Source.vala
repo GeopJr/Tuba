@@ -1,5 +1,6 @@
 public class Tuba.API.AccountSource : Entity {
 	public string language { get; set; default = ""; }
+	public string quote_policy { get; set; default = ""; }
 	public string note { get; set; default = ""; }
 	public int follow_requests_count { get; set; default = 0; }
 	public string privacy { get; set; default = ""; }

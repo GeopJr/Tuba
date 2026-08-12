@@ -1,22 +1,31 @@
 public class Tuba.Settings : GLib.Settings {
 	public class Account : GLib.Settings {
+		public string default_quote_policy { get; set; default = "followers"; }
 		public string default_language { get; set; default = "en"; }
 		public string default_post_visibility { get; set; default = "public"; }
 		public string default_content_type { get; set; default = "text/plain"; }
 		public bool account_suggestions { get; set; default = true; }
 		public string[] muted_notification_types { get; set; default = {}; }
 		public string[] recently_used_custom_emojis { get; set; default = {}; }
+		public string[] recent_searches { get; set; default = {}; }
 		public string[] notification_filters { get; set; default = {}; }
 		public string[] favorite_lists_ids { get; set; default = {}; }
+		public string[] favorite_tags_ids { get; set; default = {}; }
+		public string[] hashtag_lists { get; set; default = {}; }
+		public bool unifiedpush_enabled { get; set; default = false; }
 
 		private const string[] KEYS_TO_INIT = {
 			"default-post-visibility",
 			"muted-notification-types",
 			"default-content-type",
 			"recently-used-custom-emojis",
+			"recent-searches",
 			"notification-filters",
 			"account-suggestions",
-			"favorite-lists-ids"
+			"favorite-lists-ids",
+			"favorite-tags-ids",
+			"hashtag-lists",
+			"unifiedpush-enabled"
 		};
 
 		public Account (string id) {
@@ -57,6 +66,16 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
+	public string default_quote_policy {
+		get {
+			return active_account_settings.default_quote_policy;
+		}
+
+		set {
+			active_account_settings.default_quote_policy = value;
+		}
+	}
+
 	public string default_post_visibility {
 		get {
 			return active_account_settings.default_post_visibility;
@@ -87,6 +106,16 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
+	public bool unifiedpush_enabled {
+		get {
+			return active_account_settings.unifiedpush_enabled;
+		}
+
+		set {
+			active_account_settings.unifiedpush_enabled = value;
+		}
+	}
+
 	public string[] muted_notification_types {
 		get {
 			return active_account_settings.muted_notification_types;
@@ -104,6 +133,16 @@ public class Tuba.Settings : GLib.Settings {
 
 		set {
 			active_account_settings.recently_used_custom_emojis = value;
+		}
+	}
+
+	public string[] recent_searches {
+		get {
+			return active_account_settings.recent_searches;
+		}
+
+		set {
+			active_account_settings.recent_searches = value;
 		}
 	}
 
@@ -127,6 +166,26 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
+	public string[] favorite_tags_ids {
+		get {
+			return active_account_settings.favorite_tags_ids;
+		}
+
+		set {
+			active_account_settings.favorite_tags_ids = value;
+		}
+	}
+
+	public string[] hashtag_lists {
+		get {
+			return active_account_settings.hashtag_lists;
+		}
+
+		set {
+			active_account_settings.hashtag_lists = value;
+		}
+	}
+
 	public ColorScheme color_scheme { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
@@ -143,9 +202,13 @@ public class Tuba.Settings : GLib.Settings {
 	public bool media_viewer_expand_pictures { get; set; }
 	public bool enlarge_custom_emojis { get; set; }
 	public bool use_blurhash { get; set; }
+	public bool show_sensitive_media { get; set; }
 	public bool group_push_notifications { get; set; }
 	public bool advanced_boost_dialog { get; set; }
 	public bool reply_to_old_post_reminder { get; set; }
+	public bool boost_alt_text_reminder { get; set; }
+	public bool fetch_remote_media_reminder { get; set; }
+	public bool fetch_remote_media_default { get; set; }
 	public bool copy_private_link_reminder { get; set; }
 	public bool spellchecker_enabled { get; set; }
 	public bool darken_images_on_dark_mode { get; set; }
@@ -161,6 +224,9 @@ public class Tuba.Settings : GLib.Settings {
 	public int status_aria_verbosity { get; set; default = 3; }
 	public bool use_in_app_browser_if_available { get; set; }
 	public bool collapse_long_posts { get; set; }
+	public bool show_interaction_counters { get; set; }
+	public bool extract_alt_from_metadata { get; set; }
+	public double status_font_size { get; set; }
 
 	private const string[] KEYS_TO_INIT = {
 		"active-account",
@@ -179,9 +245,13 @@ public class Tuba.Settings : GLib.Settings {
 		"media-viewer-expand-pictures",
 		"enlarge-custom-emojis",
 		"use-blurhash",
+		"show-sensitive-media",
 		"group-push-notifications",
 		"advanced-boost-dialog",
 		"reply-to-old-post-reminder",
+		"boost-alt-text-reminder",
+		"fetch-remote-media-reminder",
+		"fetch-remote-media-default",
 		"copy-private-link-reminder",
 		"spellchecker-enabled",
 		"darken-images-on-dark-mode",
@@ -192,7 +262,10 @@ public class Tuba.Settings : GLib.Settings {
 		"update-contributors",
 		"status-aria-verbosity",
 		"use-in-app-browser-if-available",
-		"collapse-long-posts"
+		"collapse-long-posts",
+		"show-interaction-counters",
+		"extract-alt-from-metadata",
+		"status-font-size"
 	};
 
 	public Settings () {

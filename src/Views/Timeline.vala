@@ -2,13 +2,32 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }
-	public Type accepts { get; set; default = typeof (API.Status); }
+	private Type _accepts = typeof (API.Status);
+	public Type accepts {
+		get { return _accepts; }
+		set {
+			_accepts = value;
+			update_time_signal ();
+		}
+	}
 	#if !USE_LISTVIEW
 		public bool use_queue { get; set; default = true; }
 	#endif
 
+	private int _batch_size_min = 10;
+	public int batch_size_min {
+		get { return _batch_size_min; }
+		set {
+			assert (value >= 10);
+			_batch_size_min = value;
+		}
+	}
 	protected InstanceAccount? account { get; set; default = null; }
 
+	// forces the timeline to keep fetching pages until it gets at least
+	// the minimum amount of items set by batch_size_min
+	// useful for timelines that should_hide a lot
+	public bool force_at_least_min { get; set; default = false; }
 	public bool is_last_page { get; set; default = false; }
 	public string? page_next { get; set; }
 	public string? page_prev { get; set; }
@@ -40,7 +59,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	private void on_drag_update (double x, double y) {
-		if (scrolled.vadjustment.value != 0.0 || (y <= 0 && !is_pulling)) return;
+		if (scrolled.vadjustment.value != 0.0 || (y <= 15 && !is_pulling)) return;
 		is_pulling = true;
 
 		double clean_y = y;
@@ -86,7 +105,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			reached_close_to_top.connect (finish_queue);
 		#endif
 
-		app.refresh.connect (on_manual_refresh);
+		app.refresh.connect (refresh_if_mapped);
 		status_button.clicked.connect (on_manual_refresh);
 
 		construct_account_holder ();
@@ -111,6 +130,68 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		drag.drag_update.connect (on_drag_update);
 		drag.drag_end.connect (on_drag_end);
 		this.add_controller (drag);
+
+		var shortcutscontroller = new Gtk.ShortcutController ();
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>0"),
+			new Gtk.NamedAction ("app.reset-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>KP_0"),
+			new Gtk.NamedAction ("app.reset-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>plus"),
+			new Gtk.NamedAction ("app.increase-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>plus"),
+			new Gtk.NamedAction ("app.increase-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>equal"),
+			new Gtk.NamedAction ("app.increase-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>equal"),
+			new Gtk.NamedAction ("app.increase-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>KP_Add"),
+			new Gtk.NamedAction ("app.increase-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>KP_Add"),
+			new Gtk.NamedAction ("app.increase-font-size")
+		));
+
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>minus"),
+			new Gtk.NamedAction ("app.decrease-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>minus"),
+			new Gtk.NamedAction ("app.decrease-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>underscore"),
+			new Gtk.NamedAction ("app.decrease-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>underscore"),
+			new Gtk.NamedAction ("app.decrease-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>KP_Subtract"),
+			new Gtk.NamedAction ("app.decrease-font-size")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>KP_Subtract"),
+			new Gtk.NamedAction ("app.decrease-font-size")
+		));
+		this.add_controller (shortcutscontroller);
+
+		update_time_signal ();
 	}
 	~Timeline () {
 		debug (@"Destroying Timeline $label");
@@ -123,6 +204,37 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			entity_queue = {};
 			entity_queue_size = 0;
 		#endif
+	}
+
+	protected void refresh_if_mapped () {
+		if (!this.get_mapped ()) return;
+		on_manual_refresh ();
+	}
+
+	private static Type[] acceptable_time_types = {
+		typeof (API.Status),
+		typeof (API.Conversation),
+		typeof (API.Announcement),
+		typeof (API.GroupedNotificationsResults.NotificationGroup),
+		typeof (API.Notification)
+	};
+	private void update_time_signal () {
+		if (accepts in acceptable_time_types) {
+			if (!this.is_public) app.time_update.connect (on_time_update);
+		} else {
+			app.time_update.disconnect (on_time_update);
+		}
+	}
+
+	private void on_time_update () {
+		if (!this.get_mapped () || this.is_public) return;
+
+		for (int i = 0; i < uint.min (model.n_items, 250); i++) {
+			var status_widget = content.get_row_at_index (i) as Widgets.Status;
+			if (status_widget != null) {
+				status_widget.update_time ();
+			}
+		}
 	}
 
 	#if !USE_LISTVIEW
@@ -147,6 +259,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public override void clear () {
+		if (request_cancellable != null) request_cancellable.cancel ();
 		cleanup_timeline_api ();
 		base.clear ();
 	}
@@ -185,45 +298,69 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		return url;
 	}
 
-	public virtual Request append_params (Request req) {
+	//  public virtual Request append_params (Request req) {
+	//  	if (page_next == null)
+	//  		return req.with_param ("limit", settings.timeline_page_size.clamp (this.batch_size_min, 40).to_string ());
+	//  	else
+	//  		return req;
+	//  }
+
+	public virtual void append_params_v2 (RequestV2 req) {
 		if (page_next == null)
-			return req.with_param ("limit", settings.timeline_page_size.to_string ());
-		else
-			return req;
+			req.add_parameter ("limit", settings.timeline_page_size.clamp (this.batch_size_min, 40).to_string ());
 	}
 
-	bool has_finished_request = false;
+	protected bool has_finished_request { get; private set; default = false; }
 	public virtual void on_request_finish () {
 		has_finished_request = true;
-		base.on_bottom_reached ();
+		base.on_bottom_reached (); // **base.**
 	}
 
-	public virtual bool request () {
-		append_params (new Request.GET (get_req_url ()))
-			.with_account (account)
-			.with_ctx (this)
-			.with_extra_data (Tuba.Network.ExtraData.RESPONSE_HEADERS)
-			.then ((in_stream, headers) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
+	protected GLib.Cancellable? request_cancellable { get; set; default = null; }
+	public async virtual void request () {
+		if (request_cancellable != null) request_cancellable.cancel ();
+		var req = new RequestV2 (get_req_url ()) {
+			account = account,
+			ctx = this
+		};
+		request_cancellable = req.cancellable;
+		append_params_v2 (req);
 
-				Object[] to_add = {};
-				Network.parse_array (parser, node => {
-					var e = Tuba.Helper.Entity.from_json (node, accepts);
-					if (!(should_hide (e))) to_add += e;
-				});
-				model.splice (model.get_n_items (), 0, to_add);
+		GLib.InputStream in_stream;
+		Soup.MessageHeaders response_headers;
 
-				if (headers != null)
-					get_pages (headers.get_one ("Link"));
+		try {
+			in_stream = yield req.exec (out response_headers);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			if (request_cancellable.is_cancelled ()) return;
 
-				if (to_add.length == 0)
-					on_content_changed ();
-				on_request_finish ();
-			})
-			.on_error (on_error)
-			.exec ();
+			Object[] to_add = {};
+			Network.parse_array (parser, node => {
+				var e = Helper.Entity.from_json (node, accepts);
+				if (!(should_hide (e))) to_add += e;
+			});
+			model.splice (model.get_n_items (), 0, to_add);
 
-		return GLib.Source.REMOVE;
+			if (response_headers != null)
+				get_pages (response_headers.get_one ("Link"));
+
+			if (to_add.length == 0)
+				on_content_changed ();
+			on_request_finish ();
+
+			if (
+				this.force_at_least_min
+				&& (
+					model.get_n_items () < this.batch_size_min
+					|| to_add.length == 0
+				)
+			)
+				on_bottom_reached ();
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (GLib.Error e) {
+			on_error (e.code, e.message);
+		}
 	}
 
 	public override void on_error (int32 code, string reason) {
@@ -246,7 +383,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		clear ();
 		base_status = new StatusMessage () { loading = true };
 		has_finished_request = false;
-		GLib.Idle.add (request);
+		request.begin ();
 	}
 
 	public virtual void on_manual_refresh () {
@@ -261,17 +398,17 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	protected override void on_bottom_reached () {
 		if (is_last_page) {
-			info ("Last page reached");
+			debug ("Last page reached");
 			return;
 		}
-		request ();
+		request.begin ();
 	}
 
 
 
 	// Streamable
 
-	public string? t_connection_url { get; set; }
+	protected string? t_connection_url { get; set; }
 	public bool subscribed { get; set; }
 
 	protected override void on_streaming_policy_changed () {
@@ -324,10 +461,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		// So just if the id exists already in the first page and remove it.
 		if (accepts == typeof (API.Status)) {
 			string e_id = ((API.Status) entity).id;
-			for (uint i = 0; i < uint.min (model.n_items, settings.timeline_page_size); i++) {
+			for (uint i = 0; i < uint.min (model.n_items, settings.timeline_page_size.clamp (10, 40)); i++) {
 				var status_obj = model.get_item (i) as API.Status;
 				if (status_obj != null && status_obj.id == e_id) {
-					model.remove (i);
+					safely_remove ((int) i);
 				}
 			}
 		}
@@ -353,8 +490,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			for (uint i = 0; i < model.get_n_items (); i++) {
 				var status_obj = model.get_item (i) as API.Status;
 				if (status_obj != null && status_obj.id == entity_id) {
+					bool had_focus = was_focused ((int) i);
 					model.remove (i);
 					model.insert (i, entity);
+					if (had_focus) focus_recover_actual ((int) i);
 					break;
 				}
 			}
@@ -371,8 +510,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				var status_obj = model.get_item (i) as API.Status;
 				// Not sure if there can be both the original
 				// and a boost of it at the same time.
-				if (status_obj != null && status_obj.id == status_id || status_obj.formal.id == status_id) {
-					model.remove (i);
+				if (status_obj != null && (status_obj.id == status_id || status_obj.formal.id == status_id)) {
+					safely_remove ((int) i);
 					// If there can be both the original
 					// and boosts at the same time, then
 					// it shouldn't stop at the first find.
@@ -387,11 +526,53 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public virtual void on_remove_user (string user_id) {
 		if (accepts != typeof (API.Status)) return;
 
+		int should_refocus = -1;
 		for (uint i = 0; i < model.get_n_items (); i++) {
 			var status_obj = model.get_item (i) as API.Status;
 			if (status_obj != null && ((status_obj.formal.account != null && status_obj.formal.account.id == user_id) || (status_obj.account != null && status_obj.account.id == user_id))) {
+				if (was_focused ((int) i)) should_refocus = (int) i;
 				model.remove (i);
 			}
 		}
+		if (should_refocus > 0) focus_recover (should_refocus);
+	}
+
+	protected void safely_remove (int i) {
+		bool refocus = was_focused (i);
+		model.remove (i);
+		if (refocus) focus_recover (i);
+	}
+
+	protected bool was_focused (int i) {
+		if (this.get_mapped ()) {
+			var w = content.get_row_at_index (i);
+			if (w != null && w.get_mapped ()) {
+				if (w.has_focus) {
+					return true;
+				} else {
+					unowned var last_focus = app.main_window.get_focus ();
+					return last_focus != null && last_focus.is_ancestor (w);
+				}
+			}
+		}
+
+		return false;
+	}
+
+	protected void focus_recover (int i) {
+		if (this.get_mapped () && !focus_recover_actual (i)) {
+			// try going backwards then
+			focus_recover_actual (i - 1);
+		}
+	}
+
+	protected bool focus_recover_actual (int i) {
+		var w = content.get_row_at_index (i);
+		if (w != null && w.get_mapped ()) {
+			w.grab_focus ();
+			return true;
+		}
+
+		return false;
 	}
 }

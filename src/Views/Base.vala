@@ -98,14 +98,14 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 			this.update_property (Gtk.AccessibleProperty.LABEL, null, -1);
 
 			if (value == null) {
-				states.visible_child_name = "content";
+				if (states.visible_child_name != "content") states.visible_child_name = "content";
 			} else {
-				states.visible_child_name = "status";
+				if (states.visible_child_name != "status") states.visible_child_name = "status";
 				if (value.loading) {
-					status_stack.visible_child_name = "spinner";
+					if (status_stack.visible_child_name != "spinner") status_stack.visible_child_name = "spinner";
 					this.update_state (Gtk.AccessibleState.BUSY, true, -1);
 				} else {
-					status_stack.visible_child_name = "message";
+					if (status_stack.visible_child_name != "message") status_stack.visible_child_name = "message";
 
 					if (value.title == null) {
 						status_title_label.label = empty_state_title;

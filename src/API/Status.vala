@@ -4,6 +4,47 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		debug (@"[OBJ] Destroyed $(uri ?? "")");
 	}
 
+	public class QuoteApproval : Entity {
+		public Gee.ArrayList<string>? automatic { get; set; default = null; }
+		public Gee.ArrayList<string>? manual { get; set; default = null; }
+		public string current_user { get; set; }
+
+		public QuotePolicy to_quote_policy () {
+			if (
+				(this.current_user == "automatic" || this.current_user == "manual")
+				&& (
+					(this.automatic != null && this.automatic.size > 0)
+					|| (this.manual != null && this.manual.size > 0)
+				)
+			) {
+				foreach (var qp in (
+					this.automatic != null && this.automatic.size > 0
+					? this.automatic : this.manual
+				)) {
+					switch (qp) {
+						case "public":
+							return QuotePolicy.PUBLIC;
+						case "followers":
+						case "following":
+							return QuotePolicy.FOLLOWERS;
+					}
+				}
+			}
+
+			return QuotePolicy.NOBODY;
+		}
+
+		public override Type deserialize_array_type (string prop) {
+			switch (prop) {
+				case "automatic":
+				case "manual":
+					return Type.STRING;
+			}
+
+			return base.deserialize_array_type (prop);
+		}
+	}
+
 	public string id { get; set; }
 	public API.Account account { get; set; }
 	public string uri { get; set; }
@@ -13,19 +54,21 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	public string content { get; set; default = ""; }
 	public StatusApplication? application { get; set; default = null; }
 	public int64 replies_count { get; set; default = 0; }
+	public int64 quotes_count { get; set; default = 0; }
 	public int64 reblogs_count { get; set; default = 0; }
 	public int64 favourites_count { get; set; default = 0; }
 	public string created_at { get; set; default = "0"; }
 	public bool reblogged { get; set; default = false; }
 	public bool favourited { get; set; default = false; }
 	public bool bookmarked { get; set; default = false; }
+	public bool local_only { get; set; default = false; }
 	public bool sensitive { get; set; default = false; }
 	public bool muted { get; set; default = false; }
 	public bool pinned { get; set; default = false; }
 	public string? edited_at { get; set; default = null; }
 	public string visibility { get; set; default = settings.default_post_visibility; }
 	public API.Status? reblog { get; set; default = null; }
-	public API.Status? quote { get; set; default = null; }
+	public API.Quote? quote { get; set; default = null; }
 	//  public API.Akkoma? akkoma { get; set; default = null; }
 	public Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
 	public Gee.ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
@@ -36,6 +79,9 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	public Gee.ArrayList<API.Emoji>? emojis { get; set; }
 	public API.PreviewCard? card { get; set; default = null; }
 	public Gee.ArrayList<API.Filters.FilterResult>? filtered { get; set; default = null; }
+	public QuoteApproval? quote_approval { get; set; default = null; }
+	public bool tuba_had_quote { get; set; default = false; }
+	public Gee.ArrayList<API.Collection>? tagged_collections { get; set; default = null; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
@@ -50,6 +96,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 				return typeof (API.Emoji);
 			case "filtered":
 				return typeof (API.Filters.FilterResult);
+			case "tagged-collections":
+				return typeof (API.Collection);
 		}
 
 		return base.deserialize_array_type (prop);
@@ -65,7 +113,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 
 			bool res = false;
 			filtered.@foreach (e => {
-				if (e.filter.tuba_hidden) {
+				if (API.Filters.Filter.FilterAction.from_string (e.filter.filter_action) == HIDE) {
 					res = true;
 					return false;
 				}
@@ -82,7 +130,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 
 			string? res = null;
 			filtered.@foreach (e => {
-				if (!e.filter.tuba_hidden) {
+				if (API.Filters.Filter.FilterAction.from_string (e.filter.filter_action) != HIDE) {
 					res = e.filter.title;
 					return false;
 				}
@@ -149,6 +197,16 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		}
 	}
 
+	public bool compat_local_only {
+		get {
+			if (pleroma != null && visibility == "local") {
+				return true;
+			}
+
+			return this.local_only;
+		}
+	}
+
 	public string? t_url { get; set; }
 	public string? url {
 		owned get { return this.get_modified_url (); }
@@ -178,7 +236,14 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 
 	public bool can_be_quoted {
 		get {
-			return this.formal.visibility != "direct" && this.formal.visibility != "private";
+			if (
+				(InstanceAccount.InstanceFeatures.QUOTE in accounts.active.tuba_instance_features || accounts.active.tuba_api_versions.mastodon >= 7)
+				&& this.formal.quote_approval != null
+			) {
+				return this.formal.quote_approval.current_user != "denied" && this.formal.quote_approval.current_user != "unknown";
+			}
+
+			return this.formal.visibility != "direct" && this.formal.visibility != "private" && this.formal.visibility != "local";
 		}
 	}
 
@@ -238,51 +303,106 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		}
 	}
 
-	public virtual string get_reply_mentions () {
-		var result = "";
+	public virtual bool get_reply_mentions (out string joined_mentions) {
+		string[] result = {};
 		if (account.acct != accounts.active.acct)
-			result = @"$(account.handle) ";
+			result += account.handle;
 
 		if (mentions != null) {
 			foreach (var mention in mentions) {
 				var equals_current = mention.acct == accounts.active.acct;
-				var already_mentioned = mention.acct in result;
+				var already_mentioned = mention.handle in result;
 
 				if (!equals_current && !already_mentioned)
-					result += @"$(mention.handle) ";
+					result += mention.handle;
 			}
 		}
 
-		return result;
+		joined_mentions = string.joinv (" ", result);
+		return result.length > 0;
 	}
 
-	private Request action (string action) {
-		var req = new Request.POST (@"/api/v1/statuses/$(formal.id)/$action").with_account (accounts.active);
+	private RequestV2 action (string action) {
+		var req = new RequestV2 (@"/api/v1/statuses/$(formal.id)/$action", POST) { account = accounts.active };
 		req.priority = Soup.MessagePriority.HIGH;
 		return req;
 	}
 
-	public Request favourite_req () {
+	public RequestV2 favourite_req () {
 		return action ("favourite");
 	}
 
-	public Request unfavourite_req () {
+	public RequestV2 unfavourite_req () {
 		return action ("unfavourite");
 	}
 
-	public Request bookmark_req () {
+	public RequestV2 bookmark_req () {
 		return action ("bookmark");
 	}
 
-	public Request unbookmark_req () {
+	public RequestV2 unbookmark_req () {
 		return action ("unbookmark");
+	}
+
+	public enum QuotePolicy {
+		PUBLIC,
+		FOLLOWERS,
+		NOBODY;
+
+		public string to_string () {
+			switch (this) {
+				case PUBLIC:
+					return "public";
+				case FOLLOWERS:
+					return "followers";
+				default:
+					return "nobody";
+			}
+		}
+
+		public string to_title () {
+			switch (this) {
+				case PUBLIC:
+					// translators: quote policy title, who can quote a post
+					return _("Anybody");
+				case FOLLOWERS:
+					// translators: quote policy title, who can quote a post
+					return _("Followers Only");
+				default:
+					// translators: quote policy title, who can quote a post
+					return _("Just Me");
+			}
+		}
+
+		public string to_subtitle () {
+			switch (this) {
+				case PUBLIC:
+					// translators: quote policy subtitle, when Anybody can quote
+					return _("Everyone can quote your post");
+				case FOLLOWERS:
+					// translators: quote policy subtitle, when Followers Only can quote
+					return _("Only your followers can quote your post");
+				default:
+					// translators: quote policy subtitle, when Just Me can quote
+					return _("Nobody can quote your post");
+			}
+		}
+
+		public static QuotePolicy from_string (string policy) {
+			switch (policy.down ()) {
+				case "public": return PUBLIC;
+				case "followers": return FOLLOWERS;
+				default: return NOBODY;
+			}
+		}
 	}
 
 	public enum Visibility {
 		PUBLIC,
 		UNLISTED,
 		PRIVATE,
-		DIRECT;
+		DIRECT,
+		LOCAL;
 
 		public string to_string () {
 			switch (this) {
@@ -294,6 +414,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return "private";
 				case DIRECT:
 					return "direct";
+				case LOCAL:
+					return "local";
 				default:
 					assert_not_reached ();
 			}
@@ -302,14 +424,22 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		public string to_title () {
 			switch (this) {
 				case PUBLIC:
+					// translators: post visibility label
 					return _("Public");
 				case UNLISTED:
 					// translators: Probably follow Mastodon's translation
+					// 				post visibility label
 					return _("Unlisted");
 				case PRIVATE:
+					// translators: post visibility label
 					return _("Followers Only");
 				case DIRECT:
+					// translators: post visibility label
 					return _("Direct");
+				case LOCAL:
+					// translators: post visibility label
+					//				local = will be displayed in this instance only
+					return _("Local");
 				default:
 					assert_not_reached ();
 			}
@@ -325,6 +455,8 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return PRIVATE;
 				case "direct":
 					return DIRECT;
+				case "local":
+					return LOCAL;
 				default:
 					return null;
 			}
@@ -340,26 +472,27 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return 2;
 				case DIRECT:
 					return 3;
+				case LOCAL: // it's not actually more private but it should take priority
+					return 4;
 				default:
 					assert_not_reached ();
 			}
 		}
 	}
 
-	public Request reblog_req (Visibility? visibility = null) {
+	public RequestV2 reblog_req (Visibility? visibility = null) {
 		var req = action ("reblog");
 		if (visibility != null)
-			req.with_form_data ("visibility", visibility.to_string ());
+			req.add_form_data ("visibility", visibility.to_string ());
 
 		return req;
 	}
 
-	public Request unreblog_req () {
+	public RequestV2 unreblog_req () {
 		return action ("unreblog");
 	}
 
-	public Request annihilate () {
-		return new Request.DELETE (@"/api/v1/statuses/$id")
-			.with_account (accounts.active);
+	public RequestV2 annihilate () {
+		return new RequestV2 (@"/api/v1/statuses/$id", DELETE) { account = accounts.active };
 	}
 }

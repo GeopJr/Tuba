@@ -1,0 +1,37 @@
+<interface>
+	<template class="GtkListItem">
+		<property name="child">
+			<object class="GtkBox">
+				<property name="orientation">horizontal</property>
+				<property name="spacing">8</property>
+				<child>
+					<object class="TubaWidgetsEmoji">
+						<property name="icon-size">large</property>
+						<property name="disable-hover-scale">true</property>
+						<binding name="shortcode">
+							<lookup name="emoji-shortcode" type="TubaWidgetsCustomEmojiChooserV2EmojiCategory">
+								<lookup name="item">GtkListItem</lookup>
+							</lookup>
+						</binding>
+						<binding name="emoji-url">
+							<lookup name="emoji-url" type="TubaWidgetsCustomEmojiChooserV2EmojiCategory">
+								<lookup name="item">GtkListItem</lookup>
+							</lookup>
+						</binding>
+					</object>
+				</child>
+				<child>
+					<object class="GtkLabel">
+						<property name="xalign">0</property>
+						<property name="ellipsize">end</property>
+						<binding name="label">
+							<lookup name="name" type="TubaWidgetsCustomEmojiChooserV2EmojiCategory">
+								<lookup name="item">GtkListItem</lookup>
+							</lookup>
+						</binding>
+					</object>
+				</child>
+			</object>
+		</property>
+	</template>
+</interface>

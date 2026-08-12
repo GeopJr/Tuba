@@ -10,6 +10,7 @@
 						<property name="margin-end">6</property>
 						<property name="margin-top">6</property>
 						<property name="margin-bottom">6</property>
+						<property name="accessible-role">presentation</property>
 						<binding name="icon_name">
 							<lookup name="icon_name" type="TubaInstanceAccountStatusContentType">
 								<lookup name="item">GtkListItem</lookup>

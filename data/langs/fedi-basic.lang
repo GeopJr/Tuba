@@ -10,7 +10,7 @@
 			<match>(?:\W|^)#([\p{L}_0-9]+)</match>
 		</context>
 		<context id="mention" style-ref="mention">
-			<match>(?:\W|^)@[a-zA-Z0-9_]+(@[a-zA-Z0-9_\.]+)?</match>
+			<match>(?:\W|^)@[a-zA-Z0-9_]+(@[a-zA-Z0-9_\.\-]+)?</match>
 		</context>
 		<context id="emoji" style-ref="emoji">
 			<match>(?:\W|^):[a-zA-Z0-9_]{2,}:</match>

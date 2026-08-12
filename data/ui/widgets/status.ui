@@ -3,9 +3,6 @@
   <requires lib="gtk" version="4.0" />
   <!-- <template class="TubaWidgetsStatus" parent="AdwBin"> -->
   <template class="TubaWidgetsStatus" parent="GtkListBoxRow">
-    <accessibility>
-      <relation name="described-by">content</relation>
-    </accessibility>
     <property name="child">
       <object class="GtkStack" id="filter_stack">
         <property name="vhomogeneous">0</property>
@@ -17,13 +14,12 @@
             <property name="name">status</property>
             <property name="child">
               <object class="GtkBox" id="status_box">
-                <property name="margin-start">18</property>
-                <property name="margin-end">18</property>
-                <property name="margin_top">15</property>
-                <property name="margin_bottom">18</property>
                 <property name="hexpand">1</property>
                 <property name="orientation">horizontal</property>
                 <property name="spacing">14</property>
+				<style>
+					<class name="status-box" />
+				</style>
                 <child>
                   <object class="GtkBox" id="avatar_side">
                     <property name="orientation">vertical</property>
@@ -72,7 +68,7 @@
                         <style>
                           <class name="flat" />
                           <class name="ttl-status-heading-padding" />
-                          <class name="ttl-status-heading" />
+                          <class name="font-small" />
                         </style>
                       </object>
                     </child>
@@ -97,6 +93,7 @@
                                     <property name="visible">True</property>
                                     <property name="smaller-emoji-pixel-size">True</property>
                                     <property name="use-markup">1</property>
+                                	<property name="ellipsize">1</property>
                                     <style>
                                       <class name="font-bold" />
                                     </style>
@@ -110,9 +107,10 @@
                             </child>
                             <child>
                               <object class="GtkLabel" id="handle_label">
-                                <property name="can-target">0</property>
-                                <property name="label" translatable="no">Handle</property>
+                                <property name="can-target">1</property>
                                 <property name="single_line_mode">1</property>
+                                <property name="lines">2</property>
+                                <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
                                 <property name="hexpand">1</property>
                                 <property name="wrap">1</property>
@@ -136,6 +134,7 @@
                                 <property name="visible">0</property>
                                 <property name="icon_name">tuba-pin-small-symbolic</property>
                                 <property name="icon_size">1</property>
+								<!-- translators: tooltip on an icon that indicates that this post is pinned -->
                                 <property name="tooltip_text" translatable="yes">Pinned</property>
                                 <style>
                                   <class name="dim-label" />
@@ -147,6 +146,7 @@
                                 <property name="visible">0</property>
                                 <property name="icon_name">tuba-paper-small-symbolic</property>
                                 <property name="icon_size">1</property>
+								<!-- translators: tooltip on an icon that indicates that this post was edited -->
                                 <property name="tooltip_text" translatable="yes">Edited</property>
                                 <style>
                                   <class name="dim-label" />
@@ -156,7 +156,6 @@
                             <child>
                               <object class="GtkImage" id="visibility_indicator">
                                 <property name="visible">1</property>
-                                <property name="icon_name">unknown</property>
                                 <property name="icon_size">1</property>
                                 <style>
                                   <class name="dim-label" />
@@ -284,14 +283,14 @@
 									  	<child type="overlay">
 											<object class="GtkButton">
 												<!-- translators: as in 'Expand collapsed post'. It's a button label. -->
-                                        		<property name="label" translatable="yes">Expand</property>
+                                        		<property name="label" translatable="yes">Show More</property>
                                         		<property name="halign">center</property>
                                         		<property name="valign">end</property>
 												<property name="visible" bind-source="fade_bin" bind-property="faded" bind-flags="sync-create" />
 												<signal name="clicked" handler="on_fade_reveal" swapped="no" />
                                         		<style>
-                                        		  <class name="pill" />
-                                        		  <class name="osd" />
+                                        		  <class name="pill-like" />
+                                        		  <class name="opaque" />
                                         		</style>
                                      		</object>
 									  	</child>
@@ -328,6 +327,7 @@
             <property name="child">
               <object class="GtkButton">
                 <property name="receives_default">1</property>
+                <property name="focusable">0</property>
                 <!-- translators: Tooltip that opens filter -->
                 <property name="tooltip_text" translatable="yes">Show Anyway</property>
                 <signal name="clicked" handler="toggle_filter" swapped="no" />
@@ -337,18 +337,37 @@
                     <property name="margin-end">12</property>
                     <property name="margin_top">12</property>
                     <property name="margin_bottom">12</property>
-                    <property name="spacing">6</property>
+                    <property name="spacing">8</property>
                     <child>
                       <object class="GtkImage">
                         <property name="icon_name">tuba-warning-symbolic</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="filter_label">
-                        <property name="visible">1</property>
-                        <property name="wrap">1</property>
-                        <property name="wrap-mode">word-char</property>
-                      </object>
+                      <object class="GtkBox">
+                    	<property name="orientation">vertical</property>
+                    	<property name="spacing">0</property>
+						<child>
+							<object class="GtkLabel" id="filter_label">
+                      		  <property name="visible">1</property>
+                      		  <property name="xalign">0</property>
+                      		  <property name="wrap">1</property>
+                      		  <property name="wrap-mode">char</property>
+                      		</object>
+						</child>
+						<child>
+							<object class="GtkLabel" id="filter_author_label">
+                      		  <property name="visible">0</property>
+                      		  <property name="xalign">0</property>
+                      		  <property name="wrap">1</property>
+                      		  <property name="wrap-mode">char</property>
+							  <style>
+								<class name="caption" />
+								<class name="dimmed" />
+							  </style>
+                      		</object>
+						</child>
+					  </object>
                     </child>
                   </object>
                 </child>

@@ -57,16 +57,18 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 	Adw.PreferencesPage page_2;
 	Adw.PreferencesPage page_3;
 	Adw.PreferencesPage page_4;
-	Adw.SwitchRow forward_switch;
 	Adw.EntryRow additional_info;
 
+	Gee.HashMap<string, Adw.SwitchRow> forward_switches = new Gee.HashMap<string, Adw.SwitchRow> ();
 	Gee.HashMap<Category, Gtk.CheckButton> check_buttons = new Gee.HashMap<Category, Gtk.CheckButton> ();
 	Gee.HashMap<string, Gtk.CheckButton> rules_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
 	Gee.HashMap<string, Gtk.CheckButton> status_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
 	Category[] categories = {Category.SPAM};
 	string account_id = "";
 	string? status_id = null;
+	string? collection_id = null;
 	bool has_rules = false;
+	string account_domain = "";
 	construct {
 		has_rules = accounts.active.instance_info.rules != null && accounts.active.instance_info.rules.size > 0;
 
@@ -109,19 +111,22 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		this.close_attempt.connect (on_back);
 	}
 
-	public Report (API.Account account, string? status_id = null) {
+	public Report (API.Account account, string? status_id = null, Gee.ArrayList<API.Mention>? mentions = null, API.Collection? collection = null) {
+		account_domain = account.domain;
 		// translators: the variable is an account handle
-		this.title = _("Reporting %s").printf (@"$(account.username)@$(account.domain)");
+		this.title = _("Reporting %s").printf (collection == null ? @"$(account.username)@$(account_domain)" : collection.name);
 		this.status_id = status_id;
-		populate_posts (account.id, status_id);
+		if (collection != null)
+			this.collection_id = collection.id;
+		else populate_posts.begin (account.id, status_id);
 		account_id = account.id;
 
 		install_page_1 ();
 		if (has_rules) {
 			install_page_2 ();
 		}
-		install_page_3 ();
-		install_page_4 (account.domain);
+		if (collection == null) install_page_3 ();
+		install_page_4 (mentions);
 
 		this.present (app.main_window);
 	}
@@ -134,7 +139,11 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		};
 		var group_1 = new Adw.PreferencesGroup ();
 
-		if (status_id == null) {
+		if (collection_id != null) {
+			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+			//				this is meant for reporting collections
+			group_1.title = _("Tell us what's going on with this collection");
+		} else if (status_id == null) {
 			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 			//				this is meant for reporting users
 			group_1.title = _("Tell us what's going on with this account");
@@ -259,7 +268,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		carousel.append (page_3_stack);
 	}
 
-	private void install_page_4 (string domain) {
+	private void install_page_4 (Gee.ArrayList<API.Mention>? mentions = null) {
 		page_4 = new Adw.PreferencesPage () {
 			hexpand = true,
 			vexpand = true,
@@ -279,18 +288,37 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		additional_info.changed.connect (on_additional_info_changed);
 		group_4.add (additional_info);
 
-		if (accounts.active.domain != domain) {
-			forward_switch = new Adw.SwitchRow () {
-				// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-				//				the variable is an instance name e.g. 'Forward to mastodon.social'
-				title = _("Forward to %s").printf (domain),
-				active = true
-			};
-			group_4.add (forward_switch);
+		if (accounts.active.domain != account_domain) add_forward_row (account_domain, group_4, true);
+		if (accounts.active.tuba_api_versions.mastodon >= 2 && status_id != null && status_id != "" && mentions != null && mentions.size > 0) {
+			mentions.@foreach (mention => {
+				if (mention.acct != null && mention.acct != "" && mention.acct.contains ("@")) {
+					string[] acct_parts = mention.acct.split ("@", 2);
+					if (
+						acct_parts.length >= 2
+						&& acct_parts[1] != ""
+						&& acct_parts[1] != account_domain
+						&& !forward_switches.has_key (acct_parts[1])
+					)
+						add_forward_row (acct_parts[1], group_4, false);
+				}
+
+				return true;
+			});
 		}
 
 		page_4.add (group_4);
 		carousel.append (page_4);
+	}
+
+	private inline void add_forward_row (string temp_domain, Adw.PreferencesGroup group, bool active) {
+		var forward_switch = new Adw.SwitchRow () {
+			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+			//				the variable is an instance name e.g. 'Forward to mastodon.social'
+			title = _("Forward to %s").printf (temp_domain),
+			active = active
+		};
+		group.add (forward_switch);
+		forward_switches.set (temp_domain, forward_switch);
 	}
 
 	private void on_back () {
@@ -334,7 +362,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {
-						submit ();
+						submit.begin ();
 						this.force_close ();
 					}
 				}
@@ -342,16 +370,29 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		}
 	}
 
-	private void submit () {
-		bool forward = false;
-		if (forward_switch != null) forward = forward_switch.active;
+	private async void submit () {
+		var msg = new RequestV2 ("/api/v1/reports", POST) { account = accounts.active };
+		msg.add_form_data ("account_id", account_id);
 
-		var msg = new Request.POST ("/api/v1/reports")
-			.with_account (accounts.active)
-			.with_form_data ("account_id", account_id)
-			.with_form_data ("forward", forward.to_string ());
+		if (forward_switches.size == 1 && forward_switches.has_key (account_domain)) {
+			msg.add_form_data ("forward", forward_switches.get (account_domain).active.to_string ());
+		} else {
+			bool has_forward = false;
+			forward_switches.foreach (e => {
+				if (((Adw.SwitchRow) e.value).active) {
+					if (!has_forward) {
+						has_forward = true;
+						msg.add_form_data ("forward", "true");
+					}
+					msg.add_form_data ("forward_to_domains[]", ((string) e.key));
+				}
 
-		if (additional_info.text != "") msg.with_form_data ("comment", additional_info.text);
+				return true;
+			});
+			if (!has_forward) msg.add_form_data ("forward", "false");
+		}
+
+		if (additional_info.text != "") msg.add_form_data ("comment", additional_info.text);
 
 		Category category = Category.OTHER;
 		check_buttons.foreach (e => {
@@ -362,36 +403,34 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 
 			return true;
 		});
-		msg.with_form_data ("category", category.to_string ());
+		msg.add_form_data ("category", category.to_string ());
 
 		if (category == Category.VIOLATION) {
 			rules_buttons.foreach (e => {
 				if (((Gtk.CheckButton) e.value).active) {
-					msg.with_form_data ("rule_ids[]", ((string) e.key));
+					msg.add_form_data ("rule_ids[]", ((string) e.key));
 				}
 				return true;
 			});
 		}
 
-		if (status_id != null) msg.with_form_data ("status_ids[]", status_id);
+		if (status_id != null) msg.add_form_data ("status_ids[]", status_id);
 		status_buttons.foreach (e => {
 			if (((Gtk.CheckButton) e.value).active) {
-				msg.with_form_data ("status_ids[]", ((string) e.key));
+				msg.add_form_data ("status_ids[]", ((string) e.key));
 			}
 			return true;
 		});
 
-		msg
-			.then (() => {
-				app.toast (_("Submitted Report Successfully"));
-			})
-			.on_error ((code, message) => {
-				warning (@"Error while submitting report: $code $message");
+		if (collection_id != null) msg.add_form_data ("collection_ids[]", collection_id);
+		try {
+			yield msg.exec (null);
+		} catch (Error e) {
+			warning (@"Error while submitting report: $(e.code) $(e.message)");
 
-				// translators: the variable is an error
-				app.toast (_("Couldn't submit report: %s").printf (message), 0);
-			})
-			.exec ();
+			// translators: the variable is an error
+			app.toast (_("Couldn't submit report: %s").printf (e.message), 0);
+		}
 	}
 
 	private void on_additional_info_changed () {
@@ -439,67 +478,66 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		}
 	}
 
-	private void populate_posts (string account_id, string? status_id = null) {
-		new Request.GET (@"/api/v1/accounts/$(account_id)/statuses")
-			.with_param ("exclude_replies", "false")
-			.with_param ("exclude_reblogs", "true")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var listbox = new Gtk.ListBox () {
-					selection_mode = Gtk.SelectionMode.NONE,
-					css_classes = {"boxed-list"}
+	private async void populate_posts (string account_id, string? status_id = null) {
+		var req = new RequestV2 (@"/api/v1/accounts/$(account_id)/statuses") { account = accounts.active };
+		req.add_parameter ("exclude_replies", "false");
+		req.add_parameter ("exclude_reblogs", "true");
+
+		try {
+			var in_stream = yield req.exec (null);
+			var listbox = new Gtk.ListBox () {
+				selection_mode = Gtk.SelectionMode.NONE,
+				css_classes = {"boxed-list"}
+			};
+			listbox.row_activated.connect (on_row_activated);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+
+			Network.parse_array (parser, node => {
+				var status = API.Status.from (node);
+				if (status_id != null && status.id == status_id) return;
+				status.spoiler_text = null;
+				status.tuba_spoiler_revealed = true;
+				status.sensitive = false;
+				status.card = null;
+
+				var widget_status = status.to_widget () as Widgets.Status;
+				if (widget_status == null) return;
+
+				var checkbutton = new Gtk.CheckButton () {
+					css_classes = {"selection-mode"},
+					valign = Gtk.Align.CENTER
 				};
-				listbox.row_activated.connect (on_row_activated);
-				var parser = Network.get_parser_from_inputstream (in_stream);
+				status_buttons.set (status.id, checkbutton);
 
-				Network.parse_array (parser, node => {
-					var status = API.Status.from (node);
-					if (status_id != null && status.id == status_id) return;
-					status.spoiler_text = null;
-					status.tuba_spoiler_revealed = true;
-					status.sensitive = false;
-					status.card = null;
+				widget_status.hexpand = true;
+				widget_status.indicators.visible = false;
+				widget_status.can_focus = false;
+				widget_status.can_target = false;
+				widget_status.focusable = false;
+				widget_status.toggle_actions_visibility (false);
+				#if USE_LISTVIEW
+					widget_status.can_be_opened = false;
+				#else
+					widget_status.activatable = false;
+				#endif
+				listbox.append (new StatusRow (checkbutton, widget_status));
+			});
 
-					var widget_status = status.to_widget () as Widgets.Status;
-					if (widget_status == null) return;
-
-					var checkbutton = new Gtk.CheckButton () {
-						css_classes = {"selection-mode"},
-						valign = Gtk.Align.CENTER
-					};
-					status_buttons.set (status.id, checkbutton);
-
-					widget_status.hexpand = true;
-					widget_status.indicators.visible = false;
-					widget_status.can_focus = false;
-					widget_status.can_target = false;
-					widget_status.focusable = false;
-					widget_status.actions.visible = false;
-					#if USE_LISTVIEW
-						widget_status.can_be_opened = false;
-					#else
-						widget_status.activatable = false;
-					#endif
-					listbox.append (new StatusRow (checkbutton, widget_status));
-				});
-
-				if (status_buttons.size == 0) {
-					page_3.visible = false;
-					page_3_error.description = _("%s. You can continue with the report however.").printf (_("No posts found"));
-					page_3_stack.visible_child_name = "error";
-
-					return;
-				}
-
-				group_3.add (listbox);
-				page_3_stack.visible_child_name = "main";
-			})
-			.on_error ((code, message) => {
-				// translators: the variable is an error
-				page_3_error.description = _("%s. You can continue with the report however.").printf (message);
+			if (status_buttons.size == 0) {
+				page_3.visible = false;
+				page_3_error.description = _("%s. You can continue with the report however.").printf (_("No posts found"));
 				page_3_stack.visible_child_name = "error";
-			})
-			.exec ();
+
+				return;
+			}
+
+			group_3.add (listbox);
+			page_3_stack.visible_child_name = "main";
+		} catch (Error e) {
+			// translators: the variable is an error
+			page_3_error.description = _("%s. You can continue with the report however.").printf (e.message);
+			page_3_stack.visible_child_name = "error";
+		}
 	}
 
 	private void on_row_activated (Gtk.ListBoxRow row) {

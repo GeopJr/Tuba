@@ -75,6 +75,7 @@ public class Tuba.API.AccountRole : Entity {
 	public string id { get; set; default = ""; }
 	public string name { get; set; default = ""; }
 	public string? permissions { get; set; default = null; }
+	public int16 collection_limit { get; set; default = 10; }
 	// Ignore for now
 	//  public string color { get; set; default = ""; }
 
@@ -82,7 +83,7 @@ public class Tuba.API.AccountRole : Entity {
 		return new Gtk.Label (name) {
 			wrap = true,
 			wrap_mode = Pango.WrapMode.WORD_CHAR,
-			css_classes = { "profile-role", "profile-role-border-radius" }
+			css_classes = { "profile-role", "tuba-circular" }
 		};
 	}
 }

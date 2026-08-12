@@ -16,7 +16,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			status.formal.tuba_spoiler_revealed = true;
 
 			var widg = status.to_widget () as Widgets.Status;
-			widg.actions.visible = false;
+			widg.toggle_actions_visibility (false);
 			widg.menu_button.visible = false;
 			widg.activatable = false;
 			widg.filter_stack.can_focus = false;
@@ -513,7 +513,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 		share_async.begin (texture, (obj, res) => {
 			try {
-				new Dialogs.Compose (share_async.end (res));
+				share_async.end (res);
 			} catch (Error e) {
 				warning (e.message);
 				toast_overlay.add_toast (new Adw.Toast (e.message) {
@@ -525,7 +525,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		});
 	}
 
-	private async API.Status share_async (Gdk.Texture texture) throws GLib.Error {
+	private async void share_async (Gdk.Texture texture) throws GLib.Error {
 		var attachment = yield API.Attachment.upload (null, texture.save_to_png_bytes (), "image/png");
 		var builder = new Json.Builder ();
 		builder.begin_object ();
@@ -533,18 +533,12 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		builder.add_string_value (report_alt_text);
 		builder.end_object ();
 
-		var req = new Request.PUT (@"/api/v1/media/$(attachment.id)")
-			.with_account (accounts.active)
-			.body_json (builder);
-
-		yield req.await ();
+		var req = new RequestV2 (@"/api/v1/media/$(attachment.id)", PUT) {account = accounts.active};
+		req.set_body_from_json (builder);
+		yield req.exec (null);
 
 		attachment.description = report_alt_text;
-		var status = new API.Status.empty ();
-		status.content = "#Wrapstodon #FediWrapped";
-		status.media_attachments = new Gee.ArrayList<API.Attachment>.wrap ({attachment});
-
-		return status;
+		new Dialogs.Composer.Dialog ({"#Wrapstodon #FediWrapped", null, null, null, null, null, new Gee.ArrayList<API.Attachment>.wrap ({attachment}), false, false});
 	}
 
 	private void save_with_background () {

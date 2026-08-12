@@ -23,8 +23,9 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 
 	protected InstanceAccount? account { get; set; }
 	public API.Status root_status { get; set; }
-	public Widgets.Status? root_status_widget { get; set; default=null; }
+	private weak Widgets.Status? root_status_widget { get; set; default=null; }
 
+	Adw.Toast? refresh_toast = null;
 	public Thread (API.Status status) {
 		Object (
 			root_status: status,
@@ -33,36 +34,72 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			allow_nesting: true
 		);
 		construct_account_holder ();
-		update_root_status (status.id);
+		update_root_status.begin (status.id);
+
+		app.refresh.connect (on_refresh);
+		app.time_update.connect (on_time_update);
 	}
+
 	~Thread () {
 		debug ("Destroying Thread");
 		destruct_account_holder ();
+		if (grab_focus_timeout > 0) GLib.Source.remove (grab_focus_timeout);
+		if (refresh_toast != null) {
+			refresh_toast.dismiss ();
+			refresh_toast = null;
+		}
 	}
 
-	private void update_root_status (string status_id = root_status.id) {
-		if (root_status == null) return;
+	private void on_refresh () {
+		if (!this.get_mapped ()) return;
 
-		new Request.GET (@"/api/v1/statuses/$status_id")
-			.with_account (account)
-			.with_ctx (this)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var api_status = API.Status.from (node);
-				if (api_status != null) {
-					if (root_status != null) root_status.patch (api_status);
-					if (root_status_widget != null) {
-						root_status_widget.on_edit (api_status);
-					}
+		scrolled.vadjustment.value = 0;
+		status_button.sensitive = false;
+		clear ();
+		base_status = new StatusMessage () { loading = true };
+		request.begin ();
+		if (refresh_toast != null) {
+			refresh_toast.dismiss ();
+			refresh_toast = null;
+		}
+	}
+
+	GLib.Cancellable? root_update_cancellable = null;
+	private async void update_root_status (string status_id = root_status.id) {
+		if (root_status == null) return;
+		if (root_update_cancellable != null) root_update_cancellable.cancel ();
+		root_update_cancellable = new GLib.Cancellable ();
+
+		Widgets.Status? status_widget = root_status_widget;
+		var req = new RequestV2 (@"/api/v1/statuses/$status_id") {
+			account = account,
+			ctx = this,
+			cancellable = root_update_cancellable
+		};
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var api_status = API.Status.from (node);
+			if (api_status != null) {
+				if (root_status != null) root_status.patch (api_status);
+				if (status_widget != null) {
+					status_widget.on_edit (api_status);
+					status_widget = null;
 				}
-			})
-			.exec ();
+			}
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (Error e) {
+			warning (@"Couldn't update root status $status_id: $(e.message)");
+		}
 	}
 
 	public override void on_account_changed (InstanceAccount? acc) {
+		if (account != null) return;
 		account = acc;
-		GLib.Idle.add (request);
+		request.begin ();
 	}
 
 	void connect_threads () {
@@ -83,7 +120,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		}
 	}
 
-	private void on_replied (API.Status t_status) {
+	private void on_replied (API.Status? t_status) {
+		if (t_status == null) return;
 		var found = false;
 		if (t_status.in_reply_to_id != null) {
 			for (uint i = 0; i < model.get_n_items (); i++) {
@@ -137,11 +175,13 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		spoiler_toggle_button.icon_name = spoiler_toggle_button_active
 			? "tuba-eye-not-looking-symbolic"
 			: "tuba-eye-open-negative-filled-symbolic";
+		// translators: tooltip on button that toggles all spoilers of a thread
 		spoiler_toggle_button.tooltip_text = spoiler_toggle_button_active ? _("Hide Spoilers") : _("Reveal Spoilers");
 		reveal_spoilers = spoiler_toggle_button_active;
 	}
 
 	private bool grabbed_focus = false;
+	private uint grab_focus_timeout = 0;
 	public override void on_content_changed () {
 		for (uint i = 0; i < model.n_items; i++) {
 			var status = (API.Status) model.get_item (i);
@@ -152,79 +192,86 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		}
 		base.on_content_changed ();
 		if (root_status_widget != null && !grabbed_focus)
-			GLib.Timeout.add (100, grab_focus_of_root);
+			grab_focus_timeout = GLib.Timeout.add (100, grab_focus_of_root);
 	}
 
 	private bool grab_focus_of_root () {
-		grabbed_focus = root_status_widget.grab_focus ();
+		grab_focus_timeout = 0;
+		if (root_status_widget != null) grabbed_focus = root_status_widget.grab_focus ();
 		return GLib.Source.REMOVE;
 	}
 
-	public bool request () {
-		new Request.GET (@"/api/v1/statuses/$(root_status.id)/context")
-			.with_account (account)
-			.with_ctx (this)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var root = network.parse (parser);
+	public async void request () {
+		var req = new RequestV2 (@"/api/v1/statuses/$(root_status.id)/context") { account = account, ctx = this };
 
-				Object[] to_add_ancestors = {};
-				var ancestors = root.get_array_member ("ancestors");
-				ancestors.foreach_element ((array, i, node) => {
-					var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
-					if (!e.formal.tuba_filter_hidden)
-						to_add_ancestors += e;
-				});
-				to_add_ancestors += root_status;
-				model.splice (model.get_n_items (), 0, to_add_ancestors);
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var root = network.parse (parser);
 
-				Object[] to_add_descendants = {};
-				var descendants = root.get_array_member ("descendants");
-				descendants.foreach_element ((array, i, node) => {
-					var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
-					if (!e.formal.tuba_filter_hidden)
-						to_add_descendants += e;
-				});
-				model.splice (model.get_n_items (), 0, to_add_descendants);
+			Object[] to_add_ancestors = {};
+			var ancestors = root.get_array_member ("ancestors");
+			ancestors.foreach_element ((array, i, node) => {
+				var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+				if (!e.formal.tuba_filter_hidden)
+					to_add_ancestors += e;
+			});
+			to_add_ancestors += root_status;
+			model.splice (model.get_n_items (), 0, to_add_ancestors);
 
-				connect_threads ();
-				on_content_changed ();
+			Object[] to_add_descendants = {};
+			var descendants = root.get_array_member ("descendants");
+			descendants.foreach_element ((array, i, node) => {
+				var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+				if (!e.formal.tuba_filter_hidden)
+					to_add_descendants += e;
+			});
+			model.splice (model.get_n_items (), 0, to_add_descendants);
 
-				#if USE_LISTVIEW
-					if (to_add_ancestors.length > 0) {
-						uint timeout = 0;
-						timeout = Timeout.add (1000, () => {
-							content.scroll_to (to_add_ancestors.length, Gtk.ListScrollFlags.FOCUS, null);
+			connect_threads ();
+			on_content_changed ();
 
-							GLib.Source.remove (timeout);
-							return true;
-						}, Priority.LOW);
-					}
-				#endif
-			})
-			.exec ();
+			#if USE_LISTVIEW
+				if (to_add_ancestors.length > 0) {
+					uint timeout = 0;
+					timeout = Timeout.add (1000, () => {
+						content.scroll_to (to_add_ancestors.length, Gtk.ListScrollFlags.FOCUS, null);
 
-		return GLib.Source.REMOVE;
+						GLib.Source.remove (timeout);
+						return true;
+					}, Priority.LOW);
+				}
+			#endif
+		} catch (Error e) {
+			on_error (e.code, e.message);
+		}
 	}
 
 	public static void open_from_link (string q) {
-		new Request.GET ("/api/v1/search")
-			.with_account ()
-			.with_param ("q", q)
-			.with_param ("resolve", "true")
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var root = network.parse (parser);
-				var statuses = root.get_array_member ("statuses");
-				var node = statuses.get_element (0);
-				if (node != null) {
-					var status = API.Status.from (node);
-					app.main_window.open_view (new Views.Thread (status));
-				}
-				else
-					Utils.Host.open_url.begin (q);
-			})
-			.exec ();
+		open_from_link_async.begin (q);
+	}
+
+	public static async void open_from_link_async (string q) {
+		var req = new RequestV2 ("/api/v1/search") { account = accounts.active };
+		req.add_parameter ("q", q);
+		req.add_parameter ("resolve", "true");
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var root = network.parse (parser);
+			var statuses = root.get_array_member ("statuses");
+			var node = statuses.get_element (0);
+			if (node != null) {
+				var status = API.Status.from (node);
+				app.main_window.open_view (new Views.Thread (status));
+			}
+			else
+				yield Utils.Host.open_url (q);
+		} catch (Error e) {
+			warning (@"Couldn't resolve $q: $(e.message)");
+			yield Utils.Host.open_url (q);
+		}
 	}
 
 	public override Gtk.Widget on_create_model_widget (Object obj) {
@@ -242,13 +289,100 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			#endif
 			widget_status.expand_root ();
 			root_status_widget = widget_status;
+			update_root_status.begin (root_status.id);
 		}
 
 		return widget_status;
 	}
 
+	private void on_time_update () {
+		if (!this.get_mapped ()) return;
+
+		for (int i = 0; i < uint.min (model.n_items, 250); i++) {
+			var status_widget = content.get_row_at_index (i) as Widgets.Status;
+			if (status_widget != null) {
+				status_widget.update_time ();
+			}
+		}
+
+		regular_stat_updates.begin ();
+	}
+
+	GLib.Cancellable? regular_stat_updates_cancellable = null;
+	private async void regular_stat_updates () {
+		if (regular_stat_updates_cancellable != null)
+			regular_stat_updates_cancellable.cancel ();
+		regular_stat_updates_cancellable = new GLib.Cancellable ();
+
+		if (root_status == null) return;
+		try {
+			API.Status[] context_statuses = {};
+			{
+				var req = new RequestV2 (@"/api/v1/statuses/$(root_status.id)") {
+					account = account,
+					ctx = this,
+					cancellable = root_update_cancellable
+				};
+
+				var in_stream = yield req.exec (null);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+				var node = network.parse_node (parser);
+				var api_status = API.Status.from (node);
+				context_statuses += api_status;
+			}
+
+			var req = new RequestV2 (@"/api/v1/statuses/$(root_status.id)/context") { account = account, ctx = this };
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var root = network.parse (parser);
+
+			var ancestors = root.get_array_member ("ancestors");
+			ancestors.foreach_element ((array, i, node) => {
+				var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+				if (!e.formal.tuba_filter_hidden)
+					context_statuses += e;
+			});
+
+			var descendants = root.get_array_member ("descendants");
+			descendants.foreach_element ((array, i, node) => {
+				var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+				if (!e.formal.tuba_filter_hidden)
+					context_statuses += e;
+			});
+
+			foreach (API.Status c_status in context_statuses) {
+				uint pos;
+				if (model.find_with_equal_func (c_status, status_comp_func, out pos)) {
+					var status_widget = content.get_row_at_index ((int) pos) as Widgets.Status;
+					if (status_widget != null) {
+						status_widget.patch_stats (c_status);
+					}
+				} else if (refresh_toast == null) {
+					// translators: toast shown when the user is viewing a thread
+					//				and there's new replies since they opened it;
+					//				next to it will be a button that allows them to
+					//				load the new replies
+					refresh_toast = new Adw.Toast (_("New Replies Available")) {
+						timeout = 0,
+						button_label = _("Refresh"),
+						action_name = "app.refresh"
+					};
+					app.toast_object (refresh_toast);
+				}
+			}
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (Error e) {
+			warning (@"Couldn't regular update thread $(root_status.id): $(e.message)");
+		}
+	}
+
+	private static EqualFunc<string> status_comp_func = (s1, s2) => {
+		return ((API.Status) s1).id == ((API.Status) s2).id;
+	};
+
 	#if USE_LISTVIEW
-	protected override void bind_listitem_cb (GLib.Object item) {
+		protected override void bind_listitem_cb (GLib.Object item) {
 			base.bind_listitem_cb (item);
 
 			if (((API.Status) ((Gtk.ListItem) item).item).id == root_status.id)

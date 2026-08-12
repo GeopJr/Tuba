@@ -9,8 +9,6 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 	}
 
 	public override unowned ParamSpec? find_property (string name) {
-		if (name.has_prefix ("tuba_")) return null;
-
 		switch (name) {
 			case "type":
 				return get_class ().find_property ("kind");
@@ -19,6 +17,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 			case "params":
 				return get_class ().find_property ("props");
 			default:
+				if (name.has_prefix ("tuba-")) return null;
 				return get_class ().find_property (name);
 		}
 	}
@@ -31,7 +30,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 		freeze_notify ();
 		foreach (ParamSpec spec in specs) {
 			var name = spec.get_name ();
-			var defined = get_class ().find_property (name) != null;
+			var defined = find_property (name) != null;
 			if (defined && is_spec_valid (ref spec)) {
 				var val = Value (spec.value_type);
 				obj.get_property (name, ref val);
@@ -84,6 +83,14 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 			}
 
 			return des_list (out val, node, contains);
+		}
+
+		if (!success && (type == GLib.Type.BOOLEAN || type == GLib.Type.INT || type == GLib.Type.INT64)) {
+			var default_val = spec.get_default_value ();
+			if (default_val != null) {
+				val = default_val;
+				return true;
+			}
 		}
 
 		return success;

@@ -4,12 +4,15 @@ sources += files(
     'Announcement.vala',
     'AnnualReports.vala',
     # 'Akkoma.vala', # uneeded for now
+    'Application.vala',
     'Attachment.vala',
     'BookWyrm.vala',
+    'Collection.vala',
     'Conversation.vala',
     'Emoji.vala',
     'EmojiReaction.vala',
     'Entity.vala',
+    'FeaturedTag.vala',
     'FamiliarFollowers.vala',
     'Funkwhale.vala',
     'GroupedNotificationsResults.vala',
@@ -17,10 +20,12 @@ sources += files(
     'InstanceV2.vala',
     'List.vala',
     'Mention.vala',
+    'Nodeinfo.vala',
     'Notification.vala',
     'NotificationFilter.vala',
     'Poll.vala',
     'PollOption.vala',
+    'Quote.vala',
     'Relationship.vala',
     'ScheduledStatus.vala',
     'SearchResult.vala',
@@ -32,12 +37,17 @@ sources += files(
     'Translation.vala',
 )
 
+if unifiedpush
+  sources += files ('Push.vala')
+endif
+
 subdir('Admin')
 subdir('Account')
 subdir('Akkoma')
 subdir('BookWyrm')
 subdir('Filters')
 subdir('Funkwhale')
+subdir('Iceshrimp')
 subdir('Instance')
 subdir('PeerTube')
 subdir('Pleroma')

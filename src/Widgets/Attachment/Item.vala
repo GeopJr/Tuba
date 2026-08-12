@@ -18,6 +18,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	private void copy_url () {
 		Utils.Host.copy (entity.url);
+		// translators: toast shown when copying an attachment url to clipboard successfully
 		app.toast (_("Copied attachment url to clipboard"));
 	}
 
@@ -31,6 +32,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	public static async void save_media_as (string url) {
 		var chooser = new Gtk.FileDialog () {
+			// translators: file picker dialog title when saving attachments
 			title = _("Save Attachment"),
 			modal = true,
 			initial_name = Path.get_basename (url)
@@ -41,7 +43,19 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 			if (file != null) {
 				debug (@"Downloading file: $(url)…");
 				bool success = yield download (url, file);
-				app.toast (success ? _("Saved Media") : _("Couldn't Save Media"));
+
+				if (success) {
+					app.toast (
+						// translators: label on toast shown when downloading an attachment successfully
+						_("Saved Media"), 5, "app.open-containing-folder",
+						new GLib.Variant.string (file.get_path ()),
+						// translators: label on toast shown when downloading an attachment that opens the folder containing the file
+						_("Open Folder")
+					);
+				} else {
+					// translators: error toast
+					app.toast (_("Couldn't Save Media"));
+				}
 			}
 		} catch (Error e) {
 			// User dismissing the dialog also ends here so don't make it sound like
@@ -53,8 +67,8 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	private static async bool download (string attachment_url, File file) {
 		bool res = false;
 		try {
-			var req = yield new Request.GET (attachment_url).await ();
-			var data = req.response_body;
+			var req = new RequestV2 (attachment_url);
+			var data = yield req.exec (null);
 			FileOutputStream stream = file.replace (null, false, FileCreateFlags.PRIVATE);
 			try {
 				stream.splice (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
@@ -89,7 +103,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		add_css_class ("flat");
 
 		button = new Gtk.Button () {
-			css_classes = { "frame", "no-padding" },
+			css_classes = { "frame", "no-padding", "attachment-picture" },
 			overflow = Gtk.Overflow.HIDDEN
 		};
 		button.clicked.connect (on_click);
@@ -106,6 +120,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		gesture_lp_controller.pressed.connect (on_long_press);
 
 		alt_btn = new Gtk.Button.with_label ("ALT") {
+			// translators: tooltip on a button on attachments with the label ALT, shows the alternative text of the attachment
 			tooltip_text = _("View Alt Text"),
 			css_classes = { "heading", "flat" },
 			valign = Gtk.Align.END,
@@ -195,14 +210,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	protected virtual void on_click () {
-		open.begin ((obj, res) => {
-			try {
-				open.end (res);
-			}
-			catch (Error e) {
-				app.toast ("%s: %s".printf (_("Error"), e.message));
-			}
-		});
+		open.begin ();
 	}
 
 	private void on_long_press (double x, double y) {
@@ -224,8 +232,16 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		context_menu.popup ();
 	}
 
-	protected async void open () throws Error {
-		var path = yield Utils.Host.download (entity.url);
-		Utils.Host.open_url.begin (path);
+	protected async void open () {
+		try {
+			var path = yield Utils.Host.download (
+				entity.kind == "unknown"
+				&& settings.fetch_remote_media_default
+				&& entity.remote_url != null ? entity.remote_url : entity.url
+			);
+			yield Utils.Host.open_url (path);
+		} catch (Error e) {
+			app.toast ("%s: %s".printf (_("Error"), e.message));
+		}
 	}
 }

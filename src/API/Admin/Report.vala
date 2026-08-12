@@ -16,9 +16,13 @@ public class Tuba.API.Admin.Report : Entity, BasicWidgetizable {
 
 		public string to_string () {
 			switch (this) {
+				// translators: report type
 				case SPAM: return _("Spam");
+				// translators: report type
 				case VIOLATION: return _("Rule Violation");
+				// translators: report type
 				case LEGAL: return _("Legal");
+				// translators: uncategorized item
 				default: return _("Other");
 			}
 		}

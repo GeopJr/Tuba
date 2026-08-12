@@ -29,7 +29,7 @@ public class Tuba.Views.Admin.Page.Reports : Views.Admin.Page.Base {
 	}
 
 	private void refresh () {
-		pagination_timeline.request_idle ();
+		pagination_timeline.request.begin ();
 	}
 
 	private void open_report_dialog (API.Admin.Report report) {

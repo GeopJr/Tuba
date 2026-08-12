@@ -4,3 +4,5 @@ builddir
 .flatpak-builder
 /tuba_windows_portable/
 server/
+subprojects/
+_subprojects/

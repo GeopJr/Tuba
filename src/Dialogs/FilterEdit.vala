@@ -6,6 +6,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 	[GtkChild] unowned Adw.PreferencesGroup keywords_group;
 	[GtkChild] unowned Gtk.Button save_btn;
 	[GtkChild] unowned Adw.SwitchRow hide_row;
+	Adw.ButtonRow filter_row;
 
 	public signal void saved (API.Filters.Filter filter);
 	public signal void toast (string toast_content, int dismiss_time);
@@ -100,12 +101,21 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 
 	string? filter_id = null;
 	public FilterEdit (API.Filters.Filter? filter = null) {
+		filter_row = new Adw.ButtonRow () {
+			// translators: button that adds a new keyword or phrase
+			//				entry to the filter editor
+			title = _("Add Keyword"),
+			start_icon_name = "tuba-plus-large-symbolic"
+		};
+		filter_row.activated.connect (add_keyword_row);
+		keywords_group.add (filter_row);
+
 		populate_exp_row ();
 
 		if (filter != null) {
 			filter_id = filter.id;
 			title_row.text = filter.title;
-			hide_row.active = filter.tuba_hidden;
+			hide_row.active = API.Filters.Filter.FilterAction.from_string (filter.filter_action) == HIDE;
 
 			var exp_from_date = FilterExpiration.from_date (filter.expires_at);
 			if (exp_from_date != FilterExpiration.NEVER) {
@@ -219,6 +229,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 
 	KeywordRow[] keyword_rows = {};
 	private void populate_keywords_group (Gee.ArrayList<API.Filters.FilterKeyword> keywords) {
+		keywords_group.remove (filter_row);
 		keywords.@foreach (e => {
 			var row = new KeywordRow (e);
 			keyword_rows += row;
@@ -227,13 +238,15 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 
 			return true;
 		});
+		keywords_group.add (filter_row);
 	}
 
-	[GtkCallback]
 	private void add_keyword_row () {
 		var row = new KeywordRow ();
 		keyword_rows += row;
+		keywords_group.remove (filter_row);
 		keywords_group.add (row);
+		keywords_group.add (filter_row);
 	}
 
 	[GtkCallback]
@@ -304,27 +317,28 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 
 		builder.end_object ();
 
-		Request req;
+		RequestV2 req;
 		if (filter_id != null) {
-			req = new Request.PUT (@"/api/v2/filters/$filter_id");
+			req = new RequestV2 (@"/api/v2/filters/$filter_id", PUT) { account = accounts.active };
 		} else {
-			req = new Request.POST ("/api/v2/filters");
+			req = new RequestV2 ("/api/v2/filters", POST) { account = accounts.active };
 		}
+		req.set_body_from_json (builder);
+		save_real.begin (req);
+	}
 
-		req
-			.body_json (builder)
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				saved (API.Filters.Filter.from (node));
-				on_close ();
-			})
-			.on_error ((code, message) => {
-				this.sensitive = true;
-				this.toast (_("Couldn't edit filter: %s").printf (message), 0);
-				warning (@"Couldn't edit filter: $code $message");
-			})
-			.exec ();
+	private async void save_real (RequestV2 req) {
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			saved (API.Filters.Filter.from (node));
+			on_close ();
+		} catch (Error e) {
+			this.sensitive = true;
+			//  translators: error toast, the variable is a string error
+			this.toast (_("Couldn't edit filter: %s").printf (e.message), 0);
+			warning (@"Couldn't edit filter: $(e.code) $(e.message)");
+		}
 	}
 }

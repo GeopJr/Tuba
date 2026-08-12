@@ -7,8 +7,9 @@ public class Tuba.Views.NotificationRequestsList : Views.Timeline {
 			// translators: the variable is a user handle
 			label: _("Notifications by %s").printf (account_handle),
 			icon: "tuba-bell-outline-symbolic",
-			// translators: the variable is a user handle
-			empty_state_title: _("No Notifications by %s").printf (account_handle)
+			// translators: the variable is a user handle; empty state title
+			empty_state_title: _("No Notifications by %s").printf (account_handle),
+			batch_size_min: 20
 		);
 
 		this.accepts = typeof (API.Notification);
@@ -46,7 +47,7 @@ public class Tuba.Views.NotificationRequestsList : Views.Timeline {
 
 	private void on_accept () {
 		dismiss_btn.sensitive = accept_btn.sensitive = false;
-		notification_req_wdg.on_dismiss ();
+		notification_req_wdg.on_accept ();
 		app.main_window.back ();
 	}
 }

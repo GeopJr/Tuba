@@ -11,9 +11,12 @@ public class Tuba.SecretAccountStore : AccountStore {
 		schema_attributes = new GLib.HashTable<string,Secret.SchemaAttributeType> (str_hash, str_equal);
 		schema_attributes["login"] = Secret.SchemaAttributeType.STRING;
 		schema_attributes["version"] = Secret.SchemaAttributeType.STRING;
+		//  schema_attributes["appid"] = Secret.SchemaAttributeType.STRING;
 		schema = new Secret.Schema.newv (
 			Build.DOMAIN,
-			Secret.SchemaFlags.NONE,
+			// https://gitlab.gnome.org/GNOME/gnome-keyring/-/issues/89
+			// #1540 #701
+			Secret.SchemaFlags.DONT_MATCH_NAME,
 			schema_attributes
 		);
 
@@ -23,6 +26,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 	public override void load () throws GLib.Error {
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["version"] = VERSION;
+		//  attrs["appid"] = Build.DOMAIN;
 
 		List<Secret.Retrievable> secrets = new List<Secret.Retrievable> ();
 		try {
@@ -33,13 +37,13 @@ public class Tuba.SecretAccountStore : AccountStore {
 				null
 			);
 		} catch (GLib.Error e) {
-			string wiki_page = "https://github.com/GeopJr/Tuba/wiki/keyring-issues";
+			string wiki_page = "https://codeberg.org/GeopJr/Tuba/wiki/keyring-issues";
 
 			// Let's leave this untranslated for now
 			string help_msg = "If you didn’t manually cancel it, try creating a password keyring named \"login\" using Passwords and Keys (seahorse) or KWalletManager"; // vala-lint=line-length
 
 			if (e.message == "org.freedesktop.DBus.Error.ServiceUnknown") {
-				wiki_page = "https://github.com/GeopJr/Tuba/wiki/libsecret-issues";
+				wiki_page = "https://codeberg.org/GeopJr/Tuba/wiki/libsecret-issues";
 				help_msg = @"$(e.message), $(Build.NAME) might be missing some permissions";
 			}
 
@@ -70,21 +74,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		secrets.foreach (item => {
 			var account = secret_to_account (item);
 			if (account != null && account.id != "") {
-				new Request.GET (@"/api/v1/accounts/$(account.id)")
-					.with_account (account)
-					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						var acc = API.Account.from (node);
-
-						if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
-							account.display_name = acc.display_name;
-							account.avatar = acc.avatar;
-
-							account_to_secret (account);
-						}
-					})
-					.exec ();
+				update_account_info.begin (account);
 				saved.add (account);
 				account.added ();
 			}
@@ -92,6 +82,24 @@ public class Tuba.SecretAccountStore : AccountStore {
 		changed (saved);
 
 		debug (@"Loaded $(saved.size) accounts");
+	}
+
+	public override async void update_account_info (InstanceAccount account) {
+		var req = new RequestV2 (@"/api/v1/accounts/$(account.id)") { account = account };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var acc = API.Account.from (node);
+
+			if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
+				account.display_name = acc.display_name;
+				account.avatar = acc.avatar;
+
+				account_to_secret (account);
+			}
+			account.tuba_cred_updated = true;
+		} catch (Error e) { }
 	}
 
 	public override void save () throws GLib.Error {
@@ -109,32 +117,52 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 	public override void remove (InstanceAccount account) throws GLib.Error {
 		base.remove (account);
+		remove_account_real.begin (account);
+	}
 
-		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
-		attrs["version"] = VERSION;
-		attrs["login"] = account.handle;
+	private async void remove_account_real (InstanceAccount account) {
+		try {
+			var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
+			attrs["version"] = VERSION;
+			attrs["login"] = account.handle;
+			//  attrs["appid"] = Build.DOMAIN;
 
-		Secret.password_clearv.begin (
-			schema,
-			attrs,
-			null,
-			(obj, async_res) => {
-				try {
-					Secret.password_clearv.end (async_res);
-				}
-				catch (GLib.Error e) {
-					warning (e.message);
-					var dlg = app.inform (_("Error"), e.message);
-					dlg.present (app.main_window);
-				}
+			yield Secret.password_clearv (schema, attrs, null);
+
+			if (!account.tuba_revoked && account.client_id != null && account.client_secret != null && account.access_token != null) {
+				yield revoke_token_dangerous (account);
 			}
-		);
+		} catch (Error e) {
+			warning (e.message);
+			var dlg = app.inform (_("Error"), e.message);
+			dlg.present (app.main_window);
+		}
+	}
+
+	public override async void revoke_token_dangerous (InstanceAccount account, bool should_handle_error = true) {
+		try {
+			var req = new RequestV2 ("/oauth/revoke", POST) { account = account, no_auth = true };
+			req.add_form_data ("client_id", account.client_id);
+			req.add_form_data ("client_secret", account.client_secret);
+			req.add_form_data ("token", account.access_token);
+			yield req.exec (null);
+		} catch (Error e) {
+			// we may not want to error on backends that don't implement it
+			// or when we are removing an account that may have had its token
+			// revoked already from other sources
+			if (should_handle_error) {
+				warning (e.message);
+				var dlg = app.inform (_("Error"), e.message);
+				dlg.present (app.main_window);
+			}
+		}
 	}
 
 	void account_to_secret (InstanceAccount account) {
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["login"] = account.handle;
 		attrs["version"] = VERSION;
+		//  attrs["appid"] = Build.DOMAIN;
 
 		var generator = new Json.Generator ();
 
@@ -202,6 +230,18 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 		builder.end_object ();
 
+		builder.set_member_name ("instance-features");
+		builder.add_int_value ((int) account.tuba_instance_features);
+		if (InstanceAccount.InstanceFeatures.ICESHRIMP in account.tuba_instance_features && account.tuba_iceshrimp_api_key != null) {
+			builder.set_member_name ("iceshrimp-api-key");
+			builder.add_string_value (account.tuba_iceshrimp_api_key);
+		}
+
+		if (account.tuba_streaming_url != "" && account.tuba_streaming_url != account.instance) {
+			builder.set_member_name ("streaming");
+			builder.add_string_value (account.tuba_streaming_url);
+		}
+
 		// If display name has emojis it's
 		// better to save and load them
 		// so users don't see their shortcode
@@ -226,8 +266,12 @@ public class Tuba.SecretAccountStore : AccountStore {
 		builder.end_object ();
 		generator.set_root (builder.get_root ());
 		var secret = generator.to_data (null);
-		// translators: The variable is the backend like "Mastodon"
-		var label = _("%s Account").printf (account.backend);
+		// translators: The variable is "Fediverse" or a backend like "Mastodon"
+		var label = C_("system", "%s Account").printf (
+			account.backend == null || account.backend == ""
+			? "Fediverse"
+			: @"$(account.backend[0].to_string ().up ())$(account.backend.substring (1))"
+		);
 
 		Secret.password_storev.begin (
 			schema,
@@ -257,9 +301,10 @@ public class Tuba.SecretAccountStore : AccountStore {
 			var secret = item.retrieve_secret_sync ();
 			var contents = secret.get_text ();
 			var parser = new Json.Parser ();
-			parser.load_from_data (contents, -1);
+			if (!parser.load_from_data (contents, -1)) return null;
 
 			var root = parser.get_root ();
+			if (root == null || root.get_node_type () != Json.NodeType.OBJECT) return null;
 			var root_obj = root.get_object ();
 
 			// HACK: Partial makeshift secret validation

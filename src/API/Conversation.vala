@@ -45,16 +45,16 @@ public class Tuba.API.Conversation : Entity, Widgetizable {
 		app.main_window.open_view (view);
 
 		if (unread)
-			mark_read ();
+			mark_read.begin ();
 	}
 
-	public void mark_read () {
-		new Request.POST (@"/api/v1/conversations/$id/read")
-			.with_account (Tuba.accounts.active)
-			.then (() => {
-				unread = false;
-			})
-			.exec ();
+	public async void mark_read () {
+		var req = new RequestV2 (@"/api/v1/conversations/$id/read", POST) { account = Tuba.accounts.active };
+
+		try {
+			yield req.exec (null);
+			unread = false;
+		} catch { }
 	}
 
 }

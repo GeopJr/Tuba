@@ -2,6 +2,10 @@
 public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	~Preferences () {
 		debug ("Destroying Preferences");
+		if (font_timeout > 0) {
+			GLib.Source.remove (font_timeout);
+			font_timeout = 0;
+		}
 	}
 
 	class FilterRow : Adw.ExpanderRow {
@@ -76,32 +80,33 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		}
 
 		private void on_delete () {
-			app.question.begin (
+			on_delete_real.begin ();
+		}
+
+		private async void on_delete_real () {
+			var qs = yield app.question (
 				// translators: the variable is a filter name
 				{_("Delete %s?").printf (filter.title), false},
 				null,
 				this.win,
 				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 				null,
-				false,
-				(obj, res) => {
-					if (app.question.end (res).truthy ()) {
-						new Request.DELETE (@"/api/v2/filters/$(filter.id)")
-							.with_account (accounts.active)
-							.then (() => {
-								filter_deleted (this);
-							})
-							.on_error ((code, message) => {
-								// translators: the variable is an error message
-								win.add_toast (new Adw.Toast (_("Couldn't delete filter: %s").printf (message)) {
-									timeout = 0
-								});
-								warning (@"Couldn't delete filter $(this.filter.id): $code $message");
-							})
-							.exec ();
-					}
-				}
+				false
 			);
+
+			if (qs.truthy ()) {
+				var req = new RequestV2 (@"/api/v2/filters/$(filter.id)", DELETE) { account = accounts.active };
+				try {
+					yield req.exec (null);
+					filter_deleted (this);
+				} catch (Error e) {
+					// translators: the variable is an error message
+					win.add_toast (new Adw.Toast (_("Couldn't delete filter: %s").printf (e.message)) {
+						timeout = 0
+					});
+					warning (@"Couldn't delete filter $(this.filter.id): $(e.code) $(e.message)");
+				}
+			}
 		}
 	}
 
@@ -110,32 +115,38 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		public string event;
 	}
 
-	[GtkChild] unowned Adw.ComboRow scheme_combo_row;
 	[GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
 	[GtkChild] unowned Adw.ComboRow default_language_combo_row;
 	[GtkChild] unowned Adw.ComboRow default_content_type_combo_row;
+	[GtkChild] unowned Adw.ComboRow default_quotation_policy_combo_row;
 	[GtkChild] unowned Adw.SwitchRow work_in_background;
-	[GtkChild] unowned Adw.SpinRow timeline_page_size;
 	[GtkChild] unowned Adw.SwitchRow live_updates;
 	[GtkChild] unowned Adw.SwitchRow public_live_updates;
 	[GtkChild] unowned Adw.SwitchRow show_spoilers;
 	[GtkChild] unowned Adw.SwitchRow show_preview_cards;
-	[GtkChild] unowned Adw.SwitchRow larger_font_size;
+	[GtkChild] unowned Gtk.Adjustment font_adjustment;
 	[GtkChild] unowned Adw.SwitchRow larger_line_height;
 	[GtkChild] unowned Adw.SwitchRow scale_emoji_hover;
 	[GtkChild] unowned Adw.SwitchRow strip_tracking;
 	[GtkChild] unowned Adw.SwitchRow letterbox_media;
-	[GtkChild] unowned Adw.SwitchRow media_viewer_expand_pictures;
 	[GtkChild] unowned Adw.SwitchRow enlarge_custom_emojis;
-	[GtkChild] unowned Adw.SwitchRow use_blurhash;
+	[GtkChild] unowned Adw.SwitchRow show_sensitive_media;
 	[GtkChild] unowned Adw.SwitchRow group_push_notifications;
 	[GtkChild] unowned Adw.SwitchRow advanced_boost_dialog;
 	[GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
 	[GtkChild] unowned Adw.SwitchRow reply_to_old_post_reminder;
+	[GtkChild] unowned Adw.SwitchRow boost_alt_text_reminder;
+	[GtkChild] unowned Adw.SwitchRow fetch_remote_media_reminder;
 	[GtkChild] unowned Adw.SwitchRow copy_private_link_reminder;
 	[GtkChild] unowned Adw.EntryRow proxy_entry;
 	[GtkChild] unowned Adw.SwitchRow dim_trivial_notifications;
 	[GtkChild] unowned Adw.SwitchRow collapse_long_posts;
+	[GtkChild] unowned Adw.SwitchRow in_app_browser_switch;
+	#if !UNIFIEDPUSH
+		[GtkChild] unowned Adw.PreferencesGroup up_group;
+	#else
+		[GtkChild] unowned Adw.SwitchRow up_row;
+	#endif
 
 	[GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
@@ -144,12 +155,15 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow boosts_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow poll_results_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow edits_notifications_switch;
+	[GtkChild] unowned Adw.SwitchRow quotes_notifications_switch;
+	[GtkChild] unowned Adw.SwitchRow quote_edited_notifications_switch;
 
 	[GtkChild] unowned Gtk.Switch analytics_switch;
 	[GtkChild] unowned Adw.SwitchRow update_contributors;
 
 	//  [GtkChild] unowned Adw.PreferencesPage filters_page;
 	[GtkChild] unowned Adw.PreferencesGroup keywords_group;
+	Adw.ButtonRow filter_row;
 
 	NotificationTypeMute[] notification_type_mutes;
 
@@ -161,7 +175,33 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		}
 
 		settings.muted_notification_types = res;
+		#if UNIFIEDPUSH
+			update_notification_mutes_webpush.begin ();
+		#endif
 	}
+
+	#if UNIFIEDPUSH
+		private async void update_notification_mutes_webpush () {
+			if (!settings.unifiedpush_enabled || !Tuba.up_distributor_found) return;
+
+			var req = new RequestV2 ("/api/v1/push/subscription", PUT) { account = accounts.active };
+			req.add_form_data ("data[alerts][mention]", mentions_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][reblog]", boosts_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][follow]", new_followers_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][follow_request]", new_follower_requests_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][favourite]", favorites_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][poll]", poll_results_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][update]", edits_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][quote]", quotes_notifications_switch.active.to_string ());
+			req.add_form_data ("data[alerts][quoted_update]", quote_edited_notifications_switch.active.to_string ());
+			try {
+				yield req.exec (null);
+			} catch (Error e) {
+				warning (@"Couldn't update webpush notification types: $(e.code) $(e.message)");
+				app.toast (_("Couldn't update notification types: %s").printf (e.message));
+			}
+		}
+	#endif
 
 	void update_notification_mutes_switches () {
 		foreach (var notification_type_mute in notification_type_mutes) {
@@ -171,17 +211,83 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	private bool lang_changed { get; set; default=false; }
 	private bool privacy_changed { get; set; default=false; }
+	private bool quote_policy_changed { get; set; default=false; }
 
 	static construct {
 		typeof (ColorSchemeListModel).ensure ();
 	}
 
+	#if UNIFIEDPUSH
+		private void unifiedpush_changed () {
+			string id = @"$(GLib.Uri.escape_string (accounts.active.uuid)):$(GLib.Uri.escape_string (accounts.active.instance))";
+			if (up_row.active) {
+				unifiedpush_register_if_push.begin (id);
+			} else {
+				app.unifiedpush.unregister (id);
+			}
+		}
+
+		private async void unifiedpush_register_if_push (string id) {
+			if (yield API.Application.has_push ()) {
+				app.unifiedpush.register (id, null, accounts.active.instance_info.tuba_vapid);
+			} else {
+				up_row.notify["active"].disconnect (unifiedpush_changed);
+				up_row.active = false;
+				up_row.notify["active"].connect (unifiedpush_changed);
+
+				var res = yield app.question (
+					// translators: dialog title shown when the user is trying to enable
+					//				UnifiedPush but don't have the required permission to.
+					//				"Push" is the permission name but you may change it to
+					//				"Webpush" or "Push Notification"
+					{_("Request “Push” Access?"), false},
+					// translators: dialog subtitle shown when the user is trying to enable
+					//				UnifiedPush but don't have the required permission to.
+					//				"Reauthenticate" = "Re-login", "Login again"...
+					//				The user will be forced to go through the same process
+					//				as when adding their account for the first time if they
+					//				continue. Please leave "UnifiedPush" as is, as it's a
+					//				brand name. The variable is the app name (Tuba).
+					{_("You'll have to reauthenticate %s to use UnifiedPush.").printf (Build.NAME), false},
+					this,
+					{
+						// translators: dialog button shown when the user is trying to enable
+						//				UnifiedPush but don't have the required permission to.
+						//				and Tuba is asking them if they want to re-login. Please
+						//				use the same verb used in the dialog title "Request
+						//				“Push” Access?"
+						{ _("Request"), Adw.ResponseAppearance.SUGGESTED },
+						{ _("Cancel"), Adw.ResponseAppearance.DEFAULT }
+					},
+					null, false
+				);
+
+				if (res == Application.QuestionAnswer.YES)
+					new Dialogs.NewAccount (true, accounts.active).present ();
+			}
+		}
+	#endif
+
 	construct {
 		proxy_entry.text = settings.proxy;
 		post_visibility_combo_row.model = accounts.active.visibility_list;
+		font_adjustment.value = settings.status_font_size;
 
-		// Setup scheme combo row
-		scheme_combo_row.selected = settings.get_enum ("color-scheme");
+		#if !WEBKIT
+			in_app_browser_switch.visible = false;
+		#endif
+
+		#if !UNIFIEDPUSH
+			up_group.visible = false;
+		#else
+			up_row.active = settings.unifiedpush_enabled;
+			up_row.sensitive = Tuba.up_distributor_found;
+			//  translators: leave "UnifiedPush" as is. "distributors" can be substituted with "services".
+			//				 This is a subtitle in the settings option that enabled UnifiedPush shown when
+			//				 it's not possible to.
+			up_row.subtitle = Tuba.up_distributor_found ? "" : _("No UnifiedPush distributors available");
+			up_row.notify["active"].connect (unifiedpush_changed);
+		#endif
 
 		uint default_visibility_index;
 		if (
@@ -202,26 +308,46 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			setup_content_type_combo_row ();
 		}
 
+		if (accounts.active.tuba_api_versions.mastodon >= 7) {
+			default_quotation_policy_combo_row.visible = true;
+			default_quotation_policy_combo_row.expression = new Gtk.PropertyExpression (typeof (QuotationPolicy), null, "title");
+			setup_quote_policy_combo_row ();
+		}
+
 		setup_languages_combo_row ();
 		setup_notification_mutes ();
-		setup_filters ();
+		setup_filters.begin ();
 		bind ();
 		closed.connect (on_window_closed);
 	}
 
-	void setup_filters () {
+	private async void setup_filters () {
+		filter_row = new Adw.ButtonRow () {
+			// translators: button in settings that opens the filter editor dialog page
+			title = _("Add Filter…"),
+			start_icon_name = "tuba-plus-large-symbolic"
+		};
+		filter_row.activated.connect (add_keyword_row);
+		keywords_group.add (filter_row);
+
 		// Only support v2 filters
-		new Request.GET ("/api/v2/filters")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				Network.parse_array (parser, node => {
-					var row = new FilterRow (API.Filters.Filter.from (node), this);
-					row.filter_deleted.connect (on_filter_delete);
-					keywords_group.add (row);
-				});
-			})
-			.exec ();
+		var req = new RequestV2 ("/api/v2/filters") { account = accounts.active };
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			keywords_group.remove (filter_row);
+			Network.parse_array (parser, node => {
+				var row = new FilterRow (API.Filters.Filter.from (node), this);
+				row.filter_deleted.connect (on_filter_delete);
+				keywords_group.add (row);
+			});
+			keywords_group.add (filter_row);
+		} catch (Error e) {
+			warning (@"Couldn't retrieve filters: $(e.code) $(e.message)");
+			// translators: error toast when tuba cant fetch the user's filters;
+			//				the variable is a string error message
+			on_toast (_("Couldn't retrieve filters: %s").printf (e.message), 5);
+		}
 	}
 
 	void on_filter_delete (FilterRow row) {
@@ -236,7 +362,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			{ mentions_notifications_switch, InstanceAccount.KIND_MENTION },
 			{ boosts_notifications_switch, InstanceAccount.KIND_REBLOG},
 			{ poll_results_notifications_switch, InstanceAccount.KIND_POLL},
-			{ edits_notifications_switch, InstanceAccount.KIND_EDITED }
+			{ edits_notifications_switch, InstanceAccount.KIND_EDITED },
+			{ quotes_notifications_switch, InstanceAccount.KIND_QUOTE },
+			{ quote_edited_notifications_switch, InstanceAccount.KIND_QUOTE_UPDATE }
 		};
 
 		update_notification_mutes_switches ();
@@ -246,31 +374,47 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	void bind () {
 		//  settings.bind ("dark-theme", dark_theme, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("work-in-background", work_in_background, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("timeline-page-size", timeline_page_size.adjustment, "value", SettingsBindFlags.DEFAULT);
 		settings.bind ("live-updates", live_updates, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("public-live-updates", public_live_updates, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("show-spoilers", show_spoilers, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("show-preview-cards", show_preview_cards, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("larger-font-size", larger_font_size, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("larger-line-height", larger_line_height, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("scale-emoji-hover", scale_emoji_hover, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("strip-tracking", strip_tracking, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("letterbox-media", letterbox_media, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("media-viewer-expand-pictures", media_viewer_expand_pictures, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("enlarge-custom-emojis", enlarge_custom_emojis, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("use-blurhash", use_blurhash, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("show-sensitive-media", show_sensitive_media, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("group-push-notifications", group_push_notifications, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("advanced-boost-dialog", advanced_boost_dialog, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("reply-to-old-post-reminder", reply_to_old_post_reminder, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("boost-alt-text-reminder", boost_alt_text_reminder, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("fetch-remote-media-reminder", fetch_remote_media_reminder, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("copy-private-link-reminder", copy_private_link_reminder, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("dim-trivial-notifications", dim_trivial_notifications, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("analytics", analytics_switch, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("update-contributors", update_contributors, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("collapse-long-posts", collapse_long_posts, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("use-in-app-browser-if-available", in_app_browser_switch, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
+		default_quotation_policy_combo_row.notify["selected-item"].connect (on_default_quotation_policy_changed);
 		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
+	}
+
+	uint font_timeout = 0;
+	[GtkCallback] void on_font_adjustment_value_changed (Gtk.Adjustment adj) {
+		if (font_timeout > 0) {
+			GLib.Source.remove (font_timeout);
+			font_timeout = 0;
+		}
+		font_timeout = GLib.Timeout.add (300, update_font_size);
+	}
+
+	private bool update_font_size () {
+		settings.status_font_size = font_adjustment.value;
+		font_timeout = 0;
+		return GLib.Source.REMOVE;
 	}
 
 	private void dlcr_cb () {
@@ -278,16 +422,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		default_language_combo_row.disconnect (dlcr_id);
 	}
 
-	[GtkCallback]
-	private void on_scheme_changed () {
-		var selected_item = (ColorSchemeListItem) scheme_combo_row.selected_item;
-		var style_manager = Adw.StyleManager.get_default ();
-
-		style_manager.color_scheme = selected_item.adwaita_scheme;
-		settings.color_scheme = selected_item.color_scheme;
-	}
-
-	[GtkCallback]
 	private void add_keyword_row () {
 		var dlg = new Dialogs.FilterEdit ();
 		dlg.saved.connect (on_filter_save);
@@ -304,12 +438,19 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	private void on_filter_save (API.Filters.Filter filter) {
 		var row = new FilterRow (filter, this);
 		row.filter_deleted.connect (on_filter_delete);
+		keywords_group.remove (filter_row);
 		keywords_group.add (row);
+		keywords_group.add (filter_row);
 	}
 
 	private void on_post_visibility_changed () {
 		settings.default_post_visibility = (string) ((InstanceAccount.Visibility) post_visibility_combo_row.selected_item).id;
 		privacy_changed = true;
+	}
+
+	private void on_default_quotation_policy_changed () {
+		settings.default_quote_policy = ((QuotationPolicy) default_quotation_policy_combo_row.selected_item).policy.to_string ();
+		quote_policy_changed = true;
 	}
 
 	private void setup_languages_combo_row () {
@@ -332,6 +473,43 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		}
 	}
 
+	public class QuotationPolicy : Object {
+		public API.Status.QuotePolicy policy { get; construct set; }
+		public string title { get; construct set; }
+
+		public QuotationPolicy (string policy_name) {
+			this.policy = API.Status.QuotePolicy.from_string (policy_name);
+			this.title = this.policy.to_title ();
+		}
+
+		public QuotationPolicy.from_policy (API.Status.QuotePolicy policy) {
+			this.policy = policy;
+			this.title = policy.to_title ();
+		}
+
+		public static EqualFunc<string> compare = (a, b) => {
+			return ((QuotationPolicy) a).policy == ((QuotationPolicy) b).policy;
+		};
+	}
+	private void setup_quote_policy_combo_row () {
+		GLib.ListStore supported_quotation_policies = new GLib.ListStore (typeof (QuotationPolicy));
+		supported_quotation_policies.append (new QuotationPolicy.from_policy (API.Status.QuotePolicy.PUBLIC));
+		supported_quotation_policies.append (new QuotationPolicy.from_policy (API.Status.QuotePolicy.FOLLOWERS));
+		supported_quotation_policies.append (new QuotationPolicy.from_policy (API.Status.QuotePolicy.NOBODY));
+		default_quotation_policy_combo_row.model = supported_quotation_policies;
+
+		uint default_quote_policy_index;
+		if (
+			supported_quotation_policies.find_with_equal_func (
+				new QuotationPolicy (settings.default_quote_policy),
+				QuotationPolicy.compare,
+				out default_quote_policy_index
+			)
+		) {
+			default_quotation_policy_combo_row.selected = default_quote_policy_index;
+		}
+	}
+
 	private void setup_content_type_combo_row () {
 		default_content_type_combo_row.model = accounts.active.supported_mime_types;
 
@@ -347,30 +525,53 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		}
 	}
 
+	private async void update_credentials_language_real (string new_lang) {
+		var req = new RequestV2 ("/api/v1/accounts/update_credentials", PATCH) { account = accounts.active };
+		req.add_form_data ("source[language]", new_lang);
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var updated = API.Account.from (node);
+
+			settings.default_language = updated.source.language;
+		} catch (Error e) {
+			warning (@"Couldn't update language: $(e.code) $(e.message)");
+			// translators: error toast when tuba cant update the user's locale;
+			//				the variable is a string error message
+			app.toast (_("Couldn't update language: %s").printf (e.message));
+		}
+	}
+
+	private async void update_credentials_privacy_real (string new_priv, string? new_qpol = null) {
+		var req = new RequestV2 ("/api/v1/accounts/update_credentials", PATCH) { account = accounts.active };
+		req.add_form_data ("source[privacy]", new_priv);
+		if (new_qpol != null) req.add_form_data ("source[quote_policy]", new_qpol);
+		try {
+			yield req.exec (null);
+		} catch (Error e) {
+			warning (@"Couldn't update visibility: $(e.code) $(e.message)");
+			//  translators: toast shown when changing the default post visibility in settings fails
+			app.toast (_("Couldn't update visibility: %s").printf (e.message));
+		}
+	}
+
 	private void on_window_closed () {
 		if (lang_changed) {
 			var new_lang = ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale;
 			if (settings.default_language != ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale) {
-
-				new Request.PATCH ("/api/v1/accounts/update_credentials")
-					.with_account (accounts.active)
-					.with_form_data ("source[language]", new_lang)
-					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						var updated = API.Account.from (node);
-
-						settings.default_language = updated.source.language;
-					})
-					.exec ();
+				update_credentials_language_real.begin (new_lang);
 			}
 		}
 
-		if (privacy_changed && settings.default_post_visibility != "direct") {
-			new Request.PATCH ("/api/v1/accounts/update_credentials")
-				.with_account (accounts.active)
-				.with_form_data ("source[privacy]", settings.default_post_visibility)
-				.exec ();
+		if (
+			(privacy_changed && settings.default_post_visibility != "direct")
+			|| quote_policy_changed
+		) {
+			update_credentials_privacy_real.begin (
+				settings.default_post_visibility,
+				quote_policy_changed ? settings.default_quote_policy : null
+			);
 		}
 
 		if (default_content_type_combo_row.visible)

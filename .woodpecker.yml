@@ -1,0 +1,17 @@
+when:
+  - event: pull_request
+  - event: push
+    branch: main
+
+steps:
+  lint:
+    image: valalang/lint:latest
+    commands:
+      - io.elementary.vala-lint -c vala-lint.conf || exit 1
+
+  build:
+    depends_on: [lint]
+    image: alpine:edge
+    commands:
+      - apk add --no-cache meson vala glib-dev gtk4.0-dev json-glib-dev libadwaita-dev libsoup3-dev desktop-file-utils gettext-dev make build-base git libsecret-dev glycin-image-rs libgee-dev gtksourceview5-dev icu-libs libspelling-dev libxml2-dev
+      - make build && meson test -C builddir

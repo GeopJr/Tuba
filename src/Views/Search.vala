@@ -17,7 +17,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		construct {
 			this.spacing = 9;
 			this.orientation = Gtk.Orientation.HORIZONTAL;
-			this.add_css_class ("search");
+			this.css_classes = {"search", "rounded"};
 
 			entry = new Gtk.Text () {
 				width_chars = 25,
@@ -45,7 +45,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 			advanced_search.clicked.connect (open_advanced_search_dialog);
 			clear_search_button.clicked.connect (on_clear_entry);
 
-			this.append (new Gtk.Image.from_icon_name ("system-search-symbolic"));
+			this.append (new Gtk.Image.from_icon_name ("tuba-loupe-large-symbolic"));
 			this.append (entry);
 			this.append (clear_search_button);
 			this.append (advanced_search);
@@ -70,6 +70,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		private void on_entry_change () {
 			bool can_clear = entry.text != "";
 
+			clear_search_button.can_target =
 			clear_search_button.sensitive = can_clear;
 			clear_search_button.opacity = can_clear ? 1.0f : 0.0f;
 		}
@@ -83,10 +84,12 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	Views.ContentBase accounts_tab;
 	Views.ContentBase statuses_tab;
 	Views.ContentBase hashtags_tab;
+	Views.ContentBase? collections_tab = null;
 
 	construct {
 		this.uid = 1;
 
+		// translators: can be a view title or a button tooltip; either noun or verb will do
 		label = _("Search");
 		this.empty_timeline_icon = "system-search";
 		this.empty_state_title = _("Search");
@@ -114,8 +117,12 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		statuses_tab = add_list_tab (_("Posts"), "tuba-chat-symbolic", _("No Results"));
 		hashtags_tab = add_list_tab (_("Hashtags"), "tuba-hashtag-symbolic", _("No Results"));
 
+		if (accounts.active.tuba_api_versions.mastodon >= 10) {
+			collections_tab = add_list_tab (_("Collections"), "tuba-shapes-symbolic", _("No Results"));
+		}
+
 		uint timeout = 0;
-		timeout = Timeout.add (200, () => {
+		timeout = Timeout.add (510, () => {
 			entry.gather_focus ();
 			GLib.Source.remove (timeout);
 
@@ -149,11 +156,69 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		}
 	}
 
+	// TODO: replace all actionsrow widgetizables with this
+	public class OpenableRow : Adw.ActionRow {
+		public signal void open ();
+	}
+
+	public class SearchHistoryRow : Entity, Widgetizable {
+		public string title { get; set; }
+		public signal void remove_me (string title);
+		public signal void open_me (string title);
+
+		public SearchHistoryRow (string title) {
+			this.title = title;
+		}
+
+		public override Gtk.Widget to_widget () {
+			var row = new OpenableRow () {
+				title = this.title,
+				use_markup = false,
+				activatable = true
+			};
+			row.open.connect (open);
+
+			var remove_btn = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+				tooltip_text = _("Remove"),
+				valign = Gtk.Align.CENTER,
+				halign = Gtk.Align.CENTER,
+				css_classes = { "flat", "circular", "error" }
+			};
+			remove_btn.clicked.connect (on_remove_me);
+
+			row.add_suffix (remove_btn);
+
+			return row;
+		}
+
+		private void open () {
+			open_me (this.title);
+		}
+
+		private void on_remove_me () {
+			remove_me (this.title);
+		}
+	}
+
+	private bool populate_with_recents () {
+		if (settings.recent_searches.length == 0) return false;
+
+		foreach (var recent_query in settings.recent_searches) {
+			var row = new SearchHistoryRow (recent_query);
+			row.open_me.connect (on_asd_result);
+			row.remove_me.connect (on_remove_recent);
+
+			append_entity (all_tab, row);
+		}
+
+		return true;
+	}
+
 	void request () {
 		this.query = entry.text.chug ().chomp ();
 		if (this.query == "") {
 			clear ();
-			base_status = new StatusMessage ();
+			base_status = populate_with_recents () ? null : new StatusMessage ();
 			return;
 		}
 
@@ -169,15 +234,48 @@ public class Tuba.Views.Search : Views.TabbedBase {
 				append_results (results.accounts, accounts_tab);
 				if (!hashtag) append_results (results.hashtags, hashtags_tab);
 				append_results (results.statuses, statuses_tab);
+				if (collections_tab != null && results.collections != null) append_results (results.collections, collections_tab);
 
+				update_recents (query);
 				base_status = new StatusMessage ();
 
 				on_content_changed ();
-			}
-			catch (Error e) {
+			} catch (Error e) {
 				on_error (-1, e.message);
 			}
 		});
+	}
+
+	const int MAX_RECENTS = 12;
+	private void update_recents (string query) {
+		string[] res = {query};
+
+		if (query in settings.recent_searches) {
+			foreach (var old_query in settings.recent_searches) {
+				if (old_query != query) res += old_query;
+			}
+		} else {
+			// remove last one
+			for (int i = 0; i < (settings.recent_searches.length < MAX_RECENTS ? settings.recent_searches.length : MAX_RECENTS - 1); i++) {
+				res += settings.recent_searches[i];
+			}
+		}
+
+		settings.recent_searches = res;
+	}
+
+	private void on_remove_recent (SearchHistoryRow row, string query) {
+		string[] res = {};
+
+		foreach (var old_query in settings.recent_searches) {
+			if (old_query != query) res += old_query;
+		}
+
+		settings.recent_searches = res;
+
+		uint indx;
+		if (all_tab.model.find (row, out indx)) all_tab.model.remove (indx);
+		if (all_tab.model.get_n_items () == 0) base_status = new StatusMessage ();
 	}
 
 	GLib.Regex? search_query_regex = null;
@@ -209,12 +307,123 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/advanced_search.ui")]
 	private class AdvancedSearchDialog : Adw.Dialog {
+		// Basically a copy of the HashtagGroup tag search popover
+		// maybe make a generic one
+		public class AccountSearchPopover : Gtk.Popover {
+			public signal void account_picked (string account);
+			public signal void errored (string error_msg);
+			Gtk.SearchEntry entry;
+			Gtk.ListBox result_box;
+			Gtk.ScrolledWindow sw;
+
+			construct {
+				this.add_css_class ("emoji-picker");
+				result_box = new Gtk.ListBox () {
+					margin_end = 6,
+					margin_bottom = 6,
+					margin_start = 6,
+					selection_mode = NONE
+				};
+				result_box.row_activated.connect (on_account_chosen);
+
+				sw = new Gtk.ScrolledWindow () {
+					max_content_width = 360,
+					propagate_natural_height = true,
+					child = result_box,
+					visible = false
+				};
+
+				var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+				content_box.append (sw);
+				this.child = content_box;
+
+				entry = new Gtk.SearchEntry () {
+					//  text = query,
+					hexpand = true,
+					placeholder_text = "@GTK@floss.social",
+					search_delay = 300
+				};
+
+				var entry_bin = new Adw.Bin () {
+					css_classes = { "emoji-searchbar" },
+					child = entry
+				};
+				content_box.prepend (entry_bin);
+
+				entry.activate.connect (search);
+				entry.search_changed.connect (search);
+				entry.stop_search.connect (on_close);
+			}
+
+			protected void on_close () {
+				this.popdown ();
+			}
+
+			private void search () {
+				search_real.begin (entry.text.strip ());
+			}
+
+			RequestV2? last_req = null;
+			private async void search_real (string query) {
+				result_box.remove_all ();
+				sw.visible = false;
+
+				if (last_req != null) {
+					last_req.cancellable.cancel ();
+					last_req = null;
+				}
+				if (query == "") return;
+				try {
+					last_req = API.Account.search (query);
+					var in_stream = yield last_req.exec (null);
+					if (last_req == null || last_req.cancellable.is_cancelled ()) return;
+
+					Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+
+					int i = 0;
+					Network.parse_array (parser, node => {
+						var widget = new Widgets.AccountRow (API.Account.from (node), false) {
+							css_classes = {"border-radius-6"}
+						};
+						widget.activatable = true;
+						result_box.append (widget);
+						i += 1;
+						if (i < 4) return;
+					});
+
+					sw.visible = i > 0;
+					if (i > 0) {
+						var row = result_box.get_row_at_index (0);
+						if (row != null) row.grab_focus ();
+					}
+				} catch (GLib.IOError.CANCELLED e) {
+					debug ("Message is cancelled.");
+				} catch (Error e) {
+					errored (e.message);
+					warning (@"Couldn't search account $query: $(e.code) $(e.message)");
+				}
+
+				last_req = null;
+			}
+
+			protected void on_account_chosen (Gtk.ListBoxRow row) {
+				on_close ();
+
+				account_picked (((Widgets.AccountRow) row).account.full_handle);
+			}
+
+			public override void show () {
+				base.show ();
+				entry.grab_focus ();
+			}
+		}
+
 		[GtkChild] unowned Gtk.ListBox main_list;
 
 		[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 		[GtkChild] unowned Adw.EntryRow query_row;
 		[GtkChild] unowned Adw.EntryRow user_row;
-		[GtkChild] unowned Gtk.Button auto_fill_users_button;
+		[GtkChild] unowned Gtk.MenuButton acc_search_button;
 		[GtkChild] unowned Adw.SwitchRow reply_switch_row;
 		[GtkChild] unowned Adw.SwitchRow cw_switch_row;
 
@@ -242,6 +451,11 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		private Gtk.DropDown lang_dropdown;
 		private Gtk.Switch lang_switch;
 		construct {
+			var acc_search = new AccountSearchPopover ();
+			acc_search_button.popover = acc_search;
+			acc_search.account_picked.connect (on_account_picked);
+			acc_search.errored.connect (on_account_errored);
+
 			before_calendar.remove_css_class ("view");
 			during_calendar.remove_css_class ("view");
 			after_calendar.remove_css_class ("view");
@@ -256,7 +470,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 			};
 
 			lang_dropdown = new Gtk.DropDown (app.app_locales.list_store, null) {
-				expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "name"),
+				expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "en-name"),
 				factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
 				list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
 				enable_search = true,
@@ -268,6 +482,16 @@ public class Tuba.Views.Search : Views.TabbedBase {
 			lang_row.add_suffix (lang_dropdown);
 
 			lang_switch.bind_property ("active", lang_dropdown, "sensitive", GLib.BindingFlags.SYNC_CREATE);
+		}
+
+		private void on_account_picked (string acc) {
+			user_row.text = acc;
+		}
+
+		private void on_account_errored (string msg) {
+			toast_overlay.add_toast (new Adw.Toast (msg) {
+				timeout = 5
+			});
 		}
 
 		public AdvancedSearchDialog (string? from_query = null) {
@@ -332,9 +556,9 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 									if (year > 0 && month > 0 && day > 0) {
 										before_expander_row.expanded = true;
-										before_calendar.year = year;
-										before_calendar.month = month;
-										before_calendar.day = day;
+										before_calendar.set_year (year);
+										before_calendar.set_month (month);
+										before_calendar.set_day (day);
 									}
 								}
 							} else if (down_word.has_prefix ("during:")) {
@@ -347,9 +571,9 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 									if (year > 0 && month > 0 && day > 0) {
 										during_expander_row.expanded = true;
-										during_calendar.year = year;
-										during_calendar.month = month;
-										during_calendar.day = day;
+										during_calendar.set_year (year);
+										during_calendar.set_month (month);
+										during_calendar.set_day (day);
 									}
 								}
 							} else if (down_word.has_prefix ("after:")) {
@@ -362,9 +586,9 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 									if (year > 0 && month > 0 && day > 0) {
 										after_expander_row.expanded = true;
-										after_calendar.year = year;
-										after_calendar.month = month;
-										after_calendar.day = day;
+										after_calendar.set_year (year);
+										after_calendar.set_month (month);
+										after_calendar.set_day (day);
 									}
 								}
 							} else {
@@ -376,45 +600,6 @@ public class Tuba.Views.Search : Views.TabbedBase {
 					query_row.text = string.joinv (" ", clean_query);
 				}
 			}
-		}
-
-		[GtkCallback] void on_user_row_changed () {
-			auto_fill_users_button.visible = user_row.text.length > 0;
-		}
-
-		[GtkCallback] void on_search_users_clicked () {
-			string user_query = user_row.text.chug ().chomp ();
-			if (user_query == "") return;
-
-			auto_fill_users_button.sensitive = false;
-			new Request.GET ("/api/v2/search")
-				.with_account (accounts.active)
-				.with_param ("q", user_query)
-				.with_param ("type", "accounts")
-				.with_param ("exclude_unreviewed", "true")
-				.with_param ("limit", "1")
-				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
-					var search_results = API.SearchResults.from (network.parse_node (parser));
-
-					if (search_results.accounts.size > 0) {
-						user_row.text = search_results.accounts.get (0).full_handle;
-					}
-
-					auto_fill_users_button.sensitive = true;
-				})
-				.on_error ((code, message) => {
-					auto_fill_users_button.sensitive = true;
-					// translators: warning toast in advanced search dialog when auto-filling a user fails.
-					// 				Auto-fill refers to automatically filling the entry with the first
-					//				found user based on the query.
-					toast_overlay.add_toast (new Adw.Toast (_("Couldn't auto-fill user: %s").printf (message)) {
-						timeout = 5
-					});
-
-					warning (@"Couldn't auto-fill user with $user_query: $code $message");
-				})
-				.exec ();
 		}
 
 		[GtkCallback] void on_search () {

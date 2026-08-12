@@ -29,6 +29,11 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	//  	}
 	//  }
 
+	public bool ellipsize {
+		get { return widget.ellipsize; }
+		set { widget.ellipsize = value; }
+	}
+
 	public bool use_markup {
 		get { return widget.use_markup; }
 		set { widget.use_markup = value; }
@@ -92,6 +97,8 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		if (text != null) this.label = text;
 	}
 
+	public bool can_open { get; set; default = true; }
+
 	static construct {
 		set_accessible_role (Gtk.AccessibleRole.LABEL);
 	}
@@ -117,8 +124,9 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	}
 
 	public bool on_activate_link (string url) {
-		widget.grab_focus ();
+		if (!can_open) return true;
 
+		widget.grab_focus ();
 		if (mentions != null) {
 			bool found = false;
 			mentions.@foreach (mention => {
@@ -159,7 +167,7 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			warning (@"Failed to parse \"$url\": $(e.message)");
 		}
 
-		if (should_resolve_url (url)) {
+		if (should_resolve (uri, url)) {
 			accounts.active.resolve.begin (url, (obj, res) => {
 				try {
 					accounts.active.resolve.end (res).open ();
@@ -195,10 +203,26 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		}
 	}
 
+	public inline static bool should_resolve (GLib.Uri? uri, string url) {
+		return uri != null ? should_resolve_uri (uri) : should_resolve_url (url);
+	}
+
 	public static bool should_resolve_url (string url) {
 		return settings.aggressive_resolving
 			|| url.index_of_char ('@') != -1
-			|| "/user" in url;
+			|| "/users/" in url
+			|| "/notes/" in url
+			|| "/notice/" in url;
+	}
+
+	public static bool should_resolve_uri (GLib.Uri uri) {
+		if (settings.aggressive_resolving) return true;
+
+		string path = uri.get_path ();
+		return path.has_prefix ("/@")
+			|| path.has_prefix ("/users/")
+			|| path.has_prefix ("/notes/")
+			|| path.has_prefix ("/notice/");
 	}
 
 	#if WEBKIT

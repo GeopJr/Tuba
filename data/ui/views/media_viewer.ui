@@ -11,10 +11,12 @@
 			<attribute name="action">mediaviewer.copy-url</attribute>
 		</item>
 		<item>
+			<!-- translators: save image/video/music/attachment locally; will show destination picker -->
 			<attribute name="label" translatable="yes">Save Media…</attribute>
 			<attribute name="action">mediaviewer.save-as</attribute>
 		</item>
 		<item>
+			<!-- translators: copy image/attachment to clipboard -->
 			<attribute name="label" translatable="yes">Copy Media</attribute>
 			<attribute name="action">mediaviewer.copy-media</attribute>
 			<attribute name="hidden-when">action-disabled</attribute>
@@ -87,16 +89,17 @@
 										<property name="child">
 											<object class="GtkBox">
 												<property name="orientation">horizontal</property>
-												<property name="spacing">12</property>
+												<property name="spacing">6</property>
+												<style>
+													<class name="osd-box" />
+												</style>
 												<child>
 													<object class="GtkButton" id="prev_btn">
 														<property name="icon-name">go-previous-symbolic</property>
 														<property name="tooltip-text" translatable="yes">Previous Attachment</property>
 														<signal name="clicked" handler="on_previous_clicked" swapped="no" />
 														<style>
-															<class name="osd" />
-															<class name="media-viewer-fab" />
-															<class name="circular" />
+															<class name="flat" />
 														</style>
 													</object>
 												</child>
@@ -106,9 +109,7 @@
 														<property name="tooltip-text" translatable="yes">Next Attachment</property>
 														<signal name="clicked" handler="on_next_clicked" swapped="no" />
 														<style>
-															<class name="osd" />
-															<class name="media-viewer-fab" />
-															<class name="circular" />
+															<class name="flat" />
 														</style>
 													</object>
 												</child>
@@ -133,7 +134,7 @@
 												<signal name="clicked" handler="toggle_fullscreen" swapped="no" />
 												<style>
 													<class name="osd" />
-													<class name="media-viewer-fab" />
+													<class name="min-size-42" />
 													<class name="circular" />
 												</style>
 											</object>
@@ -153,28 +154,57 @@
 										<property name="child">
 											<object class="GtkBox">
 												<property name="orientation">horizontal</property>
-												<property name="spacing">12</property>
+												<property name="spacing">0</property>
+												<style>
+													<class name="osd-box" />
+												</style>
 												<child>
-													<object class="GtkButton" id="zoom_out_btn">
-														<property name="icon-name">zoom-out-symbolic</property>
-														<property name="tooltip-text" translatable="yes">Zoom Out</property>
-														<signal name="clicked" handler="on_zoom_out_clicked" swapped="no" />
-														<style>
-															<class name="osd" />
-															<class name="media-viewer-fab" />
-															<class name="circular" />
-														</style>
+													<object class="GtkRevealer">
+														<property name="overflow">visible</property>
+														<property name="transition_type">slide-left</property>
+														<property name="reveal-child">0</property>
+														<property name="reveal-child" bind-source="toggle_zoom_btn" bind-property="active" bind-flags="sync-create" />
+														<property name="child">
+															<object class="GtkBox">
+																<property name="orientation">horizontal</property>
+																<property name="spacing">6</property>
+																<property name="margin-end">6</property>
+																<child>
+																	<object class="GtkButton" id="zoom_out_btn">
+																		<property name="icon-name">zoom-out-symbolic</property>
+																		<property name="sensitive">0</property>
+																		<property name="tooltip-text" translatable="yes">Zoom Out</property>
+																		<signal name="clicked" handler="on_zoom_out_clicked" swapped="no" />
+																		<style>
+																			<class name="flat" />
+																		</style>
+																	</object>
+																</child>
+																<child>
+																	<object class="GtkButton" id="zoom_in_btn">
+																		<property name="icon-name">zoom-in-symbolic</property>
+																		<property name="tooltip-text" translatable="yes">Zoom In</property>
+																		<signal name="clicked" handler="on_zoom_in_clicked" swapped="no" />
+																		<style>
+																			<class name="flat" />
+																		</style>
+																	</object>
+																</child>
+
+															</object>
+														</property>
 													</object>
 												</child>
 												<child>
-													<object class="GtkButton" id="zoom_in_btn">
-														<property name="icon-name">zoom-in-symbolic</property>
-														<property name="tooltip-text" translatable="yes">Zoom In</property>
-														<signal name="clicked" handler="on_zoom_in_clicked" swapped="no" />
+													<object class="GtkToggleButton" id="toggle_zoom_btn">
+														<property name="icon-name">tuba-zoom-symbolic</property>
+														<!-- translators: button tooltip, when clicked it toggles between zooming in and resetting the zoom level -->
+														<property name="tooltip-text" translatable="yes">Toggle Zoom</property>
+														<property name="active">0</property>
+														<property name="active" bind-source="zoom_out_btn" bind-property="sensitive" bind-flags="sync-create" />
+														<signal name="clicked" handler="on_zoom_btn_clicked" swapped="no" />
 														<style>
-															<class name="osd" />
-															<class name="media-viewer-fab" />
-															<class name="circular" />
+															<class name="flat" />
 														</style>
 													</object>
 												</child>

@@ -81,13 +81,13 @@ public class Tuba.Views.Admin.Timeline.PaginationTimeline : Gtk.Box {
 	private void on_next () {
 		first_page = false;
 		url = page_next;
-		request_idle ();
+		request.begin ();
 	}
 
 	private void on_prev () {
 		first_page = false;
 		url = page_prev;
-		request_idle ();
+		request.begin ();
 	}
 
 	bool first_page = true;
@@ -112,43 +112,43 @@ public class Tuba.Views.Admin.Timeline.PaginationTimeline : Gtk.Box {
 		}
 	}
 
-	public void request_idle () {
-		GLib.Idle.add (request);
-	}
-
 	public void reset (string new_url) {
 		this.url = new_url;
 		first_page = true;
-		request_idle ();
+		request.begin ();
 	}
 
-	public virtual bool request () {
-		if (accepts == Type.NONE) return GLib.Source.REMOVE;
+	public async virtual void request () {
+		if (accepts == Type.NONE) return;
 		next_button.sensitive = prev_button.sensitive = false;
-
 		this.working = true;
-		new Request.GET (url)
-			.with_account (accounts.active)
-			.with_ctx (this)
-			.with_extra_data (Tuba.Network.ExtraData.RESPONSE_HEADERS)
-			.then ((in_stream, headers) => {
-				content.remove_all ();
-				var parser = Network.get_parser_from_inputstream (in_stream);
 
-				Network.parse_array (parser, node => {
-					content.append (on_create_model_widget (Tuba.Helper.Entity.from_json (node, accepts)));
-				});
+		var req = new RequestV2 (url) {
+			account = accounts.active,
+			ctx = this
+		};
 
-				this.working = false;
-				if (headers != null)
-					get_pages (headers.get_one ("Link"));
-			})
-			.on_error ((code, message) => {
-				on_error (code, message);
-			})
-			.exec ();
+		GLib.InputStream in_stream;
+		Soup.MessageHeaders response_headers;
 
-		return GLib.Source.REMOVE;
+		try {
+			in_stream = yield req.exec (out response_headers);
+
+			content.remove_all ();
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+
+			Network.parse_array (parser, node => {
+				content.append (on_create_model_widget (Tuba.Helper.Entity.from_json (node, accepts)));
+			});
+			this.working = false;
+
+			if (response_headers != null)
+				get_pages (response_headers.get_one ("Link"));
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (GLib.Error e) {
+			on_error (e.code, e.message);
+		}
 	}
 
 	public virtual Gtk.Widget on_create_model_widget (Object obj) {

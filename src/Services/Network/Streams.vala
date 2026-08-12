@@ -1,4 +1,4 @@
-public class Tuba.Streams : Object {
+public class Tuba.Streams : Object { // we really should decouple streams from streamables
 
 	protected HashTable<string, Connection> connections {
 		get;
@@ -43,6 +43,13 @@ public class Tuba.Streams : Object {
 		}
 	}
 
+	public void force_reconnect (string? url) {
+		if (url == null) return;
+		if (connections.contains (url)) {
+			connections[url].force_reconnect ();
+		}
+	}
+
 	// public void force_delete (string id) {
 	// 	connections.get_values ().@foreach (c => {
 	// 		c.subscribers.@foreach (s => {
@@ -72,24 +79,43 @@ public class Tuba.Streams : Object {
 			this.url = url;
 		}
 
+		public void force_reconnect () {
+			on_closed ();
+		}
+
 		public bool start () {
 			debug (@"Opening stream: $name");
-			network.session.websocket_connect_async.begin (new Soup.Message ("GET", url), null, null, 0, null, (obj, res) => {
-				try {
-					socket = network.session.websocket_connect_async.end (res);
-					socket.keepalive_interval = 30;
-
-					socket.error.connect (on_error);
-					socket.closed.connect (on_closed);
-					socket.message.connect (on_message);
-				} catch (Error e) {
-					warning (@"Error opening stream: $(e.message)");
-					if (e.matches (Quark.from_string ("g-tls-error-quark"), 3) || e.matches (Quark.from_string ("g-io-error-quark"), 44)) {
-						on_closed ();
-					}
-				}
-			});
+			start_real.begin ();
 			return false;
+		}
+
+		GLib.Cancellable? socket_cancellable = null;
+		private async void start_real () {
+			if (socket_cancellable != null) socket_cancellable.cancel ();
+			socket_cancellable = new GLib.Cancellable ();
+
+			if (socket != null) {
+				socket.error.disconnect (on_error);
+				socket.closed.disconnect (on_closed);
+				socket.message.disconnect (on_message);
+			}
+
+			try {
+				socket = yield network.session.websocket_connect_async (
+					new Soup.Message ("GET", url),
+					null, null, 0, socket_cancellable
+				);
+				socket.keepalive_interval = 30;
+
+				socket.error.connect (on_error);
+				socket.closed.connect (on_closed);
+				socket.message.connect (on_message);
+			} catch (Error e) {
+				warning (@"Error opening stream: $(e.message)");
+				if (e.matches (Quark.from_string ("g-tls-error-quark"), 3) || e.matches (Quark.from_string ("g-io-error-quark"), 44)) {
+					on_closed ();
+				}
+			}
 		}
 
 		public void add (Streamable s) {
@@ -121,6 +147,12 @@ public class Tuba.Streams : Object {
 		}
 
 		void on_closed () {
+			if (socket != null) {
+				socket.error.disconnect (on_error);
+				socket.closed.disconnect (on_closed);
+				socket.message.disconnect (on_message);
+			}
+
 			socket = null;
 			if (!closing) {
 				warning (@"DISCONNECTED: $name. Reconnecting in $timeout seconds.");
@@ -163,6 +195,30 @@ public class Tuba.Streams : Object {
 			event.payload = obj.get_member ("payload");
 		}
 
+		public void upgrade (string new_url) {
+			try {
+				var uri = GLib.Uri.parse (url, GLib.UriFlags.NONE);
+				var new_uri = GLib.Uri.parse (new_url, GLib.UriFlags.NONE);
+				url = GLib.Uri.build (
+					uri.get_flags (),
+					new_uri.get_scheme (),
+					new_uri.get_userinfo (),
+					new_uri.get_host (),
+					new_uri.get_port (),
+					uri.get_path (),
+					uri.get_query (),
+					uri.get_fragment ()
+				).to_string ();
+				if (socket != null) socket.close (0, null);
+			} catch (Error e) {
+				warning (@"Error while upgrading $url to $new_url: $(e.code) $(e.message)");
+			}
+		}
 	}
 
+	public void upgrade (string old_url, string new_url) {
+		connections.foreach ((key, val) => {
+			if (key.has_prefix (@"$old_url/")) val.upgrade (new_url);
+		});
+	}
 }

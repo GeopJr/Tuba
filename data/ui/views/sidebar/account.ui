@@ -9,9 +9,11 @@
 
 		<child type="prefix">
 			<object class="GtkOverlay">
+				<property name="valign">center</property>
 				<child>
 					<object class="TubaWidgetsAvatar" id="avatar">
 						<property name="size">42</property>
+						<property name="valign">center</property>
 						<property name="tooltip-text">View Profile</property>
 						<property name="retry-on-network-changes">1</property>
 						<signal name="clicked" handler="on_open" />
@@ -26,6 +28,7 @@
 						<property name="pixel-size">11</property>
 						<style>
 							<class name="blue-checkmark" />
+							<class name="tuba-circular" />
 						</style>
 					</object>
 				</child>
@@ -49,7 +52,7 @@
 				<property name="icon-name">user-trash-symbolic</property>
 				<property name="valign">center</property>
 				<property name="margin-start">6</property>
-				<!-- translators: Forget as in 'Remove Account' -->
+				<!-- translators: Forget as in 'Remove Account'; used as a label or tooltip when the user wants to remove their account from Tuba -->
 				<property name="tooltip-text" translatable="yes">Forget Account</property>
 				<signal name="clicked" handler="on_forget" swapped="no" />
 				<style>

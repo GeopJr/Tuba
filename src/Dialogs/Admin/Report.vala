@@ -5,6 +5,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 	Gtk.Button take_action_button;
 	Gtk.Button resolve_button;
 	construct {
+		// translators: noun; report as in report someone to the server admins
 		this.title = _("Report");
 		this.content_width = 460;
 		this.content_height = 560;
@@ -16,7 +17,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 		this.close_attempt.connect (on_close);
 	}
 
-	private void on_action (string title, string suggested_label, string endpoint) {
+	private async void on_action (string title, string suggested_label, string endpoint) {
 		var dlg = new Adw.AlertDialog (title, null);
 
 		dlg.add_response ("no", _("Cancel"));
@@ -24,27 +25,24 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 
 		dlg.add_response ("yes", suggested_label);
 		dlg.set_response_appearance ("yes", Adw.ResponseAppearance.SUGGESTED);
-		dlg.choose.begin (this, null, (obj, res) => {
-			if (dlg.choose.end (res) == "yes") {
-				resolve_button.sensitive = false;
-				new Request.POST (@"/api/v1/admin/reports/$report_id/$endpoint")
-					.with_account (accounts.active)
-					.then (() => {
-						should_refresh = true;
-						on_close ();
-					})
-					.on_error ((code, message) => {
-						warning (@"Error trying to $endpoint report $report_id: $message $code");
-						add_toast (@"$message $code");
-						resolve_button.sensitive = true;
-					})
-					.exec ();
+
+		if ((yield dlg.choose (this, null)) == "yes") {
+			resolve_button.sensitive = false;
+			var req = new RequestV2 (@"/api/v1/admin/reports/$report_id/$endpoint", POST) { account = accounts.active };
+			try {
+				yield req.exec (null);
+				should_refresh = true;
+				on_close ();
+			} catch (Error e) {
+				warning (@"Error trying to $endpoint report $report_id: $(e.message) $(e.code)");
+				add_toast (@"$(e.message) $(e.code)");
+				resolve_button.sensitive = true;
 			}
-		});
+		}
 	}
 
 	private void on_resolve () {
-		on_action (
+		on_action.begin (
 			// translators: Question dialog when an admin is about to
 			//				mark a report as resolved
 			_("Mark this Report as Resolved?"),
@@ -55,7 +53,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 	}
 
 	private void on_reopen () {
-		on_action (
+		on_action.begin (
 			// translators: Question dialog when an admin is about to
 			//				reopen a report
 			_("Reopen this Report?"),
@@ -280,7 +278,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 			widget.add_css_class ("report-status");
 			widget.add_css_class ("card");
 			widget.add_css_class ("card-spacing");
-			widget.actions.visible = false;
+			widget.toggle_actions_visibility (false);
 			widget.menu_button.visible = false;
 			widget.activatable = false;
 			widget.filter_stack.can_focus = false;
@@ -299,13 +297,17 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 	}
 
 	private void update_report () {
+		update_report_async.begin ();
+	}
+
+	private async void update_report_async () {
 		string[] rule_ids = {};
 		string? category = null;
 
 		// Mastodon is broken. If you change category while there have been rules
 		// applied, it won't allow you to. Let's clear them first.
 		if (!rule_violation.active && rules_group.visible) {
-			update_report_actual (API.Admin.Report.Category.VIOLATION.to_api_string (), rule_ids);
+			yield update_report_actual (API.Admin.Report.Category.VIOLATION.to_api_string (), rule_ids);
 		}
 
 		if (rule_violation.active) {
@@ -329,10 +331,10 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 		}
 
 		if (category != null)
-			update_report_actual (category, rule_ids);
+			yield update_report_actual (category, rule_ids);
 	}
 
-	private void update_report_actual (string category, string[] rule_ids) {
+	private async void update_report_actual (string category, string[] rule_ids) {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 
@@ -349,15 +351,17 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 		builder.end_object ();
 
 		should_refresh = true;
-		new Request.PUT (@"/api/v1/admin/reports/$report_id")
-			.body_json (builder)
-			.with_account (accounts.active)
-			.on_error ((code, message) => {
-				warning (@"Error trying to update report $report_id: $message $code");
-				add_toast (@"$message $code");
-				resolve_button.sensitive = true;
-			})
-			.exec ();
+
+		var req = new RequestV2 (@"/api/v1/admin/reports/$report_id", PUT) { account = accounts.active };
+		req.set_body_from_json (builder);
+
+		try {
+			yield req.exec (null);
+		} catch (Error e) {
+			warning (@"Error trying to update report $report_id: $(e.code) $(e.message)");
+			add_toast (@"$(e.message) $(e.code)");
+			resolve_button.sensitive = true;
+		}
 	}
 
 	private void show_take_action_dialog () {

@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/main.ui")]
-public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
+public class Tuba.Dialogs.MainWindow : Adw.ApplicationWindow, Saveable {
 	[GtkChild] unowned Adw.NavigationView navigation_view;
 	[GtkChild] public unowned Adw.OverlaySplitView split_view;
 	[GtkChild] unowned Views.Sidebar sidebar;
@@ -13,6 +13,11 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	Views.Base? last_view = null;
+
+	private bool update_times () {
+		if (this.get_mapped ()) app.time_update ();
+		return GLib.Source.CONTINUE;
+	}
 
 	static construct {
 		typeof (Views.MediaViewer).ensure ();
@@ -32,16 +37,25 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		settings.notify["darken-images-on-dark-mode"].connect (settings_updated);
 
 		app.toast.connect (add_toast);
+		app.toast_object.connect (add_real_toast);
+		GLib.Timeout.add (5 * 60 * 1000, update_times, GLib.Priority.LOW);
 	}
 
 	private void settings_updated () {
 		Tuba.toggle_css (split_view, settings.darken_images_on_dark_mode, "ttl-darken-images");
 	}
 
-	private void add_toast (string content, uint timeout = 0) {
+	private void add_toast (string content, uint timeout = 0, string? action_name = null, GLib.Variant? action_target = null, string? action_label = null) {
 		toast_overlay.add_toast (new Adw.Toast (content) {
-			timeout = timeout
+			timeout = timeout,
+			action_name = action_name,
+			action_target = action_target,
+			button_label = action_label
 		});
+	}
+
+	private void add_real_toast (Adw.Toast toast) {
+		toast_overlay.add_toast (toast);
 	}
 
 	private Gtk.Widget? media_viewer_source_widget;
@@ -75,6 +89,13 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		#if !DEV_MODE
 			if (Build.PROFILE == "development") {
 				this.add_css_class ("devel");
+			}
+		#endif
+
+		//  FIX: hack for the broken font
+		#if ANDROID
+			if (!settings.enlarge_custom_emojis) {
+				this.add_css_class ("android");
 			}
 		#endif
 	}

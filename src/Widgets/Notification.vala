@@ -34,7 +34,7 @@ public class Tuba.Widgets.Notification : Widgets.Status {
 		switch (obj.kind) {
 			case InstanceAccount.KIND_FOLLOW:
 			case InstanceAccount.KIND_FOLLOW_REQUEST:
-				actions.visible = false;
+				this.toggle_actions_visibility (false);
 				visibility_indicator.visible = false;
 				date_label.visible = false;
 				break;

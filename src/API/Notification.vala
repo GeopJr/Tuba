@@ -39,6 +39,10 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		}
 	}
 
+	//  public class NotificationFallback : Entity {
+	//  	public string title { get; set; }
+	//  }
+
 	public class ModerationWarning : Entity {
 		public string id { get; set; }
 	}
@@ -53,11 +57,31 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 	public API.Admin.Report? report { get; set; default = null; }
 	public ModerationWarning? moderation_warning { get; set; default = null; }
 	public string? group_key { get; set; default = null; }
+	public API.Collection? collection { get; set; default = null; }
+	//  public NotificationFallback? fallback { get; set; default = null; }
 
 	// the docs claim that 'relationship_severance_event'
 	// is the one used but that is not true
 	public RelationshipSeveranceEvent? event { get; set; default = null; }
 	public RelationshipSeveranceEvent? relationship_severance_event { get; set; default = null; }
+
+	private async void open_annual_report (int year) {
+		var req = new RequestV2 (@"/api/v1/annual_reports/$year") { account = accounts.active };
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			API.AnnualReports.from (node).open (year);
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (Error e) {
+			warning (@"Error while opening annual report: $(e.code) $(e.message)");
+
+			var dlg = app.inform (_("Error"), e.message);
+			dlg.present (app.main_window);
+		}
+	}
 
 	public override void open () {
 		switch (kind) {
@@ -87,21 +111,23 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				} else {
 					year = new GLib.DateTime.from_iso8601 (this.created_at, null).get_year ();
 				}
-
-				new Request.GET (@"/api/v1/annual_reports/$year")
-					.with_account (accounts.active)
-					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						API.AnnualReports.from (node).open (year);
-					})
-					.exec ();
+				open_annual_report.begin (year);
+				break;
+			case InstanceAccount.KIND_COLLECTION_ADDED:
+			case InstanceAccount.KIND_COLLECTION_EDITED:
+				if (collection != null) {
+					(new Dialogs.Collection (this.collection)).present (app.main_window);
+				} else {
+					app.main_window.open_view (new Views.Collections ());
+				}
 				break;
 			default:
-				if (status != null) {
-					status.open ();
-				} else {
-					account.open ();
+				if (kind in InstanceAccount.ALL_HANDLED_NOTIFICATION_TYPES) {
+					if (status != null) {
+						status.open ();
+					} else {
+						account.open ();
+					}
 				}
 				break;
 		}
@@ -138,12 +164,47 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 						_("Review your year's highlights and memorable moments on the Fediverse!")
 					)
 				);
+			case InstanceAccount.KIND_COLLECTION_ADDED:
+				Widgets.CollectionRow? widget = null;
+				if (collection != null) {
+					widget = (Widgets.CollectionRow) collection.to_widget ();
+					widget.activatable = false;
+				}
+
+				return create_basic_card (
+					"tuba-shapes-symbolic",
+					// translators: notification title of a Mastodon Collections related event
+					_("You were added to a collection"),
+					widget
+				);
+			case InstanceAccount.KIND_COLLECTION_EDITED:
+				Widgets.CollectionRow? widget = null;
+				if (collection != null) {
+					widget = (Widgets.CollectionRow) collection.to_widget ();
+					widget.activatable = false;
+				}
+
+				return create_basic_card (
+					"tuba-shapes-symbolic",
+					// translators: notification title of a Mastodon Collections related event
+					_("A collection you are a part of was edited"),
+					widget
+				);
 			default:
-				return new Widgets.Notification (this);
+				if (kind in InstanceAccount.ALL_HANDLED_NOTIFICATION_TYPES)
+					return new Widgets.Notification (this);
+
+				return create_basic_card (
+					"tuba-lightbulb-symbolic",
+					// translators: notification title when Tuba receives a notification it
+					//				can't handle yet. The variable is the string notification
+					//				 type.
+					_("Unknown notification type: %s").printf (kind)
+				);
 		}
 	}
 
-	private Gtk.Widget create_basic_card (string icon_name, string label) {
+	private Gtk.Widget create_basic_card (string icon_name, string label, Gtk.Widget? extra_widget = null) {
 		var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 16) {
 			margin_top = 8,
 			margin_bottom = 8,
@@ -163,9 +224,18 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			hexpand = true
 		});
 
-		var row = new Widgets.ListBoxRowWrapper () {
-			child = box,
-		};
+		var row = new Widgets.ListBoxRowWrapper ();
+
+		if (extra_widget != null) {
+			var wrapper_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+			wrapper_box.append (box);
+			wrapper_box.append (extra_widget);
+			row.child = wrapper_box;
+			extra_widget.margin_start = extra_widget.margin_end = 12;
+		} else {
+			row.child = box;
+		}
+
 		row.open.connect (open);
 		return row;
 	}
@@ -175,6 +245,12 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		bool should_show_buttons = issuer == accounts.active;
 
 		var kind_actor_name = account.display_name;
+		if (kind_actor_name.length > 20) {
+			kind_actor_name = kind_actor_name.substring (0, 20).strip () + "…";
+		} else if (kind_actor_name.strip ().length == 0) {
+			kind_actor_name = account.handle;
+		}
+
 		if (others > 0) {
 			//  translators: <user> (& <amount> others) <actions>
 			//               for example: GeopJr (& 10 others) mentioned you
@@ -190,9 +266,17 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		issuer.describe_kind (kind, out res_kind, kind_actor_name, null, other_data);
 		var toast = new GLib.Notification (res_kind.description);
 		if (status != null) {
-			var body = "";
-			body += Utils.Htmlx.remove_tags (status.content);
-			toast.set_body (body);
+			if (
+				status.spoiler_text != null
+				&& status.spoiler_text != ""
+				&& !settings.show_spoilers
+			) {
+				// translators: in notifications when the notification has a spoiler/content warning
+				//				instead of the actual content
+				toast.set_body ("%s: %s".printf (_("Content Warning"), status.spoiler_text));
+			} else {
+				toast.set_body (Utils.Htmlx.remove_tags (status.content));
+			}
 		}
 
 		if (should_show_buttons) {
@@ -206,6 +290,10 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 					break;
 				case InstanceAccount.KIND_FOLLOW_REQUEST:
 					toast.set_default_action ("app.open-follow-requests");
+					break;
+				case InstanceAccount.KIND_COLLECTION_ADDED:
+				case InstanceAccount.KIND_COLLECTION_EDITED:
+					toast.set_default_action ("app.open-collections");
 					break;
 				default:
 					string var_string = account.url;

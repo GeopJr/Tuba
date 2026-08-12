@@ -93,7 +93,7 @@
 										<property name="valign">end</property>
 										<property name="margin-start">12</property>
 										<property name="margin-end">12</property>
-										<property name="size">100</property>
+										<property name="size">88</property>
 										<!-- translators: tooltip text on profile avatars. -->
 										<!--              You can replace 'Avatar' with 'Profile Picture' if needed. -->
 										<property name="tooltip-text" translatable="yes">View Avatar</property>
@@ -156,11 +156,43 @@
 										</child>
 
 										<child>
+											<object class="GtkLabel" id="our_note">
+												<property name="visible">0</property>
+												<property name="xalign">0</property>
+												<property name="wrap">1</property>
+												<property name="wrap-mode">word-char</property>
+												<style>
+													<class name="dimmed" />
+												</style>
+											</object>
+										</child>
+
+										<child>
 											<object class="GtkButton" id="moved_btn">
 												<property name="visible">0</property>
+												<!-- translators: opens someone's profile in the app -->
 												<property name="tooltip-text" translatable="yes">Open Profile</property>
 												<style>
 													<class name="warning" />
+												</style>
+											</object>
+										</child>
+
+										<child>
+											<object class="GtkButton">
+												<property name="child">
+													<object class="AdwActionRow" id="note_row">
+														<property name="visible">0</property>
+														<!-- translators: title shown above personal notes on profiles. They are private, not shared with the person the profile belongs to. -->
+														<property name="title" translatable="yes">Note (visible only to you)</property>
+													</object>
+												</property>
+												<property name="visible" bind-source="note_row" bind-property="visible" bind-flags="sync-create" />
+												<property name="can-target" bind-source="note_row" bind-property="can-target" bind-flags="sync-create" />
+												<signal name="clicked" handler="on_edit_note" swapped="no" />
+												<style>
+													<class name="card" />
+													<class name="note-row" />
 												</style>
 											</object>
 										</child>
@@ -182,6 +214,7 @@
 												<style>
 													<class name="flat" />
 													<class name="ttl-mutuals" />
+													<class name="font-small" />
 												</style>
 											</object>
 										</child>
@@ -195,34 +228,6 @@
 								</child>
 							</object>
 
-						</child>
-					</object>
-				</child>
-				<child>
-					<object class="GtkListBoxRow" id="note_row">
-						<property name="activatable">false</property>
-						<property name="visible">0</property>
-						<child>
-							<object class="GtkBox">
-								<property name="orientation">vertical</property>
-								<child>
-									<object class="AdwEntryRow" id="note_entry_row">
-										<property name="input-purpose">free-form</property>
-										<property name="title" translatable="yes">Note</property>
-										<signal name="apply" handler="on_note_apply" swapped="no" />
-									</object>
-								</child>
-								<child>
-									<object class="GtkLabel" id="note_error">
-										<property name="visible">0</property>
-										<property name="wrap">1</property>
-										<property name="wrap-mode">word-char</property>
-										<style>
-											<class name="error" />
-										</style>
-									</object>
-								</child>
-							</object>
 						</child>
 					</object>
 				</child>

@@ -1,4 +1,27 @@
 public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
+	public class FeatureApproval : Entity {
+		public string current_user { get; set; }
+		//  public Gee.ArrayList<string> automatic { get; set; }
+		//  public Gee.ArrayList<string> manual { get; set; }
+
+		//  public override Type deserialize_array_type (string prop) {
+		//  	switch (prop) {
+		//  		case "automatic":
+		//  		case "manual":
+		//  			return Type.STRING;
+		//  	}
+
+		//  	return base.deserialize_array_type (prop);
+		//  }
+
+		public bool tuba_can_invite {
+			get {
+				return this.current_user == "automatic" || this.current_user == "manual";
+			}
+		}
+	}
+
+	public bool tuba_row { get; set; default = false; }
 	public API.Relationship? tuba_rs { get; set; default=null; }
 	public GLib.Regex? tuba_search_query_regex { get; set; default = null; }
 
@@ -27,16 +50,25 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 	public string? avatar_description { get; set; default=null; }
 	public string url { get; set; }
 	public bool bot { get; set; default=false; }
+	public bool limited { get; set; default=false; }
+	public bool suspended { get; set; default=false; }
+	public bool memorial { get; set; default=false; }
+	public bool show_media { get; set; default=true; }
+	public bool show_media_replies { get; set; default=true; }
+	public bool show_featured { get; set; default=true; }
 	public string created_at { get; set; }
 	public Gee.ArrayList<API.Emoji>? emojis { get; set; }
 	public int64 followers_count { get; set; }
 	public int64 following_count { get; set; }
 	public int64 statuses_count { get; set; }
+	public string? last_status_at { get; set; default=null; }
 	public Gee.ArrayList<API.AccountRole>? roles { get; set; default = null; }
 	public Gee.ArrayList<API.AccountField>? fields { get; set; default = null; }
 	public AccountSource? source { get; set; default = null; }
 	public API.AccountRole? role { get; set; default = null; }
 	public API.Account? moved { get; set; default = null; }
+	public bool hide_collections { get; set; default = false; }
+	public FeatureApproval? feature_approval { get; set; default = null; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
@@ -96,12 +128,12 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 		return Entity.from_json (typeof (API.Account), node) as API.Account;
 	}
 
-	public static Request search (string query) throws Error {
-		return new Request.GET ("/api/v1/accounts/search")
-			.with_account (accounts.active)
-			.with_param ("q", query)
-			.with_param ("resolve", "false")
-			.with_param ("limit", "4");
+	public static RequestV2 search (string query) throws Error {
+		var req = new RequestV2 ("/api/v1/accounts/search") { account = accounts.active };
+		req.add_parameter ("q", query);
+		req.add_parameter ("resolve", "false");
+		req.add_parameter ("limit", "4");
+		return req;
 	}
 
 	public bool is_self () {
@@ -113,6 +145,14 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 	}
 
 	public override Gtk.Widget to_widget () {
+		if (this.tuba_row) {
+			var widg = new Widgets.AccountRow (this, false);
+			widg.add_rs_button (true);
+			widg.enable_activation ();
+			widg.add_followers_and_verified_link ();
+			widg.add_note ();
+			return widg;
+		}
 		return new Widgets.Account (this);
 	}
 
@@ -135,13 +175,11 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 		}
 	}
 
-	public Request accept_follow_request () {
-		return new Request.POST (@"/api/v1/follow_requests/$id/authorize")
-			.with_account (accounts.active);
+	public RequestV2 accept_follow_request () {
+		return new RequestV2 (@"/api/v1/follow_requests/$id/authorize", POST) { account = accounts.active };
 	}
 
-	public Request decline_follow_request () {
-		return new Request.POST (@"/api/v1/follow_requests/$id/reject")
-			.with_account (accounts.active);
+	public RequestV2 decline_follow_request () {
+		return new RequestV2 (@"/api/v1/follow_requests/$id/reject", POST) { account = accounts.active };
 	}
 }

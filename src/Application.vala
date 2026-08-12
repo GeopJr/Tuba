@@ -3,7 +3,16 @@ namespace Tuba {
 		USER,
 		PARSING,
 		INSTANCE,
-		INTERNAL
+		INTERNAL,
+
+		HTTP_401 = 401,
+		HTTP_403 = 403,
+		HTTP_404 = 404,
+		HTTP_410 = 410,
+		HTTP_422 = 422,
+		HTTP_429 = 429,
+		HTTP_500 = 500,
+		HTTP_503 = 503
 	}
 
 	public static Application app;
@@ -24,10 +33,20 @@ namespace Tuba {
 	public static bool is_rtl;
 
 	public static bool start_hidden = false;
+	#if UNIFIEDPUSH
+		public static bool up_bg = false;
+		public static bool up_distributor_found = true;
+	#endif
 	public static bool is_flatpak = false;
+	public static bool should_blur_sensitive_media = true;
 	public static string cache_path;
 
 	public static string default_locale;
+
+	#if ANDROID
+		[CCode (cname = "g_io_openssl_load")]
+		extern void g_io_openssl_load (GLib.IOModule? module);
+	#endif
 
 	public class Application : Adw.Application {
 
@@ -38,6 +57,9 @@ namespace Tuba {
 		public bool is_online { get; private set; default=true; }
 
 		public Utils.Locales app_locales { get; construct set; }
+		#if UNIFIEDPUSH
+			public UnifiedPush.UnifiedPush unifiedpush { get; construct set; }
+		#endif
 
 		// These are used for the GTK Inspector
 		public Settings app_settings { get {return Tuba.settings; } }
@@ -47,20 +69,26 @@ namespace Tuba {
 
 		public signal void refresh ();
 		public signal void refresh_scheduled_statuses ();
+		public signal void refresh_featured ();
+		public signal void remove_status_widget (string id);
 		public signal void relationship_invalidated (API.Relationship new_relationship);
 		public signal void remove_user_id (string user_id);
-		public signal void toast (string title, uint timeout = 5);
+		public signal void fav_tags_changed (string tag);
+		public signal void time_update ();
+		public signal void toast (string title, uint timeout = 5, string? action_name = null, GLib.Variant? action_target = null, string? action_label = null);
+		public signal void toast_object (Adw.Toast toast_obj);
 
 		#if DEV_MODE
 			public signal void dev_new_post (Json.Node node);
 			public signal void dev_new_notification (Json.Node node);
 		#endif
 
-		//  public CssProvider css_provider = new CssProvider ();
-		//  public CssProvider zoom_css_provider = new CssProvider (); //FIXME: Zoom not working
-
 		public const GLib.OptionEntry[] APP_OPTIONS = {
-			{ "hidden", 0, 0, OptionArg.NONE, ref start_hidden, "Do not show main window on start", null },
+			{ "hidden", 0, 0, OptionArg.NONE, ref start_hidden, N_("Do not show main window on start"), null
+			#if UNIFIEDPUSH
+				}, { "unifiedpush-bg", 0, GLib.OptionFlags.HIDDEN, OptionArg.NONE, ref up_bg, "UnifiedPush background service", null
+			#endif
+			},
 			{ null }
 		};
 
@@ -93,7 +121,12 @@ namespace Tuba {
 			{ "open-scheduled-posts", open_scheduled_posts },
 			{ "open-draft-posts", open_draft_posts },
 			{ "open-admin-dashboard", open_admin_dashboard },
-			{ "open-last-fediwrapped", open_last_fediwrapped }
+			{ "open-last-fediwrapped", open_last_fediwrapped },
+			{ "open-collections", open_collections },
+			{ "open-containing-folder", open_containing_folder, "s" },
+			{ "increase-font-size", increase_font_size },
+			{ "decrease-font-size", decrease_font_size },
+			{ "reset-font-size", reset_font_size }
 		};
 
 		#if DEV_MODE
@@ -167,14 +200,7 @@ namespace Tuba {
 		public void handle_share () {
 			if (to_share == null || accounts.active == null || accounts.active.instance_info == null) return;
 
-			var status = new API.Status.empty ();
-			status.content = to_share.text;
-			if (to_share.cw != null) {
-				status.spoiler_text = to_share.cw;
-				status.sensitive = true;
-			}
-
-			new Dialogs.Compose (status);
+			new Dialogs.Composer.Dialog ({to_share.text, to_share.cw, null, null, null, null, null, true, false});
 			to_share = null;
 		}
 
@@ -182,18 +208,27 @@ namespace Tuba {
 			application_id = Build.DOMAIN;
 			flags = ApplicationFlags.HANDLES_OPEN;
 
+			add_main_option_entries (APP_OPTIONS);
+			#if UNIFIEDPUSH
+				this.handle_local_options.connect (on_handle_local_options);
+			#endif
 			app_locales = new Utils.Locales ();
 		}
 
-		public static int main (string[] args) {
-			try {
-				var opt_context = new OptionContext ("- Options");
-				opt_context.add_main_entries (APP_OPTIONS, null);
-				opt_context.parse (ref args);
-			} catch (GLib.OptionError e) {
-				warning (e.message);
-			}
+		#if UNIFIEDPUSH
+			private int on_handle_local_options (GLib.VariantDict options) {
+				if (up_bg) {
+					this.flags |= GLib.ApplicationFlags.IS_SERVICE;
+				}
 
+				return -1;
+			}
+		#endif
+
+		public static int main (string[] args) {
+			#if GEXIV2
+				GExiv2.initialize ();
+			#endif
 			#if GSTREAMER
 				Gst.init (ref args);
 			#endif
@@ -234,10 +269,15 @@ namespace Tuba {
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
 			GLib.Environment.unset_variable ("GTK_THEME");
-			#if WINDOWS || DARWIN
+			#if WINDOWS || DARWIN || HAIKU || ANDROID
 				GLib.Environment.set_variable ("SECRET_BACKEND", "file", false);
 				if (GLib.Environment.get_variable ("SECRET_BACKEND") == "file")
 					GLib.Environment.set_variable ("SECRET_FILE_TEST_PASSWORD", @"$(GLib.Environment.get_user_name ())$(Build.DOMAIN)", false);
+			#endif
+			#if ANDROID
+				string assets_dir = "/data/data/dev.geopjr.tuba/files";
+				g_io_openssl_load (null);
+				GLib.Environment.set_variable ("FONTCONFIG_FILE", @"$assets_dir/etc/fonts/fonts.conf", true);
 			#endif
 
 			if (GLib.Environment.get_variable ("GSK_RENDERER") == "gl") {
@@ -249,6 +289,141 @@ namespace Tuba {
 			app = new Application ();
 			return app.run (args);
 		}
+
+		#if UNIFIEDPUSH
+			private void on_new_endpoint (UnifiedPush.PushEndpoint obj) {;
+				var req = new RequestV2 ("/api/v1/push/subscription", POST) { account = accounts.active };
+				req.add_form_data ("subscription[endpoint]", obj.endpoint);
+				req.add_form_data ("subscription[keys][p256dh]", obj.pubkey);
+				req.add_form_data ("subscription[keys][auth]", obj.auth);
+				req.add_form_data ("subscription[standard]", "true");
+				req.add_form_data ("data[alerts][mention]", (!(InstanceAccount.KIND_MENTION in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][quote]", (!(InstanceAccount.KIND_QUOTE in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][status]", "true");
+				req.add_form_data ("data[alerts][reblog]", (!(InstanceAccount.KIND_REBLOG in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][follow]", (!(InstanceAccount.KIND_FOLLOW in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][follow_request]", (!(InstanceAccount.KIND_FOLLOW_REQUEST in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][favourite]", (!(InstanceAccount.KIND_FAVOURITE in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][poll]", (!(InstanceAccount.KIND_POLL in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][update]", (!(InstanceAccount.KIND_EDITED in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][quoted_update]", (!(InstanceAccount.KIND_QUOTE_UPDATE in settings.muted_notification_types)).to_string ());
+				req.add_form_data ("data[alerts][admin.sign_up]", "true");
+				req.add_form_data ("data[alerts][admin.report]", "true");
+				req.add_form_data ("data[policy]", "all");
+
+				register_web_push.begin (req, accounts.active);
+			}
+
+			private async void register_web_push (RequestV2 msg, InstanceAccount account) {
+				// remove existing subscription for user
+				yield unregister_real (account);
+
+				try {
+					yield msg.exec (null);
+				} catch (Error e) {
+					warning (@"Couldn't add UnifiedPush subscription for $(account.handle): $(e.code) $(e.message)");
+					app.toast ("%s: %s".printf (_("Error"), e.message));
+				}
+
+				if (account == accounts.active) {
+					settings.unifiedpush_enabled = true;
+				} else {
+					(new Tuba.Settings.Account (account.uuid)).unifiedpush_enabled = true;
+				}
+				account.setup_notification_streams ();
+			}
+
+			private void on_up_message (UnifiedPush.PushMessage obj) {
+				debug (@"UnifiedPush: new message for $(obj.instance) decrypted=$(obj.decrypted)");
+				var instance_parts = obj.instance.split (":");
+				string account_uuid = GLib.Uri.unescape_string (instance_parts[0]);
+				//  string account_instance = GLib.Uri.unescape_string (instance_parts[1]);
+
+				uint8[] raw = obj.content.data;
+				uint8[] buf = new uint8[raw.length + 1];
+				Memory.copy (buf, raw, raw.length);
+				buf[raw.length] = 0;
+				string string_payload = (string) buf;
+
+				Json.Parser parser = new Json.Parser ();
+				try {
+					parser.load_from_data (string_payload);
+				} catch (Error e) {
+					warning (@"Couldn't parse notification payload: $(e.code) $(e.message)");
+					return;
+				}
+
+				var payload = Helper.Entity.from_json (parser.get_root (), typeof (API.Push.Payload)) as API.Push.Payload;
+				if (!(payload is API.Push.Payload)) return;
+
+				// Don't want to spawn a mainloop and soup servers
+				// just for a push while the app is closed, so just
+				// send it as is then.
+				if (accounts == null) {
+					var toast = new GLib.Notification (payload.title);
+					if (payload.body != null) {
+						var body = Utils.Htmlx.remove_tags (payload.body);
+						toast.set_body (body);
+					}
+
+					Icon? icon = null;
+					var icon_file = GLib.File.new_for_uri (payload.icon);
+					if (Tuba.is_flatpak) {
+						try {
+							// sync is okay here because it's running as a service, no GUI
+							Bytes avatar_bytes = icon_file.load_bytes ();
+							if (avatar_bytes != null)
+								icon = new BytesIcon (avatar_bytes);
+						} catch (Error e) {
+							warning (@"Couldn't download UnifiedPush icon: $(e.code) $(e.message)");
+						}
+					} else {
+						icon = new FileIcon (icon_file);
+					}
+
+					if (icon != null)
+						toast.set_icon (icon);
+
+					this.send_notification (@"$(account_uuid)-$(payload.notification_id)", toast);
+				} else {
+					handle_up_notification.begin (account_uuid, payload);
+				}
+			}
+
+			private async void handle_up_notification (string account_uuid, API.Push.Payload payload) {
+				var account = accounts.find_by_uuid (account_uuid);
+				if (account == null) return;
+
+				var req = new RequestV2 (@"/api/v1/notifications/$(payload.notification_id)") {
+					account = account
+				};
+
+				try {
+					var in_stream = yield req.exec (null);
+					var parser = yield Network.get_parser_from_inputstream_async (in_stream);
+					var node = network.parse_node (parser);
+					var notification = Entity.from_json (typeof (API.Notification), node) as API.Notification;
+					if (notification != null) account.on_notification_received (notification);
+				} catch (Error e) {
+					warning (@"Error while trying to fetch unifiedpush notification: $(e.code) $(e.message)");
+				}
+			}
+
+			private void on_unregistered (string obj) {
+				debug (@"UnifiedPush: unregistered $obj");
+				unregister_real.begin (accounts.active);
+				settings.unifiedpush_enabled = false;
+				accounts.active.setup_notification_streams ();
+			}
+
+			private async void unregister_real (InstanceAccount account) {
+				try {
+					yield (new RequestV2 ("/api/v1/push/subscription", DELETE) { account = account }).exec (null);
+				} catch (Error e) {
+					warning (@"Couldn't remove UnifiedPush subscription for $(account.handle): $(e.code) $(e.message)");
+				}
+			}
+		#endif
 
 		private void on_network_change (bool online) {
 			// We really need to avoid triggering it unnecessarily
@@ -269,6 +444,32 @@ namespace Tuba {
 
 		protected override void startup () {
 			base.startup ();
+#if UNIFIEDPUSH
+			unifiedpush = new UnifiedPush.UnifiedPush ("dev.geopjr.Tuba.UnifiedPush");
+			unifiedpush.new_endpoint.connect (on_new_endpoint);
+			unifiedpush.message.connect (on_up_message);
+			unifiedpush.unregistered.connect (on_unregistered);
+
+			// Normally there would be a UI selector, but I believe there's
+			// only one distributor for Linux in existence.
+			if (!unifiedpush.try_use_default_distributor ()) {
+				if (unifiedpush.list_distributors ().length () > 1) {
+					unifiedpush.save_distributor (unifiedpush.list_distributors ().nth_data (0));
+				} else {
+					Tuba.up_distributor_found = false;
+				}
+			}
+
+			if (!up_bg) {
+				startup_real ();
+			}
+		}
+
+		bool done_startup_real = false;
+		private void startup_real () {
+			if (done_startup_real) return;
+			up_bg = false;
+#endif
 			try {
 				var lines = troubleshooting.split ("\n");
 				foreach (unowned string line in lines) {
@@ -301,10 +502,6 @@ namespace Tuba {
 				//  };
 				accounts = new SecretAccountStore ();
 				accounts.init ();
-
-				//  css_provider.load_from_resource (@"$(Build.RESOURCES)app.css");
-				//  StyleContext.add_provider_for_display (Gdk.Display.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-				//  StyleContext.add_provider_for_display (Gdk.Display.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 			} catch (Error e) {
 				var msg = "Could not start application: %s".printf (e.message);
 				error (msg);
@@ -330,8 +527,10 @@ namespace Tuba {
 			set_accels_for_action ("app.scroll-page-up", {"Page_Up"});
 			add_action_entries (APP_ENTRIES, this);
 
-			if (settings.monitor_network)
+			if (settings.monitor_network) {
 				network_monitor.network_changed.connect (on_network_change);
+				on_network_change (true);
+			}
 
 			if (settings.proxy != "")
 				on_proxy_change ();
@@ -339,6 +538,18 @@ namespace Tuba {
 
 			if (settings.analytics) app.update_analytics.begin ();
 			app.update_contributors.begin ();
+
+			Tuba.should_blur_sensitive_media = settings.get_boolean ("blur-sensitive-media");
+
+			// TODO: remove me next release
+			// this handles the old setting and sets the new one
+			if (settings.larger_font_size) {
+				settings.larger_font_size = false;
+				settings.status_font_size = 1.2;
+			}
+#if UNIFIEDPUSH
+			done_startup_real = true;
+#endif
 		}
 
 		private void on_proxy_change (bool recover = false) {
@@ -386,6 +597,13 @@ namespace Tuba {
 		}
 
 		protected override void shutdown () {
+			#if UNIFIEDPUSH
+				if (up_bg) {
+					base.shutdown ();
+					return;
+				}
+			#endif
+
 			#if !DEV_MODE
 				settings.apply_all ();
 			#endif
@@ -442,6 +660,11 @@ namespace Tuba {
 		}
 
 		public void present_window (bool destroy_main = false) {
+			if (!activated && ApplicationFlags.IS_SERVICE in this.flags) return;
+			#if UNIFIEDPUSH
+				startup_real ();
+			#endif
+
 			if (accounts.saved.is_empty) {
 				if (main_window != null && destroy_main)
 					main_window.hide ();
@@ -478,7 +701,7 @@ namespace Tuba {
 		void compose_activated () {
 			if (accounts.active.instance_info == null) return;
 
-			new Dialogs.Compose ();
+			new Dialogs.Composer.Dialog ();
 		}
 
 		void back_activated () {
@@ -555,13 +778,35 @@ namespace Tuba {
 			accounts.active.open_latest_wrapped ();
 		}
 
+		public void open_collections () {
+			main_window.open_view (new Views.Collections ());
+			close_sidebar ();
+		}
+
+		public void open_containing_folder (GLib.SimpleAction action, GLib.Variant? value) {
+			if (value == null) return;
+			Utils.Host.open_containing_folder.begin (value.get_string ());
+		}
+
+		private void increase_font_size () {
+			if (settings.status_font_size < 2.0) settings.status_font_size += 0.1;
+		}
+
+		private void decrease_font_size () {
+			if (settings.status_font_size > 0.8) settings.status_font_size -= 0.1;
+		}
+
+		private void reset_font_size () {
+			settings.status_font_size = 1.0;
+		}
+
 		private void close_sidebar () {
 			var split_view = app.main_window.split_view;
 			if (split_view.collapsed)
 				split_view.show_sidebar = false;
 		}
 
-		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s\nlibspelling: %s\nClapper: %s\nGStreamer: %s".printf ( // vala-lint=line-length
+		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s\nlibspelling: %s\nClapper: %s\nGStreamer: %s\nGExiv2: %s".printf ( // vala-lint=line-length
 				GLib.Environment.get_os_info ("NAME"), GLib.Environment.get_os_info ("VERSION"),
 				Build.PREFIX,
 				Tuba.is_flatpak.to_string (),
@@ -598,6 +843,12 @@ namespace Tuba {
 				#else
 					"false"
 				#endif
+				,
+				#if GEXIV2
+					@"$(GExiv2.get_version ()) ($(GExiv2.MAJOR_VERSION).$(GExiv2.MINOR_VERSION).$(GExiv2.MICRO_VERSION))"
+				#else
+					"false"
+				#endif
 			);
 
 		void about_activated () {
@@ -612,20 +863,15 @@ namespace Tuba {
 			};
 
 			const string[] DEVELOPERS = {
+				"Evangelos “GeopJr” Paterakis",
 				"bleak_grey",
-				"Evangelos \"GeopJr\" Paterakis"
+				"Sergey Bugaev"
 			};
 
-			const string COPYRIGHT = "© 2022 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis";
+			const string COPYRIGHT = "© 2018-2022 bleak_grey\n© 2022 Evangelos “GeopJr” Paterakis";
 
-			var dialog = new Adw.AboutDialog () {
-				application_icon = Build.DOMAIN,
-				application_name = Build.NAME,
-				developer_name = "Evangelos “GeopJr” Paterakis",
+			var dialog = new Adw.AboutDialog.from_appdata ("/dev/geopjr/Tuba/metainfo.xml", Build.PROFILE == "development" ? null : Build.VERSION) {
 				version = Build.VERSION,
-				issue_url = Build.ISSUES_WEBSITE,
-				support_url = Build.SUPPORT_WEBSITE,
-				license_type = Gtk.License.GPL_3_0_ONLY,
 				copyright = COPYRIGHT,
 				developers = DEVELOPERS,
 				artists = ARTISTS,
@@ -642,12 +888,14 @@ namespace Tuba {
 			dialog.add_link (_("Translate"), Build.TRANSLATE_WEBSITE);
 			dialog.add_link (_("Donate"), Build.DONATE_WEBSITE);
 
-			// translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
+			// translators: Application metainfo for the app "Archives". <https://codeberg.org/GeopJr/Archives/>
 			dialog.add_other_app ("dev.geopjr.Archives", _("Archives"), _("Create and view web archives"));
-			// translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
+			// translators: Application metainfo for the app "Calligraphy". <https://codeberg.org/GeopJr/Calligraphy>
 			dialog.add_other_app ("dev.geopjr.Calligraphy", _("Calligraphy"), _("Turn text into ASCII banners"));
-			// translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
+			// translators: Application metainfo for the app "Collision". <https://codeberg.org/GeopJr/Collision>
 			dialog.add_other_app ("dev.geopjr.Collision", _("Collision"), _("Check hashes for your files"));
+			// translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
+			dialog.add_other_app ("dev.geopjr.Turntable", _("Turntable"), _("Scrobble your music"));
 
 			// For some obscure reason, const arrays produce duplicates in the credits.
 			// Static functions seem to avoid this peculiar behavior.
@@ -800,11 +1048,11 @@ namespace Tuba {
 			}
 
 			if (!can_update) return;
-			var msg = new Request.GET ("https://api.tuba.geopjr.dev/v1/supporters");
+			var msg = new RequestV2 ("https://api.tuba.geopjr.dev/v1/supporters");
 
 			try {
-				yield msg.await ();
-				var parser = Network.get_parser_from_inputstream (msg.response_body);
+				var in_stream = yield msg.exec (null);
+				Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 
 				string[] new_contributors = {};
 				Network.parse_array (parser, node => {
@@ -838,16 +1086,27 @@ namespace Tuba {
 			}
 
 			if (!can_update) return;
-			var msg = new Request.POST ("https://api.tuba.geopjr.dev/v1/analytics")
-				.body ("application/json", new Bytes.take (generate_analytics_object ().data));
+			var msg = new RequestV2 ("https://api.tuba.geopjr.dev/v1/analytics", POST);
+			msg.set_body ("application/json", new Bytes.take (generate_analytics_object ().data));
 
 			try {
-				yield msg.await ();
+				yield msg.exec (null);
 				settings.last_analytics_update = now_utc.format_iso8601 ();
 			} catch (Error e) {
 				warning (@"Couldn't update analytics: $(e.code) $(e.message)");
 			}
+		}
 
+		bool loaded_egg = false;
+		public void load_egg (string style) {
+			if (loaded_egg) return;
+			loaded_egg = true;
+			var css_provider = new Gtk.CssProvider ();
+			css_provider.load_from_resource (@"/dev/geopjr/Tuba/eggs/$style.css");
+			Gtk.StyleContext.add_provider_for_display (
+				Gdk.Display.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+			);
+			Adw.StyleManager.get_default ().set_color_scheme (FORCE_LIGHT);
 		}
 	}
 

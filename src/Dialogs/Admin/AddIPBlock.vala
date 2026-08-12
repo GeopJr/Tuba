@@ -192,6 +192,10 @@ public class Tuba.Dialogs.Admin.AddIPBlock : Dialogs.Admin.Base {
 		private void on_save () {
 			save_button.sensitive = false;
 
+			on_save_real.begin ();
+		}
+
+		private async void on_save_real () {
 			API.Admin.IPBlock.Severity sev = API.Admin.IPBlock.Severity.NO_ACCESS;
 			if (rule_signup_approve.active) {
 				sev = API.Admin.IPBlock.Severity.SIGN_UP_REQUIRES_APPROVAL;
@@ -199,22 +203,21 @@ public class Tuba.Dialogs.Admin.AddIPBlock : Dialogs.Admin.Base {
 				sev = API.Admin.IPBlock.Severity.SIGN_UP_BLOCK;
 			}
 
-			new Request.POST ("/api/v1/admin/ip_blocks")
-				.with_account (accounts.active)
-				.with_form_data ("ip", ip_row.text)
-				.with_form_data ("severity", sev.to_api_string ())
-				.with_form_data ("expires_in", ((ExpirationObject) exp_row.selected_item).expiration.to_seconds ().to_string ())
-				.with_form_data ("comment", comment_row.text)
-				.then (() => {
-					on_ip_changed ();
-					added ();
-					on_cancel ();
-				})
-				.on_error ((code, message) => {
-					warning (@"Couldn't create IP block $(ip_row.text): $code $message");
-					add_toast (message);
-				})
-				.exec ();
+			var req = new RequestV2 ("/api/v1/admin/ip_blocks", POST) { account = accounts.active };
+			req.add_form_data ("ip", ip_row.text);
+			req.add_form_data ("severity", sev.to_api_string ());
+			req.add_form_data ("expires_in", ((ExpirationObject) exp_row.selected_item).expiration.to_seconds ().to_string ());
+			req.add_form_data ("comment", comment_row.text);
+
+			try {
+				yield req.exec (null);
+				on_ip_changed ();
+				added ();
+				on_cancel ();
+			} catch (Error e) {
+				warning (@"Couldn't create IP block $(ip_row.text): $(e.code) $(e.message)");
+				add_toast (e.message);
+			}
 		}
 
 		private void exp_signal (GLib.Object item) {

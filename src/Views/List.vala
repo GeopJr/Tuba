@@ -35,14 +35,14 @@ public class Tuba.Views.List : Views.Timeline {
 
 	private void title_changed () {
 		this.label = GLib.Markup.escape_text (this.list.title);
-		GLib.Idle.add (accounts.active.gather_fav_lists);
+		accounts.active.gather_fav_lists.begin ();
 	}
 
 	public override string? get_stream_url () {
 		if (list == null)
 			return null;
 		return account != null
-			? @"$(account.instance)/api/v1/streaming?stream=list&list=$(list.id)&access_token=$(account.access_token)"
+			? @"$(account.tuba_streaming_url)/api/v1/streaming?stream=list&list=$(list.id)&access_token=$(account.access_token)"
 			: null;
 	}
 }

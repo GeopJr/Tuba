@@ -1,10 +1,13 @@
 .PHONY: all install uninstall build test potfiles
 PREFIX ?= /usr
 
-msys_sys ?= mingw64
+msys_sys ?= ucrt64
 # Remove the devel headerbar style:
 # make release=1
 release ?=
+
+android_sdk ?=
+android_studio ?=
 
 all: build
 
@@ -23,11 +26,18 @@ test:
 	ninja test -C builddir
 
 potfiles:
-	find ./ -not -path '*/.*' -type f -name "*.in" | sort > po/POTFILES
+	find ./ -not -path '*/.*' -not -path '*/*.nsi.in' -not -path '*/*.1.in' -not -path '*/*.service.in' -type f -name "*.in" | sort > po/POTFILES
+	echo "./data/dev.geopjr.Tuba.gschema.xml" >> po/POTFILES
 	echo "" >> po/POTFILES
 	find ./ -not -path '*/.*' -type f -name "*.ui" -exec grep -l "translatable=\"yes\"" {} \; | sort >> po/POTFILES
 	echo "" >> po/POTFILES
 	find ./ -not -path '*/.*' -type f -name "*.vala" -exec grep -l "_(\"\|ngettext" {} \; | sort >> po/POTFILES
+
+xgettext:
+	xgettext --files-from=po/POTFILES --output=po/dev.geopjr.Tuba.pot --from-code=UTF-8 --add-comments --keyword=_ --keyword=C_:1c,2
+
+pot:
+	meson compile dev.geopjr.Tuba-pot -C builddir/
 
 windows: PREFIX = $(PWD)/tuba_windows_portable
 windows: __windows_pre build install __windows_set_icon __windows_copy_deps __windows_schemas __windows_copy_icons __windows_cleanup __windows_package
@@ -45,13 +55,15 @@ endif
 	./rcedit-x64.exe $(PREFIX)/bin/dev.geopjr.Tuba.exe --set-icon ./builddir/dev.geopjr.Tuba.ico
 
 __windows_copy_deps:
-	ldd $(PREFIX)/bin/dev.geopjr.Tuba.exe | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
+	ldd $(PREFIX)/bin/dev.geopjr.Tuba.exe | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin; \
 	cp -f /$(msys_sys)/bin/gdbus.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gdbus.exe | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	cp -f /$(msys_sys)/bin/gspawn-win64-helper.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gspawn-win64-helper.exe | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	cp -f /$(msys_sys)/bin/libwebp-7.dll /$(msys_sys)/bin/librsvg-2-2.dll /$(msys_sys)/bin/libgnutls-30.dll /$(msys_sys)/bin/libgthread-2.0-0.dll /$(msys_sys)/bin/libgmp-10.dll /$(msys_sys)/bin/libproxy-1.dll ${PREFIX}/bin
 	cp -r /$(msys_sys)/lib/gio/ $(PREFIX)/lib
 	cp -r /$(msys_sys)/lib/gdk-pixbuf-2.0 $(PREFIX)/lib/gdk-pixbuf-2.0
 	cp -r /$(msys_sys)/lib/gstreamer-1.0 $(PREFIX)/lib/gstreamer-1.0
+
+	cp -r /$(msys_sys)/share/gtksourceview-5/ ${PREFIX}/share/gtksourceview-5/
 
 	ldd $(PREFIX)/lib/gio/*/*.dll | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	ldd $(PREFIX)/lib/gstreamer-1.0/*.dll | grep '\/$(msys_sys).*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
@@ -90,3 +102,23 @@ windows_nsis:
 	rsvg-convert ./data/icons/color$(if $(release),,-nightly).svg -o nsis/dev.geopjr.Tuba-header.png -h 57 -w 57
 	magick nsis/dev.geopjr.Tuba-header.png -background white -alpha remove -alpha off -type truecolor -define bmp:format=bmp3 nsis/dev.geopjr.Tuba-header.bmp
 	cd nsis && makensis dev.geopjr.Tuba.nsi
+
+android:
+	sed -i 's|<component type="desktop">|<component type="desktop" xmlns="https://specifications.freedesktop.org/metainfo/1.0">|' ./data/dev.geopjr.Tuba.metainfo.xml.in
+	rm -rf subprojects/
+	cp -r build-aux/android/subprojects/ .
+	rm -rf .pixiewood
+	pixiewood prepare $(if $(release),--release,) --android-studio=$(android_studio) --sdk=$(android_sdk) ./build-aux/android/pixiewood.xml
+	pixiewood generate
+	pixiewood build
+	sed -i 's|<component type="desktop" xmlns="https://specifications.freedesktop.org/metainfo/1.0">|<component type="desktop">|' ./data/dev.geopjr.Tuba.metainfo.xml.in
+
+android_sign:
+	mkdir -p apks/
+	@for apk in .pixiewood/android/app/build/outputs/apk/release/*.apk; do \
+		apksigner sign \
+			--ks "$(ANDROID_KEYSTORE_LOCATION)" \
+			--ks-pass "env:ANDROID_KEYSTORE_KEY" \
+			--in "$$apk" \
+			--out "apks/$$(basename "$$apk" | sed 's/unsigned/signed/g')"; \
+	done

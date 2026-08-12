@@ -79,7 +79,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 	construct {
 		child = new Adw.Avatar (48, null, true);
 		halign = valign = Gtk.Align.CENTER;
-		css_classes = { "flat", "circular", "image-button", "ttl-flat-button" };
+		css_classes = { "flat", "circular", "image-button", "ttl-flat-button", "wavi" };
 
 		on_invalidated ();
 	}
@@ -136,6 +136,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 				}
 			};
 			mini_profile.add_css_class ("mini-profile");
+			mini_profile.add_css_class ("no-padding");
 			mini_profile.set_parent (this);
 			mini_profile.closed.connect (clear_mini);
 		}

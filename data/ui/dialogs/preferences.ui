@@ -1,144 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
 	<object class="GtkAdjustment" id="font_adjustment">
-		<property name="lower">100</property>
-		<property name="upper">500</property>
-		<property name="step_increment">5</property>
-		<property name="page_increment">5</property>
-	</object>
-	<object class="GtkAdjustment" id="page_adjustment">
-		<property name="lower">10</property>
-		<property name="upper">40</property>
-		<property name="step_increment">1</property>
+		<property name="lower">0.8</property>
+		<property name="upper">2.0</property>
+		<property name="value">1.0</property>
+		<property name="step_increment">0.1</property>
 		<property name="page_increment">1</property>
+		<signal name="value-changed" handler="on_font_adjustment_value_changed" />
 	</object>
 	<template class="TubaDialogsPreferences" parent="AdwPreferencesDialog">
 		<property name="search-enabled">True</property>
 		<child>
 			<object class="AdwPreferencesPage">
 				<property name="icon_name">tuba-settings-symbolic</property>
+				<!-- translators: group title; contains uncategorized generic items -->
 				<property name="title" translatable="yes">General</property>
 				<child>
 					<object class="AdwPreferencesGroup">
+						<!-- translators: setting group title; app appearance -->
 						<property name="title" translatable="yes">Appearance</property>
 						<child>
-							<object class="AdwComboRow" id="scheme_combo_row">
-								<property name="title" translatable="yes">Color Scheme</property>
-								<signal name="notify::selected-item" handler="on_scheme_changed" swapped="no" />
-
-								<property name="model">
-									<object class="TubaColorSchemeListModel" />
-								</property>
-
-								<property name="expression">
-									<lookup type="TubaColorSchemeListItem" name="name" />
-								</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="larger_font_size">
-								<property name="title" translatable="yes">Large Text</property>
-								<property name="subtitle" translatable="yes">Increase the size of text in posts</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="larger_line_height">
-								<property name="title" translatable="yes">Large Line Height</property>
-								<property name="subtitle" translatable="yes">Increase the line height in posts</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="enlarge_custom_emojis">
-								<property name="title" translatable="yes">Large Custom Emojis</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="scale_emoji_hover">
-								<property name="title" translatable="yes">Scale Custom Emojis on Hover</property>
-								<property name="subtitle" translatable="yes">Slightly increases the size of custom emojis when you hover over them</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="letterbox_media">
-								<!-- translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox" -->
-								<property name="title" translatable="yes">Letterbox Media</property>
-								<!-- translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint" -->
-								<property name="subtitle" translatable="yes">Scale down and letterbox media to fill the image containers instead of stretching and cropping them</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="media_viewer_expand_pictures">
-								<!-- translators: expand as in enlarge -->
-								<property name="title" translatable="yes">Expand Pictures in Media Viewer</property>
-								<!-- translators: expand as in enlarge -->
-								<property name="subtitle" translatable="yes">Expand pictures to fill the media viewer by default</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="use_blurhash">
-								<!-- translators: leave this as is unless you want to transliterate. BlurHash is a recognizable product name. -->
-								<property name="title" translatable="yes">BlurHash</property>
-								<property name="subtitle" translatable="yes">Show a blurred version of the media until they fully load</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="show_spoilers">
-								<property name="title" translatable="yes">Reveal Spoilers by Default</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="collapse_long_posts">
-								<property name="title" translatable="yes">Collapse Long Posts</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="show_preview_cards">
-								<property name="title" translatable="yes">Show Link Preview Cards</property>
-							</object>
-						</child>
-						<child>
 							<object class="AdwSwitchRow" id="darken_images_on_dark_mode">
+								<!-- translators: setting that when enabled makes images darker on dark mode until hovered -->
 								<property name="title" translatable="yes">Darken Images on Dark Mode</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="dim_trivial_notifications">
-								<!-- translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts -->
+								<!-- translators: setting that when enabled makes unimportant notification less visible / darker. 'Trivial' describes favorites and boosts -->
 								<property name="title" translatable="yes">Dim Trivial Notifications</property>
+								<!-- translators: setting subtitle that explains what dimming trivial notifications does -->
 								<property name="subtitle" translatable="yes">Notifications like favorites and boosts will be less visible</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="enlarge_custom_emojis">
+								<!-- translators: setting that when enabled, makes custom emojis bigger -->
+								<property name="title" translatable="yes">Large Custom Emojis</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="scale_emoji_hover">
+								<!-- translators: setting that when enabled increases the size of custom emojis when hovered; scale is a verb and you may replace it with "enlarge" "increase the size of" -->
+								<property name="title" translatable="yes">Scale Custom Emojis on Hover</property>
+								<!-- translators: setting subtitle that explains what scale custom emojis does -->
+								<property name="subtitle" translatable="yes">Slightly increases the size of custom emojis when you hover over them</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="larger_line_height">
+								<!-- translators: setting that when enabled increases the line height of posts; bigger spacing between lines -->
+								<property name="title" translatable="yes">Large Line Height</property>
+								<!-- translators: setting subtitle that explains what large line height does -->
+								<property name="subtitle" translatable="yes">Increase the line height in posts</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwActionRow">
+								<!-- translators: setting that shows a scale for the user to set the font size -->
+								<property name="title" translatable="yes">Font Size</property>
+								<!-- translators: setting subtitle on what font size changing entails; make sure it's clear only the font size of the posts changes, not the whole UI -->
+								<property name="subtitle" translatable="yes">Set the text size used in posts</property>
+								<child type="suffix">
+									<object class="GtkScale">
+										<property name="draw-value">1</property>
+										<property name="hexpand">1</property>
+										<property name="adjustment">font_adjustment</property>
+									</object>
+								</child>
 							</object>
 						</child>
 					</object>
 				</child>
 				<child>
 					<object class="AdwPreferencesGroup">
-						<property name="title" translatable="yes">Posting</property>
+						<property name="title" translatable="yes">Posts</property>
 						<child>
-							<object class="AdwComboRow" id="post_visibility_combo_row">
-								<property name="title" translatable="yes">Default Post Visibility</property>
-
-								<property name="expression">
-									<lookup type="TubaInstanceAccountVisibility" name="name" />
-								</property>
+							<object class="AdwSwitchRow" id="collapse_long_posts">
+								<!-- translators: setting that when enabled shows only a portion of lengthy posts until the user clicks on them -->
+								<property name="title" translatable="yes">Collapse Long Posts</property>
 							</object>
 						</child>
 						<child>
-							<object class="AdwComboRow" id="default_language_combo_row">
-								<property name="title" translatable="yes">Default Post Language</property>
-
-								<property name="expression">
-									<lookup type="TubaUtilsLocalesLocale" name="name" />
-								</property>
+							<object class="AdwSwitchRow" id="letterbox_media">
+								<!-- translators: setting that when enabled shows attachments in full inside their box rather than zooming in; if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox" -->
+								<property name="title" translatable="yes">Letterbox Media</property>
+								<!-- translators: setting subtitle that examplains what letterbox does; if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint" -->
+								<property name="subtitle" translatable="yes">Scale down and letterbox media to fill the image containers instead of stretching and cropping them</property>
 							</object>
 						</child>
 						<child>
-							<object class="AdwComboRow" id="default_content_type_combo_row">
-								<property name="visible">0</property>
-								<property name="title" translatable="yes">Default Post Content Type</property>
-
-								<property name="expression">
-									<lookup type="TubaInstanceAccountStatusContentType" name="title" />
-								</property>
+							<object class="AdwSwitchRow" id="show_sensitive_media">
+								<!-- translators: setting that when enabled reveals attachments that are marked as sensitive by default -->
+								<property name="title" translatable="yes">Reveal Sensitive Media by Default</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="show_spoilers">
+								<!-- translators: setting that when enabled reveals post spoilers by default -->
+								<property name="title" translatable="yes">Reveal Spoilers by Default</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="show_preview_cards">
+								<!-- translators: setting that when enabled shows a preview of the linked url on posts; card as in the term used for 'component', you may omit it -->
+								<property name="title" translatable="yes">Show Link Preview Cards</property>
 							</object>
 						</child>
 					</object>
@@ -147,32 +113,57 @@
 					<object class="AdwPreferencesGroup">
 						<property name="title" translatable="yes">Behavior</property>
 						<child>
-							<object class="AdwSwitchRow" id="work_in_background">
-								<property name="title" translatable="yes">Run in Background</property>
-								<property name="subtitle" translatable="yes">Fetch notifications while the app is closed</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="strip_tracking">
-								<property name="title" translatable="yes">Strip Tracking Parameters From Links</property>
-								<!-- translators: Broken as in incorrect -->
-								<property name="subtitle" translatable="yes">This option can lead to broken links when enabled</property>
-							</object>
-						</child>
-						<child>
 							<object class="AdwSwitchRow" id="advanced_boost_dialog">
+								<!-- translators: setting that when enabled shows a dialog with more options when the user clicks boost on a post; translate boost as all other instances, related to fediverse -->
 								<property name="title" translatable="yes">Advanced Boost Dialog</property>
+								<!-- translators: setting subtitle that explains what the advanced boost dialog allows -->
 								<property name="subtitle" translatable="yes">Change boost visibility, quote and confirm boosting</property>
 							</object>
 						</child>
 						<child>
+							<object class="AdwSwitchRow" id="in_app_browser_switch">
+								<!-- translators: setting that when enabled opens links in-app as in a browser inside Tuba -->
+								<property name="title" translatable="yes">Open Links In-App</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="strip_tracking">
+								<!-- translators: setting that when enabled will automatically remove tracking bits from urls -->
+								<property name="title" translatable="yes">Strip Tracking Parameters From Links</property>
+								<!-- translators: Broken as in incorrect; setting subtitle about stripping tracking parameters from links -->
+								<property name="subtitle" translatable="yes">This option can lead to broken links when enabled</property>
+							</object>
+						</child>
+						<child>
 							<object class="AdwSwitchRow" id="reply_to_old_post_reminder">
+								<!-- translators: setting that when enabled will show the user a warning before allowing them to reply to a very old post -->
 								<property name="title" translatable="yes">Warn before replying to an old post</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="copy_private_link_reminder">
+								<!-- translators: setting that when enabled will show the user a warning before allowing them to copy a link to a post that is private -->
 								<property name="title" translatable="yes">Warn before copying a link to a private post</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="boost_alt_text_reminder">
+								<!-- translators: setting that when enabled will show the user a warning before allowing them to boost a post that has attachments without alt text -->
+								<property name="title" translatable="yes">Warn before boosting a post that includes attachments without alt text</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="fetch_remote_media_reminder">
+								<!-- translators: setting that when enabled will show the user a warning before fetching attachments from a remote instance -->
+								<property name="title" translatable="yes">Warn before fetching media from remote servers</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="work_in_background">
+								<!-- translators: setting that when enabled will hide the app instead of closing it when pressing the X button -->
+								<property name="title" translatable="yes">Run in Background</property>
+								<!-- translators: setting subtitle that explains what "run in the background" will do, fetch as in receive -->
+								<property name="subtitle" translatable="yes">Fetch notifications while the app is closed</property>
 							</object>
 						</child>
 						<child>
@@ -187,44 +178,87 @@
 				</child>
 				<child>
 					<object class="AdwPreferencesGroup">
-						<property name="title" translatable="yes">Timelines</property>
+						<property name="title" translatable="yes">Posting</property>
 						<child>
-							<object class="AdwSpinRow" id="timeline_page_size">
-								<property name="title" translatable="yes">Posts per Load Batch</property>
-								<property name="text">10</property>
-								<property name="adjustment">page_adjustment</property>
-								<property name="value">10</property>
+							<object class="AdwComboRow" id="post_visibility_combo_row">
+								<!-- translators: settings row on setting the pre-selected post privacy of the composer -->
+								<property name="title" translatable="yes">Default Post Visibility</property>
+
+								<property name="expression">
+									<lookup type="TubaInstanceAccountVisibility" name="name" />
+								</property>
 							</object>
 						</child>
 						<child>
-							<object class="AdwSwitchRow" id="live_updates">
-								<property name="title" translatable="yes">Stream Timelines</property>
-								<property name="subtitle" translatable="yes">Receive new posts and notifications in real-time</property>
+							<object class="AdwComboRow" id="default_quotation_policy_combo_row">
+								<!-- translators: settings row on setting the mastodon quote policy -->
+								<property name="title" translatable="yes">Default Quote Policy</property>
+								<property name="visible">0</property>
 							</object>
 						</child>
 						<child>
-							<object class="AdwSwitchRow" id="public_live_updates">
-								<property name="sensitive" bind-source="live_updates" bind-property="active" bind-flags="sync-create" />
-								<property name="title" translatable="yes">Stream Public Timelines</property>
-								<property name="subtitle" translatable="yes">Warning: This will increase memory usage</property>
+							<object class="AdwComboRow" id="default_language_combo_row">
+								<!-- translators: settings row on setting the pre-selected post language of the composer -->
+								<property name="title" translatable="yes">Default Post Language</property>
+
+								<property name="expression">
+									<lookup type="TubaUtilsLocalesLocale" name="name" />
+								</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwComboRow" id="default_content_type_combo_row">
+								<property name="visible">0</property>
+								<!-- translators: settings row on setting the pre-selected post content of the composer; content type as in "plain text", "markdown" and so on -->
+								<property name="title" translatable="yes">Default Post Content Type</property>
+
+								<property name="expression">
+									<lookup type="TubaInstanceAccountStatusContentType" name="title" />
+								</property>
 							</object>
 						</child>
 					</object>
 				</child>
 				<child>
 					<object class="AdwPreferencesGroup">
+						<property name="title" translatable="yes">Timelines</property>
+						<child>
+							<object class="AdwSwitchRow" id="live_updates">
+								<!-- translators: setting that when enabled activates websocket live-updates; stream is a verb, you may replace it with 'live update' -->
+								<property name="title" translatable="yes">Stream Timelines</property>
+								<!-- translators: setting description on what "stream timelines" entails -->
+								<property name="subtitle" translatable="yes">Receive new posts and notifications in real-time</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="public_live_updates">
+								<property name="sensitive" bind-source="live_updates" bind-property="active" bind-flags="sync-create" />
+								<!-- translators: setting that when enabled activates websocket live-updates - even 'local' and 'federated' timelines that get a lot of traffic; stream is a verb, you may replace it with 'live update' -->
+								<property name="title" translatable="yes">Stream Public Timelines</property>
+								<!-- translators: setting row subtitle, by high traffic we mean the federated and local timelines -->
+								<property name="subtitle" translatable="yes">This will increase memory usage when browsing high traffic timelines</property>
+							</object>
+						</child>
+					</object>
+				</child>
+				<child>
+					<object class="AdwPreferencesGroup">
+						<!-- translators: setting group about tuba-related network options -->
 						<property name="title" translatable="yes">Online Services</property>
-						<!-- translators: leave api.tuba.geopjr.dev as is -->
+						<!-- translators: leave api.tuba.geopjr.dev as is; setting group description -->
 						<property name="description" translatable="yes">Configure features that connect to api.tuba.geopjr.dev</property>
 						<child>
 							<object class="AdwActionRow">
+								<!-- translators: setting that when enabled sends the user's settings to tuba's servers (anonymously) -->
 								<property name="title" translatable="yes">Send Preference Analytics</property>
+								<!-- translators: setting description on what sending user preferences to tuba's servers entails -->
 								<property name="subtitle" translatable="yes">Send your preferences to Tuba's developers for popularity research biweekly</property>
 								<property name="activatable-widget">analytics_switch</property>
 								<child type="suffix">
 									<object class="GtkButton">
 										<property name="icon-name">tuba-eye-open-negative-filled-symbolic</property>
 										<property name="valign">center</property>
+										<!-- translators: button tooltip that when clicked shows what the actual data the user will send to tuba's server will be -->
 										<property name="tooltip-text" translatable="yes">Preview Analytics</property>
 										<signal name="clicked" handler="on_analytics_preview" swapped="no" />
 										<style>
@@ -241,9 +275,9 @@
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="update_contributors">
-								<!-- translators: supporters = tuba contributors and sponsors -->
+								<!-- translators: setting title that when enabled gathers tuba's donators every 2nd week; supporters = tuba contributors and sponsors -->
 								<property name="title" translatable="yes">Update Supporters Periodically</property>
-								<!-- translators: supporters = tuba contributors and sponsors -->
+								<!-- translators: setting subtitle of what updating supporters entails; you may replace fetch with update or receive; supporters = tuba contributors and sponsors -->
 								<property name="subtitle" translatable="yes">Fetch the list of Tuba's supporters biweekly</property>
 							</object>
 						</child>
@@ -256,53 +290,85 @@
 				<property name="icon_name">tuba-bell-outline-symbolic</property>
 				<property name="title" translatable="yes">Notifications</property>
 				<child>
+					<object class="AdwPreferencesGroup" id="up_group">
+						<child>
+							<object class="AdwSwitchRow" id="up_row">
+								<!-- don't translate -->
+								<property name="title">UnifiedPush</property>
+							</object>
+						</child>
+					</object>
+				</child>
+				<child>
 					<object class="AdwPreferencesGroup">
-						<!-- translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb. -->
+						<!-- translators: Push Notifications are the desktop ones / not the in-app ones. Noun. -->
 						<property name="title" translatable="yes">Push Notifications</property>
 						<child>
 							<object class="AdwSwitchRow" id="new_followers_notifications_switch">
+								<!-- translators: notification type -->
 								<property name="title" translatable="yes">New Followers</property>
 								<property name="active">1</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="new_follower_requests_notifications_switch">
+								<!-- translators: notification type -->
 								<property name="title" translatable="yes">New Follower Requests</property>
 								<property name="active">1</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="favorites_notifications_switch">
+								<!-- translators: notification type -->
 								<property name="title" translatable="yes">Favorites</property>
 								<property name="active">1</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="mentions_notifications_switch">
+								<!-- translators: notification type -->
 								<property name="title" translatable="yes">Mentions</property>
 								<property name="active">1</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="boosts_notifications_switch">
+								<!-- translators: notification type -->
 								<property name="title" translatable="yes">Boosts</property>
 								<property name="active">1</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="poll_results_notifications_switch">
+								<!-- translators: notification type -->
 								<property name="title" translatable="yes">Poll Results</property>
 								<property name="active">1</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="edits_notifications_switch">
+								<!-- translators: notification type -->
 								<property name="title" translatable="yes">Edits</property>
 								<property name="active">1</property>
 							</object>
 						</child>
 						<child>
+							<object class="AdwSwitchRow" id="quotes_notifications_switch">
+								<!-- translators: notification type -->
+								<property name="title" translatable="yes">Quotes</property>
+								<property name="active">1</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="quote_edited_notifications_switch">
+								<!-- translators: notification type -->
+								<property name="title" translatable="yes">Quote Edits</property>
+								<property name="active">1</property>
+							</object>
+						</child>
+						<child>
 							<object class="AdwSwitchRow" id="group_push_notifications">
+								<!-- translators: setting that when enabled groups similar push notifications together; as a verb; you may change it to "Group Notifications" -->
 								<property name="title" translatable="yes">Group</property>
 								<!-- translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones. -->
 								<property name="subtitle" translatable="yes">Combine recently pushed notifications of the same type and post into one</property>
@@ -316,26 +382,13 @@
 		<child>
 			<object class="AdwPreferencesPage" id="filters_page">
 				<property name="icon_name">tuba-funnel-symbolic</property>
+				<!-- translators: settings page title, shows the user's filters -->
 				<property name="title" translatable="yes">Filters</property>
 				<property name="visible">1</property>
 				<child>
 					<object class="AdwPreferencesGroup" id="keywords_group">
+						<!-- translators: settings group title that's about filtered keywords -->
 						<property name="title" translatable="yes">Keywords</property>
-						<child type="header-suffix">
-							<object class="GtkButton">
-								<property name="valign">center</property>
-								<signal name="clicked" handler="add_keyword_row" swapped="no" />
-								<child>
-									<object class="AdwButtonContent">
-										<property name="icon-name">tuba-plus-large-symbolic</property>
-										<property name="label" translatable="yes">Add Filter…</property>
-									</object>
-								</child>
-								<style>
-									<class name="flat" />
-								</style>
-							</object>
-						</child>
 					</object>
 				</child>
 			</object>

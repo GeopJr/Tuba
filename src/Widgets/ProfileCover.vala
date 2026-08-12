@@ -50,7 +50,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 				var avi = new Widgets.Avatar () {
 					account = acc,
-					size = 6
+					size = 24
 				};
 				if (i == 0) avi.add_css_class ("first-avi");
 				avi.add_css_class ("no-min-size");
@@ -103,14 +103,12 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	[GtkChild] unowned Widgets.EmojiLabel display_name;
 	[GtkChild] unowned Gtk.Label handle;
 	[GtkChild] unowned Widgets.Avatar avatar;
+	[GtkChild] unowned Gtk.Label our_note;
 	[GtkChild] unowned Gtk.Button moved_btn;
 	[GtkChild] public unowned Widgets.MarkupView note;
 	[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
 	[GtkChild] unowned Gtk.MenuButton mutuals_button;
-
-	[GtkChild] unowned Adw.EntryRow note_entry_row;
-	[GtkChild] unowned Gtk.ListBoxRow note_row;
-	[GtkChild] unowned Gtk.Label note_error;
+	[GtkChild] unowned Adw.ActionRow note_row;
 
 	[GtkChild] unowned Gtk.Image supporter_icon;
 
@@ -118,6 +116,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	public signal void rs_invalidated ();
 	public signal void timeline_change (string timeline);
 	public signal void aria_updated (string new_aria);
+	public signal void edit_note ();
 
 	~Cover () {
 		debug ("Destroying Profile Cover");
@@ -138,26 +137,6 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			cover_badge.label = value;
 
 			update_cover_badge ();
-		}
-	}
-
-	public string note_error_label {
-		get {
-			return note_error.label;
-		}
-
-		set {
-			note_entry_row.show_apply_button = note_entry_row.text != rsbtn.rs.note && value == "";
-			if (note_error.label == value) return;
-
-			note_error.visible = value != "";
-			note_error.label = value;
-
-			if (value != "") {
-				note_entry_row.add_css_class ("error");
-			} else {
-				note_entry_row.remove_css_class ("error");
-			}
 		}
 	}
 
@@ -274,11 +253,11 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 		_mini = mini;
 		if (mini) {
-			note_row.sensitive = false;
+			note_row.can_target = false;
 		} else if (!is_self) {
 			moved_btn.clicked.connect (on_moved_btn_clicked);
-			if (accounts.active.tuba_api_versions.mastodon > 0) {
-				GLib.Idle.add (populate_mutuals);
+			if (accounts.active.tuba_api_versions.mastodon > 0 || InstanceAccount.InstanceFeatures.MUTUALS in accounts.active.tuba_instance_features) {
+				populate_mutuals.begin ();
 			}
 		}
 
@@ -288,7 +267,6 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		}
 
 		if (!is_self) {
-			note_entry_row.notify["text"].connect (on_note_changed);
 			profile.rs.invalidated.connect (on_rs_invalidation);
 			rsbtn.handle = profile.account.handle;
 			rsbtn.rs = profile.rs;
@@ -319,30 +297,36 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		} else {
 			background.height_request = 64;
 
-			// translators: Used in profile stats.
-			//              The variable is a shortened number of the amount of posts a user has made.
-			string posts_str = GLib.ngettext (
-				"%s Post",
-				"%s Posts",
-				(ulong) profile.account.statuses_count
-			).printf (@"<b>$(Utils.Units.shorten (profile.account.statuses_count))</b>");
+			string[] stats = {};
+			{
+				// translators: Used in profile stats.
+				//              The variable is a shortened number of the amount of posts a user has made.
+				string posts_str = GLib.ngettext (
+					"%s Post",
+					"%s Posts",
+					(ulong) profile.account.statuses_count
+				).printf (@"<b>$(Utils.Units.shorten (profile.account.statuses_count))</b>");
+				stats += "<span allow_breaks=\"false\">%s</span>".printf (posts_str);
+			}
 
-			// translators: Used in profile stats.
-			//              The variable is a shortened number of the amount of followers a user has.
-			string followers_str = GLib.ngettext (
-				"%s Follower",
-				"%s Followers",
-				(ulong) profile.account.statuses_count
-			).printf (@"<b>$(Utils.Units.shorten (profile.account.followers_count))</b>");
+			if (profile.account.followers_count >= 0) {
+				// translators: Used in profile stats.
+				//              The variable is a shortened number of the amount of followers a user has.
+				string followers_str = GLib.ngettext (
+					"%s Follower",
+					"%s Followers",
+					(ulong) profile.account.followers_count
+				).printf (@"<b>$(Utils.Units.shorten (profile.account.followers_count))</b>");
+				stats += "<span allow_breaks=\"false\">%s</span>".printf (followers_str);
+			}
 
-			stats_string = "<span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>".printf (
-				posts_str,
+			if (profile.account.following_count >= 0) {
 				// translators: Used in profile stats.
 				//              The variable is a shortened number of the amount of people a user follows.
-				_("%s Following").printf (@"<b>$(Utils.Units.shorten (profile.account.following_count))</b>"),
-				followers_str
-			);
+				stats += "<span allow_breaks=\"false\">%s</span>".printf (_("%s Following").printf (@"<b>$(Utils.Units.shorten (profile.account.following_count))</b>"));
+			}
 
+			stats_string = string.joinv ("   ", stats);
 			info.append (
 				new Gtk.ListBoxRow () {
 					activatable = false,
@@ -352,7 +336,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 						hexpand = true,
 						xalign = 0.0f,
 						use_markup = true,
-						css_classes = {"account-stats"},
+						css_classes = {"font-small"},
 						valign = Gtk.Align.CENTER,
 						margin_start = 12,
 						margin_end = 12,
@@ -372,57 +356,57 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 	Gee.ArrayList<API.Account>? mutual_accounts = null;
 	Gtk.ListBox? mutuals_listbox = null;
-	private bool populate_mutuals () {
+	private async void populate_mutuals () {
 		mutuals_button.visible = false;
 
-		new Request.GET ("/api/v1/accounts/familiar_followers")
-			.with_account (accounts.active)
-			.with_param ("id", profile_id)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) return;
+		var req = new RequestV2 ("/api/v1/accounts/familiar_followers") { account = accounts.active };
+		req.add_parameter ("id[]", profile_id);
 
-				Value res_accounts;
-				Entity.des_list (out res_accounts, node, typeof (API.FamiliarFollowers));
-				var res_mutual_accounts = (Gee.ArrayList<API.FamiliarFollowers>) res_accounts;
-				if (res_mutual_accounts.size == 0) return;
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			if (node == null) return;
 
-				mutual_accounts = res_mutual_accounts.get (0).accounts;
-				if (mutual_accounts.size > 0) {
-					mutuals_button.visible = true;
+			Value res_accounts;
+			Entity.des_list (out res_accounts, node, typeof (API.FamiliarFollowers));
+			var res_mutual_accounts = (Gee.ArrayList<API.FamiliarFollowers>) res_accounts;
+			if (res_mutual_accounts.size == 0) return;
 
-					mutuals_button.child = new MutualsButtonContent (mutual_accounts);
-					mutuals_listbox = new Gtk.ListBox () {
-						selection_mode = Gtk.SelectionMode.NONE,
-						css_classes = {"boxed-list"}
-					};
+			mutual_accounts = res_mutual_accounts.get (0).accounts;
+			if (mutual_accounts.size > 0) {
+				mutuals_button.visible = true;
 
-					mutuals_button.popover = new Gtk.Popover () {
-						child = new Gtk.ScrolledWindow () {
-							child = mutuals_listbox,
-							hexpand = true,
-							vexpand = true,
-							hscrollbar_policy = Gtk.PolicyType.NEVER,
-							max_content_height = 500,
-							width_request = 360,
-							propagate_natural_height = true
-						}
-					};
+				mutuals_button.child = new MutualsButtonContent (mutual_accounts);
+				mutuals_listbox = new Gtk.ListBox () {
+					selection_mode = Gtk.SelectionMode.NONE,
+					css_classes = {"boxed-list"}
+				};
 
-					mutuals_button.notify["active"].connect (on_mutuals_popover);
-				}
-			})
-			.exec ();
-
-		return GLib.Source.REMOVE;
+				mutuals_button.popover = new Gtk.Popover () {
+					child = new Gtk.ScrolledWindow () {
+						child = mutuals_listbox,
+						hexpand = true,
+						vexpand = true,
+						hscrollbar_policy = Gtk.PolicyType.NEVER,
+						max_content_height = 500,
+						width_request = 360,
+						propagate_natural_height = true
+					}
+				};
+				mutuals_button.popover.add_css_class ("no-padding");
+				mutuals_button.notify["active"].connect (on_mutuals_popover);
+			}
+		} catch (Error e) {
+			warning (@"Couldn't get mutuals: $(e.code) $(e.message)");
+		}
 	}
 
 	private void on_mutuals_popover () {
 		if (mutual_accounts == null || mutuals_listbox == null) return;
 
 		foreach (var acc in mutual_accounts) {
-			mutuals_listbox.append (new Widgets.EmojiReactionAccounts.AccountRow (acc));
+			mutuals_listbox.append (new Widgets.AccountRow (acc));
 		}
 
 		mutual_accounts = null;
@@ -450,18 +434,21 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		cover_bot_badge.visible = profile.bot;
 		update_cover_badge ();
 
-		var w = roles.get_first_child ();
-		while (w != null) {
-			roles.remove (w);
-			w = w.get_next_sibling ();
-		};
+		{
+			var w = roles.get_first_child ();
+			while (w != null) {
+				var w2 = w.get_next_sibling ();
+				roles.remove (w);
+				w = w2;
+			};
+		}
 
 		if (profile.roles != null && profile.roles.size > 0) {
 			roles.visible = true;
 
 			foreach (API.AccountRole role in profile.roles) {
 				var role_widget = role.to_widget ();
-				role_widget.add_css_class ("profile-role-border-radius");
+				role_widget.add_css_class ("tuba-circular");
 
 				roles.append (role_widget);
 			}
@@ -478,6 +465,18 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		}
 		background.alternative_text = profile.header_description;
 
+		if (profile.memorial) {
+			// translators: note shown on profiles that have been memorialized
+			our_note.label = _("In Memoriam");
+			our_note.visible = true;
+		} else if (profile.suspended) {
+			// translators: note shown on profiles that have been suspended
+			our_note.label = _("Suspended");
+			our_note.visible = true;
+		} else {
+			our_note.visible = false;
+		}
+
 		if (!_mini && profile.moved != null) {
 			moved_btn.visible = true;
 			moved_btn.child = new Gtk.Label (
@@ -488,7 +487,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			) {
 				use_markup = true,
 				wrap = true,
-				wrap_mode = Pango.WrapMode.WORD_CHAR
+				wrap_mode = Pango.WrapMode.CHAR
 			};
 			moved_to_account = profile.moved;
 		} else {
@@ -501,11 +500,13 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
 			total_fields = profile.fields.size;
 
+			var profile_emoji_map = profile.emojis_map;
 			foreach (API.AccountField f in profile.fields) {
 				var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
 					css_classes = {"ttl-profile-field"}
 				};
-				var val = new Widgets.RichLabel (Utils.Htmlx.simplify (f.val)) {
+
+				var val = new Widgets.RichLabel.with_emojis (Utils.Htmlx.simplify (f.val), profile_emoji_map) {
 					use_markup = true,
 					xalign = 0,
 					selectable = true
@@ -515,7 +516,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 					use_markup = false,
 					css_classes = {"dim-label"}
 				};
-				title_label.instance_emojis = profile.emojis_map;
+				title_label.instance_emojis = profile_emoji_map;
 				title_label.content = f.name;
 
 				fields_box.append (row);
@@ -552,7 +553,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 					wrap = true,
 					xalign = 0,
 					hexpand = true,
-					tooltip_text = parsed_date.format ("%F")
+					tooltip_text = parsed_date.format ("%F"),
+					selectable = true
 				};
 
 				var creation_date_time = new GLib.DateTime.from_iso8601 (profile.created_at, null);
@@ -628,8 +630,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 	private void on_rs_invalidation (API.Relationship rs) {
 		cover_badge_label = rs.to_string ();
-		note_row.visible = _mini ? rs.note != "" : rs.note != null;
-		if (note_row.visible) note_entry_row.text = rs.note;
+		note_row.visible = rs.note != null && rs.note != "";
+		if (note_row.visible) note_row.subtitle = rs.note;
 
 		if (!_mini) app.relationship_invalidated (rs);
 
@@ -649,8 +651,14 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		public string label_template { get; set; default = "%s"; }
 		public int64 amount {
 			set {
-				this.label = label_template.printf (Utils.Units.shorten (value));
-				this.tooltip_text = label_template.printf (value.to_string ());
+				if (value == -1) {
+					this.label = label_template.printf ("").strip ();
+					// translators: shown when the user has hidden their followers/following counts
+					this.tooltip_text = label_template.printf (_("Hidden"));
+				} else {
+					this.label = label_template.printf (Utils.Units.shorten (value));
+					this.tooltip_text = label_template.printf (value.to_string ());
+				}
 			}
 		}
 
@@ -662,6 +670,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			var child_label = this.child as Gtk.Label;
 			child_label.wrap = true;
 			child_label.justify = Gtk.Justification.CENTER;
+			child_label.wrap_mode = Pango.WrapMode.WORD_CHAR;
 		}
 	}
 
@@ -674,7 +683,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
 
 		posts_btn = new ProfileStatsButton ();
-		posts_btn.clicked.connect (() => timeline_change ("statuses"));
+		posts_btn.clicked.connect (() => timeline_change ("statuses-like"));
 		sizegroup.add_widget (posts_btn);
 		box.append (posts_btn);
 
@@ -705,18 +714,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	}
 
 	[GtkCallback]
-	void on_note_apply () {
-		if (!note_row.visible) return;
-		if (note_error_label != "") return;
-		rsbtn.rs.modify_note (note_entry_row.text);
-	}
-
-	void on_note_changed () {
-		if (note_entry_row.text.length >= 2000) {
-			note_error_label = _("Error: Note is over 2000 characters long");
-			return;
-		}
-
-		note_error_label = "";
+	void on_edit_note () {
+		if (!note_row.visible || !note_row.can_target) return;
+		edit_note ();
 	}
 }

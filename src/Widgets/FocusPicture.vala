@@ -62,6 +62,17 @@ public class Tuba.Widgets.FocusPicture : Gtk.Widget, Gtk.Buildable, Gtk.Accessib
 		}
 	}
 
+	bool _spoilered = false;
+	public bool spoilered {
+		get { return _spoilered; }
+		set {
+			if (_spoilered == value) return;
+
+			_spoilered = value;
+			this.queue_draw ();
+		}
+	}
+
 	Gdk.Paintable? _paintable = null;
 	public Gdk.Paintable? paintable {
 		get { return _paintable; }
@@ -107,12 +118,19 @@ public class Tuba.Widgets.FocusPicture : Gtk.Widget, Gtk.Buildable, Gtk.Accessib
 	}
 
 	public override void snapshot (Gtk.Snapshot snapshot) {
-		if (_paintable == null) return;
+		if (
+			_paintable == null
+			|| (_spoilered && !Tuba.should_blur_sensitive_media)
+		) return;
 
 		int width = this.get_width ();
 		int height = this.get_height ();
 		double ratio = _paintable.get_intrinsic_aspect_ratio ();
 
+		#if GTK_4_22
+			snapshot.push_isolation (Gsk.Isolation.ALL);
+		#endif
+		if (_spoilered) snapshot.push_blur (60);
 		if (_content_fit == Gtk.ContentFit.FILL || ratio == 0) {
 			_paintable.snapshot (snapshot, width, height);
 		} else {
@@ -163,6 +181,10 @@ public class Tuba.Widgets.FocusPicture : Gtk.Widget, Gtk.Buildable, Gtk.Accessib
 			_paintable.snapshot (snapshot, w, h);
 			snapshot.restore ();
 		}
+		if (_spoilered) snapshot.pop ();
+		#if GTK_4_22
+			snapshot.pop ();
+		#endif
 	}
 
 	public override void measure (

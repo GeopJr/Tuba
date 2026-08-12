@@ -26,6 +26,7 @@ install_data(
         'glib-2.0',
         'schemas',
     ),
+    install_tag: 'runtime',
 )
 
 gresource_files = ''
@@ -46,10 +47,23 @@ foreach color : syntax_colors
   gresource_files += '<file preprocess="xml-stripblanks" alias="fedi-@0@.xml">@1@/fedi-@0@.xml</file>\n<file preprocess="xml-stripblanks" alias="fedi-@0@-dark.xml">@1@/fedi-@0@-dark.xml</file>\n'.format(color, meson.current_build_dir())
 endforeach
 
+gresource_android_icons_files = ''
+if host_machine.system() == 'android'
+  android_icons = ['contact-new', 'document-edit', 'go-top', 'view-more-horizontal']
+  gresource_android_icons_files += '<file preprocess="xml-stripblanks" alias="icons/scalable/apps/dev.geopjr.Tuba.svg">icons/color.svg</file>\n'
+
+  foreach icon_name : android_icons
+    gresource_android_icons_files += '<file preprocess="xml-stripblanks">icons/scalable/actions/@0@-symbolic.svg</file>\n'.format(icon_name)
+  endforeach
+endif
+
 gresource_file = configure_file(
     input : 'gresource.xml.in',
     output : 'gresource.xml',
-    configuration : {'GRESOURCE_SOURCEVIEW_STYLES_FILES': gresource_files}
+    configuration : {
+      'GRESOURCE_SOURCEVIEW_STYLES_FILES': gresource_files,
+      'GRESOURCE_ANDROID_ICONS_FILES': gresource_android_icons_files
+    }
 )
 
 desktop_file = i18n.merge_file(
@@ -66,7 +80,33 @@ if desktop_utils.found()
     test('Validate desktop file', desktop_utils, args: [desktop_file])
 endif
 
-if host_machine.system() != 'windows' and host_machine.system() != 'darwin'
+configure_file(
+    input: meson.project_name() + '.service.in',
+    output: meson.project_name() + '.service',
+    configuration: config,
+    install: true,
+    install_dir: join_paths(
+        get_option('datadir'),
+       'dbus-1',
+       'services',
+    ),
+)
+
+if unifiedpush
+  configure_file(
+      input: meson.project_name() + '.UnifiedPush.service.in',
+      output: meson.project_name() + '.UnifiedPush.service',
+      configuration: config,
+      install: true,
+      install_dir: join_paths(
+          get_option('datadir'),
+         'dbus-1',
+         'services',
+      ),
+  )
+endif
+
+if host_machine.system() != 'windows' and host_machine.system() != 'darwin' and host_machine.system() != 'haiku'
     appstream_file = i18n.merge_file(
         input: meson.project_name() + '.metainfo.xml.in',
         output: meson.project_name() + '.metainfo.xml',

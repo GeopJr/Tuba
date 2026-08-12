@@ -19,25 +19,25 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			}
 		}
 
-		public string to_dialog_title () {
-			switch (this) {
-				case PEERTUBE:
-					// translators: the variable is an external service like "PeerTube"
-					return _("You are about to open a %s video").printf (this.to_string ());
-				case FUNKWHALE:
-					// translators: the variable is an external service like "Funkwhale",
-					//				track as in song
-					return _("You are about to open a %s track").printf (this.to_string ());
-				case BOOKWYRM:
-					// translators: the variable is an external service like "BookWyrm"
-					return _("You are about to open a %s book").printf (this.to_string ());
-				case CLAPPER:
-					return _("You are about to open a video");
-				default:
-					// translators: the variable is the app name (Tuba)
-					return _("You are about to leave %s").printf (Build.NAME);
-			}
-		}
+		//  public string to_dialog_title () {
+		//  	switch (this) {
+		//  		case PEERTUBE:
+		//  			// translators: the variable is an external service like "PeerTube"
+		//  			return _("You are about to open a %s video").printf (this.to_string ());
+		//  		case FUNKWHALE:
+		//  			// translators: the variable is an external service like "Funkwhale",
+		//  			//				track as in song
+		//  			return _("You are about to open a %s track").printf (this.to_string ());
+		//  		case BOOKWYRM:
+		//  			// translators: the variable is an external service like "BookWyrm"
+		//  			return _("You are about to open a %s book").printf (this.to_string ());
+		//  		case CLAPPER:
+		//  			return _("You are about to open a video");
+		//  		default:
+		//  			// translators: the variable is the app name (Tuba)
+		//  			return _("You are about to leave %s").printf (Build.NAME);
+		//  	}
+		//  }
 
 		public string to_dialog_body (string t_url) {
 			var dlg_url = t_url;
@@ -206,7 +206,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 
 	public void open_special_card () {
 		if (this.tuba_uri == null) {
-			open_url (this.url);
+			open_url.begin ();
 			return;
 		}
 
@@ -246,50 +246,68 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 					return;
 			#endif
 			default:
-				open_url (this.url);
+				open_url.begin ();
 				return;
 		}
 
-		new Request.GET (api_url)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-
-				switch (this.special_card) {
-					case API.PreviewCard.CardSpecialType.FUNKWHALE:
-						var funkwhale_obj = API.Funkwhale.from (node);
-						string res_url;
-
-						if (funkwhale_obj.get_track (host, out res_url)) {
-							app.main_window.show_media_viewer (res_url, Tuba.Attachment.MediaType.AUDIO, null, null, false, null, this.url, null, true);
-						}
-						break;
-					case API.PreviewCard.CardSpecialType.BOOKWYRM:
-						API.BookWyrm bookwyrm_obj = API.BookWyrm.from (node);
-
-						if (bookwyrm_obj.title != null && bookwyrm_obj.title != "") {
-							app.main_window.show_book (bookwyrm_obj);
-						}
-						break;
-					default:
-						open_url (this.url);
-						break;
-				}
-			})
-			.on_error (() => {
-				open_url (this.url);
-			})
-			.exec ();
+		open_special_card_real.begin (api_url, host);
 	}
 
-	private void open_url (string url) {
+	private async void open_special_card_real (string api_url, string host) {
+		var req = new RequestV2 (api_url);
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+
+			switch (this.special_card) {
+				case API.PreviewCard.CardSpecialType.FUNKWHALE:
+					var funkwhale_obj = API.Funkwhale.from (node);
+					string res_url;
+
+					if (funkwhale_obj.get_track (host, out res_url)) {
+						app.main_window.show_media_viewer (res_url, Tuba.Attachment.MediaType.AUDIO, null, null, false, null, this.url, null, true);
+					}
+					break;
+				case API.PreviewCard.CardSpecialType.BOOKWYRM:
+					API.BookWyrm bookwyrm_obj = API.BookWyrm.from (node);
+
+					if (bookwyrm_obj.title != null && bookwyrm_obj.title != "") {
+						app.main_window.show_book (bookwyrm_obj);
+					}
+					break;
+				default:
+					yield open_url ();
+					break;
+			}
+		} catch (Error e) {
+			yield open_url ();
+		}
+	}
+
+	private async void open_url () {
+		if (Widgets.RichLabel.should_resolve (this.tuba_uri, this.url)) {
+			try {
+				(yield accounts.active.resolve (this.url)).open ();
+				return;
+			} catch (Error e) {
+				warning (@"Failed to resolve URL \"$(this.url)\":");
+				warning (e.message);
+			}
+		}
+
 		#if WEBKIT
-			if (settings.use_in_app_browser_if_available && Views.Browser.can_handle_url (url)) {
-				(new Views.Browser.with_url (url)).present (app.main_window);
+			if (settings.use_in_app_browser_if_available && Views.Browser.can_handle (this.tuba_uri, this.url)) {
+				(new Views.Browser.with_url (this.url)).present (app.main_window);
 				return;
 			}
 		#endif
 
-		Utils.Host.open_url.begin (url);
+		if (this.tuba_uri != null) {
+			yield Utils.Host.open_uri (this.tuba_uri);
+		} else {
+			yield Utils.Host.open_url (this.url);
+		}
 	}
 }

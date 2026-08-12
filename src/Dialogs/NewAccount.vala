@@ -3,10 +3,10 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	const string AUTO_AUTH_DESCRIPTION = _("Allow access to your account in the browser.");
 	const string CODE_AUTH_DESCRIPTION = _("Copy the authorization code from the browser and paste it below.");
 
-	const string SCOPES = "read write follow";
+	const string SCOPES = "read write follow push";
 	const string ADMIN_SCOPES = "admin:read admin:write admin:read:reports admin:write:reports admin:read:ip_blocks admin:write:ip_blocks admin:read:domain_blocks admin:write:domain_blocks admin:read:domain_allows admin:write:domain_allows admin:read:email_domain_blocks admin:write:email_domain_blocks admin:read:canonical_email_blocks admin:write:canonical_email_blocks";
 
-	#if WINDOWS || DARWIN
+	#if WINDOWS || DARWIN || HAIKU || ANDROID
 		const bool SHOULD_AUTO_AUTH = false;
 	#else
 		const bool SHOULD_AUTO_AUTH = true;
@@ -18,6 +18,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	protected InstanceAccount account { get; set; default = new InstanceAccount.empty (""); }
 	protected bool can_access_settings { get; set; default=false; }
 	protected bool admin_mode { get; set; default=false; }
+	private InstanceAccount? updating_account { get; set; default = null; }
 
 	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 	[GtkChild] unowned Adw.NavigationView deck;
@@ -32,21 +33,35 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	[GtkChild] unowned Gtk.Label code_entry_error;
 
 	[GtkChild] unowned Adw.StatusPage auth_page;
-	[GtkChild] unowned Adw.StatusPage done_page;
+	[GtkChild] unowned Widgets.EmojiLabel done_page_emoji_label;
 
 	[GtkChild] unowned Gtk.Label manual_auth_label;
 
-	public string get_full_scopes () {
-		if (this.admin_mode) return @"$SCOPES $ADMIN_SCOPES";
-
-		return SCOPES;
+	static construct {
+		typeof (Widgets.EmojiLabel).ensure ();
 	}
 
-	public NewAccount (bool can_access_settings = false) {
+	public string get_full_scopes () {
+		string scopes = SCOPES;
+		if (this.admin_mode) scopes = @"$scopes $ADMIN_SCOPES";
+		if (account != null && (InstanceAccount.InstanceFeatures.ICESHRIMP in account.tuba_instance_features))
+			scopes = @"$scopes iceshrimp";
+
+		return scopes;
+	}
+
+	public NewAccount (bool can_access_settings = false, InstanceAccount? account_to_update = null) {
 		Object (transient_for: app.main_window);
 		this.can_access_settings = can_access_settings;
 		app.add_account_window = this;
 		app.add_window (this);
+
+		//  FIX: hack for the broken font
+		#if ANDROID
+			if (!settings.enlarge_custom_emojis) {
+				this.add_css_class ("android");
+			}
+		#endif
 
 		bind_property ("use-auto-auth", auth_page, "description", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_string (src.get_boolean () ? AUTO_AUTH_DESCRIPTION : CODE_AUTH_DESCRIPTION);
@@ -61,14 +76,26 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		manual_auth_label.activate_link.connect (on_manual_auth);
 
+		if (account_to_update != null) {
+			this.updating_account = account_to_update;
+		}
+
 		reset ();
 		present ();
 		instance_entry.grab_focus ();
+
+		if (this.updating_account != null) {
+			instance_entry.text = this.updating_account.instance;
+			on_next_clicked ();
+		}
 	}
 
-	private void add_toast (string content, uint timeout = 0) {
+	private void add_toast (string content, uint timeout = 0, string? action_name = null, GLib.Variant? action_target = null, string? action_label = null) {
 		toast_overlay.add_toast (new Adw.Toast (content) {
-			timeout = timeout
+			timeout = timeout,
+			action_name = action_name,
+			action_target = action_target,
+			button_label = action_label
 		});
 	}
 
@@ -107,7 +134,9 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		clear_errors ();
 		use_auto_auth = SHOULD_AUTO_AUTH;
 		account = new InstanceAccount.empty (account.instance);
-		deck.pop_to_page (instance_step);
+		if (this.updating_account == null) {
+			deck.pop_to_page (instance_step);
+		}
 	}
 
 	void oopsie (string title, string msg = "") {
@@ -171,22 +200,21 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			throw new Oopsie.USER (_("Please enter a valid instance URL"));
 		}
 
-		account.instance = final_string;
+		account.instance = this.updating_account == null ? final_string : this.updating_account.instance;
 		instance_entry.text = final_string_no_scheme;
 	}
 
 	async void register_client () throws Error {
 		debug ("Registering client");
 
-		var msg = new Request.POST ("/api/v1/apps")
-			.with_account (account)
-			.with_form_data ("client_name", Build.NAME)
-			.with_form_data ("redirect_uris", redirect_uri = setup_redirect_uri ())
-			.with_form_data ("scopes", get_full_scopes ())
-			.with_form_data ("website", Build.WEBSITE);
-		yield msg.await ();
+		var msg = new RequestV2 ("/api/v1/apps", POST) { account = account };
+		msg.add_form_data ("client_name", Build.NAME);
+		msg.add_form_data ("redirect_uris", redirect_uri = setup_redirect_uri ());
+		msg.add_form_data ("scopes", get_full_scopes ());
+		msg.add_form_data ("website", Build.WEBSITE);
+		var in_stream = yield msg.exec (null);
 
-		var parser = Network.get_parser_from_inputstream (msg.response_body);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		var root = network.parse (parser);
 
 		if (root.get_string_member ("name") != Build.NAME)
@@ -198,6 +226,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		if (deck.visible_page != code_step) {
 			deck.push (code_step);
+			if (this.updating_account != null) deck.remove (instance_step);
 		}
 		open_confirmation_page ();
 	}
@@ -217,16 +246,15 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			throw new Oopsie.USER (_("Please enter a valid authorization code"));
 
 		debug ("Requesting access token");
-		var token_req = new Request.POST ("/oauth/token")
-			.with_account (account)
-			.with_form_data ("client_id", account.client_id)
-			.with_form_data ("client_secret", account.client_secret)
-			.with_form_data ("redirect_uri", redirect_uri)
-			.with_form_data ("grant_type", "authorization_code")
-			.with_form_data ("code", code_entry.text);
-		yield token_req.await ();
+		var token_req = new RequestV2 ("/oauth/token", POST) { account = account };
+		token_req.add_form_data ("client_id", account.client_id);
+		token_req.add_form_data ("client_secret", account.client_secret);
+		token_req.add_form_data ("redirect_uri", redirect_uri);
+		token_req.add_form_data ("grant_type", "authorization_code");
+		token_req.add_form_data ("code", code_entry.text);
+		var in_stream = yield token_req.exec (null);
 
-		var parser = Network.get_parser_from_inputstream (token_req.response_body);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		var root = network.parse (parser);
 		account.access_token = root.get_string_member ("access_token");
 
@@ -236,12 +264,25 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		yield account.verify_credentials ();
 
 		account.admin_mode = this.admin_mode;
-		account = accounts.create_account (account.to_json ());
+		if (this.updating_account != null) {
+			yield accounts.revoke_token_dangerous (this.updating_account, false);
+			this.updating_account.tuba_revoked = false;
+			this.updating_account.client_id = account.client_id;
+			this.updating_account.client_secret = account.client_secret;
+			this.updating_account.access_token = account.access_token;
+			this.updating_account.admin_mode = account.admin_mode;
+			//  this.updating_account.tuba_instance_features = account.tuba_instance_features;
+			this.updating_account.backend = account.backend;
+			accounts.update_account (this.updating_account);
+			account = this.updating_account;
+		} else {
+			account = accounts.create_account (account.to_json ());
+			debug ("Saving account");
+			accounts.add (account);
+		}
 
-		debug ("Saving account");
-		accounts.add (account);
-
-		done_page.title = _("Hello, %s!").printf (account.display_name);
+		done_page_emoji_label.instance_emojis = account.emojis_map;
+		done_page_emoji_label.content = _("Hello, %s!").printf (account.display_name);
 		deck.push (done_step);
 
 		debug ("Switching to account");
@@ -294,12 +335,10 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			try {
 				step.end (res);
 				clear_errors ();
-			}
-			catch (Oopsie.INSTANCE e) {
+			} catch (Oopsie.INSTANCE e) {
 				oopsie (_("Server returned an error"), e.message);
 				mark_errors (e.message);
-			}
-			catch (Error e) {
+			} catch (Error e) {
 				oopsie (e.message);
 				mark_errors (e.message);
 			}

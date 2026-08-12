@@ -1,14 +1,21 @@
 public class Tuba.Views.ScheduledStatuses : Views.Timeline {
-	construct {
-		url = "/api/v1/scheduled_statuses";
-		// translators: as in posts set to be posted sometime in the future
-		label = _("Scheduled Posts");
-		icon = "tuba-chat-symbolic";
-		// translators: as in posts set to be posted sometime in the future
-		empty_state_title = _("No Scheduled Posts");
-		accepts = typeof (API.ScheduledStatus);
+	public ScheduledStatuses () {
+		Object (
+			url: "/api/v1/scheduled_statuses",
+			// translators: as in posts set to be posted sometime in the future
+			label: _("Scheduled Posts"),
+			icon: "tuba-clock-alt-symbolic",
+			// translators: as in posts set to be posted sometime in the future
+			empty_state_title: _("No Scheduled Posts"),
+			batch_size_min: 20,
+			allow_nesting: true,
+			force_at_least_min: true
+		);
+	}
 
-		app.refresh_scheduled_statuses.connect (on_refresh);
+	construct {
+		accepts = typeof (API.ScheduledStatus);
+		app.refresh_scheduled_statuses.connect (refresh_if_mapped);
 	}
 
 	public override Gtk.Widget on_create_model_widget (Object obj) {
@@ -17,7 +24,7 @@ public class Tuba.Views.ScheduledStatuses : Views.Timeline {
 
 		if (widget_scheduled != null) {
 			widget_scheduled.deleted.connect (on_deleted_scheduled);
-			widget_scheduled.refresh.connect (on_refresh);
+			widget_scheduled.refresh.connect (refresh_if_mapped);
 		}
 
 		return widget;
@@ -27,7 +34,7 @@ public class Tuba.Views.ScheduledStatuses : Views.Timeline {
 		for (uint i = 0; i < model.get_n_items (); i++) {
 			var status_obj = (API.ScheduledStatus) model.get_item (i);
 			if (status_obj.id == scheduled_status_id) {
-				model.remove (i);
+				safely_remove ((int) i);
 				break;
 			}
 		}

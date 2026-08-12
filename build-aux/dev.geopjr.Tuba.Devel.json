@@ -1,54 +1,87 @@
 {
-    "app-id": "dev.geopjr.Tuba",
-    "runtime": "org.gnome.Platform",
-    "runtime-version": "48",
-    "sdk": "org.gnome.Sdk",
-    "add-extensions": {
-        "org.freedesktop.Platform.ffmpeg-full": {
-            "version": "24.08",
-            "directory": "lib/ffmpeg",
-            "add-ld-path": ".",
-            "no-autodownload": false,
-            "autodelete": false
-        },
+	"app-id": "dev.geopjr.Tuba",
+	"runtime": "org.gnome.Platform",
+	"runtime-version": "50",
+	"sdk": "org.gnome.Sdk",
+	"add-extensions": {
+		"org.freedesktop.Platform.ffmpeg-full": {
+			"version": "24.08",
+			"directory": "lib/ffmpeg",
+			"add-ld-path": ".",
+			"no-autodownload": false,
+			"autodelete": false
+		},
 		"com.github.rafostar.Clapper.Enhancers": {
-            "version": "stable",
-            "directory": "extensions/clapper/enhancers",
-            "add-ld-path": "lib",
-            "no-autodownload": false,
-            "autodelete": false
-        }
-    },
-    "sdk-extensions": [ "org.freedesktop.Sdk.Extension.llvm19" ],
-    "command": "dev.geopjr.Tuba",
-    "finish-args": [
-        "--device=dri",
-        "--share=ipc",
-        "--share=network",
-        "--socket=fallback-x11",
-        "--socket=wayland",
-        "--socket=pulseaudio",
-        "--own-name=org.mpris.MediaPlayer2.Tuba.*",
+			"version": "stable",
+			"directory": "extensions/clapper/enhancers",
+			"add-ld-path": "lib",
+			"no-autodownload": false,
+			"autodelete": false
+		}
+	},
+	"sdk-extensions": [
+		"org.freedesktop.Sdk.Extension.llvm21",
+		"org.freedesktop.Sdk.Extension.rust-stable"
+	],
+	"command": "dev.geopjr.Tuba",
+	"finish-args": [
+		"--device=dri",
+		"--share=ipc",
+		"--share=network",
+		"--socket=fallback-x11",
+		"--socket=wayland",
+		"--socket=pulseaudio",
+		"--own-name=org.mpris.MediaPlayer2.Tuba.*",
 		"--env=CLAPPER_ENHANCERS_PATH=/app/extensions/clapper/enhancers/plugins",
-        "--env=PYTHONPATH=/app/extensions/clapper/enhancers/python/site-packages"
-    ],
-    "cleanup": [
-        "/include",
-        "/lib/pkgconfig",
-        "/man",
-        "/share/doc",
-        "/share/gtk-doc",
-        "/share/man",
-        "/share/pkgconfig",
-        "/share/vala",
-        "*.la",
-        "*.a"
-    ],
-    "cleanup-commands": [
-        "mkdir -p /app/lib/ffmpeg",
+		"--env=PYTHONPATH=/app/extensions/clapper/enhancers/python/site-packages"
+	],
+	"cleanup": [
+		"/include",
+		"/lib/pkgconfig",
+		"/man",
+		"/share/doc",
+		"/share/gtk-doc",
+		"/share/man",
+		"/share/pkgconfig",
+		"/share/vala",
+		"*.la",
+		"*.a"
+	],
+	"cleanup-commands": [
+		"mkdir -p /app/lib/ffmpeg",
 		"mkdir -p /app/extensions/clapper/enhancers"
-    ],
-    "modules": [
+	],
+	"modules": [
+		{
+			"name": "libunifiedpush",
+			"buildsystem": "simple",
+			"build-options": {
+				"append-path": "/usr/lib/sdk/rust-stable/bin",
+				"env": {
+					"CARGO_HOME": "/run/build/libunifiedpush/cargo",
+					"CARGO_NET_OFFLINE": "true"
+				}
+			},
+			"build-commands": [
+				"cargo --offline fetch --manifest-path Cargo.toml --verbose",
+				"sed -i 's/\\bcargo build\\b/cargo build --offline/' ./libunifiedpush/Makefile",
+				"cd libunifiedpush && make typelib",
+				"printf '%s\\n' 'prefix=/app' 'exec_prefix=${prefix}' 'libdir=${exec_prefix}/lib' 'includedir=${prefix}/include' 'datarootdir=${prefix}/share' 'datadir=${datarootdir}' '' 'Name: unifiedpush' 'Description:' 'Version: 0.1' 'Requires: glib-2.0 gobject-2.0' 'Libs: -L${libdir} -lunifiedpush' 'Cflags: -I${includedir}/libunifiedpush' > unifiedpush.pc",
+				"install -Dm0755 ./target/debug/libunifiedpush.so ${FLATPAK_DEST}/lib/libunifiedpush.so",
+				"install -Dm0755 ./target/debug/libunifiedpush.so ${FLATPAK_DEST}/lib/libunifiedpush.so.0",
+				"install -Dm0644 ./libunifiedpush/out/UnifiedPush-0.1.gir ${FLATPAK_DEST}/share/gir-1.0/out/UnifiedPush-0.1.gir",
+				"install -Dm0644 ./unifiedpush.pc ${FLATPAK_DEST}/lib/pkgconfig/unifiedpush.pc",
+				"install -Dm0644 ./libunifiedpush/include/unifiedpush.h ${FLATPAK_DEST}/include/libunifiedpush/unifiedpush.h"
+			],
+			"sources": [
+				{
+					"type": "git",
+					"url": "https://codeberg.org/UnifiedPush/unifiedpush-rs",
+					"commit": "77a97643e5ec185e4f4ec90265e845b2f39c05c0"
+				},
+				"cargo-sources.json"
+			]
+		},
 		{
 			"name": "libpeas",
 			"buildsystem": "meson",
@@ -70,88 +103,140 @@
 				}
 			]
 		},
-        {
-            "name": "clapper",
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Dclapper=enabled",
-                "-Dclapper-gtk=enabled",
-                "-Dclapper-app=disabled",
-                "-Dintrospection=enabled",
-                "-Dvapi=enabled"
-            ],
+		{
+			"name": "clapper",
+			"buildsystem": "meson",
+			"config-opts": [
+				"-Dclapper=enabled",
+				"-Dclapper-gtk=enabled",
+				"-Dclapper-app=disabled",
+				"-Dintrospection=enabled",
+				"-Dvapi=enabled"
+			],
 			"build-options": {
-                "arch": {
-                    "aarch64": {
-                        "append-path": "/usr/lib/sdk/llvm19/bin",
-                        "prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
-                        "env": {
-                          "CC": "clang"
-                        }
-                    }
-                }
-            },
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://github.com/Rafostar/clapper.git",
-                    "tag": "0.8.0"
-                }
-            ]
-        },
-        {
-            "name": "libspelling",
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Ddocs=false"
-            ],
+				"arch": {
+					"aarch64": {
+						"append-path": "/usr/lib/sdk/llvm21/bin",
+						"prepend-ld-library-path": "/usr/lib/sdk/llvm21/lib",
+						"env": {
+							"CC": "clang"
+						}
+					}
+				}
+			},
+			"sources": [
+				{
+					"type": "git",
+					"url": "https://github.com/Rafostar/clapper.git",
+					"tag": "0.8.0"
+				}
+			]
+		},
+		{
+			"name": "libspelling",
+			"buildsystem": "meson",
+			"config-opts": [
+				"-Ddocs=false"
+			],
 			"build-options": {
-                "arch": {
-                    "aarch64": {
-                        "append-path": "/usr/lib/sdk/llvm19/bin",
-                        "prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
-                        "env": {
-                          "CC": "clang"
-                        }
-                    }
-                }
-            },
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/libspelling.git",
-                    "tag": "0.4.5"
-                }
-            ]
-        },
-        {
-            "name": "tuba",
-            "builddir": true,
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Ddevel=true",
-                "-Dclapper=enabled",
-                "-Dspelling=enabled",
-                "-Dgstreamer=enabled",
-                "-Din-app-browser=enabled"
-            ],
-            "build-options": {
-                "arch": {
-                    "aarch64": {
-                        "append-path": "/usr/lib/sdk/llvm19/bin",
-                        "prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
-                        "env": {
-                          "CC": "clang"
-                        }
-                    }
-                }
-            },
-            "sources": [
-                {
-                    "type": "dir",
-                    "path": "../"
-                }
-            ]
-        }
-    ]
+				"arch": {
+					"aarch64": {
+						"append-path": "/usr/lib/sdk/llvm21/bin",
+						"prepend-ld-library-path": "/usr/lib/sdk/llvm21/lib",
+						"env": {
+							"CC": "clang"
+						}
+					}
+				}
+			},
+			"sources": [
+				{
+					"type": "git",
+					"url": "https://gitlab.gnome.org/GNOME/libspelling.git",
+					"tag": "0.4.5"
+				}
+			]
+		},
+		{
+			"name": "exiv2",
+			"sources": [
+				{
+					"type": "archive",
+					"url": "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.5.tar.gz",
+					"sha256": "e1671f744e379a87ba0c984617406fdf8c0ad0c594e5122f525b2fb7c28d394d",
+					"x-checker-data": {
+						"type": "anitya",
+						"project-id": 769,
+						"stable-only": true,
+						"url-template": "https://github.com/Exiv2/exiv2/archive/refs/tags/v$version.tar.gz"
+					}
+				}
+			],
+			"cleanup": [
+				"/bin"
+			],
+			"buildsystem": "cmake-ninja",
+			"config-opts": [
+				"-DEXIV2_BUILD_EXIV2_COMMAND=OFF",
+				"-DEXIV2_ENABLE_INIH=OFF",
+				"-DEXIV2_ENABLE_VIDEO=OFF",
+				"-DEXIV2_BUILD_SAMPLES=OFF",
+				"-DEXIV2_BUILD_UNIT_TESTS=OFF",
+				"-DEXIV2_BUILD_DOC=OFF",
+				"-DEXIV2_ENABLE_LENSDATA=OFF",
+				"-DEXIV2_ENABLE_XMP=ON",
+				"-DEXIV2_ENABLE_EXTERNAL_XMP=OFF",
+				"-DCMAKE_BUILD_TYPE=MinSizeRel"
+			]
+		},
+		{
+			"name": "gexiv2",
+			"buildsystem": "meson",
+			"config-opts": [
+				"-Dpython3=false",
+				"-Dtools=false"
+			],
+			"sources": [
+				{
+					"type": "archive",
+					"url": "https://download.gnome.org/sources/gexiv2/0.15/gexiv2-0.15.0.tar.xz",
+					"sha256": "045ec4584d32963719e0722929f40f1d19566d4582e1eee4604be97e8c3eb740",
+					"x-checker-data": {
+						"type": "gnome",
+						"name": "gexiv2"
+					}
+				}
+			]
+		},
+		{
+			"name": "tuba",
+			"builddir": true,
+			"buildsystem": "meson",
+			"config-opts": [
+				"-Ddevel=true",
+				"-Dclapper=enabled",
+				"-Dspelling=enabled",
+				"-Dgstreamer=enabled",
+				"-Din-app-browser=enabled",
+				"-Dgexiv2=enabled"
+			],
+			"build-options": {
+				"arch": {
+					"aarch64": {
+						"append-path": "/usr/lib/sdk/llvm21/bin",
+						"prepend-ld-library-path": "/usr/lib/sdk/llvm21/lib",
+						"env": {
+							"CC": "clang"
+						}
+					}
+				}
+			},
+			"sources": [
+				{
+					"type": "dir",
+					"path": "../"
+				}
+			]
+		}
+	]
 }

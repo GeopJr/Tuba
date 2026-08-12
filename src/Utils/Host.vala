@@ -49,6 +49,16 @@ public class Tuba.Utils.Host {
 		return true;
 	}
 
+	public static async void open_containing_folder (string path) {
+		debug (@"Opening containing folder for $path");
+
+		try {
+			yield (new Gtk.FileLauncher (File.new_for_path (path))).open_containing_folder (app.active_window, null);
+		} catch (Error e) {
+			warning (@"Error opening containing folder for \"$path\": $(e.message)");
+		}
+	}
+
 	public static void copy (string str) {
 		Gdk.Display display = Gdk.Display.get_default ();
 		if (display == null) return;
@@ -59,7 +69,7 @@ public class Tuba.Utils.Host {
 	public async static string download (string url) throws Error {
 		debug (@"Downloading file: $url…");
 
-		var file_name = Path.get_basename (url);
+		var file_name = GLib.Uri.unescape_string (Path.get_basename (url));
 		var dir_name = Path.get_dirname (url);
 
 		var dir_path = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "manual", "media");
@@ -77,10 +87,10 @@ public class Tuba.Utils.Host {
 		if (!file.query_exists ()) {
 			// Disable libsoup's cache on these
 			// it's better if we handle it so it doesn't affect its limits and loading
-			var msg = yield new Request.GET (url).disable_cache ()
-				.await ();
+			var msg = new RequestV2 (url) { cache = false };
+			var in_stream = yield msg.exec (null);
 
-			var data = msg.response_body;
+			var data = in_stream;
 			FileOutputStream stream = yield file.create_async (FileCreateFlags.PRIVATE);
 			yield stream.splice_async (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
 

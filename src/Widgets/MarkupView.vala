@@ -45,9 +45,26 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		}
 	}
 
-	static construct {
-		set_accessible_role (Gtk.AccessibleRole.GENERIC);
+	private bool _can_open = true;
+	public bool can_open {
+		get { return _can_open; }
+		set {
+			_can_open = value;
+
+			var w = this.get_first_child ();
+			while (w != null) {
+				var label = w as RichLabel;
+				if (label != null) {
+					label.can_open = _can_open;
+				}
+				w = w.get_next_sibling ();
+			};
+		}
 	}
+
+	//  static construct {
+	//  	set_accessible_role (Gtk.AccessibleRole.GENERIC);
+	//  }
 
 	construct {
 		this.focusable = true;
@@ -58,14 +75,16 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	void update_aria () {
 		string total_aria = "";
 
-		var w = this.get_first_child ();
-		while (w != null) {
-			var label = w as RichLabel;
-			if (label != null) {
-				total_aria += @"\n$(label.accessible_text)";
-			}
-			w = w.get_next_sibling ();
-		};
+		{
+			var w = this.get_first_child ();
+			while (w != null) {
+				var label = w as RichLabel;
+				if (label != null) {
+					total_aria += @"\n$(label.accessible_text)";
+				}
+				w = w.get_next_sibling ();
+			};
+		}
 
 		this.update_property (Gtk.AccessibleProperty.LABEL, total_aria, -1);
 		this.update_property (Gtk.AccessibleProperty.DESCRIPTION, null, -1);
@@ -76,9 +95,13 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		extracted_tags = null;
 		has_link = false;
 
-		for (var w = get_first_child (); w != null; w = w.get_next_sibling ()) {
-			w.unparent ();
-			w.destroy ();
+		{
+			var w = this.get_first_child ();
+			while (w != null) {
+				var w2 = w.get_next_sibling ();
+				this.remove (w);
+				w = w2;
+			};
 		}
 
 		string to_parse = Utils.Htmlx.replace_with_pango_markup (content);
@@ -172,6 +195,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				case "pre":
 				case "body":
 				case "p":
+				case "div":
 					blockquote_handler (node, bold_text_regex);
 					break;
 				case "b":
@@ -250,6 +274,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				break;
 			case "html":
 			case "markup":
+			case "div":
 				traverse_and_handle (v, root, default_handler);
 				break;
 			case "body":
@@ -259,6 +284,9 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				break;
 			case "p":
 				if (root->children == null && root->content == null) break;
+				string? classes = root->get_prop ("class");
+				if (v.has_quote && classes != null && classes.contains ("quote-inline")) break;
+
 				if (!v.chunk_ends_in_newline ()) v.write_chunk ("\n");
 				v.write_chunk ("\n");
 				traverse_and_handle (v, root, default_handler);
@@ -279,6 +307,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 						visible = true,
 						css_classes = { "ttl-code", "monospace" },
 						use_markup = true,
+						selectable = v.selectable,
 						//  focusable_label = true
 						// markup = MarkupPolicy.DISALLOW
 					};
@@ -306,6 +335,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					visible = true,
 					css_classes = { "ttl-code", "italic" },
 					use_markup = true,
+					selectable = v.selectable
 					//  focusable_label = true
 					// markup = MarkupPolicy.DISALLOW
 				};

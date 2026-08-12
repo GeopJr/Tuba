@@ -9,8 +9,6 @@ namespace Build {
 	public const string LOCALEDIR = "@LOCALEDIR@";
 
 	public const string WEBSITE = "@WEBSITE@";
-	public const string ISSUES_WEBSITE = "@ISSUES_WEBSITE@";
-	public const string SUPPORT_WEBSITE = "@SUPPORT_WEBSITE@";
 	public const string DONATE_WEBSITE = "@DONATE_WEBSITE@";
 	public const string TRANSLATE_WEBSITE = "@TRANSLATE_WEBSITE@";
 	public const string WIKI_WEBSITE = "@WIKI_WEBSITE@";

@@ -33,13 +33,14 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	construct {
-		enabled_group_notifications = accounts.active.tuba_api_versions.mastodon >= 2;
+		enabled_group_notifications = accounts.active.tuba_api_versions.mastodon >= 2 || InstanceAccount.InstanceFeatures.GROUP_NOTIFICATIONS in accounts.active.tuba_instance_features;
 		url = @"/api/v$(enabled_group_notifications ? 2 : 1)/notifications";
 		label = _("Notifications");
 		icon = "tuba-bell-outline-symbolic";
 		accepts = enabled_group_notifications ? typeof (API.GroupedNotificationsResults.NotificationGroup) : typeof (API.Notification);
 		badge_number = 0;
 		needs_attention = false;
+		// translators: empty state title
 		empty_state_title = _("No Notifications");
 
 		filters_changed (false);
@@ -82,7 +83,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		base.on_scrolled_vadjustment_value_change ();
 
 		if (scrolled.vadjustment.value <= 50 && account != null && account.unread_count > 0) {
-			account.read_notifications (
+			account.read_notifications.begin (
 				account.last_received_id > account.last_read_id
 					? account.last_received_id
 					: account.last_read_id
@@ -120,7 +121,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	public override void on_account_changed (InstanceAccount? acc) {
-		enabled_group_notifications = acc.tuba_api_versions.mastodon >= 2;
+		enabled_group_notifications = acc.tuba_api_versions.mastodon >= 2 || InstanceAccount.InstanceFeatures.GROUP_NOTIFICATIONS in acc.tuba_instance_features;
 		accepts = enabled_group_notifications ? typeof (API.GroupedNotificationsResults.NotificationGroup) : typeof (API.Notification);
 		filters_changed (false);
 		base.on_account_changed (acc);
@@ -163,14 +164,14 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	public override void on_shown () {
 		base.on_shown ();
 		if (account != null) {
-			account.read_notifications (
+			account.read_notifications.begin (
 				account.last_received_id > account.last_read_id
 					? account.last_received_id
 					: account.last_read_id
 			);
 
 			if (account.tuba_probably_has_notification_filters)
-				update_filtered_notifications ();
+				update_filtered_notifications.begin ();
 		}
 	}
 
@@ -181,90 +182,102 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		}
 	}
 
-	public override bool request () {
-		if (!enabled_group_notifications) return base.request ();
+	public async override void request () {
+		if (!enabled_group_notifications) {
+			yield base.request ();
+			return;
+		}
 
-		append_params (new Request.GET (get_req_url ()))
-			.with_account (account)
-			.with_ctx (this)
-			.with_extra_data (Tuba.Network.ExtraData.RESPONSE_HEADERS)
-			.then ((in_stream, headers) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) return;
+		if (request_cancellable != null) request_cancellable.cancel ();
+		var req = new RequestV2 (get_req_url ()) {
+			account = account,
+			ctx = this
+		};
+		request_cancellable = req.cancellable;
+		append_params_v2 (req);
 
-				Object[] to_add = {};
-				var group_notifications = API.GroupedNotificationsResults.from (node);
-				foreach (var group in group_notifications.notification_groups) {
-					Gee.ArrayList<API.Account> group_accounts = new Gee.ArrayList<API.Account> ();
-					foreach (var account in group_notifications.accounts) {
-						if (account.id in group.sample_account_ids)
-							group_accounts.add (account);
-					}
-					group.tuba_accounts = group_accounts;
+		GLib.InputStream in_stream;
+		Soup.MessageHeaders response_headers;
 
-					if (group.tuba_accounts.size == 1) {
-						group.account = group.tuba_accounts.get (0);
-					}
+		try {
+			in_stream = yield req.exec (out response_headers);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			if (request_cancellable.is_cancelled ()) return;
 
-					if (group.status_id != null) {
-						foreach (var status in group_notifications.statuses) {
-							if (status.id == group.status_id) {
-								group.status = status;
-								break;
-							}
+			var node = network.parse_node (parser);
+			if (node == null) return;
+
+			Object[] to_add = {};
+			var group_notifications = API.GroupedNotificationsResults.from (node);
+			foreach (var group in group_notifications.notification_groups) {
+				Gee.ArrayList<API.Account> group_accounts = new Gee.ArrayList<API.Account> ();
+				foreach (var account in group_notifications.accounts) {
+					if (account.id in group.sample_account_ids)
+						group_accounts.add (account);
+				}
+				group.tuba_accounts = group_accounts;
+
+				if (group.tuba_accounts.size == 1) {
+					group.account = group.tuba_accounts.get (0);
+				}
+
+				if (group.status_id != null) {
+					foreach (var status in group_notifications.statuses) {
+						if (status.id == group.status_id) {
+							group.status = status;
+							break;
 						}
 					}
-
-					// filtering is based on the status
-					// so it can only happen after the above
-					if (!(should_hide (group))) to_add += group;
 				}
-				model.splice (model.get_n_items (), 0, to_add);
 
-				if (headers != null)
-					get_pages (headers.get_one ("Link"));
+				// filtering is based on the status
+				// so it can only happen after the above
+				if (!(should_hide (group))) to_add += group;
+			}
+			model.splice (model.get_n_items (), 0, to_add);
 
-				if (to_add.length == 0)
-					on_content_changed ();
-				on_request_finish ();
-			})
-			.on_error (on_error)
-			.exec ();
+			if (response_headers != null)
+				get_pages (response_headers.get_one ("Link"));
 
-		return GLib.Source.REMOVE;
+			if (to_add.length == 0)
+				on_content_changed ();
+			on_request_finish ();
+		} catch (GLib.IOError.CANCELLED e) {
+			debug ("Message is cancelled.");
+		} catch (GLib.Error e) {
+			on_error (e.code, e.message);
+		}
 	}
 
-	public void update_filtered_notifications () {
-		new Request.GET ("/api/v1/notifications/policy")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) {
-					accounts.active.filtered_notifications_count = 0;
-					return;
-				};
+	public async void update_filtered_notifications () {
+		var req = new RequestV2 ("/api/v1/notifications/policy") { account = accounts.active };
 
-				var policies = API.NotificationFilter.Policy.from (node);
-				if (policies.summary != null) {
-					accounts.active.filtered_notifications_count = policies.summary.pending_notifications_count;
-				}
-			})
-			.on_error ((code, message) => {
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			if (node == null) {
 				accounts.active.filtered_notifications_count = 0;
-				if (code == 404) {
-					accounts.active.tuba_probably_has_notification_filters = false;
-				} else {
-					warning (@"Error while trying to get notification policy: $code $message");
-				}
-			})
-			.exec ();
+				return;
+			};
+
+			var policies = API.NotificationFilter.Policy.from (node);
+			if (policies.summary != null) {
+				accounts.active.filtered_notifications_count = policies.summary.pending_notifications_count;
+			}
+		} catch (Error e) {
+			accounts.active.filtered_notifications_count = 0;
+			if (e.code == 404) {
+				accounts.active.tuba_probably_has_notification_filters = false;
+			} else {
+				warning (@"Error while trying to get notification policy: $(e.code) $(e.message)");
+			}
+		}
 	}
 
 	public override string? get_stream_url () {
 		return account != null
-			? @"$(account.instance)/api/v1/streaming?stream=user:notification&access_token=$(account.access_token)"
+			? @"$(account.tuba_streaming_url)/api/v1/streaming?stream=user:notification&access_token=$(account.access_token)"
 			: null;
 	}
 
@@ -307,7 +320,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 					var notification_obj = model.get_item (i) as API.GroupedNotificationsResults.NotificationGroup;
 					if (notification_obj != null && notification_obj.group_key == entity.group_key) {
 						group = notification_obj;
-						model.remove (i);
+						safely_remove ((int) i);
 						break;
 					}
 				}
@@ -343,9 +356,11 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			for (uint i = 0; i < model.get_n_items (); i++) {
 				var notification_obj = model.get_item (i) as API.Notification;
 				if (notification_obj != null && notification_obj.status != null && notification_obj.status.id == entity_id) {
+					bool had_focus = was_focused ((int) i);
 					model.remove (i);
 					notification_obj.status = entity;
 					model.insert (i, notification_obj);
+					if (had_focus) focus_recover_actual ((int) i);
 				}
 			}
 		} catch (Error e) {
@@ -360,7 +375,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			for (uint i = 0; i < model.get_n_items (); i++) {
 				var notification_obj = model.get_item (i) as API.Notification;
 				if (notification_obj != null && notification_obj.status != null && notification_obj.status.formal.id == status_id) {
-					model.remove (i);
+					safely_remove ((int) i);
 				}
 			}
 		} catch (Error e) {

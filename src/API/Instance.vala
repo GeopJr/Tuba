@@ -4,9 +4,15 @@ public class Tuba.API.Instance : Entity {
 		public string text { get; set; default=""; }
 	}
 
+	public class Urls : Entity {
+		public string streaming_api { get; set; default=""; }
+	}
+
 	public string uri { get; set; default=""; }
 	public string title { get; set; default=""; }
 	public string thumbnail { get; set; default=null; }
+	public string? version { get; set; default=null; }
+	public Urls? urls { get; set; default=null; }
 
 	public Gee.ArrayList<string>? languages { get; set; }
 	public API.Mastodon.Configurations? configuration { get; set; default = null; }
@@ -16,7 +22,12 @@ public class Tuba.API.Instance : Entity {
 	public API.Pleroma.Instance? pleroma { get; set; default = null; }
 	public Gee.ArrayList<Rule>? rules { get; set; }
 
+	public API.InstanceV2.Configuration.AccountsCharLimits tuba_limits { get; set; default = new API.InstanceV2.Configuration.AccountsCharLimits (); }
 	public bool tuba_can_translate { get; set; default=false; }
+	public int64 tuba_max_alt_chars { get; set; default = 1500; }
+	#if UNIFIEDPUSH
+		public string? tuba_vapid { get; set; default = null; }
+	#endif
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
@@ -35,7 +46,7 @@ public class Tuba.API.Instance : Entity {
 				return "quote_posting" in pleroma.metadata.features;
 			}
 
-			return false;
+			return accounts.active.tuba_api_versions.mastodon >= 7;
 		}
 	}
 
@@ -69,7 +80,7 @@ public class Tuba.API.Instance : Entity {
 				return pleroma.metadata.fields_limits.max_fields;
 			}
 
-			return 4;
+			return this.tuba_limits.max_profile_fields;
 		}
 	}
 
@@ -79,7 +90,7 @@ public class Tuba.API.Instance : Entity {
 				return pleroma.metadata.fields_limits.name_length;
 			}
 
-			return 255;
+			return this.tuba_limits.profile_field_name_limit;
 		}
 	}
 
@@ -89,7 +100,7 @@ public class Tuba.API.Instance : Entity {
 				return pleroma.metadata.fields_limits.value_length;
 			}
 
-			return 255;
+			return this.tuba_limits.profile_field_value_limit;
 		}
 	}
 

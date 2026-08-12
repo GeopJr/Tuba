@@ -32,9 +32,11 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		ensure_active_account ();
 	}
 
+	public abstract async void update_account_info (InstanceAccount account);
 	public abstract void update_account (InstanceAccount account) throws GLib.Error;
 	public abstract void load () throws GLib.Error;
 	public abstract void save () throws GLib.Error;
+	public abstract async void revoke_token_dangerous (InstanceAccount account, bool should_handle_error = true);
 	//  public void safe_save () {
 	//  	try {
 	//  		save ();
@@ -87,24 +89,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			if (clear_cache)
 				network.clear_cache ();
 			settings.active_account = account.uuid;
-			account.verify_credentials.begin ((obj, res) => {
-				try {
-					account.verify_credentials.end (res);
-					account.error = null;
-					if (account.source != null) {
-						if (account.source.language != null && account.source.language != "") settings.default_language = account.source.language;
-						if (account.source.privacy != null && account.source.privacy != "") {
-							string visibility_id = account.source.privacy.down ();
-							if (account.visibility.has_key (visibility_id)) settings.default_post_visibility = visibility_id;
-						}
-						account.unreviewed_follow_requests = account.source.follow_requests_count;
-					}
-				} catch (Error e) {
-					warning (@"Couldn't activate account $(account.handle):");
-					warning (e.message);
-					account.error = e;
-				}
-			});
+			this.verify_credentials.begin (account);
 		}
 
 		accounts.active = account;
@@ -112,14 +97,73 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		switched (active);
 	}
 
-	[Signal (detailed = true)]
-	public signal InstanceAccount? create_for_backend (Json.Node node);
+	public async void verify_credentials (InstanceAccount account) {
+		try {
+			yield account.verify_credentials ();
+			if (account.source != null) {
+				if (account.source.quote_policy != null && account.source.quote_policy != "") settings.default_quote_policy = account.source.quote_policy;
+				if (account.source.language != null && account.source.language != "") settings.default_language = account.source.language;
+				if (account.source.privacy != null && account.source.privacy != "") {
+					string visibility_id = account.source.privacy.down ();
+					if (account.visibility.has_key (visibility_id)) settings.default_post_visibility = visibility_id;
+				}
+				account.unreviewed_follow_requests = account.source.follow_requests_count;
+			}
+			account.tuba_verified_credentials = true;
+		} catch (Oopsie.HTTP_401 e) {
+			warning (@"Couldn't activate account $(account.handle):");
+			warning (e.message);
+			account.tuba_revoked = true;
+			ask_refresh_account_token.begin (account);
+		} catch (Error e) {
+			warning (@"Couldn't activate account $(account.handle):");
+			warning (e.message);
+		}
+	}
 
+	private async void ask_refresh_account_token (InstanceAccount account) {
+		var res = yield app.question (
+			// translators: dialog title shown when a user's token has been revoked
+			//				and Tuba is asking them if they want to re-login. You
+			//				may replace "Reauthenticate" with "Reconnect" or "Re-login"
+			{_("Reauthenticate account?"), false},
+			// translators: dialog subtitle shown when a user's token has been revoked
+			//				and Tuba is asking them if they want to re-login. "password
+			//				expired" can be replaced with "credentials expired" or "login
+			//				expired". It's not the actual user password, just their token.
+			//				The first variable is a string account handle, the second
+			//				variable is the app name (Tuba).
+			{_("%s's password expired. To continue using %s, you have to login again.").printf (account.handle, Build.NAME), false},
+			app.main_window,
+			{
+				// translators: dialog button shown when a user's token has been revoked
+				//				and Tuba is asking them if they want to re-login. Please
+				//				use the same verb used in the dialog title "Reauthenticate
+				//				account?"
+				{ _("Reauthenticate"), Adw.ResponseAppearance.SUGGESTED },
+				{ _("Forget Account"), Adw.ResponseAppearance.DESTRUCTIVE }
+			},
+			null, false
+		);
+
+		// handle everything but CANCEL
+		if (res == Application.QuestionAnswer.YES) {
+			new Dialogs.NewAccount (true, account).present ();
+		} else if (res == Application.QuestionAnswer.NO) {
+			try {
+				this.remove (account);
+			} catch (Error e) {
+				warning (@"Couldn't remove account $(account.handle): $(e.code) $(e.message)");
+			}
+		}
+	}
+
+	public signal InstanceAccount? create_for_backend (Json.Node node);
 	public InstanceAccount create_account (Json.Node node) throws GLib.Error {
 		var obj = node.get_object ();
 		var backend = obj.get_string_member ("backend");
 		var handle = obj.get_string_member ("handle");
-		var account = create_for_backend[backend] (node);
+		var account = create_for_backend (node);
 		if (account == null)
 			throw new Oopsie.INTERNAL (@"Account $handle has unknown backend: $backend");
 
@@ -129,6 +173,17 @@ public abstract class Tuba.AccountStore : GLib.Object {
 				if (api_versions.has_member ("mastodon")) account.tuba_api_versions.mastodon = (int8) api_versions.get_int_member ("mastodon");
 				if (api_versions.has_member ("chuckya")) account.tuba_api_versions.chuckya = (int8) api_versions.get_int_member ("chuckya");
 			}
+		}
+
+		if (obj.has_member ("instance-features")) {
+			account.tuba_instance_features = (InstanceAccount.InstanceFeatures) obj.get_int_member ("instance-features");
+
+			if (InstanceAccount.InstanceFeatures.ICESHRIMP in account.tuba_instance_features && obj.has_member ("iceshrimp-api-key"))
+				account.tuba_iceshrimp_api_key = obj.get_string_member ("iceshrimp-api-key");
+		}
+
+		if (obj.has_member ("streaming")) {
+			account.tuba_streaming_url = obj.get_string_member ("streaming");
 		}
 
 		if (account.uuid == null || !GLib.Uuid.string_is_valid (account.uuid)) account.uuid = GLib.Uuid.string_random ();
@@ -149,28 +204,43 @@ public abstract class Tuba.AccountStore : GLib.Object {
 
 	}
 
-	public Gee.ArrayList<BackendTest> backend_tests = new Gee.ArrayList<BackendTest> ();
-
 	public async void guess_backend (InstanceAccount account) throws GLib.Error {
-		var req = new Request.GET ("/api/v1/instance")
-			.with_account (account);
-		yield req.await ();
+		account.backend = "Fediverse";
+		var req = new RequestV2 ("/.well-known/nodeinfo") { account = account };
+		var in_stream = yield req.exec (null);
 
-		var parser = Network.get_parser_from_inputstream (req.response_body);
-		var root = network.parse (parser);
+		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+		var node = network.parse_node (parser);
+		API.Nodeinfo known_nodeinfo = (API.Nodeinfo) Helper.Entity.from_json (node, typeof (API.Nodeinfo));
 
-		string? backend = null;
-		backend_tests.foreach (test => {
-			backend = test.get_backend (root);
-			return true;
-		});
+		if (known_nodeinfo.links == null || known_nodeinfo.links.size == 0)
+			throw new Oopsie.INTERNAL ("Instance does not support nodeinfo");
 
-		if (backend == null)
-			throw new Oopsie.INTERNAL ("This instance is unsupported.");
-		else {
-			account.backend = backend;
-			debug (@"$(account.instance) is using $(account.backend)");
+		bool supports = false;
+		foreach (var link in known_nodeinfo.links) {
+			if (!link.rel.contains ("://nodeinfo.diaspora.software/ns/schema/2")) continue;
+			supports = true;
+
+			if (link.rel.has_suffix ("://nodeinfo.diaspora.software/ns/schema/2.0") && link.href != null && link.href != "") {
+				req = new RequestV2 (link.href);
+				try {
+					in_stream = yield req.exec (null);
+					parser = yield Network.get_parser_from_inputstream_async (in_stream);
+					node = network.parse_node (parser);
+					API.Nodeinfo.V20 nodeinfo2 = (API.Nodeinfo.V20) Helper.Entity.from_json (node, typeof (API.Nodeinfo.V20));
+					if (nodeinfo2.software != null && nodeinfo2.software.name != null) {
+						account.backend = nodeinfo2.software.name;
+						if (nodeinfo2.software.name == "Iceshrimp.NET") account.tuba_instance_features |= InstanceAccount.InstanceFeatures.ICESHRIMP;
+					}
+				} catch (Error e) {
+					warning (@"Couldn't get Nodeinfo for $(link.rel): $(e.code) $(e.message)");
+				}
+			}
 		}
+
+		if (!supports)
+			throw new Oopsie.INTERNAL ("This instance does not support https://nodeinfo.diaspora.software/schema.html");
+		debug (@"$(account.instance) is using $(account.backend)");
 	}
 
 }

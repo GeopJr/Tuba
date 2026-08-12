@@ -2,31 +2,46 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	public signal void deleted (string scheduled_status_id);
 	public signal void refresh ();
 	public signal void open ();
+	public signal void inline_clicked ();
 
 	private bool _draft = false;
 	public bool draft {
 		get { return _draft; }
 		set {
 			_draft = value;
+			to_draft_button.visible =
 			reschedule_button.visible = !value;
-			// translators: not a verb, as in a post that is saved but not posted yet
+			// translators: noun, as in a post that is saved but not posted yet
 			schedule_label.label = _("Draft");
 			this.activatable = value;
 		}
 	}
 
+	private bool _is_inline = false;
+	public bool is_inline {
+		get { return _is_inline; }
+		set {
+			_is_inline = value;
+			separator.visible =
+			action_box.visible = !value;
+		}
+	}
+
 	Gtk.Button reschedule_button;
+	Gtk.Button to_draft_button;
 	Gtk.Button edit_button;
 	Gtk.Box content_box;
 	Gtk.Label schedule_label;
+	Gtk.Box action_box;
+	Gtk.Separator separator;
 	construct {
 		this.focusable = true;
 		this.activatable = false;
-		this.css_classes = { "card-spacing", "card" };
+		this.css_classes = { "card-spacing", "card", "no-padding" };
 		this.overflow = Gtk.Overflow.HIDDEN;
 
 		content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-		var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
+		action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
 			margin_top = margin_bottom = margin_start = margin_end = 6
 		};
 		schedule_label = new Gtk.Label ("") {
@@ -48,11 +63,22 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		actions_box.append (edit_button);
 
 		reschedule_button = new Gtk.Button.from_icon_name ("tuba-clock-alt-symbolic") {
+			// translators: button, verb, "Reschedule a post"
 			tooltip_text = _("Reschedule"),
 			css_classes = { "flat" }
 		};
 		reschedule_button.clicked.connect (on_reschedule);
 		actions_box.append (reschedule_button);
+
+		to_draft_button = new Gtk.Button.from_icon_name ("tuba-archive-symbolic") {
+			// translators: button, clicking it converts a scheduled post
+			//				into a draft post; "Turn into a draft", "Make Draft"
+			//				"To Draft" or "Draft" (verb) are alternatives
+			tooltip_text = _("Convert into a draft"),
+			css_classes = { "flat" }
+		};
+		to_draft_button.clicked.connect (on_convert_to_draft);
+		actions_box.append (to_draft_button);
 
 		Gtk.Button delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
 			css_classes = { "flat", "error" },
@@ -64,7 +90,8 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		action_box.append (actions_box);
 
 		content_box.append (action_box);
-		content_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+		separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+		content_box.append (separator);
 		this.child = content_box;
 
 		open.connect (on_activated);
@@ -75,31 +102,29 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		bind (scheduled_status);
 	}
 
-	string scheduled_at;
-	string scheduled_id;
+	API.ScheduledStatus bound_scheduled_status;
 	Widgets.Status? status_widget = null;
+	API.Poll? status_poll = null;
 	public void bind (API.ScheduledStatus scheduled_status) {
 		if (status_widget != null) content_box.remove (status_widget);
-
-		scheduled_at = scheduled_status.scheduled_at;
-		scheduled_id = scheduled_status.id;
+		bound_scheduled_status = scheduled_status;
 
 		GLib.DateTime now_load = new GLib.DateTime.now_local ();
-		API.Poll? poll = null;
+		status_poll = null;
 		if (scheduled_status.props.poll != null) {
-			poll = new API.Poll ("0") {
+			status_poll = new API.Poll ("0") {
 				multiple = scheduled_status.props.poll.multiple,
 				options = new Gee.ArrayList<API.PollOption> ()
 			};
 
 			foreach (string poll_option in scheduled_status.props.poll.options) {
-				poll.options.add (new API.PollOption () {
+				status_poll.options.add (new API.PollOption () {
 					title = poll_option,
 					votes_count = 0
 				});
 			}
 
-			poll.expires_at = now_load.add_seconds (scheduled_status.props.poll.expires_in).format_iso8601 ();
+			status_poll.expires_at = now_load.add_seconds (scheduled_status.props.poll.expires_in).format_iso8601 ();
 		}
 
 		var status = new API.Status.empty () {
@@ -110,7 +135,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 			visibility = scheduled_status.props.visibility,
 			media_attachments = scheduled_status.media_attachments,
 			tuba_spoiler_revealed = true,
-			poll = poll,
+			poll = status_poll,
 			created_at = scheduled_status.scheduled_at
 		};
 
@@ -119,12 +144,12 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		var widg = new Widgets.Status (status);
 		widg.can_be_opened = false;
 		widg.activatable = false;
-		widg.actions.visible = false;
+		widg.toggle_actions_visibility (false);
 		widg.menu_button.visible = false;
 		widg.date_label.visible = false;
 		if (widg.poll != null) {
 			widg.poll.usable = false;
-			widg.poll.info_label.label = Utils.DateTime.humanize_ago (poll.expires_at);
+			widg.poll.info_label.label = Utils.DateTime.humanize_ago (status_poll.expires_at);
 		}
 
 		// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES
@@ -144,29 +169,74 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		status_widget = widg;
 	}
 
+	private class RescheduleDialog : Adw.Dialog {
+		public signal void schedule_picked (string iso8601);
+
+		public RescheduleDialog (string iso8601) {
+			this.follows_content_size = true;
+
+			var schedule_page = new Dialogs.Schedule (iso8601, _("Reschedule")) {
+				can_cancel = true
+			};
+			schedule_page.schedule_picked.connect (on_schedule_picked);
+			schedule_page.cancelled.connect (on_cancel);
+
+			var navigation_view = new Adw.NavigationView ();
+			// translators: dialog title when rescheduling a post, reschedule is a verb, post is a noun
+			this.title = schedule_page.title = _("Reschedule Post");
+			navigation_view.add (schedule_page);
+
+			this.child = navigation_view;
+		}
+
+		private void on_cancel () {
+			this.force_close ();
+		}
+
+		private void on_schedule_picked (string iso8601) {
+			schedule_picked (iso8601);
+			this.force_close ();
+		}
+	}
+
+	private void on_convert_to_draft () {
+		on_schedule_picked ((new GLib.DateTime.now ()).add_years (3000).format_iso8601 ());
+	}
+
 	private void on_reschedule () {
-		var schedule_dlg = new Dialogs.Schedule (scheduled_at, _("Reschedule"));
-		schedule_dlg.schedule_picked.connect (on_schedule_picked);
-		schedule_dlg.present (this);
+		var dlg = new RescheduleDialog (bound_scheduled_status.scheduled_at);
+		dlg.schedule_picked.connect (on_schedule_picked);
+		dlg.present (app.main_window);
 	}
 
 	private void on_schedule_picked (string iso8601) {
-		new Request.PUT (@"/api/v1/scheduled_statuses/$scheduled_id")
-			.with_account (accounts.active)
-			.with_form_data ("scheduled_at", iso8601)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				var e = Tuba.Helper.Entity.from_json (node, typeof (API.ScheduledStatus), true);
-				if (e is API.ScheduledStatus) bind ((API.ScheduledStatus) e);
-			})
-			.on_error ((code, message) => {
-				warning (@"Error while rescheduling: $code $message");
+		on_schedule_picked_real.begin (iso8601);
+	}
 
-				// translators: the variable is an error
-				app.toast (_("Couldn't reschedule: %s").printf (message), 0);
-			})
-			.exec ();
+	private async void on_schedule_picked_real (string iso8601) {
+		var req = new RequestV2 (@"/api/v1/scheduled_statuses/$(bound_scheduled_status.id)", PUT) {
+			account = accounts.active
+		};
+		req.add_form_data ("scheduled_at", iso8601);
+
+		try {
+			var in_stream = yield req.exec (null);
+			Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
+			var node = network.parse_node (parser);
+			var e = Tuba.Helper.Entity.from_json (node, typeof (API.ScheduledStatus), true);
+			if (e is API.ScheduledStatus) {
+				if (new GLib.DateTime.from_iso8601 (((API.ScheduledStatus) e).scheduled_at, null).get_year () >= API.ScheduledStatus.DRAFT_YEAR) {
+					deleted (bound_scheduled_status.id);
+				} else {
+					bind ((API.ScheduledStatus) e);
+				}
+			}
+		} catch (Error e) {
+			warning (@"Error while rescheduling: $(e.code) $(e.message)");
+
+			// translators:error toast; the variable is an error message
+			app.toast (_("Couldn't reschedule: %s").printf (e.message), 0);
+		}
 	}
 
 	private void on_delete () {
@@ -186,40 +256,50 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 			false,
 			(obj, res) => {
 				if (app.question.end (res).truthy ()) {
-					delete_status ();
+					delete_status.begin ();
 				}
 			}
 		);
 	}
 
-	private void delete_status () {
-		new Request.DELETE (@"/api/v1/scheduled_statuses/$scheduled_id")
-			.with_account (accounts.active)
-			.then (() => {
-				deleted (scheduled_id);
-			})
-			.on_error ((code, message) => {
-				warning (@"Error while deleting scheduled status: $code $message");
-				app.toast (message, 0);
-			})
-			.exec ();
+	private async void delete_status () {
+		var req = new RequestV2 (@"/api/v1/scheduled_statuses/$(bound_scheduled_status.id)", DELETE) { account = accounts.active };
+
+		try {
+			yield req.exec (null);
+			deleted (bound_scheduled_status.id);
+			if (this.is_inline) app.refresh_scheduled_statuses ();
+		} catch (Error e) {
+			warning (@"Error while deleting scheduled status: $(e.code) $(e.message)");
+			app.toast (e.message, 0);
+		}
 	}
 
 	private void on_activated () {
 		if (!_draft || status_widget == null) return;
+		if (this.is_inline) {
+			inline_clicked ();
+			return;
+		}
 
-		new Dialogs.Compose.from_draft (status_widget.status, on_draft_posted);
+		compose_draft ();
 	}
 
-	private void on_draft_posted (API.Status x) {
-		if (_draft) delete_status ();
+	public void compose_draft () {
+		if (!_draft) return;
+
+		new Dialogs.Composer.Dialog.from_scheduled (bound_scheduled_status, true, status_poll, on_draft_posted);
+	}
+
+	private void on_draft_posted (API.Status? x) {
+		if (_draft) delete_status.begin ();
 	}
 
 	private void on_edit () {
-		new Dialogs.Compose.from_scheduled (status_widget.status, scheduled_id, scheduled_at, on_edited);
+		new Dialogs.Composer.Dialog.from_scheduled (bound_scheduled_status, false, status_poll, on_edited);
 	}
 
-	private void on_edited (API.Status x) {
+	private void on_edited (API.Status? x) {
 		refresh ();
 	}
 }

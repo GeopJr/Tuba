@@ -1,0 +1,492 @@
+/* Based on Alice's (https://nyaa.place/) stylesheets */
+
+.ttl-profile-stat-button {
+	padding: 0px 6px;
+	border-radius: 0px;
+}
+
+.ttl-profile-stat-button:first-child {
+	border-bottom-left-radius: 0px;
+}
+
+.ttl-profile-stat-button:last-child {
+	border-bottom-right-radius: 0px;
+}
+
+.ttl-name-button {
+	margin-right: 0px;
+}
+
+.spoilered-attachmentsbin picture,
+.spoilered-attachment {
+	filter: none;
+	opacity: 0.1;
+}
+
+.boxed-list {
+	background: none;
+	box-shadow: none;
+}
+
+.card,
+.boxed-list>row {
+	border: 1px solid #0002;
+	border-radius: 4px;
+	box-shadow: none;
+	background: none;
+}
+
+.card:hover,
+.boxed-list>row:hover {
+	border: 1px solid #bbd1e2;
+	background: linear-gradient(180deg, #ebf4fe, #cfe3fb);
+	border-radius: 4px;
+}
+
+dialog sheet {
+	border-radius: 6px;
+	background: none;
+	outline: 1px solid rgb(255 255 255 / 50%);
+	box-shadow: 0 0 0 1px rgb(0 0 0 / 50%), 0 3px 10px rgb(0 0 0 / 50%);
+
+}
+
+scrollbar:backdrop {
+	background: transparent;
+}
+
+scrollbar {
+	border: none;
+	background: transparent;
+}
+
+toolbarview.browser.background {
+	background: none;
+}
+
+scrollbar>range>trough {
+	padding: 0px;
+	margin: 0px;
+	min-width: 0;
+	border-radius: 0;
+}
+
+scrollbar slider {
+	background-color: var(--accent-bg-color);
+	background-image: linear-gradient(to right,
+			rgb(255 255 255 / 20%) 50%,
+			rgb(255 255 255 / 0%) 0%,
+			rgb(255 255 255 / 10%));
+
+	border-radius: 10px;
+	opacity: 0.8;
+
+	min-width: 15px;
+}
+
+scrollbar slider:hover {
+	background-image: linear-gradient(to right,
+			rgb(255 255 255 / 30%) 50%,
+			rgb(255 255 255 / 10%) 0%,
+			rgb(255 255 255 / 20%));
+}
+
+dialog sheet toolbarview>*:not(.top-bar),
+.newaccdialogdeck toolbarview>*:not(.top-bar) {
+	background-color: var(--window-bg-color);
+	margin: 0 6px;
+	box-shadow: 0 0 0 2px rgb(255 255 255 / 80%),
+		0 0 0 1px rgb(0 0 0 / 80%);
+}
+
+dialog sheet toolbarview>.bottom-bar,
+.newaccdialogdeck toolbarview>.bottom-bar {
+	margin-bottom: 6px;
+	box-shadow: 0 0 0 -2px rgb(255 255 255 / 80%),
+		0 0 0 1px rgb(0 0 0 / 80%);
+}
+
+popover,
+popover>contents {
+	border-radius: 4px;
+}
+
+popover>contents {
+	background: #f0f0f0;
+}
+
+popover>contents>scrolledwindow>viewport>stack>box {
+	padding: 2px 2px;
+}
+
+popover>contents modelbutton {
+	border: 1px solid transparent;
+	border-radius: 3px;
+	padding: 2px 6px;
+	min-height: 0;
+}
+
+popover>contents modelbutton:hover,
+popover>contents modelbutton:focus {
+	border: 1px solid #bbd1e2;
+	background: linear-gradient(180deg, #ebf4fe, #cfe3fb);
+}
+
+.header-image {
+	border-radius: 0;
+}
+
+.wavi,
+avatar {
+	border-radius: 10px;
+}
+
+.toggle-group-17,
+.toggle-group-17>toggle-group {
+	border-radius: 3px;
+}
+
+.toggle-group-17>toggle-group {
+	background: #e1ebf7;
+}
+
+.toggle-group-17>toggle-group toggle {
+	border-radius: 3px;
+	box-shadow: none;
+}
+
+.toggle-group-17>toggle-group toggle:checked {
+	border: 1px solid #bbd1e2;
+	background: linear-gradient(180deg, #ebf4fe, #cfe3fb);
+}
+
+dialog sheet {
+	background-color: oklch(from var(--accent-bg-color) 90% min(c, 0.075) h / 70%);
+	background-image: linear-gradient(135deg, #fff5 70px, transparent 100px), linear-gradient(225deg, #fff5 70px, transparent 100px), linear-gradient(54deg, transparent 30%, #fff3 45%, #fff6 50%, #fff3 55%, transparent 70%);
+	backdrop-filter: blur(3px);
+	color: black;
+	text-shadow: 0 0 1em white;
+	-gtk-icon-shadow: 0 0 1em white;
+}
+
+window.background {
+	box-shadow: 0 0 0 1px rgb(0 0 0 / 50%), 0 3px 10px rgb(0 0 0 / 50%);
+	outline: 1px solid rgb(255 255 255 / 50%);
+	background-color: oklch(from var(--accent-bg-color) 90% min(c, 0.075) h / 70%);
+	background-image: linear-gradient(135deg, #fff5 70px, transparent 100px), linear-gradient(225deg, #fff5 70px, transparent 100px), linear-gradient(54deg, transparent 30%, #fff3 45%, #fff6 50%, #fff3 55%, transparent 70%);
+	backdrop-filter: blur(3px);
+	color: black;
+	text-shadow: 0 0 1em white;
+	-gtk-icon-shadow: 0 0 1em white;
+}
+
+.sidebar-item {
+	border-radius: 4px;
+
+	padding-top: 0;
+	padding-bottom: 0;
+	min-height: 25px;
+}
+
+.sidebar-item:selected {
+	border: 1px solid #bbd1e2;
+	background: linear-gradient(180deg, #ebf4fe, #cfe3fb);
+}
+
+.devel .top-bar {
+	background-image: none;
+}
+
+.sidebar {
+	border-right: none;
+}
+
+.sidebar-pane,
+.content-pane navigation-view-page>.background {
+	background: none;
+	box-shadow: none;
+}
+
+overlay-split-view>.background:not(.sidebar-pane) toolbarview,
+.sidebar-pane toolbarview>box {
+	box-shadow: 0 0 0 2px rgb(255 255 255 / 80%),
+		0 0 0 1px rgb(0 0 0 / 80%);
+	background: linear-gradient(135deg, #fff5 70px, transparent 100px), linear-gradient(225deg, #fff5 70px, transparent 100px), linear-gradient(54deg, transparent 30%, #fff3 45%, #fff6 50%, #fff3 55%, transparent 70%), #e1ebf7;
+	text-shadow: none;
+	-gtk-icon-shadow: none;
+}
+
+overlay-split-view>.background:not(.sidebar-pane) toolbarview>box {
+	margin: 0 0 0 0;
+}
+
+.sidebar-pane toolbarview>box {
+	margin: 0 0 6px 6px;
+}
+
+.search.rounded {
+	background: white;
+	box-shadow: 0 0 0 2px rgb(255 255 255 / 80%),
+		0 0 0 1px rgb(0 0 0 / 80%);
+	border-radius: 6px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+navigation-view-page>.background>toolbarview>overlay {
+	background-color: var(--window-bg-color);
+	margin: 0 6px 6px 0;
+	box-shadow: 0 0 0 2px rgb(255 255 255 / 80%),
+		0 0 0 1px rgb(0 0 0 / 80%);
+	text-shadow: none;
+	-gtk-icon-shadow: none;
+}
+
+.content-pane {
+	background: none;
+}
+
+.content-pane toolbarview>stack {
+	margin: 0 6px 6px 0;
+	box-shadow: 0 0 0 2px rgb(255 255 255 / 80%),
+		0 0 0 1px rgb(0 0 0 / 80%);
+	background: #e1ebf7;
+	text-shadow: none;
+	-gtk-icon-shadow: none;
+}
+
+window {
+	border-radius: 6px;
+}
+
+windowcontrols>* {
+	min-height: 0;
+	min-width: 0;
+	padding: 0 4px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	margin-top: -8px;
+	margin-bottom: 18px;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+windowcontrols .maximize,
+windowcontrols .minimize {
+	background-color: rgb(from var(--accent-bg-color) r g b / calc(alpha * 0.33));
+}
+
+windowcontrols>button:first-child:not(:last-child) {
+	border-bottom-right-radius: 0px;
+	margin-left: 2px;
+}
+
+windowcontrols>button:last-child:not(:first-child) {
+	border-bottom-left-radius: 0px;
+	margin-right: 2px;
+}
+
+windowcontrols>button:not(:last-child):not(:first-child) {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+.close {
+	background-color: #bd3727;
+
+	box-shadow: inset 0 0 0 1px rgb(255 255 255 / 40%),
+		0 0 0 2px rgb(255 255 255 / 80%),
+		0 0 0 1px rgb(0 0 0 / 80%);
+	padding: 0 10px;
+}
+
+.close:hover:not(:active) {
+	box-shadow: inset 0 0 0 1px rgb(255 255 255 / 40%),
+		0 0 0 2px rgb(255 255 255 / 80%),
+		0 0 0 1px rgb(0 0 0 / 80%),
+		0 0 10px 0 #bd3727;
+}
+
+windowcontrols image {
+	background: none;
+}
+
+button {
+	background-color: var(--accent-bg-color);
+	background-image: linear-gradient(to bottom,
+			rgb(255 255 255 / 20%) 50%,
+			rgb(255 255 255 / 0%) 0%,
+			rgb(255 255 255 / 10%));
+	color: white;
+	text-shadow: 0 0 2px rgb(0 0 0 / 80%);
+	-gtk-icon-shadow: 0 0 2px rgb(0 0 0 / 80%);
+	box-shadow: inset 0 0 0 1px rgb(255 255 255 / 40%),
+		0 0 0 2px rgb(255 255 255 / 80%),
+		0 0 0 1px rgb(0 0 0 / 80%);
+	transition: none;
+}
+
+button:hover {
+	background-image: linear-gradient(to bottom,
+			rgb(255 255 255 / 30%) 50%,
+			rgb(255 255 255 / 10%) 0%,
+			rgb(255 255 255 / 20%));
+}
+
+button:active {
+	background-image: linear-gradient(to bottom,
+			rgb(255 255 255 / 10%) 50%,
+			rgb(0 0 0 / 10%) 0%,
+			rgb(255 255 255 / 0%));
+	box-shadow: inset 0 0 5px rgb(0 0 0 / 40%),
+		0 0 0 2px rgb(255 255 255 / 80%),
+		0 0 0 1px rgb(0 0 0 / 80%);
+}
+
+
+.ttl-status-action-heart,
+.ttl-status-action-star,
+.ttl-status-action-reblog,
+.ttl-status-action-quote,
+.ttl-status-action-reply,
+.ttl-status-action-bookmark {
+	background-color: grey;
+	background-image: linear-gradient(to bottom,
+			rgb(255 255 255 / 20%) 50%,
+			rgb(255 255 255 / 0%) 0%,
+			rgb(255 255 255 / 10%));
+}
+
+.ttl-status-action-star:hover,
+.ttl-status-action-star.enabled {
+	background-color: var(--yellow-5);
+}
+
+.ttl-status-action-star:active {
+	background-color: var(--yellow-4);
+}
+
+.ttl-status-action-reblog:hover,
+.ttl-status-action-reblog.enabled {
+	background-color: var(--purple-3);
+}
+
+.ttl-status-action-reblog:active {
+	background-color: var(--purple-4);
+}
+
+.ttl-status-action-reply:hover,
+.ttl-status-action-reply.enabled {
+	background-color: var(--green-3);
+}
+
+.ttl-status-action-reply:active {
+	background-color: var(--green-4);
+}
+
+.ttl-status-action-heart:hover,
+.ttl-status-action-heart.enabled,
+.ttl-status-action-bookmark:hover,
+.ttl-status-action-bookmark.enabled {
+	background-color: var(--red-3);
+}
+
+.ttl-status-action-heart:active,
+.ttl-status-action-bookmark:active {
+	background-color: var(--red-4);
+}
+
+.ttl-status-action-quote:hover,
+.ttl-status-action-quote.enabled {
+	background-color: var(--blue-3);
+}
+
+.ttl-status-action-quote:active {
+	background-color: var(--blue-4);
+}
+
+@media (prefers-color-scheme: dark) {
+
+
+	popover>contents,
+	.sidebar-pane,
+	window.background toolbarview:not(.media-viewer) headerbar,
+	.toggle-group-17>toggle-group,
+	.ttl-profile-cover:hover row,
+	.card:hover,
+	.boxed-list>row:hover,
+	.toggle-group-17>toggle-group toggle:checked {
+		color: black;
+	}
+
+	sheet toolbarview {
+		color: white;
+	}
+
+	.card,
+	.boxed-list>row {
+		border: 1px solid #fff2;
+	}
+
+	.ttl-status-action-heart,
+	.ttl-status-action-star,
+	.ttl-status-action-reblog,
+	.ttl-status-action-quote,
+	.ttl-status-action-reply,
+	.ttl-status-action-bookmark {
+		color: black;
+		background-color: lightgrey;
+	}
+
+	.ttl-status-action-star:hover,
+	.ttl-status-action-star.enabled {
+		background-color: var(--yellow-1);
+	}
+
+	.ttl-status-action-star:active {
+		background-color: var(--yellow-2);
+	}
+
+	.ttl-status-action-reblog:hover,
+	.ttl-status-action-reblog.enabled {
+		background-color: var(--purple-1);
+	}
+
+	.ttl-status-action-reblog:active {
+		background-color: var(--purple-2);
+	}
+
+	.ttl-status-action-reply:hover,
+	.ttl-status-action-reply.enabled {
+		background-color: var(--green-1);
+	}
+
+	.ttl-status-action-reply:active {
+		background-color: var(--green-2);
+	}
+
+	.ttl-status-action-heart:hover,
+	.ttl-status-action-heart.enabled,
+	.ttl-status-action-bookmark:hover,
+	.ttl-status-action-bookmark.enabled {
+		background-color: var(--red-1);
+	}
+
+	.ttl-status-action-heart:active,
+	.ttl-status-action-bookmark:active {
+		background-color: var(--red-2);
+	}
+
+	.ttl-status-action-quote:hover,
+	.ttl-status-action-quote.enabled {
+		background-color: var(--blue-1);
+	}
+
+	.ttl-status-action-quote:active {
+		background-color: var(--blue-2);
+	}
+}
+
+viewswitcher>button:not(:checked) {
+	background-color: grey;
+}

@@ -101,7 +101,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 		if (this.current_breakpoint != null) remove_breakpoint (this.current_breakpoint);
 		this.small = true;
-		var breakpoint = new Adw.Breakpoint (condition);
+		var breakpoint = new Adw.Breakpoint ((owned) condition);
 		breakpoint.add_setter (this, "title-stack-page-visible", true);
 		breakpoint.add_setter (switcher_bar, "reveal", true);
 		add_breakpoint (breakpoint);
@@ -142,11 +142,8 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		return tab;
 	}
 
-	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts, string? empty_state_title = null, string? empty_state_icon = null) {
-		var tab = new Views.Accounts () {
-			url = url,
-			label = label,
-			icon = icon,
+	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts, string? empty_state_title = null, string? empty_state_icon = null, bool use_rows = false) {
+		var tab = new Views.Accounts.prefilled (url, label, icon, use_rows) {
 			accepts = accepts
 		};
 		tab.label = label;
@@ -162,10 +159,12 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 	public delegate void TabCB (Views.ContentBase tab);
 	public void foreach_tab (TabCB cb) {
-		for (var w = stack.get_first_child (); w != null; w = w.get_next_sibling ()) {
+		var w = stack.get_first_child ();
+		while (w != null) {
 			var tab = w as Views.ContentBase;
 			if (tab != null)
 				cb (tab);
+			w = w.get_next_sibling ();
 		}
 	}
 

@@ -5,21 +5,26 @@ public class Tuba.Views.Home : Views.Timeline {
 		}
 	}
 
+	public Home () {
+		Object (
+			url: "/api/v1/timelines/home",
+			label: _("Home"),
+			icon: "tuba-user-home-symbolic",
+			badge_number: 0,
+			needs_attention: false
+		);
+	}
+
 	Gtk.Revealer compose_button_rev;
 	Gtk.Button compose_button;
 	construct {
-		url = "/api/v1/timelines/home";
-		label = _("Home");
-		icon = "user-home-symbolic";
-		badge_number = 0;
-		needs_attention = false;
-
 		scroll_to_top_rev.margin_end = 32;
 		scroll_to_top_rev.margin_bottom = 24;
 		scroll_to_top_rev.add_css_class ("scroll-to-top-btn");
 
 		compose_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
 			action_name = "app.compose",
+			// translators: tooltip on the floating button; compose a post
 			tooltip_text = _("Compose"),
 			css_classes = { "circular", "compose-button", "suggested-action" }
 		};
@@ -129,7 +134,7 @@ public class Tuba.Views.Home : Views.Timeline {
 
 	public override string? get_stream_url () {
 		return account != null
-			? @"$(account.instance)/api/v1/streaming?stream=user&access_token=$(account.access_token)"
+			? @"$(account.tuba_streaming_url)/api/v1/streaming?stream=user&access_token=$(account.access_token)"
 			: null;
 	}
 
@@ -144,6 +149,6 @@ public class Tuba.Views.Home : Views.Timeline {
 	}
 
 	private void forward_to_notifications (Streamable.Event ev) {
-		forward (@"$(account.instance)/api/v1/streaming?stream=user:notification&access_token=$(account.access_token)", ev);
+		forward (@"$(account.tuba_streaming_url)/api/v1/streaming?stream=user:notification&access_token=$(account.access_token)", ev);
 	}
 }

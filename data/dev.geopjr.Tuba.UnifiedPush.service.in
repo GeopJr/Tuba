@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=dev.geopjr.Tuba.UnifiedPush
+Exec=@BINDIR@/dev.geopjr.Tuba --unifiedpush-bg

@@ -60,7 +60,7 @@
 						<property name="valign">start</property>
 						<property name="margin-start">12</property>
 						<property name="margin-end">12</property>
-						<property name="size">100</property>
+						<property name="size">88</property>
 						<style>
 							<class name="account-avatar" />
 							<class name="main-avi" />
@@ -96,7 +96,7 @@
 						<property name="wrap-mode">word</property>
 						<property name="xalign">0</property>
 						<style>
-							<class name="account-stats" />
+							<class name="font-small" />
 						</style>
 						<layout>
 							<property name="column">0</property>
@@ -154,6 +154,7 @@
 		</property>
 		<style>
 			<class name="ttl-profile-cover" />
+			<class name="ttl-profile-cover-container" />
 		</style>
 	</template>
 </interface>

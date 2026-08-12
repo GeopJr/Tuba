@@ -75,13 +75,18 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 	[GtkChild] unowned Adw.PreferencesGroup alt_text_group;
 	[GtkChild] unowned Adw.EntryRow avi_alt_text_row;
 	[GtkChild] unowned Adw.EntryRow header_alt_text_row;
+	[GtkChild] unowned Adw.PreferencesGroup display_group;
+	[GtkChild] unowned Adw.SwitchRow featured_row;
+	[GtkChild] unowned Adw.SwitchRow media_row;
+	[GtkChild] unowned Adw.SwitchRow media_replies_row;
 
 	Gtk.FileFilter filter = new Gtk.FileFilter () {
+		// translators: shown in file picker filter dropdown
 		name = _("All Supported Files")
 	};
 
 	static construct {
-		typeof (Widgets.CustomEmojiChooser).ensure ();
+		typeof (Widgets.CustomEmojiChooserV2).ensure ();
 	}
 
 	construct {
@@ -158,13 +163,25 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 
 	[GtkCallback]
 	void on_name_row_changed () {
-		var valid = name_row.text.length <= 30;
+		var valid = Utils.Counting.chars (name_row.text) <= max_name_length;
 		Tuba.toggle_css (name_row, !valid, "error");
 	}
 
 	void on_bio_text_changed () {
-		var valid = bio_text_view.buffer.get_char_count () <= 500;
+		var valid = Utils.Counting.chars (bio_text_view.buffer.text) <= max_bio_length;
 		Tuba.toggle_css (bio_row, !valid, "error");
+	}
+
+	[GtkCallback]
+	void on_avi_alt_text_row_changed () {
+		var valid = Utils.Counting.chars (avi_alt_text_row.text) <= max_avi_alt_length;
+		Tuba.toggle_css (avi_alt_text_row, !valid, "error");
+	}
+
+	[GtkCallback]
+	void on_header_alt_text_row_changed () {
+		var valid = Utils.Counting.chars (header_alt_text_row.text) <= max_cover_alt_length;
+		Tuba.toggle_css (header_alt_text_row, !valid, "error");
 	}
 
 	private API.Account profile { get; set; }
@@ -173,11 +190,30 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 	int64 max_fields;
 	int64 max_key_length;
 	int64 max_value_length;
+	int64 max_name_length;
+	int64 max_bio_length;
+	int64 max_avi_alt_length;
+	int64 max_cover_alt_length;
 	public ProfileEdit (API.Account acc) {
+		max_fields = accounts.active.instance_info.compat_fields_limits_max_fields;
+		max_key_length = accounts.active.instance_info.compat_fields_limits_name_length;
+		max_value_length = accounts.active.instance_info.compat_fields_limits_value_length;
+		max_name_length = accounts.active.instance_info.tuba_limits.max_display_name_length;
+		max_bio_length = accounts.active.instance_info.tuba_limits.max_note_length;
+		max_avi_alt_length = accounts.active.instance_info.tuba_limits.max_avatar_description_length;
+		max_cover_alt_length = accounts.active.instance_info.tuba_limits.max_header_description_length;
+
 		if (acc.avatar_description != null && acc.header_description != null) {
 			alt_text_group.visible = true;
 			avi_alt_text_row.text = acc.avatar_description;
 			header_alt_text_row.text = acc.header_description;
+		}
+
+		if (accounts.active.tuba_api_versions.mastodon >= 11) {
+			display_group.visible = true;
+			featured_row.active = acc.show_featured;
+			media_row.active = acc.show_media;
+			media_replies_row.active = acc.show_media_replies;
 		}
 
 		profile = acc;
@@ -186,10 +222,6 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 		avi.text = acc.display_name;
 		name_row.text = acc.display_name;
 		bio_text_view.buffer.text = acc.source == null || acc.source.note == null ? "" : acc.source.note;
-
-		max_fields = accounts.active.instance_info.compat_fields_limits_max_fields;
-		max_key_length = accounts.active.instance_info.compat_fields_limits_name_length;
-		max_value_length = accounts.active.instance_info.compat_fields_limits_value_length;
 
 		// Add known fields
 		int total_fields = 0;
@@ -275,28 +307,26 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 
 	public signal void saved ();
 	async void save () throws Error {
-		var req = new Request.PATCH ("/api/v1/accounts/update_credentials")
-					.with_account (accounts.active);
+		var req = new RequestV2 ("/api/v1/accounts/update_credentials", PATCH) { account = accounts.active };
 
 		if (!has_error (name_row) && profile.display_name != name_row.text)
-			req.with_form_data ("display_name", name_row.text);
+			req.add_form_data ("display_name", name_row.text);
 
 		if (!has_error (bio_row) && profile.source != null && profile.source.note != bio_text_view.buffer.text)
-			req.with_form_data ("note", bio_text_view.buffer.text);
+			req.add_form_data ("note", bio_text_view.buffer.text);
 
 		if (alt_text_group.visible) {
-			if (profile.avatar_description != avi_alt_text_row.text)
-				req.with_form_data ("avatar_description", avi_alt_text_row.text);
+			if (!has_error (avi_alt_text_row) && profile.avatar_description != avi_alt_text_row.text)
+				req.add_form_data ("avatar_description", avi_alt_text_row.text);
 
-			if (profile.header_description != header_alt_text_row.text)
-				req.with_form_data ("header_description", header_alt_text_row.text);
+			if (!has_error (header_alt_text_row) && profile.header_description != header_alt_text_row.text)
+				req.add_form_data ("header_description", header_alt_text_row.text);
 		}
-
 
 		var i = 0;
 		foreach (var field in fields) {
-			req.with_form_data (@"fields_attributes[$i][name]", field.valid ? field.key : "");
-			req.with_form_data (@"fields_attributes[$i][value]", field.valid ? field.value : "");
+			req.add_form_data (@"fields_attributes[$i][name]", field.valid ? field.key : "");
+			req.add_form_data (@"fields_attributes[$i][value]", field.valid ? field.value : "");
 			i++;
 		}
 
@@ -305,7 +335,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 			Bytes buffer;
 			image_data (new_avi, out mime, out buffer);
 
-			req.with_form_data_file ("avatar", mime, buffer);
+			req.add_form_data_file ("avatar", mime, buffer);
 		}
 
 		if (new_header != null) {
@@ -313,12 +343,32 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 			Bytes buffer;
 			image_data (new_header, out mime, out buffer);
 
-			req.with_form_data_file ("header", mime, buffer);
+			req.add_form_data_file ("header", mime, buffer);
 		}
 
-		yield req.await ();
+		var in_stream = yield req.exec (null);
+		yield accounts.active.update_object (in_stream);
 
-		accounts.active.update_object (req.response_body);
+		if (
+			display_group.visible
+			&& (
+				profile.show_featured != featured_row.active
+				|| profile.show_media != media_row.active
+				|| profile.show_media_replies != media_replies_row.active
+			)
+		) {
+			var req2 = new RequestV2 ("/api/v1/profile", PATCH) { account = accounts.active };
+			req2.add_form_data ("show_featured", featured_row.active.to_string ());
+			req2.add_form_data ("show_media", media_row.active.to_string ());
+			if (media_replies_row.sensitive)
+				req2.add_form_data ("show_media_replies", media_replies_row.active.to_string ());
+			yield req2.exec (null);
+
+			accounts.active.show_featured = featured_row.active;
+			accounts.active.show_media = media_row.active;
+			accounts.active.show_media_replies = media_replies_row.active;
+		}
+
 		saved ();
 	}
 

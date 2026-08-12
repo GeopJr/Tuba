@@ -78,9 +78,10 @@
                         <property name="visible">0</property>
                         <property name="icon_name">tuba-important-small-symbolic</property>
                         <property name="icon_size">1</property>
+						<!-- translators: tooltip on an image with a warning sign, indicates that the announcement has not been acknowledged -->
                         <property name="tooltip_text" translatable="yes">Unread</property>
                         <style>
-                          <class name="attention" />
+                          <class name="color-yellow-4" />
                         </style>
                       </object>
                     </child>

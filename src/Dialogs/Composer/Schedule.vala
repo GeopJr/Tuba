@@ -1,6 +1,17 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/schedule.ui")]
-public class Tuba.Dialogs.Schedule : Adw.Dialog {
+public class Tuba.Dialogs.Schedule : Adw.NavigationPage, Composer.PreferredSizeable {
 	public signal void schedule_picked (string iso8601);
+	public signal void cancelled ();
+	public int preferred_height { get; set; default = -1; }
+	public int preferred_width { get; set; default = -1; }
+
+	~Schedule () {
+		debug ("Destroying Schedule");
+	}
+
+	static construct {
+		typeof (Dialogs.Composer.PreferredSizeBin).ensure ();
+	}
 
 	[GtkChild] unowned Gtk.Calendar calendar;
 	[GtkChild] unowned Gtk.SpinButton hours_spin_button;
@@ -8,6 +19,13 @@ public class Tuba.Dialogs.Schedule : Adw.Dialog {
 	[GtkChild] unowned Gtk.SpinButton seconds_spin_button;
 	[GtkChild] unowned Adw.ComboRow timezone_combo_row;
 	[GtkChild] unowned Gtk.Button schedule_button;
+	[GtkChild] unowned Gtk.Button cancel_button;
+	[GtkChild] unowned Dialogs.Composer.PreferredSizeBin size_bin;
+
+	public bool can_cancel {
+		get { return cancel_button.visible; }
+		set { cancel_button.visible = value; }
+	}
 
 	GLib.DateTime result_dt;
 	construct {
@@ -17,6 +35,9 @@ public class Tuba.Dialogs.Schedule : Adw.Dialog {
 		string[] timezones = { local };
 		if (local != "UTC") timezones += "UTC";
 		timezone_combo_row.model = new Gtk.StringList (timezones);
+
+		this.bind_property ("preferred-height", size_bin, "height", SYNC_CREATE);
+		this.bind_property ("preferred-width", size_bin, "width", SYNC_CREATE);
 	}
 
 	public Schedule (string? iso8601 = null, string? button_label = null) {
@@ -31,43 +52,50 @@ public class Tuba.Dialogs.Schedule : Adw.Dialog {
 			minutes_spin_button.value = (double) iso8601_datetime.get_minute ();
 			seconds_spin_button.value = (double) iso8601_datetime.get_second ();
 
-			calendar.year = iso8601_datetime.get_year ();
-			calendar.month = iso8601_datetime.get_month () - 1;
-			calendar.day = iso8601_datetime.get_day_of_month ();
+			#if GTK_4_20
+				calendar.date = iso8601_datetime;
+			#else
+				calendar.year = iso8601_datetime.get_year ();
+				calendar.month = iso8601_datetime.get_month () - 1;
+				calendar.day = iso8601_datetime.get_day_of_month ();
+			#endif
 		}
 
 		if (button_label != null) schedule_button.label = button_label;
 
+		calendar.day_selected.connect (validate);
+		hours_spin_button.value_changed.connect (validate);
+		minutes_spin_button.value_changed.connect (validate);
+		seconds_spin_button.value_changed.connect (validate);
+		timezone_combo_row.notify["selected"].connect (validate);
 		validate ();
-	}
-
-	[GtkCallback] void on_exit () {
-		this.force_close ();
 	}
 
 	[GtkCallback] void on_schedule () {
 		schedule_picked (result_dt.format_iso8601 ());
-		on_exit ();
 	}
 
-	[GtkCallback] void validate () {
+	[GtkCallback] void on_cancel () {
+		cancelled ();
+	}
+
+	void validate () {
 		bool valid = true;
 		GLib.DateTime now = new GLib.DateTime.now_utc ();
-
-		if (((Gtk.StringObject) timezone_combo_row.selected_item).string == "UTC") {
+		if (timezone_combo_row.selected != Gtk.INVALID_LIST_POSITION && ((Gtk.StringObject) timezone_combo_row.selected_item).string == "UTC") {
 			result_dt = new GLib.DateTime.utc (
-				calendar.year,
-				calendar.month + 1,
-				calendar.day,
+				calendar.get_year (),
+				calendar.get_month () + 1,
+				calendar.get_day (),
 				(int) hours_spin_button.value,
 				(int) minutes_spin_button.value,
 				seconds_spin_button.value
 			);
 		} else {
 			result_dt = new GLib.DateTime.local (
-				calendar.year,
-				calendar.month + 1,
-				calendar.day,
+				calendar.get_year (),
+				calendar.get_month () + 1,
+				calendar.get_day (),
 				(int) hours_spin_button.value,
 				(int) minutes_spin_button.value,
 				seconds_spin_button.value
@@ -78,5 +106,25 @@ public class Tuba.Dialogs.Schedule : Adw.Dialog {
 		if (delta < TimeSpan.HOUR) valid = delta / TimeSpan.MINUTE > 5;
 
 		schedule_button.sensitive = valid;
+	}
+
+	public override void measure (
+		Gtk.Orientation orientation,
+		int for_size,
+		out int minimum,
+		out int natural,
+		out int minimum_baseline,
+		out int natural_baseline
+	) {
+		base.measure (
+			orientation,
+			for_size,
+			out minimum,
+			out natural,
+			out minimum_baseline,
+			out natural_baseline
+		);
+
+		if (orientation == HORIZONTAL) natural = int.max (minimum, int.max (natural, 423));
 	}
 }
