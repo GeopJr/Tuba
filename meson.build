@@ -195,8 +195,12 @@ final_deps = [
   unifiedpush_dep
 ]
 
+exe_kwargs = {}
 if host_machine.system() == 'android'
   final_deps += dependency('gioopenssl', required: true)
+  if meson.version().version_compare('>= 1.8.0')
+    exe_kwargs += {'android_exe_type': 'application'}
+  endif
 endif
 
 subdir('data')
@@ -214,7 +218,7 @@ executable(
     dependencies: final_deps,
     install: true,
     win_subsystem: 'windows',
-    android_exe_type: 'application'
+    kwargs: exe_kwargs
 )
 
 subdir('tests')
