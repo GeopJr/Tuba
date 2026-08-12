@@ -106,6 +106,9 @@ public class Tuba.Streams : Object { // we really should decouple streams from s
 					null, null, 0, socket_cancellable
 				);
 				socket.keepalive_interval = 30;
+				#if LIBSOUP_3_6
+					socket.set_property ("keepalive-pong-timeout", 30);
+				#endif
 
 				socket.error.connect (on_error);
 				socket.closed.connect (on_closed);

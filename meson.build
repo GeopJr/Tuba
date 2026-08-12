@@ -111,6 +111,7 @@ clapper_gtk_dep = dependency('clapper-gtk-0.0', required: get_option('clapper'))
 gstreamer_dep = dependency('gstreamer-1.0', required: get_option('gstreamer'))
 webkit_dep = dependency('webkitgtk-6.0', required: get_option('in-app-browser'))
 unifiedpush_dep = dependency('unifiedpush', required: get_option('unifiedpush'))
+libsoup_dep = dependency('libsoup-3.0', required: true)
 
 gexiv2_dep = dependency('gexiv2-0.16', 'gexiv2', version: '>=0.14', required: get_option('gexiv2'))
 
@@ -128,6 +129,10 @@ endif
 
 if gtk_dep.version().version_compare('>=4.22') and meson.get_compiler('vala').version().version_compare('>=0.56.19')
   add_project_arguments(['--define=GTK_4_22'], language: 'vala')
+endif
+
+if libsoup_dep.version().version_compare('>=3.6')
+  add_project_arguments(['--define=LIBSOUP_3_6'], language: 'vala')
 endif
 
 if gtksourceview_dep.version().version_compare('>=5.7.1')
@@ -177,7 +182,7 @@ subdir('src')
 final_deps = [
   dependency('glib-2.0', version: '>=2.80.0'),
   dependency('gee-0.8', version: '>=0.8.5'),
-  dependency('libsoup-3.0'),
+  libsoup_dep,
   dependency('json-glib-1.0', version: '>=1.4.4'),
   dependency('libxml-2.0'),
   dependency('libsecret-1', required: true),
