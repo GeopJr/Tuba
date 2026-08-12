@@ -207,10 +207,20 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 		public void setup_notification_streams (bool initial = false) {
 			if (account_settings_unifiedpush_enabled () && Tuba.up_distributor_found) {
-				if (!initial) this.stream_event[EVENT_NOTIFICATION].disconnect (on_notification_event);
+				if (!initial) {
+					this.stream_event[EVENT_NOTIFICATION].disconnect (on_notification_event);
+					// we only use these websockets for notifications,
+					// it's safe to unsubscribe
+					unsubscribe ();
+				}
 			} else {
 				this.stream_event[EVENT_NOTIFICATION].connect (on_notification_event);
+				if (!initial) subscribe ();
 			}
+		}
+
+		public string to_unifiedpush_id () {
+			return @"$(GLib.Uri.escape_string (this.uuid)):$(GLib.Uri.escape_string (this.instance))";
 		}
 	#else
 		public string uuid { get; set; }
@@ -1064,7 +1074,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	// Streamable
 
-	public string? t_connection_url { get; set; }
+	protected string? t_connection_url { get; set; }
 	public bool subscribed { get; set; }
 
 	public virtual string? get_stream_url () {

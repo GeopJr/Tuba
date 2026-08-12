@@ -140,6 +140,26 @@ public class Tuba.SecretAccountStore : AccountStore {
 	}
 
 	public override async void revoke_token_dangerous (InstanceAccount account, bool should_handle_error = true) {
+		// let's attempt to unregister from UnifiedPush on token revoke
+		// due to the fact that the token will be revoked next, let's
+		// unregister from the instance on our own terms
+		#if UNIFIEDPUSH
+			bool has_up = false;
+			if (account == accounts.active) {
+				has_up = settings.unifiedpush_enabled;
+			} else {
+				has_up = (new Tuba.Settings.Account (account.uuid)).unifiedpush_enabled;
+			}
+			if (has_up) {
+				app.unifiedpush.unregister (account.to_unifiedpush_id ());
+				try {
+					yield (new RequestV2 ("/api/v1/push/subscription", DELETE) { account = account }).exec (null);
+				} catch (Error e) {
+					warning (@"Couldn't remove UnifiedPush subscription for $(account.handle): $(e.code) $(e.message)");
+				}
+			}
+		#endif
+
 		try {
 			var req = new RequestV2 ("/oauth/revoke", POST) { account = account, no_auth = true };
 			req.add_form_data ("client_id", account.client_id);

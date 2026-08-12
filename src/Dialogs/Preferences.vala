@@ -219,7 +219,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	#if UNIFIEDPUSH
 		private void unifiedpush_changed () {
-			string id = @"$(GLib.Uri.escape_string (accounts.active.uuid)):$(GLib.Uri.escape_string (accounts.active.instance))";
+			string id = accounts.active.to_unifiedpush_id ();
 			if (up_row.active) {
 				unifiedpush_register_if_push.begin (id);
 			} else {
@@ -266,6 +266,12 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 					new Dialogs.NewAccount (true, accounts.active).present ();
 			}
 		}
+
+		private void on_up_registration_failed () {
+			up_row.notify["active"].disconnect (unifiedpush_changed);
+			up_row.active = false;
+			up_row.notify["active"].connect (unifiedpush_changed);
+		}
 	#endif
 
 	construct {
@@ -287,6 +293,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			//				 it's not possible to.
 			up_row.subtitle = Tuba.up_distributor_found ? "" : _("No UnifiedPush distributors available");
 			up_row.notify["active"].connect (unifiedpush_changed);
+			app.up_registration_failed.connect (on_up_registration_failed);
 		#endif
 
 		uint default_visibility_index;

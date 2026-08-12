@@ -67,6 +67,7 @@ namespace Tuba {
 		public Network app_network { get {return Tuba.network; } }
 		public Streams app_streams { get {return Tuba.streams; } }
 
+		// TODO: maybe combine some of these into a big detailed signal
 		public signal void refresh ();
 		public signal void refresh_scheduled_statuses ();
 		public signal void refresh_featured ();
@@ -77,6 +78,9 @@ namespace Tuba {
 		public signal void time_update ();
 		public signal void toast (string title, uint timeout = 5, string? action_name = null, GLib.Variant? action_target = null, string? action_label = null);
 		public signal void toast_object (Adw.Toast toast_obj);
+		#if UNIFIEDPUSH
+			public signal void up_registration_failed ();
+		#endif
 
 		#if DEV_MODE
 			public signal void dev_new_post (Json.Node node);
@@ -320,17 +324,18 @@ namespace Tuba {
 
 				try {
 					yield msg.exec (null);
+
+					if (account == accounts.active) {
+						settings.unifiedpush_enabled = true;
+					} else {
+						(new Tuba.Settings.Account (account.uuid)).unifiedpush_enabled = true;
+					}
+					account.setup_notification_streams ();
 				} catch (Error e) {
 					warning (@"Couldn't add UnifiedPush subscription for $(account.handle): $(e.code) $(e.message)");
 					app.toast ("%s: %s".printf (_("Error"), e.message));
+					up_registration_failed ();
 				}
-
-				if (account == accounts.active) {
-					settings.unifiedpush_enabled = true;
-				} else {
-					(new Tuba.Settings.Account (account.uuid)).unifiedpush_enabled = true;
-				}
-				account.setup_notification_streams ();
 			}
 
 			private void on_up_message (UnifiedPush.PushMessage obj) {
@@ -411,9 +416,19 @@ namespace Tuba {
 
 			private void on_unregistered (string obj) {
 				debug (@"UnifiedPush: unregistered $obj");
-				unregister_real.begin (accounts.active);
-				settings.unifiedpush_enabled = false;
-				accounts.active.setup_notification_streams ();
+				var instance_parts = obj.split (":");
+				string account_uuid = GLib.Uri.unescape_string (instance_parts[0]);
+				var account = accounts.find_by_uuid (account_uuid);
+				if (account == null) return;
+
+				if (account == accounts.active) {
+					settings.unifiedpush_enabled = false;
+				} else {
+					(new Tuba.Settings.Account (account.uuid)).unifiedpush_enabled = false;
+				}
+
+				unregister_real.begin (account);
+				account.setup_notification_streams ();
 			}
 
 			private async void unregister_real (InstanceAccount account) {
