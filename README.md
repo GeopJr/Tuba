@@ -80,7 +80,7 @@ $ make install
 
 </div>
 
-# Acknowledgements
+# Acknowledgments
 
 - Tuba is a fork of [Tootle](https://github.com/bleakgrey/tootle) by [Bleak Grey](https://github.com/bleakgrey)
 - Translations are managed by [Weblate](https://translate.codeberg.org/engage/tuba/)
