@@ -111,7 +111,10 @@
 				"-Dclapper-gtk=enabled",
 				"-Dclapper-app=disabled",
 				"-Dintrospection=enabled",
-				"-Dvapi=enabled"
+				"-Dvapi=enabled",
+				"-Ddiscoverer=disabled",
+				"-Dmpris=disabled",
+				"-Dserver=disabled"
 			],
 			"build-options": {
 				"arch": {
@@ -128,7 +131,7 @@
 				{
 					"type": "git",
 					"url": "https://github.com/Rafostar/clapper.git",
-					"tag": "0.8.0"
+					"tag": "0.10.0"
 				}
 			]
 		},
