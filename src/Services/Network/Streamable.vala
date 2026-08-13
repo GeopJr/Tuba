@@ -27,13 +27,13 @@ public interface Tuba.Streamable : Object {
 	[Signal (detailed = true)]
 	public signal void stream_event (Event ev);
 
-	void subscribe () {
+	protected void subscribe () {
 		streams.unsubscribe (t_connection_url, this);
 		streams.subscribe (get_stream_url (), this);
 		t_connection_url = get_stream_url ();
 	}
 
-	void unsubscribe () {
+	protected void unsubscribe () {
 		streams.unsubscribe (t_connection_url, this);
 		t_connection_url = null;
 	}

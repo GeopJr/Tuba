@@ -221,7 +221,8 @@
 				"-Dspelling=enabled",
 				"-Dgstreamer=enabled",
 				"-Din-app-browser=enabled",
-				"-Dgexiv2=enabled"
+				"-Dgexiv2=enabled",
+				"-Dunifiedpush=enabled"
 			],
 			"build-options": {
 				"arch": {
