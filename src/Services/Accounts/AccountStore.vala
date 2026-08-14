@@ -159,7 +159,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 	}
 
 	public signal InstanceAccount? create_for_backend (Json.Node node);
-	public InstanceAccount create_account (Json.Node node) throws GLib.Error {
+	public InstanceAccount create_account (Json.Node node, InstanceAccount.InstanceFeatures? instance_features = null) throws GLib.Error {
 		var obj = node.get_object ();
 		var backend = obj.get_string_member ("backend");
 		var handle = obj.get_string_member ("handle");
@@ -175,8 +175,10 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			}
 		}
 
-		if (obj.has_member ("instance-features")) {
-			account.tuba_instance_features = (InstanceAccount.InstanceFeatures) obj.get_int_member ("instance-features");
+		if (obj.has_member ("instance-features") || instance_features != null) {
+			account.tuba_instance_features = instance_features == null ?
+				(InstanceAccount.InstanceFeatures) obj.get_int_member ("instance-features")
+				: instance_features;
 
 			if (InstanceAccount.InstanceFeatures.ICESHRIMP in account.tuba_instance_features && obj.has_member ("iceshrimp-api-key"))
 				account.tuba_iceshrimp_api_key = obj.get_string_member ("iceshrimp-api-key");
@@ -231,6 +233,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 					if (nodeinfo2.software != null && nodeinfo2.software.name != null) {
 						account.backend = nodeinfo2.software.name;
 						if (nodeinfo2.software.name == "Iceshrimp.NET") account.tuba_instance_features |= InstanceAccount.InstanceFeatures.ICESHRIMP;
+						else if (nodeinfo2.software.name == "gotosocial") account.tuba_instance_features |= InstanceAccount.InstanceFeatures.GOTOSOCIAL;
 					}
 				} catch (Error e) {
 					warning (@"Couldn't get Nodeinfo for $(link.rel): $(e.code) $(e.message)");

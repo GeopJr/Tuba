@@ -80,6 +80,10 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 	[GtkChild] unowned Adw.SwitchRow media_row;
 	[GtkChild] unowned Adw.SwitchRow media_replies_row;
 
+	// TODO: translatable after string freeze (sorry)
+	[GtkChild] unowned Adw.PreferencesGroup gotosocial_group;
+	[GtkChild] unowned Adw.SwitchRow rss_row;
+
 	Gtk.FileFilter filter = new Gtk.FileFilter () {
 		// translators: shown in file picker filter dropdown
 		name = _("All Supported Files")
@@ -110,6 +114,10 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 		if (accounts.active.instance_emojis != null && accounts.active.instance_emojis.size > 0) {
 			cepbtn.visible = true;
 			bio_row.bind_property ("expanded", cepbtn, "sensitive", GLib.BindingFlags.SYNC_CREATE);
+		}
+
+		if (InstanceAccount.InstanceFeatures.GOTOSOCIAL in accounts.active.tuba_instance_features) {
+			gotosocial_group.visible = true;
 		}
 	}
 
@@ -223,6 +231,10 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 		name_row.text = acc.display_name;
 		bio_text_view.buffer.text = acc.source == null || acc.source.note == null ? "" : acc.source.note;
 
+		if (gotosocial_group.visible) {
+			rss_row.active = acc.enable_rss;
+		}
+
 		// Add known fields
 		int total_fields = 0;
 		if (acc != null && acc.source != null && acc.source.fields != null && acc.source.fields.size > 0) {
@@ -323,6 +335,11 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 				req.add_form_data ("header_description", header_alt_text_row.text);
 		}
 
+		if (gotosocial_group.visible) {
+			if (rss_row.active != profile.enable_rss)
+				req.add_form_data ("enable_rss", rss_row.active.to_string ());
+		}
+
 		var i = 0;
 		foreach (var field in fields) {
 			req.add_form_data (@"fields_attributes[$i][name]", field.valid ? field.key : "");
@@ -346,8 +363,10 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 			req.add_form_data_file ("header", mime, buffer);
 		}
 
-		var in_stream = yield req.exec (null);
-		yield accounts.active.update_object (in_stream);
+		if (req.has_form_data) {
+			var in_stream = yield req.exec (null);
+			yield accounts.active.update_object (in_stream);
+		}
 
 		if (
 			display_group.visible

@@ -13,7 +13,7 @@ all: build
 
 build:
 	meson setup builddir --prefix=$(PREFIX)
-	meson configure builddir -Ddevel=$(if $(release),false,true)
+	meson configure builddir -Ddevel=$(if $(release),false,true) -Dunifiedpush=auto
 	meson compile -C builddir
 
 install:

@@ -25,15 +25,18 @@ public class Tuba.Views.Hashtags : Views.Timeline {
 	}
 
 	public override void on_request_finish () {
-		if (!has_finished_request) model.sort (compare_func); // don't sort future pages
+		if (!has_finished_request) model.sort (compare_hashtags); // don't sort future pages
 		base.on_request_finish ();
 	}
 
-	CompareDataFunc<FavoriteTag> compare_func = (a, b) => {
-		return ((a.tuba_hashtag_data == null && b.tuba_hashtag_data == null)
-			|| (a.tuba_hashtag_data != null && b.tuba_hashtag_data != null))
-			? GLib.strcmp (a.name.down (), b.name.down ()) : 0;
-	};
+	static int compare_hashtags (Object a, Object b) {
+		unowned FavoriteTag fa = (FavoriteTag) a;
+		unowned FavoriteTag fb = (FavoriteTag) b;
+
+		return ((fa.tuba_hashtag_data == null && fb.tuba_hashtag_data == null)
+			|| (fa.tuba_hashtag_data != null && fb.tuba_hashtag_data != null))
+			? GLib.strcmp (fa.name.down (), fb.name.down ()) : 0;
+	}
 
 	protected override void build_header () {
 		base.build_header ();

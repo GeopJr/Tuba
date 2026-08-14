@@ -142,7 +142,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	protected virtual void on_accounts_changed (Gee.ArrayList<InstanceAccount> accounts) {
 		accounts_model.remove_all ();
-		accounts.sort ((owned) compare_func);
+		accounts.sort (compare_accounts);
 
 		Object[] accounts_to_add = {};
 		accounts.foreach (acc => {
@@ -156,9 +156,9 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		update_selected_account (false);
 	}
 
-	CompareDataFunc<InstanceAccount> compare_func = (a, b) => {
-		return GLib.strcmp (a.handle.down (), b.handle.down ());
-	};
+	static int compare_accounts (InstanceAccount a, InstanceAccount b) {
+		return a.handle.down ().collate (b.handle.down ());
+	}
 
 	private void update_selected_account (bool clear = true) {
 		if (clear) {

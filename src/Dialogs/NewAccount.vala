@@ -276,7 +276,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			accounts.update_account (this.updating_account);
 			account = this.updating_account;
 		} else {
-			account = accounts.create_account (account.to_json ());
+			account = accounts.create_account (account.to_json (), account.tuba_instance_features);
 			debug ("Saving account");
 			accounts.add (account);
 		}

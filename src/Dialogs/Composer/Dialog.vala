@@ -428,8 +428,8 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		sensitive_media_button.toggled.connect (update_attachmentsbin_sensitivity);
 		this.close_attempt.connect (on_exit);
 
-		if (accounts.active.tuba_api_versions.mastodon < 10 )
-			poll_button.bind_property ("sensitive", add_media_button, "sensitive", SYNC_CREATE | INVERT_BOOLEAN);
+		if (accounts.active.tuba_api_versions.mastodon < 10 && !(InstanceAccount.InstanceFeatures.GOTOSOCIAL in accounts.active.tuba_instance_features))
+			poll_button.bind_property ("active", add_media_button, "sensitive", SYNC_CREATE | INVERT_BOOLEAN);
 		cw_revealer.notify["child-revealed"].connect (on_cw_revealed);
 	}
 
@@ -1009,7 +1009,11 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		bool is_used = attachmentsbin_component.working || !attachmentsbin_component.is_empty;
 		sensitive_media_button.visible = !attachmentsbin_component.is_empty;
-		poll_button.sensitive = (accounts.active.tuba_api_versions.mastodon >= 10 || !is_used) && !this.quote_limited;
+		poll_button.sensitive = (
+			accounts.active.tuba_api_versions.mastodon >= 10
+			|| !is_used
+			|| (InstanceAccount.InstanceFeatures.GOTOSOCIAL in accounts.active.tuba_instance_features)
+		) && !this.quote_limited;
 		if (!is_used) editor.remove_bottom_child (attachmentsbin_component);
 		validate_post_button ();
 		update_attachmentsbin_sensitivity ();

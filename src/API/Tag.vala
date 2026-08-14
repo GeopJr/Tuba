@@ -22,7 +22,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	public static RequestV2 search (string query) throws Error {
 		var req = new RequestV2 ("/api/v2/search") { account = accounts.active };
 		req.add_parameter ("q", query);
-		req.add_parameter ("resolve", "hashtags");
+		req.add_parameter ("type", "hashtags");
 		req.add_parameter ("limit", "4");
 		req.add_parameter ("exclude_unreviewed", "true");
 		return req;

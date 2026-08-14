@@ -17,10 +17,13 @@ public class Tuba.HashtagProvider: Tuba.CompletionProvider {
 	}
 
 	public override async ListModel suggest (string word, Cancellable? cancellable) throws Error {
-		var req = API.Tag.search (word.substring (1));
+		string tag = word.substring (1);
+		var suggestions = new GLib.ListStore (typeof (Object));
+		if (tag == "") return suggestions;
+
+		var req = API.Tag.search (tag);
 		var in_stream = yield req.exec (null);
 
-		var suggestions = new GLib.ListStore (typeof (Object));
 		Json.Parser parser = yield Network.get_parser_from_inputstream_async (in_stream);
 		var results = API.SearchResults.from (network.parse_node (parser));
 		if (results != null) {

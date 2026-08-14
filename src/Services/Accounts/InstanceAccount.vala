@@ -72,7 +72,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		TRANSLATION,
 		ICESHRIMP,
 		GLITCH,
-		LOCAL_ONLY
+		LOCAL_ONLY,
+		GOTOSOCIAL
 	}
 	public InstanceFeatures tuba_instance_features { get; set; default = NONE; }
 	public string? tuba_iceshrimp_api_key { get; set; default = null; }

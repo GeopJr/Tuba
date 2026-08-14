@@ -28,6 +28,7 @@ public class Tuba.RequestV2 : GLib.Object {
 	public bool no_auth { get; set; default = false; }
 	public bool cache { get; set; default = true; }
 	public bool track_written_body_data { get; set; default = false; }
+	public bool has_form_data { get { return this.form_data != null; } }
 	public weak Gtk.Widget? ctx {
 		set {
 			this._ctx = value;
