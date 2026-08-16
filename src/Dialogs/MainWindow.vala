@@ -38,7 +38,9 @@ public class Tuba.Dialogs.MainWindow : Adw.ApplicationWindow, Saveable {
 
 		app.toast.connect (add_toast);
 		app.toast_object.connect (add_real_toast);
-		GLib.Timeout.add (5 * 60 * 1000, update_times, GLib.Priority.LOW);
+		#if !DEV_MODE
+			GLib.Timeout.add (5 * 60 * 1000, update_times, GLib.Priority.LOW);
+		#endif
 	}
 
 	private void settings_updated () {

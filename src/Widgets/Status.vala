@@ -828,6 +828,9 @@
 	const string EXPANDED_SEPARATOR = " · ";
 	protected string date {
 		owned get {
+			#if DEV_MODE
+				return "1h";
+			#endif
 			if (expanded) {
 				// translators: this is a "long" date format shown in places like expanded posts or
 				//				the profile "Joined" field. You can find all the available specifiers
