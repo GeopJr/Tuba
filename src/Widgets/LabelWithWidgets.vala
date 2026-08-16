@@ -139,7 +139,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 			var shape = Pango.AttrShape.new (logical_rect, logical_rect);
 			shape.start_index = index;
 			shape.end_index = index + OBJECT_REPLACEMENT_CHARACTER.length;
-			attrs.insert (shape.copy ());
+			attrs.insert ((owned) shape);
 
 			index = index + OBJECT_REPLACEMENT_CHARACTER.length;
 		}
@@ -162,9 +162,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		while (true) {
 			var run = run_iter.get_run_readonly ();
 			if (run != null) {
-				var extra_attrs = run.item.analysis.extra_attrs.copy ();
 				bool has_shape_attr = false;
-				foreach (var attr in extra_attrs) {
+				foreach (var attr in run.item.analysis.extra_attrs) {
 					if (((Pango.Attribute) attr).as_shape () != null) {
 						has_shape_attr = true;
 						break;

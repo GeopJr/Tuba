@@ -73,6 +73,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 			} else {
 				app.notify["is-online"].disconnect (on_network_change);
 			}
+			_retry_on_network_changes = value;
 		}
 	}
 
@@ -159,6 +160,9 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 	}
 
 	~Avatar () {
+		if (this.retry_on_network_changes) {
+			app.notify["is-online"].disconnect (on_network_change);
+		}
 		clear_mini ();
 	}
 }
