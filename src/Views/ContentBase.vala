@@ -118,7 +118,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 	}
 
 	// fighting with NavigationView over focus
-	private void attempt_focus_grab () {
+	protected virtual void attempt_focus_grab () {
 		GLib.Timeout.add (500, attempt_focus_grab_real);
 	}
 

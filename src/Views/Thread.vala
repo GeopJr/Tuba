@@ -25,6 +25,10 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 	public API.Status root_status { get; set; }
 	private weak Widgets.Status? root_status_widget { get; set; default=null; }
 
+	protected override void attempt_focus_grab () {
+		// do nothing
+	}
+
 	Adw.Toast? refresh_toast = null;
 	public Thread (API.Status status) {
 		Object (

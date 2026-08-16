@@ -551,7 +551,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 					return true;
 				} else {
 					unowned var last_focus = app.main_window.get_focus ();
-					return last_focus != null && last_focus.is_ancestor (w);
+					return last_focus != null && last_focus is Gtk.Widget && last_focus.is_ancestor (w);
 				}
 			}
 		}
