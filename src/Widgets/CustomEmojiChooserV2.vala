@@ -324,6 +324,7 @@ public class Tuba.Widgets.CustomEmojiChooserV2 : Gtk.Popover {
 		main_stack.visible_child_name = "categories";
 		moji_grid_model.remove_all ();
 		entry.grab_focus ();
+		entry.text = "";
 		this.search_active = false;
 	}
 
