@@ -44,6 +44,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 			};
 			editor.remove_css_class ("view");
 			editor.add_css_class ("reset");
+			this.focus_widget = editor;
 
 			// translators: placeholder shown in the private note editor on profiles
 			placeholder = new Dialogs.Composer.Components.Editor.PlaceholderHack (new Gtk.Label (_("Type your note…")) {

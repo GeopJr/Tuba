@@ -185,6 +185,7 @@
 														<property name="visible">0</property>
 														<!-- translators: title shown above personal notes on profiles. They are private, not shared with the person the profile belongs to. -->
 														<property name="title" translatable="yes">Note (visible only to you)</property>
+														<property name="use-markup">0</property>
 													</object>
 												</property>
 												<property name="visible" bind-source="note_row" bind-property="visible" bind-flags="sync-create" />
