@@ -392,10 +392,6 @@ public class Tuba.Views.Search : Views.TabbedBase {
 					});
 
 					sw.visible = i > 0;
-					if (i > 0) {
-						var row = result_box.get_row_at_index (0);
-						if (row != null) row.grab_focus ();
-					}
 				} catch (GLib.IOError.CANCELLED e) {
 					debug ("Message is cancelled.");
 				} catch (Error e) {
