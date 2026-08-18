@@ -7,6 +7,7 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		get { return widget.content; }
 		set {
 			widget.content = value;
+			update_accessible_label ();
 			var rtl = rtl_regex.match (value);
 			if (rtl) {
 				xalign = is_rtl ? 0 : 1;
@@ -71,7 +72,10 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 
 	public Gee.HashMap<string, string> instance_emojis {
 		get { return widget.instance_emojis; }
-		set { widget.instance_emojis = value; }
+		set {
+			widget.instance_emojis = value;
+			update_accessible_label ();
+		}
 	}
 
 	public int lines {
@@ -111,9 +115,6 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		widget.activate_link.connect (on_activate_link);
 		child = widget;
 
-		this.update_relation (Gtk.AccessibleRelation.LABELLED_BY, widget, null, -1);
-		this.update_relation (Gtk.AccessibleRelation.DESCRIBED_BY, widget, null, -1);
-
 		#if WEBKIT
 			Gtk.GestureClick middle_click_gesture = new Gtk.GestureClick () {
 				button = Gdk.BUTTON_MIDDLE
@@ -121,6 +122,10 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			middle_click_gesture.pressed.connect (on_middle_clicked);
 			this.add_controller (middle_click_gesture);
 		#endif
+	}
+
+	private void update_accessible_label () {
+		this.update_property (Gtk.AccessibleProperty.LABEL, widget.accessible_text, -1);
 	}
 
 	public bool on_activate_link (string url) {
