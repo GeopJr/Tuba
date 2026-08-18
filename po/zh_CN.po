@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-01 05:24+0300\n"
-"PO-Revision-Date: 2026-07-31 21:50+0000\n"
-"Last-Translator: Anonymous <anonymous@noreply.codeberg.org>\n"
+"POT-Creation-Date: 2026-08-10 15:24+0300\n"
+"PO-Revision-Date: 2026-08-12 06:12+0000\n"
+"Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.codeberg.org/projects/tuba/tuba/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.7.1\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -39,7 +39,7 @@ msgstr "Fediverse 客户端"
 
 #: data/dev.geopjr.Tuba.desktop.in:10
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
+msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;联邦宇宙;"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
@@ -65,10 +65,8 @@ msgstr ""
 #. translators: app store image description
 #: data/dev.geopjr.Tuba.metainfo.xml.in:37
 #: data/dev.geopjr.Tuba.metainfo.xml.in:52
-#, fuzzy
-#| msgid "Timeline"
 msgid "Home Timeline"
-msgstr "时间线"
+msgstr "首页时间线"
 
 #. translators: app store image description
 #. translators: shortcut group description
@@ -78,17 +76,13 @@ msgstr "撰写者"
 
 #. translators: app store image description
 #: data/dev.geopjr.Tuba.metainfo.xml.in:47
-#, fuzzy
-#| msgid "Profile"
 msgid "Profile View"
-msgstr "个人资料"
+msgstr "个人资料视图"
 
 #. translators: app store image description
 #: data/dev.geopjr.Tuba.metainfo.xml.in:57
-#, fuzzy
-#| msgid "Schedule Post"
 msgid "Schedule Post Dialog"
-msgstr "定时帖文"
+msgstr "定时帖文对话框"
 
 #. translators: app store image description
 #. translators: as in posts set to be posted sometime in the future
@@ -99,18 +93,16 @@ msgstr "已定时的帖文"
 
 #. translators: app store image description
 #: data/dev.geopjr.Tuba.metainfo.xml.in:67
-#, fuzzy
-#| msgid "Search"
 msgid "Search View"
-msgstr "搜索"
+msgstr "搜索视图"
 
 #. translators: settings row on setting the pre-selected post privacy of the composer
-#: data/dev.geopjr.Tuba.gschema.xml:12 data/ui/dialogs/preferences.ui:179
+#: data/dev.geopjr.Tuba.gschema.xml:12 data/ui/dialogs/preferences.ui:185
 msgid "Default Post Visibility"
-msgstr "帖文默认可见性"
+msgstr "帖文默认公开范围"
 
 #. translators: settings row on setting the pre-selected post content of the composer; content type as in "plain text", "markdown" and so on
-#: data/dev.geopjr.Tuba.gschema.xml:16 data/ui/dialogs/preferences.ui:207
+#: data/dev.geopjr.Tuba.gschema.xml:16 data/ui/dialogs/preferences.ui:213
 msgid "Default Post Content Type"
 msgstr "帖文默认内容类型"
 
@@ -122,7 +114,7 @@ msgstr "已静音的推送通知类型"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:26
 msgid "Recently Used Custom Emojis"
-msgstr "最近使用的自定义表情"
+msgstr "最近使用的自定义表情符号"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:31
@@ -142,12 +134,12 @@ msgstr "侧边栏显示的列表 ID"
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:46
 msgid "Hashtags shown on the sidebar"
-msgstr "侧边栏显示的标签"
+msgstr "侧边栏显示的话题标签"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:51
 msgid "User-created hashtag lists"
-msgstr ""
+msgstr "用户创建的话题标签列表"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:56
@@ -159,17 +151,17 @@ msgstr "账号推荐"
 msgid ""
 "Whether account suggestions should be shown in the Home tab when the user "
 "doesn't follow enough people"
-msgstr "当用户关注人数不足时，是否在首页标签显示账号推荐"
+msgstr "当用户关注人数不足时，是否在首页标签页中显示账号推荐"
 
-#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#. translators: leave it as is; brand/software/protocol name
 #: data/dev.geopjr.Tuba.gschema.xml:63
 msgid "UnifiedPush"
-msgstr ""
+msgstr "UnifiedPush"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:65
 msgid "Whether account has enabled UnifiedPush"
-msgstr ""
+msgstr "账号是否已启用 UnifiedPush"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:73
@@ -187,12 +179,12 @@ msgid "The default color scheme"
 msgstr "默认配色方案"
 
 #. translators: setting that when enabled will hide the app instead of closing it when pressing the X button
-#: data/dev.geopjr.Tuba.gschema.xml:84 data/ui/dialogs/preferences.ui:158
+#: data/dev.geopjr.Tuba.gschema.xml:84 data/ui/dialogs/preferences.ui:164
 msgid "Run in Background"
 msgstr "后台运行"
 
 #. translators: setting subtitle that explains what "run in the background" will do, fetch as in receive
-#: data/dev.geopjr.Tuba.gschema.xml:85 data/ui/dialogs/preferences.ui:160
+#: data/dev.geopjr.Tuba.gschema.xml:85 data/ui/dialogs/preferences.ui:166
 msgid "Fetch notifications while the app is closed"
 msgstr "在应用关闭时获取通知"
 
@@ -209,17 +201,17 @@ msgid ""
 msgstr "每次滚动时间线时显示的帖文数量（10-40）"
 
 #. translators: setting that when enabled activates websocket live-updates; stream is a verb, you may replace it with 'live update'
-#: data/dev.geopjr.Tuba.gschema.xml:96 data/ui/dialogs/preferences.ui:222
+#: data/dev.geopjr.Tuba.gschema.xml:96 data/ui/dialogs/preferences.ui:228
 msgid "Stream Timelines"
 msgstr "流式时间线"
 
 #. translators: setting description on what "stream timelines" entails
-#: data/dev.geopjr.Tuba.gschema.xml:97 data/ui/dialogs/preferences.ui:224
+#: data/dev.geopjr.Tuba.gschema.xml:97 data/ui/dialogs/preferences.ui:230
 msgid "Receive new posts and notifications in real-time"
 msgstr "实时接收最新帖文和通知"
 
 #. translators: setting that when enabled activates websocket live-updates - even 'local' and 'federated' timelines that get a lot of traffic; stream is a verb, you may replace it with 'live update'
-#: data/dev.geopjr.Tuba.gschema.xml:101 data/ui/dialogs/preferences.ui:231
+#: data/dev.geopjr.Tuba.gschema.xml:101 data/ui/dialogs/preferences.ui:237
 msgid "Stream Public Timelines"
 msgstr "流式公共时间线"
 
@@ -245,7 +237,7 @@ msgstr "大号文本"
 
 #: data/dev.geopjr.Tuba.gschema.xml:116
 msgid "Increase the size of text in posts"
-msgstr "增加帖文的文字大小"
+msgstr "增加帖文中的文本大小"
 
 #. translators: setting that when enabled increases the line height of posts; bigger spacing between lines
 #: data/dev.geopjr.Tuba.gschema.xml:120 data/ui/dialogs/preferences.ui:53
@@ -260,11 +252,11 @@ msgstr "增加帖文的行间距"
 #. translators: setting that when enabled increases the size of custom emojis when hovered; scale is a verb and you may replace it with "enlarge" "increase the size of"
 #: data/dev.geopjr.Tuba.gschema.xml:125 data/ui/dialogs/preferences.ui:45
 msgid "Scale Custom Emojis on Hover"
-msgstr "悬停时放大自定义表情"
+msgstr "悬停时放大自定义表情符号"
 
 #: data/dev.geopjr.Tuba.gschema.xml:126
 msgid "lightly increases the size of custom emojis when you hover over them"
-msgstr "悬停时略微增大自定义表情的尺寸"
+msgstr "悬停时略微增大自定义表情符号的尺寸"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:131
@@ -315,7 +307,7 @@ msgstr "默认情况下，展开图片以填充媒体查看器"
 #. translators: setting that when enabled, makes custom emojis bigger
 #: data/dev.geopjr.Tuba.gschema.xml:154 data/ui/dialogs/preferences.ui:39
 msgid "Large Custom Emojis"
-msgstr "大号自定义表情"
+msgstr "大号自定义表情符号"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated; leave this as is unless you want to transliterate. BlurHash is a recognizable product name.
 #: data/dev.geopjr.Tuba.gschema.xml:159
@@ -338,7 +330,7 @@ msgid "Group Similar Push Notifications"
 msgstr "合并相似推送通知"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
-#: data/dev.geopjr.Tuba.gschema.xml:171 data/ui/dialogs/preferences.ui:368
+#: data/dev.geopjr.Tuba.gschema.xml:171 data/ui/dialogs/preferences.ui:374
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
 msgstr "将最近推送的相同类型通知合并为一个通知"
@@ -351,7 +343,7 @@ msgstr "高级强化对话框"
 #. translators: setting subtitle that explains what the advanced boost dialog allows
 #: data/dev.geopjr.Tuba.gschema.xml:176 data/ui/dialogs/preferences.ui:120
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr "更改转发可见范围、引用和确认转发"
+msgstr "更改转发公开范围、引用和确认转发"
 
 #. translators: setting that when enabled will show the user a warning before allowing them to reply to a very old post
 #: data/dev.geopjr.Tuba.gschema.xml:180 data/ui/dialogs/preferences.ui:140
@@ -368,212 +360,248 @@ msgstr "回复 3 个月前发布的帖文时，Tuba 会警告对话可能已结�
 #. translators: setting that when enabled will show the user a warning before allowing them to boost a post that has attachments without alt text
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:152
 msgid "Warn before boosting a post that includes attachments without alt text"
-msgstr ""
+msgstr "转发包含无替代文本附件的帖文前发出警告"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:188
 msgid ""
 "Before boosting a post that has attachments without alt text, Tuba will warn "
 "you"
-msgstr ""
+msgstr "转发包含无替代文本附件的帖文前，Tuba 会向您发出警告"
+
+#. translators: setting that when enabled will show the user a warning before fetching attachments from a remote instance
+#: data/dev.geopjr.Tuba.gschema.xml:192 data/ui/dialogs/preferences.ui:158
+msgid "Warn before fetching media from remote servers"
+msgstr "从远程服务器获取媒体前发出警告"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:194
+msgid ""
+"Before fetching unproxied or unrecognized media from remote servers, Tuba "
+"will warn you"
+msgstr "从远程服务器获取未代理或无法识别的媒体前，Tuba 会向您发出警告"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:199
+msgid "Fetch remote media default choice"
+msgstr "获取远程媒体的默认选项"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:201
+msgid ""
+"Whether Tuba should fetch remote media automatically when the proxied one is "
+"not available"
+msgstr "当代理媒体不可用时，Tuba 是否应自动获取远程媒体"
 
 #. translators: setting that when enabled will show the user a warning before allowing them to copy a link to a post that is private
-#: data/dev.geopjr.Tuba.gschema.xml:192 data/ui/dialogs/preferences.ui:146
+#: data/dev.geopjr.Tuba.gschema.xml:205 data/ui/dialogs/preferences.ui:146
 msgid "Warn before copying a link to a private post"
 msgstr "在复制私密帖文的链接前发出警告"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:194
+#: data/dev.geopjr.Tuba.gschema.xml:207
 msgid ""
 "If you copy the link to a post that is not publicly accessible, Tuba will "
 "warn you that people might not be able to view the post the link points to"
 msgstr "复制非公开帖文的链接时，Tuba 会警告他人可能无法查看"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:199
+#: data/dev.geopjr.Tuba.gschema.xml:212
 msgid "Spellchecker"
 msgstr "拼写检查"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:201
+#: data/dev.geopjr.Tuba.gschema.xml:214
 msgid ""
 "The last state of the spellchecker in the composer, can be toggled by right "
 "clicking"
 msgstr "编辑器拼写检查器的最后状态（可右键切换）"
 
 #. translators: setting that when enabled makes images darker on dark mode until hovered
-#: data/dev.geopjr.Tuba.gschema.xml:205 data/ui/dialogs/preferences.ui:25
+#: data/dev.geopjr.Tuba.gschema.xml:218 data/ui/dialogs/preferences.ui:25
 msgid "Darken Images on Dark Mode"
 msgstr "在深色模式下使图像变暗"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:207
+#: data/dev.geopjr.Tuba.gschema.xml:220
 msgid ""
 "Images will be darker when dark mode is enabled and gain their full "
 "brightness when hovered"
 msgstr "深色模式下图片会变暗，悬停时恢复亮度"
 
 #. translators: setting that when enabled makes unimportant notification less visible / darker. 'Trivial' describes favorites and boosts
-#: data/dev.geopjr.Tuba.gschema.xml:211 data/ui/dialogs/preferences.ui:31
+#: data/dev.geopjr.Tuba.gschema.xml:224 data/ui/dialogs/preferences.ui:31
 msgid "Dim Trivial Notifications"
 msgstr "减弱琐碎通知"
 
 #. translators: setting subtitle that explains what dimming trivial notifications does
-#: data/dev.geopjr.Tuba.gschema.xml:212 data/ui/dialogs/preferences.ui:33
+#: data/dev.geopjr.Tuba.gschema.xml:225 data/ui/dialogs/preferences.ui:33
 msgid "Notifications like favorites and boosts will be less visible"
 msgstr "点赞与转发等通知将变得不那么明显"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:217
+#: data/dev.geopjr.Tuba.gschema.xml:230
+msgid "Blur Sensitive Media"
+msgstr "模糊处理敏感媒体"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:232
+msgid ""
+"Whether Tuba should blur media marked as sensitive, instead of turning them "
+"invisible"
+msgstr "Tuba 是否应模糊处理标记为敏感的媒体，而不是将其完全隐藏"
+
+#. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
+#: data/dev.geopjr.Tuba.gschema.xml:237
 msgid "The last volume value used in the media viewer for videos and audio"
 msgstr "媒体查看器中视频/音频的最后使用音量值"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:222
+#: data/dev.geopjr.Tuba.gschema.xml:242
 msgid "Monitor Network Changes"
 msgstr "监控网络变化"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:224
+#: data/dev.geopjr.Tuba.gschema.xml:244
 msgid ""
 "When the network disconnects and reconnects Tuba will detect it and "
 "gracefully recover"
 msgstr "网络断开重连时，Tuba 会检测并优雅恢复"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:229
+#: data/dev.geopjr.Tuba.gschema.xml:249
 msgid "Proxy URL"
 msgstr "代理 URL"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:231
+#: data/dev.geopjr.Tuba.gschema.xml:251
 msgid ""
 "Leaving it empty will use the default connection which might be proxied "
 "based on the system settings"
 msgstr "留空将使用可能受系统设置代理的默认连接"
 
 #. translators: setting that when enabled sends the user's settings to tuba's servers (anonymously)
-#: data/dev.geopjr.Tuba.gschema.xml:235 data/ui/dialogs/preferences.ui:247
+#: data/dev.geopjr.Tuba.gschema.xml:255 data/ui/dialogs/preferences.ui:253
 msgid "Send Preference Analytics"
 msgstr "发送偏好分析"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:237
+#: data/dev.geopjr.Tuba.gschema.xml:257
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly. "
 "You can preview exactly what's being sent in-app, they are opt-in and the "
 "server is open source."
 msgstr ""
-"每两周向 Tuba 开发者发送偏好设置用于流行度研究（可预览内容，需手动加入，服务"
-"器开源）"
+"您可以每两周向 Tuba 的开发者发送您的偏好，以供进行流行度研究。您可以在应用内"
+"确切预览发送的内容；此功能是可选择的，服务器是开源的。"
 
 #. translators: setting title that when enabled gathers tuba's donators every 2nd week; supporters = tuba contributors and sponsors
-#: data/dev.geopjr.Tuba.gschema.xml:241 data/ui/dialogs/preferences.ui:273
+#: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:279
 msgid "Update Supporters Periodically"
 msgstr "定期更新支持者"
 
 #. translators: setting subtitle of what updating supporters entails; you may replace fetch with update or receive; supporters = tuba contributors and sponsors
-#: data/dev.geopjr.Tuba.gschema.xml:242 data/ui/dialogs/preferences.ui:275
+#: data/dev.geopjr.Tuba.gschema.xml:262 data/ui/dialogs/preferences.ui:281
 msgid "Fetch the list of Tuba's supporters biweekly"
 msgstr "每两周获取 Tuba 支持者的列表"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:247
+#: data/dev.geopjr.Tuba.gschema.xml:267
 msgid "Date of the last analytics update"
 msgstr "最近一次分析数据更新时间"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:249 data/dev.geopjr.Tuba.gschema.xml:256
+#: data/dev.geopjr.Tuba.gschema.xml:269 data/dev.geopjr.Tuba.gschema.xml:276
 msgid "Used for keeping track if 2 weeks have passed since the last update"
 msgstr "用于跟踪是否距上次更新已过两周"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:254
+#: data/dev.geopjr.Tuba.gschema.xml:274
 msgid "Date of the last contributors update"
 msgstr "最近一次贡献者更新时间"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:261
+#: data/dev.geopjr.Tuba.gschema.xml:281
 msgid "Tuba contributors"
 msgstr "Tuba 贡献者"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:263
+#: data/dev.geopjr.Tuba.gschema.xml:283
 msgid ""
 "A list of hashed handles that belong to Tuba contributors so they can be "
 "used in-app"
 msgstr "贡献者的哈希句柄列表（用于应用内功能）"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:268
+#: data/dev.geopjr.Tuba.gschema.xml:288
 msgid "Post aria label verbosity"
 msgstr "帖文 aria 标签详细程度"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:270
+#: data/dev.geopjr.Tuba.gschema.xml:290
 msgid "0 to 5 verbosity level, 0 being no aria label and 5 being very detailed"
 msgstr "0 到 5 详细级别，0 表示无 aria 标签，5 表示非常详细"
 
 #. translators: setting that when enabled opens links in-app as in a browser inside Tuba
-#: data/dev.geopjr.Tuba.gschema.xml:274 data/ui/dialogs/preferences.ui:126
+#: data/dev.geopjr.Tuba.gschema.xml:294 data/ui/dialogs/preferences.ui:126
 msgid "Open Links In-App"
 msgstr "应用内打开链接"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:276
+#: data/dev.geopjr.Tuba.gschema.xml:296
 msgid "Open links in a nested web browser instead of the host one"
 msgstr "在嵌套浏览器中打开链接而非系统浏览器"
 
 #. translators: setting that when enabled shows only a portion of lengthy posts until the user clicks on them
-#: data/dev.geopjr.Tuba.gschema.xml:280 data/ui/dialogs/preferences.ui:81
+#: data/dev.geopjr.Tuba.gschema.xml:300 data/ui/dialogs/preferences.ui:81
 msgid "Collapse Long Posts"
 msgstr "折叠长文"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:282
+#: data/dev.geopjr.Tuba.gschema.xml:302
 msgid ""
 "Whether to automatically collapse posts to a set height when they exceed it"
 msgstr "当内容超过设定高度时自动折叠"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:287
+#: data/dev.geopjr.Tuba.gschema.xml:307
 msgid "Auto-detect instance features"
 msgstr "自动检测实例功能"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:289
+#: data/dev.geopjr.Tuba.gschema.xml:309
 msgid ""
 "Used to detect what features an instance supports like quote-posts on "
 "account activation"
 msgstr "用于检测实例支持的功能，如账号激活时的引用功能"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:294
+#: data/dev.geopjr.Tuba.gschema.xml:314
 msgid "Replies, Favorites and Boosts Counters"
 msgstr "回复、点赞和转帖计数器"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:299
+#: data/dev.geopjr.Tuba.gschema.xml:319
 msgid "Automatically extract alt text from file metadata"
 msgstr "自动从文件元数据提取替代文本"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:304
+#: data/dev.geopjr.Tuba.gschema.xml:324
 msgid "The multiplier of the font size used in posts (0.8-2.0)"
-msgstr ""
+msgstr "帖文中使用的字体大小倍数（0.8-2.0）"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:310
+#: data/dev.geopjr.Tuba.gschema.xml:330
 msgid "Window Width"
 msgstr "窗口宽度"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:315
+#: data/dev.geopjr.Tuba.gschema.xml:335
 msgid "Window Height"
 msgstr "窗口高度"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
-#: data/dev.geopjr.Tuba.gschema.xml:320
+#: data/dev.geopjr.Tuba.gschema.xml:340
 msgid "Window Maximized State"
 msgstr "窗口最大化状态"
 
@@ -596,6 +624,7 @@ msgstr "撰写新帖文"
 #. translators: 'refresh timeline'; same as a browser refreshing/reloading a page
 #: data/gtk/shortcuts-dialog.ui:23 data/ui/widgets/votebox.ui:43
 #: src/Views/Browser.vala:181 src/Views/Sidebar.vala:72
+#: src/Views/Thread.vala:367
 msgid "Refresh"
 msgstr "刷新"
 
@@ -605,6 +634,7 @@ msgstr "刷新"
 #: src/Services/Accounts/Mastodon/Account.vala:92
 #: src/Views/Admin/Pages/Accounts.vala:25 src/Views/Main.vala:67
 #: src/Views/Search.vala:93 src/Views/Search.vala:95
+#: src/Widgets/CustomEmojiChooserV2.vala:298
 msgid "Search"
 msgstr "搜索"
 
@@ -685,14 +715,16 @@ msgstr "高级搜索"
 
 #: data/ui/dialogs/advanced_search.ui:22 data/ui/dialogs/filter_edit.ui:17
 #: data/ui/dialogs/new_account.ui:27 data/ui/dialogs/profile_edit.ui:21
-#: src/API/Relationship.vala:189 src/API/Relationship.vala:234
-#: src/Application.vala:971 src/Dialogs/Admin/AddFederationBlock.vala:37
+#: data/ui/dialogs/schedule.ui:37 src/API/Relationship.vala:189
+#: src/API/Relationship.vala:234 src/Application.vala:969
+#: src/Dialogs/Admin/AddFederationBlock.vala:37
 #: src/Dialogs/Admin/AddIPBlock.vala:76 src/Dialogs/Admin/Report.vala:23
 #: src/Dialogs/Admin/TakeAction.vala:22 src/Dialogs/Admin/TakeAction.vala:151
-#: src/Dialogs/Collections.vala:378 src/Dialogs/Composer/Dialog.vala:1093
-#: src/Dialogs/Composer/Dialog.vala:1187 src/Dialogs/Composer/Dialog.vala:1509
-#: src/Dialogs/HashtagList.vala:406 src/Dialogs/NewAccount.vala:349
-#: src/Dialogs/NotificationSettings.vala:150 src/Dialogs/Preferences.vala:92
+#: src/Dialogs/Collections.vala:378 src/Dialogs/Composer/Dialog.vala:1165
+#: src/Dialogs/Composer/Dialog.vala:1283 src/Dialogs/Composer/Dialog.vala:1333
+#: src/Dialogs/Composer/Dialog.vala:1645 src/Dialogs/HashtagList.vala:422
+#: src/Dialogs/NewAccount.vala:372 src/Dialogs/NotificationSettings.vala:150
+#: src/Dialogs/Preferences.vala:92 src/Dialogs/Preferences.vala:260
 #: src/Dialogs/Report.vala:87 src/Dialogs/Report.vala:360
 #: src/Dialogs/Report.vala:448 src/Views/Admin/Pages/Accounts.vala:256
 #: src/Views/Admin/Pages/Accounts.vala:430
@@ -705,10 +737,11 @@ msgstr "高级搜索"
 #: src/Views/Admin/Timelines/DomainBlock.vala:34
 #: src/Views/Admin/Timelines/EmailDomain.vala:34 src/Views/Drive.vala:719
 #: src/Views/Drive.vala:1239 src/Views/Drive.vala:1341 src/Views/Lists.vala:139
-#: src/Views/Profile.vala:24 src/Views/Profile.vala:527
-#: src/Views/Sidebar.vala:371 src/Widgets/Collection.vala:151
-#: src/Widgets/Collection.vala:176 src/Widgets/Collection.vala:194
-#: src/Widgets/ScheduledStatus.vala:211 src/Widgets/Status/ActionsRow.vala:334
+#: src/Views/Profile.vala:24 src/Views/Profile.vala:544
+#: src/Views/Sidebar.vala:376 src/Widgets/Attachment/Image.vala:165
+#: src/Widgets/Collection.vala:151 src/Widgets/Collection.vala:176
+#: src/Widgets/Collection.vala:194 src/Widgets/ScheduledStatus.vala:254
+#: src/Widgets/Status/ActionsRow.vala:334
 #: src/Widgets/Status/ActionsRow.vala:395 src/Widgets/Status.vala:639
 #: src/Widgets/Status.vala:667
 msgid "Cancel"
@@ -733,94 +766,94 @@ msgstr "查询"
 msgid "From User"
 msgstr "来自用户"
 
-#. translators: tooltip text for a button in the 'advanced search' window. When clicked it automatically fills the entry with the first found user based on the query.
-#: data/ui/dialogs/advanced_search.ui:91
-msgid "Auto-Fill User"
-msgstr "自动填充用户"
+#. translators: tooltip text for a button in the 'advanced search' window. It opens a popover that allows users to search for hashtags.
+#: data/ui/dialogs/advanced_search.ui:89
+msgid "Search Accounts"
+msgstr "搜索账号"
 
 #. translators: advanced search window switch title
-#: data/ui/dialogs/advanced_search.ui:104
+#: data/ui/dialogs/advanced_search.ui:101
 msgid "Only Replies"
 msgstr "仅回复"
 
 #. translators: advanced search window switch title
-#: data/ui/dialogs/advanced_search.ui:110
+#: data/ui/dialogs/advanced_search.ui:107
 msgid "Only Posts with Content Warnings"
 msgstr "仅带内容警告的帖文"
 
 #. translators: Advanced search window, option group
 #. This is the title and the option are
 #. 'media', 'poll'...
-#: data/ui/dialogs/advanced_search.ui:120
+#: data/ui/dialogs/advanced_search.ui:117
 msgid "Containing"
 msgstr "包含"
 
 #. translators: as in attachments / music, videos, pictures
-#: data/ui/dialogs/advanced_search.ui:123
-#: src/Widgets/ProfileFilterGroup.vala:69
+#: data/ui/dialogs/advanced_search.ui:120 data/ui/dialogs/profile_edit.ui:201
+#: src/Widgets/ProfileFilterGroup.vala:70
 msgid "Media"
 msgstr "媒体"
 
 #. translators: switch title that when enabled searches for posts that have polls in them
-#: data/ui/dialogs/advanced_search.ui:129
+#: data/ui/dialogs/advanced_search.ui:126
 msgid "Poll"
 msgstr "投票"
 
 #. translators: advanced search window switch title; when enabled searches for posts that have embedded widgets e.g. a youtube video
-#: data/ui/dialogs/advanced_search.ui:135
+#: data/ui/dialogs/advanced_search.ui:132
 msgid "Embed"
 msgstr "嵌入"
 
-#: data/ui/dialogs/advanced_search.ui:142 data/ui/dialogs/preferences.ui:218
+#: data/ui/dialogs/advanced_search.ui:139 data/ui/dialogs/preferences.ui:224
 msgid "Timelines"
 msgstr "时间线"
 
 #. translators: setting in advanced search that when enabled searches in all timelines
-#: data/ui/dialogs/advanced_search.ui:146
+#: data/ui/dialogs/advanced_search.ui:143
 msgid "Everywhere"
 msgstr "到处"
 
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
-#: data/ui/dialogs/advanced_search.ui:161
+#: data/ui/dialogs/advanced_search.ui:158
 msgid "Library"
 msgstr "库"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
-#: data/ui/dialogs/advanced_search.ui:163
+#: data/ui/dialogs/advanced_search.ui:160
 msgid "Favorites, Bookmarks, Own Posts"
 msgstr "点赞，书签，我的帖文"
 
 #. translators: post visibility label
-#: data/ui/dialogs/advanced_search.ui:178 src/API/Status.vala:428
+#: data/ui/dialogs/advanced_search.ui:175 src/API/Status.vala:428
 #: src/Dialogs/Collections.vala:262
 msgid "Public"
 msgstr "公开"
 
 #. translators: Advanced search window, option group
-#: data/ui/dialogs/advanced_search.ui:196
+#: data/ui/dialogs/advanced_search.ui:193
 msgid "Dates"
 msgstr "日期"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
-#: data/ui/dialogs/advanced_search.ui:202
+#: data/ui/dialogs/advanced_search.ui:199
 msgid "Before"
 msgstr "先于"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
-#: data/ui/dialogs/advanced_search.ui:225
+#: data/ui/dialogs/advanced_search.ui:222
 msgid "During"
 msgstr "期间"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *after* this date
-#: data/ui/dialogs/advanced_search.ui:248
+#: data/ui/dialogs/advanced_search.ui:245
 msgid "After"
 msgstr "后于"
 
 #. translators: composer title
-#: data/ui/dialogs/composer.ui:18 src/Dialogs/Composer/Dialog.vala:569
+#: data/ui/dialogs/composer.ui:18 src/Dialogs/Composer/Dialog.vala:634
 #: src/Dialogs/Composer/Editor.vala:250 src/Views/Sidebar.vala:69
 msgid "New Post"
 msgstr "发帖"
@@ -838,13 +871,13 @@ msgstr "在此输入内容警告"
 #. translators: button tooltip that opens the native emoji picker
 #: data/ui/dialogs/composer.ui:71 src/Widgets/Status/ReactionsRow.vala:47
 msgid "Emoji Picker"
-msgstr "表情选择器"
+msgstr "表情符号选择器"
 
 #. translators: button tooltip that opens the custom emoji picker; its a picker for custom emojis, not an emoji picker that is custom
 #: data/ui/dialogs/composer.ui:81 data/ui/dialogs/profile_edit.ui:142
 #: src/Widgets/Status/ReactionsRow.vala:57
 msgid "Custom Emoji Picker"
-msgstr "自定义表情选择器"
+msgstr "自定义表情符号选择器"
 
 #. translators: composer tooltip for button that makes the user select a file to upload
 #: data/ui/dialogs/composer.ui:91
@@ -858,7 +891,7 @@ msgstr "创建投票"
 
 #. translators: in notifications when the notification has a spoiler/content warning
 #. instead of the actual content
-#: data/ui/dialogs/composer.ui:110 src/API/Notification.vala:254
+#: data/ui/dialogs/composer.ui:110 src/API/Notification.vala:276
 #: src/Dialogs/Collections.vala:280
 msgid "Content Warning"
 msgstr "内容警告"
@@ -875,13 +908,13 @@ msgstr "编辑过滤器"
 
 #. translators: button label; verb
 #: data/ui/dialogs/filter_edit.ui:26 data/ui/dialogs/profile_edit.ui:28
-#: src/Dialogs/HashtagList.vala:412 src/Views/Drive.vala:430
+#: src/Dialogs/HashtagList.vala:428 src/Views/Drive.vala:430
 #: src/Views/Profile.vala:27
 msgid "Save"
 msgstr "保存"
 
 #. translators: entry title for writing a 'title'
-#: data/ui/dialogs/filter_edit.ui:61 src/Dialogs/HashtagList.vala:350
+#: data/ui/dialogs/filter_edit.ui:61 src/Dialogs/HashtagList.vala:366
 msgid "Title"
 msgstr "标题"
 
@@ -929,7 +962,7 @@ msgstr "列表名称"
 #. translators: list editor setting that when enabled removes the members' posts from the 'home' timeline and only shows them in the list
 #: data/ui/dialogs/list_edit.ui:35
 msgid "Hide Posts From Home"
-msgstr "从主页隐藏帖文"
+msgstr "从首页隐藏帖文"
 
 #. translators: list edit settings group; what kind of replies should be in the list from the members
 #: data/ui/dialogs/list_edit.ui:43
@@ -945,7 +978,7 @@ msgstr "显示对…的回复"
 #: data/ui/dialogs/list_edit.ui:49 src/Widgets/Admin/AssignedRow.vala:49
 #: src/Widgets/Admin/Report.vala:20 src/Widgets/Admin/Report.vala:24
 msgid "Nobody"
-msgstr "无"
+msgstr "没有人"
 
 #. translators: list edit replies policy option
 #: data/ui/dialogs/list_edit.ui:61
@@ -958,8 +991,8 @@ msgid "Any followed user"
 msgstr "任何已关注用户"
 
 #. translators: add a new account to tuba
-#: data/ui/dialogs/new_account.ui:9 src/Views/Sidebar.vala:340
-#: src/Views/Sidebar.vala:344
+#: data/ui/dialogs/new_account.ui:9 src/Views/Sidebar.vala:345
+#: src/Views/Sidebar.vala:349
 msgid "Add Account"
 msgstr "添加账号"
 
@@ -980,7 +1013,7 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
-"如果您还没有账号，请<a href=\"https://joinmastodon.org/zh/servers\">选择一个"
+"如果您还没有账号，请 <a href=\"https://joinmastodon.org/zh/servers\">选择一个"
 "服务器并注册账号</a>。"
 
 #. translators: entry title where users input their fediverse instance/server url
@@ -989,7 +1022,7 @@ msgid "Server URL"
 msgstr "服务器 URL"
 
 #. translators: tooltip text for a button in the 'new account' window
-#: data/ui/dialogs/new_account.ui:82 src/Dialogs/NewAccount.vala:345
+#: data/ui/dialogs/new_account.ui:82 src/Dialogs/NewAccount.vala:368
 msgid "Settings"
 msgstr "设置"
 
@@ -1003,7 +1036,7 @@ msgstr "确认授权"
 msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
-msgstr "如果出现问题，请<a href=\"manual_auth\">尝试手动授权</a>。"
+msgstr "如果出现问题，请 <a href=\"manual_auth\">尝试手动授权</a>。"
 
 #. translators: entry title where the user will paste an auth code given to them by their instance if they are adding their account using the manual method
 #: data/ui/dialogs/new_account.ui:176
@@ -1031,7 +1064,7 @@ msgid "Clear All Notifications"
 msgstr "清空所有通知"
 
 #: data/ui/dialogs/notification_settings.ui:35
-#: data/ui/dialogs/preferences.ui:285 src/API/Filters/Filter.vala:45
+#: data/ui/dialogs/preferences.ui:291 src/API/Filters/Filter.vala:61
 #: src/Services/Accounts/Mastodon/Account.vala:34
 #: src/Views/Notifications.vala:38
 msgid "Notifications"
@@ -1101,19 +1134,17 @@ msgstr "外观"
 #. translators: setting subtitle that explains what scale custom emojis does
 #: data/ui/dialogs/preferences.ui:47
 msgid "Slightly increases the size of custom emojis when you hover over them"
-msgstr "将鼠标悬停在自定义表情上时略微增加其大小"
+msgstr "将鼠标悬停在自定义表情符号上时略微增加其大小"
 
 #. translators: setting that shows a scale for the user to set the font size
 #: data/ui/dialogs/preferences.ui:61
 msgid "Font Size"
-msgstr ""
+msgstr "字体大小"
 
 #. translators: setting subtitle on what font size changing entails; make sure it's clear only the font size of the posts changes, not the whole UI
 #: data/ui/dialogs/preferences.ui:63
-#, fuzzy
-#| msgid "Increase the size of text in posts"
 msgid "Set the text size used in posts"
-msgstr "增加帖文的文字大小"
+msgstr "设置帖文中的文本大小"
 
 #. translators: noun, plural
 #: data/ui/dialogs/preferences.ui:77 src/Views/Explore.vala:7
@@ -1126,126 +1157,120 @@ msgid "Behavior"
 msgstr "行为"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
-#: data/ui/dialogs/preferences.ui:167 src/Dialogs/NewAccount.vala:376
+#: data/ui/dialogs/preferences.ui:173 src/Dialogs/NewAccount.vala:399
 msgid "Proxy"
 msgstr "代理"
 
-#: data/ui/dialogs/preferences.ui:175
+#: data/ui/dialogs/preferences.ui:181
 msgid "Posting"
 msgstr "发布中"
 
 #. translators: settings row on setting the mastodon quote policy
-#: data/ui/dialogs/preferences.ui:189
-#, fuzzy
-#| msgid "Default Post Visibility"
+#: data/ui/dialogs/preferences.ui:195
 msgid "Default Quote Policy"
-msgstr "帖文默认可见性"
+msgstr "默认引用策略"
 
 #. translators: settings row on setting the pre-selected post language of the composer
-#: data/ui/dialogs/preferences.ui:196
+#: data/ui/dialogs/preferences.ui:202
 msgid "Default Post Language"
 msgstr "帖文默认语言"
 
 #. translators: setting row subtitle, by high traffic we mean the federated and local timelines
-#: data/ui/dialogs/preferences.ui:233
+#: data/ui/dialogs/preferences.ui:239
 msgid "This will increase memory usage when browsing high traffic timelines"
 msgstr "浏览高流量时间线时会增加内存使用"
 
 #. translators: setting group about tuba-related network options
-#: data/ui/dialogs/preferences.ui:241
+#: data/ui/dialogs/preferences.ui:247
 msgid "Online Services"
 msgstr "在线服务"
 
 #. translators: leave api.tuba.geopjr.dev as is; setting group description
-#: data/ui/dialogs/preferences.ui:243
+#: data/ui/dialogs/preferences.ui:249
 msgid "Configure features that connect to api.tuba.geopjr.dev"
 msgstr "配置连接到 api.tuba.geopjr.dev 的功能"
 
 #. translators: setting description on what sending user preferences to tuba's servers entails
-#: data/ui/dialogs/preferences.ui:249
+#: data/ui/dialogs/preferences.ui:255
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly"
 msgstr "每两周将您的偏好发送给 Tuba 的开发者进行流行度研究"
 
 #. translators: button tooltip that when clicked shows what the actual data the user will send to tuba's server will be
-#: data/ui/dialogs/preferences.ui:256
+#: data/ui/dialogs/preferences.ui:262
 msgid "Preview Analytics"
 msgstr "预览分析"
 
 #. translators: Push Notifications are the desktop ones / not the in-app ones. Noun.
-#: data/ui/dialogs/preferences.ui:299
+#: data/ui/dialogs/preferences.ui:305
 msgid "Push Notifications"
 msgstr "推送通知"
 
 #. translators: notification type
 #. translators: #FediWrapped, title of the 'amount of new followers' card
-#: data/ui/dialogs/preferences.ui:303 src/Dialogs/AnnualReport.vala:388
+#: data/ui/dialogs/preferences.ui:309 src/Dialogs/AnnualReport.vala:388
 msgid "New Followers"
 msgstr "新的关注者"
 
 #. translators: notification type
-#: data/ui/dialogs/preferences.ui:310
+#: data/ui/dialogs/preferences.ui:316
 msgid "New Follower Requests"
 msgstr "新的关注者请求"
 
 #. translators: notification type
-#: data/ui/dialogs/preferences.ui:317 src/Dialogs/NotificationSettings.vala:50
+#: data/ui/dialogs/preferences.ui:323 src/Dialogs/NotificationSettings.vala:50
 #: src/Services/Accounts/Mastodon/Account.vala:74 src/Views/Favorites.vala:5
 msgid "Favorites"
 msgstr "点赞"
 
 #. translators: notification type
-#: data/ui/dialogs/preferences.ui:324 src/Dialogs/NotificationSettings.vala:49
+#: data/ui/dialogs/preferences.ui:330 src/Dialogs/NotificationSettings.vala:49
 msgid "Mentions"
 msgstr "提及"
 
 #. translators: notification type
-#: data/ui/dialogs/preferences.ui:331 src/Dialogs/NotificationSettings.vala:51
+#: data/ui/dialogs/preferences.ui:337 src/Dialogs/NotificationSettings.vala:51
 msgid "Boosts"
 msgstr "转发"
 
 #. translators: notification type
-#: data/ui/dialogs/preferences.ui:338
+#: data/ui/dialogs/preferences.ui:344
 msgid "Poll Results"
 msgstr "投票结果"
 
 #. translators: notification type
-#: data/ui/dialogs/preferences.ui:345
+#: data/ui/dialogs/preferences.ui:351
 msgid "Edits"
 msgstr "编辑"
 
 #. translators: notification type
 #. translators: title for a list of quotes of a post, shown under "View Stats"
-#: data/ui/dialogs/preferences.ui:352 src/Views/StatusStats.vala:40
-#, fuzzy
-#| msgid "Quote"
+#: data/ui/dialogs/preferences.ui:358 src/Views/StatusStats.vala:40
 msgid "Quotes"
 msgstr "引用"
 
 #. translators: notification type
-#: data/ui/dialogs/preferences.ui:359
-#, fuzzy
-#| msgid "Post Edits"
+#: data/ui/dialogs/preferences.ui:365
 msgid "Quote Edits"
-msgstr "帖文编辑"
+msgstr "引用编辑"
 
 #. translators: setting that when enabled groups similar push notifications together; as a verb; you may change it to "Group Notifications"
-#: data/ui/dialogs/preferences.ui:366
+#: data/ui/dialogs/preferences.ui:372
 msgid "Group"
 msgstr "群组"
 
 #. translators: settings page title, shows the user's filters
-#: data/ui/dialogs/preferences.ui:380
+#: data/ui/dialogs/preferences.ui:386
 msgid "Filters"
 msgstr "过滤器"
 
 #. translators: settings group title that's about filtered keywords
-#: data/ui/dialogs/preferences.ui:385
+#: data/ui/dialogs/preferences.ui:391
 msgid "Keywords"
 msgstr "关键词"
 
 #. translators: verb, title or button that when clicked will show the profile editor
-#: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:476
+#: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:493
 msgid "Edit Profile"
 msgstr "编辑个人资料"
 
@@ -1283,12 +1308,44 @@ msgid "Profile Picture Description"
 msgstr "个人资料图片描述"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile header/cover
-#: data/ui/dialogs/profile_edit.ui:178
+#: data/ui/dialogs/profile_edit.ui:179
 msgid "Header Picture Description"
 msgstr "封面图片描述"
 
+#. translators: group title in the profile edit dialog, tabs in the user's profile (featured, posts, replies, media)
+#: data/ui/dialogs/profile_edit.ui:189
+msgid "Profile Tabs"
+msgstr "个人资料标签页"
+
+#. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/profile_edit.ui:193 src/Widgets/ProfileFilterGroup.vala:48
+msgid "Featured"
+msgstr "精选"
+
+#. translators: switch row subtitle in profile edit dialog; explains what the 'Featured' tab does
+#: data/ui/dialogs/profile_edit.ui:195
+msgid "Optional tab where you can showcase other accounts"
+msgstr "可选标签页，您可以展示其他账号"
+
+#. translators: switch row subtitle in profile edit dialog; explains what the 'Media' tab does
+#: data/ui/dialogs/profile_edit.ui:203
+msgid "Optional tab that shows your posts containing images or videos"
+msgstr "可选标签页，显示您包含图片或视频的帖文"
+
+#. translators: switch row title in the profile edit dialog; when enabled it will include replies that include media in the "media" tab (e.g. if you replied with a gif to someone, it will show in your media tab)
+#: data/ui/dialogs/profile_edit.ui:210
+msgid "Include replies on the Media tab"
+msgstr "在“媒体”标签页中包含回复"
+
+#. translators: switch row subtitle in profile edit dialog; explains what the 'Include replies on the Media tab' setting does
+#: data/ui/dialogs/profile_edit.ui:212
+msgid ""
+"Whether the Media tab should show both your posts and replies to other "
+"people’s posts"
+msgstr "“媒体”标签页是否应同时显示您的帖文以及对他人的回复"
+
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: data/ui/dialogs/profile_edit.ui:186
+#: data/ui/dialogs/profile_edit.ui:221
 msgid "Fields"
 msgstr "字段"
 
@@ -1298,36 +1355,36 @@ msgid "Schedule Post"
 msgstr "定时帖文"
 
 #. translators: verb; button label that when clicked will schedule a post
-#: data/ui/dialogs/schedule.ui:38
+#: data/ui/dialogs/schedule.ui:46
 msgid "Schedule"
 msgstr "定时"
 
 #. translators: Title used for calendar date picking
-#: data/ui/dialogs/schedule.ui:69
+#: data/ui/dialogs/schedule.ui:77
 msgid "Date"
 msgstr "日期"
 
 #. translators: Title used for time picking
-#: data/ui/dialogs/schedule.ui:93
+#: data/ui/dialogs/schedule.ui:101
 msgid "Time"
 msgstr "时间"
 
 #. translators: Label on an hour picker
-#: data/ui/dialogs/schedule.ui:108
+#: data/ui/dialogs/schedule.ui:116
 msgid "Hour"
 msgstr "小时"
 
 #. translators: Label on an minute picker
-#: data/ui/dialogs/schedule.ui:128
+#: data/ui/dialogs/schedule.ui:136
 msgid "Minute"
 msgstr "分钟"
 
 #. translators: Label on an minute picker
-#: data/ui/dialogs/schedule.ui:148
+#: data/ui/dialogs/schedule.ui:156
 msgid "Second"
 msgstr "秒"
 
-#: data/ui/dialogs/schedule.ui:162
+#: data/ui/dialogs/schedule.ui:170
 msgid "Timezone"
 msgstr "时区"
 
@@ -1365,17 +1422,13 @@ msgstr "精选于个人资料"
 #: data/ui/menus.ui:45 src/Views/Collections.vala:7
 #: src/Views/Collections.vala:99 src/Views/Search.vala:121
 #: src/Views/Sidebar.vala:83
-#, fuzzy
-#| msgid "Reactions"
 msgid "Collections"
-msgstr "表情回应"
+msgstr "收藏列表"
 
 #. translators: headerbar menu item that edits the private note of the profile it's on
 #: data/ui/menus.ui:51
-#, fuzzy
-#| msgid "Private Comment"
 msgid "Private Note…"
-msgstr "私人评论"
+msgstr "私人备注…"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:57 src/Views/Admin/Pages/Accounts.vala:118
@@ -1396,7 +1449,7 @@ msgstr "静音"
 #. translators: whether to block someone
 #: data/ui/menus.ui:72 src/API/Relationship.vala:189
 #: src/Views/Admin/Pages/BlockedEmails.vala:24
-#: src/Views/Admin/Pages/BlockedEmails.vala:71 src/Views/Profile.vala:527
+#: src/Views/Admin/Pages/BlockedEmails.vala:71 src/Views/Profile.vala:544
 #: src/Widgets/Collection.vala:176
 msgid "Block"
 msgstr "屏蔽"
@@ -1408,8 +1461,6 @@ msgstr "屏蔽域名"
 
 #: data/ui/menus.ui:82 src/Widgets/Collection.vala:264
 #: src/Widgets/Status.vala:477
-#, fuzzy
-#| msgid "Report"
 msgctxt "verb"
 msgid "Report"
 msgstr "举报"
@@ -1418,8 +1469,8 @@ msgstr "举报"
 msgid "Timeline"
 msgstr "时间线"
 
-#: data/ui/menus.ui:105 src/Services/Accounts/Mastodon/Account.vala:83
-#: src/Views/Lists.vala:5 src/Views/Profile.vala:766
+#: data/ui/menus.ui:105 src/Dialogs/ProfileLists.vala:129
+#: src/Services/Accounts/Mastodon/Account.vala:83 src/Views/Lists.vala:5
 msgid "Lists"
 msgstr "列表"
 
@@ -1452,7 +1503,7 @@ msgstr "切换全屏"
 #. translators: button tooltip, when clicked it toggles between zooming in and resetting the zoom level
 #: data/ui/views/media_viewer.ui:202
 msgid "Toggle Zoom"
-msgstr ""
+msgstr "切换缩放"
 
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:37 data/ui/widgets/profile.ui:25
@@ -1479,22 +1530,23 @@ msgid "View Avatar"
 msgstr "查看头像"
 
 #. translators: opens someone's profile in the app
-#: data/ui/views/profile_header.ui:162 src/Views/Sidebar.vala:70
+#: data/ui/views/profile_header.ui:174 src/Views/Sidebar.vala:70
 msgid "Open Profile"
 msgstr "打开个人资料"
 
 #. translators: title shown above personal notes on profiles. They are private, not shared with the person the profile belongs to.
-#: data/ui/views/profile_header.ui:175
+#: data/ui/views/profile_header.ui:187
 msgid "Note (visible only to you)"
-msgstr ""
+msgstr "备注（仅对您可见）"
 
 #. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
-#: data/ui/views/profile_header.ui:201
+#: data/ui/views/profile_header.ui:213
 msgid "View All Followers You Know"
 msgstr "查看所有您认识的关注者"
 
-#. translators: Forget as in 'Remove Account'
+#. translators: Forget as in 'Remove Account'; used as a label or tooltip when the user wants to remove their account from Tuba
 #: data/ui/views/sidebar/account.ui:56
+#: src/Services/Accounts/AccountStore.vala:140
 msgid "Forget Account"
 msgstr "忘记账号"
 
@@ -1553,12 +1605,12 @@ msgstr "显示更少"
 #. translators: Tooltip that opens content warning
 #. translators: as in 'Expand collapsed post'. It's a button label.
 #: data/ui/widgets/status.ui:241 data/ui/widgets/status.ui:286
-#: src/Widgets/Status.vala:811
+#: src/Widgets/Status.vala:813
 msgid "Show More"
 msgstr "显示更多"
 
 #. translators: Tooltip that opens filter
-#: data/ui/widgets/status.ui:331 src/Widgets/Status.vala:1323
+#: data/ui/widgets/status.ui:332 src/Widgets/Status.vala:1334
 msgid "Show Anyway"
 msgstr "仍然显示"
 
@@ -1568,7 +1620,7 @@ msgid "Vote"
 msgstr "投票"
 
 #. translators: Admin Dashboard, Federation Block severity
-#: src/API/Admin/DomainBlock.vala:10 src/Dialogs/HashtagList.vala:376
+#: src/API/Admin/DomainBlock.vala:10 src/Dialogs/HashtagList.vala:392
 #: src/Views/Admin/Pages/Accounts.vala:297
 #: src/Views/Admin/Pages/Accounts.vala:303
 #: src/Views/Admin/Pages/Accounts.vala:336
@@ -1648,6 +1700,11 @@ msgstr "法律"
 
 #. translators: uncategorized item
 #: src/API/Admin/Report.vala:26 src/API/Emoji.vala:4 src/API/Emoji.vala:8
+#: src/Widgets/CustomEmojiChooserV2.vala:258
+#: src/Widgets/CustomEmojiChooserV2.vala:259
+#: src/Widgets/CustomEmojiChooserV2.vala:262
+#: src/Widgets/CustomEmojiChooserV2.vala:267
+#: src/Widgets/CustomEmojiChooserV2.vala:269
 #: src/Widgets/CustomEmojiChooser.vala:209
 #: src/Widgets/CustomEmojiChooser.vala:211
 #: src/Widgets/CustomEmojiChooser.vala:214
@@ -1676,21 +1733,22 @@ msgid "You've received a report on"
 msgstr "您收到了一份举报于"
 
 #: src/API/Announcement.vala:60 src/API/Mention.vala:40
-#: src/API/Notification.vala:76 src/API/Relationship.vala:141
+#: src/API/Notification.vala:81 src/API/Relationship.vala:141
 #: src/API/Relationship.vala:154 src/Application.vala:325
-#: src/Application.vala:656 src/Dialogs/Collections.vala:360
-#: src/Dialogs/ProfileEdit.vala:143
+#: src/Application.vala:654 src/Dialogs/Collections.vala:360
+#: src/Dialogs/ProfileEdit.vala:147
 #: src/Services/Accounts/Mastodon/Account.vala:274
-#: src/Services/Accounts/SecretAccountStore.vala:135
-#: src/Services/Accounts/SecretAccountStore.vala:271
+#: src/Services/Accounts/SecretAccountStore.vala:136
+#: src/Services/Accounts/SecretAccountStore.vala:154
+#: src/Services/Accounts/SecretAccountStore.vala:289
 #: src/Views/FollowRequests.vala:48 src/Views/FollowRequests.vala:64
-#: src/Views/MediaViewer.vala:1129 src/Views/Profile.vala:913
-#: src/Views/Sidebar.vala:380 src/Widgets/Attachment/Image.vala:119
-#: src/Widgets/Attachment/Item.vala:218
+#: src/Views/MediaViewer.vala:1129 src/Views/Profile.vala:773
+#: src/Views/Sidebar.vala:385 src/Widgets/Attachment/Image.vala:117
+#: src/Widgets/Attachment/Item.vala:244
 #: src/Widgets/Status/ReactionsRow.vala:158
 #: src/Widgets/Status/ReactionsRow.vala:186 src/Widgets/Status.vala:572
 #: src/Widgets/Status.vala:591 src/Widgets/Status.vala:652
-#: src/Widgets/Status.vala:696 src/Widgets/VoteBox.vala:70
+#: src/Widgets/Status.vala:698 src/Widgets/VoteBox.vala:70
 msgid "Error"
 msgstr "错误"
 
@@ -1704,7 +1762,7 @@ msgstr "与 %s 的空对话"
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of posts a user has made.
 #: src/API/FeaturedTag.vala:25 src/Widgets/Account.vala:221
-#: src/Widgets/ProfileCover.vala:304 src/Widgets/ProfileCover.vala:594
+#: src/Widgets/ProfileCover.vala:305 src/Widgets/ProfileCover.vala:607
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
@@ -1724,22 +1782,22 @@ msgid "Last post on %s"
 msgstr "最后发帖于 %s"
 
 #. translators: Leave &amp; as is, it gets converted to &
-#: src/API/Filters/Filter.vala:43
+#: src/API/Filters/Filter.vala:59
 msgid "Home &amp; Lists"
-msgstr "主页与列表"
+msgstr "首页与列表"
 
-#: src/API/Filters/Filter.vala:46
+#: src/API/Filters/Filter.vala:62
 msgid "Public Timelines"
 msgstr "公共时间线"
 
 #. translators: same as mastodon web / aka direct or private messages (but not really)
-#: src/API/Filters/Filter.vala:47
+#: src/API/Filters/Filter.vala:63
 #: src/Services/Accounts/Mastodon/Account.vala:45
 #: src/Views/Conversations.vala:6
 msgid "Conversations"
 msgstr "对话"
 
-#: src/API/Filters/Filter.vala:48
+#: src/API/Filters/Filter.vala:64
 msgid "Profiles"
 msgstr "个人资料"
 
@@ -1779,16 +1837,16 @@ msgstr "管理员已吊销 %s，这意味着您无法再从他们那里接收更
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
 #. to admins
-#: src/API/Notification.vala:141
+#: src/API/Notification.vala:148
 msgid "Signed Up"
 msgstr "已注册成功"
 
 #. translators: this is used for notifications,
 #. when you receive a warning from
 #. your server's admins
-#: src/API/Notification.vala:147 src/Services/Accounts/InstanceAccount.vala:479
+#: src/API/Notification.vala:154 src/Services/Accounts/InstanceAccount.vala:503
 msgid "Your account has received a moderation warning"
-msgstr "您的账户已收到审查警告"
+msgstr "您的账号已收到审核警告"
 
 #. translators: this is used for notifications,
 #. when an annual report is available.
@@ -1797,50 +1855,58 @@ msgstr "您的账户已收到审查警告"
 #. of the year. The variable is the
 #. current year e.g. 2024. Please don't
 #. translate the hashtag.
-#: src/API/Notification.vala:155 src/Services/Accounts/InstanceAccount.vala:469
+#: src/API/Notification.vala:162 src/Services/Accounts/InstanceAccount.vala:493
 #, c-format
 msgid "Your %s #FediWrapped is ready!"
 msgstr "您的 %s #FediWrapped 已准备好！"
 
 #. translators: used in the #FediWrapped notifications, refer to the other #FediWrapped strings for more info
-#: src/API/Notification.vala:157
+#: src/API/Notification.vala:164
 msgid "Review your year's highlights and memorable moments on the Fediverse!"
 msgstr "查看您在 Fediverse 上的年度亮点和难忘时刻！"
 
 #. translators: notification title of a Mastodon Collections related event
-#: src/API/Notification.vala:170
+#: src/API/Notification.vala:177
 msgid "You were added to a collection"
-msgstr ""
+msgstr "您被添加到收藏列表中"
 
 #. translators: notification title of a Mastodon Collections related event
-#: src/API/Notification.vala:183
+#: src/API/Notification.vala:190
 msgid "A collection you are a part of was edited"
-msgstr ""
+msgstr "您所在的收藏列表已被编辑"
+
+#. translators: notification title when Tuba receives a notification it
+#. can't handle yet. The variable is the string notification
+#. type.
+#: src/API/Notification.vala:202
+#, c-format
+msgid "Unknown notification type: %s"
+msgstr "未知通知类型：%s"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
-#: src/API/Notification.vala:235 src/Widgets/GroupedNotification.vala:71
+#: src/API/Notification.vala:257 src/Widgets/GroupedNotification.vala:71
 #, c-format
 msgid "%s (& %d others)"
 msgstr "%s（和其他 %d 人）"
 
-#: src/API/Notification.vala:293
+#: src/API/Notification.vala:315
 msgid "Reply…"
 msgstr "回复…"
 
-#: src/API/Notification.vala:301
+#: src/API/Notification.vala:323
 msgid "Remove from Followers"
 msgstr "从关注者中移除"
 
-#: src/API/Notification.vala:306
+#: src/API/Notification.vala:328
 msgid "Follow Back"
 msgstr "回关"
 
-#: src/API/Notification.vala:313 src/Widgets/Status/FollowRequestRow.vala:8
+#: src/API/Notification.vala:335 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
 msgstr "拒绝"
 
-#: src/API/Notification.vala:318 src/Views/NotificationRequestsList.vala:34
+#: src/API/Notification.vala:340 src/Views/NotificationRequestsList.vala:34
 #: src/Widgets/NotificationRequest.vala:66
 #: src/Widgets/Status/FollowRequestRow.vala:14
 msgid "Accept"
@@ -1877,7 +1943,7 @@ msgstr "取消屏蔽 \"%s\"？"
 #. translators: action to take on a user, verb
 #: src/API/Relationship.vala:189 src/Views/Admin/Timelines/BlockedIPs.vala:37
 #: src/Views/Admin/Timelines/DomainBlock.vala:37
-#: src/Views/Admin/Timelines/EmailDomain.vala:37 src/Views/Profile.vala:527
+#: src/Views/Admin/Timelines/EmailDomain.vala:37 src/Views/Profile.vala:544
 #: src/Widgets/RelationshipButton.vala:44
 msgid "Unblock"
 msgstr "取消屏蔽"
@@ -1943,10 +2009,8 @@ msgstr "如果继续，%s 将连接到 \"%s\"。"
 
 #. translators: quote policy title, who can quote a post
 #: src/API/Status.vala:367
-#, fuzzy
-#| msgid "Nobody"
 msgid "Anybody"
-msgstr "无"
+msgstr "任何人"
 
 #. translators: quote policy title, who can quote a post
 #. translators: post visibility label
@@ -1956,29 +2020,23 @@ msgstr "仅限关注者"
 
 #. translators: quote policy title, who can quote a post
 #: src/API/Status.vala:373
-#, fuzzy
-#| msgid "Just now"
 msgid "Just Me"
-msgstr "刚刚"
+msgstr "仅限我"
 
 #. translators: quote policy subtitle, when Anybody can quote
 #: src/API/Status.vala:381
-#, fuzzy
-#| msgid "%s favorited your post"
 msgid "Everyone can quote your post"
-msgstr "%s 点赞了您的帖文"
+msgstr "所有人都可以引用您的帖文"
 
 #. translators: quote policy subtitle, when Followers Only can quote
 #: src/API/Status.vala:384
 msgid "Only your followers can quote your post"
-msgstr ""
+msgstr "只有您的关注者可以引用您的帖文"
 
 #. translators: quote policy subtitle, when Just Me can quote
 #: src/API/Status.vala:387
-#, fuzzy
-#| msgid "%s boosted your post"
 msgid "Nobody can quote your post"
-msgstr "%s 转发了您的帖文"
+msgstr "没有人可以引用您的帖文"
 
 #. translators: Probably follow Mastodon's translation
 #. post visibility label
@@ -2009,95 +2067,96 @@ msgstr[0] "每周 %d 次"
 
 #: src/Application.vala:87
 msgid "Do not show main window on start"
-msgstr ""
+msgstr "启动时不显示主窗口"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
 #. been provided in settings
-#: src/Application.vala:565 src/Dialogs/Preferences.vala:548
+#: src/Application.vala:563 src/Dialogs/Preferences.vala:590
 msgid "Invalid Proxy URL"
 msgstr "无效的代理 URL"
 
 #. translators: the variable is a uri scheme like 'https'
-#: src/Application.vala:636
+#: src/Application.vala:634
 #, c-format
 msgid "'%s://' may only be used when adding a new account"
 msgstr "只有在添加新账号时才能使用 '%s://'"
 
 #. translators: the variable is a uri scheme like 'https'
-#: src/Application.vala:644
+#: src/Application.vala:642
 #, c-format
 msgid "'%s://' may not be used when adding a new account"
 msgstr "在添加新账号时不能使用 '%s://'"
 
 #. translators: the first variable is the app name ('Tuba'),
 #. the second one is a uri scheme like 'https'
-#: src/Application.vala:651
+#: src/Application.vala:649
 #, c-format
 msgid "%s does not accept '%s://'"
 msgstr "%s 不接受 '%s://'"
 
 #. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:882
+#: src/Application.vala:880
 msgid "translator-credits"
 msgstr ""
 "Leo Li <leoli@6leo6.com>\n"
-"Poesty Li <poesty7450@gmail.com>"
+"Poesty Li <poesty7450@gmail.com>\n"
+"Outbreak2096 https://translate.codeberg.org/user/Outbreak2096/"
 
 #. translators: Wiki pages / Guides
-#: src/Application.vala:886
+#: src/Application.vala:884
 msgid "Wiki"
 msgstr "Wiki"
 
-#: src/Application.vala:888 src/Widgets/Status.vala:458
+#: src/Application.vala:886 src/Widgets/Status.vala:458
 msgid "Translate"
 msgstr "翻译"
 
-#: src/Application.vala:889
+#: src/Application.vala:887
 msgid "Donate"
 msgstr "捐赠"
 
 #. translators: Application metainfo for the app "Archives". <https://codeberg.org/GeopJr/Archives/>
-#: src/Application.vala:892
+#: src/Application.vala:890
 msgid "Archives"
-msgstr "归档"
+msgstr "Archives"
 
-#: src/Application.vala:892
+#: src/Application.vala:890
 msgid "Create and view web archives"
 msgstr "创建和查看网页归档"
 
 #. translators: Application metainfo for the app "Calligraphy". <https://codeberg.org/GeopJr/Calligraphy>
-#: src/Application.vala:894
+#: src/Application.vala:892
 msgid "Calligraphy"
-msgstr "书法"
+msgstr "Calligraphy"
 
-#: src/Application.vala:894
+#: src/Application.vala:892
 msgid "Turn text into ASCII banners"
 msgstr "将文字转为 ASCII 艺术字"
 
 #. translators: Application metainfo for the app "Collision". <https://codeberg.org/GeopJr/Collision>
-#: src/Application.vala:896
+#: src/Application.vala:894
 msgid "Collision"
-msgstr "校验"
+msgstr "Collision"
 
-#: src/Application.vala:896
+#: src/Application.vala:894
 msgid "Check hashes for your files"
 msgstr "检查文件的哈希值"
 
 #. translators: Application metainfo for the app "Turntable". <https://codeberg.org/GeopJr/Turntable>
-#: src/Application.vala:898
+#: src/Application.vala:896
 msgid "Turntable"
-msgstr "唱盘"
+msgstr "Turntable"
 
-#: src/Application.vala:898
+#: src/Application.vala:896
 msgid "Scrobble your music"
-msgstr "记录你的音乐播放"
+msgstr "记录您的音乐播放"
 
-#: src/Application.vala:920
+#: src/Application.vala:918
 msgid "OK"
 msgstr "确定"
 
-#: src/Application.vala:970
+#: src/Application.vala:968
 msgid "Yes"
 msgstr "是"
 
@@ -2255,7 +2314,7 @@ msgstr "执行操作"
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
 #: src/Dialogs/Admin/Report.vala:123 src/Views/Admin/Pages/Accounts.vala:289
-#: src/Widgets/ProfileCover.vala:555
+#: src/Widgets/ProfileCover.vala:568
 msgid "Joined"
 msgstr "加入于"
 
@@ -2266,8 +2325,8 @@ msgstr "加入于"
 #. and year.
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Dialogs/Admin/Report.vala:124 src/Views/Admin/Pages/Accounts.vala:290
-#: src/Widgets/ProfileCover.vala:538 src/Widgets/ScheduledStatus.vala:136
-#: src/Widgets/Status.vala:835
+#: src/Widgets/ProfileCover.vala:551 src/Widgets/ScheduledStatus.vala:162
+#: src/Widgets/Status.vala:837
 msgid "%B %e, %Y"
 msgstr "%Y-%B-%e"
 
@@ -2336,7 +2395,7 @@ msgstr "警告"
 #: src/Dialogs/Admin/TakeAction.vala:61
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
-msgstr "使用此功能向用户发送警告，但不会触发任何其它操作"
+msgstr "使用此功能向用户发送警告，但不会触发任何其他操作"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
@@ -2350,7 +2409,7 @@ msgid ""
 msgstr "屏蔽用户使用其账号，但不删除或隐藏其内容"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Views/Drive.vala:196
-#: src/Widgets/Status.vala:822
+#: src/Widgets/Status.vala:824
 msgid "Sensitive"
 msgstr "敏感内容"
 
@@ -2574,60 +2633,49 @@ msgstr "已保存 %s Wrapped"
 
 #. translators: headerbar button that creates a Mastodon Collection
 #: src/Dialogs/Collections.vala:175 src/Views/Collections.vala:16
-#, fuzzy
-#| msgid "New Follows"
 msgid "New Collection"
-msgstr "新关注者"
+msgstr "新收藏列表"
 
 #. translators: Mastodon collection settings page title
 #: src/Dialogs/Collections.vala:178
-#, fuzzy
-#| msgid "Collision"
 msgid "Collection"
-msgstr "校验"
+msgstr "收藏列表"
 
 #. translators: entry row title
 #: src/Dialogs/Collections.vala:184
-#, fuzzy
-#| msgid "List Name"
 msgid "Name"
-msgstr "列表名称"
+msgstr "名称"
 
 #. translators: entry row title
 #: src/Dialogs/Collections.vala:196
-#, fuzzy
-#| msgctxt "media controls"
-#| msgid "Position"
 msgid "Description"
-msgstr "位置"
+msgstr "描述"
 
 #. translators: entry row title in Collection creation dialog, it's a hashtag
 #: src/Dialogs/Collections.vala:207
 msgid "Topic"
-msgstr ""
+msgstr "话题"
 
-#: src/Dialogs/Collections.vala:218 src/Views/Search.vala:348
+#: src/Dialogs/Collections.vala:218 src/Views/Search.vala:464
 msgid "Language"
 msgstr "语言"
 
 #: src/Dialogs/Collections.vala:249
-#, fuzzy
-#| msgid "Boost with Visibility"
 msgid "Visibility"
-msgstr "带可见范围的转发"
+msgstr "公开范围"
 
 #. translators: collection visibility checkbox description
 #: src/Dialogs/Collections.vala:265
 msgid ""
 "Discoverable in search results and other areas where recommendations appear."
-msgstr ""
+msgstr "可在搜索结果和其他出现推荐的区域中发现。"
 
 #. translators: collection visibility checkbox description
 #: src/Dialogs/Collections.vala:274
 msgid ""
 "Visible to anyone with a link. Hidden from search results and "
 "recommendations."
-msgstr ""
+msgstr "拥有链接的任何人均可见。在搜索结果和推荐中隐藏。"
 
 #. translators: mark an item as sensitive / nsfw
 #: src/Dialogs/Collections.vala:289 src/Views/Drive.vala:248
@@ -2639,43 +2687,40 @@ msgstr "标记为敏感内容"
 msgid ""
 "Hides the collection's description and accounts behind a content warning. "
 "The collection name will still be visible."
-msgstr ""
+msgstr "将收藏列表的描述和账号隐藏在内容警告之后。收藏列表名称仍可见。"
 
 #. translators: Dialog title when closing the Collection creation dialog
 #: src/Dialogs/Collections.vala:374
-#, fuzzy
-#| msgid "Create Poll"
 msgid "Create Collection?"
-msgstr "创建投票"
+msgstr "创建收藏列表？"
 
 #. translators: dialog button action, verb
-#: src/Dialogs/Collections.vala:381 src/Dialogs/Composer/Dialog.vala:1509
-#: src/Dialogs/HashtagList.vala:409
+#: src/Dialogs/Collections.vala:381 src/Dialogs/Composer/Dialog.vala:1645
+#: src/Dialogs/HashtagList.vala:425
 msgid "Discard"
 msgstr "放弃"
 
 #. translators: button label, verb
-#: src/Dialogs/Collections.vala:384 src/Dialogs/HashtagList.vala:412
+#: src/Dialogs/Collections.vala:384 src/Dialogs/HashtagList.vala:428
 #: src/Views/Drive.vala:743
 msgid "Create"
 msgstr "创建"
 
 #. translators: error shown when creating a collection with an empty name
-#: src/Dialogs/Collections.vala:409 src/Dialogs/HashtagList.vala:431
+#: src/Dialogs/Collections.vala:409 src/Dialogs/HashtagList.vala:447
 msgid "Name cannot be empty"
-msgstr ""
+msgstr "名称不能为空"
 
 #. translators: collection member list title, the variables are numbers (amount of members/max amount of members)
 #: src/Dialogs/Collections.vala:478
-#, fuzzy, c-format
-#| msgid "Members"
+#, c-format
 msgid "Members (%d/%d)"
-msgstr "成员"
+msgstr "成员（%d/%d）"
 
 #. translators: button label, clicking it invites a user to a collection
 #: src/Dialogs/Collections.vala:542
 msgid "Invite"
-msgstr ""
+msgstr "邀请"
 
 #. translators: collection invitation acceptance is pending, its a badge shown next to an account
 #. translators: Dropdown entry, account status.
@@ -2688,25 +2733,22 @@ msgid "Pending"
 msgstr "待处理"
 
 #: src/Dialogs/Collections.vala:708 src/Dialogs/Composer/Polls.vala:50
-#: src/Dialogs/HashtagList.vala:295 src/Dialogs/ListEdit.vala:109
+#: src/Dialogs/HashtagList.vala:311 src/Dialogs/ListEdit.vala:109
 #: src/Views/Admin/Timelines/DomainAllow.vala:39 src/Views/Search.vala:182
 #: src/Widgets/Collection.vala:151 src/Widgets/Status.vala:639
 msgid "Remove"
 msgstr "移除"
 
 #: src/Dialogs/Collection.vala:80
-#, fuzzy, c-format
-#| msgid "Members"
+#, c-format
 msgid "%d Member"
 msgid_plural "%d Members"
-msgstr[0] "成员"
+msgstr[0] "%d 位成员"
 
 #. translators: title of a list of users that created a collection
 #: src/Dialogs/Collection.vala:86
-#, fuzzy
-#| msgid "Create"
 msgid "Created By"
-msgstr "创建"
+msgstr "创建者"
 
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Dialogs/Collection.vala:141 src/Views/Browser.vala:227
@@ -2739,7 +2781,7 @@ msgstr "媒体元数据已保存"
 
 #. translators: shown in file picker filter dropdown
 #: src/Dialogs/Composer/AttachmentsBin.vala:286
-#: src/Dialogs/Composer/Attachment.vala:509 src/Dialogs/ProfileEdit.vala:81
+#: src/Dialogs/Composer/Attachment.vala:509 src/Dialogs/ProfileEdit.vala:85
 msgid "All Supported Files"
 msgstr "所有支持的文件"
 
@@ -2758,7 +2800,7 @@ msgstr "附件数量已达上限 (%lld)"
 
 #. translators: Open file
 #: src/Dialogs/Composer/AttachmentsBin.vala:499
-#: src/Dialogs/Composer/Attachment.vala:517 src/Dialogs/ProfileEdit.vala:246
+#: src/Dialogs/Composer/Attachment.vala:517 src/Dialogs/ProfileEdit.vala:277
 #: src/Views/Drive.vala:240 src/Widgets/AccountRow.vala:84
 msgid "Open"
 msgstr "打开"
@@ -2779,7 +2821,7 @@ msgstr "编辑元数据"
 #. a custom thumbnail for the video it's on
 #: src/Dialogs/Composer/Attachment.vala:265
 msgid "Upload Custom Thumbnail"
-msgstr ""
+msgstr "上传自定义缩略图"
 
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:326
@@ -2803,7 +2845,7 @@ msgstr "附件上传完成"
 #. thumbnail for a video in the composer
 #: src/Dialogs/Composer/Attachment.vala:555
 msgid "Successfully uploaded custom thumbnail"
-msgstr ""
+msgstr "已成功上传自定义缩略图"
 
 #. translators: aria label on composer media attachments. The variable is a string file name.
 #: src/Dialogs/Composer/Attachment.vala:756
@@ -2811,100 +2853,109 @@ msgstr ""
 msgid "Media Attachment (%s)"
 msgstr "媒体附件 (%s)"
 
+#. translators: 'Draft' is a noun; entry in composer post menu to
+#. edit an already draft post
+#: src/Dialogs/Composer/Dialog.vala:55
+msgid "Edit Draft Post"
+msgstr "编辑草稿帖文"
+
 #. translators: 'Draft' is a verb; entry in composer post menu
-#: src/Dialogs/Composer/Dialog.vala:51
+#: src/Dialogs/Composer/Dialog.vala:58
 msgid "Draft Post"
 msgstr "草稿帖文"
 
 #. translators: 'Schedule' is a verb; entry in composer post menu
-#: src/Dialogs/Composer/Dialog.vala:54
+#: src/Dialogs/Composer/Dialog.vala:64
 msgid "Schedule Post…"
 msgstr "定时帖文…"
+
+#. translators: plural of "Drafted Posts"; you may change it to "Drafted Posts…"; entry in composer post menu; opens a list of all draft posts
+#: src/Dialogs/Composer/Dialog.vala:69 src/Dialogs/Composer/Dialog.vala:107
+msgid "Drafts…"
+msgstr "草稿…"
 
 #. translators: screen reader announcement when the composer
 #. passed the character limit. The variable is
 #. the amount of characters the user exceeded
 #. the limit by.
-#: src/Dialogs/Composer/Dialog.vala:171
+#: src/Dialogs/Composer/Dialog.vala:217
 #, c-format
 msgid "Exceeded character limit by %lld"
 msgstr "超出字符限制 %lld"
 
 #. translators: composer dropdown tooltip text
-#: src/Dialogs/Composer/Dialog.vala:244
+#: src/Dialogs/Composer/Dialog.vala:290
 msgid "Post Privacy"
 msgstr "发布隐私设置"
 
 #. translators: post compositor post button label when the visibility is 'mentioned only'
-#: src/Dialogs/Composer/Dialog.vala:270
+#: src/Dialogs/Composer/Dialog.vala:316
 msgid "Send"
 msgstr "发送"
 
 #. translators: composer dropdown tooltip text
-#: src/Dialogs/Composer/Dialog.vala:283
+#: src/Dialogs/Composer/Dialog.vala:329
 msgid "Post Language"
 msgstr "发布语言"
 
 #. translators: quote policy menu in post menus. You may translate it as
 #. "quote privacy"
-#: src/Dialogs/Composer/Dialog.vala:423 src/Widgets/Status.vala:433
-#, fuzzy
-#| msgid "Quoted Post"
+#: src/Dialogs/Composer/Dialog.vala:473 src/Widgets/Status.vala:433
 msgid "Quote Policy"
-msgstr "被引用的帖文"
+msgstr "引用策略"
 
 #. translators: tooltip button on composer dialog headerbar button
 #. that makes the post visible only on the current
 #. instance. You might be able to find it on
 #. https://github.com/glitch-soc/mastodon/tree/5c6133c20bbe734f1380f4c3d75ce84baed82b74/app/javascript/flavours/glitch/locales
-#: src/Dialogs/Composer/Dialog.vala:453 src/Widgets/Status.vala:1409
+#: src/Dialogs/Composer/Dialog.vala:503 src/Widgets/Status.vala:1420
 msgid "Local Only"
 msgstr "仅本地"
 
 #. translators: composer dropdown tooltip text
-#: src/Dialogs/Composer/Dialog.vala:483
+#: src/Dialogs/Composer/Dialog.vala:536
 msgid "Post Content Type"
 msgstr "发布内容类型"
 
 #. translators: composer post button label
-#: src/Dialogs/Composer/Dialog.vala:527 src/Dialogs/Composer/Dialog.vala:539
-#: src/Dialogs/Composer/Dialog.vala:794
+#: src/Dialogs/Composer/Dialog.vala:580 src/Dialogs/Composer/Dialog.vala:599
+#: src/Dialogs/Composer/Dialog.vala:865
 msgid "Post"
 msgstr "发布"
 
 #. translators: composer post button label
 #. translators: verb
-#: src/Dialogs/Composer/Dialog.vala:636 src/Widgets/Status/ActionsRow.vala:147
+#: src/Dialogs/Composer/Dialog.vala:706 src/Widgets/Status/ActionsRow.vala:147
 #: src/Widgets/Status/ActionsRow.vala:244
 msgid "Reply"
 msgstr "回复"
 
 #. translators: composer embedded replying-to post, aria label
-#: src/Dialogs/Composer/Dialog.vala:664 src/Dialogs/Composer/Dialog.vala:842
+#: src/Dialogs/Composer/Dialog.vala:734 src/Dialogs/Composer/Dialog.vala:914
 msgid "The post you are replying to."
 msgstr "您正在回复的帖文。"
 
 #. translators: composer title. The variable is a string username
-#: src/Dialogs/Composer/Dialog.vala:672 src/Dialogs/Composer/Dialog.vala:852
+#: src/Dialogs/Composer/Dialog.vala:742 src/Dialogs/Composer/Dialog.vala:924
 #, c-format
 msgid "Reply to @%s"
 msgstr "回复@%s"
 
 #. translators: composer post button label, verb
 #. don't add the "quote" option if there's a quote button available
-#: src/Dialogs/Composer/Dialog.vala:705 src/Dialogs/Composer/Dialog.vala:1093
+#: src/Dialogs/Composer/Dialog.vala:775 src/Dialogs/Composer/Dialog.vala:1165
 #: src/Widgets/Status/ActionsRow.vala:74 src/Widgets/Status/ActionsRow.vala:187
 #: src/Widgets/Status/ActionsRow.vala:398
 msgid "Quote"
 msgstr "引用"
 
 #. translators: composer embedded quoting post, aria label
-#: src/Dialogs/Composer/Dialog.vala:735 src/Dialogs/Composer/Dialog.vala:844
+#: src/Dialogs/Composer/Dialog.vala:805 src/Dialogs/Composer/Dialog.vala:916
 msgid "The post you are quoting."
 msgstr "您正在引用的帖文。"
 
 #. translators: composer title. The variable is a string username
-#: src/Dialogs/Composer/Dialog.vala:743 src/Dialogs/Composer/Dialog.vala:852
+#: src/Dialogs/Composer/Dialog.vala:813 src/Dialogs/Composer/Dialog.vala:924
 #, c-format
 msgid "Quoting @%s"
 msgstr "引用@%s"
@@ -2913,64 +2964,80 @@ msgstr "引用@%s"
 #. translators: button on the delete post dialog that
 #. deletes the post and fills the composer
 #. with it so you can edit it
-#: src/Dialogs/Composer/Dialog.vala:762 src/Widgets/Status.vala:671
+#: src/Dialogs/Composer/Dialog.vala:832 src/Widgets/Status.vala:671
 msgid "Redraft"
 msgstr "重新起草"
 
-#: src/Dialogs/Composer/Dialog.vala:762 src/Dialogs/Composer/Dialog.vala:794
-#: src/Dialogs/Preferences.vala:36 src/Views/Hashtags.vala:108
+#: src/Dialogs/Composer/Dialog.vala:832 src/Dialogs/Composer/Dialog.vala:865
+#: src/Dialogs/Preferences.vala:36 src/Views/Hashtags.vala:165
 #: src/Views/Lists.vala:26 src/Views/List.vala:25
-#: src/Widgets/Collection.vala:261 src/Widgets/ScheduledStatus.vala:44
+#: src/Widgets/Collection.vala:261 src/Widgets/ScheduledStatus.vala:59
 #: src/Widgets/Status.vala:436
 msgid "Edit"
 msgstr "编辑"
 
 #. translators: composer title
-#: src/Dialogs/Composer/Dialog.vala:771 src/Dialogs/Composer/Dialog.vala:802
+#: src/Dialogs/Composer/Dialog.vala:842 src/Dialogs/Composer/Dialog.vala:874
 msgid "Edit Post"
 msgstr "编辑帖文"
 
 #. translators: dialog title shown when the user pastes a post url in the composer;
 #. the variable is a uri string of a quote
-#: src/Dialogs/Composer/Dialog.vala:1090
-#, fuzzy, c-format
-#| msgid "Quote"
+#: src/Dialogs/Composer/Dialog.vala:1162
+#, c-format
 msgid "Quote %s?"
-msgstr "引用"
+msgstr "引用 %s？"
 
 #. translators: in the composer, inside a quote post, top right button
 #. with a trash can icon that when clicked removes the
 #. quote; tooltip text
-#: src/Dialogs/Composer/Dialog.vala:1134
-#, fuzzy
-#| msgid "Remove"
+#: src/Dialogs/Composer/Dialog.vala:1208
 msgid "Remove Quote"
-msgstr "移除"
+msgstr "移除引用"
 
 #. translators: media as in picture or files
-#: src/Dialogs/Composer/Dialog.vala:1181
+#: src/Dialogs/Composer/Dialog.vala:1277
 msgid "Paste Media from Clipboard?"
 msgstr "粘贴剪贴板中的媒体文件？"
 
 #. translators: they = media / files from clipboard, instance = server
-#: src/Dialogs/Composer/Dialog.vala:1184
+#: src/Dialogs/Composer/Dialog.vala:1280
 msgid "They will be uploaded to your instance"
 msgstr "它们将被上传到您的实例"
 
 #. translators: dialog button label when pasting from clipboard, verb
-#: src/Dialogs/Composer/Dialog.vala:1187
+#: src/Dialogs/Composer/Dialog.vala:1283
 msgid "Paste"
 msgstr "粘贴"
 
+#. translators: Dialog title when replacing the current
+#. composer data with those of a draft
+#: src/Dialogs/Composer/Dialog.vala:1323
+msgid "Replace Current Post?"
+msgstr "替换当前帖文？"
+
+#. translators: Dialog body when replacing the current
+#. composer data with those of a draft.
+#. This means that the post the user was
+#. typing in the composer will be replaced.
+#: src/Dialogs/Composer/Dialog.vala:1329
+msgid "Your current post will be lost."
+msgstr "您当前的帖文将会丢失。"
+
+#. translators: dialog button action, verb; replacing current
+#. composer data with those of a draft
+#: src/Dialogs/Composer/Dialog.vala:1333
+msgid "Replace"
+msgstr "替换"
+
 #. translators: error taost; the variable is a string error message
-#: src/Dialogs/Composer/Dialog.vala:1451
-#, fuzzy, c-format
-#| msgid "Couldn't reschedule: %s"
+#: src/Dialogs/Composer/Dialog.vala:1586
+#, c-format
 msgid "Couldn't delete scheduled post: %s"
-msgstr "无法重新定时：%s"
+msgstr "无法删除已定时的帖文：%s"
 
 #. translators: Dialog title when closing the composer
-#: src/Dialogs/Composer/Dialog.vala:1499
+#: src/Dialogs/Composer/Dialog.vala:1635
 msgid "Discard Post?"
 msgstr "放弃帖文？"
 
@@ -2979,9 +3046,20 @@ msgstr "放弃帖文？"
 #. it shows up if the user typed something
 #. and pressed esc / the composer is not
 #. empty)
-#: src/Dialogs/Composer/Dialog.vala:1506
+#: src/Dialogs/Composer/Dialog.vala:1642
 msgid "Your progress will be lost."
 msgstr "您的进度将会丢失。"
+
+#. translators: as in posts that are saved but not posted yet
+#: src/Dialogs/Composer/Drafts.vala:11 src/Dialogs/Composer/Drafts.vala:35
+#: src/Views/DraftStatuses.vala:6 src/Views/Sidebar.vala:79
+msgid "Draft Posts"
+msgstr "草稿帖文"
+
+#. translators: as in posts that are saved but not posted yet
+#: src/Dialogs/Composer/Drafts.vala:37 src/Views/DraftStatuses.vala:8
+msgid "No Draft Posts"
+msgstr "没有草稿帖文"
 
 #. translators: composer placeholder
 #: src/Dialogs/Composer/Editor.vala:267 src/Dialogs/Composer/Editor.vala:280
@@ -3092,11 +3170,11 @@ msgstr "全词匹配"
 #: src/Dialogs/FilterEdit.vala:209 src/Dialogs/Preferences.vala:28
 #: src/Dialogs/Preferences.vala:92 src/Views/Drive.vala:260
 #: src/Views/Drive.vala:1239 src/Views/Drive.vala:1341
-#: src/Views/Hashtags.vala:118 src/Views/Lists.vala:34 src/Views/Lists.vala:139
+#: src/Views/Hashtags.vala:175 src/Views/Lists.vala:34 src/Views/Lists.vala:139
 #: src/Widgets/Admin/DomainAllow.vala:15 src/Widgets/Admin/DomainBlock.vala:40
 #: src/Widgets/Admin/EmailDomainBlock.vala:28 src/Widgets/Admin/IPBlock.vala:19
 #: src/Widgets/Collection.vala:194 src/Widgets/Collection.vala:267
-#: src/Widgets/ScheduledStatus.vala:60 src/Widgets/ScheduledStatus.vala:211
+#: src/Widgets/ScheduledStatus.vala:85 src/Widgets/ScheduledStatus.vala:254
 #: src/Widgets/Status.vala:437 src/Widgets/Status.vala:673
 msgid "Delete"
 msgstr "删除"
@@ -3107,76 +3185,77 @@ msgstr "删除"
 msgid "Couldn't edit filter: %s"
 msgstr "无法编辑过滤器：%s"
 
+#. translators: tooltip text on a button that opens
+#. a popover that allows the user to
+#. search for and pick a hashtag
+#: src/Dialogs/HashtagList.vala:288
+msgid "Add Hashtag"
+msgstr "添加话题标签"
+
 #. translators: dialog title that creates a list of hashtags
-#: src/Dialogs/HashtagList.vala:337 src/Dialogs/HashtagList.vala:345
-#, fuzzy
-#| msgid "Hashtags"
+#: src/Dialogs/HashtagList.vala:353 src/Dialogs/HashtagList.vala:361
 msgid "Hashtag List"
-msgstr "话题标签"
+msgstr "话题标签列表"
 
 #. translators: title on hashtags list group, "Any hashtags"
-#: src/Dialogs/HashtagList.vala:358
+#: src/Dialogs/HashtagList.vala:374
 msgid "Any"
-msgstr ""
+msgstr "任意"
 
 #. translators: description on hashtags list group, above a list of hashtags
-#: src/Dialogs/HashtagList.vala:360
+#: src/Dialogs/HashtagList.vala:376
 msgid "Include posts that contain any of these tags."
-msgstr ""
+msgstr "包含带有这些标签中任意一个的帖文。"
 
 #. translators: as in All search results
-#: src/Dialogs/HashtagList.vala:367 src/Views/Admin/Pages/Accounts.vala:68
+#: src/Dialogs/HashtagList.vala:383 src/Views/Admin/Pages/Accounts.vala:68
 #: src/Views/Admin/Pages/Accounts.vala:91 src/Views/Search.vala:115
 msgid "All"
 msgstr "全部"
 
 #. translators: description on hashtags list group, above a list of hashtags
-#: src/Dialogs/HashtagList.vala:369
+#: src/Dialogs/HashtagList.vala:385
 msgid "Include posts that contain all of these tags."
-msgstr ""
+msgstr "包含带有所有这些标签的帖文。"
 
 #. translators: description on hashtags list group, above a list of hashtags
-#: src/Dialogs/HashtagList.vala:378
+#: src/Dialogs/HashtagList.vala:394
 msgid "Don't include posts that contain any of these tags."
-msgstr ""
+msgstr "不包含带有任何这些标签的帖文。"
 
 #. translators: Dialog title when closing the Hashtag List creation dialog
-#: src/Dialogs/HashtagList.vala:402
+#: src/Dialogs/HashtagList.vala:418
 msgid "Create Hashtag List?"
-msgstr ""
+msgstr "创建话题标签列表？"
 
-#: src/Dialogs/HashtagList.vala:402
-#, fuzzy
-#| msgid "No Hashtags"
+#: src/Dialogs/HashtagList.vala:418
 msgid "Save Hashtag List?"
-msgstr "暂无话题标签"
+msgstr "保存话题标签列表？"
 
 #. translators: error shown when trying to create a hashtag list while the "Any" and "All" lists
 #. are empty at the same time (one of them needs to have at least 1 item)
-#: src/Dialogs/HashtagList.vala:438
+#: src/Dialogs/HashtagList.vala:454
 msgid "\"Any\" or \"All\" cannot be empty"
-msgstr ""
+msgstr "“任意”或“全部”不能为空"
 
 #. translators: error toast when tuba cant gather the members of a list;
 #. the variable is a string error message
 #: src/Dialogs/ListEdit.vala:155
-#, fuzzy, c-format
-#| msgid "Couldn't reschedule: %s"
+#, c-format
 msgid "Couldn't fetch members: %s"
-msgstr "无法重新定时：%s"
+msgstr "无法获取成员：%s"
 
 #. translators: error toast when tuba cant save a list;
 #. the variable is a string error message
 #: src/Dialogs/ListEdit.vala:199 src/Dialogs/ListEdit.vala:222
-#, fuzzy, c-format
-#| msgid "Couldn't move '%s': %s"
+#, c-format
 msgid "Couldn't save list: %s"
-msgstr "无法移动 ‘%s’：%s"
+msgstr "无法保存列表：%s"
 
-#: src/Dialogs/MainWindow.vala:81
+#: src/Dialogs/MainWindow.vala:86
 #: src/Services/Accounts/Mastodon/Account.vala:20 src/Views/Home.vala:11
 msgid "Home"
-msgstr "主页"
+msgstr "首页"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
@@ -3186,38 +3265,38 @@ msgstr "在浏览器允许中访问您的账号。"
 msgid "Copy the authorization code from the browser and paste it below."
 msgstr "从浏览器中复制授权码并粘贴到下方。"
 
-#: src/Dialogs/NewAccount.vala:188
+#: src/Dialogs/NewAccount.vala:200
 msgid "Please enter a valid instance URL"
 msgstr "请输入有效的实例 URL"
 
-#: src/Dialogs/NewAccount.vala:233
+#: src/Dialogs/NewAccount.vala:246
 msgid "Please enter a valid authorization code"
 msgstr "请输入有效的授权码"
 
-#: src/Dialogs/NewAccount.vala:249
+#: src/Dialogs/NewAccount.vala:262
 msgid "Instance failed to authorize the access token"
 msgstr "实例未能授权访问令牌"
 
-#: src/Dialogs/NewAccount.vala:260
+#: src/Dialogs/NewAccount.vala:285
 #, c-format
 msgid "Hello, %s!"
 msgstr "您好，%s！"
 
-#: src/Dialogs/NewAccount.vala:315
+#: src/Dialogs/NewAccount.vala:339
 msgid "Server returned an error"
 msgstr "服务器返回了一个错误"
 
-#: src/Dialogs/NewAccount.vala:352
+#: src/Dialogs/NewAccount.vala:375
 msgid "Apply"
 msgstr "申请"
 
 #. translators: Switch title in the new account window
-#: src/Dialogs/NewAccount.vala:385
+#: src/Dialogs/NewAccount.vala:408
 msgid "Admin Mode"
 msgstr "管理员模式"
 
 #. translators: Switch description in the new account window
-#: src/Dialogs/NewAccount.vala:387
+#: src/Dialogs/NewAccount.vala:410
 msgid ""
 "Enables the Admin Dashboard and requests the needed permissions to use the "
 "Admin API"
@@ -3238,10 +3317,9 @@ msgstr "关注"
 #. translators: error toast when tuba cant update the user's notification settings;
 #. the variable is a string error message
 #: src/Dialogs/NotificationSettings.vala:131
-#, fuzzy, c-format
-#| msgid "Couldn't Mute Conversation: %s"
+#, c-format
 msgid "Couldn't save notification settings: %s"
-msgstr "无法静音对话：%s"
+msgstr "无法保存通知设置：%s"
 
 #. translators: dialog title for the user to confirm if they want to remove all their notifications
 #: src/Dialogs/NotificationSettings.vala:146
@@ -3270,48 +3348,73 @@ msgstr "删除 %s？"
 msgid "Couldn't delete filter: %s"
 msgstr "无法删除过滤器：%s"
 
-#: src/Dialogs/Preferences.vala:200
-#, fuzzy, c-format
-#| msgid "Couldn't Mute Conversation: %s"
+#: src/Dialogs/Preferences.vala:201
+#, c-format
 msgid "Couldn't update notification types: %s"
-msgstr "无法静音对话：%s"
+msgstr "无法更新通知类型：%s"
+
+#. translators: dialog title shown when the user is trying to enable
+#. UnifiedPush but don't have the required permission to.
+#. "Push" is the permission name but you may change it to
+#. "Webpush" or "Push Notification"
+#: src/Dialogs/Preferences.vala:243
+msgid "Request “Push” Access?"
+msgstr "请求“推送”权限？"
+
+#. translators: dialog subtitle shown when the user is trying to enable
+#. UnifiedPush but don't have the required permission to.
+#. "Reauthenticate" = "Re-login", "Login again"...
+#. The user will be forced to go through the same process
+#. as when adding their account for the first time if they
+#. continue. Please leave "UnifiedPush" as is, as it's a
+#. brand name. The variable is the app name (Tuba).
+#: src/Dialogs/Preferences.vala:251
+#, c-format
+msgid "You'll have to reauthenticate %s to use UnifiedPush."
+msgstr "您必须重新验证 %s 才能使用 UnifiedPush。"
+
+#. translators: dialog button shown when the user is trying to enable
+#. UnifiedPush but don't have the required permission to.
+#. and Tuba is asking them if they want to re-login. Please
+#. use the same verb used in the dialog title "Request
+#. “Push” Access?"
+#: src/Dialogs/Preferences.vala:259
+msgid "Request"
+msgstr "请求"
 
 #. translators: leave "UnifiedPush" as is. "distributors" can be substituted with "services".
 #. This is a subtitle in the settings option that enabled UnifiedPush shown when
 #. it's not possible to.
-#: src/Dialogs/Preferences.vala:247
+#: src/Dialogs/Preferences.vala:288
 msgid "No UnifiedPush distributors available"
-msgstr ""
+msgstr "没有可用的 UnifiedPush 分发服务"
 
 #. translators: button in settings that opens the filter editor dialog page
-#: src/Dialogs/Preferences.vala:286
+#: src/Dialogs/Preferences.vala:327
 msgid "Add Filter…"
 msgstr "添加过滤器…"
 
 #. translators: error toast when tuba cant fetch the user's filters;
 #. the variable is a string error message
-#: src/Dialogs/Preferences.vala:308
-#, fuzzy, c-format
-#| msgid "Couldn't delete filter: %s"
+#: src/Dialogs/Preferences.vala:349
+#, c-format
 msgid "Couldn't retrieve filters: %s"
-msgstr "无法删除过滤器：%s"
+msgstr "无法检索过滤器：%s"
 
 #. translators: error toast when tuba cant update the user's locale;
 #. the variable is a string error message
-#: src/Dialogs/Preferences.vala:500
-#, fuzzy, c-format
-#| msgid "Couldn't translate: %s"
+#: src/Dialogs/Preferences.vala:542
+#, c-format
 msgid "Couldn't update language: %s"
-msgstr "无法翻译：%s"
+msgstr "无法更新语言：%s"
 
 #. translators: toast shown when changing the default post visibility in settings fails
-#: src/Dialogs/Preferences.vala:513
-#, fuzzy, c-format
-#| msgid "Couldn't delete filter: %s"
+#: src/Dialogs/Preferences.vala:555
+#, c-format
 msgid "Couldn't update visibility: %s"
-msgstr "无法删除过滤器：%s"
+msgstr "无法更新公开范围：%s"
 
-#: src/Dialogs/Preferences.vala:562
+#: src/Dialogs/Preferences.vala:604
 msgid "Analytics Preview"
 msgstr "分析预览"
 
@@ -3326,15 +3429,67 @@ msgid "Content"
 msgstr "内容"
 
 #. translators: profile field, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:209
+#: src/Dialogs/ProfileEdit.vala:240
 msgid "Add Field"
 msgstr "添加字段"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:228
+#: src/Dialogs/ProfileEdit.vala:259
 #, c-format
 msgid "Field %d"
 msgstr "字段 %d"
+
+#. translators: First variable is a handle, second variable is a list name;
+#. tooltip on a button that adds the user in question to the list
+#: src/Dialogs/ProfileLists.vala:42
+#, c-format
+msgid "Add \"%s\" to \"%s\""
+msgstr "将 \"%s\" 加入 \"%s\""
+
+#. translators: First variable is a handle, second variable is a list name;
+#. tooltip on a button that removes the user in question from the list
+#: src/Dialogs/ProfileLists.vala:47
+#, c-format
+msgid "Remove \"%s\" from \"%s\""
+msgstr "将 \"%s\" 从 \"%s\" 中移除"
+
+#. translators: First variable is a handle, second variable is a list name;
+#. toast that shows up when successfully removing the user in
+#. question from the list
+#: src/Dialogs/ProfileLists.vala:72
+#, c-format
+msgid "User \"%s\" got removed from \"%s\""
+msgstr "用户 “%s\" 已从 \"%s\" 中移除"
+
+#. translators: First variable is a handle, second variable is a list name;
+#. toast that shows up when successfully adding the user in
+#. question from the list
+#: src/Dialogs/ProfileLists.vala:77
+#, c-format
+msgid "User \"%s\" got added to \"%s\""
+msgstr "用户 “%s\" 已加入 \"%s\""
+
+#. translators: the variable is an account handle; title on a
+#. dialog that allows the user to remove or add
+#. another user from or to their lists
+#: src/Dialogs/ProfileLists.vala:102
+#, c-format
+msgid "Add or remove \"%s\" to or from a list"
+msgstr "将 \"%s\" 添加到列表中或从列表中移除"
+
+#. translators: the variable is an account handle; subtitle shown on a
+#. dialog that allows the user to remove or add another
+#. user from or to their lists
+#: src/Dialogs/ProfileLists.vala:133
+#, c-format
+msgid "Select the list to add or remove \"%s\" to or from:"
+msgstr "请选择需要将 \"%s\" 添加到其中或从其中移除的列表："
+
+#. translators: message shown on a dialog that allows the user to remove or add another
+#. user from or to their lists, when they don't have any lists
+#: src/Dialogs/ProfileLists.vala:141
+msgid "You don't have any lists"
+msgstr "您当前没有任何列表"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
@@ -3352,7 +3507,7 @@ msgstr "内容违反服务器规则"
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:30
 msgid "It's something else"
-msgstr "其它原因"
+msgstr "其他原因"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
@@ -3370,7 +3525,7 @@ msgstr "您清楚它违反了特定的规则"
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:45
 msgid "The issue does not fit into other categories"
-msgstr "此问题不符合其它类别"
+msgstr "此问题不符合其他类别"
 
 #. translators: the variable is an account handle
 #: src/Dialogs/Report.vala:117
@@ -3381,10 +3536,8 @@ msgstr "举报 %s"
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting collections
 #: src/Dialogs/Report.vala:145
-#, fuzzy
-#| msgid "Tell us what's going on with this account"
 msgid "Tell us what's going on with this collection"
-msgstr "告诉我们此账号存在的问题"
+msgstr "告诉我们此收藏列表存在的问题"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
@@ -3430,7 +3583,7 @@ msgstr "是否有任何帖文可以支持此举报？"
 #. that's why it asks about choosing 'other' posts
 #: src/Dialogs/Report.vala:261
 msgid "Are there any other posts that back up this report?"
-msgstr "是否有其它帖文可以支持此举报？"
+msgstr "是否有其他帖文可以支持此举报？"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown at the top of the last page of the report dialog
@@ -3477,75 +3630,101 @@ msgstr "%s。但您仍可继续举报。"
 msgid "No posts found"
 msgstr "未找到帖文"
 
+#. translators: dialog title shown when a user's token has been revoked
+#. and Tuba is asking them if they want to re-login. You
+#. may replace "Reauthenticate" with "Reconnect" or "Re-login"
+#: src/Services/Accounts/AccountStore.vala:125
+msgid "Reauthenticate account?"
+msgstr "重新验证账号？"
+
+#. translators: dialog subtitle shown when a user's token has been revoked
+#. and Tuba is asking them if they want to re-login. "password
+#. expired" can be replaced with "credentials expired" or "login
+#. expired". It's not the actual user password, just their token.
+#. The first variable is a string account handle, the second
+#. variable is the app name (Tuba).
+#: src/Services/Accounts/AccountStore.vala:132
+#, c-format
+msgid "%s's password expired. To continue using %s, you have to login again."
+msgstr "%s 的密码已过期。要继续使用 %s，您必须重新登录。"
+
+#. translators: dialog button shown when a user's token has been revoked
+#. and Tuba is asking them if they want to re-login. Please
+#. use the same verb used in the dialog title "Reauthenticate
+#. account?"
+#: src/Services/Accounts/AccountStore.vala:139
+msgid "Reauthenticate"
+msgstr "重新验证"
+
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:356
+#: src/Services/Accounts/InstanceAccount.vala:380
 #, c-format
 msgid "%s mentioned you"
 msgstr "%s 提到了您"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:365
+#: src/Services/Accounts/InstanceAccount.vala:389
 #, c-format
 msgid "%s boosted your post"
 msgstr "%s 转发了您的帖文"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:374
+#: src/Services/Accounts/InstanceAccount.vala:398
 #, c-format
 msgid "%s boosted"
 msgstr "%s 已转发"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:383
+#: src/Services/Accounts/InstanceAccount.vala:407
 #, c-format
 msgid "%s favorited your post"
 msgstr "%s 点赞了您的帖文"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:392
+#: src/Services/Accounts/InstanceAccount.vala:416
 #, c-format
 msgid "%s now follows you"
 msgstr "%s 正在关注您"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:401
+#: src/Services/Accounts/InstanceAccount.vala:425
 #, c-format
 msgid "%s wants to follow you"
 msgstr "%s 想要关注您"
 
 #. translators: this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:409
+#: src/Services/Accounts/InstanceAccount.vala:433
 msgid "Poll results"
 msgstr "投票结果"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:418
+#: src/Services/Accounts/InstanceAccount.vala:442
 #, c-format
 msgid "%s edited a post"
 msgstr "%s 编辑了一条帖文"
 
 #. translators: post header, on posts that are replies
-#: src/Services/Accounts/InstanceAccount.vala:426
+#: src/Services/Accounts/InstanceAccount.vala:450
 msgid "In Reply"
 msgstr "回复"
 
 #. translators: the variable is a string user handle,
 #. post header, on posts that are replies
-#: src/Services/Accounts/InstanceAccount.vala:430
+#: src/Services/Accounts/InstanceAccount.vala:454
 #, c-format
 msgid "In Reply to %s"
 msgstr "回复 %s"
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
-#: src/Services/Accounts/InstanceAccount.vala:444
+#: src/Services/Accounts/InstanceAccount.vala:468
 #, c-format
 msgid "%s signed up"
 msgstr "%s 已注册成功"
@@ -3554,25 +3733,25 @@ msgstr "%s 已注册成功"
 #. when you lost followers or following
 #. due to admin instance or user suspension
 #. or personal domain blocking
-#: src/Services/Accounts/InstanceAccount.vala:455
+#: src/Services/Accounts/InstanceAccount.vala:479
 msgid "Some of your relationships got severed"
 msgstr "您的一些关系被切断了"
 
 #. translators: this is used for admin notifications
-#: src/Services/Accounts/InstanceAccount.vala:487
+#: src/Services/Accounts/InstanceAccount.vala:511
 msgid "Received a new report"
 msgstr "已收到新举报"
 
 #. translators: the variable is a string user name,
 #. this is used for per-account notifications
-#: src/Services/Accounts/InstanceAccount.vala:496
+#: src/Services/Accounts/InstanceAccount.vala:520
 #, c-format
 msgid "%s just posted"
 msgstr "%s 刚刚发布"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:506
+#: src/Services/Accounts/InstanceAccount.vala:530
 #, c-format
 msgid "%s reacted to your post"
 msgstr "%s 对您的帖文做出了表情回应"
@@ -3580,47 +3759,45 @@ msgstr "%s 对您的帖文做出了表情回应"
 #. translators: the first variable is a string user name,
 #. the second variable is an emoji,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:511
+#: src/Services/Accounts/InstanceAccount.vala:535
 #, c-format
 msgid "%s reacted to your post with %s"
 msgstr "%s 用 %s 对您的帖文做出了表情回应"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:525
-#, fuzzy, c-format
-#| msgid "%s boosted your post"
+#: src/Services/Accounts/InstanceAccount.vala:549
+#, c-format
 msgid "%s quoted your post"
-msgstr "%s 转发了您的帖文"
+msgstr "%s 引用了您的帖文"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:534
-#, fuzzy, c-format
-#| msgid "%s edited a post"
+#: src/Services/Accounts/InstanceAccount.vala:558
+#, c-format
 msgid "%s edited a post you have quoted"
-msgstr "%s 编辑了一条帖文"
+msgstr "%s 编辑了您引用过的帖文"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications;
 #. collections are a mastodon feature
 #. see mastodon-web
-#: src/Services/Accounts/InstanceAccount.vala:545
+#: src/Services/Accounts/InstanceAccount.vala:569
 #, c-format
 msgid "%s added you to a collection"
-msgstr ""
+msgstr "%s 将您添加到收藏列表中"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications;
 #. collections are a mastodon feature
 #. see mastodon-web
-#: src/Services/Accounts/InstanceAccount.vala:556
+#: src/Services/Accounts/InstanceAccount.vala:580
 #, c-format
 msgid "%s edited a collection you are in"
-msgstr ""
+msgstr "%s 编辑了您所在的收藏列表"
 
 #. translators: this is a content type
-#: src/Services/Accounts/InstanceAccount.vala:595
+#: src/Services/Accounts/InstanceAccount.vala:619
 msgid "Plain Text"
 msgstr "纯文本"
 
@@ -3674,28 +3851,27 @@ msgstr "只向提到的用户发帖"
 #. different account
 #: src/Services/Accounts/Mastodon/Account.vala:278
 msgid "Notification was pushed for a different account"
-msgstr "通知被推送到了其它的账号"
+msgstr "通知被推送到了其他账号"
 
 #. translators: The variable is "Fediverse" or a backend like "Mastodon"
-#: src/Services/Accounts/SecretAccountStore.vala:251
-#, fuzzy, c-format
-#| msgid "%s Account"
+#: src/Services/Accounts/SecretAccountStore.vala:269
+#, c-format
 msgctxt "system"
 msgid "%s Account"
 msgstr "%s 账号"
 
 #. translators: Follow System's dark mode preference
-#: src/Services/Settings.vala:337
+#: src/Services/Settings.vala:341
 msgid "Follow System"
 msgstr "跟随系统"
 
 #. translators: Light mode theme
-#: src/Services/Settings.vala:340
+#: src/Services/Settings.vala:344
 msgid "Light"
 msgstr "浅色"
 
 #. translators: Dark mode theme
-#: src/Services/Settings.vala:343
+#: src/Services/Settings.vala:347
 msgid "Dark"
 msgstr "深色"
 
@@ -3929,9 +4105,10 @@ msgstr "未激活"
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
+#. translators: note shown on profiles that have been suspended
 #: src/Views/Admin/Pages/Accounts.vala:109
 #: src/Views/Admin/Pages/Accounts.vala:374 src/Widgets/Admin/AccountRow.vala:29
-#: src/Widgets/Admin/Report.vala:50
+#: src/Widgets/Admin/Report.vala:50 src/Widgets/ProfileCover.vala:474
 msgid "Suspended"
 msgstr "已吊销"
 
@@ -4076,7 +4253,7 @@ msgstr "空间占用"
 
 #: src/Views/Admin/Pages/Dashboard.vala:53
 msgid "Stats"
-msgstr "统计数据"
+msgstr "统计"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about allowing federation
@@ -4117,7 +4294,7 @@ msgstr "显示已处理的举报"
 #: src/Views/Admin/Timelines/EmailDomain.vala:30
 #, c-format
 msgid "Unblock %s?"
-msgstr "解除屏蔽 %s？"
+msgstr "取消屏蔽 %s？"
 
 #. translators: Question dialog when an admin is about to
 #. delete a domain from the federation allowlist.
@@ -4127,7 +4304,7 @@ msgstr "解除屏蔽 %s？"
 #: src/Views/Admin/Timelines/DomainAllow.vala:32
 #, c-format
 msgid "Remove Federation with %s?"
-msgstr "删除与 %s 的联邦？"
+msgstr "移除与 %s 的联邦？"
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:57
 msgid "Previous Page"
@@ -4176,9 +4353,6 @@ msgstr "不安全"
 
 #. translators: in-app browser menu item, stops the current loading process
 #: src/Views/Browser.vala:187
-#, fuzzy
-#| msgctxt "media controls tooltip"
-#| msgid "Stop"
 msgid "Stop"
 msgstr "停止"
 
@@ -4189,40 +4363,24 @@ msgstr "前进"
 
 #. translators: 'Collections' is a Mastodon feature; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Views/Collections.vala:24
-#, fuzzy
-#| msgid "No Reactions"
 msgid "Your Collections"
-msgstr "没有表情回应"
+msgstr "您的收藏列表"
 
 #. translators: 'Collections' is a Mastodon feature; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Views/Collections.vala:27 src/Views/Collections.vala:34
 #: src/Views/Collections.vala:101
-#, fuzzy
-#| msgid "No Reactions"
 msgid "No Collections"
-msgstr "没有表情回应"
+msgstr "没有收藏列表"
 
 #. tab title under Collections, aka "Collections Featuring You"
 #: src/Views/Collections.vala:32
-#, fuzzy
-#| msgid "For You"
 msgid "Featuring You"
-msgstr "为您推荐"
+msgstr "精选了您"
 
 #. translators: empty state label
 #: src/Views/Conversations.vala:9
 msgid "No Conversations"
 msgstr "暂无对话"
-
-#. translators: as in posts that are saved but not posted yet
-#: src/Views/DraftStatuses.vala:6 src/Views/Sidebar.vala:79
-msgid "Draft Posts"
-msgstr "草稿帖文"
-
-#. translators: as in posts that are saved but not posted yet
-#: src/Views/DraftStatuses.vala:8
-msgid "No Draft Posts"
-msgstr "没有草稿帖文"
 
 #. translators: Error reason when trying to delete a non-empty folder
 #: src/Views/Drive.vala:24
@@ -4430,13 +4588,11 @@ msgid "No Follow Requests"
 msgstr "暂无关注请求"
 
 #. translators: headerbar button tooltip, creates a list of hashtags
-#: src/Views/Hashtags.vala:36
-#, fuzzy
-#| msgid "No Hashtags"
+#: src/Views/Hashtags.vala:47
 msgid "New Hashtag List"
-msgstr "暂无话题标签"
+msgstr "新话题标签列表"
 
-#: src/Views/Hashtags.vala:86 src/Views/Lists.vala:55
+#: src/Views/Hashtags.vala:98 src/Views/Lists.vala:55
 #: src/Widgets/Status/ActionsRow.vala:199
 msgid "Favorite"
 msgstr "点赞"
@@ -4475,17 +4631,15 @@ msgstr "此操作无法撤销。"
 
 #. translators: error toast; the variable is a string error message
 #: src/Views/Lists.vala:154
-#, fuzzy, c-format
-#| msgid "Couldn't delete filter: %s"
+#, c-format
 msgid "Couldn't delete list: %s"
-msgstr "无法删除过滤器：%s"
+msgstr "无法删除列表：%s"
 
 #. translators: error toast; variable is a string error message
 #: src/Views/Lists.vala:216
-#, fuzzy, c-format
-#| msgid "Couldn't create folder: %s"
+#, c-format
 msgid "Couldn't create list: %s"
-msgstr "无法创建文件夹：%s"
+msgstr "无法创建列表：%s"
 
 #. translators: placeholder text inside an entry where users will
 #. type the name of a list they're about to make
@@ -4509,7 +4663,7 @@ msgid "Copied media url to clipboard"
 msgstr "已复制媒体网址到剪贴板"
 
 #. translators: toast shown after successfully copying an image to clipboard
-#: src/Views/MediaViewer.vala:1384 src/Widgets/Attachment/Image.vala:117
+#: src/Views/MediaViewer.vala:1384 src/Widgets/Attachment/Image.vala:115
 msgid "Copied image to clipboard"
 msgstr "已复制图像到剪贴板"
 
@@ -4579,58 +4733,56 @@ msgstr "暂无通知"
 
 #. translators: private note dialog title, shown when editing a private note on a profile
 #: src/Views/Profile.vala:16
-#, fuzzy
-#| msgid "Private Comment"
 msgid "Private Note"
-msgstr "私人评论"
+msgstr "私人备注"
 
 #. translators: placeholder shown in the private note editor on profiles
 #: src/Views/Profile.vala:49 src/Views/Profile.vala:61
 msgid "Type your note…"
-msgstr ""
+msgstr "输入您的备注…"
 
-#: src/Views/Profile.vala:237
+#: src/Views/Profile.vala:239
 msgid "Profile"
 msgstr "个人资料"
 
 #. translators: posts tab on profiles, shown when empty.
-#: src/Views/Profile.vala:385 src/Views/Timeline.vala:88
+#: src/Views/Profile.vala:402 src/Views/Timeline.vala:92
 msgid "No Posts"
 msgstr "暂无帖文"
 
 #. translators: profile tab, when information (followers/following lists) is hidden.
-#: src/Views/Profile.vala:391 src/Views/Profile.vala:398
+#: src/Views/Profile.vala:408 src/Views/Profile.vala:415
 msgid "This user has chosen to not make this information available"
-msgstr ""
+msgstr "此用户已选择不公开此信息"
 
 #. translators: followers tab on profiles, shown when empty.
-#: src/Views/Profile.vala:393
+#: src/Views/Profile.vala:410
 msgid "No Followers"
 msgstr "暂无关注者"
 
 #. translators: following tab on profiles, shown when empty or hidden.
-#: src/Views/Profile.vala:400
+#: src/Views/Profile.vala:417
 msgid "This user doesn't follow anyone yet"
 msgstr "此用户目前尚未关注任何人"
 
 #. translators: featured tab on profiles, shown when empty.
-#: src/Views/Profile.vala:405
+#: src/Views/Profile.vala:422
 msgid "This user doesn't have any featured hashtags or accounts."
-msgstr "此用户没有精选任何标签或账号。"
+msgstr "此用户没有精选任何话题标签或账号。"
 
 #. translators: confirmation dialog on blocking/unblocking an instance; variable is a string instance
-#: src/Views/Profile.vala:520
+#: src/Views/Profile.vala:537
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr "屏蔽整个 \"%s\"？"
 
-#: src/Views/Profile.vala:520
+#: src/Views/Profile.vala:537
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr "取消屏蔽整个 \"%s\"？"
 
 #. translators: confirmation dialog explaining what blocking an instance will do
-#: src/Views/Profile.vala:524
+#: src/Views/Profile.vala:541
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -4640,60 +4792,19 @@ msgid ""
 msgstr ""
 "屏蔽一个实例将会：\n"
 "\n"
-"• 从您的时间线中删除该实例的公共帖文和通知\n"
+"• 从您的时间线中移除该实例的公共帖文和通知\n"
 "• 从您的账号中移除属于该实例的关注者\n"
 "• 防止您关注该实例的用户"
 
 #. translators: error toast, variable is a string error message
-#: src/Views/Profile.vala:541
-#, fuzzy, c-format
-#| msgid "Couldn't Mute Conversation: %s"
+#: src/Views/Profile.vala:558
+#, c-format
 msgid "Couldn't block domain: %s"
-msgstr "无法静音对话：%s"
+msgstr "无法屏蔽域名：%s"
 
-#: src/Views/Profile.vala:594
+#: src/Views/Profile.vala:613
 msgid "Copied handle to clipboard"
 msgstr "已复制句柄到剪贴板"
-
-#. translators: the variable is an account handle
-#: src/Views/Profile.vala:758
-#, c-format
-msgid "Add or remove \"%s\" to or from a list"
-msgstr "将 \"%s\" 添加到列表中或从列表中移除"
-
-#. translators: the variable is an account handle
-#: src/Views/Profile.vala:768
-#, c-format
-msgid "Select the list to add or remove \"%s\" to or from:"
-msgstr "请选择需要将 \"%s\" 添加到其中或从其中移除的列表："
-
-#: src/Views/Profile.vala:774
-msgid "You don't have any lists"
-msgstr "您当前没有任何列表"
-
-#. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:812 src/Views/Profile.vala:881
-#, c-format
-msgid "Remove \"%s\" from \"%s\""
-msgstr "将 \"%s\" 从 \"%s\" 中移除"
-
-#. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:813 src/Views/Profile.vala:875
-#, c-format
-msgid "Add \"%s\" to \"%s\""
-msgstr "将 \"%s\" 加入 \"%s\""
-
-#. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:872
-#, c-format
-msgid "User \"%s\" got removed from \"%s\""
-msgstr "用户 “%s\" 已从 \"%s\" 中移除"
-
-#. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:878
-#, c-format
-msgid "User \"%s\" got added to \"%s\""
-msgstr "用户 “%s\" 已加入 \"%s\""
 
 #. translators: as in posts set to be posted sometime in the future
 #: src/Views/ScheduledStatuses.vala:9
@@ -4702,7 +4813,7 @@ msgstr "没有已定时的帖文"
 
 #: src/Views/Search.vala:24
 msgid "Search Posts and Accounts"
-msgstr "搜索帖文和账户"
+msgstr "搜索帖文和账号"
 
 #: src/Views/Search.vala:38
 msgid "Clear Entry"
@@ -4714,14 +4825,6 @@ msgstr "清理条目"
 #: src/Views/Search.vala:121 src/Widgets/CustomEmojiChooser.vala:173
 msgid "No Results"
 msgstr "没有结果"
-
-#. translators: warning toast in advanced search dialog when auto-filling a user fails.
-#. Auto-fill refers to automatically filling the entry with the first
-#. found user based on the query.
-#: src/Views/Search.vala:514
-#, c-format
-msgid "Couldn't auto-fill user: %s"
-msgstr "无法自动填充用户：%s"
 
 #. tanslators: used in a banner, the variable is the number of unread announcements
 #: src/Views/Sidebar.vala:28
@@ -4757,16 +4860,16 @@ msgid "About %s"
 msgstr "关于 %s"
 
 #. translators: the variable is an account handle
-#: src/Views/Sidebar.vala:368
+#: src/Views/Sidebar.vala:373
 #, c-format
 msgid "Forget %s?"
 msgstr "忘记 %s？"
 
-#: src/Views/Sidebar.vala:369
+#: src/Views/Sidebar.vala:374
 msgid "This account will be removed from the application."
-msgstr "将从应用程序中删除此账号。"
+msgstr "此账号将从应用程序中移除。"
 
-#: src/Views/Sidebar.vala:371
+#: src/Views/Sidebar.vala:376
 msgid "Forget"
 msgstr "忘记"
 
@@ -4791,10 +4894,8 @@ msgid "Favorited By"
 msgstr "点赞自"
 
 #: src/Views/StatusStats.vala:44
-#, fuzzy
-#| msgid "Quote"
 msgid "No Quotes"
-msgstr "引用"
+msgstr "无引用"
 
 #. translators: title for a list of people that have reacted to a post, shown under "View Stats".
 #. A reaction is not the same as a favorite or a boost,
@@ -4810,28 +4911,36 @@ msgstr "表情回应"
 msgid "No Reactions"
 msgstr "没有表情回应"
 
-#: src/Views/Thread.vala:32
+#: src/Views/Thread.vala:33
 msgid "Conversation"
 msgstr "对话"
 
-#: src/Views/Thread.vala:154 src/Views/Thread.vala:169
+#: src/Views/Thread.vala:164 src/Views/Thread.vala:179
 msgid "Reveal Spoilers"
 msgstr "显示剧透"
 
 #. translators: tooltip on button that toggles all spoilers of a thread
-#: src/Views/Thread.vala:169
+#: src/Views/Thread.vala:179
 msgid "Hide Spoilers"
 msgstr "隐藏剧透"
 
+#. translators: toast shown when the user is viewing a thread
+#. and there's new replies since they opened it;
+#. next to it will be a button that allows them to
+#. load the new replies
+#: src/Views/Thread.vala:365
+msgid "New Replies Available"
+msgstr "有新回复"
+
 #. translators: error title
-#: src/Views/Timeline.vala:357 src/Widgets/Status/ActionsRow.vala:508
+#: src/Views/Timeline.vala:370 src/Widgets/Status/ActionsRow.vala:508
 msgid "Network Error"
 msgstr "网络错误"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of followers a user has.
 #: src/Widgets/AccountRow.vala:166 src/Widgets/Account.vala:232
-#: src/Widgets/ProfileCover.vala:315 src/Widgets/ProfileCover.vala:608
+#: src/Widgets/ProfileCover.vala:316 src/Widgets/ProfileCover.vala:621
 #, c-format
 msgid "%s Follower"
 msgid_plural "%s Followers"
@@ -4839,7 +4948,7 @@ msgstr[0] "%s 个关注者"
 
 #. translators: Tooltip text for avatars in posts.
 #. The variable is a string user handle.
-#: src/Widgets/AccountSuggestions.vala:15 src/Widgets/Status.vala:1419
+#: src/Widgets/AccountSuggestions.vala:15 src/Widgets/Status.vala:1430
 #, c-format
 msgid "Open %s's Profile"
 msgstr "打开 %s 的个人资料"
@@ -4852,7 +4961,7 @@ msgstr "关注建议"
 
 #. translators: shown on confirmation features of tuba to disable them
 #: src/Widgets/AccountSuggestions.vala:114
-#: src/Widgets/Status/ActionsRow.vala:244
+#: src/Widgets/Attachment/Image.vala:147 src/Widgets/Status/ActionsRow.vala:244
 #: src/Widgets/Status/ActionsRow.vala:324 src/Widgets/Status.vala:505
 msgid "Don't remind me again"
 msgstr "不再提醒我"
@@ -4862,7 +4971,7 @@ msgstr "不再提醒我"
 #. please be mindful.
 #. The first variable is the author's name and the
 #. second one is the author's handle.
-#: src/Widgets/Account.vala:145 src/Widgets/ProfileCover.vala:170
+#: src/Widgets/Account.vala:145 src/Widgets/ProfileCover.vala:171
 #, c-format
 msgid "%s (%s)'s profile."
 msgstr "%s（%s）的个人资料。"
@@ -4872,15 +4981,15 @@ msgstr "%s（%s）的个人资料。"
 #. please be mindful.
 #. The variable is a string representation of the
 #. relationship (e.g. Mutuals, Follows You...)
-#: src/Widgets/Account.vala:157 src/Widgets/ProfileCover.vala:182
+#: src/Widgets/Account.vala:157 src/Widgets/ProfileCover.vala:183
 #, c-format
 msgid "Relationship: %s."
 msgstr "关系：%s。"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of people a user follows.
-#: src/Widgets/Account.vala:242 src/Widgets/ProfileCover.vala:325
-#: src/Widgets/ProfileCover.vala:602
+#: src/Widgets/Account.vala:242 src/Widgets/ProfileCover.vala:326
+#: src/Widgets/ProfileCover.vala:615
 #, c-format
 msgid "%s Following"
 msgstr "正在关注 %s 人"
@@ -4930,7 +5039,7 @@ msgstr "%s（%s）发布的公告。"
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. The variable is a string date.
-#: src/Widgets/Announcement.vala:31 src/Widgets/Status.vala:1065
+#: src/Widgets/Announcement.vala:31 src/Widgets/Status.vala:1067
 #, c-format
 msgid "Edited: %s."
 msgstr "编辑时间：%s。"
@@ -4939,7 +5048,7 @@ msgstr "编辑时间：%s。"
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. The variable is a string date.
-#: src/Widgets/Announcement.vala:36 src/Widgets/Status.vala:1070
+#: src/Widgets/Announcement.vala:36 src/Widgets/Status.vala:1072
 #, c-format
 msgid "Published: %s."
 msgstr "发布时间：%s。"
@@ -4949,11 +5058,11 @@ msgstr "发布时间：%s。"
 #. please be mindful.
 #. The variable is the amount of reactions the post
 #. has.
-#: src/Widgets/Announcement.vala:46 src/Widgets/Status.vala:1147
+#: src/Widgets/Announcement.vala:46 src/Widgets/Status.vala:1149
 #, c-format
 msgid "Contains %d reaction."
 msgid_plural "Contains %d reactions."
-msgstr[0] "包含 %d 次回应。"
+msgstr[0] "包含 %d 个回应。"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4974,6 +5083,24 @@ msgstr "隐藏媒体"
 msgid "Show Sensitive Content"
 msgstr "显示敏感内容"
 
+#. translators: dialog title shown when asking the user to fetch media from a remote
+#. instance/server. Load = fetch = download, remote = external = not in
+#. user's instance, media = attachments = photos/videos/music/files
+#. translators: dialog subtitle, shown when asking the user to fetch media from a
+#. remote instance/server. "Your instance" means the server the active
+#. user's account is on. "Proxied" means that it handles it locally,
+#. without the user connecting to the remote instance. By "can't handle
+#. this attachment", it means it's a file like a PDF and the user's
+#. instance doesn't know what to do with it. By "fetch" it means to
+#. download it from the server the author is on. The variable is a
+#. string app name (Tuba).
+#: src/Widgets/Attachment/Image.vala:163
+#, c-format
+msgid ""
+"Your instance hasn't proxied or can't handle this attachment. %s can fetch "
+"it directly from the remote instance however."
+msgstr "您的实例未代理或无法处理此附件。不过，%s 可以直接从远程实例获取它。"
+
 #. translators: toast shown when copying an attachment url to clipboard successfully
 #: src/Widgets/Attachment/Item.vala:22
 msgid "Copied attachment url to clipboard"
@@ -4991,10 +5118,8 @@ msgstr "保存的媒体"
 
 #. translators: label on toast shown when downloading an attachment that opens the folder containing the file
 #: src/Widgets/Attachment/Item.vala:53
-#, fuzzy
-#| msgid "New Folder"
 msgid "Open Folder"
-msgstr "新建文件夹"
+msgstr "打开文件夹"
 
 #. translators: error toast
 #: src/Widgets/Attachment/Item.vala:57
@@ -5027,39 +5152,32 @@ msgstr "作者：%s"
 
 #. translators: error message when failing to fetch mastodon collection images
 #: src/Widgets/Collection.vala:105
-#, fuzzy, c-format
-#| msgid "Couldn't fetch all user's posts"
+#, c-format
 msgid "Couldn't fetch collection images: %s"
-msgstr "无法获取用户的全部帖文"
+msgstr "无法获取收藏列表图片：%s"
 
 #. translators: question dialog title when removing yourself from a Collection; the variable is the collection name string
 #: src/Widgets/Collection.vala:148
-#, fuzzy, c-format
-#| msgid "Remove \"%s\" from \"%s\""
+#, c-format
 msgid "Remove yourself from \"%s\"?"
-msgstr "将 \"%s\" 从 \"%s\" 中移除"
+msgstr "将自己从“%s”中移除？"
 
 #. translators: menu item, remove myself from mastodon collection
 #: src/Widgets/Collection.vala:263
-#, fuzzy
-#| msgid "Remove Members"
 msgid "Remove Myself"
-msgstr "移除成员"
+msgstr "移除自己"
 
 #. translators: block mastodon collection author, menu item
 #: src/Widgets/Collection.vala:266
-#, fuzzy
-#| msgid "Blocks you"
 msgid "Block Author"
-msgstr "屏蔽了您"
+msgstr "屏蔽作者"
 
 #. translators: amount of accounts in a collection, variable is a number
 #: src/Widgets/Collection.vala:287
-#, fuzzy, c-format
-#| msgid "%s Account"
+#, c-format
 msgid "%s Account"
 msgid_plural "%s Accounts"
-msgstr[0] "%s 账号"
+msgstr[0] "%s 个账号"
 
 #. translators: the variable is a user name. This is shown on
 #. preview cards of articles from 'verified' fedi authors.
@@ -5071,19 +5189,28 @@ msgstr[0] "%s 账号"
 msgid "By %s"
 msgstr "由 %s 发表"
 
+#. translators: custom emoji chooser, back button tooltip text; clicking it
+#. takes you to the list of custom emoji categories
+#: src/Widgets/CustomEmojiChooserV2.vala:135
+msgid "Categories"
+msgstr "类别"
+
+#: src/Widgets/CustomEmojiChooserV2.vala:242
+#: src/Widgets/CustomEmojiChooserV2.vala:309
+#: src/Widgets/CustomEmojiChooser.vala:73
+msgid "Recently Used"
+msgstr "最近使用"
+
+#: src/Widgets/CustomEmojiChooserV2.vala:263
+#: src/Widgets/CustomEmojiChooser.vala:212
+msgid "Custom Emojis"
+msgstr "自定义表情符号"
+
 #. translators: Used when there are results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:67
 #: src/Widgets/CustomEmojiChooser.vala:169
 msgid "Results"
 msgstr "结果"
-
-#: src/Widgets/CustomEmojiChooser.vala:73
-msgid "Recently Used"
-msgstr "最近使用"
-
-#: src/Widgets/CustomEmojiChooser.vala:212
-msgid "Custom Emojis"
-msgstr "自定义表情"
 
 #. translators: the variable is the amount of emoji reactions, e.g. '4 Reactions'.
 #. A reaction is not the same as a favorite or a boost,
@@ -5092,7 +5219,7 @@ msgstr "自定义表情"
 #, c-format
 msgid "%d Reaction"
 msgid_plural "%d Reactions"
-msgstr[0] "%d 表情回应"
+msgstr[0] "%d 个表情回应"
 
 #. translators: focus picking knob(?)/target(?) tooltip in the focus picker
 #: src/Widgets/FocusPicker.vala:49
@@ -5160,29 +5287,29 @@ msgstr "由 %s 关注"
 #. please be mindful.
 #. The variable is the amount of fields the profile
 #. has.
-#: src/Widgets/ProfileCover.vala:193
+#: src/Widgets/ProfileCover.vala:194
 #, c-format
 msgid "Contains %d field."
 msgid_plural "Contains %d fields."
 msgstr[0] "包含 %d 个字段。"
 
+#. translators: note shown on profiles that have been memorialized
+#: src/Widgets/ProfileCover.vala:470
+msgid "In Memoriam"
+msgstr "谨此纪念"
+
 #. translators: Button label shown when a user has moved to another instance.
 #. The first variable is this account's handle while the second
 #. is the moved-to account's handle
-#: src/Widgets/ProfileCover.vala:473
+#: src/Widgets/ProfileCover.vala:486
 #, c-format
 msgid "%s has moved to %s"
 msgstr "%s 已移动到 %s"
 
 #. translators: shown when the user has hidden their followers/following counts
-#: src/Widgets/ProfileCover.vala:644
+#: src/Widgets/ProfileCover.vala:657
 msgid "Hidden"
 msgstr "已隐藏"
-
-#. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-#: src/Widgets/ProfileFilterGroup.vala:48
-msgid "Featured"
-msgstr "精选"
 
 #. translators: noun, plural, shown on profiles
 #: src/Widgets/ProfileFilterGroup.vala:63
@@ -5203,40 +5330,47 @@ msgid "Unmute"
 msgstr "取消静音"
 
 #. translators: noun, as in a post that is saved but not posted yet
-#: src/Widgets/ScheduledStatus.vala:13
+#: src/Widgets/ScheduledStatus.vala:15
 msgid "Draft"
 msgstr "草稿"
 
 #. translators: button, verb, "Reschedule a post"
-#: src/Widgets/ScheduledStatus.vala:52 src/Widgets/ScheduledStatus.vala:152
+#: src/Widgets/ScheduledStatus.vala:67 src/Widgets/ScheduledStatus.vala:178
 msgid "Reschedule"
 msgstr "重新定时"
 
+#. translators: button, clicking it converts a scheduled post
+#. into a draft post; "Turn into a draft", "Make Draft"
+#. "To Draft" or "Draft" (verb) are alternatives
+#: src/Widgets/ScheduledStatus.vala:77
+msgid "Convert into a draft"
+msgstr "转换为草稿"
+
 #. translators: Scheduled Post title, 'scheduled for <date>'
-#: src/Widgets/ScheduledStatus.vala:138
+#: src/Widgets/ScheduledStatus.vala:164
 #, c-format
 msgid "Scheduled for %s"
 msgstr "定时于 %s"
 
 #. translators: dialog title when rescheduling a post, reschedule is a verb, post is a noun
-#: src/Widgets/ScheduledStatus.vala:157
+#: src/Widgets/ScheduledStatus.vala:186
 msgid "Reschedule Post"
 msgstr "重新定时帖文"
 
 #. translators:error toast; the variable is an error message
-#: src/Widgets/ScheduledStatus.vala:195
+#: src/Widgets/ScheduledStatus.vala:238
 #, c-format
 msgid "Couldn't reschedule: %s"
 msgstr "无法重新定时：%s"
 
 #. translators: as in a post set to be posted sometime in the future
-#: src/Widgets/ScheduledStatus.vala:202
+#: src/Widgets/ScheduledStatus.vala:245
 msgid "Delete Scheduled Post?"
 msgstr "删除已定时的帖文？"
 
 #. translators: 'Draft' is not a verb here.
 #. It's equal to 'saved but not posted'
-#: src/Widgets/ScheduledStatus.vala:205
+#: src/Widgets/ScheduledStatus.vala:248
 msgid "Delete Draft Post?"
 msgstr "删除草稿帖文？"
 
@@ -5254,10 +5388,8 @@ msgstr "此帖文不能被转发"
 
 #. translators: tooltip text when the quote button is disabled
 #: src/Widgets/Status/ActionsRow.vala:78
-#, fuzzy
-#| msgid "This post can't be boosted"
 msgid "This post can't be quoted"
-msgstr "此帖文不能被转发"
+msgstr "此帖文不能被引用"
 
 #. translators: verb, bookmark a post
 #: src/Widgets/Status/ActionsRow.vala:219
@@ -5280,20 +5412,18 @@ msgstr "您仍然可以回复，但可能不再相关。"
 #. translators: title of dialog shown when trying to boost a post that has attachments without alt text
 #: src/Widgets/Status/ActionsRow.vala:329
 msgid "This post includes attachments without alt text"
-msgstr ""
+msgstr "此帖文包含没有替代文本的附件"
 
 #. translators: subtitle of dialog shown when trying to boost a post that has attachments without alt text;
 #. "it" refers to "this post" (mentioned in the dialog title); "parse" as in read/grasp/understand it
 #: src/Widgets/Status/ActionsRow.vala:332
-#, fuzzy
-#| msgid "Only mentioned people and your followers will be able to view it."
 msgid "Some of your followers might not be able to parse it."
-msgstr "只有提及的人和您的关注者才能查看。"
+msgstr "您的部分关注者可能无法解析它。"
 
 #. translators: dialog title to select boost visibility (public, unlisted, private)
 #: src/Widgets/Status/ActionsRow.vala:390
 msgid "Boost with Visibility"
-msgstr "带可见范围的转发"
+msgstr "有公开范围的转发"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:389
@@ -5305,7 +5435,7 @@ msgid "View Edit History"
 msgstr "查看编辑历史"
 
 #. translators: Pin post on profile
-#: src/Widgets/Status.vala:404 src/Widgets/Status.vala:1026
+#: src/Widgets/Status.vala:404 src/Widgets/Status.vala:1028
 msgid "Pin"
 msgstr "置顶"
 
@@ -5318,10 +5448,8 @@ msgstr "显示原文"
 #. of yours and clicking it will remove your post from their
 #. quote. You may translate it as 'Revoke quote' otherwise
 #: src/Widgets/Status.vala:474
-#, fuzzy
-#| msgid "Remove Members"
 msgid "Remove my post"
-msgstr "移除成员"
+msgstr "移除我的帖文"
 
 #. translators: dialog subtitle visibility warning when copying a link to a
 #. post that is private or mentioned-only
@@ -5346,8 +5474,8 @@ msgstr "只有被提及的人和关注 %s 的人才可以查看。"
 #. translators: confirmation dialog title, the variable is the post visibility e.g. Public, Unlisted...
 #: src/Widgets/Status.vala:502
 #, c-format
-msgid "Copy %s Post Link?"
-msgstr "复制 %s 的帖文链接？"
+msgid "Copy “%s” Post Link?"
+msgstr "复制“%s”的帖文链接？"
 
 #: src/Widgets/Status.vala:505
 msgid "Copy"
@@ -5362,7 +5490,7 @@ msgstr "已复制帖文链接到剪贴板"
 #. from someone else's quote
 #: src/Widgets/Status.vala:637
 msgid "Remove your post from the quote?"
-msgstr ""
+msgstr "从引用中移除您的帖文？"
 
 #. translators: dialog title asking the user to confirm if they really want to remove a post
 #: src/Widgets/Status.vala:659
@@ -5370,39 +5498,39 @@ msgid "Delete Post?"
 msgstr "删除帖文？"
 
 #. translators: toast shown when muting a post
-#: src/Widgets/Status.vala:717
+#: src/Widgets/Status.vala:719
 #, c-format
 msgid "Couldn't Mute Conversation: %s"
 msgstr "无法静音对话：%s"
 
 #. translators: toast shown when unmuting a post
-#: src/Widgets/Status.vala:719
+#: src/Widgets/Status.vala:721
 #, c-format
 msgid "Couldn't Unmute Conversation: %s"
 msgstr "无法取消静音对话：%s"
 
 #. translators: error toast; the variable is a string error message
-#: src/Widgets/Status.vala:780 src/Widgets/Status.vala:803
+#: src/Widgets/Status.vala:782 src/Widgets/Status.vala:805
 #, c-format
 msgid "Couldn't translate: %s"
 msgstr "无法翻译：%s"
 
 #. translators: Tooltip text for avatars in posts.
 #. The variable is a string user handle.
-#: src/Widgets/Status.vala:965
+#: src/Widgets/Status.vala:967
 #, c-format
 msgid "Open %s's Mini Profile"
 msgstr "打开 %s 的小资料"
 
 #. translators: Unpin post from profile
-#: src/Widgets/Status.vala:1024
+#: src/Widgets/Status.vala:1026
 msgid "Unpin"
 msgstr "取消置顶"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
-#: src/Widgets/Status.vala:1037
+#: src/Widgets/Status.vala:1039
 msgid "Filtered post"
 msgstr "已过滤的帖文"
 
@@ -5412,7 +5540,7 @@ msgstr "已过滤的帖文"
 #. The first variable is the post's visibility (e.g. public).
 #. The second one is the author's name and the third
 #. one is the author's handle.
-#: src/Widgets/Status.vala:1053
+#: src/Widgets/Status.vala:1055
 #, c-format
 msgid "%s post by %s (%s)."
 msgstr "%s（%s）发布的%s帖文。"
@@ -5420,14 +5548,14 @@ msgstr "%s（%s）发布的%s帖文。"
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
-#: src/Widgets/Status.vala:1077
+#: src/Widgets/Status.vala:1079
 msgid "The post is pinned."
 msgstr "帖文已置顶。"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
-#: src/Widgets/Status.vala:1085
+#: src/Widgets/Status.vala:1087
 msgid "Contains a quoted post."
 msgstr "包含引用帖文。"
 
@@ -5435,7 +5563,7 @@ msgstr "包含引用帖文。"
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. The variable is the number of attachments the post has.
-#: src/Widgets/Status.vala:1095
+#: src/Widgets/Status.vala:1097
 #, c-format
 msgid "Contains %d attachment."
 msgid_plural "Contains %d attachments."
@@ -5444,21 +5572,21 @@ msgstr[0] "包含 %d 个附件。"
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
-#: src/Widgets/Status.vala:1106
+#: src/Widgets/Status.vala:1108
 msgid "Contains an expired poll."
 msgstr "包含过期投票。"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
-#: src/Widgets/Status.vala:1110
+#: src/Widgets/Status.vala:1112
 msgid "Contains a poll."
 msgstr "包含投票。"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
-#: src/Widgets/Status.vala:1119
+#: src/Widgets/Status.vala:1121
 msgid "The post has a spoiler."
 msgstr "帖文含剧透。"
 
@@ -5466,7 +5594,7 @@ msgstr "帖文含剧透。"
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. The variable is the spoiler title.
-#: src/Widgets/Status.vala:1125
+#: src/Widgets/Status.vala:1127
 #, c-format
 msgid "The post has the following spoiler: %s."
 msgstr "帖文含如下剧透：%s。"
@@ -5476,7 +5604,7 @@ msgstr "帖文含如下剧透：%s。"
 #. please be mindful.
 #. The variable is the name of the app the post was
 #. made with (e.g. Tuba).
-#: src/Widgets/Status.vala:1136
+#: src/Widgets/Status.vala:1138
 #, c-format
 msgid "Posted using %s."
 msgstr "使用 %s 发布。"
@@ -5486,14 +5614,14 @@ msgstr "使用 %s 发布。"
 #. please be mindful.
 #. The variables are strings <amount> replies,
 #. <amount> boosts, <amount> favorites.
-#: src/Widgets/Status.vala:1159
+#: src/Widgets/Status.vala:1161
 #, c-format
 msgid "Post stats: %s, %s, %s, %s."
-msgstr ""
+msgstr "帖文统计：%s、%s、%s、%s。"
 
 #. translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
 #. the variable is a string representation of the amount of replies
-#: src/Widgets/Status.vala:1163
+#: src/Widgets/Status.vala:1165
 #, c-format
 msgid "%s reply"
 msgid_plural "%s replies"
@@ -5501,7 +5629,7 @@ msgstr[0] "%s 条回复"
 
 #. translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
 #. the variable is a string representation of the amount of boosts
-#: src/Widgets/Status.vala:1170
+#: src/Widgets/Status.vala:1172
 #, c-format
 msgid "%s boost"
 msgid_plural "%s boosts"
@@ -5509,16 +5637,15 @@ msgstr[0] "%s 次转发"
 
 #. translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
 #. the variable is a string representation of the amount of quotes
-#: src/Widgets/Status.vala:1177
-#, fuzzy, c-format
-#| msgid "Quote"
+#: src/Widgets/Status.vala:1179
+#, c-format
 msgid "%s quote"
 msgid_plural "%s quotes"
-msgstr[0] "引用"
+msgstr[0] "%s 次引用"
 
 #. translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
 #. the variable is a string representation of the amount of favorites
-#: src/Widgets/Status.vala:1184
+#: src/Widgets/Status.vala:1186
 #, c-format
 msgid "%s favorite"
 msgid_plural "%s favorites"
@@ -5528,82 +5655,87 @@ msgstr[0] "%s 次点赞"
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. This is used to announce the quoted post
-#: src/Widgets/Status.vala:1220
+#: src/Widgets/Status.vala:1222
 msgid "Quoted Post"
 msgstr "被引用的帖文"
 
 #. translators: post filter message; the variable is a string filter title
-#: src/Widgets/Status.vala:1244
+#: src/Widgets/Status.vala:1246
 #, c-format
 msgid "Filtered: %s"
 msgstr "已过滤：%s"
 
 #. translators: post default filter message
-#: src/Widgets/Status.vala:1247
+#: src/Widgets/Status.vala:1249
 msgid "Filtered"
 msgstr "已过滤"
 
 #. translators: placeholder message when a quote has
 #. been hidden for an unknown reason;
 #. should never be visible to users
-#: src/Widgets/Status.vala:1301
+#: src/Widgets/Status.vala:1303
 msgid "Quote is hidden"
-msgstr ""
+msgstr "引用已隐藏"
 
 #. translators: label shown when the quote is hidden
 #. inside a post for the described reason;
 #. the variable is a string account handle
 #. or domain
-#: src/Widgets/Status.vala:1308 src/Widgets/Status.vala:1311
+#: src/Widgets/Status.vala:1311 src/Widgets/Status.vala:1314
 #, c-format
 msgid "This quote is hidden because you've blocked %s"
-msgstr ""
+msgstr "此引用已隐藏，因为您已屏蔽 %s"
 
 #. translators: label shown when the quote is hidden
 #. inside a post for the described reason;
 #. the variable is a string account handle
-#: src/Widgets/Status.vala:1317
+#: src/Widgets/Status.vala:1320
 #, c-format
 msgid "This quote is hidden because you've muted %s"
-msgstr ""
+msgstr "此引用已隐藏，因为您已静音 %s"
+
+#. translators: label shown when a quote has been hidden
+#. because the user's instance limits the
+#. author of the quote. moderators refers
+#. to the user instance's admins
+#: src/Widgets/Status.vala:1328
+msgid ""
+"This quote is hidden because the account has been hidden by the moderators"
+msgstr "此引用已隐藏，因为该账号已被管理员隐藏"
 
 #. translators: label shown when the quote can't be displayed
 #. inside a post
-#: src/Widgets/Status.vala:1332
+#: src/Widgets/Status.vala:1343
 msgid "Quote Unavailable"
-msgstr ""
+msgstr "引用不可用"
 
 #. translators: label shown when a quote is quoting a post
 #. that we won't display
-#: src/Widgets/Status.vala:1336
-#, fuzzy
-#| msgid "Quoted Post"
+#: src/Widgets/Status.vala:1347
 msgid "Quoted a post"
-msgstr "被引用的帖文"
+msgstr "引用了帖文"
 
 #. translators: label shown when the quote can't be displayed
 #. inside a post
-#: src/Widgets/Status.vala:1342
-#, fuzzy
-#| msgid "Pending"
+#: src/Widgets/Status.vala:1353
 msgid "Quote Pending"
-msgstr "待处理"
+msgstr "引用待处理"
 
 #. translators: label shown when the quote can't be displayed
 #. inside a post
-#: src/Widgets/Status.vala:1348
+#: src/Widgets/Status.vala:1359
 msgid "Quote removed by author"
-msgstr ""
+msgstr "引用已被作者移除"
 
 #. translatiors: the first variable is a language name,
 #. the second variable is a service name e.g. DeepL
-#: src/Widgets/Status.vala:1474
+#: src/Widgets/Status.vala:1485
 #, c-format
 msgid "Translated from %s using %s"
 msgstr "使用 %s 翻译自 %s"
 
 #. translatiors: the variable is a service name e.g. DeepL
-#: src/Widgets/Status.vala:1477
+#: src/Widgets/Status.vala:1488
 #, c-format
 msgid "Translated using %s"
 msgstr "使用 %s 翻译"
@@ -5646,6 +5778,13 @@ msgstr "您已投票。"
 msgid "%s voted"
 msgid_plural "%s voted"
 msgstr[0] "%s 已投票"
+
+#~ msgid "Auto-Fill User"
+#~ msgstr "自动填充用户"
+
+#, c-format
+#~ msgid "Couldn't auto-fill user: %s"
+#~ msgstr "无法自动填充用户：%s"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Zoom In"
