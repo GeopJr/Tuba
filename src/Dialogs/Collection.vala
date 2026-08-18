@@ -110,6 +110,7 @@ public class Tuba.Dialogs.Collection : Adw.Dialog {
 		Network.parse_array (parser, node => {
 			var acc = API.Account.from (node);
 			var widget = new Widgets.AccountRow (acc, false);
+			widget.add_followers_and_verified_link ();
 			widgets += widget;
 			if (acc.id == collection.account_id && !did_author) {
 				author_group.add (widget);
