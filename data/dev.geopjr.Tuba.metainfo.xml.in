@@ -32,37 +32,37 @@
   <url type="contribute">https://codeberg.org/GeopJr/Tuba#contributing</url>
   <screenshots>
     <screenshot type="default">
-      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-1.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/f68444a2630a59c61b18047f4bf347fd05fd3f9f/data/screenshots/screenshot-1.png</image>
       <!-- translators: app store image description -->
       <caption>Home Timeline</caption>
     </screenshot>
     <screenshot>
-      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-2.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/f68444a2630a59c61b18047f4bf347fd05fd3f9f/data/screenshots/screenshot-2.png</image>
       <!-- translators: app store image description -->
       <caption>Composer</caption>
     </screenshot>
     <screenshot>
-      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-3.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/f68444a2630a59c61b18047f4bf347fd05fd3f9f/data/screenshots/screenshot-3.png</image>
       <!-- translators: app store image description -->
       <caption>Profile View</caption>
     </screenshot>
     <screenshot>
-      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-4.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/f68444a2630a59c61b18047f4bf347fd05fd3f9f/data/screenshots/screenshot-4.png</image>
       <!-- translators: app store image description -->
       <caption>Home Timeline</caption>
     </screenshot>
     <screenshot>
-      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-5.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/f68444a2630a59c61b18047f4bf347fd05fd3f9f/data/screenshots/screenshot-5.png</image>
       <!-- translators: app store image description -->
       <caption>Schedule Post Dialog</caption>
     </screenshot>
     <screenshot>
-      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-6.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/f68444a2630a59c61b18047f4bf347fd05fd3f9f/data/screenshots/screenshot-6.png</image>
       <!-- translators: app store image description -->
       <caption>Scheduled Posts</caption>
     </screenshot>
     <screenshot>
-      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/7f919343ea87ab04455d9087f16ca38a0680dc08/data/screenshots/screenshot-7.png</image>
+      <image type="source">https://codeberg.org/GeopJr/Tuba/media/commit/f68444a2630a59c61b18047f4bf347fd05fd3f9f/data/screenshots/screenshot-7.png</image>
       <!-- translators: app store image description -->
       <caption>Search View</caption>
     </screenshot>
@@ -87,6 +87,85 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.11.0" date="2026-08-19">
+      <description translate="no">
+        <ul>
+            <li>Visual refinements to match the state of the art of GNOME apps</li>
+            <li>Tuba has moved to Codeberg! Bye bye Mona...</li>
+            <li>Added support for Mastodon Collections</li>
+            <li>Added full support for Mastodon approval-based quotes, give them a try by quoting Tuba's release post!</li>
+            <li>Added UnifiedPush support. On Linux. You heard that right.</li>
+            <li>Too many hashtags to keep track of individually? Create a combined hashtag list of your favorite ones!</li>
+            <li>The 'larger font size' option has been replaced by a slider which can also be manipulated with Ctrl+= and Ctrl+-</li>
+            <li>Keyboard navigation and focus just got sooooooooo much better! Focused post got deleted? Tuba will move the focus to the next or previous available one. Timeline finished loading? Focus will move to the first post</li>
+            <li>The Media Viewer controls now visually match Loupe's</li>
+            <li>Your instance has 8000 custom emojis. The Custom Emoji Chooser was re-written to handle a billion more</li>
+            <li>Pinch to zoom and double clicking in the Media Viewer will now animate towards that location</li>
+            <li>When attempting to boost a post that contains attachments without alt text, Tuba will now warn you (can be turned off)</li>
+            <li>Added support for custom video/audio thumbnail uploading on the composer</li>
+            <li>Profile notes are important, now easier to edit and view</li>
+            <li>Want to quote a post while replying to someone? Just paste it! Tuba will detect it and figure out the annoying parts before inlining it inside the composer</li>
+            <li>Threads will update all posts' stats every so often and notify you if there's new replies available</li>
+            <li>Scheduled and draft posts can now include replies and quotes</li>
+            <li>You can now turn a scheduled post into a draft or a draft into a scheduled post and also update them in-place</li>
+            <li>Mastodon now allows you to include both posts and media at the same time</li>
+            <li>Some servers allow attaching all types of files, some others boost ancient unproxied media, Tuba will now ask you if you'd like to load them from the remote instance and either display them in the Media Viewer or the default app that handles the file format</li>
+            <li>When removing an account from Tuba, the token it used will now also be revoked</li>
+            <li>Revoked your token yourself? Next time you try to use Tuba, you'll be asked to either re-authenticate or remove the account</li>
+            <li>Once in a while, the post published dates will update instead of being stuck in time</li>
+            <li>Added Ctrl+S as a saving shortcut in the Media Viewer</li>
+            <li>The toast that shows up when you save media, now shows a button to open the folder it was saved into</li>
+            <li>Mastodon allows users to hide their media and featured tabs, Tuba will respect those settings and also allow you to change yours</li>
+            <li>When users have hidden their followers/followings but not the counters, Tuba will display a more accurate message</li>
+            <li>A note is now visible when a profile has been suspended or memorialized</li>
+            <li>When adding a new account, the last page of the guide will now be able to display custom emojis</li>
+            <li>Desktop Notifications will now respect content warned posts, instead of showing the content</li>
+            <li>Some users have huge names, hiding the desktop notification content, Tuba will now shorten them to 20 characters max and use the handle in cases when the display name is empty</li>
+            <li>Post stats will now be ordered in the same way the post buttons are</li>
+            <li>When Tuba's window gets narrow, the spacing will be reduced and unnecessary information might be hidden, leaving more space for the post's content</li>
+            <li>Timelines that handled user profiles showed them in huge widgets that had way too much useless information. They now follow Mastodon-web's 'row' design</li>
+            <li>The advanced search dialog now has a proper account search popover, instead of the 'feeling lucky' button</li>
+            <li>Hashtags are now sorted alphabetically for easier finding</li>
+            <li>Accounts in the account switcher are also alphabetically sorted now. Maybe custom order in the future?</li>
+            <li>Glitch-soc now uses the standard local-only API instead of the often accidentally placed eye-emoji</li>
+            <li>The composer default post button on empty posts will show the available draft posts to fill it with</li>
+            <li>A post button menu option to do the same was also added</li>
+            <li>Mastodon now communicates all kinds of character limits (fields, bio, display name...) and Tuba will respect them over the hardcoded values</li>
+            <li>Added partial support for the 'blur' filter option</li>
+            <li>You can now favorite hashtags without following them and from inside their timeline, which will place them in your sidebar</li>
+            <li>Filtered posts will now display the author's handle below them</li>
+            <li>GoToSocial users can now toggle their RSS feature</li>
+            <li>Replaced the web request fundamental functions with a new, completely asynchronous API</li>
+            <li>Fixed different account's home timeline posts being visible in another when switching accounts due to a race condition</li>
+            <li>Fixed profile fields missing custom emojis in the value part</li>
+            <li>Fixed crash when placing attachments in the composer due to a race condition</li>
+            <li>Fixed missing dismissal button on the reschedule post dialog</li>
+            <li>Fixed deleting posts from your own profile not being visually removed</li>
+            <li>Fixed 'delete and redraft' not preserving the replying-to post</li>
+            <li>Fixed profile stat buttons overflowing in some locales</li>
+            <li>Fixed outdated account relationships when changing them from a different nested view</li>
+            <li>When launching Tuba while offline, it will now gracefully recover when you get back online</li>
+            <li>Fixed websockets not reconnecting after waking up from sleep (or at least another attempt at it)</li>
+            <li>Optimized sensitive media blur on underpowered devices, with an option to replace it with a dark void</li>
+            <li>Centered the Media Viewer spinner by 1px (sorry)</li>
+            <li>Fixed Media Viewer's controls being visible for a split second when dismissing it</li>
+            <li>Fixed image metadata orientation not being applied on local attachments in the composer</li>
+            <li>Fixed an issue with fetching user relationships on Mitra instances</li>
+            <li>Fixed Iceshrimp instance detection result not being saved when adding an account</li>
+            <li>Composer single post button is now a smaller pill so it hides less information</li>
+            <li>Android and Haiku builds are now available</li>
+            <li>Windows CI now uses ucrt64</li>
+            <li>Fixed the Windows builds not starting on Windows 11</li>
+            <li>Updated to the latest version of Clapper</li>
+            <li>Modernized parts of the codebase by using the latest GTK features</li>
+            <li>Removed some visual hacks</li>
+            <li>Updated translations (thank you!)</li>
+            <li>Other minor bug fixes and improvements</li>
+            <li>Formally set the same AI contribution guidelines (ban) as Loupe and libadwaita</li>
+            <li>This release took longer than usual to make, some features required huge codebase rewrites and I also took a break from Tuba for a while. Catching up with Mastodon's fast-pacing development was tough, but I believe Tuba supports 4.6 completely and can now focus on dealing with older issues and implementing features from other fedi software. Enjoying this release? Consider donating some spare cash, this year has been hard. And as always, thank you for using Tuba!</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.10.3" date="2025-10-10">
       <description translate="no">
         <ul>
