@@ -58,6 +58,7 @@ public class Tuba.Widgets.CustomEmojiChooserV2 : Gtk.Popover {
 	private Gtk.Label cat_label;
 	private Gtk.Box bottom_bar;
 	private Gtk.StringFilter in_category_string_filter;
+	private Gtk.FilterListModel filter_list_model;
 
 	// we need to construct it on demand as it can also be part of
 	// reaction rows on statuses and we don't want them to go through
@@ -96,11 +97,12 @@ public class Tuba.Widgets.CustomEmojiChooserV2 : Gtk.Popover {
 		this.child = content_box;
 
 		moji_grid_model = new GLib.ListStore (typeof (API.Emoji));
+		filter_list_model = new Gtk.FilterListModel (moji_grid_model, in_category_string_filter);
 		in_category_string_filter = new Gtk.StringFilter (
 			new Gtk.PropertyExpression (typeof (API.Emoji), null, "shortcode")
 		) { match_mode = Gtk.StringFilterMatchMode.SUBSTRING };
 		var moji_grid = new Gtk.GridView (
-			new Gtk.NoSelection (new Gtk.FilterListModel (moji_grid_model, in_category_string_filter)),
+			new Gtk.NoSelection (filter_list_model),
 			new Gtk.BuilderListItemFactory.from_resource (
 				null,
 				@"$(Build.RESOURCES)gtk/dropdown/cep_emoji.ui"
@@ -313,7 +315,7 @@ public class Tuba.Widgets.CustomEmojiChooserV2 : Gtk.Popover {
 	}
 
 	private void on_emoji_picked (uint pos) {
-		on_custom_emoji_picked ((API.Emoji) ((ListModel) moji_grid_model).get_item (pos));
+		on_custom_emoji_picked ((API.Emoji) ((ListModel) filter_list_model).get_item (pos));
 	}
 
 	private void on_stack_changed () {
