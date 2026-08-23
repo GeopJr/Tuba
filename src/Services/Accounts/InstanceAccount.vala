@@ -701,6 +701,10 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			}
 
 			var new_flags = this.tuba_instance_features;
+			// TODO: remove in next minor
+			if (!(InstanceFeatures.GOTOSOCIAL in new_flags) && this.backend.down () == "gotosocial") {
+				new_flags |= InstanceFeatures.GOTOSOCIAL;
+			}
 
 			if (instance_info.pleroma == null) {
 				gather_v2_instance_info.begin ();
