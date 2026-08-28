@@ -24,7 +24,18 @@
 											<object class="AdwToolbarView" id="toolbar_view">
 												<child type="top">
 													<object class="AdwHeaderBar" id="headerbar">
-														<property name="show-title">0</property>
+														<property name="title-widget">
+															<object class="GtkRevealer" id="main_title_revealer">
+																<property name="transition-type">fade-slide-up</property>
+																<property name="valign">center</property>
+																<property name="reveal-child">0</property>
+																<property name="child">
+																	<object class="AdwWindowTitle">
+																		<property name="title" bind-source="nav_page" bind-property="title" bind-flags="sync-create" />
+																	</object>
+																</property>
+															</object>
+														</property>
 													</object>
 												</child>
 												<property name="content">

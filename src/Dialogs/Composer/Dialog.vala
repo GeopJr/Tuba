@@ -22,6 +22,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 	[GtkChild] private unowned Gtk.ScrolledWindow scroller;
 	[GtkChild] private unowned Adw.HeaderBar headerbar;
+	[GtkChild] private unowned Gtk.Revealer main_title_revealer;
 	[GtkChild] private unowned Gtk.Revealer cw_revealer;
 
 	[GtkChild] private unowned Gtk.MenuButton native_emojis_button;
@@ -568,7 +569,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 	}
 
 	private void on_vadjustment_value_changed () {
-		headerbar.show_title = scroller.vadjustment.value > 0;
+		main_title_revealer.reveal_child = scroller.vadjustment.value > 28;
 	}
 
 	uint unique_state = 0;
