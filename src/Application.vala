@@ -483,6 +483,7 @@ namespace Tuba {
 		bool done_startup_real = false;
 		private void startup_real () {
 			if (done_startup_real) return;
+			done_startup_real = true;
 			up_bg = false;
 #endif
 			try {
@@ -562,9 +563,6 @@ namespace Tuba {
 				settings.larger_font_size = false;
 				settings.status_font_size = 1.2;
 			}
-#if UNIFIEDPUSH
-			done_startup_real = true;
-#endif
 		}
 
 		private void on_proxy_change (bool recover = false) {
