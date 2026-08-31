@@ -79,7 +79,7 @@ namespace Tuba {
 		public signal void toast (string title, uint timeout = 5, string? action_name = null, GLib.Variant? action_target = null, string? action_label = null);
 		public signal void toast_object (Adw.Toast toast_obj);
 		#if UNIFIEDPUSH
-			public signal void up_registration_failed ();
+			public signal void up_registration_failed (bool reauth);
 		#endif
 
 		#if DEV_MODE
@@ -331,10 +331,13 @@ namespace Tuba {
 						(new Tuba.Settings.Account (account.uuid)).unifiedpush_enabled = true;
 					}
 					account.setup_notification_streams ();
+				} catch (Oopsie.HTTP_403 e) {
+					warning (@"Requesting re-auth for $(account.handle): $(e.code) $(e.message)");
+					up_registration_failed (true);
 				} catch (Error e) {
 					warning (@"Couldn't add UnifiedPush subscription for $(account.handle): $(e.code) $(e.message)");
 					app.toast ("%s: %s".printf (_("Error"), e.message));
-					up_registration_failed ();
+					up_registration_failed (false);
 				}
 			}
 

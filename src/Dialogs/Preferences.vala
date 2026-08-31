@@ -235,42 +235,48 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 				up_row.active = false;
 				up_row.notify["active"].connect (unifiedpush_changed);
 
-				var res = yield app.question (
-					// translators: dialog title shown when the user is trying to enable
-					//				UnifiedPush but don't have the required permission to.
-					//				"Push" is the permission name but you may change it to
-					//				"Webpush" or "Push Notification"
-					{_("Request “Push” Access?"), false},
-					// translators: dialog subtitle shown when the user is trying to enable
-					//				UnifiedPush but don't have the required permission to.
-					//				"Reauthenticate" = "Re-login", "Login again"...
-					//				The user will be forced to go through the same process
-					//				as when adding their account for the first time if they
-					//				continue. Please leave "UnifiedPush" as is, as it's a
-					//				brand name. The variable is the app name (Tuba).
-					{_("You'll have to reauthenticate %s to use UnifiedPush.").printf (Build.NAME), false},
-					this,
-					{
-						// translators: dialog button shown when the user is trying to enable
-						//				UnifiedPush but don't have the required permission to.
-						//				and Tuba is asking them if they want to re-login. Please
-						//				use the same verb used in the dialog title "Request
-						//				“Push” Access?"
-						{ _("Request"), Adw.ResponseAppearance.SUGGESTED },
-						{ _("Cancel"), Adw.ResponseAppearance.DEFAULT }
-					},
-					null, false
-				);
-
-				if (res == Application.QuestionAnswer.YES)
-					new Dialogs.NewAccount (true, accounts.active).present ();
+				yield unifiedpush_ask_reauth_for_push_scope ();
 			}
 		}
 
-		private void on_up_registration_failed () {
+		private async void unifiedpush_ask_reauth_for_push_scope () {
+			var res = yield app.question (
+				// translators: dialog title shown when the user is trying to enable
+				//				UnifiedPush but don't have the required permission to.
+				//				"Push" is the permission name but you may change it to
+				//				"Webpush" or "Push Notification"
+				{_("Request “Push” Access?"), false},
+				// translators: dialog subtitle shown when the user is trying to enable
+				//				UnifiedPush but don't have the required permission to.
+				//				"Reauthenticate" = "Re-login", "Login again"...
+				//				The user will be forced to go through the same process
+				//				as when adding their account for the first time if they
+				//				continue. Please leave "UnifiedPush" as is, as it's a
+				//				brand name. The variable is the app name (Tuba).
+				{_("You'll have to reauthenticate %s to use UnifiedPush.").printf (Build.NAME), false},
+				this,
+				{
+					// translators: dialog button shown when the user is trying to enable
+					//				UnifiedPush but don't have the required permission to.
+					//				and Tuba is asking them if they want to re-login. Please
+					//				use the same verb used in the dialog title "Request
+					//				“Push” Access?"
+					{ _("Request"), Adw.ResponseAppearance.SUGGESTED },
+					{ _("Cancel"), Adw.ResponseAppearance.DEFAULT }
+				},
+				null, false
+			);
+
+			if (res == Application.QuestionAnswer.YES)
+				new Dialogs.NewAccount (true, accounts.active).present ();
+		}
+
+		private void on_up_registration_failed (bool should_reauth) {
 			up_row.notify["active"].disconnect (unifiedpush_changed);
 			up_row.active = false;
 			up_row.notify["active"].connect (unifiedpush_changed);
+
+			if (should_reauth) unifiedpush_ask_reauth_for_push_scope.begin ();
 		}
 	#endif
 
@@ -326,6 +332,16 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		setup_filters.begin ();
 		bind ();
 		closed.connect (on_window_closed);
+		app.toast.connect (app_sent_toast);
+	}
+
+	private void app_sent_toast (string content, uint timeout = 0, string? action_name = null, GLib.Variant? action_target = null, string? action_label = null) {
+		this.add_toast (new Adw.Toast (content) {
+			timeout = timeout,
+			action_name = action_name,
+			action_target = action_target,
+			button_label = action_label
+		});
 	}
 
 	private async void setup_filters () {
