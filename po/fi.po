@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-10 15:24+0300\n"
-"PO-Revision-Date: 2026-07-31 21:42+0000\n"
-"Last-Translator: Anonymous <anonymous@noreply.codeberg.org>\n"
-"Language-Team: Finnish <https://translate.codeberg.org/projects/tuba/tuba/fi/"
-">\n"
+"PO-Revision-Date: 2026-08-20 07:26+0000\n"
+"Last-Translator: artnay <artnay@noreply.codeberg.org>\n"
+"Language-Team: Finnish <https://translate.codeberg.org/projects/tuba/tuba/"
+"fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.1\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -77,17 +77,13 @@ msgstr "Viestin kirjoitus"
 
 #. translators: app store image description
 #: data/dev.geopjr.Tuba.metainfo.xml.in:47
-#, fuzzy
-#| msgid "Profile"
 msgid "Profile View"
-msgstr "Profiili"
+msgstr "Profiilinäkymä"
 
 #. translators: app store image description
 #: data/dev.geopjr.Tuba.metainfo.xml.in:57
-#, fuzzy
-#| msgid "Schedule Post"
 msgid "Schedule Post Dialog"
-msgstr "Ajasta viesti"
+msgstr "Julkaisun ajastaminen"
 
 #. translators: app store image description
 #. translators: as in posts set to be posted sometime in the future
@@ -98,10 +94,8 @@ msgstr "Ajastetut viestit"
 
 #. translators: app store image description
 #: data/dev.geopjr.Tuba.metainfo.xml.in:67
-#, fuzzy
-#| msgid "Search"
 msgid "Search View"
-msgstr "Etsi"
+msgstr "Hakunäkymä"
 
 #. translators: settings row on setting the pre-selected post privacy of the composer
 #: data/dev.geopjr.Tuba.gschema.xml:12 data/ui/dialogs/preferences.ui:185
@@ -165,12 +159,12 @@ msgstr ""
 #. translators: leave it as is; brand/software/protocol name
 #: data/dev.geopjr.Tuba.gschema.xml:63
 msgid "UnifiedPush"
-msgstr ""
+msgstr "UnifiedPush"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:65
 msgid "Whether account has enabled UnifiedPush"
-msgstr ""
+msgstr "Onko käyttäjä ottanut UnifiedPushin käyttöön"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:73
@@ -381,6 +375,8 @@ msgstr ""
 #: data/dev.geopjr.Tuba.gschema.xml:186 data/ui/dialogs/preferences.ui:152
 msgid "Warn before boosting a post that includes attachments without alt text"
 msgstr ""
+"Varoita, ennen kuin tehostetaan julkaisua, joka sisältää liitteitä ilman "
+"vaihtoehtoista tekstiä"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:188
@@ -388,11 +384,13 @@ msgid ""
 "Before boosting a post that has attachments without alt text, Tuba will warn "
 "you"
 msgstr ""
+"Tuba varoittaa sinua, ennen kuin tehostetaan julkaisua, joka sisältää "
+"liitteitä ilman vaihtoehtoista tekstiä"
 
 #. translators: setting that when enabled will show the user a warning before fetching attachments from a remote instance
 #: data/dev.geopjr.Tuba.gschema.xml:192 data/ui/dialogs/preferences.ui:158
 msgid "Warn before fetching media from remote servers"
-msgstr ""
+msgstr "Varoita ennen median noutamista etäpalvelimilta"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:194
@@ -468,10 +466,8 @@ msgstr "Ilmoitukset, kuten suosikit ja tehostukset, ovat vähemmän näkyviä"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:230
-#, fuzzy
-#| msgid "Sensitive Media"
 msgid "Blur Sensitive Media"
-msgstr "Arkaluonteinen media"
+msgstr "Sumenna arkaluonteinen media"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:232
@@ -682,7 +678,7 @@ msgstr "Virkistä"
 #: src/Views/Search.vala:93 src/Views/Search.vala:95
 #: src/Widgets/CustomEmojiChooserV2.vala:298
 msgid "Search"
-msgstr "Etsi"
+msgstr "Hae"
 
 #. translators: shortcut description; as in go to the previous page/view
 #: data/gtk/shortcuts-dialog.ui:36 data/ui/views/media_viewer.ui:54
@@ -815,10 +811,8 @@ msgstr "Käyttäjältä"
 
 #. translators: tooltip text for a button in the 'advanced search' window. It opens a popover that allows users to search for hashtags.
 #: data/ui/dialogs/advanced_search.ui:89
-#, fuzzy
-#| msgid "Switch Account"
 msgid "Search Accounts"
-msgstr "Vaihda tiliä"
+msgstr "Etsi tilejä"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:101
@@ -1193,14 +1187,12 @@ msgstr "Suurentaa hieman mukautettujen emojien kokoa, kun hiiri on kohdistettu"
 #. translators: setting that shows a scale for the user to set the font size
 #: data/ui/dialogs/preferences.ui:61
 msgid "Font Size"
-msgstr ""
+msgstr "Fontin koko"
 
 #. translators: setting subtitle on what font size changing entails; make sure it's clear only the font size of the posts changes, not the whole UI
 #: data/ui/dialogs/preferences.ui:63
-#, fuzzy
-#| msgid "Increase the size of text in posts"
 msgid "Set the text size used in posts"
-msgstr "Suurenna tekstin kokoa viesteissä"
+msgstr "Aseta julkaisuissa käytettävän tekstin koko"
 
 #. translators: noun, plural
 #: data/ui/dialogs/preferences.ui:77 src/Views/Explore.vala:7
@@ -1223,10 +1215,8 @@ msgstr "Viestien lähettäminen"
 
 #. translators: settings row on setting the mastodon quote policy
 #: data/ui/dialogs/preferences.ui:195
-#, fuzzy
-#| msgid "Default Post Visibility"
 msgid "Default Quote Policy"
-msgstr "Viestien oletusnäkyvyys"
+msgstr "Lainausten oletuskäytäntö"
 
 #. translators: settings row on setting the pre-selected post language of the composer
 #: data/ui/dialogs/preferences.ui:202
@@ -1307,17 +1297,13 @@ msgstr "Muokkaukset"
 #. translators: notification type
 #. translators: title for a list of quotes of a post, shown under "View Stats"
 #: data/ui/dialogs/preferences.ui:358 src/Views/StatusStats.vala:40
-#, fuzzy
-#| msgid "Quote"
 msgid "Quotes"
-msgstr "Lainaa"
+msgstr "Lainaukset"
 
 #. translators: notification type
 #: data/ui/dialogs/preferences.ui:365
-#, fuzzy
-#| msgid "Post Edits"
 msgid "Quote Edits"
-msgstr "Viestin muokkaukset"
+msgstr "Lainausten muokkaukset"
 
 #. translators: setting that when enabled groups similar push notifications together; as a verb; you may change it to "Group Notifications"
 #: data/ui/dialogs/preferences.ui:372
@@ -1379,10 +1365,8 @@ msgstr "Otsakekuvan kuvaus"
 
 #. translators: group title in the profile edit dialog, tabs in the user's profile (featured, posts, replies, media)
 #: data/ui/dialogs/profile_edit.ui:189
-#, fuzzy
-#| msgid "Profiles"
 msgid "Profile Tabs"
-msgstr "Profiilit"
+msgstr "Profiilin välilehdet"
 
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/profile_edit.ui:193 src/Widgets/ProfileFilterGroup.vala:48
@@ -1392,17 +1376,18 @@ msgstr "Suositeltu"
 #. translators: switch row subtitle in profile edit dialog; explains what the 'Featured' tab does
 #: data/ui/dialogs/profile_edit.ui:195
 msgid "Optional tab where you can showcase other accounts"
-msgstr ""
+msgstr "Valinnainen välilehti, jossa voit esitellä muita tilejä"
 
 #. translators: switch row subtitle in profile edit dialog; explains what the 'Media' tab does
 #: data/ui/dialogs/profile_edit.ui:203
 msgid "Optional tab that shows your posts containing images or videos"
 msgstr ""
+"Valinnainen välilehti, josta näkyy kuvia ja videoita sisältävät julkaisusi"
 
 #. translators: switch row title in the profile edit dialog; when enabled it will include replies that include media in the "media" tab (e.g. if you replied with a gif to someone, it will show in your media tab)
 #: data/ui/dialogs/profile_edit.ui:210
 msgid "Include replies on the Media tab"
-msgstr ""
+msgstr "Sisällytä vastaukset Media-välilehdelle"
 
 #. translators: switch row subtitle in profile edit dialog; explains what the 'Include replies on the Media tab' setting does
 #: data/ui/dialogs/profile_edit.ui:212
@@ -1489,10 +1474,8 @@ msgstr "Profiilin ominaisuus"
 #: data/ui/menus.ui:45 src/Views/Collections.vala:7
 #: src/Views/Collections.vala:99 src/Views/Search.vala:121
 #: src/Views/Sidebar.vala:83
-#, fuzzy
-#| msgid "Reactions"
 msgid "Collections"
-msgstr "Reaktiot"
+msgstr "Kokoelmat"
 
 #. translators: headerbar menu item that edits the private note of the profile it's on
 #: data/ui/menus.ui:51
@@ -1950,21 +1933,20 @@ msgstr "Katselmoi vuoden kohokohdat ja mieleenpainuvat tilanteet Fediversessä!"
 #. translators: notification title of a Mastodon Collections related event
 #: src/API/Notification.vala:177
 msgid "You were added to a collection"
-msgstr ""
+msgstr "Sinut lisättiin kokoelmaan"
 
 #. translators: notification title of a Mastodon Collections related event
 #: src/API/Notification.vala:190
 msgid "A collection you are a part of was edited"
-msgstr ""
+msgstr "Kokoelmaa, jossa olet osana, muokattiin"
 
 #. translators: notification title when Tuba receives a notification it
 #. can't handle yet. The variable is the string notification
 #. type.
 #: src/API/Notification.vala:202
-#, fuzzy, c-format
-#| msgid "Couldn't Mute Conversation: %s"
+#, c-format
 msgid "Unknown notification type: %s"
-msgstr "Keskustelua ei voitu mykistää: %s"
+msgstr "Tuntematon ilmoitustyyppi: %s"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -2094,10 +2076,8 @@ msgstr "Jos jatkat, %s yhdistää osoitteeseen \"%s\"."
 
 #. translators: quote policy title, who can quote a post
 #: src/API/Status.vala:367
-#, fuzzy
-#| msgid "Nobody"
 msgid "Anybody"
-msgstr "Ei kenellekään"
+msgstr "Kuka tahansa"
 
 #. translators: quote policy title, who can quote a post
 #. translators: post visibility label
@@ -2107,29 +2087,23 @@ msgstr "Vain seuraajat"
 
 #. translators: quote policy title, who can quote a post
 #: src/API/Status.vala:373
-#, fuzzy
-#| msgid "Just now"
 msgid "Just Me"
-msgstr "Juuri nyt"
+msgstr "Vain minä"
 
 #. translators: quote policy subtitle, when Anybody can quote
 #: src/API/Status.vala:381
-#, fuzzy
-#| msgid "%s favorited your post"
 msgid "Everyone can quote your post"
-msgstr "%s asetti viestisi suosikiksi"
+msgstr "Kaikki voivat lainata julkaisujasi"
 
 #. translators: quote policy subtitle, when Followers Only can quote
 #: src/API/Status.vala:384
 msgid "Only your followers can quote your post"
-msgstr ""
+msgstr "Vain seuraajat voivat lainata julkaisujasi"
 
 #. translators: quote policy subtitle, when Just Me can quote
 #: src/API/Status.vala:387
-#, fuzzy
-#| msgid "%s boosted your post"
 msgid "Nobody can quote your post"
-msgstr "%s tehosti viestiäsi"
+msgstr "Kukaan ei voi lainata julkaisujasi"
 
 #. translators: Probably follow Mastodon's translation
 #. post visibility label
@@ -2161,7 +2135,7 @@ msgstr[1] "%d kertaa viikossa"
 
 #: src/Application.vala:87
 msgid "Do not show main window on start"
-msgstr ""
+msgstr "Älä näytä pääikkunaa käynnistyksen yhteydessä"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
@@ -2742,53 +2716,43 @@ msgstr "Tallennettu vuoden %s Wrapped"
 
 #. translators: headerbar button that creates a Mastodon Collection
 #: src/Dialogs/Collections.vala:175 src/Views/Collections.vala:16
-#, fuzzy
-#| msgid "New Follows"
 msgid "New Collection"
-msgstr "Uusia seurauksia"
+msgstr "Uusi kokoelma"
 
 #. translators: Mastodon collection settings page title
 #: src/Dialogs/Collections.vala:178
-#, fuzzy
-#| msgid "Location"
 msgid "Collection"
-msgstr "Sijainti"
+msgstr "Kokoelma"
 
 #. translators: entry row title
 #: src/Dialogs/Collections.vala:184
-#, fuzzy
-#| msgid "List Name"
 msgid "Name"
-msgstr "Listan nimi"
+msgstr "Nimi"
 
 #. translators: entry row title
 #: src/Dialogs/Collections.vala:196
-#, fuzzy
-#| msgctxt "media controls"
-#| msgid "Position"
 msgid "Description"
-msgstr "Sijainti"
+msgstr "Kuvaus"
 
 #. translators: entry row title in Collection creation dialog, it's a hashtag
 #: src/Dialogs/Collections.vala:207
 msgid "Topic"
-msgstr ""
+msgstr "Aihe"
 
 #: src/Dialogs/Collections.vala:218 src/Views/Search.vala:464
 msgid "Language"
 msgstr "Kieli"
 
 #: src/Dialogs/Collections.vala:249
-#, fuzzy
-#| msgid "Boost with Visibility"
 msgid "Visibility"
-msgstr "Tehosta näkyvyydellä"
+msgstr "Näkyvyys"
 
 #. translators: collection visibility checkbox description
 #: src/Dialogs/Collections.vala:265
 msgid ""
 "Discoverable in search results and other areas where recommendations appear."
 msgstr ""
+"Löydettävissä hakutuloksista ja muilta suosituksia sisältäviltä alueilta."
 
 #. translators: collection visibility checkbox description
 #: src/Dialogs/Collections.vala:274
@@ -2796,6 +2760,8 @@ msgid ""
 "Visible to anyone with a link. Hidden from search results and "
 "recommendations."
 msgstr ""
+"Näkyvissä kenelle tahansa, jolla on linkki. Piilotettu hakutuloksista ja "
+"suosituksista."
 
 #. translators: mark an item as sensitive / nsfw
 #: src/Dialogs/Collections.vala:289 src/Views/Drive.vala:248
@@ -2808,13 +2774,13 @@ msgid ""
 "Hides the collection's description and accounts behind a content warning. "
 "The collection name will still be visible."
 msgstr ""
+"Piilottaa kokoelman kuvauksen ja tilit sisältövaroituksen taakse. Kokoelman "
+"nimi pysyy näkyvissä."
 
 #. translators: Dialog title when closing the Collection creation dialog
 #: src/Dialogs/Collections.vala:374
-#, fuzzy
-#| msgid "Create Poll"
 msgid "Create Collection?"
-msgstr "Luo kysely"
+msgstr "Luodaanko kokoelma?"
 
 #. translators: dialog button action, verb
 #: src/Dialogs/Collections.vala:381 src/Dialogs/Composer/Dialog.vala:1645
@@ -2831,19 +2797,18 @@ msgstr "Luo"
 #. translators: error shown when creating a collection with an empty name
 #: src/Dialogs/Collections.vala:409 src/Dialogs/HashtagList.vala:447
 msgid "Name cannot be empty"
-msgstr ""
+msgstr "Nimi ei voi olla tyhjä"
 
 #. translators: collection member list title, the variables are numbers (amount of members/max amount of members)
 #: src/Dialogs/Collections.vala:478
-#, fuzzy, c-format
-#| msgid "Members"
+#, c-format
 msgid "Members (%d/%d)"
-msgstr "Jäsenet"
+msgstr "Jäsenet (%d/%d)"
 
 #. translators: button label, clicking it invites a user to a collection
 #: src/Dialogs/Collections.vala:542
 msgid "Invite"
-msgstr ""
+msgstr "Kutsu"
 
 #. translators: collection invitation acceptance is pending, its a badge shown next to an account
 #. translators: Dropdown entry, account status.
@@ -2863,19 +2828,16 @@ msgid "Remove"
 msgstr "Poista"
 
 #: src/Dialogs/Collection.vala:80
-#, fuzzy, c-format
-#| msgid "Members"
+#, c-format
 msgid "%d Member"
 msgid_plural "%d Members"
-msgstr[0] "Jäsenet"
-msgstr[1] "Jäsenet"
+msgstr[0] "%d jäsen"
+msgstr[1] "%d jäsentä"
 
 #. translators: title of a list of users that created a collection
 #: src/Dialogs/Collection.vala:86
-#, fuzzy
-#| msgid "Create"
 msgid "Created By"
-msgstr "Luo"
+msgstr "Luonut"
 
 #. translators: toast shown when copying a url with the action in the in-app web browser
 #: src/Dialogs/Collection.vala:141 src/Views/Browser.vala:227
@@ -2948,7 +2910,7 @@ msgstr "Muokkaa metatietoja"
 #. a custom thumbnail for the video it's on
 #: src/Dialogs/Composer/Attachment.vala:265
 msgid "Upload Custom Thumbnail"
-msgstr ""
+msgstr "Lähetä mukautettu pienoiskuva"
 
 #. translators: aria label on composer media attachments
 #: src/Dialogs/Composer/Attachment.vala:326
@@ -2972,7 +2934,7 @@ msgstr "Liitteen lähetys valmistui"
 #. thumbnail for a video in the composer
 #: src/Dialogs/Composer/Attachment.vala:555
 msgid "Successfully uploaded custom thumbnail"
-msgstr ""
+msgstr "Mukautettu pienoiskuva lähetetty"
 
 #. translators: aria label on composer media attachments. The variable is a string file name.
 #: src/Dialogs/Composer/Attachment.vala:756
@@ -3000,10 +2962,8 @@ msgstr "Ajasta viesti…"
 
 #. translators: plural of "Drafted Posts"; you may change it to "Drafted Posts…"; entry in composer post menu; opens a list of all draft posts
 #: src/Dialogs/Composer/Dialog.vala:69 src/Dialogs/Composer/Dialog.vala:107
-#, fuzzy
-#| msgid "Draft"
 msgid "Drafts…"
-msgstr "Luonnos"
+msgstr "Luonnokset…"
 
 #. translators: screen reader announcement when the composer
 #. passed the character limit. The variable is
@@ -3032,10 +2992,8 @@ msgstr "Viestin kieli"
 #. translators: quote policy menu in post menus. You may translate it as
 #. "quote privacy"
 #: src/Dialogs/Composer/Dialog.vala:473 src/Widgets/Status.vala:433
-#, fuzzy
-#| msgid "Quoted Post"
 msgid "Quote Policy"
-msgstr "Lainattu viesti"
+msgstr "Lainauskäytäntö"
 
 #. translators: tooltip button on composer dialog headerbar button
 #. that makes the post visible only on the current
@@ -3117,19 +3075,16 @@ msgstr "Muokkaa viestiä"
 #. translators: dialog title shown when the user pastes a post url in the composer;
 #. the variable is a uri string of a quote
 #: src/Dialogs/Composer/Dialog.vala:1162
-#, fuzzy, c-format
-#| msgid "Quote"
+#, c-format
 msgid "Quote %s?"
-msgstr "Lainaa"
+msgstr "Lainataanko %s?"
 
 #. translators: in the composer, inside a quote post, top right button
 #. with a trash can icon that when clicked removes the
 #. quote; tooltip text
 #: src/Dialogs/Composer/Dialog.vala:1208
-#, fuzzy
-#| msgid "Remove"
 msgid "Remove Quote"
-msgstr "Poista"
+msgstr "Poista lainaus"
 
 #. translators: media as in picture or files
 #: src/Dialogs/Composer/Dialog.vala:1277
@@ -3149,35 +3104,28 @@ msgstr "Liitä"
 #. translators: Dialog title when replacing the current
 #. composer data with those of a draft
 #: src/Dialogs/Composer/Dialog.vala:1323
-#, fuzzy
-#| msgid "Delete Draft Post?"
 msgid "Replace Current Post?"
-msgstr "Poistetaanko luonnosviesti?"
+msgstr "Korvataanko nykyinen julkaisu?"
 
 #. translators: Dialog body when replacing the current
 #. composer data with those of a draft.
 #. This means that the post the user was
 #. typing in the composer will be replaced.
 #: src/Dialogs/Composer/Dialog.vala:1329
-#, fuzzy
-#| msgid "Your progress will be lost."
 msgid "Your current post will be lost."
-msgstr "Tiedot katoavat."
+msgstr "Nykyinen julkaisusi katoaa."
 
 #. translators: dialog button action, verb; replacing current
 #. composer data with those of a draft
 #: src/Dialogs/Composer/Dialog.vala:1333
-#, fuzzy
-#| msgid "Replies"
 msgid "Replace"
-msgstr "Vastaukset"
+msgstr "Korvaa"
 
 #. translators: error taost; the variable is a string error message
 #: src/Dialogs/Composer/Dialog.vala:1586
-#, fuzzy, c-format
-#| msgid "Couldn't reschedule: %s"
+#, c-format
 msgid "Couldn't delete scheduled post: %s"
-msgstr "Ei voitu ajastaa uudelleen: %s"
+msgstr "Ajastettua julkaisua ei voitu poistaa: %s"
 
 #. translators: Dialog title when closing the composer
 #: src/Dialogs/Composer/Dialog.vala:1635
@@ -3333,27 +3281,24 @@ msgstr "Suodatinta ei voitu muokata: %s"
 #. a popover that allows the user to
 #. search for and pick a hashtag
 #: src/Dialogs/HashtagList.vala:288
-#, fuzzy
-#| msgid "Hashtags"
 msgid "Add Hashtag"
-msgstr "Aihetunnisteet"
+msgstr "Lisää aihetunniste"
 
 #. translators: dialog title that creates a list of hashtags
 #: src/Dialogs/HashtagList.vala:353 src/Dialogs/HashtagList.vala:361
-#, fuzzy
-#| msgid "Hashtags"
 msgid "Hashtag List"
-msgstr "Aihetunnisteet"
+msgstr "Aihetunnistelista"
 
 #. translators: title on hashtags list group, "Any hashtags"
 #: src/Dialogs/HashtagList.vala:374
 msgid "Any"
-msgstr ""
+msgstr "Mikä tahansa"
 
 #. translators: description on hashtags list group, above a list of hashtags
 #: src/Dialogs/HashtagList.vala:376
 msgid "Include posts that contain any of these tags."
 msgstr ""
+"Sisällytä julkaisut, jotka sisältävät minkä tahansa näistä aihetunnisteista."
 
 #. translators: as in All search results
 #: src/Dialogs/HashtagList.vala:383 src/Views/Admin/Pages/Accounts.vala:68
@@ -3364,23 +3309,23 @@ msgstr "Kaikki"
 #. translators: description on hashtags list group, above a list of hashtags
 #: src/Dialogs/HashtagList.vala:385
 msgid "Include posts that contain all of these tags."
-msgstr ""
+msgstr "Sisällytä julkaisut, jotka sisältävät kaikki nämä aihetunnisteet."
 
 #. translators: description on hashtags list group, above a list of hashtags
 #: src/Dialogs/HashtagList.vala:394
 msgid "Don't include posts that contain any of these tags."
 msgstr ""
+"Älä sisällytä julkaisuja, jotka sisältävät minkä tahansa näistä "
+"aihetunnisteista."
 
 #. translators: Dialog title when closing the Hashtag List creation dialog
 #: src/Dialogs/HashtagList.vala:418
 msgid "Create Hashtag List?"
-msgstr ""
+msgstr "Luodaanko aihetunnistelista?"
 
 #: src/Dialogs/HashtagList.vala:418
-#, fuzzy
-#| msgid "No Hashtags"
 msgid "Save Hashtag List?"
-msgstr "Ei aihetunnisteita"
+msgstr "Tallennetaanko aihetunnistelista?"
 
 #. translators: error shown when trying to create a hashtag list while the "Any" and "All" lists
 #. are empty at the same time (one of them needs to have at least 1 item)
@@ -3391,18 +3336,16 @@ msgstr ""
 #. translators: error toast when tuba cant gather the members of a list;
 #. the variable is a string error message
 #: src/Dialogs/ListEdit.vala:155
-#, fuzzy, c-format
-#| msgid "Couldn't reschedule: %s"
+#, c-format
 msgid "Couldn't fetch members: %s"
-msgstr "Ei voitu ajastaa uudelleen: %s"
+msgstr "Jäseniä ei voitu noutaa: %s"
 
 #. translators: error toast when tuba cant save a list;
 #. the variable is a string error message
 #: src/Dialogs/ListEdit.vala:199 src/Dialogs/ListEdit.vala:222
-#, fuzzy, c-format
-#| msgid "Couldn't move '%s': %s"
+#, c-format
 msgid "Couldn't save list: %s"
-msgstr "Ei voitu siirtää '%s': %s"
+msgstr "Listaa ei voitu tallentaa: %s"
 
 #: src/Dialogs/MainWindow.vala:86
 #: src/Services/Accounts/Mastodon/Account.vala:20 src/Views/Home.vala:11
@@ -3471,10 +3414,9 @@ msgstr "Seuraa"
 #. translators: error toast when tuba cant update the user's notification settings;
 #. the variable is a string error message
 #: src/Dialogs/NotificationSettings.vala:131
-#, fuzzy, c-format
-#| msgid "Couldn't Mute Conversation: %s"
+#, c-format
 msgid "Couldn't save notification settings: %s"
-msgstr "Keskustelua ei voitu mykistää: %s"
+msgstr "Ilmoitusasetuksia ei voitu tallentaa: %s"
 
 #. translators: dialog title for the user to confirm if they want to remove all their notifications
 #: src/Dialogs/NotificationSettings.vala:146
@@ -3505,10 +3447,9 @@ msgid "Couldn't delete filter: %s"
 msgstr "Suodatinta ei voitu poistaa: %s"
 
 #: src/Dialogs/Preferences.vala:201
-#, fuzzy, c-format
-#| msgid "Couldn't Mute Conversation: %s"
+#, c-format
 msgid "Couldn't update notification types: %s"
-msgstr "Keskustelua ei voitu mykistää: %s"
+msgstr "Ilmoitustyyppejä ei voitu päivittää: %s"
 
 #. translators: dialog title shown when the user is trying to enable
 #. UnifiedPush but don't have the required permission to.
@@ -3546,7 +3487,7 @@ msgstr "Seuraamispyynnöt"
 #. it's not possible to.
 #: src/Dialogs/Preferences.vala:288
 msgid "No UnifiedPush distributors available"
-msgstr ""
+msgstr "UnifiedPush-jakelijoita ei ole saatavilla"
 
 #. translators: button in settings that opens the filter editor dialog page
 #: src/Dialogs/Preferences.vala:327
@@ -3556,25 +3497,22 @@ msgstr "Lisää suodatin…"
 #. translators: error toast when tuba cant fetch the user's filters;
 #. the variable is a string error message
 #: src/Dialogs/Preferences.vala:349
-#, fuzzy, c-format
-#| msgid "Couldn't delete filter: %s"
+#, c-format
 msgid "Couldn't retrieve filters: %s"
-msgstr "Suodatinta ei voitu poistaa: %s"
+msgstr "Suodattimia ei voitu noutaa: %s"
 
 #. translators: error toast when tuba cant update the user's locale;
 #. the variable is a string error message
 #: src/Dialogs/Preferences.vala:542
-#, fuzzy, c-format
-#| msgid "Couldn't translate: %s"
+#, c-format
 msgid "Couldn't update language: %s"
-msgstr "Ei voitu kääntää: %s"
+msgstr "Kieltä ei voitu päivittää: %s"
 
 #. translators: toast shown when changing the default post visibility in settings fails
 #: src/Dialogs/Preferences.vala:555
-#, fuzzy, c-format
-#| msgid "Couldn't delete filter: %s"
+#, c-format
 msgid "Couldn't update visibility: %s"
-msgstr "Suodatinta ei voitu poistaa: %s"
+msgstr "Näkyvyyttä ei voitu päivittää: %s"
 
 #: src/Dialogs/Preferences.vala:604
 msgid "Analytics Preview"
@@ -3699,10 +3637,8 @@ msgstr "Raportoidaan %s"
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting collections
 #: src/Dialogs/Report.vala:145
-#, fuzzy
-#| msgid "Tell us what's going on with this account"
 msgid "Tell us what's going on with this collection"
-msgstr "Kerro mikä tässä tilissä on ongelma"
+msgstr "Kerro mikä tässä kokoelmassa on ongelma"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
@@ -3932,18 +3868,16 @@ msgstr "%s reagoi viestiisi emojilla %s"
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:549
-#, fuzzy, c-format
-#| msgid "%s boosted your post"
+#, c-format
 msgid "%s quoted your post"
-msgstr "%s tehosti viestiäsi"
+msgstr "%s lainasi julkaisuasi"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:558
-#, fuzzy, c-format
-#| msgid "%s edited a post"
+#, c-format
 msgid "%s edited a post you have quoted"
-msgstr "%s muokkasi viestiä"
+msgstr "%s muokkasi julkaisua, jota olet lainannut"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications;
@@ -3952,7 +3886,7 @@ msgstr "%s muokkasi viestiä"
 #: src/Services/Accounts/InstanceAccount.vala:569
 #, c-format
 msgid "%s added you to a collection"
-msgstr ""
+msgstr "%s lisäsi sinut kokoelmaan"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications;
@@ -3961,7 +3895,7 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:580
 #, c-format
 msgid "%s edited a collection you are in"
-msgstr ""
+msgstr "%s muokkasi kokoelmaa, jossa olet osana"
 
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:619
@@ -4022,8 +3956,7 @@ msgstr "Ilmoitus lähetettiin eri tilille"
 
 #. translators: The variable is "Fediverse" or a backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:269
-#, fuzzy, c-format
-#| msgid "%s Account"
+#, c-format
 msgctxt "system"
 msgid "%s Account"
 msgstr "%s-tili"
@@ -4526,9 +4459,6 @@ msgstr "Suojaamaton"
 
 #. translators: in-app browser menu item, stops the current loading process
 #: src/Views/Browser.vala:187
-#, fuzzy
-#| msgctxt "media controls tooltip"
-#| msgid "Stop"
 msgid "Stop"
 msgstr "Pysäytä"
 
@@ -4539,25 +4469,19 @@ msgstr "Eteenpäin"
 
 #. translators: 'Collections' is a Mastodon feature; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Views/Collections.vala:24
-#, fuzzy
-#| msgid "No Reactions"
 msgid "Your Collections"
-msgstr "Ei reaktioita"
+msgstr "Omat kokoelmat"
 
 #. translators: 'Collections' is a Mastodon feature; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Views/Collections.vala:27 src/Views/Collections.vala:34
 #: src/Views/Collections.vala:101
-#, fuzzy
-#| msgid "No Reactions"
 msgid "No Collections"
-msgstr "Ei reaktioita"
+msgstr "Ei kokoelmia"
 
 #. tab title under Collections, aka "Collections Featuring You"
 #: src/Views/Collections.vala:32
-#, fuzzy
-#| msgid "For You"
 msgid "Featuring You"
-msgstr "Sinulle"
+msgstr "Sinä mukana"
 
 #. translators: empty state label
 #: src/Views/Conversations.vala:9
@@ -4771,10 +4695,8 @@ msgstr "Ei seurantapyyntöjä"
 
 #. translators: headerbar button tooltip, creates a list of hashtags
 #: src/Views/Hashtags.vala:47
-#, fuzzy
-#| msgid "No Hashtags"
 msgid "New Hashtag List"
-msgstr "Ei aihetunnisteita"
+msgstr "Uusi aihetunnistelista"
 
 #: src/Views/Hashtags.vala:98 src/Views/Lists.vala:55
 #: src/Widgets/Status/ActionsRow.vala:199
@@ -4815,17 +4737,15 @@ msgstr "Tätä toimintoa ei voi kumota."
 
 #. translators: error toast; the variable is a string error message
 #: src/Views/Lists.vala:154
-#, fuzzy, c-format
-#| msgid "Couldn't delete filter: %s"
+#, c-format
 msgid "Couldn't delete list: %s"
-msgstr "Suodatinta ei voitu poistaa: %s"
+msgstr "Listaa ei voitu poistaa: %s"
 
 #. translators: error toast; variable is a string error message
 #: src/Views/Lists.vala:216
-#, fuzzy, c-format
-#| msgid "Couldn't create folder: %s"
+#, c-format
 msgid "Couldn't create list: %s"
-msgstr "Kansiota ei voitu luoda: %s"
+msgstr "Listaa ei voitu luoda: %s"
 
 #. translators: placeholder text inside an entry where users will
 #. type the name of a list they're about to make
@@ -4942,7 +4862,7 @@ msgstr "Ei viestejä"
 #. translators: profile tab, when information (followers/following lists) is hidden.
 #: src/Views/Profile.vala:408 src/Views/Profile.vala:415
 msgid "This user has chosen to not make this information available"
-msgstr ""
+msgstr "Käyttäjä on päättänyt olla tekemättä tästä tiedosta julkista"
 
 #. translators: followers tab on profiles, shown when empty.
 #: src/Views/Profile.vala:410
@@ -4987,10 +4907,9 @@ msgstr ""
 
 #. translators: error toast, variable is a string error message
 #: src/Views/Profile.vala:558
-#, fuzzy, c-format
-#| msgid "Couldn't Mute Conversation: %s"
+#, c-format
 msgid "Couldn't block domain: %s"
-msgstr "Keskustelua ei voitu mykistää: %s"
+msgstr "Verkkotunnusta ei voitu estää: %s"
 
 #: src/Views/Profile.vala:613
 msgid "Copied handle to clipboard"
@@ -5086,10 +5005,8 @@ msgid "Favorited By"
 msgstr "Lisännyt suosikkeihin"
 
 #: src/Views/StatusStats.vala:44
-#, fuzzy
-#| msgid "Quote"
 msgid "No Quotes"
-msgstr "Lainaa"
+msgstr "Ei lainauksia"
 
 #. translators: title for a list of people that have reacted to a post, shown under "View Stats".
 #. A reaction is not the same as a favorite or a boost,
@@ -5123,10 +5040,8 @@ msgstr "Piilota juonipaljastukset"
 #. next to it will be a button that allows them to
 #. load the new replies
 #: src/Views/Thread.vala:365
-#, fuzzy
-#| msgid "New list title"
 msgid "New Replies Available"
-msgstr "Uuden listan nimi"
+msgstr "Uusia vastauksia saatavilla"
 
 #. translators: error title
 #: src/Views/Timeline.vala:370 src/Widgets/Status/ActionsRow.vala:508
@@ -5316,10 +5231,8 @@ msgstr "Tallennettu media"
 
 #. translators: label on toast shown when downloading an attachment that opens the folder containing the file
 #: src/Widgets/Attachment/Item.vala:53
-#, fuzzy
-#| msgid "New Folder"
 msgid "Open Folder"
-msgstr "Uusi kansio"
+msgstr "Avaa kansio"
 
 #. translators: error toast
 #: src/Widgets/Attachment/Item.vala:57
@@ -5352,40 +5265,33 @@ msgstr "kirjoittanut %s"
 
 #. translators: error message when failing to fetch mastodon collection images
 #: src/Widgets/Collection.vala:105
-#, fuzzy, c-format
-#| msgid "Couldn't fetch all user's posts"
+#, c-format
 msgid "Couldn't fetch collection images: %s"
-msgstr "Kaikkia käyttäjän viestejä ei voitu noutaa"
+msgstr "Kokoelmakuvia ei voitu noutaa: %s"
 
 #. translators: question dialog title when removing yourself from a Collection; the variable is the collection name string
 #: src/Widgets/Collection.vala:148
-#, fuzzy, c-format
-#| msgid "Remove \"%s\" from \"%s\""
+#, c-format
 msgid "Remove yourself from \"%s\"?"
-msgstr "Poista \"%s\" listalta \"%s\""
+msgstr "Haluatko poistaa itsesi kokoelmasta \"%s\"?"
 
 #. translators: menu item, remove myself from mastodon collection
 #: src/Widgets/Collection.vala:263
-#, fuzzy
-#| msgid "Remove Members"
 msgid "Remove Myself"
-msgstr "Poista jäsenet"
+msgstr "Poista minut"
 
 #. translators: block mastodon collection author, menu item
 #: src/Widgets/Collection.vala:266
-#, fuzzy
-#| msgid "Blocks you"
 msgid "Block Author"
-msgstr "Estää sinut"
+msgstr "Estä tekijä"
 
 #. translators: amount of accounts in a collection, variable is a number
 #: src/Widgets/Collection.vala:287
-#, fuzzy, c-format
-#| msgid "%s Account"
+#, c-format
 msgid "%s Account"
 msgid_plural "%s Accounts"
-msgstr[0] "%s-tili"
-msgstr[1] "%s-tili"
+msgstr[0] "%s tili"
+msgstr[1] "%s tiliä"
 
 #. translators: the variable is a user name. This is shown on
 #. preview cards of articles from 'verified' fedi authors.
@@ -5400,10 +5306,8 @@ msgstr "Tekijä %s"
 #. translators: custom emoji chooser, back button tooltip text; clicking it
 #. takes you to the list of custom emoji categories
 #: src/Widgets/CustomEmojiChooserV2.vala:135
-#, fuzzy
-#| msgid "Category"
 msgid "Categories"
-msgstr "Luokka"
+msgstr "Luokat"
 
 #: src/Widgets/CustomEmojiChooserV2.vala:242
 #: src/Widgets/CustomEmojiChooserV2.vala:309
@@ -5511,7 +5415,7 @@ msgstr[1] "Sisältää %d kenttää."
 #. translators: note shown on profiles that have been memorialized
 #: src/Widgets/ProfileCover.vala:470
 msgid "In Memoriam"
-msgstr ""
+msgstr "Muistoissamme"
 
 #. translators: Button label shown when a user has moved to another instance.
 #. The first variable is this account's handle while the second
@@ -5559,7 +5463,7 @@ msgstr "Ajasta uudelleen"
 #. "To Draft" or "Draft" (verb) are alternatives
 #: src/Widgets/ScheduledStatus.vala:77
 msgid "Convert into a draft"
-msgstr ""
+msgstr "Muunna luonnokseksi"
 
 #. translators: Scheduled Post title, 'scheduled for <date>'
 #: src/Widgets/ScheduledStatus.vala:164
@@ -5603,10 +5507,8 @@ msgstr "Tätä viestiä ei voi tehostaa"
 
 #. translators: tooltip text when the quote button is disabled
 #: src/Widgets/Status/ActionsRow.vala:78
-#, fuzzy
-#| msgid "This post can't be boosted"
 msgid "This post can't be quoted"
-msgstr "Tätä viestiä ei voi tehostaa"
+msgstr "Tätä julkaisua ei voi lainata"
 
 #. translators: verb, bookmark a post
 #: src/Widgets/Status/ActionsRow.vala:219
@@ -5629,7 +5531,7 @@ msgstr "Voit silti vastata, mutta se ei välttämättä ole enää oleellista."
 #. translators: title of dialog shown when trying to boost a post that has attachments without alt text
 #: src/Widgets/Status/ActionsRow.vala:329
 msgid "This post includes attachments without alt text"
-msgstr ""
+msgstr "Tämä julkaisu sisältää liitteitä ilman vaihtoehtoista tekstiä"
 
 #. translators: subtitle of dialog shown when trying to boost a post that has attachments without alt text;
 #. "it" refers to "this post" (mentioned in the dialog title); "parse" as in read/grasp/understand it
@@ -5712,7 +5614,7 @@ msgstr "Viestin osoite kopioitu leikepöydälle"
 #. from someone else's quote
 #: src/Widgets/Status.vala:637
 msgid "Remove your post from the quote?"
-msgstr ""
+msgstr "Poistetaanko julkaisusi lainauksesta?"
 
 #. translators: dialog title asking the user to confirm if they really want to remove a post
 #: src/Widgets/Status.vala:659
@@ -5840,7 +5742,7 @@ msgstr "Lähetetty sovelluksella %s."
 #: src/Widgets/Status.vala:1161
 #, c-format
 msgid "Post stats: %s, %s, %s, %s."
-msgstr ""
+msgstr "Julkaisun tilastot: %s, %s, %s, %s."
 
 #. translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
 #. the variable is a string representation of the amount of replies
@@ -5863,12 +5765,11 @@ msgstr[1] "%s tehostusta"
 #. translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
 #. the variable is a string representation of the amount of quotes
 #: src/Widgets/Status.vala:1179
-#, fuzzy, c-format
-#| msgid "Quote"
+#, c-format
 msgid "%s quote"
 msgid_plural "%s quotes"
-msgstr[0] "Lainaa"
-msgstr[1] "Lainaa"
+msgstr[0] "%s lainaus"
+msgstr[1] "%s lainausta"
 
 #. translators: This is an accessibility label. Screen reader users are going to hear this a lot, please be mindful;
 #. the variable is a string representation of the amount of favorites
@@ -5903,7 +5804,7 @@ msgstr "Suodatettu"
 #. should never be visible to users
 #: src/Widgets/Status.vala:1303
 msgid "Quote is hidden"
-msgstr ""
+msgstr "Lainaus on piilotettu"
 
 #. translators: label shown when the quote is hidden
 #. inside a post for the described reason;
@@ -5912,7 +5813,7 @@ msgstr ""
 #: src/Widgets/Status.vala:1311 src/Widgets/Status.vala:1314
 #, c-format
 msgid "This quote is hidden because you've blocked %s"
-msgstr ""
+msgstr "Tämä lainaus on piilotettu, koska olet estänyt käyttäjän %s"
 
 #. translators: label shown when the quote is hidden
 #. inside a post for the described reason;
@@ -5920,7 +5821,7 @@ msgstr ""
 #: src/Widgets/Status.vala:1320
 #, c-format
 msgid "This quote is hidden because you've muted %s"
-msgstr ""
+msgstr "Tämä lainaus on piilotettu, koska olet mykistänyt käyttäjän %s"
 
 #. translators: label shown when a quote has been hidden
 #. because the user's instance limits the
@@ -5935,7 +5836,7 @@ msgstr ""
 #. inside a post
 #: src/Widgets/Status.vala:1343
 msgid "Quote Unavailable"
-msgstr ""
+msgstr "Lainaus ei saatavilla"
 
 #. translators: label shown when a quote is quoting a post
 #. that we won't display
@@ -5948,16 +5849,14 @@ msgstr "Lainattu viesti"
 #. translators: label shown when the quote can't be displayed
 #. inside a post
 #: src/Widgets/Status.vala:1353
-#, fuzzy
-#| msgid "Pending"
 msgid "Quote Pending"
-msgstr "Odottaa"
+msgstr "Lainaus odottaa"
 
 #. translators: label shown when the quote can't be displayed
 #. inside a post
 #: src/Widgets/Status.vala:1359
 msgid "Quote removed by author"
-msgstr ""
+msgstr "Lainaus poistettu tekijän toimesta"
 
 #. translatiors: the first variable is a language name,
 #. the second variable is a service name e.g. DeepL

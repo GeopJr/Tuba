@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-10 15:24+0300\n"
-"PO-Revision-Date: 2026-08-10 15:41+0000\n"
+"PO-Revision-Date: 2026-08-21 14:26+0000\n"
 "Last-Translator: Łukasz Horodecki <lukasz@horodecki.net>\n"
 "Language-Team: Polish <https://translate.codeberg.org/projects/tuba/tuba/pl/>"
 "\n"
@@ -2097,7 +2097,7 @@ msgstr "Każdy"
 #. translators: post visibility label
 #: src/API/Status.vala:370 src/API/Status.vala:435
 msgid "Followers Only"
-msgstr "Tylko dla obserwujących"
+msgstr "Tylko obserwujący"
 
 #. translators: quote policy title, who can quote a post
 #: src/API/Status.vala:373
@@ -2117,7 +2117,7 @@ msgstr "Tylko osoby cię obserwujące mogą cytować twój wpis"
 #. translators: quote policy subtitle, when Just Me can quote
 #: src/API/Status.vala:387
 msgid "Nobody can quote your post"
-msgstr "Nikt nie może cytować twojego wpisu"
+msgstr "Nikt inny nie może cytować twojego wpisu"
 
 #. translators: Probably follow Mastodon's translation
 #. post visibility label
@@ -3312,7 +3312,7 @@ msgstr "Którekolwiek"
 #. translators: description on hashtags list group, above a list of hashtags
 #: src/Dialogs/HashtagList.vala:376
 msgid "Include posts that contain any of these tags."
-msgstr "Uwzględnij wpisy zawierające którykolwiek z tych hashtagów."
+msgstr "Uwzględnij wpisy zawierające którykolwiek z tych hasztagów."
 
 #. translators: as in All search results
 #: src/Dialogs/HashtagList.vala:383 src/Views/Admin/Pages/Accounts.vala:68
@@ -3323,12 +3323,12 @@ msgstr "Wszystko"
 #. translators: description on hashtags list group, above a list of hashtags
 #: src/Dialogs/HashtagList.vala:385
 msgid "Include posts that contain all of these tags."
-msgstr "Uwzględnij wpisy zawierające wszystkie z tych hashtagów."
+msgstr "Uwzględnij wpisy zawierające wszystkie z tych hasztagów."
 
 #. translators: description on hashtags list group, above a list of hashtags
 #: src/Dialogs/HashtagList.vala:394
 msgid "Don't include posts that contain any of these tags."
-msgstr "Nie uwzględniaj wpisów zawierających którykolwiek z tych tagów."
+msgstr "Nie uwzględniaj wpisów zawierających którykolwiek z tych hasztagów."
 
 #. translators: Dialog title when closing the Hashtag List creation dialog
 #: src/Dialogs/HashtagList.vala:418

@@ -16,16 +16,16 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-10 15:24+0300\n"
-"PO-Revision-Date: 2026-08-05 14:25+0000\n"
-"Last-Translator: dora71 <dora71@noreply.codeberg.org>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/tuba/tuba/de/"
-">\n"
+"PO-Revision-Date: 2026-08-28 19:25+0000\n"
+"Last-Translator: tyrandus <tyrandus@noreply.codeberg.org>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/tuba/tuba/de/>"
+"\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.1\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:3 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -49,7 +49,7 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma & more!"
 msgstr ""
-"Entdecke das föderierte soziale Netz mit Tuba für GNOME. Bleibe mit Deinen "
+"Entdecke das föderierte soziale Netz mit Tuba für GNOME. Bleibe mit deinen "
 "Lieblingscommunitys, Familie und Freunden in Verbindung, mit Unterstützung "
 "beliebter Fediverse-Plattformen wie Mastodon, GoToSocial, Akkoma &amp; mehr!"
 
@@ -71,10 +71,8 @@ msgstr ""
 #. translators: app store image description
 #: data/dev.geopjr.Tuba.metainfo.xml.in:37
 #: data/dev.geopjr.Tuba.metainfo.xml.in:52
-#, fuzzy
-#| msgid "Timeline"
 msgid "Home Timeline"
-msgstr "Chronik"
+msgstr "Startseite Zeitleiste"
 
 #. translators: app store image description
 #. translators: shortcut group description
@@ -166,7 +164,7 @@ msgstr ""
 #. translators: leave it as is; brand/software/protocol name
 #: data/dev.geopjr.Tuba.gschema.xml:63
 msgid "UnifiedPush"
-msgstr ""
+msgstr "UnifiedPush"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:65
@@ -340,7 +338,7 @@ msgstr ""
 #. translators: setting that when enabled reveals attachments that are marked as sensitive by default
 #: data/dev.geopjr.Tuba.gschema.xml:165 data/ui/dialogs/preferences.ui:95
 msgid "Reveal Sensitive Media by Default"
-msgstr ""
+msgstr "Kritische Medien standardmäßig anzeigen"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:170
@@ -390,7 +388,7 @@ msgstr ""
 #. translators: setting that when enabled will show the user a warning before fetching attachments from a remote instance
 #: data/dev.geopjr.Tuba.gschema.xml:192 data/ui/dialogs/preferences.ui:158
 msgid "Warn before fetching media from remote servers"
-msgstr ""
+msgstr "Warnen, bevor Medien von entfernten Servern abgerufen werden"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:194
@@ -517,15 +515,13 @@ msgstr ""
 
 #. translators: setting title that when enabled gathers tuba's donators every 2nd week; supporters = tuba contributors and sponsors
 #: data/dev.geopjr.Tuba.gschema.xml:261 data/ui/dialogs/preferences.ui:279
-#, fuzzy
 msgid "Update Supporters Periodically"
-msgstr "Erneuere Unterstützer regelmäßig"
+msgstr "Liste der Tuba-Unterstützer regelmäßig aktualisieren"
 
 #. translators: setting subtitle of what updating supporters entails; you may replace fetch with update or receive; supporters = tuba contributors and sponsors
 #: data/dev.geopjr.Tuba.gschema.xml:262 data/ui/dialogs/preferences.ui:281
-#, fuzzy
 msgid "Fetch the list of Tuba's supporters biweekly"
-msgstr "Lade die Liste der Unterstützer für Tuba zweiwöchentlich"
+msgstr "Lade die Liste der Tuba-Unterstützer zweiwöchentlich"
 
 #. translators: this string is only shown in dconf, not in the app, you may leave it untranslated
 #: data/dev.geopjr.Tuba.gschema.xml:267
@@ -791,10 +787,8 @@ msgstr "Von Nutzer"
 
 #. translators: tooltip text for a button in the 'advanced search' window. It opens a popover that allows users to search for hashtags.
 #: data/ui/dialogs/advanced_search.ui:89
-#, fuzzy
-#| msgid "Switch Account"
 msgid "Search Accounts"
-msgstr "Konto wechseln"
+msgstr "Konten suchen"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:101
@@ -1038,7 +1032,7 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
-"Wenn du noch kein Account hast, <a href=\"https://joinmastodon.org/"
+"Wenn du noch keinen Account hast, <a href=\"https://joinmastodon.org/"
 "servers\">wähle einen Server aus und registriere einen</a>."
 
 #. translators: entry title where users input their fediverse instance/server url
@@ -1175,10 +1169,8 @@ msgstr "Fontgröße"
 
 #. translators: setting subtitle on what font size changing entails; make sure it's clear only the font size of the posts changes, not the whole UI
 #: data/ui/dialogs/preferences.ui:63
-#, fuzzy
-#| msgid "Increase the size of text in posts"
 msgid "Set the text size used in posts"
-msgstr "Textgröße in Beiträgen erhöhen"
+msgstr "Textgröße in Beiträgen festlegen"
 
 #. translators: noun, plural
 #: data/ui/dialogs/preferences.ui:77 src/Views/Explore.vala:7
@@ -1201,10 +1193,8 @@ msgstr "Veröffentlichen"
 
 #. translators: settings row on setting the mastodon quote policy
 #: data/ui/dialogs/preferences.ui:195
-#, fuzzy
-#| msgid "Default Post Visibility"
 msgid "Default Quote Policy"
-msgstr "Sichtbarkeit neuer Beiträge"
+msgstr "Standardeinstellung zum Zitieren von Beiträgen"
 
 #. translators: settings row on setting the pre-selected post language of the composer
 #: data/ui/dialogs/preferences.ui:202
@@ -1215,14 +1205,13 @@ msgstr "Sprache neuer Beiträge"
 #: data/ui/dialogs/preferences.ui:239
 msgid "This will increase memory usage when browsing high traffic timelines"
 msgstr ""
-"vergrößert den Speicherverbrauch falls Timelines mit hohem Datenaufkommen "
+"Vergrößert den Speicherverbrauch, falls Timelines mit hohem Datenaufkommen "
 "durchstöbert werden"
 
 #. translators: setting group about tuba-related network options
 #: data/ui/dialogs/preferences.ui:247
-#, fuzzy
 msgid "Online Services"
-msgstr "Online-Dienste"
+msgstr "Telemetrie"
 
 #. translators: leave api.tuba.geopjr.dev as is; setting group description
 #: data/ui/dialogs/preferences.ui:249
@@ -1288,17 +1277,13 @@ msgstr "Änderungen"
 #. translators: notification type
 #. translators: title for a list of quotes of a post, shown under "View Stats"
 #: data/ui/dialogs/preferences.ui:358 src/Views/StatusStats.vala:40
-#, fuzzy
-#| msgid "Quote"
 msgid "Quotes"
-msgstr "Zitat"
+msgstr "Zitate"
 
 #. translators: notification type
 #: data/ui/dialogs/preferences.ui:365
-#, fuzzy
-#| msgid "Edits"
 msgid "Quote Edits"
-msgstr "Änderungen"
+msgstr "Änderungen an zitierten Posts"
 
 #. translators: setting that when enabled groups similar push notifications together; as a verb; you may change it to "Group Notifications"
 #: data/ui/dialogs/preferences.ui:372
@@ -1360,30 +1345,28 @@ msgstr "Überschrift der Bildbeschreibung"
 
 #. translators: group title in the profile edit dialog, tabs in the user's profile (featured, posts, replies, media)
 #: data/ui/dialogs/profile_edit.ui:189
-#, fuzzy
-#| msgid "Profiles"
 msgid "Profile Tabs"
-msgstr "Profile"
+msgstr "Tabs auf der Profil-Seite"
 
 #. translators: Profile view tab title; ; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/profile_edit.ui:193 src/Widgets/ProfileFilterGroup.vala:48
 msgid "Featured"
-msgstr ""
+msgstr "Vorgestellt"
 
 #. translators: switch row subtitle in profile edit dialog; explains what the 'Featured' tab does
 #: data/ui/dialogs/profile_edit.ui:195
 msgid "Optional tab where you can showcase other accounts"
-msgstr ""
+msgstr "Optionaler Tab, in dem andere Konten vorgestellt werden können"
 
 #. translators: switch row subtitle in profile edit dialog; explains what the 'Media' tab does
 #: data/ui/dialogs/profile_edit.ui:203
 msgid "Optional tab that shows your posts containing images or videos"
-msgstr ""
+msgstr "Optionaler Tab, der deine Beiträge mit Bildern oder Videos auflistet"
 
 #. translators: switch row title in the profile edit dialog; when enabled it will include replies that include media in the "media" tab (e.g. if you replied with a gif to someone, it will show in your media tab)
 #: data/ui/dialogs/profile_edit.ui:210
 msgid "Include replies on the Media tab"
-msgstr ""
+msgstr "Antworten im Medien-Tab anzeigen"
 
 #. translators: switch row subtitle in profile edit dialog; explains what the 'Include replies on the Media tab' setting does
 #: data/ui/dialogs/profile_edit.ui:212
@@ -1391,6 +1374,8 @@ msgid ""
 "Whether the Media tab should show both your posts and replies to other "
 "people’s posts"
 msgstr ""
+"Ob der Medien-Tab neben deinen Beiträgen auch deine Antworten auf Beiträge "
+"anderer zeigen soll"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:221
@@ -1399,15 +1384,13 @@ msgstr "Felder"
 
 #. translators: window title; schedule is a verb, post is a noun
 #: data/ui/dialogs/schedule.ui:25
-#, fuzzy
 msgid "Schedule Post"
-msgstr "Plane Beitrag"
+msgstr "Beitrag planen"
 
 #. translators: verb; button label that when clicked will schedule a post
 #: data/ui/dialogs/schedule.ui:46
-#, fuzzy
 msgid "Schedule"
-msgstr "Zeitplan"
+msgstr "Planen"
 
 #. translators: Title used for calendar date picking
 #: data/ui/dialogs/schedule.ui:77
@@ -1466,23 +1449,19 @@ msgstr "Beitrags-Benachrichtigungen empfangen"
 #. the hashtag on the user's profile
 #: data/ui/menus.ui:40 src/Views/Hashtag.vala:47
 msgid "Feature on Profile"
-msgstr ""
+msgstr "Auf der Profil-Seite hervorheben"
 
 #. translators: 'Collections' is a Mastodon feature; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/menus.ui:45 src/Views/Collections.vala:7
 #: src/Views/Collections.vala:99 src/Views/Search.vala:121
 #: src/Views/Sidebar.vala:83
-#, fuzzy
-#| msgid "Conversations"
 msgid "Collections"
-msgstr "Konversationen"
+msgstr "Sammlungen"
 
 #. translators: headerbar menu item that edits the private note of the profile it's on
 #: data/ui/menus.ui:51
-#, fuzzy
-#| msgid "Private Comment"
 msgid "Private Note…"
-msgstr "Privater Kommentar"
+msgstr "Private Notiz …"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:57 src/Views/Admin/Pages/Accounts.vala:118
@@ -1515,8 +1494,6 @@ msgstr "Domain blockieren"
 
 #: data/ui/menus.ui:82 src/Widgets/Collection.vala:264
 #: src/Widgets/Status.vala:477
-#, fuzzy
-#| msgid "Report"
 msgctxt "verb"
 msgid "Report"
 msgstr "Melden"
@@ -1822,8 +1799,8 @@ msgstr "Leeres Gespräch mit %s"
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s Beitrag"
+msgstr[1] "%s Beiträge"
 
 #. translators: tooltip on featured hashtags on profiles on a number that
 #. shows the amount of posts that use said hashtag
@@ -1950,10 +1927,9 @@ msgstr "Eine Collection, wo Du ein Teil von bist, wurde editiert"
 #. can't handle yet. The variable is the string notification
 #. type.
 #: src/API/Notification.vala:202
-#, fuzzy, c-format
-#| msgid "Couldn't delete filter: %s"
+#, c-format
 msgid "Unknown notification type: %s"
-msgstr "Filter konnte nicht gelöscht werden: %s"
+msgstr "Unbekannter Benachrichtigungstyp: %s"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you

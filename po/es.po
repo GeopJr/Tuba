@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-10 15:24+0300\n"
-"PO-Revision-Date: 2026-08-10 20:13+0000\n"
-"Last-Translator: gallegonovato <gallegonovato@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2026-08-21 14:26+0000\n"
+"Last-Translator: Andrewblasco <andrewblasco@noreply.codeberg.org>\n"
 "Language-Team: Spanish <https://translate.codeberg.org/projects/tuba/tuba/"
 "es/>\n"
 "Language: es\n"
@@ -31,11 +31,11 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Explore el fediverso"
+msgstr "Navega el Fediverso"
 
 #: data/dev.geopjr.Tuba.desktop.in:5
 msgid "Fediverse Client"
-msgstr "Cliente para el fediverso"
+msgstr "Cliente para el Fediverso"
 
 #: data/dev.geopjr.Tuba.desktop.in:10
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
