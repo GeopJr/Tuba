@@ -22,7 +22,7 @@ public class Tuba.Views.Conversations : Views.Timeline {
 			return base.should_hide (conversation_entity.last_status);
 		}
 
-		return false;
+		return true;
 	}
 
 	public override string? get_stream_url () {
@@ -32,12 +32,6 @@ public class Tuba.Views.Conversations : Views.Timeline {
 	}
 
 	public override void on_content_changed () {
-		for (uint i = 0; i < model.get_n_items (); i++) {
-			var convo_obj = (API.Conversation) model.get_item (i);
-			if (convo_obj.last_status == null) {
-				safely_remove ((int) i);
-			}
-		}
 		base.on_content_changed ();
 	}
 
