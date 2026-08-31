@@ -87,6 +87,19 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.11.1" date="2026-08-31">
+      <description translate="no">
+        <ul>
+            <li>Existing GoToSocial users can now enable UnifiedPush</li>
+            <li>Fixed sometimes being unable to launch on new installations</li>
+            <li>Fixed timelines not passing their initial minimum amount of items to the server</li>
+            <li>Fixed composer rapidly changing size when replying to people with long handles due to scroll-based title visual, it should now also display a cute animation when revealing the title</li>
+            <li>Fixed Mastodon limitations not being lifted from existing GoToSocial accounts</li>
+            <li>Fixed incorrect emoji being selected in the new Custom Emoji Picker when searching</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.11.0" date="2026-08-19">
       <description translate="no">
         <ul>

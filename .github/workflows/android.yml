@@ -39,7 +39,7 @@ jobs:
         uses: awalsh128/cache-apt-pkgs-action@58600a5c77c7b93686f116a4c7d4208cc27b2b71
         with:
           packages: openjdk-17-jdk libglib-perl libglib-object-introspection-perl libipc-run-perl libjson-perl libset-scalar-perl libxml-libxml-perl libxml-libxslt-perl build-essential glslc gobject-introspection gir1.2-appstream libglib2.0-dev-bin libxml2-utils sassc valac git libglib2.0-dev gettext desktop-file-utils apksigner
-          version: 1.0
+          version: 2.0
       - name: Setup Android SDK
         uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699
       - run: |
