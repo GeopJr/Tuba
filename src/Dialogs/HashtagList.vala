@@ -233,7 +233,6 @@ public class Tuba.Dialogs.HashtagList : Adw.PreferencesDialog {
 						};
 						widget.activated.connect (on_tag_chosen);
 						result_box.append (widget);
-						if (i == 0) widget.grab_focus ();
 						i += 1;
 						return i < 4;
 					});
