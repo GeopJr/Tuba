@@ -31,10 +31,6 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		}
 	}
 
-	static construct {
-		set_accessible_role (Gtk.AccessibleRole.GROUP);
-	}
-
 	// TextView's overlay children have weird
 	// measuring that messes with our clamp.
 	// Since we only need it for the placeholder
