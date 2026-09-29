@@ -84,15 +84,24 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		set { _tuba_streaming_url = value; }
 	}
 
+	private bool save_account_details_if_needed () {
+		if (!this.tuba_account_needs_saving) return GLib.Source.REMOVE;
+		this.tuba_account_needs_saving = false;
+
+		try {
+			accounts.update_account (this);
+		} catch (Error e) {
+			critical (@"Couldn't save account for $id: $(e.code) $(e.message)");
+		}
+
+		return GLib.Source.REMOVE;
+	}
+
 	private void tuba_instance_features_update_and_save (InstanceFeatures features) {
 		if (features == tuba_instance_features || !settings.get_boolean ("auto-detect-features")) return;
 
 		this.tuba_instance_features = features;
-		try {
-			accounts.update_account (this);
-		} catch (Error e) {
-			critical (@"Couldn't update instance features for $id: $(e.code) $(e.message)");
-		}
+		this.tuba_account_needs_saving = true;
 	}
 
 	public void tuba_update_iceshrimp_api_key (string? new_key) {
@@ -100,6 +109,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 		this.tuba_iceshrimp_api_key = new_key;
 		try {
+			// this doesn't need delayed saving
 			accounts.update_account (this);
 		} catch (Error e) {
 			critical (@"Couldn't update instance features for $id: $(e.code) $(e.message)");
@@ -122,12 +132,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 		if (new_host != tuba_streaming_url) {
 			this.tuba_streaming_url = new_host;
-			try {
-				accounts.update_account (this);
-				app.app_streams.upgrade (this.instance, new_host);
-			} catch (Error e) {
-				critical (@"Couldn't update instance features for $id: $(e.code) $(e.message)");
-			}
+			this.tuba_account_needs_saving = true;
+			app.app_streams.upgrade (this.instance, new_host);
 		}
 	}
 
@@ -144,6 +150,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public bool tuba_revoked { get; set; default=false; }
 	public bool tuba_cred_updated { get; set; default=false; }
 	public bool tuba_verified_credentials { get; set; default=false; }
+	private bool tuba_account_needs_saving { get; set; default=false; }
 	public API.InstanceV2.APIVersions tuba_api_versions { get; set; default= new API.InstanceV2.APIVersions (); }
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
@@ -706,8 +713,9 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				new_flags |= InstanceFeatures.GOTOSOCIAL;
 			}
 
+			bool needs_v2 = false;
 			if (instance_info.pleroma == null) {
-				gather_v2_instance_info.begin ();
+				needs_v2 = true;
 			} else if (instance_info.pleroma.metadata != null && instance_info.pleroma.metadata.features != null) {
 				instance_info.tuba_can_translate = "akkoma:machine_translation" in instance_info.pleroma.metadata.features;
 
@@ -737,6 +745,12 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 			app.handle_share ();
 			bump_sidebar_items ();
+
+			if (needs_v2) {
+				gather_v2_instance_info.begin ();
+			} else {
+				GLib.Idle.add (save_account_details_if_needed);
+			}
 		} catch (Error e) {
 			warning (@"Couldn't fetch instance: $(e.code) $(e.message)");
 		}
@@ -771,7 +785,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				if (instance_v2.api_versions != null && instance_v2.api_versions.mastodon > 0) {
 					if (!this.tuba_api_versions.tuba_same (instance_v2.api_versions)) {
 						this.tuba_api_versions = instance_v2.api_versions;
-						accounts.update_account (this);
+						this.tuba_account_needs_saving = true;
 					}
 					this.tuba_probably_has_notification_filters = true;
 
@@ -801,6 +815,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			bump_sidebar_items ();
 		} catch (Error e) {
 			warning (@"Couldn't fetch instance v2: $(e.code) $(e.message)");
+		} finally {
+			GLib.Idle.add (save_account_details_if_needed);
 		}
 	}
 
