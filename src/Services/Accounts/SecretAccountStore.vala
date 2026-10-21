@@ -1,9 +1,26 @@
 public class Tuba.SecretAccountStore : AccountStore {
+	private class Operation : GLib.Object {
+		public InstanceAccount account;
+		public bool clear;
+
+		public Operation (InstanceAccount account, bool clear) {
+			this.account = account;
+			this.clear = clear;
+		}
+	}
 
 	const string VERSION = "1";
 
 	Secret.Schema schema;
 	GLib.HashTable<string,Secret.SchemaAttributeType> schema_attributes;
+
+	// libsecret's file backend (used by Flatpak) holds a non-recursive
+	// mutex across its async write, so issuing two stores/clears at once
+	// deadlocks the main thread. Serialize all secret operations through
+	// a single queue and coalesce pending stores for the same account.
+	private Gee.ArrayList<Operation>? secret_ops = null;
+	private bool secret_op_running = false;
+	private bool use_queue = false;
 
 	public override void init () throws GLib.Error {
 		debug (@"Using libsecret v$(Secret.MAJOR_VERSION).$(Secret.MINOR_VERSION).$(Secret.MICRO_VERSION)");
@@ -19,6 +36,16 @@ public class Tuba.SecretAccountStore : AccountStore {
 			Secret.SchemaFlags.DONT_MATCH_NAME,
 			schema_attributes
 		);
+
+		#if WINDOWS || DARWIN || ANDROID || HAIKU
+			this.use_queue = true;
+		#else
+			this.use_queue = Tuba.is_flatpak;
+		#endif
+
+		if (this.use_queue) {
+			secret_ops = new Gee.ArrayList<Operation> ();
+		}
 
 		base.init ();
 	}
@@ -117,10 +144,15 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 	public override void remove (InstanceAccount account) throws GLib.Error {
 		base.remove (account);
-		remove_account_real.begin (account);
+
+		if (this.use_queue) {
+			enqueue_secret_op (new Operation (account, true));
+		} else {
+			clear_account.begin (account);
+		}
 	}
 
-	private async void remove_account_real (InstanceAccount account) {
+	private async void clear_account (InstanceAccount account) {
 		try {
 			var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 			attrs["version"] = VERSION;
@@ -137,6 +169,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 			var dlg = app.inform (_("Error"), e.message);
 			dlg.present (app.main_window);
 		}
+		if (this.use_queue) finish_secret_op ();
 	}
 
 	public override async void revoke_token_dangerous (InstanceAccount account, bool should_handle_error = true) {
@@ -179,6 +212,46 @@ public class Tuba.SecretAccountStore : AccountStore {
 	}
 
 	void account_to_secret (InstanceAccount account) {
+		if (this.use_queue) {
+			enqueue_secret_op (new Operation (account, false));
+		} else {
+			store_account (account);
+		}
+	}
+
+	private void enqueue_secret_op (Operation op) {
+		if (!op.clear) {
+			// Coalesce pending stores for the same account
+			for (int i = secret_ops.size - 1; i >= 0; i--) {
+				var existing = secret_ops[i];
+				if (!existing.clear && existing.account.handle == op.account.handle)
+					secret_ops.remove_at (i);
+			}
+		}
+
+		secret_ops.add (op);
+		run_next_secret_op ();
+	}
+
+	private void run_next_secret_op () {
+		if (secret_op_running || secret_ops.is_empty)
+			return;
+
+		var op = secret_ops.remove_at (0);
+		secret_op_running = true;
+
+		if (op.clear)
+			clear_account.begin (op.account);
+		else
+			store_account (op.account);
+	}
+
+	private void finish_secret_op () {
+		secret_op_running = false;
+		run_next_secret_op ();
+	}
+
+	void store_account (InstanceAccount account) {
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["login"] = account.handle;
 		attrs["version"] = VERSION;
@@ -310,6 +383,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 					var dlg = app.inform (_("Error"), e.message);
 					dlg.present (app.main_window);
 				}
+				if (this.use_queue) finish_secret_op ();
 			}
 		);
 	}
