@@ -1567,6 +1567,11 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		} else {
 			status = API.Status.from (node);
 			debug (@"Published post with id $(status.id)");
+			app.toast (
+				_("Published Post Successfully"), 5, "app.open-status-url",
+				new GLib.Variant.string (status.uri),
+				_("View Post")
+			);
 		}
 
 		if (this.scheduled_id != null) {
