@@ -1,4 +1,5 @@
 sources += files(
+    'Bidi.vala',
     'Blurhash.vala',
     'Celebrate.vala',
     'Counting.vala',
